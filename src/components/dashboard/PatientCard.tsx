@@ -1,7 +1,13 @@
-import { TrendingUp, TrendingDown, Minus, Clock, AlertCircle, Star, RefreshCw } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Clock, Star, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import type { Patient } from '@/data/patients';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface PatientCardProps {
   patient: Patient;
@@ -14,7 +20,8 @@ interface PatientCardProps {
 export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing }: PatientCardProps) => {
   const TrendIcon = patient.trend === 'up' ? TrendingUp : patient.trend === 'down' ? TrendingDown : Minus;
   const trendColor = patient.trend === 'up' ? 'text-risk-high' : patient.trend === 'down' ? 'text-risk-low' : 'text-muted-foreground';
-  const trendLabel = patient.trend === 'up' ? 'Rising' : patient.trend === 'down' ? 'Falling' : 'Stable';
+  const trendLabel = patient.trend === 'up' ? 'Increasing' : patient.trend === 'down' ? 'Decreasing' : 'Stable';
+  const trendBg = patient.trend === 'up' ? 'bg-risk-high/10' : patient.trend === 'down' ? 'bg-risk-low/10' : 'bg-secondary';
 
   const riskScoreColor = {
     HIGH: 'text-risk-high',
@@ -22,80 +29,105 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
     LOW: 'text-risk-low',
   }[patient.riskLevel];
 
+  const riskBorderColor = {
+    HIGH: 'border-l-risk-high',
+    MEDIUM: 'border-l-risk-medium',
+    LOW: 'border-l-risk-low',
+  }[patient.riskLevel];
+
+  const isHighRisk = patient.riskLevel === 'HIGH';
+
   return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "w-full p-6 rounded-xl bg-card border border-border/50 shadow-card",
-        "hover:border-primary/50 hover:shadow-glow hover:-translate-y-1 transition-all duration-300",
-        "text-left group animate-slide-up",
-        "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background",
-        "active:scale-[0.98]"
-      )}
-      style={{ animationDelay: `${index * 50}ms` }}
-    >
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-secondary">
-            <AlertCircle className={cn("w-5 h-5", riskScoreColor)} />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                {patient.id}
-              </h3>
-              {patient.isDemo && (
-                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-warning/20 text-warning text-xs font-semibold">
-                  <Star className="w-3 h-3 fill-warning" />
-                  Demo
-                </span>
-              )}
+    <TooltipProvider>
+      <button
+        onClick={onClick}
+        className={cn(
+          "w-full rounded-xl bg-card border border-border/40 shadow-card",
+          "border-l-4",
+          riskBorderColor,
+          "hover:border-primary/50 hover:shadow-glow hover:-translate-y-1 transition-all duration-300",
+          "text-left group animate-slide-up",
+          "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background",
+          "active:scale-[0.98]",
+          isHighRisk && "ring-1 ring-risk-high/20"
+        )}
+        style={{ animationDelay: `${index * 50}ms` }}
+      >
+        {/* Header Section */}
+        <div className="p-4 pb-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                  {patient.id}
+                </h3>
+                {patient.isDemo && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-warning/20 text-warning">
+                        <Star className="w-3 h-3 fill-warning" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Featured demo case</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground font-medium">
+                {patient.riskType}
+              </p>
             </div>
-            <p className="text-sm text-muted-foreground">
-              {patient.riskType}
-            </p>
-          </div>
-        </div>
-        <RiskBadge level={patient.riskLevel} />
-      </div>
-
-      <div className="flex items-end justify-between">
-        <div className="flex items-baseline gap-2">
-          <span className={cn("text-4xl font-extrabold", riskScoreColor)}>
-            {patient.riskScore}%
-          </span>
-          <div className={cn("flex items-center gap-1", trendColor)}>
-            <TrendIcon className="w-4 h-4" />
-            <span className="text-xs font-semibold uppercase">
-              {trendLabel}
-            </span>
+            <RiskBadge level={patient.riskLevel} />
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-muted-foreground">
-          <RefreshCw className={cn("w-3 h-3", isRefreshing && "animate-spin")} />
-          <Clock className="w-3 h-3" />
-          <span className="text-xs">{displayTime}</span>
+        {/* Risk Score Section */}
+        <div className="px-4 pb-3">
+          <div className="flex items-end justify-between">
+            <div className="flex items-baseline gap-3">
+              <span className={cn("text-4xl font-extrabold tracking-tight", riskScoreColor)}>
+                {patient.riskScore}
+              </span>
+              <span className={cn("text-lg font-semibold", riskScoreColor)}>%</span>
+            </div>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className={cn("flex items-center gap-1.5 px-2 py-1 rounded-md", trendBg)}>
+                  <TrendIcon className={cn("w-3.5 h-3.5", trendColor)} />
+                  <span className={cn("text-xs font-semibold", trendColor)}>
+                    {trendLabel}
+                  </span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Risk trend over last 24 hours</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-4 pt-4 border-t border-border/50">
-        <div className="flex flex-wrap gap-2">
-          {patient.riskFactors.slice(0, 3).map((factor) => (
-            <span
-              key={factor.name}
-              className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground"
-            >
-              {factor.icon} {factor.name.split(' ')[0]}
-            </span>
-          ))}
-          {patient.riskFactors.length > 3 && (
-            <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">
-              +{patient.riskFactors.length - 3} more
-            </span>
-          )}
+        {/* Micro-explanation */}
+        <div className="px-4 pb-3">
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {patient.riskSummary}
+          </p>
         </div>
-      </div>
-    </button>
+
+        {/* Footer Section */}
+        <div className="px-4 py-3 border-t border-border/30 bg-secondary/20 rounded-b-xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Clock className={cn("w-3 h-3", isRefreshing && "animate-pulse")} />
+              <span className="text-xs">{displayTime}</span>
+            </div>
+            <div className="flex items-center gap-1 text-muted-foreground group-hover:text-primary transition-colors">
+              <span className="text-xs font-medium">Details</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </button>
+    </TooltipProvider>
   );
 };
