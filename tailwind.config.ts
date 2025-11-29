@@ -93,12 +93,17 @@ export default {
           "0%, 100%": { boxShadow: "0 0 10px rgba(239, 68, 68, 0.4)" },
           "50%": { boxShadow: "0 0 25px rgba(239, 68, 68, 0.8)" },
         },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.7" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "pulse-live": "pulse-live 2s ease-in-out infinite",
+        "pulse-subtle": "pulse-subtle 3s ease-in-out infinite",
       },
     },
   },

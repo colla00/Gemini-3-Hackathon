@@ -8,6 +8,8 @@ import { ClinicalWorkflowBar } from './ClinicalWorkflowBar';
 import { PriorityQueue } from './PriorityQueue';
 import { MonitoringList } from './MonitoringList';
 import { QuickStats } from './QuickStats';
+import { WorkflowSequence } from './WorkflowSequence';
+import { DemoSummary } from './DemoSummary';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 
 export const Dashboard = () => {
@@ -97,16 +99,24 @@ export const Dashboard = () => {
       <WarningBanner />
       <Header />
       
-      <main className="flex-1 px-4 md:px-8 py-5 max-w-7xl mx-auto w-full pb-20">
+      <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24">
         {selectedPatient ? (
           <PatientDetail
             patient={selectedPatient}
             onBack={() => setSelectedPatient(null)}
           />
         ) : (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in space-y-6">
+            {/* Demo Summary - for breakout room intro */}
+            <DemoSummary className="mb-2" />
+
+            {/* Clinical Workflow Context */}
             <ClinicalWorkflowBar />
 
+            {/* System Workflow Sequence */}
+            <WorkflowSequence activeStep="output" />
+
+            {/* Quick Stats Overview */}
             <QuickStats
               total={stats.total}
               high={stats.high}
@@ -114,6 +124,7 @@ export const Dashboard = () => {
               trending={stats.trending}
             />
 
+            {/* Filters */}
             <FilterBar
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
@@ -127,12 +138,14 @@ export const Dashboard = () => {
 
             {filteredPatients.length > 0 ? (
               <>
+                {/* Priority Queue - Top 3 risk cards */}
                 <PriorityQueue
                   patients={priorityPatients}
                   onSelect={setSelectedPatient}
                   displayTime={getDisplayTime}
                 />
 
+                {/* Monitoring List - Remaining patients */}
                 <MonitoringList
                   patients={monitoringPatients}
                   onSelect={setSelectedPatient}
@@ -140,8 +153,8 @@ export const Dashboard = () => {
                 />
               </>
             ) : (
-              <div className="text-center py-16">
-                <p className="text-muted-foreground">
+              <div className="text-center py-16 bg-card/30 rounded-xl border border-border/20">
+                <p className="text-muted-foreground text-sm">
                   No patients match the current filters.
                 </p>
               </div>

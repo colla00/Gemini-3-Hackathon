@@ -1,38 +1,53 @@
-import { Activity, Shield } from 'lucide-react';
+import { Activity, Shield, Info } from 'lucide-react';
 import { LiveBadge } from './LiveBadge';
 import { InfoModal } from './InfoModal';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export const Header = () => {
   return (
-    <header className="w-full py-4 px-4 md:px-8 border-b border-border/30">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-primary/15 border border-primary/20">
-            <Activity className="w-6 h-6 text-primary" />
-          </div>
-          <div>
-            <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground">
-              Clinical Risk Monitor
-            </h1>
-            <p className="text-xs text-muted-foreground font-medium tracking-wide">
-              Research Prototype
-            </p>
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md bg-secondary/50 border border-border/30">
-            <Shield className="w-4 h-4 text-primary" />
-            <span className="text-xs font-semibold text-primary tracking-wide uppercase">
-              Stanford AI+HEALTH 2025
-            </span>
+    <TooltipProvider>
+      <header className="w-full py-4 px-4 md:px-8 border-b border-border/30 bg-card/30 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+              <Activity className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-base md:text-lg font-bold tracking-tight text-foreground">
+                EHR-Driven Quality Dashboard
+              </h1>
+              <p className="text-[10px] text-muted-foreground font-medium tracking-wide">
+                Nurse-Sensitive Outcome Prediction · Research Prototype
+              </p>
+            </div>
           </div>
           
-          <InfoModal />
-          
-          <LiveBadge />
+          <div className="flex items-center gap-2 md:gap-3">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/50 border border-border/30 cursor-default">
+                  <Shield className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-[10px] font-semibold text-primary tracking-wide uppercase">
+                    Stanford AI+HEALTH 2025
+                  </span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">Research prototype for academic demonstration</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <InfoModal />
+            
+            <LiveBadge />
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </TooltipProvider>
   );
 };

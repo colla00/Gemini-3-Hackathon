@@ -34,25 +34,25 @@ export const InfoModal = () => {
             Stanford AI+HEALTH 2025 Demonstration
           </p>
           
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-              <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
-              <span className="text-foreground">Not clinically validated</span>
+              <FlaskConical className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Interpretable AI with transparent risk factors</span>
             </div>
             
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-              <FlaskConical className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-foreground">Uses synthetic data only</span>
+              <AlertTriangle className="w-4 h-4 text-warning mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">De-identified clinical data · Synthetic scenarios</span>
             </div>
             
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
-              <GraduationCap className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-foreground">For educational demonstration</span>
+              <GraduationCap className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Human-in-the-loop judgment remains central</span>
             </div>
             
             <div className="flex items-start gap-3 p-3 rounded-lg bg-risk-high/10 border border-risk-high/30">
-              <X className="w-5 h-5 text-risk-high mt-0.5 flex-shrink-0" />
-              <span className="text-foreground font-medium">Not for clinical use</span>
+              <X className="w-4 h-4 text-risk-high mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground font-medium">Research prototype · Not for clinical use</span>
             </div>
           </div>
           
