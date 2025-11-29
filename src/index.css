@@ -45,6 +45,9 @@
     --shap-positive: 0 91% 71%;
     --shap-negative: 142 69% 58%;
 
+    /* Warning color */
+    --warning: 45 93% 47%;
+
     /* Custom gradients */
     --gradient-burgundy: linear-gradient(135deg, hsl(0 100% 19%) 0%, hsl(0 100% 12%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 14%) 0%, hsl(0 0% 10%) 100%);
@@ -84,6 +87,7 @@
     --border: 0 0% 25%;
     --input: 0 0% 20%;
     --ring: 193 100% 43%;
+    --warning: 45 93% 47%;
   }
 }
 
@@ -123,6 +127,30 @@
     @apply text-[hsl(var(--risk-low))];
   }
 
+  .bg-risk-high {
+    @apply bg-[hsl(var(--risk-high))];
+  }
+
+  .bg-risk-high\/20 {
+    background-color: hsl(var(--risk-high) / 0.2);
+  }
+
+  .text-warning {
+    @apply text-[hsl(var(--warning))];
+  }
+
+  .bg-warning\/10 {
+    background-color: hsl(var(--warning) / 0.1);
+  }
+
+  .bg-warning\/20 {
+    background-color: hsl(var(--warning) / 0.2);
+  }
+
+  .border-warning\/30 {
+    border-color: hsl(var(--warning) / 0.3);
+  }
+
   .gradient-burgundy {
     background: var(--gradient-burgundy);
   }
@@ -149,6 +177,10 @@
 
   .animate-slide-in-right {
     animation: slideInRight 0.3s ease-out forwards;
+  }
+
+  .animate-pulse-live {
+    animation: pulseLive 2s ease-in-out infinite;
   }
 }
 
@@ -180,6 +212,15 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes pulseLive {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.8);
   }
 }
 
