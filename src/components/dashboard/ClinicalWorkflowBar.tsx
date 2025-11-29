@@ -1,93 +1,96 @@
-import { Eye, AlertTriangle, ClipboardCheck, Activity } from 'lucide-react';
+import { useState } from 'react';
+import { Clock, Users, ArrowRightLeft, Coffee } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
-interface WorkflowStep {
+interface WorkflowPhase {
   id: string;
   label: string;
   icon: React.ReactNode;
-  description: string;
+  time: string;
 }
 
-const workflowSteps: WorkflowStep[] = [
+const workflowPhases: WorkflowPhase[] = [
   {
-    id: 'scan',
-    label: 'Scan',
-    icon: <Eye className="w-4 h-4" />,
-    description: 'Review patient list',
+    id: 'shift-start',
+    label: 'Shift Start',
+    icon: <Clock className="w-3.5 h-3.5" />,
+    time: '07:00',
   },
   {
-    id: 'prioritize',
-    label: 'Prioritize',
-    icon: <AlertTriangle className="w-4 h-4" />,
-    description: 'Focus on high-risk',
+    id: 'rounds',
+    label: 'Rounds',
+    icon: <Users className="w-3.5 h-3.5" />,
+    time: '08:30',
   },
   {
-    id: 'assess',
-    label: 'Assess',
-    icon: <ClipboardCheck className="w-4 h-4" />,
-    description: 'Review risk factors',
+    id: 'break',
+    label: 'Break',
+    icon: <Coffee className="w-3.5 h-3.5" />,
+    time: '12:00',
   },
   {
-    id: 'act',
-    label: 'Act',
-    icon: <Activity className="w-4 h-4" />,
-    description: 'Intervene as needed',
+    id: 'handoff',
+    label: 'Handoff',
+    icon: <ArrowRightLeft className="w-3.5 h-3.5" />,
+    time: '19:00',
   },
 ];
 
-interface ClinicalWorkflowBarProps {
-  activeStep?: string;
-}
+export const ClinicalWorkflowBar = () => {
+  const [activePhase, setActivePhase] = useState('rounds');
 
-export const ClinicalWorkflowBar = ({ activeStep = 'scan' }: ClinicalWorkflowBarProps) => {
   return (
-    <div className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl p-4 mb-6">
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mr-4">
-          Workflow
-        </span>
-        <div className="flex items-center gap-1 flex-1">
-          {workflowSteps.map((step, index) => (
-            <div key={step.id} className="flex items-center flex-1">
-              <div
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 flex-1",
-                  activeStep === step.id
-                    ? "bg-primary/20 border border-primary/40"
-                    : "hover:bg-secondary/50"
+    <TooltipProvider>
+      <div className="bg-card/40 backdrop-blur-sm border border-border/20 rounded-lg px-4 py-2.5 mb-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+              Shift
+            </span>
+            <span className="text-xs font-medium text-foreground">Day 7A-7P</span>
+          </div>
+          
+          <div className="flex items-center gap-1">
+            {workflowPhases.map((phase, index) => (
+              <div key={phase.id} className="flex items-center">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActivePhase(phase.id)}
+                      className={cn(
+                        "flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs transition-all",
+                        activePhase === phase.id
+                          ? "bg-primary/15 text-primary border border-primary/30"
+                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                      )}
+                    >
+                      {phase.icon}
+                      <span className="hidden sm:inline font-medium">{phase.label}</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="text-xs">
+                    <p>{phase.label} · {phase.time}</p>
+                  </TooltipContent>
+                </Tooltip>
+                {index < workflowPhases.length - 1 && (
+                  <div className="w-4 h-px bg-border/40 mx-0.5 hidden md:block" />
                 )}
-              >
-                <div
-                  className={cn(
-                    "p-1.5 rounded-md transition-colors",
-                    activeStep === step.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-muted-foreground"
-                  )}
-                >
-                  {step.icon}
-                </div>
-                <div className="hidden sm:block">
-                  <p
-                    className={cn(
-                      "text-xs font-semibold transition-colors",
-                      activeStep === step.id ? "text-primary" : "text-foreground"
-                    )}
-                  >
-                    {step.label}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground leading-tight">
-                    {step.description}
-                  </p>
-                </div>
               </div>
-              {index < workflowSteps.length - 1 && (
-                <div className="w-8 h-px bg-border/50 mx-1 hidden md:block" />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
+            <span className="font-medium">Active</span>
+          </div>
         </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 };
