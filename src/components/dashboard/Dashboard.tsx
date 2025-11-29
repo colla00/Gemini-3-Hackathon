@@ -19,36 +19,70 @@ export const Dashboard = () => {
   const [riskTypeFilter, setRiskTypeFilter] = useState<RiskType | 'ALL'>('ALL');
   const [sortBy, setSortBy] = useState<'riskScore' | 'lastUpdated' | 'id'>('riskScore');
   const [timeOffset, setTimeOffset] = useState(0);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [workflowStep, setWorkflowStep] = useState('scan');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Update timestamps every 30 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsRefreshing(true);
-      setTimeout(() => {
-        setTimeOffset(prev => prev + 1);
-        setIsRefreshing(false);
-      }, 500);
+      setTimeOffset(prev => prev + 1);
     }, 30000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Update workflow step based on user actions
+  // Keyboard shortcuts for demo control
   useEffect(() => {
-    if (selectedPatient) {
-      setWorkflowStep('assess');
-    } else if (riskLevelFilter === 'HIGH') {
-      setWorkflowStep('prioritize');
-    } else {
-      setWorkflowStep('scan');
-    }
-  }, [selectedPatient, riskLevelFilter]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedPatient) {
+        handleBack();
+      }
+      if (e.key === 'f' && !selectedPatient) {
+        e.preventDefault();
+        document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
+      }
+      if (e.key === '1' && !selectedPatient) {
+        const demoPatient = patients.find(p => p.id === 'PT-2847');
+        if (demoPatient) handleSelectPatient(demoPatient);
+      }
+      if (e.key === '2' && !selectedPatient) {
+        const demoPatient = patients.find(p => p.id === 'PT-1923');
+        if (demoPatient) handleSelectPatient(demoPatient);
+      }
+      if (e.key === '3' && !selectedPatient) {
+        const demoPatient = patients.find(p => p.id === 'PT-5612');
+        if (demoPatient) handleSelectPatient(demoPatient);
+      }
+      if (e.key === 'r' && !selectedPatient) {
+        setSearchQuery('');
+        setRiskLevelFilter('ALL');
+        setRiskTypeFilter('ALL');
+        setSortBy('riskScore');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPatient]);
 
   const getDisplayTime = useCallback((baseMinutes: number) => {
     return formatRelativeTime(baseMinutes + timeOffset);
   }, [timeOffset]);
+
+  const handleSelectPatient = (patient: Patient) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setSelectedPatient(patient);
+      setIsTransitioning(false);
+    }, 200);
+  };
+
+  const handleBack = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setSelectedPatient(null);
+      setIsTransitioning(false);
+    }, 200);
+  };
 
   const filteredPatients = useMemo(() => {
     let result = [...patients];
@@ -90,7 +124,6 @@ export const Dashboard = () => {
     trending: patients.filter((p) => p.trend === 'up').length,
   }), []);
 
-  // Split patients: top 3 priority + rest for monitoring
   const priorityPatients = filteredPatients.slice(0, 3);
   const monitoringPatients = filteredPatients.slice(3);
 
@@ -99,15 +132,15 @@ export const Dashboard = () => {
       <WarningBanner />
       <Header />
       
-      <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24">
+      <main className={`flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
         {selectedPatient ? (
           <PatientDetail
             patient={selectedPatient}
-            onBack={() => setSelectedPatient(null)}
+            onBack={handleBack}
           />
         ) : (
           <div className="animate-fade-in space-y-6">
-            {/* Demo Summary - for breakout room intro */}
+            {/* Demo Summary */}
             <DemoSummary className="mb-2" />
 
             {/* Clinical Workflow Context */}
@@ -138,23 +171,23 @@ export const Dashboard = () => {
 
             {filteredPatients.length > 0 ? (
               <>
-                {/* Priority Queue - Top 3 risk cards */}
+                {/* Priority Queue */}
                 <PriorityQueue
                   patients={priorityPatients}
-                  onSelect={setSelectedPatient}
+                  onSelect={handleSelectPatient}
                   displayTime={getDisplayTime}
                 />
 
-                {/* Monitoring List - Remaining patients */}
+                {/* Monitoring List */}
                 <MonitoringList
                   patients={monitoringPatients}
-                  onSelect={setSelectedPatient}
+                  onSelect={handleSelectPatient}
                   displayTime={getDisplayTime}
                 />
               </>
             ) : (
-              <div className="text-center py-16 bg-card/30 rounded-xl border border-border/20">
-                <p className="text-muted-foreground text-sm">
+              <div className="text-center py-20 bg-card/30 rounded-2xl border border-border/20">
+                <p className="text-muted-foreground text-base">
                   No patients match the current filters.
                 </p>
               </div>
