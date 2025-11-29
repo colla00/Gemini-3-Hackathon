@@ -42,7 +42,7 @@ export const InfoModal = () => {
             
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
               <AlertTriangle className="w-4 h-4 text-warning mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">De-identified clinical data · Synthetic scenarios</span>
+              <span className="text-sm text-foreground">Mock patient data · Open, de-identified clinical dataset</span>
             </div>
             
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
