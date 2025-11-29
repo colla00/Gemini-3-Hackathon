@@ -29,21 +29,21 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
     icon: factor.icon,
   }));
 
-  // Animate bars appearing one by one
+  // Animate bars appearing one by one with 300ms delay
   useEffect(() => {
     setAnimatedData([]);
     data.forEach((item, index) => {
       setTimeout(() => {
         setAnimatedData(prev => [...prev, item]);
-      }, index * 200);
+      }, index * 300);
     });
   }, [factors]);
 
-  const positiveColor = '#F87171'; // Red for risk-increasing
-  const negativeColor = '#4ADE80'; // Green for risk-reducing
+  const positiveColor = '#F87171'; // SHAP positive (risk-increasing)
+  const negativeColor = '#4ADE80'; // SHAP negative (risk-reducing)
 
   return (
-    <div className="w-full h-[350px] animate-fade-in">
+    <div className="w-full h-[320px] animate-fade-in">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={animatedData}
@@ -54,27 +54,27 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
             type="number"
             domain={[-0.4, 0.5]}
             tickFormatter={(value) => (value > 0 ? `+${value}` : value.toString())}
-            tick={{ fill: '#D1D5DB', fontSize: 12 }}
-            axisLine={{ stroke: '#404040' }}
-            tickLine={{ stroke: '#404040' }}
+            tick={{ fill: '#D1D5DB', fontSize: 13, fontFamily: 'Montserrat' }}
+            axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
+            tickLine={{ stroke: 'rgba(255,255,255,0.15)' }}
           />
           <YAxis
             type="category"
             dataKey="name"
-            width={140}
-            tick={{ fill: '#D1D5DB', fontSize: 12 }}
-            axisLine={{ stroke: '#404040' }}
+            width={160}
+            tick={{ fill: '#D1D5DB', fontSize: 12, fontFamily: 'Montserrat' }}
+            axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
             tickLine={false}
             tickFormatter={(value, index) => {
               const item = animatedData[index];
               return item ? `${item.icon} ${value}` : value;
             }}
           />
-          <ReferenceLine x={0} stroke="#606060" strokeDasharray="3 3" />
+          <ReferenceLine x={0} stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
           <Bar
             dataKey="value"
-            radius={[4, 4, 4, 4]}
-            barSize={28}
+            radius={[6, 6, 6, 6]}
+            barSize={32}
             animationDuration={500}
             animationEasing="ease-out"
           >
@@ -82,6 +82,9 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
               <Cell
                 key={`cell-${index}`}
                 fill={entry.value >= 0 ? positiveColor : negativeColor}
+                style={{
+                  filter: `drop-shadow(0 2px 4px ${entry.value >= 0 ? 'rgba(248, 113, 113, 0.3)' : 'rgba(74, 222, 128, 0.3)'})`
+                }}
               />
             ))}
             <LabelList
@@ -91,8 +94,9 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
                 value >= 0 ? `+${value.toFixed(2)}` : value.toFixed(2)
               }
               fill="#D1D5DB"
-              fontSize={12}
-              fontWeight={600}
+              fontSize={13}
+              fontWeight={700}
+              fontFamily="Montserrat"
             />
           </Bar>
         </BarChart>

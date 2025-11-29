@@ -16,6 +16,10 @@ export default {
       fontFamily: {
         sans: ['Montserrat', 'system-ui', 'sans-serif'],
       },
+      fontSize: {
+        'display': ['3rem', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
+        'headline': ['1.5rem', { lineHeight: '1.2', fontWeight: '700' }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
