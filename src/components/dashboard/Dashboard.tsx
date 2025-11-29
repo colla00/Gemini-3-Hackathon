@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FilterBar } from './FilterBar';
 import { PatientCard } from './PatientCard';
 import { PatientDetail } from './PatientDetail';
-import { patients, type Patient, type RiskLevel, type RiskType } from '@/data/patients';
+import { WarningBanner } from './WarningBanner';
+import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { Users, AlertTriangle, TrendingUp } from 'lucide-react';
 
 export const Dashboard = () => {
@@ -13,6 +14,25 @@ export const Dashboard = () => {
   const [riskLevelFilter, setRiskLevelFilter] = useState<RiskLevel | 'ALL'>('ALL');
   const [riskTypeFilter, setRiskTypeFilter] = useState<RiskType | 'ALL'>('ALL');
   const [sortBy, setSortBy] = useState<'riskScore' | 'lastUpdated' | 'id'>('riskScore');
+  const [timeOffset, setTimeOffset] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Update timestamps every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefreshing(true);
+      setTimeout(() => {
+        setTimeOffset(prev => prev + 1);
+        setIsRefreshing(false);
+      }, 500);
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getDisplayTime = useCallback((baseMinutes: number) => {
+    return formatRelativeTime(baseMinutes + timeOffset);
+  }, [timeOffset]);
 
   const filteredPatients = useMemo(() => {
     let result = [...patients];
@@ -42,8 +62,7 @@ export const Dashboard = () => {
         case 'id':
           return a.id.localeCompare(b.id);
         case 'lastUpdated':
-          // Simple sort by the text - in real app would use timestamps
-          return a.lastUpdated.localeCompare(b.lastUpdated);
+          return a.lastUpdatedMinutes - b.lastUpdatedMinutes;
         default:
           return 0;
       }
@@ -60,9 +79,10 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col gradient-burgundy">
+      <WarningBanner />
       <Header />
       
-      <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full">
+      <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-20">
         {selectedPatient ? (
           <PatientDetail
             patient={selectedPatient}
@@ -123,6 +143,8 @@ export const Dashboard = () => {
                   patient={patient}
                   onClick={() => setSelectedPatient(patient)}
                   index={index}
+                  displayTime={getDisplayTime(patient.lastUpdatedMinutes)}
+                  isRefreshing={isRefreshing}
                 />
               ))}
             </div>

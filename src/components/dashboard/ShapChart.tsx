@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -15,6 +16,8 @@ interface ShapChartProps {
 }
 
 export const ShapChart = ({ factors }: ShapChartProps) => {
+  const [animatedData, setAnimatedData] = useState<typeof data>([]);
+
   // Sort factors by absolute contribution value
   const sortedFactors = [...factors].sort(
     (a, b) => Math.abs(b.contribution) - Math.abs(a.contribution)
@@ -26,6 +29,16 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
     icon: factor.icon,
   }));
 
+  // Animate bars appearing one by one
+  useEffect(() => {
+    setAnimatedData([]);
+    data.forEach((item, index) => {
+      setTimeout(() => {
+        setAnimatedData(prev => [...prev, item]);
+      }, index * 200);
+    });
+  }, [factors]);
+
   const positiveColor = '#F87171'; // Red for risk-increasing
   const negativeColor = '#4ADE80'; // Green for risk-reducing
 
@@ -33,7 +46,7 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
     <div className="w-full h-[350px] animate-fade-in">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={data}
+          data={animatedData}
           layout="vertical"
           margin={{ top: 20, right: 80, left: 20, bottom: 20 }}
         >
@@ -53,7 +66,7 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
             axisLine={{ stroke: '#404040' }}
             tickLine={false}
             tickFormatter={(value, index) => {
-              const item = data[index];
+              const item = animatedData[index];
               return item ? `${item.icon} ${value}` : value;
             }}
           />
@@ -62,8 +75,10 @@ export const ShapChart = ({ factors }: ShapChartProps) => {
             dataKey="value"
             radius={[4, 4, 4, 4]}
             barSize={28}
+            animationDuration={500}
+            animationEasing="ease-out"
           >
-            {data.map((entry, index) => (
+            {animatedData.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={entry.value >= 0 ? positiveColor : negativeColor}

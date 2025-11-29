@@ -1,4 +1,6 @@
 import { Activity, Shield } from 'lucide-react';
+import { LiveBadge } from './LiveBadge';
+import { InfoModal } from './InfoModal';
 
 export const Header = () => {
   return (
@@ -18,11 +20,17 @@ export const Header = () => {
           </div>
         </div>
         
-        <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-secondary/50 border border-border">
-          <Shield className="w-5 h-5 text-primary" />
-          <span className="text-sm font-semibold text-primary tracking-wider uppercase">
-            Stanford AI+HEALTH 2025 Demo
-          </span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-secondary/50 border border-border">
+            <Shield className="w-5 h-5 text-primary" />
+            <span className="text-sm font-semibold text-primary tracking-wider uppercase">
+              Stanford AI+HEALTH 2025
+            </span>
+          </div>
+          
+          <InfoModal />
+          
+          <LiveBadge />
         </div>
       </div>
     </header>

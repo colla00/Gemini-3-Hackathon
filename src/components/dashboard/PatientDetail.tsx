@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import { ShapChart } from './ShapChart';
@@ -23,8 +23,21 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
     LOW: 'bg-risk-low/10 border-risk-low/30',
   }[patient.riskLevel];
 
+  // Generate clinical insight based on patient data
+  const getInsight = () => {
+    const topFactor = patient.riskFactors.reduce((prev, curr) => 
+      Math.abs(curr.contribution) > Math.abs(prev.contribution) ? curr : prev
+    );
+    const protectiveFactor = patient.riskFactors.find(f => f.contribution < 0);
+    
+    if (topFactor && protectiveFactor) {
+      return `Notice how ${topFactor.name.toLowerCase()} (${topFactor.contribution >= 0 ? '+' : ''}${topFactor.contribution.toFixed(2)}) outweighs ${protectiveFactor.name.toLowerCase()} in the risk model.`;
+    }
+    return `The primary risk driver is ${topFactor.name.toLowerCase()} contributing ${topFactor.contribution >= 0 ? '+' : ''}${topFactor.contribution.toFixed(2)} to the overall score.`;
+  };
+
   return (
-    <div className="animate-slide-in-right">
+    <div className="animate-slide-in-right pb-20">
       {/* Back Button */}
       <Button
         onClick={onBack}
@@ -32,7 +45,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
         className="mb-6 text-muted-foreground hover:text-foreground hover:bg-secondary group"
       >
         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-        Back to Dashboard
+        Return to Dashboard
       </Button>
 
       {/* Patient Header */}
@@ -82,10 +95,11 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               Risk Factors Identified
             </h4>
-            {patient.riskFactors.map((factor) => (
+            {patient.riskFactors.map((factor, index) => (
               <div
                 key={factor.name}
-                className="flex items-center justify-between p-3 rounded-lg bg-secondary/50"
+                className="flex items-center justify-between p-3 rounded-lg bg-secondary/50 animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <span className="flex items-center gap-2 text-foreground">
                   <span className="text-xl">{factor.icon}</span>
@@ -106,27 +120,42 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
         {/* SHAP Explainability Chart */}
         <div className="bg-card rounded-xl border border-border/50 p-6 shadow-card">
-          <div className="flex items-center gap-2 mb-4">
-            <AlertTriangle className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold text-foreground">AI Explainability (SHAP Values)</h3>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Feature Contribution Analysis</h3>
+            </div>
+            <div className="flex items-center gap-4 text-xs">
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded bg-shap-positive" />
+                <span className="text-muted-foreground">Increases Risk ↑</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded bg-shap-negative" />
+                <span className="text-muted-foreground">Reduces Risk ↓</span>
+              </div>
+            </div>
           </div>
-          
-          <p className="text-sm text-muted-foreground mb-4">
-            Feature contributions to the predicted risk score. Red bars increase risk, green bars reduce risk.
-          </p>
           
           <ShapChart factors={patient.riskFactors} />
           
-          <div className="flex justify-center gap-6 mt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-shap-positive" />
-              <span className="text-sm text-muted-foreground">Risk Increasing</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-shap-negative" />
-              <span className="text-sm text-muted-foreground">Risk Reducing</span>
+          {/* Clinical Insight Box */}
+          <div className="mt-4 p-4 rounded-lg border-2 border-primary/50 bg-primary/5">
+            <div className="flex items-start gap-3">
+              <Lightbulb className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="text-sm font-semibold text-primary mb-1">Clinical Insight</h4>
+                <p className="text-sm text-muted-foreground">
+                  {getInsight()}
+                </p>
+              </div>
             </div>
           </div>
+
+          {/* Disclaimer */}
+          <p className="text-xs text-warning mt-4 text-center font-medium">
+            ⚠️ Values reflect synthetic scenarios only
+          </p>
         </div>
 
         {/* Clinical Notes */}
