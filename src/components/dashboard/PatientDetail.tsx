@@ -1,7 +1,10 @@
-import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import { ShapChart } from './ShapChart';
+import { RiskTrendChart } from './RiskTrendChart';
+import { SuggestedActions } from './SuggestedActions';
+import { WorkflowSequence } from './WorkflowSequence';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
 
@@ -38,11 +41,14 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
   return (
     <div className="animate-slide-in-right pb-20">
+      {/* Workflow Sequence - shows where we are in the pipeline */}
+      <WorkflowSequence activeStep="output" className="mb-6" />
+
       {/* Back Button */}
       <Button
         onClick={onBack}
         variant="ghost"
-        className="mb-6 text-muted-foreground hover:text-foreground hover:bg-secondary group"
+        className="mb-5 text-muted-foreground hover:text-foreground hover:bg-secondary group"
       >
         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
         Return to Dashboard
@@ -74,40 +80,56 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Risk Score Card */}
-        <div className="bg-card rounded-xl border border-border/50 p-6 shadow-card">
+        <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold text-foreground">Current Risk Assessment</h3>
+            <Activity className="w-4 h-4 text-primary" />
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+              Current Risk Assessment
+            </h3>
           </div>
           
-          <div className={cn("rounded-xl border p-6 mb-6 text-center", riskScoreBg)}>
-            <span className={cn("text-7xl font-extrabold", riskScoreColor)}>
+          <div className={cn("rounded-xl border p-5 mb-5 text-center", riskScoreBg)}>
+            <span className={cn("text-6xl font-extrabold", riskScoreColor)}>
               {patient.riskScore}%
             </span>
-            <p className="text-muted-foreground mt-2 font-medium">
+            <p className="text-muted-foreground mt-2 text-sm font-medium">
               {patient.riskType} Risk Score
             </p>
           </div>
 
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Risk Factors Identified
+          {/* Risk Trajectory */}
+          <div className="mb-5">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              Risk Trajectory (24h)
             </h4>
-            {patient.riskFactors.map((factor, index) => (
+            <RiskTrendChart 
+              currentScore={patient.riskScore} 
+              trend={patient.trend}
+              className="h-20"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              Ranked Contributing Factors
+            </h4>
+            {patient.riskFactors
+              .sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution))
+              .map((factor, index) => (
               <div
                 key={factor.name}
-                className="flex items-center justify-between p-3 rounded-lg bg-secondary/50 animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="flex items-center justify-between p-2.5 rounded-lg bg-secondary/40 animate-fade-in"
+                style={{ animationDelay: `${index * 80}ms` }}
               >
-                <span className="flex items-center gap-2 text-foreground">
-                  <span className="text-xl">{factor.icon}</span>
+                <span className="flex items-center gap-2 text-sm text-foreground">
+                  <span className="text-base">{factor.icon}</span>
                   {factor.name}
                 </span>
                 <span
                   className={cn(
-                    "font-mono font-semibold text-sm",
+                    "font-mono font-semibold text-xs",
                     factor.contribution >= 0 ? "text-risk-high" : "text-risk-low"
                   )}
                 >
@@ -119,33 +141,36 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
         </div>
 
         {/* SHAP Explainability Chart */}
-        <div className="bg-card rounded-xl border border-border/50 p-6 shadow-card">
+        <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-semibold text-foreground">Feature Contribution Analysis</h3>
+              <BarChart3 className="w-4 h-4 text-primary" />
+              <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                Explainability Breakdown
+              </h3>
             </div>
-            <div className="flex items-center gap-4 text-xs">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded bg-shap-positive" />
-                <span className="text-muted-foreground">Increases Risk ↑</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded bg-shap-negative" />
-                <span className="text-muted-foreground">Reduces Risk ↓</span>
-              </div>
+          </div>
+
+          <div className="flex items-center gap-4 text-[10px] mb-3">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded bg-shap-positive" />
+              <span className="text-muted-foreground">Increases Risk</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded bg-shap-negative" />
+              <span className="text-muted-foreground">Reduces Risk</span>
             </div>
           </div>
           
           <ShapChart factors={patient.riskFactors} />
           
           {/* Clinical Insight Box */}
-          <div className="mt-4 p-4 rounded-lg border-2 border-primary/50 bg-primary/5">
-            <div className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+          <div className="mt-4 p-3.5 rounded-lg border border-primary/40 bg-primary/5">
+            <div className="flex items-start gap-2.5">
+              <Lightbulb className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
               <div>
-                <h4 className="text-sm font-semibold text-primary mb-1">Clinical Insight</h4>
-                <p className="text-sm text-muted-foreground">
+                <h4 className="text-xs font-semibold text-primary mb-1">Workflow-Aware Insight</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {getInsight()}
                 </p>
               </div>
@@ -153,26 +178,31 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
           </div>
 
           {/* Disclaimer */}
-          <p className="text-xs text-warning mt-4 text-center font-medium">
-            ⚠️ Values reflect synthetic scenarios only
+          <p className="text-[10px] text-muted-foreground mt-3 text-center">
+            De-identified clinical features · Synthetic demonstration only
           </p>
         </div>
 
-        {/* Clinical Notes */}
-        <div className="lg:col-span-2 bg-card rounded-xl border border-border/50 p-6 shadow-card">
+        {/* Suggested Actions */}
+        <SuggestedActions patient={patient} />
+
+        {/* Clinical Notes - Full Width */}
+        <div className="lg:col-span-3 bg-card rounded-xl border border-border/50 p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
-            <FileText className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold text-foreground">Clinical Notes</h3>
+            <FileText className="w-4 h-4 text-primary" />
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+              Clinical Context
+            </h3>
           </div>
           
-          <div className="p-4 rounded-lg bg-secondary/50 border border-border/30">
-            <p className="text-foreground leading-relaxed">
+          <div className="p-4 rounded-lg bg-secondary/40 border border-border/30">
+            <p className="text-sm text-foreground leading-relaxed">
               {patient.clinicalNotes}
             </p>
           </div>
           
-          <p className="text-xs text-muted-foreground mt-3 italic">
-            * These are synthetic clinical notes for demonstration purposes only
+          <p className="text-[10px] text-muted-foreground mt-3">
+            * Synthetic clinical notes · Human-in-the-loop judgment required for all decisions
           </p>
         </div>
       </div>
