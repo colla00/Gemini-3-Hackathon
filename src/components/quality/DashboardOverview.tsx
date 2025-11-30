@@ -252,7 +252,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
   return (
     <div className="space-y-4">
       {/* Quick Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-tour="quick-stats">
         <QuickStatCard 
           index={0} 
           label="Total Patients" 
@@ -309,7 +309,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
               <span className="text-[10px] text-muted-foreground">Unit 4C Summary • Avg <ClinicalTooltip term="Confidence" showIcon={false}>Confidence</ClinicalTooltip>: 87%</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3" data-tour="risk-cards">
             {riskCategories.map((category, index) => (
               <RiskCard key={category.category} data={category} index={index} isLive={liveSimulation?.isActive} />
             ))}
@@ -327,7 +327,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
         {/* Right column - Priority + Interventions */}
         <div className="space-y-4">
           {/* Priority Queue */}
-          <div className="glass-card rounded-lg p-4">
+          <div className="glass-card rounded-lg p-4" data-tour="priority-queue">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-foreground">Priority Queue</h3>
               <span className="text-[10px] text-primary font-medium">By <ClinicalTooltip term="Falls Risk" showIcon={false}>Falls Risk</ClinicalTooltip></span>
