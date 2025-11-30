@@ -110,11 +110,11 @@ export const Landing = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/presentation"
+                to="/presentation?autostart=true"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
               >
                 <Presentation className="w-5 h-5" />
-                <span>Watch Demo</span>
+                <span>Watch 5-Min Demo</span>
               </Link>
             </div>
 
