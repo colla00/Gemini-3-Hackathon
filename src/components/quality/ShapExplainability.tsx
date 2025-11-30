@@ -1,6 +1,6 @@
-import { ArrowRight, Info } from 'lucide-react';
+import { ArrowRight, Info, HelpCircle, TrendingUp, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { shapFactors, type ShapFactor } from '@/data/nursingOutcomes';
+import { shapFactors, patients, getRiskLevelColor, type ShapFactor } from '@/data/nursingOutcomes';
 
 const ShapBar = ({ factor, maxContribution }: { factor: ShapFactor; maxContribution: number }) => {
   const isPositive = factor.contribution > 0;
@@ -8,157 +8,186 @@ const ShapBar = ({ factor, maxContribution }: { factor: ShapFactor; maxContribut
   const width = Math.abs(factor.contribution) / maxContribution * 100;
   
   return (
-    <div className="flex items-center gap-4 py-3">
+    <div className="flex items-center gap-3 py-2 border-b border-border/20 last:border-0">
       {/* Factor Label */}
-      <div className="w-32 flex-shrink-0">
-        <span className="text-sm font-medium text-foreground">{factor.factor}</span>
+      <div className="w-24 shrink-0">
+        <span className="text-xs font-medium text-foreground">{factor.factor}</span>
       </div>
       
       {/* Bar Visualization */}
       <div className="flex-1 relative">
-        <div className="flex items-center gap-2">
-          {/* Contribution Bar */}
-          <div className="flex-1 h-10 bg-muted/20 rounded-lg relative overflow-hidden">
-            {!isBase && (
-              <div
-                className={cn(
-                  "absolute top-0 h-full rounded-lg transition-all duration-500",
-                  isPositive ? "bg-risk-high left-0" : "bg-risk-low right-0"
-                )}
-                style={{ width: `${width}%` }}
-              />
-            )}
-            {isBase && (
-              <div
-                className="absolute top-0 left-0 h-full bg-primary/50 rounded-lg"
-                style={{ width: `${width}%` }}
-              />
-            )}
-            
-            {/* Value Inside Bar */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className={cn(
-                "text-sm font-bold",
-                isBase ? "text-primary" : isPositive ? "text-risk-high" : "text-risk-low"
-              )}>
-                {isBase ? '' : isPositive ? '+' : ''}{factor.contribution} pts
-              </span>
-            </div>
-          </div>
+        <div className="h-7 bg-muted/20 rounded relative overflow-hidden">
+          {!isBase && (
+            <div
+              className={cn(
+                "absolute top-0 h-full rounded transition-all duration-500",
+                isPositive ? "bg-risk-high left-0" : "bg-risk-low right-0"
+              )}
+              style={{ width: `${width}%` }}
+            />
+          )}
+          {isBase && (
+            <div
+              className="absolute top-0 left-0 h-full bg-primary/50 rounded"
+              style={{ width: `${width}%` }}
+            />
+          )}
           
-          {/* Arrow and Cumulative */}
-          <div className="flex items-center gap-2 w-24">
-            <ArrowRight className="w-4 h-4 text-muted-foreground" />
-            <span className="text-lg font-bold text-foreground">{factor.cumulative}%</span>
+          {/* Value Inside Bar */}
+          <div className="absolute inset-0 flex items-center px-2">
+            <span className={cn(
+              "text-[11px] font-bold",
+              isBase ? "text-primary" : isPositive ? "text-risk-high" : "text-risk-low"
+            )}>
+              {isBase ? factor.contribution : isPositive ? '+' : ''}{factor.contribution} pts
+            </span>
           </div>
         </div>
+      </div>
+      
+      {/* Cumulative */}
+      <div className="flex items-center gap-1.5 w-20 shrink-0">
+        <ArrowRight className="w-3 h-3 text-muted-foreground" />
+        <span className="text-sm font-bold text-foreground">{factor.cumulative}%</span>
       </div>
     </div>
   );
 };
 
+const FactorCard = ({ factor }: { factor: ShapFactor }) => (
+  <div className={cn(
+    "p-3 rounded-lg text-center",
+    factor.type === 'base' ? 'bg-primary/10 border border-primary/30' :
+    factor.type === 'risk' ? 'bg-risk-high/10 border border-risk-high/30' :
+    'bg-risk-low/10 border border-risk-low/30'
+  )}>
+    <span className="text-[10px] text-muted-foreground block mb-1">{factor.factor}</span>
+    <span className={cn(
+      "text-xl font-bold",
+      factor.type === 'base' ? 'text-primary' :
+      factor.type === 'risk' ? 'text-risk-high' : 'text-risk-low'
+    )}>
+      {factor.type === 'base' ? '' : factor.contribution > 0 ? '+' : ''}{factor.contribution}
+    </span>
+    <span className="text-[10px] text-muted-foreground"> pts</span>
+  </div>
+);
+
 export const ShapExplainability = () => {
   const maxContribution = Math.max(...shapFactors.map(f => Math.abs(f.contribution)));
   const finalScore = shapFactors[shapFactors.length - 1].cumulative;
+  const selectedPatient = patients[0]; // High-risk patient for demo
   
   return (
-    <div className="space-y-8">
-      {/* Section Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-          SHAP Feature Attribution
-        </h2>
-        <p className="text-muted-foreground">
-          Waterfall breakdown showing factor contributions to risk score
-        </p>
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-sm font-semibold text-foreground">SHAP Risk Attribution</h2>
+          <p className="text-[11px] text-muted-foreground">Feature contribution analysis for risk score calculation</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-muted-foreground">Viewing:</span>
+          <span className="text-xs font-medium text-primary">{selectedPatient.id}</span>
+        </div>
       </div>
 
-      {/* Main Card */}
-      <div className="glass-card rounded-[20px] p-8">
-        {/* Info Banner */}
-        <div className="flex items-start gap-3 p-4 rounded-xl bg-primary/10 border border-primary/30 mb-8">
-          <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-          <div>
-            <h4 className="text-sm font-semibold text-primary mb-1">How to Read This Chart</h4>
-            <p className="text-xs text-muted-foreground">
-              Each bar shows how much a factor increases (red) or decreases (green) the risk score.
-              The cumulative score is shown on the right after each factor is applied.
-            </p>
-          </div>
-        </div>
-
-        {/* Legend */}
-        <div className="flex flex-wrap items-center gap-6 mb-6">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-primary/50" />
-            <span className="text-sm text-muted-foreground">Base Risk</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-risk-high" />
-            <span className="text-sm text-muted-foreground">Risk Factor (+)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-risk-low" />
-            <span className="text-sm text-muted-foreground">Protective Factor (-)</span>
-          </div>
-        </div>
-
-        {/* SHAP Bars */}
-        <div className="space-y-2 border-t border-border/30 pt-6">
-          {shapFactors.map((factor, index) => (
-            <ShapBar key={index} factor={factor} maxContribution={maxContribution} />
-          ))}
-        </div>
-
-        {/* Final Score */}
-        <div className="mt-8 pt-6 border-t border-border/30">
-          <div className="flex items-center justify-between p-6 rounded-xl bg-card/50 border border-border/30">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Main SHAP Chart */}
+        <div className="lg:col-span-2 glass-card rounded-lg p-4">
+          {/* Info Banner - Compact */}
+          <div className="flex items-start gap-2 p-2.5 rounded bg-primary/10 border border-primary/30 mb-4">
+            <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
             <div>
-              <span className="text-sm text-muted-foreground block mb-1">Final Calculated Risk Score</span>
-              <span className="text-xs text-muted-foreground">After applying all contributing factors</span>
+              <span className="text-[11px] font-semibold text-primary">How to Read</span>
+              <p className="text-[10px] text-muted-foreground">
+                Red bars increase risk, green bars decrease it. Cumulative score shown on right.
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-5xl font-extrabold text-risk-high">{finalScore}</span>
-              <span className="text-2xl font-bold text-muted-foreground">%</span>
+          </div>
+
+          {/* Legend */}
+          <div className="flex items-center gap-4 mb-3 text-[10px]">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded bg-primary/50" />
+              <span className="text-muted-foreground">Base Risk</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded bg-risk-high" />
+              <span className="text-muted-foreground">Risk Factor (+)</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded bg-risk-low" />
+              <span className="text-muted-foreground">Protective (-)</span>
+            </div>
+          </div>
+
+          {/* SHAP Bars */}
+          <div className="border-t border-border/30 pt-3">
+            {shapFactors.map((factor, index) => (
+              <ShapBar key={index} factor={factor} maxContribution={maxContribution} />
+            ))}
+          </div>
+
+          {/* Final Score */}
+          <div className="mt-4 p-4 rounded-lg bg-secondary/30 border border-border/30 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] text-muted-foreground block">Final Calculated Risk</span>
+              <span className="text-xs text-muted-foreground">After all factor adjustments</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-4xl font-bold text-risk-high">{finalScore}</span>
+              <span className="text-xl font-semibold text-muted-foreground">%</span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Calculation Summary */}
-      <div className="glass-card rounded-[20px] p-6">
-        <h3 className="text-lg font-bold text-foreground mb-4">Calculation Summary</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {shapFactors.map((factor, index) => (
-            <div
-              key={index}
-              className={cn(
-                "p-4 rounded-xl text-center",
-                factor.type === 'base' ? 'bg-primary/10 border border-primary/30' :
-                factor.type === 'risk' ? 'bg-risk-high/10 border border-risk-high/30' :
-                'bg-risk-low/10 border border-risk-low/30'
-              )}
-            >
-              <span className="text-xs text-muted-foreground block mb-1">{factor.factor}</span>
-              <span className={cn(
-                "text-2xl font-bold",
-                factor.type === 'base' ? 'text-primary' :
-                factor.type === 'risk' ? 'text-risk-high' : 'text-risk-low'
-              )}>
-                {factor.type === 'base' ? '' : factor.contribution > 0 ? '+' : ''}{factor.contribution}
-              </span>
-              <span className="text-sm text-muted-foreground"> pts</span>
+        {/* Right Panel */}
+        <div className="space-y-4">
+          {/* Patient Context */}
+          <div className="glass-card rounded-lg p-4">
+            <h3 className="text-xs font-semibold text-foreground mb-3">Patient Context</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">Patient</span>
+                <span className="text-foreground font-medium">{selectedPatient.id}</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">Unit/Room</span>
+                <span className="text-foreground font-medium">{selectedPatient.unit} / {selectedPatient.bed}</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">Falls Risk Level</span>
+                <span className={cn("font-semibold", getRiskLevelColor(selectedPatient.fallsLevel))}>
+                  {selectedPatient.fallsLevel}
+                </span>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* Disclaimer */}
-      <div className="p-4 rounded-xl bg-warning/10 border border-warning/30">
-        <p className="text-center text-sm text-warning">
-          <strong>SHAP Values:</strong> Feature attribution values quantify individual factor contributions.
-          Clinicians must verify signals to mitigate potential false positives or negatives.
-        </p>
+          {/* Factor Summary */}
+          <div className="glass-card rounded-lg p-4">
+            <h3 className="text-xs font-semibold text-foreground mb-3">Factor Breakdown</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {shapFactors.map((factor, index) => (
+                <FactorCard key={index} factor={factor} />
+              ))}
+            </div>
+          </div>
+
+          {/* Clinical Note */}
+          <div className="p-3 rounded-lg bg-warning/10 border border-warning/30">
+            <div className="flex items-start gap-2">
+              <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0 mt-0.5" />
+              <div>
+                <span className="text-[10px] font-semibold text-warning block">Clinical Note</span>
+                <p className="text-[10px] text-warning/80">
+                  SHAP values quantify factor contributions. Clinicians must verify to mitigate false positives/negatives.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
