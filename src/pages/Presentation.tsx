@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, Home, ShieldAlert, Lock, LogOut
+  Activity, Zap, Home, ShieldAlert, Lock, LogOut, GraduationCap, MousePointer
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -15,6 +15,9 @@ import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
+import { PresentationTimeline } from '@/components/quality/PresentationTimeline';
+import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
+import { AcademicHeader } from '@/components/quality/AcademicHeader';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -36,6 +39,8 @@ export const Presentation = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
+  const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
+  const [completedViews, setCompletedViews] = useState<ViewType[]>([]);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
@@ -56,6 +61,14 @@ export const Presentation = () => {
 
   // Handle view change with narration and logging
   const handleViewChange = useCallback((view: ViewType) => {
+    // Mark previous view as completed
+    setCompletedViews(prev => {
+      if (!prev.includes(activeView)) {
+        return [...prev, activeView];
+      }
+      return prev;
+    });
+    
     setActiveView(view);
     logFeatureUse(`Presentation View: ${navItems.find(n => n.id === view)?.label || view}`);
     
@@ -66,7 +79,7 @@ export const Presentation = () => {
     if (narrationEnabled) {
       narration.narrateView(view);
     }
-  }, [soundEnabled, narrationEnabled, narration, logFeatureUse]);
+  }, [activeView, soundEnabled, narrationEnabled, narration, logFeatureUse]);
 
   // Auto-demo functionality
   const autoDemo = useAutoDemo(handleViewChange);
@@ -171,6 +184,20 @@ export const Presentation = () => {
       {/* Screen Protection */}
       <ScreenProtection enabled={screenProtectionEnabled} />
 
+      {/* Presentation Timeline (Left sidebar) */}
+      <PresentationTimeline
+        currentView={activeView}
+        onNavigate={handleViewChange}
+        completedViews={completedViews}
+        isAcademicMode={narration.academicMode}
+      />
+
+      {/* Interactive Hotspots */}
+      <InteractiveHotspots
+        currentView={activeView}
+        enabled={hotspotsEnabled}
+      />
+
       {/* Guided Tour Overlay */}
       <GuidedTour
         isActive={guidedTour.isActive}
@@ -193,18 +220,49 @@ export const Presentation = () => {
       <div className="bg-primary py-1.5 px-4 print:hidden">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary-foreground">
-            <Zap className="w-4 h-4" />
-            <span className="text-sm font-medium">Presentation Mode</span>
-            <span className="text-primary-foreground/60 text-xs">• Full demo features enabled</span>
+            <GraduationCap className="w-4 h-4" />
+            <span className="text-sm font-medium">Academic Presentation</span>
+            <span className="text-primary-foreground/60 text-xs">• Conference Mode</span>
           </div>
-          <Link 
-            to="/dashboard"
-            className="text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-          >
-            Exit to Dashboard →
-          </Link>
+          <div className="flex items-center gap-3">
+            {/* Academic mode toggle */}
+            <button
+              onClick={() => narration.setAcademicMode(!narration.academicMode)}
+              className={cn(
+                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
+                narration.academicMode
+                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  : "text-primary-foreground/60 hover:text-primary-foreground"
+              )}
+            >
+              <GraduationCap className="w-3 h-3" />
+              <span>{narration.academicMode ? "Academic" : "Simple"}</span>
+            </button>
+            {/* Hotspots toggle */}
+            <button
+              onClick={() => setHotspotsEnabled(!hotspotsEnabled)}
+              className={cn(
+                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
+                hotspotsEnabled
+                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  : "text-primary-foreground/60 hover:text-primary-foreground"
+              )}
+            >
+              <MousePointer className="w-3 h-3" />
+              <span>Hotspots</span>
+            </button>
+            <Link 
+              to="/dashboard"
+              className="text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+            >
+              Exit →
+            </Link>
+          </div>
         </div>
       </div>
+
+      {/* Academic Section Header */}
+      <AcademicHeader currentView={activeView} isVisible={narration.academicMode} />
       
       {/* Research Banner */}
       <ResearchBanner />
