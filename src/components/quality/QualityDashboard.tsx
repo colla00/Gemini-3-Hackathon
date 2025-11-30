@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, HelpCircle
+  Activity, Zap, HelpCircle, ShieldAlert
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
@@ -13,6 +13,7 @@ import { ResearchBanner } from './ResearchBanner';
 import { DemoControls } from './DemoControls';
 import { PrintView } from './PrintView';
 import { GuidedTour, TourButton } from './GuidedTour';
+import { ScreenProtection } from './ScreenProtection';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -31,6 +32,7 @@ export const QualityDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
+  const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
   const printRef = useRef<HTMLDivElement>(null);
 
   // Guided tour
@@ -140,7 +142,10 @@ export const QualityDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background" data-protected="true">
+      {/* Screen Protection - Watermark & Blur on Focus Loss */}
+      <ScreenProtection enabled={screenProtectionEnabled} />
+
       {/* Guided Tour Overlay */}
       <GuidedTour
         isActive={guidedTour.isActive}
@@ -267,6 +272,18 @@ export const QualityDashboard = () => {
                 title="Refresh data"
               >
                 <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
+              </button>
+              <button 
+                onClick={() => setScreenProtectionEnabled(prev => !prev)}
+                className={cn(
+                  "p-1.5 rounded transition-colors",
+                  screenProtectionEnabled 
+                    ? "bg-primary/20 text-primary" 
+                    : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
+                )}
+                title={screenProtectionEnabled ? "Disable screen protection" : "Enable screen protection"}
+              >
+                <ShieldAlert className="w-4 h-4" />
               </button>
               <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative">
                 <Bell className="w-4 h-4" />
