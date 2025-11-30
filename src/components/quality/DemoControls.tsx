@@ -1,8 +1,9 @@
-import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X, Volume2, VolumeX, Mic, MicOff, RotateCcw } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { NarrationControls } from './NarrationControls';
+import type { VoiceOption } from '@/hooks/useNarration';
 
 interface DemoControlsProps {
   isRunning: boolean;
@@ -12,8 +13,10 @@ interface DemoControlsProps {
   intervalMs: number;
   liveUpdatesActive: boolean;
   isNarrating: boolean;
+  isNarrationLoading?: boolean;
   soundEnabled: boolean;
   narrationEnabled: boolean;
+  selectedVoice?: VoiceOption;
   onToggleDemo: () => void;
   onNext: () => void;
   onPrev: () => void;
@@ -22,6 +25,7 @@ interface DemoControlsProps {
   onSpeedChange: (ms: number) => void;
   onToggleSound: () => void;
   onToggleNarration: () => void;
+  onVoiceChange?: (voice: VoiceOption) => void;
   onResetTour: () => void;
 }
 
@@ -33,8 +37,10 @@ export const DemoControls = ({
   intervalMs,
   liveUpdatesActive,
   isNarrating,
+  isNarrationLoading = false,
   soundEnabled,
   narrationEnabled,
+  selectedVoice = 'nova',
   onToggleDemo,
   onNext,
   onPrev,
@@ -43,6 +49,7 @@ export const DemoControls = ({
   onSpeedChange,
   onToggleSound,
   onToggleNarration,
+  onVoiceChange,
   onResetTour,
 }: DemoControlsProps) => {
   const [showShortcuts, setShowShortcuts] = useState(false);
@@ -249,10 +256,13 @@ export const DemoControls = ({
           {/* Narration Controls */}
           <NarrationControls
             isNarrating={isNarrating}
+            isLoading={isNarrationLoading}
             soundEnabled={soundEnabled}
             narrationEnabled={narrationEnabled}
+            selectedVoice={selectedVoice}
             onToggleSound={onToggleSound}
             onToggleNarration={onToggleNarration}
+            onVoiceChange={onVoiceChange}
           />
 
           <div className="w-px h-4 bg-border/50" />

@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
 
@@ -8,22 +9,55 @@ interface NarrationScript {
   duration?: number;
 }
 
+// Enhanced narration scripts for guided tour
 const narrationScripts: NarrationScript[] = [
   {
     view: 'dashboard',
-    text: `Welcome to the NSO Quality Dashboard Overview. This view displays real-time risk monitoring for nurse-sensitive outcomes including falls, pressure injuries, and catheter-associated infections. Notice the risk category cards showing aggregate unit statistics, and the priority queue highlighting patients requiring immediate attention.`,
+    text: `Welcome to the NSO Quality Dashboard. This is your command center for real-time patient risk monitoring. 
+    
+    At the top, you'll see aggregate statistics across all nurse-sensitive outcomes: falls, pressure injuries, and catheter-associated infections. 
+    
+    The priority queue on the right highlights patients requiring immediate attention, automatically sorted by risk severity. 
+    
+    Each risk category card shows the current unit statistics and trending data. Green indicators mean stable, yellow requires monitoring, and red demands immediate action.
+    
+    This dashboard updates in real-time as new patient data flows in from the electronic health record system.`,
   },
   {
     view: 'patients',
-    text: `This is the Patient Worklist view. Here nurses can see all patients sorted by risk level, with detailed risk scores for falls, HAPI, and CAUTI. Each row includes a 24-hour trend sparkline and confidence indicators. Click any patient to see detailed vitals and recommended interventions.`,
+    text: `This is the Patient Worklist view, designed for efficient clinical decision-making.
+    
+    Each row represents a patient with their individual risk scores displayed for falls, pressure injuries, and catheter infections. 
+    
+    Notice the 24-hour trend sparklines on the right side of each row. These micro-charts show how risk has changed over time, helping you identify patients whose condition is deteriorating.
+    
+    The confidence indicators show how certain the AI model is about each prediction. Higher confidence means more reliable assessments.
+    
+    Click any patient row to drill down into their detailed risk factors and recommended interventions.`,
   },
   {
     view: 'shap',
-    text: `The Risk Attribution view uses SHAP values to explain how the AI model calculates risk scores. Each bar shows how clinical factors either increase or decrease the patient's risk. Red bars indicate risk factors, while green bars show protective factors. This transparency helps nurses understand and validate AI predictions.`,
+    text: `This is the Risk Attribution view, where artificial intelligence becomes transparent and explainable.
+    
+    We use SHAP values, which stands for Shapley Additive Explanations, to show exactly how the AI calculates each risk score.
+    
+    Each horizontal bar represents a clinical factor. Red bars pushing right indicate factors that increase the patient's risk. Green bars pushing left show protective factors that lower risk.
+    
+    For example, you might see that recent sedation medication is pushing fall risk higher, while the presence of a bed alarm is providing some protection.
+    
+    This transparency helps nurses understand and validate AI predictions, ensuring human expertise remains central to clinical decisions.`,
   },
   {
     view: 'workflow',
-    text: `This Clinical Workflow view demonstrates a real intervention scenario. When the AI detected increased fall risk after sedation administration, the nurse was alerted within minutes. The timeline shows the assessment, interventions, and successful outcome. This human-in-the-loop approach combines AI prediction with nursing expertise.`,
+    text: `This Clinical Workflow view demonstrates a real intervention scenario from our pilot program.
+    
+    Follow the timeline from left to right. First, the AI detected increased fall risk after sedation was administered. Within 3 minutes, the system generated an alert to the primary nurse.
+    
+    The nurse acknowledged the alert and performed a bedside assessment. Based on clinical judgment combined with AI recommendations, enhanced fall precautions were implemented.
+    
+    The outcome: a potential fall was prevented through this human-AI collaboration. The patient remained safe, and the intervention was documented for quality reporting.
+    
+    This demonstrates our human-in-the-loop approach, where AI augments nursing expertise rather than replacing it.`,
   },
 ];
 
@@ -96,69 +130,123 @@ export const useSoundEffects = () => {
   };
 };
 
+// OpenAI voice options
+export type VoiceOption = 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+
 export const useNarration = () => {
   const [isNarrating, setIsNarrating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentView, setCurrentView] = useState<ViewType | null>(null);
-  const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [selectedVoice, setSelectedVoice] = useState<VoiceOption>('nova');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const soundEffects = useSoundEffects();
+  const audioCache = useRef<Map<string, string>>(new Map());
 
-  const getVoice = useCallback((): SpeechSynthesisVoice | null => {
-    const voices = window.speechSynthesis.getVoices();
-    // Prefer a natural-sounding English voice
-    const preferredVoices = [
-      'Google UK English Female',
-      'Google US English',
-      'Samantha',
-      'Karen',
-      'Microsoft Zira',
-      'Microsoft David',
-    ];
-    
-    for (const name of preferredVoices) {
-      const voice = voices.find(v => v.name.includes(name));
-      if (voice) return voice;
-    }
-    
-    // Fallback to first English voice
-    return voices.find(v => v.lang.startsWith('en')) || voices[0] || null;
-  }, []);
-
-  const speak = useCallback((text: string, onEnd?: () => void) => {
+  // Fallback to browser speech synthesis
+  const speakWithBrowser = useCallback((text: string, onEnd?: () => void) => {
     if (!('speechSynthesis' in window)) {
       console.warn('Speech synthesis not supported');
+      onEnd?.();
       return;
     }
 
-    // Cancel any ongoing speech
     window.speechSynthesis.cancel();
-
     const utterance = new SpeechSynthesisUtterance(text);
-    speechRef.current = utterance;
-
-    // Configure voice
-    const voice = getVoice();
-    if (voice) utterance.voice = voice;
     
-    utterance.rate = 0.95; // Slightly slower for clarity
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(v => 
+      v.name.includes('Google UK English Female') || 
+      v.name.includes('Samantha') ||
+      v.lang.startsWith('en')
+    );
+    if (preferredVoice) utterance.voice = preferredVoice;
+    
+    utterance.rate = 0.95;
     utterance.pitch = 1.0;
-    utterance.volume = 1.0;
-
-    utterance.onstart = () => {
-      setIsNarrating(true);
-    };
-
+    utterance.onstart = () => setIsNarrating(true);
     utterance.onend = () => {
       setIsNarrating(false);
-      if (onEnd) onEnd();
+      onEnd?.();
     };
-
-    utterance.onerror = (event) => {
-      console.error('Speech error:', event);
+    utterance.onerror = () => {
       setIsNarrating(false);
+      onEnd?.();
     };
-
+    
     window.speechSynthesis.speak(utterance);
-  }, [getVoice]);
+  }, []);
+
+  // Generate and play audio using OpenAI TTS
+  const speak = useCallback(async (text: string, onEnd?: () => void) => {
+    const cacheKey = `${selectedVoice}:${text.substring(0, 100)}`;
+    
+    try {
+      setIsLoading(true);
+      
+      let audioContent = audioCache.current.get(cacheKey);
+      
+      if (!audioContent) {
+        console.log('Generating AI voiceover...');
+        const { data, error } = await supabase.functions.invoke('text-to-speech', {
+          body: { text, voice: selectedVoice }
+        });
+
+        if (error) {
+          console.error('TTS API error:', error);
+          throw error;
+        }
+
+        if (!data?.audioContent) {
+          throw new Error('No audio content received');
+        }
+
+        audioContent = data.audioContent;
+        audioCache.current.set(cacheKey, audioContent);
+      }
+
+      // Create and play audio
+      const audioBlob = new Blob(
+        [Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))],
+        { type: 'audio/mp3' }
+      );
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        URL.revokeObjectURL(audioRef.current.src);
+      }
+
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+
+      audio.onplay = () => {
+        setIsNarrating(true);
+        setIsLoading(false);
+      };
+
+      audio.onended = () => {
+        setIsNarrating(false);
+        URL.revokeObjectURL(audioUrl);
+        onEnd?.();
+      };
+
+      audio.onerror = (e) => {
+        console.error('Audio playback error:', e);
+        setIsNarrating(false);
+        setIsLoading(false);
+        URL.revokeObjectURL(audioUrl);
+        // Fallback to browser TTS
+        speakWithBrowser(text, onEnd);
+      };
+
+      await audio.play();
+    } catch (error) {
+      console.error('TTS error, falling back to browser:', error);
+      setIsLoading(false);
+      // Fallback to browser speech synthesis
+      speakWithBrowser(text, onEnd);
+    }
+  }, [selectedVoice, speakWithBrowser]);
 
   const narrateView = useCallback((view: ViewType, onEnd?: () => void) => {
     const script = narrationScripts.find(s => s.view === view);
@@ -170,27 +258,63 @@ export const useNarration = () => {
   }, [speak, soundEffects]);
 
   const stop = useCallback(() => {
-    window.speechSynthesis.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    window.speechSynthesis?.cancel();
     setIsNarrating(false);
+    setIsLoading(false);
     setCurrentView(null);
   }, []);
 
   const pause = useCallback(() => {
-    window.speechSynthesis.pause();
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    window.speechSynthesis?.pause();
   }, []);
 
   const resume = useCallback(() => {
-    window.speechSynthesis.resume();
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    window.speechSynthesis?.resume();
   }, []);
+
+  // Preload audio for all views
+  const preloadAll = useCallback(async () => {
+    console.log('Preloading AI voiceovers...');
+    for (const script of narrationScripts) {
+      const cacheKey = `${selectedVoice}:${script.text.substring(0, 100)}`;
+      if (!audioCache.current.has(cacheKey)) {
+        try {
+          const { data } = await supabase.functions.invoke('text-to-speech', {
+            body: { text: script.text, voice: selectedVoice }
+          });
+          if (data?.audioContent) {
+            audioCache.current.set(cacheKey, data.audioContent);
+          }
+        } catch (e) {
+          console.warn(`Failed to preload ${script.view}:`, e);
+        }
+      }
+    }
+    console.log('Preloading complete');
+  }, [selectedVoice]);
 
   return {
     isNarrating,
+    isLoading,
     currentView,
+    selectedVoice,
+    setSelectedVoice,
     speak,
     narrateView,
     stop,
     pause,
     resume,
+    preloadAll,
     soundEffects,
   };
 };
