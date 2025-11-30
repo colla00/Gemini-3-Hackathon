@@ -1,7 +1,8 @@
-import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { NarrationControls } from './NarrationControls';
 
 interface DemoControlsProps {
   isRunning: boolean;
@@ -10,12 +11,17 @@ interface DemoControlsProps {
   totalViews: number;
   intervalMs: number;
   liveUpdatesActive: boolean;
+  isNarrating: boolean;
+  soundEnabled: boolean;
+  narrationEnabled: boolean;
   onToggleDemo: () => void;
   onNext: () => void;
   onPrev: () => void;
   onToggleLive: () => void;
   onPrint: () => void;
   onSpeedChange: (ms: number) => void;
+  onToggleSound: () => void;
+  onToggleNarration: () => void;
 }
 
 export const DemoControls = ({
@@ -25,12 +31,17 @@ export const DemoControls = ({
   totalViews,
   intervalMs,
   liveUpdatesActive,
+  isNarrating,
+  soundEnabled,
+  narrationEnabled,
   onToggleDemo,
   onNext,
   onPrev,
   onToggleLive,
   onPrint,
   onSpeedChange,
+  onToggleSound,
+  onToggleNarration,
 }: DemoControlsProps) => {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showSpeed, setShowSpeed] = useState(false);
@@ -230,6 +241,17 @@ export const DemoControls = ({
             </TooltipTrigger>
             <TooltipContent side="top" className="text-[10px]">Shortcuts</TooltipContent>
           </Tooltip>
+
+          <div className="w-px h-4 bg-border/50" />
+
+          {/* Narration Controls */}
+          <NarrationControls
+            isNarrating={isNarrating}
+            soundEnabled={soundEnabled}
+            narrationEnabled={narrationEnabled}
+            onToggleSound={onToggleSound}
+            onToggleNarration={onToggleNarration}
+          />
         </div>
       </div>
     </TooltipProvider>

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
@@ -15,6 +15,7 @@ import { PrintView } from './PrintView';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
+import { useNarration } from '@/hooks/useNarration';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -26,10 +27,30 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 export const QualityDashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [narrationEnabled, setNarrationEnabled] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
-  // Auto-demo functionality
-  const autoDemo = useAutoDemo(setActiveView);
+  // Narration hook
+  const narration = useNarration();
+
+  // Handle view change with narration
+  const handleViewChange = useCallback((view: ViewType) => {
+    setActiveView(view);
+    
+    // Play transition sound
+    if (soundEnabled) {
+      narration.soundEffects.playTransition();
+    }
+    
+    // Narrate if enabled
+    if (narrationEnabled) {
+      narration.narrateView(view);
+    }
+  }, [soundEnabled, narrationEnabled, narration]);
+
+  // Auto-demo functionality with narration integration
+  const autoDemo = useAutoDemo(handleViewChange);
 
   // Live simulation
   const liveSimulation = useLiveSimulation(true, 5000);
@@ -39,10 +60,44 @@ export const QualityDashboard = () => {
     window.print();
   }, []);
 
+  // Toggle handlers
+  const handleToggleSound = useCallback(() => {
+    setSoundEnabled(prev => !prev);
+  }, []);
+
+  const handleToggleNarration = useCallback(() => {
+    setNarrationEnabled(prev => {
+      const newValue = !prev;
+      if (!newValue) {
+        narration.stop();
+      }
+      return newValue;
+    });
+  }, [narration]);
+
+  // Enhanced demo toggle with sound
+  const handleToggleDemo = useCallback(() => {
+    if (!autoDemo.isRunning) {
+      if (soundEnabled) {
+        narration.soundEffects.playStart();
+      }
+      // Narrate the first view when starting
+      if (narrationEnabled) {
+        setTimeout(() => narration.narrateView(activeView), 500);
+      }
+    } else {
+      if (soundEnabled) {
+        narration.soundEffects.playStop();
+      }
+      narration.stop();
+    }
+    autoDemo.toggleDemo();
+  }, [autoDemo, soundEnabled, narrationEnabled, narration, activeView]);
+
   // Keyboard shortcuts
   useKeyboardShortcuts({
-    onViewChange: setActiveView,
-    onToggleDemo: autoDemo.toggleDemo,
+    onViewChange: handleViewChange,
+    onToggleDemo: handleToggleDemo,
     onNextView: autoDemo.nextView,
     onPrevView: autoDemo.prevView,
     onToggleLive: liveSimulation.toggle,
@@ -50,12 +105,19 @@ export const QualityDashboard = () => {
   });
 
   // Update time periodically
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
     }, 60000);
     return () => clearInterval(interval);
-  });
+  }, []);
+
+  // Load voices on mount (needed for speech synthesis)
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+  }, []);
 
   const renderView = () => {
     switch (activeView) {
@@ -149,6 +211,18 @@ export const QualityDashboard = () => {
               </div>
             )}
 
+            {/* Narration Indicator */}
+            {narration.isNarrating && (
+              <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-risk-low/10 border border-risk-low/30">
+                <div className="flex items-end gap-0.5 h-3">
+                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '40%' }} />
+                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '70%', animationDelay: '150ms' }} />
+                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '100%', animationDelay: '300ms' }} />
+                </div>
+                <span className="text-[10px] font-medium text-risk-low uppercase">Speaking</span>
+              </div>
+            )}
+
             {/* Time & Shift */}
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Clock className="w-3.5 h-3.5" />
@@ -192,7 +266,7 @@ export const QualityDashboard = () => {
             {navItems.map((item, index) => (
               <button
                 key={item.id}
-                onClick={() => setActiveView(item.id)}
+                onClick={() => handleViewChange(item.id)}
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all relative",
                   activeView === item.id
@@ -245,12 +319,17 @@ export const QualityDashboard = () => {
         totalViews={autoDemo.totalViews}
         intervalMs={autoDemo.intervalMs}
         liveUpdatesActive={liveSimulation.isActive}
-        onToggleDemo={autoDemo.toggleDemo}
+        isNarrating={narration.isNarrating}
+        soundEnabled={soundEnabled}
+        narrationEnabled={narrationEnabled}
+        onToggleDemo={handleToggleDemo}
         onNext={autoDemo.nextView}
         onPrev={autoDemo.prevView}
         onToggleLive={liveSimulation.toggle}
         onPrint={handlePrint}
         onSpeedChange={autoDemo.setSpeed}
+        onToggleSound={handleToggleSound}
+        onToggleNarration={handleToggleNarration}
       />
 
       {/* Footer Status Bar */}
