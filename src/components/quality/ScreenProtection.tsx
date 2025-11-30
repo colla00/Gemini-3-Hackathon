@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Clock, FileText } from 'lucide-react';
+import { useSessionTracking } from '@/hooks/useSessionTracking';
 
 interface ScreenProtectionProps {
   enabled?: boolean;
@@ -14,14 +15,14 @@ export const ScreenProtection = ({
   showDynamicInfo = true 
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
-  const [timestamp, setTimestamp] = useState(new Date().toISOString());
-  const [sessionId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
+  const [currentTime, setCurrentTime] = useState(new Date().toISOString());
+  const { session, sessionId, startTime, eventCount, exportEvidence } = useSessionTracking();
 
-  // Update timestamp periodically
+  // Update current time every second for live timestamp
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimestamp(new Date().toISOString());
-    }, 60000);
+      setCurrentTime(new Date().toISOString());
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -169,17 +170,55 @@ export const ScreenProtection = ({
         ))}
       </div>
 
-      {/* Dynamic Info Watermark - Bottom corner */}
+      {/* Session Tracking Panel - Bottom corner */}
       {showDynamicInfo && (
         <div 
-          className="fixed bottom-20 right-4 z-[101] pointer-events-none select-none print:hidden"
+          className="fixed bottom-20 right-4 z-[101] select-none print:hidden"
           aria-hidden="true"
         >
-          <div className="bg-primary/5 border border-primary/10 rounded px-3 py-2 backdrop-blur-sm">
-            <div className="text-[9px] font-mono text-primary/40 space-y-0.5">
-              <div>Session: {sessionId}</div>
-              <div>Generated: {timestamp.split('T')[0]}</div>
-              <div className="text-primary/30">Patent Pending • All Rights Reserved</div>
+          <div className="bg-background/95 border border-primary/20 rounded-lg px-4 py-3 backdrop-blur-sm shadow-lg">
+            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-primary/10">
+              <Clock className="w-3 h-3 text-primary/60" />
+              <span className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider">
+                Patent Evidence Tracker
+              </span>
+            </div>
+            <div className="text-[10px] font-mono text-foreground/70 space-y-1">
+              <div className="flex justify-between gap-4">
+                <span className="text-muted-foreground">Session ID:</span>
+                <span className="font-semibold text-primary">{sessionId || 'Initializing...'}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-muted-foreground">Started:</span>
+                <span>{startTime ? new Date(startTime).toLocaleString() : '-'}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-muted-foreground">Current:</span>
+                <span className="text-green-500">{new Date(currentTime).toLocaleTimeString()}</span>
+              </div>
+              <div className="flex justify-between gap-4">
+                <span className="text-muted-foreground">Events Logged:</span>
+                <span className="font-semibold">{eventCount}</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                const evidence = exportEvidence();
+                const blob = new Blob([evidence], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="mt-3 w-full flex items-center justify-center gap-1.5 px-2 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-[9px] font-medium rounded transition-colors pointer-events-auto"
+            >
+              <FileText className="w-3 h-3" />
+              Export Evidence Log
+            </button>
+            <div className="mt-2 pt-2 border-t border-primary/10 text-[8px] text-muted-foreground text-center">
+              All interactions timestamped for patent documentation
             </div>
           </div>
         </div>
