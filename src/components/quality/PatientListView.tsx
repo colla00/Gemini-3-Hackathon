@@ -8,17 +8,18 @@ import { InterventionsPanel } from './InterventionsPanel';
 
 type SortField = 'fallsRisk' | 'hapiRisk' | 'cautiRisk' | 'id';
 
-const PatientRow = ({ patient, onClick, isSelected }: { patient: PatientData; onClick: () => void; isSelected: boolean }) => {
+const PatientRow = ({ patient, onClick, isSelected, index }: { patient: PatientData; onClick: () => void; isSelected: boolean; index: number }) => {
   const isHighRisk = patient.fallsLevel === 'HIGH';
   
   return (
     <tr 
       className={cn(
-        "hover:bg-secondary/30 cursor-pointer transition-colors border-b border-border/20",
+        "hover:bg-secondary/30 cursor-pointer transition-all duration-200 border-b border-border/20 opacity-0 animate-fade-in",
         isHighRisk && "bg-risk-high/5",
         isSelected && "bg-primary/10"
       )}
       onClick={onClick}
+      style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'forwards' }}
     >
       {/* Patient Info */}
       <td className="py-3 px-4">
@@ -292,12 +293,13 @@ export const PatientListView = () => {
                 </tr>
               </thead>
               <tbody>
-                {sortedPatients.map((patient) => (
+                {sortedPatients.map((patient, index) => (
                   <PatientRow 
                     key={patient.id} 
                     patient={patient} 
                     onClick={() => setSelectedPatient(patient)}
                     isSelected={selectedPatient?.id === patient.id}
+                    index={index}
                   />
                 ))}
               </tbody>

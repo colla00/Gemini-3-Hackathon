@@ -4,7 +4,7 @@ export const ResearchBanner = () => {
   return (
     <div className="w-full bg-warning/15 border-b border-warning/30 py-1.5 px-4">
       <div className="flex items-center justify-center gap-2 text-[11px]">
-        <AlertTriangle className="w-3.5 h-3.5 text-warning" />
+        <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
         <span className="text-warning font-semibold uppercase tracking-wide">
           Research Prototype — Synthetic Data Only
         </span>
@@ -14,7 +14,7 @@ export const ResearchBanner = () => {
         <span className="text-warning/70 hidden md:inline">
           • Not FDA cleared
         </span>
-        <AlertTriangle className="w-3.5 h-3.5 text-warning" />
+        <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
       </div>
     </div>
   );
