@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldAlert, Clock, FileText } from 'lucide-react';
+import { ShieldAlert, Clock, FileText, History } from 'lucide-react';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { SessionHistoryViewer } from './SessionHistoryViewer';
 
 interface ScreenProtectionProps {
   enabled?: boolean;
@@ -16,7 +17,8 @@ export const ScreenProtection = ({
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toISOString());
-  const { session, sessionId, startTime, eventCount, exportEvidence } = useSessionTracking();
+  const [showHistory, setShowHistory] = useState(false);
+  const { session, sessionId, startTime, eventCount, exportEvidence, logInteraction } = useSessionTracking();
 
   // Update current time every second for live timestamp
   useEffect(() => {
@@ -201,22 +203,35 @@ export const ScreenProtection = ({
                 <span className="font-semibold">{eventCount}</span>
               </div>
             </div>
-            <button
-              onClick={() => {
-                const evidence = exportEvidence();
-                const blob = new Blob([evidence], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-              className="mt-3 w-full flex items-center justify-center gap-1.5 px-2 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-[9px] font-medium rounded transition-colors pointer-events-auto"
-            >
-              <FileText className="w-3 h-3" />
-              Export Evidence Log
-            </button>
+            <div className="flex gap-2 mt-3">
+              <button
+                onClick={() => {
+                  logInteraction('Exported evidence log');
+                  const evidence = exportEvidence();
+                  const blob = new Blob([evidence], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-[9px] font-medium rounded transition-colors pointer-events-auto"
+              >
+                <FileText className="w-3 h-3" />
+                Export
+              </button>
+              <button
+                onClick={() => {
+                  logInteraction('Opened session history viewer');
+                  setShowHistory(true);
+                }}
+                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-secondary hover:bg-secondary/80 text-foreground text-[9px] font-medium rounded transition-colors pointer-events-auto"
+              >
+                <History className="w-3 h-3" />
+                History
+              </button>
+            </div>
             <div className="mt-2 pt-2 border-t border-primary/10 text-[8px] text-muted-foreground text-center">
               All interactions timestamped for patent documentation
             </div>
@@ -263,6 +278,9 @@ export const ScreenProtection = ({
           user-drag: none;
         }
       `}</style>
+
+      {/* Session History Modal */}
+      <SessionHistoryViewer isOpen={showHistory} onClose={() => setShowHistory(false)} />
     </>
   );
 };
