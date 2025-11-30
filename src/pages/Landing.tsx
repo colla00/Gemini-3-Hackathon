@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation, Video
+  Brain, Sparkles, Lock, FileText, Presentation, Play
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -39,16 +39,9 @@ const pages = [
   {
     to: '/presentation',
     icon: Presentation,
-    title: 'Presentation Mode',
-    description: 'Interactive academic presentation',
+    title: 'Watch Demo',
+    description: '45-minute interactive walkthrough',
     color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
-  },
-  {
-    to: '/record',
-    icon: Video,
-    title: '5-Min Video Demo',
-    description: 'Auto-play mode for screen recording',
-    color: 'bg-risk-high/10 text-risk-high border-risk-high/20',
   },
   {
     to: '/about',
@@ -117,11 +110,11 @@ export const Landing = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/record"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-risk-high text-white rounded-xl font-semibold hover:bg-risk-high/90 transition-all border border-risk-high/50"
+                to="/presentation"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
               >
-                <Video className="w-5 h-5" />
-                <span>Record 5-Min Demo</span>
+                <Play className="w-5 h-5" />
+                <span>Watch Demo</span>
               </Link>
             </div>
 
@@ -143,7 +136,7 @@ export const Landing = () => {
             Explore the Prototype
           </h3>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {pages.map((page) => (
               <Link
                 key={page.to}
