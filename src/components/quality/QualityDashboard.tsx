@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap
+  Activity, Zap, HelpCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
@@ -12,10 +12,12 @@ import { ClinicalWorkflowView } from './ClinicalWorkflowView';
 import { ResearchBanner } from './ResearchBanner';
 import { DemoControls } from './DemoControls';
 import { PrintView } from './PrintView';
+import { GuidedTour, TourButton } from './GuidedTour';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
+import { useGuidedTour } from '@/hooks/useGuidedTour';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -30,6 +32,9 @@ export const QualityDashboard = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  // Guided tour
+  const guidedTour = useGuidedTour();
 
   // Narration hook
   const narration = useNarration();
@@ -136,6 +141,21 @@ export const QualityDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Guided Tour Overlay */}
+      <GuidedTour
+        isActive={guidedTour.isActive}
+        currentStep={guidedTour.currentStep}
+        currentStepIndex={guidedTour.currentStepIndex}
+        totalSteps={guidedTour.totalSteps}
+        isFirstStep={guidedTour.isFirstStep}
+        isLastStep={guidedTour.isLastStep}
+        targetRect={guidedTour.targetRect}
+        onNext={guidedTour.nextStep}
+        onPrev={guidedTour.prevStep}
+        onEnd={guidedTour.endTour}
+        onGoToStep={guidedTour.goToStep}
+      />
+
       {/* Print View (hidden on screen) */}
       <PrintView ref={printRef} viewType={activeView} />
 
@@ -146,7 +166,7 @@ export const QualityDashboard = () => {
       <ResearchBanner />
 
       {/* Main Header Bar - EHR Style */}
-      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50 print:hidden">
+      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50 print:hidden" data-tour="header">
         <div className="flex items-center justify-between gap-4">
           {/* Left: App Title & Unit */}
           <div className="flex items-center gap-4">
@@ -161,7 +181,10 @@ export const QualityDashboard = () => {
             </div>
             
             {/* Unit Selector */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors">
+            <div 
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors"
+              data-tour="unit-selector"
+            >
               <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
               <ChevronDown className="w-3 h-3 text-muted-foreground" />
@@ -183,12 +206,15 @@ export const QualityDashboard = () => {
           {/* Right: Status & Actions */}
           <div className="flex items-center gap-3">
             {/* Live Status */}
-            <div className={cn(
-              "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
-              liveSimulation.isActive 
-                ? "bg-risk-low/10 border-risk-low/30" 
-                : "bg-secondary border-border/50"
-            )}>
+            <div 
+              className={cn(
+                "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
+                liveSimulation.isActive 
+                  ? "bg-risk-low/10 border-risk-low/30" 
+                  : "bg-secondary border-border/50"
+              )}
+              data-tour="live-status"
+            >
               {liveSimulation.isActive ? (
                 <>
                   <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
@@ -232,6 +258,9 @@ export const QualityDashboard = () => {
 
             {/* Quick Actions */}
             <div className="flex items-center gap-1">
+              {/* Tour Button */}
+              <TourButton onClick={guidedTour.startTour} />
+              
               <button 
                 onClick={() => liveSimulation.updateSimulation()}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
@@ -260,7 +289,7 @@ export const QualityDashboard = () => {
       </header>
 
       {/* Navigation Tabs - Compact */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden">
+      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden" data-tour="nav-tabs">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             {navItems.map((item, index) => (
@@ -312,28 +341,33 @@ export const QualityDashboard = () => {
       </main>
 
       {/* Demo Controls */}
-      <DemoControls
-        isRunning={autoDemo.isRunning}
-        progress={autoDemo.progress}
-        currentIndex={autoDemo.currentIndex}
-        totalViews={autoDemo.totalViews}
-        intervalMs={autoDemo.intervalMs}
-        liveUpdatesActive={liveSimulation.isActive}
-        isNarrating={narration.isNarrating}
-        soundEnabled={soundEnabled}
-        narrationEnabled={narrationEnabled}
-        onToggleDemo={handleToggleDemo}
-        onNext={autoDemo.nextView}
-        onPrev={autoDemo.prevView}
-        onToggleLive={liveSimulation.toggle}
-        onPrint={handlePrint}
-        onSpeedChange={autoDemo.setSpeed}
-        onToggleSound={handleToggleSound}
-        onToggleNarration={handleToggleNarration}
-      />
+      <div data-tour="demo-controls">
+        <DemoControls
+          isRunning={autoDemo.isRunning}
+          progress={autoDemo.progress}
+          currentIndex={autoDemo.currentIndex}
+          totalViews={autoDemo.totalViews}
+          intervalMs={autoDemo.intervalMs}
+          liveUpdatesActive={liveSimulation.isActive}
+          isNarrating={narration.isNarrating}
+          soundEnabled={soundEnabled}
+          narrationEnabled={narrationEnabled}
+          onToggleDemo={handleToggleDemo}
+          onNext={autoDemo.nextView}
+          onPrev={autoDemo.prevView}
+          onToggleLive={liveSimulation.toggle}
+          onPrint={handlePrint}
+          onSpeedChange={autoDemo.setSpeed}
+          onToggleSound={handleToggleSound}
+          onToggleNarration={handleToggleNarration}
+        />
+      </div>
 
       {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30 print:hidden">
+      <footer 
+        className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30 print:hidden"
+        data-tour="disclaimer"
+      >
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <div className="flex items-center gap-3">
             <span className="text-primary font-semibold">⚠️ Research Prototype</span>
