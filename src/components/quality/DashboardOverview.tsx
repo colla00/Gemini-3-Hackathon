@@ -1,6 +1,8 @@
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskCategoryData } from '@/data/nursingOutcomes';
+import { ConfidenceIndicator } from './ConfidenceIndicator';
+import { InterventionsSummary } from './InterventionsPanel';
 
 const RiskCard = ({ data }: { data: RiskCategoryData }) => {
   const TrendIcon = data.trend === 'up' ? TrendingUp : data.trend === 'down' ? TrendingDown : Minus;
@@ -24,7 +26,8 @@ const RiskCard = ({ data }: { data: RiskCategoryData }) => {
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
+          <ConfidenceIndicator confidence={data.confidence} showLabel={false} />
           <TrendIcon className={cn(
             "w-3.5 h-3.5",
             data.trend === 'up' ? 'text-risk-high' : data.trend === 'down' ? 'text-risk-low' : 'text-muted-foreground'
@@ -77,7 +80,7 @@ const RiskCard = ({ data }: { data: RiskCategoryData }) => {
   );
 };
 
-const QuickStatCard = ({ label, value, icon: Icon, color }: { label: string; value: string | number; icon: React.ElementType; color: string }) => (
+const QuickStatCard = ({ label, value, icon: Icon, color, subtext }: { label: string; value: string | number; icon: React.ElementType; color: string; subtext?: string }) => (
   <div className="glass-card rounded-lg p-3 flex items-center gap-3">
     <div className={cn("w-10 h-10 rounded flex items-center justify-center", color)}>
       <Icon className="w-5 h-5" />
@@ -85,6 +88,7 @@ const QuickStatCard = ({ label, value, icon: Icon, color }: { label: string; val
     <div>
       <span className="text-2xl font-bold text-foreground">{value}</span>
       <span className="text-[11px] text-muted-foreground block">{label}</span>
+      {subtext && <span className="text-[9px] text-muted-foreground/70">{subtext}</span>}
     </div>
   </div>
 );
@@ -106,7 +110,9 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
         <span className={cn("text-sm font-bold", getRiskLevelColor(patient.fallsLevel))}>
           {patient.fallsRisk}%
         </span>
-        <span className="text-[10px] text-muted-foreground block">Falls Risk</span>
+        <div className="flex items-center gap-1 justify-end">
+          <ConfidenceIndicator confidence={patient.fallsConfidence} showLabel={false} size="sm" />
+        </div>
       </div>
       <div className={cn(
         "px-2 py-0.5 rounded text-[10px] font-semibold uppercase",
@@ -123,15 +129,16 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
 export const DashboardOverview = () => {
   const highRiskCount = patients.filter(p => p.fallsLevel === 'HIGH').length;
   const moderateRiskCount = patients.filter(p => p.fallsLevel === 'MODERATE').length;
+  const immediateActions = patients.flatMap(p => p.interventions).filter(i => i.priority === 'immediate').length;
 
   return (
     <div className="space-y-4">
       {/* Quick Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <QuickStatCard label="Total Patients" value={patients.length} icon={Users} color="bg-primary/20 text-primary" />
-        <QuickStatCard label="High Risk" value={highRiskCount} icon={AlertCircle} color="bg-risk-high/20 text-risk-high" />
-        <QuickStatCard label="Moderate Risk" value={moderateRiskCount} icon={AlertTriangle} color="bg-risk-medium/20 text-risk-medium" />
-        <QuickStatCard label="Last Update" value="06:00" icon={Clock} color="bg-secondary text-muted-foreground" />
+        <QuickStatCard label="Total Patients" value={patients.length} icon={Users} color="bg-primary/20 text-primary" subtext="Unit 4C Census" />
+        <QuickStatCard label="High Risk" value={highRiskCount} icon={AlertCircle} color="bg-risk-high/20 text-risk-high" subtext="Immediate attention" />
+        <QuickStatCard label="Moderate Risk" value={moderateRiskCount} icon={AlertTriangle} color="bg-risk-medium/20 text-risk-medium" subtext="Monitoring required" />
+        <QuickStatCard label="Pending Actions" value={immediateActions} icon={Clock} color="bg-warning/20 text-warning" subtext="Immediate priority" />
       </div>
 
       {/* Main Content Grid */}
@@ -140,7 +147,7 @@ export const DashboardOverview = () => {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground">Risk Categories</h2>
-            <span className="text-[10px] text-muted-foreground">Unit 4C Summary</span>
+            <span className="text-[10px] text-muted-foreground">Unit 4C Summary • Avg Confidence: 87%</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {riskCategories.map((category) => (
@@ -152,27 +159,33 @@ export const DashboardOverview = () => {
           <div className="p-2.5 rounded bg-warning/10 border border-warning/30 flex items-center gap-2">
             <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0" />
             <p className="text-[11px] text-warning">
-              <strong>Synthetic Data:</strong> All values are simulated for demonstration purposes only.
+              <strong>Synthetic Data:</strong> All values are simulated for demonstration. Confidence scores indicate model prediction reliability.
             </p>
           </div>
         </div>
 
-        {/* Priority Queue - Right column */}
-        <div className="glass-card rounded-lg p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-foreground">Priority Queue</h3>
-            <span className="text-[10px] text-primary font-medium">By Falls Risk</span>
+        {/* Right column - Priority + Interventions */}
+        <div className="space-y-4">
+          {/* Priority Queue */}
+          <div className="glass-card rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-foreground">Priority Queue</h3>
+              <span className="text-[10px] text-primary font-medium">By Falls Risk</span>
+            </div>
+            <div className="space-y-1 max-h-48 overflow-y-auto">
+              {[...patients].sort((a, b) => b.fallsRisk - a.fallsRisk).slice(0, 5).map((patient, index) => (
+                <PriorityPatientRow key={patient.id} patient={patient} index={index} />
+              ))}
+            </div>
+            <div className="mt-3 pt-3 border-t border-border/30">
+              <button className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors">
+                View All {patients.length} Patients →
+              </button>
+            </div>
           </div>
-          <div className="space-y-1">
-            {[...patients].sort((a, b) => b.fallsRisk - a.fallsRisk).map((patient, index) => (
-              <PriorityPatientRow key={patient.id} patient={patient} index={index} />
-            ))}
-          </div>
-          <div className="mt-3 pt-3 border-t border-border/30">
-            <button className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors">
-              View All Patients →
-            </button>
-          </div>
+
+          {/* Interventions Summary */}
+          <InterventionsSummary patients={patients} />
         </div>
       </div>
     </div>

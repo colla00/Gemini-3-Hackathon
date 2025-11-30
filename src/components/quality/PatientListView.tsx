@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { Clock, Heart, Thermometer, Droplets, ChevronRight, Filter, SortAsc, Eye } from 'lucide-react';
+import { Clock, Heart, Thermometer, Droplets, ChevronRight, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { patients, getRiskLevelColor, type PatientData } from '@/data/nursingOutcomes';
+import { RiskSparkline } from './RiskSparkline';
+import { ConfidenceIndicator } from './ConfidenceIndicator';
+import { InterventionsPanel } from './InterventionsPanel';
 
 type SortField = 'fallsRisk' | 'hapiRisk' | 'cautiRisk' | 'id';
 
-const PatientRow = ({ patient, onClick }: { patient: PatientData; onClick: () => void }) => {
+const PatientRow = ({ patient, onClick, isSelected }: { patient: PatientData; onClick: () => void; isSelected: boolean }) => {
   const isHighRisk = patient.fallsLevel === 'HIGH';
   
   return (
     <tr 
       className={cn(
         "hover:bg-secondary/30 cursor-pointer transition-colors border-b border-border/20",
-        isHighRisk && "bg-risk-high/5"
+        isHighRisk && "bg-risk-high/5",
+        isSelected && "bg-primary/10"
       )}
       onClick={onClick}
     >
@@ -36,27 +40,21 @@ const PatientRow = ({ patient, onClick }: { patient: PatientData; onClick: () =>
         </div>
       </td>
 
-      {/* Falls Risk */}
+      {/* Falls Risk with Sparkline */}
       <td className="py-3 px-4">
-        <div className="flex items-center gap-2">
-          <div className="w-16">
+        <div className="flex items-center gap-3">
+          <div className="w-20">
             <div className="flex items-baseline gap-0.5">
               <span className={cn("text-lg font-bold", getRiskLevelColor(patient.fallsLevel))}>
                 {patient.fallsRisk}
               </span>
               <span className="text-xs text-muted-foreground">%</span>
             </div>
-            <div className="w-full h-1 bg-muted/30 rounded-full overflow-hidden mt-1">
-              <div
-                className={cn(
-                  "h-full rounded-full",
-                  patient.fallsLevel === 'HIGH' ? 'bg-risk-high' :
-                  patient.fallsLevel === 'MODERATE' ? 'bg-risk-medium' : 'bg-risk-low'
-                )}
-                style={{ width: `${patient.fallsRisk}%` }}
-              />
+            <div className="flex items-center gap-1 mt-0.5">
+              <ConfidenceIndicator confidence={patient.fallsConfidence} showLabel={false} size="sm" />
             </div>
           </div>
+          <RiskSparkline data={patient.fallsTrend} level={patient.fallsLevel} />
           <span className={cn(
             "px-1.5 py-0.5 rounded text-[9px] font-bold uppercase",
             patient.fallsLevel === 'HIGH' ? 'bg-risk-high/20 text-risk-high' :
@@ -70,40 +68,37 @@ const PatientRow = ({ patient, onClick }: { patient: PatientData; onClick: () =>
 
       {/* HAPI Risk */}
       <td className="py-3 px-4">
-        <div className="flex items-baseline gap-0.5">
-          <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.hapiLevel))}>
-            {patient.hapiRisk}
-          </span>
-          <span className="text-[10px] text-muted-foreground">%</span>
+        <div className="flex items-center gap-2">
+          <div>
+            <div className="flex items-baseline gap-0.5">
+              <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.hapiLevel))}>
+                {patient.hapiRisk}
+              </span>
+              <span className="text-[10px] text-muted-foreground">%</span>
+            </div>
+            <ConfidenceIndicator confidence={patient.hapiConfidence} showLabel={false} size="sm" />
+          </div>
         </div>
       </td>
 
       {/* CAUTI Risk */}
       <td className="py-3 px-4">
-        <div className="flex items-baseline gap-0.5">
-          <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.cautiLevel))}>
-            {patient.cautiRisk}
-          </span>
-          <span className="text-[10px] text-muted-foreground">%</span>
+        <div className="flex items-center gap-2">
+          <div>
+            <div className="flex items-baseline gap-0.5">
+              <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.cautiLevel))}>
+                {patient.cautiRisk}
+              </span>
+              <span className="text-[10px] text-muted-foreground">%</span>
+            </div>
+            <ConfidenceIndicator confidence={patient.cautiConfidence} showLabel={false} size="sm" />
+          </div>
         </div>
       </td>
 
-      {/* Vitals */}
+      {/* Interventions */}
       <td className="py-3 px-4">
-        <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Heart className="w-3 h-3 text-risk-high" />
-            {patient.vitals.heartRate}
-          </span>
-          <span className="flex items-center gap-1">
-            <Droplets className="w-3 h-3 text-primary" />
-            {patient.vitals.bp}
-          </span>
-          <span className="flex items-center gap-1">
-            <Thermometer className="w-3 h-3 text-risk-medium" />
-            {patient.vitals.temp}
-          </span>
-        </div>
+        <InterventionsPanel patient={patient} compact />
       </td>
 
       {/* Actions */}
@@ -128,19 +123,34 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
       </button>
     </div>
 
-    {/* Risk Scores */}
-    <div className="grid grid-cols-3 gap-3 mb-4">
+    {/* Risk Scores with Confidence */}
+    <div className="grid grid-cols-3 gap-2 mb-4">
       <div className={cn("p-3 rounded-lg text-center", patient.fallsLevel === 'HIGH' ? 'bg-risk-high/10 border border-risk-high/30' : 'bg-muted/20')}>
         <span className="text-[10px] text-muted-foreground block">Falls</span>
         <span className={cn("text-2xl font-bold", getRiskLevelColor(patient.fallsLevel))}>{patient.fallsRisk}%</span>
+        <div className="mt-1"><ConfidenceIndicator confidence={patient.fallsConfidence} size="sm" /></div>
       </div>
       <div className={cn("p-3 rounded-lg text-center", patient.hapiLevel === 'HIGH' ? 'bg-risk-high/10 border border-risk-high/30' : 'bg-muted/20')}>
         <span className="text-[10px] text-muted-foreground block">HAPI</span>
         <span className={cn("text-2xl font-bold", getRiskLevelColor(patient.hapiLevel))}>{patient.hapiRisk}%</span>
+        <div className="mt-1"><ConfidenceIndicator confidence={patient.hapiConfidence} size="sm" /></div>
       </div>
       <div className={cn("p-3 rounded-lg text-center", patient.cautiLevel === 'HIGH' ? 'bg-risk-high/10 border border-risk-high/30' : 'bg-muted/20')}>
         <span className="text-[10px] text-muted-foreground block">CAUTI</span>
         <span className={cn("text-2xl font-bold", getRiskLevelColor(patient.cautiLevel))}>{patient.cautiRisk}%</span>
+        <div className="mt-1"><ConfidenceIndicator confidence={patient.cautiConfidence} size="sm" /></div>
+      </div>
+    </div>
+
+    {/* 24h Trend */}
+    <div className="p-3 rounded-lg bg-secondary/30 mb-4">
+      <span className="text-[10px] font-semibold text-muted-foreground uppercase block mb-2">24-Hour Falls Risk Trend</span>
+      <div className="flex items-center gap-4">
+        <RiskSparkline data={patient.fallsTrend} level={patient.fallsLevel} width={120} height={40} />
+        <div className="text-[10px] text-muted-foreground">
+          <div>Start: {patient.fallsTrend[0]?.value.toFixed(0)}%</div>
+          <div>Current: {patient.fallsTrend[patient.fallsTrend.length - 1]?.value.toFixed(0)}%</div>
+        </div>
       </div>
     </div>
 
@@ -171,8 +181,11 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
       </div>
     </div>
 
+    {/* Interventions */}
+    <InterventionsPanel patient={patient} />
+
     {/* Quick Actions */}
-    <div className="flex gap-2">
+    <div className="flex gap-2 mt-4">
       <button className="flex-1 py-2 px-3 rounded bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors">
         View SHAP Analysis
       </button>
@@ -204,7 +217,7 @@ export const PatientListView = () => {
         <div className="flex items-center gap-2">
           <h2 className="text-sm font-semibold text-foreground">Patient Worklist</h2>
           <span className="text-[10px] text-muted-foreground px-2 py-0.5 bg-secondary rounded">
-            {sortedPatients.length} patients
+            {sortedPatients.length} of {patients.length} patients
           </span>
         </div>
         
@@ -248,32 +261,35 @@ export const PatientListView = () => {
       <div className="flex gap-4">
         {/* Table */}
         <div className={cn("glass-card rounded-lg overflow-hidden flex-1", selectedPatient && "lg:flex-[2]")}>
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border/30 bg-secondary/30">
-                <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Patient</th>
-                <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Falls Risk</th>
-                <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">HAPI</th>
-                <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">CAUTI</th>
-                <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Vitals</th>
-                <th className="py-2 px-4 w-12"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedPatients.map((patient) => (
-                <PatientRow 
-                  key={patient.id} 
-                  patient={patient} 
-                  onClick={() => setSelectedPatient(patient)}
-                />
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border/30 bg-secondary/30">
+                  <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Patient</th>
+                  <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Falls Risk (24h Trend)</th>
+                  <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">HAPI</th>
+                  <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">CAUTI</th>
+                  <th className="py-2 px-4 text-left text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Interventions</th>
+                  <th className="py-2 px-4 w-12"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedPatients.map((patient) => (
+                  <PatientRow 
+                    key={patient.id} 
+                    patient={patient} 
+                    onClick={() => setSelectedPatient(patient)}
+                    isSelected={selectedPatient?.id === patient.id}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Detail Panel */}
         {selectedPatient && (
-          <div className="hidden lg:block w-80">
+          <div className="hidden lg:block w-96">
             <PatientDetailPanel patient={selectedPatient} onClose={() => setSelectedPatient(null)} />
           </div>
         )}
@@ -294,7 +310,8 @@ export const PatientListView = () => {
           <span className="w-2 h-2 rounded-full bg-risk-low" />
           <span>Low (&lt;35%)</span>
         </div>
-        <span className="text-warning">• Pulsing indicator = High risk patient requiring attention</span>
+        <span className="text-primary">• Sparklines show 24-hour trend</span>
+        <span className="text-warning">• Confidence indicates model reliability</span>
       </div>
     </div>
   );
