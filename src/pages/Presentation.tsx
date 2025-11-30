@@ -36,8 +36,17 @@ export const Presentation = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
+
+  // Get stored email on mount
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('demo_auth_email');
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
 
   // Guided tour - auto-start disabled for presentation mode
   const guidedTour = useGuidedTour(false);
@@ -336,7 +345,9 @@ export const Presentation = () => {
               <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="hidden md:block text-xs font-medium text-foreground">Demo User</span>
+              <span className="hidden md:block text-xs font-medium text-foreground max-w-[120px] truncate" title={userEmail || 'Demo User'}>
+                {userEmail || 'Demo User'}
+              </span>
               <button
                 onClick={() => {
                   logInteraction('Logged out of demo');
