@@ -11,6 +11,9 @@ export const ResearchBanner = () => {
         <span className="text-warning/70 hidden sm:inline">
           • Not for clinical use
         </span>
+        <span className="text-warning/70 hidden md:inline">
+          • Not FDA cleared
+        </span>
         <AlertTriangle className="w-3.5 h-3.5 text-warning" />
       </div>
     </div>
