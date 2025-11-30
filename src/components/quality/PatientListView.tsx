@@ -27,14 +27,18 @@ const PatientRow = ({ patient, onClick, isSelected }: { patient: PatientData; on
             <span className="w-2 h-2 rounded-full bg-risk-high animate-pulse shrink-0" />
           )}
           <div>
-            <span className="text-sm font-medium text-foreground">{patient.id}</span>
-            <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-[10px] text-muted-foreground">Room {patient.bed}</span>
-              <span className="text-[10px] text-muted-foreground">•</span>
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                <Clock className="w-2.5 h-2.5" />
-                {patient.lastUpdated}
-              </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-bold text-foreground">{patient.mrn}</span>
+              <span className="text-xs text-muted-foreground">• {patient.age}{patient.sex}</span>
+            </div>
+            <div className="flex items-center gap-2 mt-0.5 text-[10px] text-muted-foreground">
+              <span>Rm {patient.bed}</span>
+              <span>•</span>
+              <span>{patient.diagnosis}</span>
+            </div>
+            <div className="flex items-center gap-2 mt-0.5 text-[10px]">
+              <span className="text-muted-foreground/70">Adm {patient.admitDate} • LOS {patient.los}d</span>
+              <span className="text-primary/70">• {patient.assignedNurse}</span>
             </div>
           </div>
         </div>
@@ -115,12 +119,26 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
   <div className="glass-card rounded-lg p-4 border-l-4 border-l-primary animate-slide-in-right">
     <div className="flex items-center justify-between mb-4">
       <div>
-        <h3 className="text-lg font-bold text-foreground">{patient.id}</h3>
-        <span className="text-xs text-muted-foreground">Room {patient.bed} • Unit {patient.unit}</span>
+        <div className="flex items-center gap-2">
+          <h3 className="text-lg font-bold text-foreground">{patient.mrn}</h3>
+          <span className="text-sm text-muted-foreground">{patient.age}{patient.sex}</span>
+        </div>
+        <span className="text-xs text-muted-foreground">Rm {patient.bed} • {patient.diagnosis}</span>
+        <div className="flex items-center gap-2 mt-1 text-[10px]">
+          <span className="text-muted-foreground">Adm {patient.admitDate} • LOS {patient.los}d</span>
+          <span className="text-primary">• {patient.assignedNurse}</span>
+        </div>
       </div>
       <button onClick={onClose} className="p-1.5 rounded hover:bg-secondary/50 text-muted-foreground">
         ✕
       </button>
+    </div>
+
+    {/* Last Assessed */}
+    <div className="flex items-center gap-2 p-2 rounded bg-primary/10 border border-primary/30 mb-4 text-[11px]">
+      <Clock className="w-3.5 h-3.5 text-primary" />
+      <span className="text-primary font-medium">Last assessed: {patient.lastAssessed}</span>
+      <span className="text-muted-foreground">by {patient.assignedNurse}</span>
     </div>
 
     {/* Risk Scores with Confidence */}

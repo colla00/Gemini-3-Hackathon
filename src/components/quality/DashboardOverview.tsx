@@ -101,8 +101,15 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
     <div className="flex items-center gap-3">
       <span className="text-[10px] font-mono text-muted-foreground w-4">{index + 1}</span>
       <div>
-        <span className="text-sm font-medium text-foreground">{patient.id}</span>
-        <span className="text-[10px] text-muted-foreground block">Room {patient.bed}</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-sm font-medium text-foreground">{patient.mrn}</span>
+          <span className="text-[10px] text-muted-foreground">• {patient.age}{patient.sex}</span>
+        </div>
+        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+          <span>Rm {patient.bed}</span>
+          <span className="text-primary">HR {patient.vitals.heartRate}</span>
+          <span className="text-muted-foreground/70">{patient.vitals.bp}</span>
+        </div>
       </div>
     </div>
     <div className="flex items-center gap-3">
