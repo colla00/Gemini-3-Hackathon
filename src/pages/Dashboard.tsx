@@ -28,10 +28,19 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
   
   // Live simulation (can be toggled)
   const liveSimulation = useLiveSimulation(true, 5000);
+
+  // Get stored email on mount
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('demo_auth_email');
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
 
   // Update time periodically
   useEffect(() => {
@@ -186,7 +195,9 @@ export const Dashboard = () => {
               <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="hidden md:block text-xs font-medium text-foreground">Demo User</span>
+              <span className="hidden md:block text-xs font-medium text-foreground max-w-[120px] truncate" title={userEmail || 'Demo User'}>
+                {userEmail || 'Demo User'}
+              </span>
               <button
                 onClick={() => {
                   logInteraction('Logged out of demo');
