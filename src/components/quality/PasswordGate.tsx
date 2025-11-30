@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Lock, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Lock, ShieldCheck, AlertCircle, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const DEMO_PASSWORD = 'stanford2025';
+const DEMO_PASSWORD = '413god!';
 const AUTH_KEY = 'demo_authenticated';
 const AUTH_EXPIRY_KEY = 'demo_auth_expiry';
+const AUTH_EMAIL_KEY = 'demo_auth_email';
 const AUTH_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 interface PasswordGateProps {
@@ -14,6 +15,7 @@ interface PasswordGateProps {
 export const PasswordGate = ({ children }: PasswordGateProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [attempts, setAttempts] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
@@ -32,6 +34,7 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
         // Clear expired auth
         localStorage.removeItem(AUTH_KEY);
         localStorage.removeItem(AUTH_EXPIRY_KEY);
+        localStorage.removeItem(AUTH_EMAIL_KEY);
       }
     }
   }, []);
@@ -49,7 +52,7 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
     }
   }, [lockCountdown, isLocked]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (isLocked) return;
@@ -58,18 +61,28 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
       setIsAuthenticated(true);
       localStorage.setItem(AUTH_KEY, 'true');
       localStorage.setItem(AUTH_EXPIRY_KEY, String(Date.now() + AUTH_DURATION));
+      if (email) {
+        localStorage.setItem(AUTH_EMAIL_KEY, email);
+      }
       setError('');
       
-      // Log authentication event
+      // Log authentication event with email
       const sessions = JSON.parse(localStorage.getItem('patent_evidence_sessions') || '[]');
       if (sessions.length > 0) {
         const currentSession = sessions[sessions.length - 1];
         currentSession.events.push({
           timestamp: new Date().toISOString(),
           type: 'interaction',
-          details: 'Successfully authenticated with demo password',
+          details: `Successfully authenticated${email ? ` (${email})` : ''}`,
           route: window.location.pathname
         });
+        // Store email in session for evidence
+        if (email) {
+          currentSession.identityInfo = {
+            ...currentSession.identityInfo,
+            email: email
+          };
+        }
         localStorage.setItem('patent_evidence_sessions', JSON.stringify(sessions));
       }
     } else {
@@ -85,13 +98,6 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
         setError('Too many failed attempts. Please wait 30 seconds.');
       }
     }
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem(AUTH_KEY);
-    localStorage.removeItem(AUTH_EXPIRY_KEY);
-    setPassword('');
   };
 
   if (isAuthenticated) {
@@ -124,6 +130,28 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email (optional, for identification) */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                Email <span className="text-muted-foreground text-xs">(optional, for session tracking)</span>
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLocked}
+                  placeholder="your@email.com"
+                  className={cn(
+                    "w-full pl-10 pr-4 py-3 rounded-xl bg-secondary border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-border/50",
+                    isLocked && "opacity-50 cursor-not-allowed"
+                  )}
+                />
+              </div>
+            </div>
+
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
                 Access Code
@@ -194,5 +222,6 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
 export const logoutDemo = () => {
   localStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_EXPIRY_KEY);
+  localStorage.removeItem(AUTH_EMAIL_KEY);
   window.location.reload();
 };
