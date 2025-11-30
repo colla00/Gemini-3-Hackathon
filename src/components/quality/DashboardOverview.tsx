@@ -236,7 +236,7 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
             </div>
           </div>
           <div className="text-[9px] text-muted-foreground">
-            <ClinicalTooltip term="LOS" showIcon={false}>LOS: {patient.los} days</ClinicalTooltip> • {patient.assignedNurse}
+            <ClinicalTooltip term="LOS" showIcon={false}>LOS: {patient.los} days</ClinicalTooltip>
           </div>
         </div>
       </TooltipContent>

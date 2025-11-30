@@ -37,8 +37,6 @@ export interface Patient {
   riskSummary: string;
   room?: string;
   diagnosis?: string;
-  attendingPhysician?: string;
-  nurseAssigned?: string;
   interventions?: Intervention[];
   vitals?: Vital[];
   nursingOutcomes?: {
@@ -64,8 +62,6 @@ export const patients: Patient[] = [
     isDemo: true,
     room: '412A',
     diagnosis: 'Post-operative Hip Replacement',
-    attendingPhysician: 'Dr. Martinez',
-    nurseAssigned: 'RN Johnson',
     riskSummary: 'Sedation 4h ago + mobility deficits → ↑ fall risk',
     riskFactors: [
       { name: 'Recent sedation administration', icon: '💊', contribution: 0.32 },
@@ -104,8 +100,6 @@ export const patients: Patient[] = [
     isDemo: true,
     room: '408B',
     diagnosis: 'Total Knee Arthroplasty',
-    attendingPhysician: 'Dr. Chen',
-    nurseAssigned: 'RN Williams',
     riskSummary: 'Extended bed rest + early stage I sacral area noted',
     riskFactors: [
       { name: 'Extended bed rest duration', icon: '🛏️', contribution: 0.25 },
@@ -143,8 +137,6 @@ export const patients: Patient[] = [
     isDemo: true,
     room: '415A',
     diagnosis: 'Laparoscopic Cholecystectomy',
-    attendingPhysician: 'Dr. Patel',
-    nurseAssigned: 'RN Garcia',
     riskSummary: 'Good awareness + ambulating independently',
     riskFactors: [
       { name: 'High call light usage', icon: '📞', contribution: -0.20 },
@@ -175,8 +167,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 4',
     room: '420A',
     diagnosis: 'Cardiac Catheterization',
-    attendingPhysician: 'Dr. Thompson',
-    nurseAssigned: 'RN Davis',
     riskSummary: 'Post-procedure sedation + advanced age → elevated risk',
     riskFactors: [
       { name: 'Recent sedation administration', icon: '💊', contribution: 0.28 },
@@ -212,8 +202,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 7',
     room: '405B',
     diagnosis: 'Stroke - Left MCA Territory',
-    attendingPhysician: 'Dr. Nguyen',
-    nurseAssigned: 'RN Martinez',
     riskSummary: 'Long-term immobility + extended admission duration',
     riskFactors: [
       { name: 'Mobility limitations present', icon: '🛏️', contribution: 0.28 },
@@ -249,8 +237,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 1',
     room: '418A',
     diagnosis: 'Pneumonia - Community Acquired',
-    attendingPhysician: 'Dr. Roberts',
-    nurseAssigned: 'RN Anderson',
     riskSummary: 'New device placement + clean site assessment',
     riskFactors: [
       { name: 'Patient awareness level', icon: '👁️', contribution: 0.10 },
@@ -281,8 +267,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 2',
     room: '402A',
     diagnosis: 'Acute Delirium - UTI',
-    attendingPhysician: 'Dr. Wilson',
-    nurseAssigned: 'RN Taylor',
     riskSummary: 'Acute confusion + attempts to ambulate unassisted',
     riskFactors: [
       { name: 'Confusion/Delirium present', icon: '🧠', contribution: 0.35 },
@@ -319,8 +303,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 3',
     room: '410B',
     diagnosis: 'COPD Exacerbation',
-    attendingPhysician: 'Dr. Lee',
-    nurseAssigned: 'RN Brown',
     riskSummary: 'Improving with PT intervention + appropriate call light use',
     riskFactors: [
       { name: 'Advanced age (>65)', icon: '👤', contribution: 0.20 },
@@ -357,8 +339,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 4',
     room: '416A',
     diagnosis: 'Elective Hernia Repair',
-    attendingPhysician: 'Dr. Adams',
-    nurseAssigned: 'RN Miller',
     riskSummary: 'Ambulatory + independent with ADLs',
     riskFactors: [
       { name: 'Good mobility status', icon: '🚶', contribution: -0.18 },
@@ -389,8 +369,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 6',
     room: '404B',
     diagnosis: 'Sepsis - Recovering',
-    attendingPhysician: 'Dr. Kim',
-    nurseAssigned: 'RN Jackson',
     riskSummary: 'Extended device duration + mild site redness observed',
     riskFactors: [
       { name: 'Extended device duration', icon: '⏱️', contribution: 0.22 },
@@ -423,8 +401,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 8',
     room: '401A',
     diagnosis: 'Spinal Cord Injury - Incomplete',
-    attendingPhysician: 'Dr. Hernandez',
-    nurseAssigned: 'RN White',
     riskSummary: 'Foley catheter Day 8 + cloudy urine + low-grade fever',
     riskFactors: [
       { name: 'Extended catheter duration (>7 days)', icon: '⏱️', contribution: 0.35 },
@@ -461,8 +437,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 12',
     room: '403A',
     diagnosis: 'Multi-System Organ Failure - ICU Stepdown',
-    attendingPhysician: 'Dr. Foster',
-    nurseAssigned: 'RN Clark',
     riskSummary: 'Stage II sacral wound + critically low albumin + profound weakness',
     riskFactors: [
       { name: 'Existing pressure injury (Stage II)', icon: '🩹', contribution: 0.30 },
@@ -501,8 +475,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 4',
     room: '411A',
     diagnosis: 'Post-TURP Retention',
-    attendingPhysician: 'Dr. Reynolds',
-    nurseAssigned: 'RN Lopez',
     riskSummary: 'Post-surgical catheter Day 4 + removal trial planned',
     riskFactors: [
       { name: 'Catheter duration (4-7 days)', icon: '⏱️', contribution: 0.22 },
@@ -539,8 +511,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 2',
     room: '422A',
     diagnosis: 'Appendectomy - Laparoscopic',
-    attendingPhysician: 'Dr. Collins',
-    nurseAssigned: 'RN Turner',
     riskSummary: 'Young, alert, ambulating independently - low baseline risk',
     riskFactors: [
       { name: 'Age <65', icon: '👤', contribution: -0.15 },
@@ -572,8 +542,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 9',
     room: '406A',
     diagnosis: 'Diabetic Foot Infection',
-    attendingPhysician: 'Dr. Murphy',
-    nurseAssigned: 'RN Hall',
     riskSummary: 'PICC line with positive blood cultures + septic presentation',
     riskFactors: [
       { name: 'Positive blood cultures', icon: '🔬', contribution: 0.32 },
@@ -610,8 +578,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 5',
     room: '419B',
     diagnosis: 'CHF Exacerbation',
-    attendingPhysician: 'Dr. Bennett',
-    nurseAssigned: 'RN Green',
     riskSummary: 'Diuretic therapy → orthostatic hypotension risk + improving strength',
     riskFactors: [
       { name: 'Diuretic-induced orthostasis', icon: '💊', contribution: 0.22 },
@@ -648,8 +614,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 2',
     room: '421A',
     diagnosis: 'Cesarean Section',
-    attendingPhysician: 'Dr. Campbell',
-    nurseAssigned: 'RN Adams',
     riskSummary: 'Post-surgical catheter removed < 24h + voiding spontaneously',
     riskFactors: [
       { name: 'Catheter removed early (<24h)', icon: '✅', contribution: -0.18 },
@@ -681,8 +645,6 @@ export const patients: Patient[] = [
     admissionDate: 'Day 6',
     room: '400A',
     diagnosis: 'Parkinson Disease - Pneumonia',
-    attendingPhysician: 'Dr. Morgan',
-    nurseAssigned: 'RN Phillips',
     riskSummary: 'Parkinson tremor + gait freezing + acute illness → extreme fall risk',
     riskFactors: [
       { name: 'Parkinson disease - gait disorder', icon: '🧠', contribution: 0.35 },

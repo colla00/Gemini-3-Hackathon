@@ -171,7 +171,7 @@ export const Dashboard = () => {
               <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="hidden md:block text-xs font-medium text-foreground">RN Demo</span>
+              <span className="hidden md:block text-xs font-medium text-foreground">Demo User</span>
             </div>
           </div>
         </div>

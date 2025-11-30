@@ -60,7 +60,6 @@ const PatientRow = ({ patient, onClick, isSelected, index, isLive }: { patient: 
               <ClinicalTooltip term="LOS" showIcon={false}>
                 <span className="text-muted-foreground/70">Adm {patient.admitDate} • LOS {patient.los}d</span>
               </ClinicalTooltip>
-              <span className="text-primary/70">• {patient.assignedNurse}</span>
             </div>
           </div>
         </div>
@@ -158,7 +157,6 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
           <ClinicalTooltip term="LOS" showIcon={false}>
             <span className="text-muted-foreground">Adm {patient.admitDate} • LOS {patient.los}d</span>
           </ClinicalTooltip>
-          <span className="text-primary">• {patient.assignedNurse}</span>
         </div>
       </div>
       <button onClick={onClose} className="p-1.5 rounded hover:bg-secondary/50 text-muted-foreground transition-colors">
@@ -170,7 +168,6 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
     <div className="flex items-center gap-2 p-2 rounded bg-primary/10 border border-primary/30 mb-4 text-[11px]">
       <Clock className="w-3.5 h-3.5 text-primary" />
       <span className="text-primary font-medium">Last assessed: {patient.lastAssessed}</span>
-      <span className="text-muted-foreground">by {patient.assignedNurse}</span>
     </div>
 
     {/* Risk Scores with Confidence */}

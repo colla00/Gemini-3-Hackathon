@@ -126,12 +126,12 @@ export const InfoModal = () => {
             
             {/* Affiliation */}
             <div className="pt-3 border-t border-border space-y-3">
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Presenter</h4>
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Research</h4>
               <div className="flex items-center gap-3">
                 <User className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="text-foreground font-semibold">Dr. Alexis Collier</p>
-                  <p className="text-xs text-muted-foreground">AIM-AHEAD CLINAQ Fellow (NIH)</p>
+                  <p className="text-foreground font-semibold">AIM-AHEAD CLINAQ Fellow</p>
+                  <p className="text-xs text-muted-foreground">NIH-funded Research Initiative</p>
                 </div>
               </div>
               
