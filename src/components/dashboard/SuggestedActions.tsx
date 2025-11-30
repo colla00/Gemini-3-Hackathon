@@ -40,6 +40,12 @@ const getActionsForRiskType = (riskType: RiskType, riskLevel: string): Action[] 
       { id: '3', label: 'Document dwell time', priority: 'medium', rationale: 'Duration correlates with complication risk' },
       { id: '4', label: 'Reinforce aseptic technique', priority: 'low', rationale: 'Consistent technique prevents infection', completed: true },
     ],
+    'CAUTI': [
+      { id: '1', label: 'Review catheter necessity daily', priority: 'high', rationale: 'Early removal is the primary CAUTI prevention strategy' },
+      { id: '2', label: 'Assess for UTI symptoms', priority: 'high', rationale: 'Early detection enables prompt treatment' },
+      { id: '3', label: 'Verify securement device intact', priority: 'medium', rationale: 'Proper securement prevents trauma and migration' },
+      { id: '4', label: 'Document CAUTI bundle compliance', priority: 'low', rationale: 'Bundle adherence reduces infection rates', completed: true },
+    ],
   };
 
   return actionSets[riskType] || [];
