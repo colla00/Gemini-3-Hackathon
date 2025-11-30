@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation
+  Brain, Sparkles, Lock, FileText, Presentation, Play
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { DemoModal } from '@/components/demo/DemoModal';
 
 const features = [
   {
@@ -40,7 +42,7 @@ const pages = [
     to: '/presentation',
     icon: Presentation,
     title: 'Presentation Mode',
-    description: 'Auto-guided demo with narration',
+    description: 'Interactive academic presentation',
     color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
   },
   {
@@ -53,8 +55,13 @@ const pages = [
 ];
 
 export const Landing = () => {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Demo Modal */}
+      <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+
       {/* Patent Notice Header */}
       <div className="bg-primary/5 border-b border-primary/20 py-2 px-4">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 text-xs text-primary">
@@ -109,13 +116,13 @@ export const Landing = () => {
                 <span>Enter Dashboard</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link
-                to="/presentation?autostart=true"
+              <button
+                onClick={() => setDemoOpen(true)}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
               >
-                <Presentation className="w-5 h-5" />
+                <Play className="w-5 h-5" />
                 <span>Watch 5-Min Demo</span>
-              </Link>
+              </button>
             </div>
 
             {/* Conference Badge */}

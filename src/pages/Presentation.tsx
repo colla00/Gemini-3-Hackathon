@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
@@ -18,7 +18,6 @@ import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { PresentationTimeline } from '@/components/quality/PresentationTimeline';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { AcademicHeader } from '@/components/quality/AcademicHeader';
-import { DemoTimer } from '@/components/quality/DemoTimer';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -35,7 +34,6 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 ];
 
 export const Presentation = () => {
-  const [searchParams] = useSearchParams();
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -44,12 +42,8 @@ export const Presentation = () => {
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
   const [completedViews, setCompletedViews] = useState<ViewType[]>([]);
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [autoDemoStarted, setAutoDemoStarted] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
-
-  // Check for autostart parameter
-  const shouldAutoStart = searchParams.get('autostart') === 'true';
 
   // Get stored email on mount
   useEffect(() => {
@@ -89,30 +83,6 @@ export const Presentation = () => {
 
   // Auto-demo functionality
   const autoDemo = useAutoDemo(handleViewChange);
-
-  // Auto-start 5-minute demo when ?autostart=true
-  useEffect(() => {
-    if (shouldAutoStart && !autoDemoStarted) {
-      setAutoDemoStarted(true);
-      
-      // Configure for 5-minute demo (75 seconds per view × 4 views = 5 minutes)
-      autoDemo.setSpeed(75000);
-      
-      // Enable narration and academic mode
-      setNarrationEnabled(true);
-      narration.setAcademicMode(true);
-      
-      // Start demo after a short delay for page to load
-      const startTimer = setTimeout(() => {
-        logInteraction('Auto-started 5-minute demo');
-        narration.soundEffects.playStart();
-        narration.narrateView('dashboard');
-        autoDemo.toggleDemo();
-      }, 1500);
-      
-      return () => clearTimeout(startTimer);
-    }
-  }, [shouldAutoStart, autoDemoStarted, autoDemo, narration, logInteraction]);
 
   // Live simulation
   const liveSimulation = useLiveSimulation(true, 5000);
@@ -227,20 +197,6 @@ export const Presentation = () => {
         currentView={activeView}
         enabled={hotspotsEnabled}
       />
-
-      {/* 5-Minute Demo Timer (when auto-started) */}
-      {autoDemoStarted && (
-        <DemoTimer
-          isRunning={autoDemo.isRunning}
-          totalDurationMs={300000}
-          currentViewIndex={autoDemo.currentIndex}
-          totalViews={autoDemo.totalViews}
-          onStop={() => {
-            autoDemo.stopDemo();
-            setAutoDemoStarted(false);
-          }}
-        />
-      )}
 
       {/* Guided Tour Overlay */}
       <GuidedTour
