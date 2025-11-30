@@ -16,11 +16,11 @@ interface TimelineEvent {
 
 const timelineEvents: TimelineEvent[] = [
   { time: '01:30', type: 'alert', title: 'Baseline Risk Assessment', description: 'Fall risk: 42% (Moderate) - Routine monitoring', user: 'System' },
-  { time: '01:45', type: 'action', title: 'Sedation Administered', description: 'Lorazepam 2mg IV per order', user: 'RN Martinez' },
+  { time: '01:45', type: 'action', title: 'Sedation Administered', description: 'Lorazepam 2mg IV per order', user: 'Clinical Staff' },
   { time: '02:00', type: 'alert', title: 'Risk Escalation Detected', description: 'Fall risk increased to 68% (High) - Alert triggered', user: 'System' },
-  { time: '02:03', type: 'assessment', title: 'Clinical Assessment Initiated', description: 'Mobility check, mental status, environment review', user: 'RN Martinez' },
-  { time: '02:08', type: 'action', title: 'Bed Alarm Activated', description: 'Fall precaution protocol initiated', user: 'RN Martinez' },
-  { time: '02:10', type: 'action', title: 'Safety Measures Documented', description: 'Side rails up, call light within reach, non-slip socks applied', user: 'RN Martinez' },
+  { time: '02:03', type: 'assessment', title: 'Clinical Assessment Initiated', description: 'Mobility check, mental status, environment review', user: 'Clinical Staff' },
+  { time: '02:08', type: 'action', title: 'Bed Alarm Activated', description: 'Fall precaution protocol initiated', user: 'Clinical Staff' },
+  { time: '02:10', type: 'action', title: 'Safety Measures Documented', description: 'Side rails up, call light within reach, non-slip socks applied', user: 'Clinical Staff' },
   { time: '02:15', type: 'outcome', title: 'Intervention Complete', description: 'Risk mitigated - Patient remains safe through shift', user: 'System' },
 ];
 
