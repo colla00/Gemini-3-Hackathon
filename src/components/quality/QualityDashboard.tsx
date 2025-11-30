@@ -360,6 +360,10 @@ export const QualityDashboard = () => {
           onSpeedChange={autoDemo.setSpeed}
           onToggleSound={handleToggleSound}
           onToggleNarration={handleToggleNarration}
+          onResetTour={() => {
+            guidedTour.resetTourHistory();
+            guidedTour.startTour();
+          }}
         />
       </div>
 

@@ -1,4 +1,4 @@
-import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Zap, Printer, Keyboard, ChevronDown, X, Volume2, VolumeX, Mic, MicOff, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -22,6 +22,7 @@ interface DemoControlsProps {
   onSpeedChange: (ms: number) => void;
   onToggleSound: () => void;
   onToggleNarration: () => void;
+  onResetTour: () => void;
 }
 
 export const DemoControls = ({
@@ -42,6 +43,7 @@ export const DemoControls = ({
   onSpeedChange,
   onToggleSound,
   onToggleNarration,
+  onResetTour,
 }: DemoControlsProps) => {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showSpeed, setShowSpeed] = useState(false);
@@ -252,6 +254,21 @@ export const DemoControls = ({
             onToggleSound={onToggleSound}
             onToggleNarration={onToggleNarration}
           />
+
+          <div className="w-px h-4 bg-border/50" />
+
+          {/* Reset Tour */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button 
+                onClick={onResetTour}
+                className="p-1.5 rounded hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="text-[10px]">Replay Tour</TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </TooltipProvider>
