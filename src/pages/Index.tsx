@@ -1,17 +1,18 @@
-import { Dashboard } from '@/components/dashboard/Dashboard';
+import { QualityDashboard } from '@/components/quality/QualityDashboard';
 import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
   return (
     <>
       <Helmet>
-        <title>EHR-Driven Quality Dashboard | Stanford AI+HEALTH 2025</title>
+        <title>EHR-Driven Quality Dashboard | Nurse-Sensitive Outcomes | Stanford AI+HEALTH 2025</title>
         <meta 
           name="description" 
-          content="Interactive clinical risk monitoring dashboard for nurse-sensitive adverse events. Research prototype for educational demonstration at Stanford AI+HEALTH 2025." 
+          content="Predictive analytics dashboard for nurse-sensitive outcomes including Falls, HAPI, and CAUTI risk. Research prototype with SHAP explainability for Stanford AI+HEALTH 2025." 
         />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <Dashboard />
+      <QualityDashboard />
     </>
   );
 };

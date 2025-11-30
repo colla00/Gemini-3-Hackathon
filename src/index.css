@@ -6,22 +6,25 @@
 
 @layer base {
   :root {
-    --background: 0 100% 19%;
+    /* Dark burgundy background: #600000 = hsl(0, 100%, 19%) with overlay */
+    --background: 0 100% 12%;
     --foreground: 0 0% 100%;
 
-    --card: 0 0% 12%;
+    /* Glass morphism card backgrounds */
+    --card: 0 0% 0% / 0.5;
     --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 12%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 100%;
 
+    /* Cyan accent: #00B4D8 = hsl(193, 100%, 43%) */
     --primary: 193 100% 43%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 18%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 22%;
+    --muted: 0 0% 20%;
     --muted-foreground: 0 0% 65%;
 
     --accent: 193 100% 43%;
@@ -31,15 +34,15 @@
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 25%;
-    --input: 0 0% 20%;
+    --input: 0 0% 18%;
     --ring: 193 100% 43%;
 
     --radius: 0.625rem;
 
-    /* Risk level colors - clinical, minimal, less alarm-heavy */
-    --risk-high: 0 65% 50%;
-    --risk-medium: 40 85% 48%;
-    --risk-low: 152 55% 42%;
+    /* Risk level colors - clinical indicators */
+    --risk-high: 0 84% 60%;
+    --risk-medium: 38 92% 50%;
+    --risk-low: 152 69% 31%;
 
     /* SHAP chart colors */
     --shap-positive: 0 91% 71%;
@@ -49,13 +52,13 @@
     --warning: 45 93% 47%;
 
     /* Custom gradients */
-    --gradient-burgundy: linear-gradient(135deg, hsl(0 100% 19%) 0%, hsl(0 100% 12%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 14%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-burgundy: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 10%) 100%);
+    --gradient-card: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(193 100% 43%) 0%, hsl(193 100% 35%) 100%);
 
     /* Shadows */
-    --shadow-card: 0 2px 12px -2px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 20px rgba(0, 180, 216, 0.15);
+    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(0, 180, 216, 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -68,24 +71,24 @@
   }
 
   .dark {
-    --background: 0 100% 19%;
+    --background: 0 100% 12%;
     --foreground: 0 0% 100%;
-    --card: 0 0% 12%;
+    --card: 0 0% 0% / 0.5;
     --card-foreground: 0 0% 100%;
-    --popover: 0 0% 12%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 100%;
     --primary: 193 100% 43%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 18%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 25%;
+    --muted: 0 0% 20%;
     --muted-foreground: 0 0% 70%;
     --accent: 193 100% 43%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 25%;
-    --input: 0 0% 20%;
+    --input: 0 0% 18%;
     --ring: 193 100% 43%;
     --warning: 45 93% 47%;
   }
@@ -97,8 +100,20 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
     font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 8%) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Glass morphism base card style */
+  .glass-card {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -116,111 +131,152 @@
   }
 
   .text-risk-high {
-    @apply text-[hsl(var(--risk-high))];
+    color: hsl(0 84% 60%);
   }
   
   .text-risk-medium {
-    @apply text-[hsl(var(--risk-medium))];
+    color: hsl(38 92% 50%);
   }
   
   .text-risk-low {
-    @apply text-[hsl(var(--risk-low))];
+    color: hsl(152 69% 45%);
   }
 
   .bg-risk-high {
-    @apply bg-[hsl(var(--risk-high))];
+    background-color: hsl(0 84% 60%);
+  }
+  
+  .bg-risk-medium {
+    background-color: hsl(38 92% 50%);
+  }
+  
+  .bg-risk-low {
+    background-color: hsl(152 69% 45%);
   }
 
   .bg-risk-high\/10 {
-    background-color: hsl(var(--risk-high) / 0.1);
+    background-color: hsl(0 84% 60% / 0.1);
   }
 
   .bg-risk-high\/15 {
-    background-color: hsl(var(--risk-high) / 0.15);
+    background-color: hsl(0 84% 60% / 0.15);
   }
 
   .bg-risk-high\/20 {
-    background-color: hsl(var(--risk-high) / 0.2);
+    background-color: hsl(0 84% 60% / 0.2);
   }
 
   .bg-risk-medium\/10 {
-    background-color: hsl(var(--risk-medium) / 0.1);
+    background-color: hsl(38 92% 50% / 0.1);
   }
 
   .bg-risk-medium\/15 {
-    background-color: hsl(var(--risk-medium) / 0.15);
+    background-color: hsl(38 92% 50% / 0.15);
+  }
+  
+  .bg-risk-medium\/20 {
+    background-color: hsl(38 92% 50% / 0.2);
   }
 
   .bg-risk-low\/10 {
-    background-color: hsl(var(--risk-low) / 0.1);
+    background-color: hsl(152 69% 45% / 0.1);
   }
 
   .bg-risk-low\/15 {
-    background-color: hsl(var(--risk-low) / 0.15);
+    background-color: hsl(152 69% 45% / 0.15);
+  }
+  
+  .bg-risk-low\/20 {
+    background-color: hsl(152 69% 45% / 0.2);
+  }
+
+  .border-risk-high {
+    border-color: hsl(0 84% 60%);
   }
 
   .border-risk-high\/30 {
-    border-color: hsl(var(--risk-high) / 0.3);
+    border-color: hsl(0 84% 60% / 0.3);
+  }
+  
+  .border-risk-high\/40 {
+    border-color: hsl(0 84% 60% / 0.4);
+  }
+
+  .border-risk-medium {
+    border-color: hsl(38 92% 50%);
   }
 
   .border-risk-medium\/30 {
-    border-color: hsl(var(--risk-medium) / 0.3);
+    border-color: hsl(38 92% 50% / 0.3);
+  }
+
+  .border-risk-low {
+    border-color: hsl(152 69% 45%);
   }
 
   .border-risk-low\/30 {
-    border-color: hsl(var(--risk-low) / 0.3);
+    border-color: hsl(152 69% 45% / 0.3);
+  }
+  
+  .border-risk-low\/40 {
+    border-color: hsl(152 69% 45% / 0.4);
   }
 
   .border-l-risk-high {
-    border-left-color: hsl(var(--risk-high));
+    border-left-color: hsl(0 84% 60%);
   }
 
   .border-l-risk-medium {
-    border-left-color: hsl(var(--risk-medium));
+    border-left-color: hsl(38 92% 50%);
   }
 
   .border-l-risk-low {
-    border-left-color: hsl(var(--risk-low));
+    border-left-color: hsl(152 69% 45%);
   }
 
   .ring-risk-high\/20 {
-    --tw-ring-color: hsl(var(--risk-high) / 0.2);
+    --tw-ring-color: hsl(0 84% 60% / 0.2);
   }
 
   .ring-risk-high\/30 {
-    --tw-ring-color: hsl(var(--risk-high) / 0.3);
+    --tw-ring-color: hsl(0 84% 60% / 0.3);
   }
 
   .text-warning {
-    @apply text-[hsl(var(--warning))];
+    color: hsl(45 93% 47%);
   }
 
   .bg-warning\/10 {
-    background-color: hsl(var(--warning) / 0.1);
+    background-color: hsl(45 93% 47% / 0.1);
   }
 
   .bg-warning\/20 {
-    background-color: hsl(var(--warning) / 0.2);
+    background-color: hsl(45 93% 47% / 0.2);
   }
 
   .border-warning\/30 {
-    border-color: hsl(var(--warning) / 0.3);
+    border-color: hsl(45 93% 47% / 0.3);
+  }
+  
+  .border-warning\/40 {
+    border-color: hsl(45 93% 47% / 0.4);
   }
 
   .gradient-burgundy {
-    background: var(--gradient-burgundy);
+    background: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 8%) 100%);
   }
 
   .gradient-card {
-    background: var(--gradient-card);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
   }
 
   .shadow-card {
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   }
 
   .shadow-glow {
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
   }
 
   .animate-fade-in {
