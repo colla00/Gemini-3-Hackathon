@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldAlert, Clock, FileText, History } from 'lucide-react';
+import { ShieldAlert, Clock, FileText, History, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SessionHistoryViewer } from './SessionHistoryViewer';
 
@@ -18,6 +18,7 @@ export const ScreenProtection = ({
   const [isBlurred, setIsBlurred] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toISOString());
   const [showHistory, setShowHistory] = useState(false);
+  const [trackerCollapsed, setTrackerCollapsed] = useState(true);
   const { session, sessionId, startTime, eventCount, exportEvidence, logInteraction } = useSessionTracking();
 
   // Update current time every second for live timestamp
@@ -172,69 +173,79 @@ export const ScreenProtection = ({
         ))}
       </div>
 
-      {/* Session Tracking Panel - Bottom corner */}
+      {/* Session Tracking Panel - Top right corner, collapsible */}
       {showDynamicInfo && (
         <div 
-          className="fixed bottom-20 right-4 z-[101] select-none print:hidden"
+          className="fixed top-24 right-4 z-[60] select-none print:hidden"
           aria-hidden="true"
         >
-          <div className="bg-background/95 border border-primary/20 rounded-lg px-4 py-3 backdrop-blur-sm shadow-lg">
-            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-primary/10">
-              <Clock className="w-3 h-3 text-primary/60" />
-              <span className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider">
-                Patent Evidence Tracker
+          <div className={cn(
+            "bg-background/90 border border-primary/20 rounded-lg backdrop-blur-sm shadow-lg transition-all duration-200",
+            trackerCollapsed ? "px-2 py-1.5" : "px-3 py-2"
+          )}>
+            {/* Header - always visible */}
+            <button
+              onClick={() => setTrackerCollapsed(!trackerCollapsed)}
+              className="flex items-center gap-1.5 w-full pointer-events-auto"
+            >
+              <Clock className="w-2.5 h-2.5 text-primary/60" />
+              <span className="text-[8px] font-semibold text-primary/70 uppercase tracking-wider">
+                Patent Tracker
               </span>
-            </div>
-            <div className="text-[10px] font-mono text-foreground/70 space-y-1">
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground">Session ID:</span>
-                <span className="font-semibold text-primary">{sessionId || 'Initializing...'}</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground">Started:</span>
-                <span>{startTime ? new Date(startTime).toLocaleString() : '-'}</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground">Current:</span>
-                <span className="text-green-500">{new Date(currentTime).toLocaleTimeString()}</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-muted-foreground">Events Logged:</span>
-                <span className="font-semibold">{eventCount}</span>
-              </div>
-            </div>
-            <div className="flex gap-2 mt-3">
-              <button
-                onClick={() => {
-                  logInteraction('Exported evidence log');
-                  const evidence = exportEvidence();
-                  const blob = new Blob([evidence], { type: 'application/json' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-[9px] font-medium rounded transition-colors pointer-events-auto"
-              >
-                <FileText className="w-3 h-3" />
-                Export
-              </button>
-              <button
-                onClick={() => {
-                  logInteraction('Opened session history viewer');
-                  setShowHistory(true);
-                }}
-                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-secondary hover:bg-secondary/80 text-foreground text-[9px] font-medium rounded transition-colors pointer-events-auto"
-              >
-                <History className="w-3 h-3" />
-                History
-              </button>
-            </div>
-            <div className="mt-2 pt-2 border-t border-primary/10 text-[8px] text-muted-foreground text-center">
-              All interactions timestamped for patent documentation
-            </div>
+              <span className="text-[8px] font-mono text-muted-foreground ml-1">
+                ({eventCount})
+              </span>
+              {trackerCollapsed ? (
+                <ChevronDown className="w-2.5 h-2.5 text-muted-foreground ml-auto" />
+              ) : (
+                <ChevronUp className="w-2.5 h-2.5 text-muted-foreground ml-auto" />
+              )}
+            </button>
+            
+            {/* Expanded content */}
+            {!trackerCollapsed && (
+              <>
+                <div className="text-[9px] font-mono text-foreground/70 space-y-0.5 mt-2 pt-2 border-t border-primary/10">
+                  <div className="flex justify-between gap-3">
+                    <span className="text-muted-foreground">Session:</span>
+                    <span className="font-medium text-primary truncate max-w-[100px]">{sessionId || '...'}</span>
+                  </div>
+                  <div className="flex justify-between gap-3">
+                    <span className="text-muted-foreground">Events:</span>
+                    <span className="font-semibold">{eventCount}</span>
+                  </div>
+                </div>
+                <div className="flex gap-1.5 mt-2">
+                  <button
+                    onClick={() => {
+                      logInteraction('Exported evidence log');
+                      const evidence = exportEvidence();
+                      const blob = new Blob([evidence], { type: 'application/json' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1 px-1.5 py-1 bg-primary/10 hover:bg-primary/20 text-primary text-[8px] font-medium rounded transition-colors pointer-events-auto"
+                  >
+                    <FileText className="w-2.5 h-2.5" />
+                    Export
+                  </button>
+                  <button
+                    onClick={() => {
+                      logInteraction('Opened session history viewer');
+                      setShowHistory(true);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1 px-1.5 py-1 bg-secondary hover:bg-secondary/80 text-foreground text-[8px] font-medium rounded transition-colors pointer-events-auto"
+                  >
+                    <History className="w-2.5 h-2.5" />
+                    History
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
