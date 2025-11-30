@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { Presentation } from "./pages/Presentation";
+import { RecordingDemo } from "./pages/RecordingDemo";
 import { About } from "./pages/About";
 import NotFound from "./pages/NotFound";
 import { PasswordGate } from "./components/quality/PasswordGate";
@@ -25,6 +26,7 @@ const App = () => (
               <Route path="/" element={<Landing />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/presentation" element={<Presentation />} />
+              <Route path="/record" element={<RecordingDemo />} />
               <Route path="/about" element={<About />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
