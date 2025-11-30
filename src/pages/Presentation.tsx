@@ -445,30 +445,22 @@ export const Presentation = () => {
         />
       </div>
 
-      {/* Footer Status Bar */}
+      {/* Footer Status Bar - Lower z-index to stay behind controls */}
       <footer 
-        className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30 print:hidden"
+        className="fixed bottom-0 left-0 right-0 z-30 py-1.5 px-4 bg-secondary/60 backdrop-blur-sm border-t border-border/20 print:hidden"
         data-tour="disclaimer"
       >
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-          <div className="flex items-center gap-3">
-            <span className="text-primary font-semibold">⚠️ Research Prototype</span>
-            <span className="hidden sm:inline text-border">|</span>
-            <span className="hidden sm:inline">Synthetic Data Only</span>
-            <span className="hidden md:inline text-border">|</span>
-            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
-              <User className="w-3 h-3 text-amber-500" />
-              <span className="text-amber-500 font-semibold uppercase tracking-wide">Human-in-the-Loop Required</span>
-            </div>
+        <div className="flex items-center justify-between text-[9px] text-muted-foreground/70">
+          <div className="flex items-center gap-2">
+            <span className="text-primary/70 font-medium">⚠️ Research Prototype</span>
+            <span className="hidden sm:inline text-border/50">|</span>
+            <span className="hidden sm:inline opacity-60">Synthetic Data</span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-primary">
-              <Lock className="w-3 h-3" />
-              <span className="font-medium">Patent Pending</span>
-            </div>
-            <span className="text-border">|</span>
+          <div className="flex items-center gap-2 opacity-60">
+            <Lock className="w-2.5 h-2.5" />
+            <span className="font-medium">Patent Pending</span>
+            <span className="text-border/50">|</span>
             <span>Stanford AI+HEALTH 2025</span>
-            <span className="text-primary font-medium">v0.1.0-demo</span>
           </div>
         </div>
       </footer>
