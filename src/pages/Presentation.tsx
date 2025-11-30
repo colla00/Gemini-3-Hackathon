@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, Home, ShieldAlert, Lock, LogOut, GraduationCap, MousePointer
+  Activity, Zap, Home, ShieldAlert, Lock, LogOut, GraduationCap, 
+  MousePointer, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -15,9 +16,15 @@ import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
-import { PresentationTimeline } from '@/components/quality/PresentationTimeline';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
-import { AcademicHeader } from '@/components/quality/AcademicHeader';
+import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
+import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
+import { 
+  PresentationSlideView, 
+  PRESENTATION_SLIDES, 
+  type SlideType,
+  TOTAL_PRESENTATION_TIME 
+} from '@/components/presentation/PresentationSlide';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -25,22 +32,34 @@ import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { logoutDemo } from '@/components/quality/PasswordGate';
+import { Button } from '@/components/ui/button';
 
-const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
-  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
-  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
-  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
-];
+// Map slide types to view types for dashboard content
+const slideToView: Record<string, ViewType | null> = {
+  'title': null,
+  'agenda': null,
+  'problem': null,
+  'methodology': null,
+  'dashboard': 'dashboard',
+  'patients': 'patients',
+  'shap': 'shap',
+  'workflow': 'workflow',
+  'validation': null,
+  'future': null,
+  'conclusion': null,
+};
 
 export const Presentation = () => {
-  const [activeView, setActiveView] = useState<ViewType>('dashboard');
+  const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
+  const [completedSlides, setCompletedSlides] = useState<SlideType[]>([]);
+  const [elapsedMinutes, setElapsedMinutes] = useState(0);
+  const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
-  const [completedViews, setCompletedViews] = useState<ViewType[]>([]);
+  const [showPresenterNotes, setShowPresenterNotes] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
@@ -53,39 +72,73 @@ export const Presentation = () => {
     }
   }, []);
 
-  // Guided tour - auto-start disabled for presentation mode
+  // Track elapsed time
+  useEffect(() => {
+    if (!presentationStartTime) return;
+    
+    const timer = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - presentationStartTime.getTime()) / 60000);
+      setElapsedMinutes(elapsed);
+    }, 10000);
+
+    return () => clearInterval(timer);
+  }, [presentationStartTime]);
+
+  // Start presentation timer on first slide change
+  useEffect(() => {
+    if (currentSlide !== 'title' && !presentationStartTime) {
+      setPresentationStartTime(new Date());
+    }
+  }, [currentSlide, presentationStartTime]);
+
+  // Guided tour
   const guidedTour = useGuidedTour(false);
 
   // Narration hook
   const narration = useNarration();
 
-  // Handle view change with narration and logging
-  const handleViewChange = useCallback((view: ViewType) => {
-    // Mark previous view as completed
-    setCompletedViews(prev => {
-      if (!prev.includes(activeView)) {
-        return [...prev, activeView];
+  // Live simulation for dashboard views
+  const liveSimulation = useLiveSimulation(true, 5000);
+
+  // Get current view type for dashboard slides
+  const activeView = slideToView[currentSlide] || 'dashboard';
+
+  // Handle slide navigation
+  const handleSlideChange = useCallback((slideId: SlideType) => {
+    setCompletedSlides(prev => {
+      if (!prev.includes(currentSlide)) {
+        return [...prev, currentSlide];
       }
       return prev;
     });
     
-    setActiveView(view);
-    logFeatureUse(`Presentation View: ${navItems.find(n => n.id === view)?.label || view}`);
+    setCurrentSlide(slideId);
+    logFeatureUse(`Presentation Slide: ${slideId}`);
     
     if (soundEnabled) {
       narration.soundEffects.playTransition();
     }
+  }, [currentSlide, soundEnabled, narration, logFeatureUse]);
+
+  const handleNavigate = useCallback((direction: 'prev' | 'next') => {
+    const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
+    const newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
     
-    if (narrationEnabled) {
-      narration.narrateView(view);
+    if (newIndex >= 0 && newIndex < PRESENTATION_SLIDES.length) {
+      handleSlideChange(PRESENTATION_SLIDES[newIndex].id);
     }
-  }, [activeView, soundEnabled, narrationEnabled, narration, logFeatureUse]);
+  }, [currentSlide, handleSlideChange]);
+
+  // Legacy view change for demo controls compatibility
+  const handleViewChange = useCallback((view: ViewType) => {
+    const slideId = Object.entries(slideToView).find(([_, v]) => v === view)?.[0] as SlideType;
+    if (slideId) {
+      handleSlideChange(slideId);
+    }
+  }, [handleSlideChange]);
 
   // Auto-demo functionality
   const autoDemo = useAutoDemo(handleViewChange);
-
-  // Live simulation
-  const liveSimulation = useLiveSimulation(true, 5000);
 
   // Print handler
   const handlePrint = useCallback(() => {
@@ -107,21 +160,16 @@ export const Presentation = () => {
     });
   }, [narration]);
 
-  // Handle live toggle with logging
   const handleToggleLive = useCallback(() => {
     logInteraction(liveSimulation.isActive ? 'Paused live updates' : 'Enabled live updates');
     liveSimulation.toggle();
   }, [liveSimulation, logInteraction]);
 
-  // Enhanced demo toggle with sound and logging
   const handleToggleDemo = useCallback(() => {
     if (!autoDemo.isRunning) {
       logInteraction('Started auto-demo');
       if (soundEnabled) {
         narration.soundEffects.playStart();
-      }
-      if (narrationEnabled) {
-        setTimeout(() => narration.narrateView(activeView), 500);
       }
     } else {
       logInteraction('Stopped auto-demo');
@@ -131,9 +179,8 @@ export const Presentation = () => {
       narration.stop();
     }
     autoDemo.toggleDemo();
-  }, [autoDemo, soundEnabled, narrationEnabled, narration, activeView, logInteraction]);
+  }, [autoDemo, soundEnabled, narration, logInteraction]);
 
-  // Handle tour start with logging
   const handleStartTour = useCallback(() => {
     logFeatureUse('Guided Tour');
     guidedTour.startTour();
@@ -143,8 +190,8 @@ export const Presentation = () => {
   useKeyboardShortcuts({
     onViewChange: handleViewChange,
     onToggleDemo: handleToggleDemo,
-    onNextView: autoDemo.nextView,
-    onPrevView: autoDemo.prevView,
+    onNextView: () => handleNavigate('next'),
+    onPrevView: () => handleNavigate('prev'),
     onToggleLive: handleToggleLive,
     onPrint: handlePrint,
   });
@@ -164,8 +211,15 @@ export const Presentation = () => {
     }
   }, []);
 
-  const renderView = () => {
-    switch (activeView) {
+  const currentSlideConfig = PRESENTATION_SLIDES.find(s => s.id === currentSlide);
+  const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
+  const isDashboardSlide = slideToView[currentSlide] !== null;
+
+  const renderDashboardContent = () => {
+    const view = slideToView[currentSlide];
+    if (!view) return null;
+
+    switch (view) {
       case 'dashboard':
         return <DashboardOverview liveSimulation={liveSimulation} />;
       case 'patients':
@@ -175,7 +229,7 @@ export const Presentation = () => {
       case 'workflow':
         return <ClinicalWorkflowView />;
       default:
-        return <DashboardOverview liveSimulation={liveSimulation} />;
+        return null;
     }
   };
 
@@ -185,18 +239,29 @@ export const Presentation = () => {
       <ScreenProtection enabled={screenProtectionEnabled} />
 
       {/* Presentation Timeline (Left sidebar) */}
-      <PresentationTimeline
-        currentView={activeView}
-        onNavigate={handleViewChange}
-        completedViews={completedViews}
-        isAcademicMode={narration.academicMode}
+      <PresentationTimeline45
+        currentSlide={currentSlide}
+        onNavigate={handleSlideChange}
+        completedSlides={completedSlides}
       />
 
-      {/* Interactive Hotspots */}
-      <InteractiveHotspots
-        currentView={activeView}
-        enabled={hotspotsEnabled}
-      />
+      {/* Interactive Hotspots - only on dashboard slides */}
+      {isDashboardSlide && (
+        <InteractiveHotspots
+          currentView={activeView}
+          enabled={hotspotsEnabled}
+        />
+      )}
+
+      {/* Presenter Notes Panel */}
+      {showPresenterNotes && (
+        <PresenterNotesPanel
+          currentSlide={currentSlide}
+          elapsedMinutes={elapsedMinutes}
+          onNavigate={handleNavigate}
+          onGoToSlide={handleSlideChange}
+        />
+      )}
 
       {/* Guided Tour Overlay */}
       <GuidedTour
@@ -221,22 +286,29 @@ export const Presentation = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary-foreground">
             <GraduationCap className="w-4 h-4" />
-            <span className="text-sm font-medium">Academic Presentation</span>
-            <span className="text-primary-foreground/60 text-xs">• Conference Mode</span>
+            <span className="text-sm font-medium">45-Minute Presentation</span>
+            <span className="text-primary-foreground/60 text-xs">
+              • Slide {currentIndex + 1}/{PRESENTATION_SLIDES.length}
+            </span>
+            {presentationStartTime && (
+              <span className="text-primary-foreground/60 text-xs">
+                • {elapsedMinutes}m elapsed
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-3">
-            {/* Academic mode toggle */}
+            {/* Presenter notes toggle */}
             <button
-              onClick={() => narration.setAcademicMode(!narration.academicMode)}
+              onClick={() => setShowPresenterNotes(!showPresenterNotes)}
               className={cn(
                 "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
-                narration.academicMode
+                showPresenterNotes
                   ? "bg-primary-foreground/20 text-primary-foreground"
                   : "text-primary-foreground/60 hover:text-primary-foreground"
               )}
             >
-              <GraduationCap className="w-3 h-3" />
-              <span>{narration.academicMode ? "Academic" : "Simple"}</span>
+              <LayoutDashboard className="w-3 h-3" />
+              <span>Notes</span>
             </button>
             {/* Hotspots toggle */}
             <button
@@ -260,254 +332,178 @@ export const Presentation = () => {
           </div>
         </div>
       </div>
-
-      {/* Academic Section Header */}
-      <AcademicHeader currentView={activeView} isVisible={narration.academicMode} />
       
-      {/* Research Banner */}
-      <ResearchBanner />
+      {/* Research Banner - only for dashboard slides */}
+      {isDashboardSlide && <ResearchBanner />}
 
-      {/* Main Header Bar */}
-      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50 print:hidden" data-tour="header">
-        <div className="flex items-center justify-between gap-4">
-          {/* Left: Navigation + App Title */}
-          <div className="flex items-center gap-4">
-            <Link 
-              to="/"
-              className="p-2 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-              title="Back to Home"
-            >
-              <Home className="w-4 h-4" />
-            </Link>
+      {/* Dashboard Header - only for dashboard slides */}
+      {isDashboardSlide && (
+        <header className="px-4 py-2 border-b border-border/40 bg-secondary/50 print:hidden">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <Link 
+                to="/"
+                className="p-2 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
+                title="Back to Home"
+              >
+                <Home className="w-4 h-4" />
+              </Link>
 
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
-                <BarChart3 className="w-4 h-4 text-primary" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
+                  <BarChart3 className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-sm font-bold text-foreground leading-tight">NSO Quality Dashboard</h1>
+                  <span className="text-[10px] text-muted-foreground">Nurse-Sensitive Outcomes</span>
+                </div>
               </div>
-              <div>
-                <h1 className="text-sm font-bold text-foreground leading-tight">NSO Quality Dashboard</h1>
-                <span className="text-[10px] text-muted-foreground">Nurse-Sensitive Outcomes</span>
+              
+              <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50">
+                <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
               </div>
             </div>
-            
-            {/* Unit Selector */}
-            <div 
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors"
-              data-tour="unit-selector"
-            >
-              <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
-              <ChevronDown className="w-3 h-3 text-muted-foreground" />
-            </div>
-          </div>
 
-          {/* Center: Search */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-4">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-              <input 
-                type="text" 
-                placeholder="Search patients, MRN, room..."
-                className="w-full pl-9 pr-4 py-1.5 text-xs bg-secondary border border-border/50 rounded focus:outline-none focus:border-primary/50 text-foreground placeholder:text-muted-foreground transition-colors"
-              />
-            </div>
-          </div>
-
-          {/* Right: Status & Actions */}
-          <div className="flex items-center gap-3">
-            {/* Live Status */}
-            <div 
-              className={cn(
+            <div className="flex items-center gap-3">
+              {/* Live Status */}
+              <div className={cn(
                 "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
                 liveSimulation.isActive 
                   ? "bg-risk-low/10 border-risk-low/30" 
                   : "bg-secondary border-border/50"
-              )}
-              data-tour="live-status"
-            >
-              {liveSimulation.isActive ? (
-                <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
-                  <span className="text-[10px] font-medium text-risk-low uppercase">Live</span>
-                  <Activity className="w-3 h-3 text-risk-low" />
-                </>
-              ) : (
-                <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                  <span className="text-[10px] font-medium text-muted-foreground uppercase">Paused</span>
-                </>
-              )}
-            </div>
-
-            {/* Auto-Demo Indicator */}
-            {autoDemo.isRunning && (
-              <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-primary/10 border border-primary/30 animate-pulse">
-                <Zap className="w-3 h-3 text-primary" />
-                <span className="text-[10px] font-medium text-primary uppercase">Auto-Demo</span>
+              )}>
+                {liveSimulation.isActive ? (
+                  <>
+                    <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
+                    <span className="text-[10px] font-medium text-risk-low uppercase">Live</span>
+                    <Activity className="w-3 h-3 text-risk-low" />
+                  </>
+                ) : (
+                  <>
+                    <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                    <span className="text-[10px] font-medium text-muted-foreground uppercase">Paused</span>
+                  </>
+                )}
               </div>
-            )}
 
-            {/* Narration Indicator */}
-            {narration.isNarrating && (
-              <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-risk-low/10 border border-risk-low/30">
-                <div className="flex items-end gap-0.5 h-3">
-                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '40%' }} />
-                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '70%', animationDelay: '150ms' }} />
-                  <div className="w-0.5 bg-risk-low rounded-full animate-pulse" style={{ height: '100%', animationDelay: '300ms' }} />
+              {/* Time */}
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Clock className="w-3.5 h-3.5" />
+                <span>{currentTime}</span>
+              </div>
+
+              {/* User */}
+              <div className="flex items-center gap-2 pl-3 border-l border-border/50">
+                <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+                  <User className="w-3.5 h-3.5 text-primary" />
                 </div>
-                <span className="text-[10px] font-medium text-risk-low uppercase">Speaking</span>
+                <button
+                  onClick={() => {
+                    logInteraction('Logged out of demo');
+                    logoutDemo();
+                  }}
+                  className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
+                  title="Logout"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
               </div>
-            )}
-
-            {/* Time & Shift */}
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{currentTime}</span>
-              <span className="text-primary font-medium">• Night Shift</span>
             </div>
+          </div>
+        </header>
+      )}
 
-            {/* Quick Actions */}
+      {/* Dashboard Navigation - only for dashboard slides */}
+      {isDashboardSlide && (
+        <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <TourButton onClick={handleStartTour} />
-              
-              <button 
-                onClick={() => liveSimulation.updateSimulation()}
-                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-                title="Refresh data"
-              >
-                <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
-              </button>
-              <button 
-                onClick={() => setScreenProtectionEnabled(prev => !prev)}
-                className={cn(
-                  "p-1.5 rounded transition-colors",
-                  screenProtectionEnabled 
-                    ? "bg-primary/20 text-primary" 
-                    : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
-                )}
-                title={screenProtectionEnabled ? "Disable screen protection" : "Enable screen protection"}
-              >
-                <ShieldAlert className="w-4 h-4" />
-              </button>
-              <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative">
-                <Bell className="w-4 h-4" />
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-risk-high" />
-              </button>
-              <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors">
-                <Settings className="w-4 h-4" />
-              </button>
+              {['dashboard', 'patients', 'shap', 'workflow'].map((view) => {
+                const isActive = slideToView[currentSlide] === view;
+                const label = view === 'dashboard' ? 'Overview' : 
+                             view === 'patients' ? 'Worklist' :
+                             view === 'shap' ? 'SHAP' : 'Workflow';
+                return (
+                  <button
+                    key={view}
+                    onClick={() => {
+                      const slideId = Object.entries(slideToView).find(([_, v]) => v === view)?.[0] as SlideType;
+                      if (slideId) handleSlideChange(slideId);
+                    }}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    )}
+                  >
+                    {view === 'dashboard' && <LayoutDashboard className="w-4 h-4" />}
+                    {view === 'patients' && <Users className="w-4 h-4" />}
+                    {view === 'shap' && <BarChart3 className="w-4 h-4" />}
+                    {view === 'workflow' && <GitBranch className="w-4 h-4" />}
+                    <span>{label}</span>
+                  </button>
+                );
+              })}
             </div>
-
-            {/* User */}
-            <div className="flex items-center gap-2 pl-3 border-l border-border/50">
-              <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                <User className="w-3.5 h-3.5 text-primary" />
+            
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-risk-high" />
+                <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
               </div>
-              <span className="hidden md:block text-xs font-medium text-foreground max-w-[120px] truncate" title={userEmail || 'Demo User'}>
-                {userEmail || 'Demo User'}
-              </span>
-              <button
-                onClick={() => {
-                  logInteraction('Logged out of demo');
-                  logoutDemo();
-                }}
-                className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
-                title="Logout"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
-        </div>
-      </header>
-
-      {/* Navigation Tabs */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden" data-tour="nav-tabs">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            {navItems.map((item, index) => (
-              <button
-                key={item.id}
-                onClick={() => handleViewChange(item.id)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all relative",
-                  activeView === item.id
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                )}
-              >
-                {item.icon}
-                <span className="hidden sm:inline">{item.label}</span>
-                <span className="sm:hidden">{item.shortLabel}</span>
-                <kbd className="hidden lg:inline-block ml-1 px-1 py-0.5 rounded bg-black/20 text-[9px] font-mono opacity-50">
-                  {index + 1}
-                </kbd>
-              </button>
-            ))}
-          </div>
-
-          {/* Quick Filters */}
-          <div className="hidden md:flex items-center gap-2">
-            <button className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
-              <Filter className="w-3.5 h-3.5" />
-              <span>Filters</span>
-            </button>
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-risk-high" />
-              <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
-            </div>
-            {liveSimulation.isActive && (
-              <div className="text-[9px] text-muted-foreground">
-                Updates: {liveSimulation.updateCount}
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* Main Content */}
-      <main className="flex-1 p-4 overflow-auto pb-24 print:pb-0" data-tour="quick-stats">
-        <div className="max-w-7xl mx-auto animate-fade-in">
-          {renderView()}
-        </div>
+      <main className="flex-1 overflow-auto pb-24 print:pb-0">
+        {isDashboardSlide ? (
+          <div className="p-4 max-w-7xl mx-auto animate-fade-in">
+            {renderDashboardContent()}
+          </div>
+        ) : (
+          <PresentationSlideView
+            slide={currentSlideConfig!}
+            isActive={true}
+          />
+        )}
       </main>
 
-      {/* Demo Controls */}
-      <div data-tour="demo-controls">
-        <DemoControls
-          isRunning={autoDemo.isRunning}
-          progress={autoDemo.progress}
-          currentIndex={autoDemo.currentIndex}
-          totalViews={autoDemo.totalViews}
-          intervalMs={autoDemo.intervalMs}
-          liveUpdatesActive={liveSimulation.isActive}
-          isNarrating={narration.isNarrating}
-          isNarrationLoading={narration.isLoading}
-          soundEnabled={soundEnabled}
-          narrationEnabled={narrationEnabled}
-          selectedVoice={narration.selectedVoice}
-          onToggleDemo={handleToggleDemo}
-          onNext={autoDemo.nextView}
-          onPrev={autoDemo.prevView}
-          onToggleLive={handleToggleLive}
-          onPrint={handlePrint}
-          onSpeedChange={autoDemo.setSpeed}
-          onToggleSound={handleToggleSound}
-          onToggleNarration={handleToggleNarration}
-          onVoiceChange={narration.setSelectedVoice}
-          onResetTour={() => {
-            logFeatureUse('Reset Guided Tour');
-            guidedTour.resetTourHistory();
-            guidedTour.startTour();
-          }}
-        />
+      {/* Slide Navigation Controls */}
+      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 print:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleNavigate('prev')}
+          disabled={currentIndex === 0}
+          className="gap-1 bg-background/90 backdrop-blur-sm"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">Previous</span>
+        </Button>
+        
+        <div className="px-3 py-1.5 rounded bg-background/90 backdrop-blur-sm border border-border text-xs">
+          <span className="font-medium text-foreground">{currentSlideConfig?.title}</span>
+          <span className="text-muted-foreground ml-2">({currentSlideConfig?.duration}m)</span>
+        </div>
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleNavigate('next')}
+          disabled={currentIndex === PRESENTATION_SLIDES.length - 1}
+          className="gap-1 bg-background/90 backdrop-blur-sm"
+        >
+          <span className="hidden sm:inline">Next</span>
+          <ChevronRight className="w-4 h-4" />
+        </Button>
       </div>
 
-      {/* Footer Status Bar - Lower z-index to stay behind controls */}
-      <footer 
-        className="fixed bottom-0 left-0 right-0 z-30 py-1.5 px-4 bg-secondary/60 backdrop-blur-sm border-t border-border/20 print:hidden"
-        data-tour="disclaimer"
-      >
+      {/* Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 z-30 py-1.5 px-4 bg-secondary/60 backdrop-blur-sm border-t border-border/20 print:hidden">
         <div className="flex items-center justify-between text-[9px] text-muted-foreground/70">
           <div className="flex items-center gap-2">
             <span className="text-primary/70 font-medium">⚠️ Research Prototype</span>
