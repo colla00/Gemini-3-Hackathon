@@ -424,8 +424,10 @@ export const Presentation = () => {
           intervalMs={autoDemo.intervalMs}
           liveUpdatesActive={liveSimulation.isActive}
           isNarrating={narration.isNarrating}
+          isNarrationLoading={narration.isLoading}
           soundEnabled={soundEnabled}
           narrationEnabled={narrationEnabled}
+          selectedVoice={narration.selectedVoice}
           onToggleDemo={handleToggleDemo}
           onNext={autoDemo.nextView}
           onPrev={autoDemo.prevView}
@@ -434,6 +436,7 @@ export const Presentation = () => {
           onSpeedChange={autoDemo.setSpeed}
           onToggleSound={handleToggleSound}
           onToggleNarration={handleToggleNarration}
+          onVoiceChange={narration.setSelectedVoice}
           onResetTour={() => {
             logFeatureUse('Reset Guided Tour');
             guidedTour.resetTourHistory();
