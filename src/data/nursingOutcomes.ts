@@ -32,8 +32,15 @@ export interface RiskCategoryData {
 
 export interface PatientData {
   id: string;
+  mrn: string;
+  age: number;
+  sex: 'M' | 'F';
   unit: string;
   bed: string;
+  admitDate: string;
+  los: number;
+  diagnosis: string;
+  assignedNurse: string;
   fallsRisk: number;
   fallsLevel: RiskLevel;
   fallsConfidence: number;
@@ -44,6 +51,7 @@ export interface PatientData {
   cautiRisk: number;
   cautiLevel: RiskLevel;
   cautiConfidence: number;
+  lastAssessed: string;
   lastUpdated: string;
   vitals: {
     heartRate: number;
@@ -124,8 +132,15 @@ export const riskCategories: RiskCategoryData[] = [
 export const patients: PatientData[] = [
   {
     id: 'Patient 4C-bed06',
+    mrn: '849201',
+    age: 78,
+    sex: 'F',
     unit: '4C',
     bed: '06',
+    admitDate: '11/28',
+    los: 2,
+    diagnosis: 'CHF Exacerbation',
+    assignedNurse: 'RN Martinez',
     fallsRisk: 68,
     fallsLevel: 'HIGH',
     fallsConfidence: 87,
@@ -136,6 +151,7 @@ export const patients: PatientData[] = [
     cautiRisk: 32,
     cautiLevel: 'LOW',
     cautiConfidence: 91,
+    lastAssessed: '05:45',
     lastUpdated: '06:00',
     vitals: { heartRate: 88, bp: '124/82', o2Sat: '97%', temp: '37.1°C' },
     interventions: [
@@ -146,8 +162,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed14',
+    mrn: '736482',
+    age: 65,
+    sex: 'M',
     unit: '4C',
     bed: '14',
+    admitDate: '11/27',
+    los: 3,
+    diagnosis: 'Post-Op Hip Replacement',
+    assignedNurse: 'RN Thompson',
     fallsRisk: 51,
     fallsLevel: 'MODERATE',
     fallsConfidence: 79,
@@ -158,6 +181,7 @@ export const patients: PatientData[] = [
     cautiRisk: 18,
     cautiLevel: 'LOW',
     cautiConfidence: 93,
+    lastAssessed: '06:00',
     lastUpdated: '06:15',
     vitals: { heartRate: 76, bp: '118/74', o2Sat: '98%', temp: '36.8°C' },
     interventions: [
@@ -167,8 +191,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed22',
+    mrn: '582914',
+    age: 52,
+    sex: 'F',
     unit: '4C',
     bed: '22',
+    admitDate: '11/29',
+    los: 1,
+    diagnosis: 'Pneumonia',
+    assignedNurse: 'RN Chen',
     fallsRisk: 24,
     fallsLevel: 'LOW',
     fallsConfidence: 92,
@@ -179,6 +210,7 @@ export const patients: PatientData[] = [
     cautiRisk: 12,
     cautiLevel: 'LOW',
     cautiConfidence: 95,
+    lastAssessed: '05:30',
     lastUpdated: '05:45',
     vitals: { heartRate: 72, bp: '122/78', o2Sat: '99%', temp: '36.6°C' },
     interventions: [
@@ -187,8 +219,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed03',
+    mrn: '921847',
+    age: 84,
+    sex: 'M',
     unit: '4C',
     bed: '03',
+    admitDate: '11/25',
+    los: 5,
+    diagnosis: 'Acute Stroke',
+    assignedNurse: 'RN Martinez',
     fallsRisk: 72,
     fallsLevel: 'HIGH',
     fallsConfidence: 84,
@@ -199,6 +238,7 @@ export const patients: PatientData[] = [
     cautiRisk: 45,
     cautiLevel: 'MODERATE',
     cautiConfidence: 81,
+    lastAssessed: '05:15',
     lastUpdated: '05:30',
     vitals: { heartRate: 92, bp: '138/88', o2Sat: '95%', temp: '37.4°C' },
     interventions: [
@@ -209,8 +249,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed08',
+    mrn: '374629',
+    age: 71,
+    sex: 'F',
     unit: '4C',
     bed: '08',
+    admitDate: '11/28',
+    los: 2,
+    diagnosis: 'COPD Exacerbation',
+    assignedNurse: 'RN Thompson',
     fallsRisk: 44,
     fallsLevel: 'MODERATE',
     fallsConfidence: 76,
@@ -221,6 +268,7 @@ export const patients: PatientData[] = [
     cautiRisk: 15,
     cautiLevel: 'LOW',
     cautiConfidence: 94,
+    lastAssessed: '06:15',
     lastUpdated: '06:30',
     vitals: { heartRate: 68, bp: '116/72', o2Sat: '98%', temp: '36.7°C' },
     interventions: [
@@ -229,8 +277,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed11',
+    mrn: '648291',
+    age: 68,
+    sex: 'M',
     unit: '4C',
     bed: '11',
+    admitDate: '11/26',
+    los: 4,
+    diagnosis: 'Diabetic Ketoacidosis',
+    assignedNurse: 'RN Chen',
     fallsRisk: 58,
     fallsLevel: 'MODERATE',
     fallsConfidence: 81,
@@ -241,6 +296,7 @@ export const patients: PatientData[] = [
     cautiRisk: 28,
     cautiLevel: 'LOW',
     cautiConfidence: 86,
+    lastAssessed: '05:45',
     lastUpdated: '06:00',
     vitals: { heartRate: 84, bp: '128/84', o2Sat: '96%', temp: '37.0°C' },
     interventions: [
@@ -250,8 +306,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed17',
+    mrn: '193847',
+    age: 45,
+    sex: 'F',
     unit: '4C',
     bed: '17',
+    admitDate: '11/29',
+    los: 1,
+    diagnosis: 'Chest Pain Observation',
+    assignedNurse: 'RN Davis',
     fallsRisk: 31,
     fallsLevel: 'LOW',
     fallsConfidence: 88,
@@ -262,6 +325,7 @@ export const patients: PatientData[] = [
     cautiRisk: 8,
     cautiLevel: 'LOW',
     cautiConfidence: 96,
+    lastAssessed: '05:00',
     lastUpdated: '05:15',
     vitals: { heartRate: 70, bp: '120/76', o2Sat: '99%', temp: '36.5°C' },
     interventions: [
@@ -270,8 +334,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed19',
+    mrn: '847261',
+    age: 82,
+    sex: 'M',
     unit: '4C',
     bed: '19',
+    admitDate: '11/24',
+    los: 6,
+    diagnosis: 'Sepsis',
+    assignedNurse: 'RN Martinez',
     fallsRisk: 76,
     fallsLevel: 'HIGH',
     fallsConfidence: 89,
@@ -282,6 +353,7 @@ export const patients: PatientData[] = [
     cautiRisk: 62,
     cautiLevel: 'MODERATE',
     cautiConfidence: 75,
+    lastAssessed: '06:30',
     lastUpdated: '06:45',
     vitals: { heartRate: 96, bp: '142/90', o2Sat: '94%', temp: '37.6°C' },
     interventions: [
@@ -292,8 +364,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed24',
+    mrn: '529184',
+    age: 59,
+    sex: 'F',
     unit: '4C',
     bed: '24',
+    admitDate: '11/27',
+    los: 3,
+    diagnosis: 'GI Bleed',
+    assignedNurse: 'RN Davis',
     fallsRisk: 39,
     fallsLevel: 'MODERATE',
     fallsConfidence: 83,
@@ -304,6 +383,7 @@ export const patients: PatientData[] = [
     cautiRisk: 21,
     cautiLevel: 'LOW',
     cautiConfidence: 90,
+    lastAssessed: '05:30',
     lastUpdated: '05:50',
     vitals: { heartRate: 74, bp: '124/80', o2Sat: '97%', temp: '36.8°C' },
     interventions: [
@@ -312,8 +392,15 @@ export const patients: PatientData[] = [
   },
   {
     id: 'Patient 4C-bed27',
+    mrn: '418726',
+    age: 38,
+    sex: 'M',
     unit: '4C',
     bed: '27',
+    admitDate: '11/29',
+    los: 1,
+    diagnosis: 'Appendectomy Recovery',
+    assignedNurse: 'RN Chen',
     fallsRisk: 18,
     fallsLevel: 'LOW',
     fallsConfidence: 94,
@@ -324,6 +411,7 @@ export const patients: PatientData[] = [
     cautiRisk: 6,
     cautiLevel: 'LOW',
     cautiConfidence: 97,
+    lastAssessed: '06:00',
     lastUpdated: '06:20',
     vitals: { heartRate: 66, bp: '118/74', o2Sat: '99%', temp: '36.4°C' },
     interventions: [
