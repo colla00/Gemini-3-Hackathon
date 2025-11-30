@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation, Play
+  Brain, Sparkles, Lock, FileText, Presentation, Video
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { DemoModal } from '@/components/demo/DemoModal';
 
 const features = [
   {
@@ -46,6 +44,13 @@ const pages = [
     color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
   },
   {
+    to: '/record',
+    icon: Video,
+    title: '5-Min Video Demo',
+    description: 'Auto-play mode for screen recording',
+    color: 'bg-risk-high/10 text-risk-high border-risk-high/20',
+  },
+  {
     to: '/about',
     icon: FileText,
     title: 'About & Methodology',
@@ -55,13 +60,8 @@ const pages = [
 ];
 
 export const Landing = () => {
-  const [demoOpen, setDemoOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Demo Modal */}
-      <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
-
       {/* Patent Notice Header */}
       <div className="bg-primary/5 border-b border-primary/20 py-2 px-4">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 text-xs text-primary">
@@ -116,13 +116,13 @@ export const Landing = () => {
                 <span>Enter Dashboard</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <button
-                onClick={() => setDemoOpen(true)}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
+              <Link
+                to="/record"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-risk-high text-white rounded-xl font-semibold hover:bg-risk-high/90 transition-all border border-risk-high/50"
               >
-                <Play className="w-5 h-5" />
-                <span>Watch 5-Min Demo</span>
-              </button>
+                <Video className="w-5 h-5" />
+                <span>Record 5-Min Demo</span>
+              </Link>
             </div>
 
             {/* Conference Badge */}
@@ -143,7 +143,7 @@ export const Landing = () => {
             Explore the Prototype
           </h3>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {pages.map((page) => (
               <Link
                 key={page.to}
