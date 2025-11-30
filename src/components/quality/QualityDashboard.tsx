@@ -165,18 +165,28 @@ export const QualityDashboard = () => {
       </main>
 
       {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-50 py-1.5 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30">
+      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30">
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <span className="text-primary font-semibold">⚠️ Research Prototype</span>
-            <span>|</span>
-            <span>No EHR Connection</span>
-            <span className="hidden sm:inline">|</span>
-            <span className="hidden sm:inline">Human Oversight Required</span>
+            <span className="hidden sm:inline text-border">|</span>
+            <span className="hidden sm:inline">No EHR Connection</span>
+            <span className="hidden md:inline text-border">|</span>
+            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
+              <User className="w-3 h-3 text-amber-500" />
+              <span className="text-amber-500 font-semibold uppercase tracking-wide">Human-in-the-Loop Required</span>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <a 
+              href="mailto:alexis.collier@ung.edu" 
+              className="hidden sm:inline hover:text-primary transition-colors"
+            >
+              alexis.collier@ung.edu
+            </a>
+            <span className="hidden sm:inline text-border">|</span>
             <span>Stanford AI+HEALTH 2025</span>
-            <span className="text-primary">v0.1.0-demo</span>
+            <span className="text-primary font-medium">v0.1.0-demo</span>
           </div>
         </div>
       </footer>
