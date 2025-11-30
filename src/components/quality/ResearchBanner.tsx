@@ -2,17 +2,17 @@ import { AlertTriangle } from 'lucide-react';
 
 export const ResearchBanner = () => {
   return (
-    <div className="w-full bg-warning/20 border-b border-warning/40 py-3 px-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 flex-wrap text-center">
-        <AlertTriangle className="w-5 h-5 text-warning animate-pulse flex-shrink-0" />
-        <span className="text-warning font-bold text-sm tracking-wider uppercase">
-          ⚠️ Research Prototype — Synthetic Data Only
+    <div className="w-full bg-warning/15 border-b border-warning/30 py-1.5 px-4">
+      <div className="flex items-center justify-center gap-2 text-[11px]">
+        <AlertTriangle className="w-3.5 h-3.5 text-warning" />
+        <span className="text-warning font-semibold uppercase tracking-wide">
+          Research Prototype — Synthetic Data Only
         </span>
-        <AlertTriangle className="w-5 h-5 text-warning animate-pulse flex-shrink-0" />
+        <span className="text-warning/70 hidden sm:inline">
+          • Not for clinical use
+        </span>
+        <AlertTriangle className="w-3.5 h-3.5 text-warning" />
       </div>
-      <p className="text-center text-warning/80 text-xs mt-1">
-        This demonstration uses simulated data for educational purposes. Not for clinical use.
-      </p>
     </div>
   );
 };
