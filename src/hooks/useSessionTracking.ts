@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, createContext, useContext } from 'react';
 
 export interface SessionEvent {
   timestamp: string;
@@ -18,6 +18,21 @@ export interface SessionData {
     timezone: string;
   };
 }
+
+// Global session tracking context for use across components
+interface SessionContextType {
+  logInteraction: (details: string) => void;
+  logFeatureUse: (feature: string) => void;
+}
+
+const SessionContext = createContext<SessionContextType | null>(null);
+
+export const useSessionContext = () => {
+  const context = useContext(SessionContext);
+  return context;
+};
+
+export { SessionContext };
 
 const STORAGE_KEY = 'patent_evidence_sessions';
 const CURRENT_SESSION_KEY = 'current_session_id';

@@ -13,6 +13,7 @@ import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView'
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
+import { useSessionTracking } from '@/hooks/useSessionTracking';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
 
@@ -26,6 +27,7 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const { logFeatureUse, logInteraction } = useSessionTracking();
   
   // Live simulation (can be toggled)
   const liveSimulation = useLiveSimulation(true, 5000);
@@ -37,6 +39,18 @@ export const Dashboard = () => {
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  // Handle view change with logging
+  const handleViewChange = useCallback((view: ViewType) => {
+    setActiveView(view);
+    logFeatureUse(`View: ${navItems.find(n => n.id === view)?.label || view}`);
+  }, [logFeatureUse]);
+
+  // Handle live toggle with logging
+  const handleLiveToggle = useCallback(() => {
+    liveSimulation.toggle();
+    logInteraction(liveSimulation.isActive ? 'Paused live updates' : 'Enabled live updates');
+  }, [liveSimulation, logInteraction]);
 
   const renderView = () => {
     switch (activeView) {
@@ -118,7 +132,7 @@ export const Dashboard = () => {
                   ? "bg-risk-low/10 border-risk-low/30" 
                   : "bg-secondary border-border/50"
               )}
-              onClick={liveSimulation.toggle}
+              onClick={handleLiveToggle}
             >
               {liveSimulation.isActive ? (
                 <>
@@ -184,7 +198,7 @@ export const Dashboard = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveView(item.id)}
+                onClick={() => handleViewChange(item.id)}
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all",
                   activeView === item.id

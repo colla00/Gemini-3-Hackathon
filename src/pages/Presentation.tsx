@@ -20,6 +20,7 @@ import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
+import { useSessionTracking } from '@/hooks/useSessionTracking';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -35,6 +36,7 @@ export const Presentation = () => {
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
   const printRef = useRef<HTMLDivElement>(null);
+  const { logFeatureUse, logInteraction } = useSessionTracking();
 
   // Guided tour - auto-start disabled for presentation mode
   const guidedTour = useGuidedTour(false);
@@ -42,9 +44,10 @@ export const Presentation = () => {
   // Narration hook
   const narration = useNarration();
 
-  // Handle view change with narration
+  // Handle view change with narration and logging
   const handleViewChange = useCallback((view: ViewType) => {
     setActiveView(view);
+    logFeatureUse(`Presentation View: ${navItems.find(n => n.id === view)?.label || view}`);
     
     if (soundEnabled) {
       narration.soundEffects.playTransition();
@@ -53,7 +56,7 @@ export const Presentation = () => {
     if (narrationEnabled) {
       narration.narrateView(view);
     }
-  }, [soundEnabled, narrationEnabled, narration]);
+  }, [soundEnabled, narrationEnabled, narration, logFeatureUse]);
 
   // Auto-demo functionality
   const autoDemo = useAutoDemo(handleViewChange);
@@ -81,9 +84,16 @@ export const Presentation = () => {
     });
   }, [narration]);
 
-  // Enhanced demo toggle with sound
+  // Handle live toggle with logging
+  const handleToggleLive = useCallback(() => {
+    logInteraction(liveSimulation.isActive ? 'Paused live updates' : 'Enabled live updates');
+    liveSimulation.toggle();
+  }, [liveSimulation, logInteraction]);
+
+  // Enhanced demo toggle with sound and logging
   const handleToggleDemo = useCallback(() => {
     if (!autoDemo.isRunning) {
+      logInteraction('Started auto-demo');
       if (soundEnabled) {
         narration.soundEffects.playStart();
       }
@@ -91,13 +101,20 @@ export const Presentation = () => {
         setTimeout(() => narration.narrateView(activeView), 500);
       }
     } else {
+      logInteraction('Stopped auto-demo');
       if (soundEnabled) {
         narration.soundEffects.playStop();
       }
       narration.stop();
     }
     autoDemo.toggleDemo();
-  }, [autoDemo, soundEnabled, narrationEnabled, narration, activeView]);
+  }, [autoDemo, soundEnabled, narrationEnabled, narration, activeView, logInteraction]);
+
+  // Handle tour start with logging
+  const handleStartTour = useCallback(() => {
+    logFeatureUse('Guided Tour');
+    guidedTour.startTour();
+  }, [guidedTour, logFeatureUse]);
 
   // Keyboard shortcuts
   useKeyboardShortcuts({
@@ -105,7 +122,7 @@ export const Presentation = () => {
     onToggleDemo: handleToggleDemo,
     onNextView: autoDemo.nextView,
     onPrevView: autoDemo.prevView,
-    onToggleLive: liveSimulation.toggle,
+    onToggleLive: handleToggleLive,
     onPrint: handlePrint,
   });
 
@@ -283,7 +300,7 @@ export const Presentation = () => {
 
             {/* Quick Actions */}
             <div className="flex items-center gap-1">
-              <TourButton onClick={guidedTour.startTour} />
+              <TourButton onClick={handleStartTour} />
               
               <button 
                 onClick={() => liveSimulation.updateSimulation()}
@@ -390,12 +407,13 @@ export const Presentation = () => {
           onToggleDemo={handleToggleDemo}
           onNext={autoDemo.nextView}
           onPrev={autoDemo.prevView}
-          onToggleLive={liveSimulation.toggle}
+          onToggleLive={handleToggleLive}
           onPrint={handlePrint}
           onSpeedChange={autoDemo.setSpeed}
           onToggleSound={handleToggleSound}
           onToggleNarration={handleToggleNarration}
           onResetTour={() => {
+            logFeatureUse('Reset Guided Tour');
             guidedTour.resetTourHistory();
             guidedTour.startTour();
           }}
