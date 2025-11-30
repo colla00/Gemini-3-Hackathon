@@ -7,6 +7,12 @@ export interface SessionEvent {
   route?: string;
 }
 
+export interface IdentityInfo {
+  email?: string;
+  ipAddress?: string;
+  ipLocation?: string;
+}
+
 export interface SessionData {
   sessionId: string;
   startTime: string;
@@ -17,6 +23,7 @@ export interface SessionData {
     screenResolution: string;
     timezone: string;
   };
+  identityInfo?: IdentityInfo;
 }
 
 // Global session tracking context for use across components
@@ -71,44 +78,84 @@ const saveSession = (session: SessionData) => {
   }
 };
 
+// Fetch IP address from free API
+const fetchIPAddress = async (): Promise<{ ip: string; location?: string } | null> => {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    
+    // Try to get location info
+    try {
+      const geoResponse = await fetch(`https://ipapi.co/${data.ip}/json/`);
+      const geoData = await geoResponse.json();
+      return {
+        ip: data.ip,
+        location: geoData.city && geoData.country_name 
+          ? `${geoData.city}, ${geoData.region}, ${geoData.country_name}`
+          : undefined
+      };
+    } catch {
+      return { ip: data.ip };
+    }
+  } catch {
+    console.warn('Failed to fetch IP address');
+    return null;
+  }
+};
+
 export const useSessionTracking = () => {
   const [session, setSession] = useState<SessionData | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize session
   useEffect(() => {
-    const existingSessionId = sessionStorage.getItem(CURRENT_SESSION_KEY);
-    const sessions = getStoredSessions();
-    const existingSession = existingSessionId 
-      ? sessions.find(s => s.sessionId === existingSessionId)
-      : null;
+    const initSession = async () => {
+      const existingSessionId = sessionStorage.getItem(CURRENT_SESSION_KEY);
+      const sessions = getStoredSessions();
+      const existingSession = existingSessionId 
+        ? sessions.find(s => s.sessionId === existingSessionId)
+        : null;
 
-    if (existingSession) {
-      setSession(existingSession);
-    } else {
-      const newSession: SessionData = {
-        sessionId: generateSessionId(),
-        startTime: new Date().toISOString(),
-        lastActivity: new Date().toISOString(),
-        events: [{
-          timestamp: new Date().toISOString(),
-          type: 'session_start',
-          details: 'Session initiated',
-          route: window.location.pathname
-        }],
-        deviceInfo: {
-          userAgent: navigator.userAgent,
-          screenResolution: `${window.screen.width}x${window.screen.height}`,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-        }
-      };
+      if (existingSession) {
+        setSession(existingSession);
+      } else {
+        // Fetch IP in background
+        const ipInfo = await fetchIPAddress();
+        
+        // Get stored email if exists
+        const storedEmail = localStorage.getItem('demo_auth_email');
+        
+        const newSession: SessionData = {
+          sessionId: generateSessionId(),
+          startTime: new Date().toISOString(),
+          lastActivity: new Date().toISOString(),
+          events: [{
+            timestamp: new Date().toISOString(),
+            type: 'session_start',
+            details: 'Session initiated',
+            route: window.location.pathname
+          }],
+          deviceInfo: {
+            userAgent: navigator.userAgent,
+            screenResolution: `${window.screen.width}x${window.screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          },
+          identityInfo: {
+            email: storedEmail || undefined,
+            ipAddress: ipInfo?.ip,
+            ipLocation: ipInfo?.location
+          }
+        };
+        
+        sessionStorage.setItem(CURRENT_SESSION_KEY, newSession.sessionId);
+        saveSession(newSession);
+        setSession(newSession);
+      }
       
-      sessionStorage.setItem(CURRENT_SESSION_KEY, newSession.sessionId);
-      saveSession(newSession);
-      setSession(newSession);
-    }
+      setIsInitialized(true);
+    };
     
-    setIsInitialized(true);
+    initSession();
   }, []);
 
   // Track page views

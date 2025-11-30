@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
   History, X, Clock, Calendar, Activity, Download, 
-  ChevronDown, ChevronRight, Trash2, Eye
+  ChevronDown, ChevronRight, Trash2, Eye, Mail, Globe, MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { type SessionData } from '@/hooks/useSessionTracking';
@@ -249,6 +249,33 @@ export const SessionHistoryViewer = ({ isOpen, onClose }: SessionHistoryViewerPr
                   {/* Expanded Events */}
                   {expandedSession === session.sessionId && (
                     <div className="border-t border-border/30 px-4 py-3 bg-background/50">
+                      {/* Identity Information */}
+                      {session.identityInfo && (session.identityInfo.email || session.identityInfo.ipAddress) && (
+                        <div className="mb-4 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                          <div className="text-xs font-semibold text-primary mb-2">Identity Information</div>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                            {session.identityInfo.email && (
+                              <div className="flex items-center gap-2 text-foreground">
+                                <Mail className="w-3 h-3 text-primary" />
+                                <span>{session.identityInfo.email}</span>
+                              </div>
+                            )}
+                            {session.identityInfo.ipAddress && (
+                              <div className="flex items-center gap-2 text-foreground">
+                                <Globe className="w-3 h-3 text-primary" />
+                                <span>{session.identityInfo.ipAddress}</span>
+                              </div>
+                            )}
+                            {session.identityInfo.ipLocation && (
+                              <div className="flex items-center gap-2 text-foreground">
+                                <MapPin className="w-3 h-3 text-primary" />
+                                <span>{session.identityInfo.ipLocation}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      
                       <div className="text-xs text-muted-foreground mb-2 flex items-center gap-2">
                         <Eye className="w-3 h-3" />
                         Event Timeline
