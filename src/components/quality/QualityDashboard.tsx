@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
-  RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter
+  RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
+  Activity, Zap
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
@@ -9,8 +10,11 @@ import { PatientListView } from './PatientListView';
 import { ShapExplainability } from './ShapExplainability';
 import { ClinicalWorkflowView } from './ClinicalWorkflowView';
 import { ResearchBanner } from './ResearchBanner';
-
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
+import { DemoControls } from './DemoControls';
+import { PrintView } from './PrintView';
+import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
+import { useLiveSimulation } from '@/hooks/useLiveSimulation';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -21,33 +25,66 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 
 export const QualityDashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
-  const [currentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const printRef = useRef<HTMLDivElement>(null);
+
+  // Auto-demo functionality
+  const autoDemo = useAutoDemo(setActiveView);
+
+  // Live simulation
+  const liveSimulation = useLiveSimulation(true, 5000);
+
+  // Print handler
+  const handlePrint = useCallback(() => {
+    window.print();
+  }, []);
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onViewChange: setActiveView,
+    onToggleDemo: autoDemo.toggleDemo,
+    onNextView: autoDemo.nextView,
+    onPrevView: autoDemo.prevView,
+    onToggleLive: liveSimulation.toggle,
+    onPrint: handlePrint,
+  });
+
+  // Update time periodically
+  useState(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+    }, 60000);
+    return () => clearInterval(interval);
+  });
 
   const renderView = () => {
     switch (activeView) {
       case 'dashboard':
-        return <DashboardOverview />;
+        return <DashboardOverview liveSimulation={liveSimulation} />;
       case 'patients':
-        return <PatientListView />;
+        return <PatientListView liveSimulation={liveSimulation} />;
       case 'shap':
         return <ShapExplainability />;
       case 'workflow':
         return <ClinicalWorkflowView />;
       default:
-        return <DashboardOverview />;
+        return <DashboardOverview liveSimulation={liveSimulation} />;
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Print View (hidden on screen) */}
+      <PrintView ref={printRef} viewType={activeView} />
+
       {/* Cyan Header Stripe */}
-      <div className="h-1.5 bg-primary w-full" />
+      <div className="h-1.5 bg-primary w-full print:hidden" />
       
       {/* Research Banner - Compact */}
       <ResearchBanner />
 
       {/* Main Header Bar - EHR Style */}
-      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50">
+      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50 print:hidden">
         <div className="flex items-center justify-between gap-4">
           {/* Left: App Title & Unit */}
           <div className="flex items-center gap-4">
@@ -62,7 +99,7 @@ export const QualityDashboard = () => {
             </div>
             
             {/* Unit Selector */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80">
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors">
               <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
               <ChevronDown className="w-3 h-3 text-muted-foreground" />
@@ -76,7 +113,7 @@ export const QualityDashboard = () => {
               <input 
                 type="text" 
                 placeholder="Search patients, MRN, room..."
-                className="w-full pl-9 pr-4 py-1.5 text-xs bg-secondary border border-border/50 rounded focus:outline-none focus:border-primary/50 text-foreground placeholder:text-muted-foreground"
+                className="w-full pl-9 pr-4 py-1.5 text-xs bg-secondary border border-border/50 rounded focus:outline-none focus:border-primary/50 text-foreground placeholder:text-muted-foreground transition-colors"
               />
             </div>
           </div>
@@ -84,10 +121,33 @@ export const QualityDashboard = () => {
           {/* Right: Status & Actions */}
           <div className="flex items-center gap-3">
             {/* Live Status */}
-            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-risk-low/10 border border-risk-low/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
-              <span className="text-[10px] font-medium text-risk-low uppercase">Synthetic Mode</span>
+            <div className={cn(
+              "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
+              liveSimulation.isActive 
+                ? "bg-risk-low/10 border-risk-low/30" 
+                : "bg-secondary border-border/50"
+            )}>
+              {liveSimulation.isActive ? (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
+                  <span className="text-[10px] font-medium text-risk-low uppercase">Live</span>
+                  <Activity className="w-3 h-3 text-risk-low" />
+                </>
+              ) : (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                  <span className="text-[10px] font-medium text-muted-foreground uppercase">Paused</span>
+                </>
+              )}
             </div>
+
+            {/* Auto-Demo Indicator */}
+            {autoDemo.isRunning && (
+              <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-primary/10 border border-primary/30 animate-pulse">
+                <Zap className="w-3 h-3 text-primary" />
+                <span className="text-[10px] font-medium text-primary uppercase">Auto-Demo</span>
+              </div>
+            )}
 
             {/* Time & Shift */}
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -98,8 +158,12 @@ export const QualityDashboard = () => {
 
             {/* Quick Actions */}
             <div className="flex items-center gap-1">
-              <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors">
-                <RefreshCw className="w-4 h-4" />
+              <button 
+                onClick={() => liveSimulation.updateSimulation()}
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
+                title="Refresh data"
+              >
+                <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
               </button>
               <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative">
                 <Bell className="w-4 h-4" />
@@ -122,15 +186,15 @@ export const QualityDashboard = () => {
       </header>
 
       {/* Navigation Tabs - Compact */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50">
+      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => setActiveView(item.id)}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all",
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all relative",
                   activeView === item.id
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -139,6 +203,10 @@ export const QualityDashboard = () => {
                 {item.icon}
                 <span className="hidden sm:inline">{item.label}</span>
                 <span className="sm:hidden">{item.shortLabel}</span>
+                {/* Keyboard hint */}
+                <kbd className="hidden lg:inline-block ml-1 px-1 py-0.5 rounded bg-black/20 text-[9px] font-mono opacity-50">
+                  {index + 1}
+                </kbd>
               </button>
             ))}
           </div>
@@ -153,19 +221,40 @@ export const QualityDashboard = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-risk-high" />
               <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
             </div>
+            {liveSimulation.isActive && (
+              <div className="text-[9px] text-muted-foreground">
+                Updates: {liveSimulation.updateCount}
+              </div>
+            )}
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 overflow-auto pb-16">
+      <main className="flex-1 p-4 overflow-auto pb-24 print:pb-0">
         <div className="max-w-7xl mx-auto animate-fade-in">
           {renderView()}
         </div>
       </main>
 
+      {/* Demo Controls */}
+      <DemoControls
+        isRunning={autoDemo.isRunning}
+        progress={autoDemo.progress}
+        currentIndex={autoDemo.currentIndex}
+        totalViews={autoDemo.totalViews}
+        intervalMs={autoDemo.intervalMs}
+        liveUpdatesActive={liveSimulation.isActive}
+        onToggleDemo={autoDemo.toggleDemo}
+        onNext={autoDemo.nextView}
+        onPrev={autoDemo.prevView}
+        onToggleLive={liveSimulation.toggle}
+        onPrint={handlePrint}
+        onSpeedChange={autoDemo.setSpeed}
+      />
+
       {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30">
+      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30 print:hidden">
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <div className="flex items-center gap-3">
             <span className="text-primary font-semibold">⚠️ Research Prototype</span>
@@ -190,6 +279,15 @@ export const QualityDashboard = () => {
           </div>
         </div>
       </footer>
+
+      {/* Print Styles */}
+      <style>{`
+        @media print {
+          body { background: white !important; }
+          .print\\:hidden { display: none !important; }
+          .print\\:block { display: block !important; }
+        }
+      `}</style>
     </div>
   );
 };
