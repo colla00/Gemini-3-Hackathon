@@ -1,5 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
+const TOUR_COMPLETED_KEY = 'nso-dashboard-tour-completed';
+
 export interface TourStep {
   id: string;
   target: string; // CSS selector for the element to highlight
@@ -84,15 +86,31 @@ const tourSteps: TourStep[] = [
   },
 ];
 
-export const useGuidedTour = () => {
+export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
   const [isActive, setIsActive] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+  const [hasSeenTour, setHasSeenTour] = useState<boolean | null>(null);
 
   const currentStep = tourSteps[currentStepIndex];
   const totalSteps = tourSteps.length;
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === totalSteps - 1;
+
+  // Check localStorage on mount for first-time visitor detection
+  useEffect(() => {
+    const tourCompleted = localStorage.getItem(TOUR_COMPLETED_KEY);
+    const seen = tourCompleted === 'true';
+    setHasSeenTour(seen);
+    
+    // Auto-start tour for first-time visitors after a short delay
+    if (autoStartForNewVisitors && !seen) {
+      const timer = setTimeout(() => {
+        setIsActive(true);
+      }, 1500); // Delay to let the page render first
+      return () => clearTimeout(timer);
+    }
+  }, [autoStartForNewVisitors]);
 
   const updateTargetRect = useCallback(() => {
     if (!isActive || !currentStep) return;
@@ -128,6 +146,14 @@ export const useGuidedTour = () => {
     setIsActive(false);
     setCurrentStepIndex(0);
     setTargetRect(null);
+    // Mark tour as completed in localStorage
+    localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+    setHasSeenTour(true);
+  }, []);
+
+  const resetTourHistory = useCallback(() => {
+    localStorage.removeItem(TOUR_COMPLETED_KEY);
+    setHasSeenTour(false);
   }, []);
 
   const nextStep = useCallback(() => {
@@ -158,10 +184,12 @@ export const useGuidedTour = () => {
     isFirstStep,
     isLastStep,
     targetRect,
+    hasSeenTour,
     startTour,
     endTour,
     nextStep,
     prevStep,
+    resetTourHistory,
     goToStep,
   };
 };
