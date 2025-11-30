@@ -176,37 +176,65 @@ export const useNarration = () => {
     window.speechSynthesis.speak(utterance);
   }, []);
 
+  // Track if we've already shown the quota warning
+  const quotaWarningShown = useRef(false);
+
   // Generate and play audio using OpenAI TTS
   const speak = useCallback(async (text: string, onEnd?: () => void) => {
     const cacheKey = `${selectedVoice}:${text.substring(0, 100)}`;
     
+    // Check if we have cached audio first
+    let audioContent = audioCache.current.get(cacheKey);
+    
+    if (audioContent) {
+      // Use cached audio
+      try {
+        const audioBlob = new Blob(
+          [Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))],
+          { type: 'audio/mp3' }
+        );
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audioRef.current = audio;
+
+        audio.onplay = () => setIsNarrating(true);
+        audio.onended = () => {
+          setIsNarrating(false);
+          URL.revokeObjectURL(audioUrl);
+          onEnd?.();
+        };
+        await audio.play();
+        return;
+      } catch {
+        // If cached playback fails, continue to generate new
+      }
+    }
+
+    // Try OpenAI TTS
     try {
       setIsLoading(true);
+      console.log('Generating AI voiceover...');
       
-      let audioContent = audioCache.current.get(cacheKey);
-      
-      if (!audioContent) {
-        console.log('Generating AI voiceover...');
-        const { data, error } = await supabase.functions.invoke('text-to-speech', {
-          body: { text, voice: selectedVoice }
-        });
+      const { data, error } = await supabase.functions.invoke('text-to-speech', {
+        body: { text, voice: selectedVoice }
+      });
 
-        if (error) {
-          console.error('TTS API error:', error);
-          throw error;
+      if (error || !data?.audioContent) {
+        // Check for quota error
+        const errorStr = JSON.stringify(error || data);
+        if (errorStr.includes('quota') || errorStr.includes('429')) {
+          if (!quotaWarningShown.current) {
+            quotaWarningShown.current = true;
+            console.warn('OpenAI quota exceeded - using browser voice instead');
+          }
         }
-
-        if (!data?.audioContent) {
-          throw new Error('No audio content received');
-        }
-
-        audioContent = data.audioContent;
-        audioCache.current.set(cacheKey, audioContent);
+        throw new Error('TTS API unavailable');
       }
 
-      // Create and play audio
+      audioCache.current.set(cacheKey, data.audioContent);
+
       const audioBlob = new Blob(
-        [Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))],
+        [Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))],
         { type: 'audio/mp3' }
       );
       const audioUrl = URL.createObjectURL(audioBlob);
@@ -230,20 +258,17 @@ export const useNarration = () => {
         onEnd?.();
       };
 
-      audio.onerror = (e) => {
-        console.error('Audio playback error:', e);
+      audio.onerror = () => {
         setIsNarrating(false);
         setIsLoading(false);
         URL.revokeObjectURL(audioUrl);
-        // Fallback to browser TTS
         speakWithBrowser(text, onEnd);
       };
 
       await audio.play();
-    } catch (error) {
-      console.error('TTS error, falling back to browser:', error);
+    } catch {
+      // Silently fall back to browser TTS without error logging
       setIsLoading(false);
-      // Fallback to browser speech synthesis
       speakWithBrowser(text, onEnd);
     }
   }, [selectedVoice, speakWithBrowser]);
