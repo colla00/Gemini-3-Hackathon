@@ -4,12 +4,15 @@ import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskC
 import { ConfidenceIndicator } from './ConfidenceIndicator';
 import { InterventionsSummary } from './InterventionsPanel';
 
-const RiskCard = ({ data }: { data: RiskCategoryData }) => {
+const RiskCard = ({ data, index }: { data: RiskCategoryData; index: number }) => {
   const TrendIcon = data.trend === 'up' ? TrendingUp : data.trend === 'down' ? TrendingDown : Minus;
   const CategoryIcon = data.category === 'FALLS' ? AlertTriangle : data.category === 'HAPI' ? Shield : Activity;
   
   return (
-    <div className="glass-card rounded-lg p-4 hover:border-primary/30 transition-all duration-200 border border-transparent">
+    <div 
+      className="glass-card rounded-lg p-4 hover:border-primary/30 transition-all duration-300 border border-transparent hover-lift opacity-0 animate-fade-in-up"
+      style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
+    >
       {/* Header Row */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -46,8 +49,12 @@ const RiskCard = ({ data }: { data: RiskCategoryData }) => {
       {/* Progress Bar */}
       <div className="w-full h-1.5 bg-muted/30 rounded-full overflow-hidden mb-3">
         <div
-          className={cn("h-full rounded-full transition-all duration-500", getRiskLevelBg(data.level))}
-          style={{ width: `${data.score}%` }}
+          className={cn("h-full rounded-full transition-all duration-1000 ease-out", getRiskLevelBg(data.level))}
+          style={{ 
+            width: `${data.score}%`,
+            animation: 'progressFill 1.2s ease-out forwards',
+            animationDelay: `${(index || 0) * 100 + 300}ms`
+          }}
         />
       </div>
 
@@ -80,8 +87,11 @@ const RiskCard = ({ data }: { data: RiskCategoryData }) => {
   );
 };
 
-const QuickStatCard = ({ label, value, icon: Icon, color, subtext }: { label: string; value: string | number; icon: React.ElementType; color: string; subtext?: string }) => (
-  <div className="glass-card rounded-lg p-3 flex items-center gap-3">
+const QuickStatCard = ({ label, value, icon: Icon, color, subtext, index }: { label: string; value: string | number; icon: React.ElementType; color: string; subtext?: string; index?: number }) => (
+  <div 
+    className="glass-card rounded-lg p-3 flex items-center gap-3 hover-lift opacity-0 animate-fade-in"
+    style={{ animationDelay: `${(index || 0) * 75}ms`, animationFillMode: 'forwards' }}
+  >
     <div className={cn("w-10 h-10 rounded flex items-center justify-center", color)}>
       <Icon className="w-5 h-5" />
     </div>
@@ -94,10 +104,13 @@ const QuickStatCard = ({ label, value, icon: Icon, color, subtext }: { label: st
 );
 
 const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; index: number }) => (
-  <div className={cn(
-    "flex items-center justify-between py-2 px-3 rounded hover:bg-secondary/30 cursor-pointer transition-colors",
-    patient.fallsLevel === 'HIGH' && "bg-risk-high/5 border-l-2 border-l-risk-high"
-  )}>
+  <div 
+    className={cn(
+      "flex items-center justify-between py-2 px-3 rounded hover:bg-secondary/30 cursor-pointer transition-all duration-200 opacity-0 animate-slide-in-right",
+      patient.fallsLevel === 'HIGH' && "bg-risk-high/5 border-l-2 border-l-risk-high"
+    )}
+    style={{ animationDelay: `${300 + index * 75}ms`, animationFillMode: 'forwards' }}
+  >
     <div className="flex items-center gap-3">
       <span className="text-[10px] font-mono text-muted-foreground w-4">{index + 1}</span>
       <div>
@@ -142,10 +155,10 @@ export const DashboardOverview = () => {
     <div className="space-y-4">
       {/* Quick Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <QuickStatCard label="Total Patients" value={patients.length} icon={Users} color="bg-primary/20 text-primary" subtext="Unit 4C Census" />
-        <QuickStatCard label="High Risk" value={highRiskCount} icon={AlertCircle} color="bg-risk-high/20 text-risk-high" subtext="Immediate attention" />
-        <QuickStatCard label="Moderate Risk" value={moderateRiskCount} icon={AlertTriangle} color="bg-risk-medium/20 text-risk-medium" subtext="Monitoring required" />
-        <QuickStatCard label="Pending Actions" value={immediateActions} icon={Clock} color="bg-warning/20 text-warning" subtext="Immediate priority" />
+        <QuickStatCard index={0} label="Total Patients" value={patients.length} icon={Users} color="bg-primary/20 text-primary" subtext="Unit 4C Census" />
+        <QuickStatCard index={1} label="High Risk" value={highRiskCount} icon={AlertCircle} color="bg-risk-high/20 text-risk-high" subtext="Immediate attention" />
+        <QuickStatCard index={2} label="Moderate Risk" value={moderateRiskCount} icon={AlertTriangle} color="bg-risk-medium/20 text-risk-medium" subtext="Monitoring required" />
+        <QuickStatCard index={3} label="Pending Actions" value={immediateActions} icon={Clock} color="bg-warning/20 text-warning" subtext="Immediate priority" />
       </div>
 
       {/* Main Content Grid */}
@@ -157,8 +170,8 @@ export const DashboardOverview = () => {
             <span className="text-[10px] text-muted-foreground">Unit 4C Summary • Avg Confidence: 87%</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {riskCategories.map((category) => (
-              <RiskCard key={category.category} data={category} />
+            {riskCategories.map((category, index) => (
+              <RiskCard key={category.category} data={category} index={index} />
             ))}
           </div>
           

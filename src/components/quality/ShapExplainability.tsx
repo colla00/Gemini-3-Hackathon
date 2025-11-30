@@ -2,13 +2,16 @@ import { ArrowRight, Info, HelpCircle, TrendingUp, AlertTriangle } from 'lucide-
 import { cn } from '@/lib/utils';
 import { shapFactors, patients, getRiskLevelColor, type ShapFactor } from '@/data/nursingOutcomes';
 
-const ShapBar = ({ factor, maxContribution }: { factor: ShapFactor; maxContribution: number }) => {
+const ShapBar = ({ factor, maxContribution, index }: { factor: ShapFactor; maxContribution: number; index: number }) => {
   const isPositive = factor.contribution > 0;
   const isBase = factor.type === 'base';
   const width = Math.abs(factor.contribution) / maxContribution * 100;
   
   return (
-    <div className="flex items-center gap-3 py-2 border-b border-border/20 last:border-0">
+    <div 
+      className="flex items-center gap-3 py-2 border-b border-border/20 last:border-0 opacity-0 animate-fade-in"
+      style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
+    >
       {/* Factor Label */}
       <div className="w-24 shrink-0">
         <span className="text-xs font-medium text-foreground">{factor.factor}</span>
@@ -20,16 +23,24 @@ const ShapBar = ({ factor, maxContribution }: { factor: ShapFactor; maxContribut
           {!isBase && (
             <div
               className={cn(
-                "absolute top-0 h-full rounded transition-all duration-500",
+                "absolute top-0 h-full rounded",
                 isPositive ? "bg-risk-high left-0" : "bg-risk-low right-0"
               )}
-              style={{ width: `${width}%` }}
+              style={{ 
+                width: `${width}%`,
+                animation: 'progressFill 0.8s ease-out forwards',
+                animationDelay: `${index * 150 + 200}ms`
+              }}
             />
           )}
           {isBase && (
             <div
               className="absolute top-0 left-0 h-full bg-primary/50 rounded"
-              style={{ width: `${width}%` }}
+              style={{ 
+                width: `${width}%`,
+                animation: 'progressFill 0.8s ease-out forwards',
+                animationDelay: `${index * 150 + 200}ms`
+              }}
             />
           )}
           
@@ -125,7 +136,7 @@ export const ShapExplainability = () => {
           {/* SHAP Bars */}
           <div className="border-t border-border/30 pt-3">
             {shapFactors.map((factor, index) => (
-              <ShapBar key={index} factor={factor} maxContribution={maxContribution} />
+              <ShapBar key={index} factor={factor} maxContribution={maxContribution} index={index} />
             ))}
           </div>
 
