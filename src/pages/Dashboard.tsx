@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Home, Presentation, Lock
+  Activity, Home, Presentation, Lock, LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -14,6 +14,7 @@ import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { logoutDemo } from '@/components/quality/PasswordGate';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
 
@@ -186,6 +187,16 @@ export const Dashboard = () => {
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
               <span className="hidden md:block text-xs font-medium text-foreground">Demo User</span>
+              <button
+                onClick={() => {
+                  logInteraction('Logged out of demo');
+                  logoutDemo();
+                }}
+                className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
+                title="Logout"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         </div>

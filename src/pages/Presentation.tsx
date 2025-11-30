@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, Home, ShieldAlert, Lock
+  Activity, Zap, Home, ShieldAlert, Lock, LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -21,6 +21,7 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { logoutDemo } from '@/components/quality/PasswordGate';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -336,6 +337,16 @@ export const Presentation = () => {
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
               <span className="hidden md:block text-xs font-medium text-foreground">Demo User</span>
+              <button
+                onClick={() => {
+                  logInteraction('Logged out of demo');
+                  logoutDemo();
+                }}
+                className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
+                title="Logout"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         </div>
