@@ -10,7 +10,7 @@ interface ScreenProtectionProps {
 
 export const ScreenProtection = ({ 
   enabled = true, 
-  watermarkText = 'DEMO • CONFIDENTIAL',
+  watermarkText = 'PATENT PENDING • DO NOT COPY',
   showDynamicInfo = true 
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
@@ -98,13 +98,13 @@ export const ScreenProtection = ({
         )}
         style={{ pointerEvents: isBlurred ? 'auto' : 'none' }}
       >
-        {isBlurred && (
+      {isBlurred && (
           <div className="flex flex-col items-center justify-center h-full animate-fade-in">
             <ShieldAlert className="w-16 h-16 text-primary mb-4" />
             <h2 className="text-2xl font-bold text-foreground mb-2">Content Protected</h2>
             <p className="text-muted-foreground text-center max-w-md">
-              This demonstration contains confidential research data. 
-              Content is hidden when the window is not in focus.
+              This prototype is patent pending and proprietary intellectual property. 
+              Content is protected when the window is not in focus.
             </p>
             <button
               onClick={() => setIsBlurred(false)}
@@ -179,7 +179,7 @@ export const ScreenProtection = ({
             <div className="text-[9px] font-mono text-primary/40 space-y-0.5">
               <div>Session: {sessionId}</div>
               <div>Generated: {timestamp.split('T')[0]}</div>
-              <div className="text-primary/30">Research Use Only</div>
+              <div className="text-primary/30">Patent Pending • All Rights Reserved</div>
             </div>
           </div>
         </div>
@@ -188,12 +188,12 @@ export const ScreenProtection = ({
       {/* Corner watermarks */}
       <div className="fixed top-2 left-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          CONFIDENTIAL
+          PATENT PENDING
         </div>
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          DEMO ONLY
+          © 2025
         </div>
       </div>
 
