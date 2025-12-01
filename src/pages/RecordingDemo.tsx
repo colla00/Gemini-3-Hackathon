@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   BarChart3, Play, Clock, ChevronRight, Brain, Activity, 
-  Users, GitBranch, Sparkles, GraduationCap
+  Users, GitBranch, Sparkles, GraduationCap, ShieldX
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -12,6 +12,7 @@ import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView'
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { Button } from '@/components/ui/button';
 
+const ACCESS_KEY = 'stanford2025';
 type DemoSection = {
   id: string;
   title: string;
@@ -76,11 +77,38 @@ const TOTAL_DURATION = DEMO_SECTIONS.reduce((acc, s) => acc + s.duration, 0);
 
 export const RecordingDemo = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isStarted, setIsStarted] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [sectionElapsed, setSectionElapsed] = useState(0);
   const liveSimulation = useLiveSimulation(true, 4000);
+
+  // Check access key
+  const accessKey = searchParams.get('key');
+  const hasAccess = accessKey === ACCESS_KEY;
+
+  // Access denied screen
+  if (!hasAccess) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+        <div className="text-center max-w-md px-8">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-destructive/20 border-2 border-destructive/40 flex items-center justify-center">
+            <ShieldX className="w-10 h-10 text-destructive" />
+          </div>
+          <h1 className="text-3xl font-bold text-foreground mb-3">
+            Access Restricted
+          </h1>
+          <p className="text-muted-foreground mb-6">
+            This page requires a valid access link.
+          </p>
+          <Button variant="outline" onClick={() => navigate('/')}>
+            Return Home
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const currentSection = DEMO_SECTIONS[currentSectionIndex];
   const progress = (elapsed / TOTAL_DURATION) * 100;
