@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
@@ -48,7 +48,10 @@ const slideToView: Record<string, ViewType | null> = {
   'conclusion': null,
 };
 
+const PRESENTER_KEY = 'stanford2025';
+
 export const Presentation = () => {
+  const [searchParams] = useSearchParams();
   const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
   const [completedSlides, setCompletedSlides] = useState<SlideType[]>([]);
   const [elapsedMinutes, setElapsedMinutes] = useState(0);
@@ -57,9 +60,12 @@ export const Presentation = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
-  const [showPresenterNotes, setShowPresenterNotes] = useState(true);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
+
+  // Only show presenter notes if presenter key is provided
+  const isPresenterMode = searchParams.get('presenter') === PRESENTER_KEY;
+  const [showPresenterNotes, setShowPresenterNotes] = useState(isPresenterMode);
 
   // Track elapsed time
   useEffect(() => {
@@ -242,8 +248,8 @@ export const Presentation = () => {
         />
       )}
 
-      {/* Presenter Notes Panel */}
-      {showPresenterNotes && (
+      {/* Presenter Notes Panel - only in presenter mode */}
+      {isPresenterMode && showPresenterNotes && (
         <PresenterNotesPanel
           currentSlide={currentSlide}
           elapsedMinutes={elapsedMinutes}
@@ -286,19 +292,21 @@ export const Presentation = () => {
             )}
           </div>
           <div className="flex items-center gap-3">
-            {/* Presenter notes toggle */}
-            <button
-              onClick={() => setShowPresenterNotes(!showPresenterNotes)}
-              className={cn(
-                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
-                showPresenterNotes
-                  ? "bg-primary-foreground/20 text-primary-foreground"
-                  : "text-primary-foreground/60 hover:text-primary-foreground"
-              )}
-            >
-              <LayoutDashboard className="w-3 h-3" />
-              <span>Notes</span>
-            </button>
+            {/* Presenter notes toggle - only show if in presenter mode */}
+            {isPresenterMode && (
+              <button
+                onClick={() => setShowPresenterNotes(!showPresenterNotes)}
+                className={cn(
+                  "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
+                  showPresenterNotes
+                    ? "bg-primary-foreground/20 text-primary-foreground"
+                    : "text-primary-foreground/60 hover:text-primary-foreground"
+                )}
+              >
+                <LayoutDashboard className="w-3 h-3" />
+                <span>Notes</span>
+              </button>
+            )}
             {/* Hotspots toggle */}
             <button
               onClick={() => setHotspotsEnabled(!hotspotsEnabled)}
