@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, Home, ShieldAlert, Lock, LogOut, GraduationCap, 
+  Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
   MousePointer, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,6 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
-import { logoutDemo } from '@/components/quality/PasswordGate';
 import { Button } from '@/components/ui/button';
 
 // Map slide types to view types for dashboard content
@@ -57,20 +56,10 @@ export const Presentation = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
-  const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
   const [showPresenterNotes, setShowPresenterNotes] = useState(true);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
-
-  // Get stored email on mount
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('demo_auth_email');
-    if (storedEmail) {
-      setUserEmail(storedEmail);
-    }
-  }, []);
 
   // Track elapsed time
   useEffect(() => {
@@ -235,8 +224,8 @@ export const Presentation = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
-      {/* Screen Protection */}
-      <ScreenProtection enabled={screenProtectionEnabled} />
+      {/* Screen Protection - Always enabled */}
+      <ScreenProtection enabled={true} />
 
       {/* Presentation Timeline (Left sidebar) */}
       <PresentationTimeline45
@@ -398,16 +387,6 @@ export const Presentation = () => {
                 <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                   <User className="w-3.5 h-3.5 text-primary" />
                 </div>
-                <button
-                  onClick={() => {
-                    logInteraction('Logged out of demo');
-                    logoutDemo();
-                  }}
-                  className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
-                  title="Logout"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
               </div>
             </div>
           </div>

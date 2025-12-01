@@ -32,7 +32,6 @@ export const QualityDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
-  const [screenProtectionEnabled, setScreenProtectionEnabled] = useState(true);
   const printRef = useRef<HTMLDivElement>(null);
 
   // Guided tour
@@ -143,8 +142,8 @@ export const QualityDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
-      {/* Screen Protection - Watermark & Blur on Focus Loss */}
-      <ScreenProtection enabled={screenProtectionEnabled} />
+      {/* Screen Protection - Always enabled */}
+      <ScreenProtection enabled={true} />
 
       {/* Guided Tour Overlay */}
       <GuidedTour
@@ -272,18 +271,6 @@ export const QualityDashboard = () => {
                 title="Refresh data"
               >
                 <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
-              </button>
-              <button 
-                onClick={() => setScreenProtectionEnabled(prev => !prev)}
-                className={cn(
-                  "p-1.5 rounded transition-colors",
-                  screenProtectionEnabled 
-                    ? "bg-primary/20 text-primary" 
-                    : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
-                )}
-                title={screenProtectionEnabled ? "Disable screen protection" : "Enable screen protection"}
-              >
-                <ShieldAlert className="w-4 h-4" />
               </button>
               <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative">
                 <Bell className="w-4 h-4" />
