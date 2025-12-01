@@ -13,6 +13,7 @@ import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { Button } from '@/components/ui/button';
 
 const ACCESS_KEY = 'stanford2025';
+const EXPIRATION_DATE = new Date('2025-12-15T23:59:59'); // 2 weeks from Dec 1, 2025
 type DemoSection = {
   id: string;
   title: string;
@@ -84,9 +85,10 @@ export const RecordingDemo = () => {
   const [sectionElapsed, setSectionElapsed] = useState(0);
   const liveSimulation = useLiveSimulation(true, 4000);
 
-  // Check access key
+  // Check access key and expiration
   const accessKey = searchParams.get('key');
-  const hasAccess = accessKey === ACCESS_KEY;
+  const isExpired = new Date() > EXPIRATION_DATE;
+  const hasAccess = accessKey === ACCESS_KEY && !isExpired;
 
   // Access denied screen
   if (!hasAccess) {
@@ -97,10 +99,12 @@ export const RecordingDemo = () => {
             <ShieldX className="w-10 h-10 text-destructive" />
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-3">
-            Access Restricted
+            {isExpired ? 'Link Expired' : 'Access Restricted'}
           </h1>
           <p className="text-muted-foreground mb-6">
-            This page requires a valid access link.
+            {isExpired 
+              ? 'This access link has expired.' 
+              : 'This page requires a valid access link.'}
           </p>
           <Button variant="outline" onClick={() => navigate('/')}>
             Return Home
