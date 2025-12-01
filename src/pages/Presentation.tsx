@@ -4,8 +4,15 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight
+  MousePointer, ChevronLeft, ChevronRight, FileText, Share2
 } from 'lucide-react';
+import { AIAssistant } from '@/components/engagement/AIAssistant';
+import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
+import { LivePolls } from '@/components/engagement/LivePolls';
+import { FeedbackPanel } from '@/components/engagement/FeedbackPanel';
+import { HandoffReport } from '@/components/reports/HandoffReport';
+import { SessionJoinModal } from '@/components/engagement/SessionJoinModal';
+import { usePresentationSession } from '@/hooks/usePresentationSession';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
 import { PatientListView } from '@/components/quality/PatientListView';
@@ -60,8 +67,11 @@ export const Presentation = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [narrationEnabled, setNarrationEnabled] = useState(false);
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
+  const [showHandoffReport, setShowHandoffReport] = useState(false);
+  const [showSessionModal, setShowSessionModal] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
+  const { session, createSession, updateSlideProgress } = usePresentationSession();
 
   // Only show presenter notes if presenter key is provided
   const isPresenterMode = searchParams.get('presenter') === PRESENTER_KEY;
@@ -505,6 +515,22 @@ export const Presentation = () => {
           </div>
         </div>
       </footer>
+
+      {/* Engagement Components */}
+      <AIAssistant />
+      <AudienceQuestions sessionId={session?.id} currentSlide={currentSlide} isPresenter={isPresenterMode} />
+      <LivePolls sessionId={session?.id} isPresenter={isPresenterMode} />
+      {!isPresenterMode && <FeedbackPanel sessionId={session?.id} currentSlide={currentSlide} />}
+      
+      {/* Handoff Report Modal */}
+      {showHandoffReport && <HandoffReport onClose={() => setShowHandoffReport(false)} />}
+      
+      {/* Session Modal */}
+      <SessionJoinModal 
+        isOpen={showSessionModal} 
+        onClose={() => setShowSessionModal(false)} 
+        isPresenter={isPresenterMode}
+      />
     </div>
   );
 };

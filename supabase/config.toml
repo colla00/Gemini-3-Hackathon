@@ -3,3 +3,7 @@ project_id = "uantujqhlpwdwezswbxe"
 [functions.text-to-speech]
 enabled = true
 verify_jwt = false
+
+[functions.methodology-chat]
+enabled = true
+verify_jwt = false
