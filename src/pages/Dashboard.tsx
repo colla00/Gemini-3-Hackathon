@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Home, Presentation, Lock, LogOut
+  Activity, Home, Presentation, Lock
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -14,7 +14,6 @@ import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
-import { logoutDemo } from '@/components/quality/PasswordGate';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
 
@@ -28,19 +27,10 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-  const [userEmail, setUserEmail] = useState<string | null>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
   
   // Live simulation (can be toggled)
   const liveSimulation = useLiveSimulation(true, 5000);
-
-  // Get stored email on mount
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('demo_auth_email');
-    if (storedEmail) {
-      setUserEmail(storedEmail);
-    }
-  }, []);
 
   // Update time periodically
   useEffect(() => {
@@ -195,19 +185,9 @@ export const Dashboard = () => {
               <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="hidden md:block text-xs font-medium text-foreground max-w-[120px] truncate" title={userEmail || 'Demo User'}>
-                {userEmail || 'Demo User'}
+              <span className="hidden md:block text-xs font-medium text-foreground">
+                Demo User
               </span>
-              <button
-                onClick={() => {
-                  logInteraction('Logged out of demo');
-                  logoutDemo();
-                }}
-                className="p-1.5 rounded hover:bg-risk-high/20 text-muted-foreground hover:text-risk-high transition-colors"
-                title="Logout"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
         </div>
