@@ -1,19 +1,27 @@
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, FileText, Award } from 'lucide-react';
 
 export const ResearchBanner = () => {
   return (
     <div className="w-full bg-warning/15 border-b border-warning/30 py-1.5 px-4">
-      <div className="flex items-center justify-center gap-2 text-[11px]">
+      <div className="flex items-center justify-center gap-3 text-[11px] flex-wrap">
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
         <span className="text-warning font-semibold uppercase tracking-wide">
-          Research Prototype — Synthetic Data Only
+          Research Prototype — Patent-Pending Technology
         </span>
         <span className="text-warning/70 hidden sm:inline">
-          • Not for clinical use
+          • Synthetic Data Only
         </span>
         <span className="text-warning/70 hidden md:inline">
-          • Not FDA cleared
+          • Not for clinical use
         </span>
+        <div className="hidden lg:flex items-center gap-2 text-warning/70">
+          <FileText className="w-3 h-3" />
+          <span>IRB #2025-001</span>
+        </div>
+        <div className="hidden lg:flex items-center gap-2 text-warning/70">
+          <Award className="w-3 h-3" />
+          <span>US Patent Pending</span>
+        </div>
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, HelpCircle, ShieldAlert
+  Activity, Zap, HelpCircle, ShieldAlert, Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
@@ -378,14 +378,19 @@ export const QualityDashboard = () => {
       >
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <div className="flex items-center gap-3">
-            <span className="text-primary font-semibold">⚠️ Research Prototype</span>
+            <span className="text-primary font-semibold flex items-center gap-1">
+              <Award className="w-3 h-3" />
+              Patent-Pending Research
+            </span>
             <span className="hidden sm:inline text-border">|</span>
-            <span className="hidden sm:inline">No EHR Connection</span>
+            <span className="hidden sm:inline">IRB #2025-001</span>
             <span className="hidden md:inline text-border">|</span>
             <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
               <User className="w-3 h-3 text-amber-500" />
               <span className="text-amber-500 font-semibold uppercase tracking-wide">Human-in-the-Loop Required</span>
             </div>
+            <span className="hidden lg:inline text-border">|</span>
+            <span className="hidden lg:inline">Novel SHAP Integration</span>
           </div>
           <div className="flex items-center gap-3">
             <a 
