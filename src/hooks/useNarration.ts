@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
+export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'guided' | 'comparison' | 'validation';
 
 interface NarrationScript {
   view: ViewType;
