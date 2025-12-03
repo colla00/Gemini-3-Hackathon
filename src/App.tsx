@@ -8,7 +8,7 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { Presentation } from "./pages/Presentation";
 import { RecordingDemo } from "./pages/RecordingDemo";
-import { About } from "./pages/About";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
