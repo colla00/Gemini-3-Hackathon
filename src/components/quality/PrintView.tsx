@@ -2,9 +2,10 @@ import { forwardRef } from 'react';
 import { BarChart3, Calendar, Clock, User, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { patients, riskCategories } from '@/data/nursingOutcomes';
 import { cn } from '@/lib/utils';
+import type { ViewType } from '@/hooks/useAutoDemo';
 
 interface PrintViewProps {
-  viewType: 'dashboard' | 'patients' | 'shap' | 'workflow';
+  viewType: ViewType;
 }
 
 export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType }, ref) => {

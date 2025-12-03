@@ -29,6 +29,21 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Real-World Intervention Workflow Demonstration',
     citation: 'Pilot Results: 34% reduction in preventable falls (p<0.01)',
   },
+  guided: {
+    title: 'Guided Demo Mode',
+    subtitle: 'Automated Presentation with Narration & Patent Claims',
+    citation: 'Patent-Pending: 5 Novel Claims Submitted',
+  },
+  comparison: {
+    title: 'Workflow Comparison Analysis',
+    subtitle: 'Traditional vs AI-Enhanced Clinical Pathways',
+    citation: 'Results: 53% faster detection, 17% improvement in outcomes',
+  },
+  validation: {
+    title: 'Clinical Validation Metrics',
+    subtitle: 'Model Performance & Statistical Analysis',
+    citation: 'IRB #2025-001: Retrospective Cohort Study (n=422)',
+  },
 };
 
 interface AcademicHeaderProps {
