@@ -2,12 +2,13 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, HelpCircle, ShieldAlert, Award, Play, GitCompare, Target
+  Activity, Zap, HelpCircle, ShieldAlert, Award, Play, GitCompare, Target, Microscope
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
 import { PatientListView } from './PatientListView';
 import { ShapExplainability } from './ShapExplainability';
+import { ShapDeepDive } from './ShapDeepDive';
 import { ClinicalWorkflowView } from './ClinicalWorkflowView';
 import { GuidedDemoPanel } from './GuidedDemoPanel';
 import { ComparisonView } from './ComparisonView';
@@ -27,6 +28,7 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
   { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
   { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
+  { id: 'shapDeepDive', label: 'SHAP Deep-Dive', shortLabel: 'Deep-Dive', icon: <Microscope className="w-4 h-4" /> },
   { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
   { id: 'guided', label: 'Guided Demo', shortLabel: 'Demo', icon: <Play className="w-4 h-4" /> },
   { id: 'comparison', label: 'Comparison', shortLabel: 'Compare', icon: <GitCompare className="w-4 h-4" /> },
@@ -139,6 +141,8 @@ export const QualityDashboard = () => {
         return <PatientListView liveSimulation={liveSimulation} />;
       case 'shap':
         return <ShapExplainability />;
+      case 'shapDeepDive':
+        return <ShapDeepDive />;
       case 'workflow':
         return <ClinicalWorkflowView />;
       case 'guided':
