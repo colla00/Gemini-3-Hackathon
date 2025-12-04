@@ -24,6 +24,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'SHAP-Based Feature Attribution for Clinical Transparency',
     citation: 'Framework: Lundberg & Lee (2017) unified approach to model interpretation',
   },
+  shapDeepDive: {
+    title: 'Interactive SHAP Analysis',
+    subtitle: 'Individual Feature Contributions with Confidence Intervals',
+    citation: 'Innovation: Real-time attribution with statistical uncertainty quantification',
+  },
   workflow: {
     title: 'Clinical Validation & Human-in-the-Loop',
     subtitle: 'Real-World Intervention Workflow Demonstration',

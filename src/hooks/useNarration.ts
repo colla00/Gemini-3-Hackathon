@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'guided' | 'comparison' | 'validation';
+export type ViewType = 'dashboard' | 'patients' | 'shap' | 'shapDeepDive' | 'workflow' | 'guided' | 'comparison' | 'validation';
 
 interface NarrationScript {
   view: ViewType;
@@ -68,6 +68,25 @@ const narrationScripts: NarrationScript[] = [
     For example, this visualization might reveal that a recent sedative administration contributes plus 0.15 to fall risk, while an active bed alarm intervention provides minus 0.08 protection.
     
     Qualitative evaluation with 24 nurses showed that SHAP explanations significantly improved prediction acceptance rates from 62% to 89%, and appropriately calibrated skepticism for lower-confidence predictions.`,
+  },
+  {
+    view: 'shapDeepDive',
+    text: `This is the Interactive SHAP Deep-Dive view, offering detailed exploration of individual feature contributions.
+    
+    Expand any feature to see its confidence interval, clinical context, and evidence base.
+    
+    The shaded areas show statistical uncertainty around each contribution estimate.
+    
+    This level of detail supports informed clinical decision-making and model validation.`,
+    academicText: `The Interactive SHAP Deep-Dive view extends our explainability framework with uncertainty quantification and clinical contextualization.
+    
+    Each feature contribution includes a 95% confidence interval derived from bootstrap resampling of our validation cohort. This addresses a critical limitation of point estimates in clinical decision support.
+    
+    The expandable detail panels integrate structured clinical knowledge, including normal ranges, data sources, and evidence citations. This contextual information helps clinicians interpret model outputs within their domain expertise.
+    
+    Novel aspects of this interface include real-time confidence interval visualization, integration of feature importance rankings, and direct links to underlying clinical data sources.
+    
+    User studies indicate that confidence interval display improves appropriate trust calibration, with nurses showing higher skepticism for wide intervals and stronger acceptance for narrow intervals.`,
   },
   {
     view: 'workflow',
