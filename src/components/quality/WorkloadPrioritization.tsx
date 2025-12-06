@@ -42,19 +42,23 @@ export const WorkloadPrioritization = () => {
   const prioritizedPatients = useMemo((): PrioritizedPatient[] => {
     return patients
       .map((p, index) => {
-        const unitData = staffingData.find(s => s.unit === p.unit) || staffingData[0];
+        const unitName = p.room?.charAt(0) === '4' ? 'ICU' : p.room?.charAt(0) === '5' ? 'Med-Surg' : 'Oncology';
+        const unitData = staffingData.find(s => s.unit === unitName) || staffingData[0];
         const workloadFactor = unitData.ratio / 4; // Normalize to ideal ratio
-        const priorityScore = p.riskScore * (1 + workloadFactor * 0.3);
+        const priorityScore = (p.riskScore / 100) * (1 + workloadFactor * 0.3);
+        
+        const urgency: 'critical' | 'high' | 'moderate' | 'low' = 
+          priorityScore > 0.85 ? 'critical' : priorityScore > 0.7 ? 'high' : priorityScore > 0.5 ? 'moderate' : 'low';
         
         return {
           id: p.id,
           name: `Patient ${p.id}`,
-          riskScore: p.riskScore,
-          unit: p.unit,
+          riskScore: p.riskScore / 100,
+          unit: unitName,
           assignedNurse: `RN ${(index % 4) + 1}`,
           priorityScore: Math.min(0.99, priorityScore),
-          urgency: priorityScore > 0.85 ? 'critical' : priorityScore > 0.7 ? 'high' : priorityScore > 0.5 ? 'moderate' : 'low',
-          estimatedTime: Math.round(15 + p.riskScore * 30),
+          urgency,
+          estimatedTime: Math.round(15 + (p.riskScore / 100) * 30),
         };
       })
       .sort((a, b) => b.priorityScore - a.priorityScore);
