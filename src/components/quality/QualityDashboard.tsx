@@ -3,8 +3,16 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, HelpCircle, ShieldAlert, Award, Play, GitCompare, Target, Microscope,
-  Gauge, RotateCcw, TrendingUp, MessageSquareText, ListChecks, Network
+  Gauge, RotateCcw, TrendingUp, MessageSquareText, ListChecks, Network, Lightbulb, MoreHorizontal
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
 import { PatientListView } from './PatientListView';
@@ -31,24 +39,30 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 
-const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string; category?: string }[] = [
-  // Core Views
-  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" />, category: 'core' },
-  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" />, category: 'core' },
-  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" />, category: 'core' },
-  { id: 'shapDeepDive', label: 'SHAP Deep-Dive', shortLabel: 'Deep-Dive', icon: <Microscope className="w-4 h-4" />, category: 'core' },
-  // Patent Features
-  { id: 'adaptiveAlerts', label: 'Adaptive Alerts', shortLabel: 'Alerts', icon: <Gauge className="w-4 h-4" />, category: 'patent' },
-  { id: 'closedLoop', label: 'Closed-Loop', shortLabel: 'Tracking', icon: <RotateCcw className="w-4 h-4" />, category: 'patent' },
-  { id: 'temporalForecast', label: 'Temporal Forecast', shortLabel: 'Forecast', icon: <TrendingUp className="w-4 h-4" />, category: 'patent' },
-  { id: 'contextExplanations', label: 'Context Explain', shortLabel: 'Context', icon: <MessageSquareText className="w-4 h-4" />, category: 'patent' },
-  { id: 'workloadPriority', label: 'Workload Priority', shortLabel: 'Workload', icon: <ListChecks className="w-4 h-4" />, category: 'patent' },
-  { id: 'crossCorrelation', label: 'Cross-Correlation', shortLabel: 'Correlate', icon: <Network className="w-4 h-4" />, category: 'patent' },
-  // Demo & Validation
-  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" />, category: 'demo' },
-  { id: 'guided', label: 'Guided Demo', shortLabel: 'Demo', icon: <Play className="w-4 h-4" />, category: 'demo' },
-  { id: 'comparison', label: 'Comparison', shortLabel: 'Compare', icon: <GitCompare className="w-4 h-4" />, category: 'demo' },
-  { id: 'validation', label: 'Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" />, category: 'demo' },
+// Core presentation tabs - always visible
+const coreNavItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
+  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
+  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
+  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
+  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
+  { id: 'validation', label: 'Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" /> },
+  { id: 'comparison', label: 'Comparison', shortLabel: 'Compare', icon: <GitCompare className="w-4 h-4" /> },
+];
+
+// Patent-pending features - collapsible section
+const patentNavItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
+  { id: 'adaptiveAlerts', label: 'Adaptive Alerts', shortLabel: 'Alerts', icon: <Gauge className="w-4 h-4" /> },
+  { id: 'closedLoop', label: 'Closed-Loop', shortLabel: 'Tracking', icon: <RotateCcw className="w-4 h-4" /> },
+  { id: 'temporalForecast', label: 'Temporal Forecast', shortLabel: 'Forecast', icon: <TrendingUp className="w-4 h-4" /> },
+  { id: 'contextExplanations', label: 'Context Explain', shortLabel: 'Context', icon: <MessageSquareText className="w-4 h-4" /> },
+  { id: 'workloadPriority', label: 'Workload Priority', shortLabel: 'Workload', icon: <ListChecks className="w-4 h-4" /> },
+  { id: 'crossCorrelation', label: 'Cross-Correlation', shortLabel: 'Correlate', icon: <Network className="w-4 h-4" /> },
+];
+
+// Extended demo features - collapsible
+const extendedNavItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
+  { id: 'shapDeepDive', label: 'SHAP Deep-Dive', shortLabel: 'Deep-Dive', icon: <Microscope className="w-4 h-4" /> },
+  { id: 'guided', label: 'Guided Demo', shortLabel: 'Demo', icon: <Play className="w-4 h-4" /> },
 ];
 
 export const QualityDashboard = () => {
@@ -336,11 +350,12 @@ export const QualityDashboard = () => {
         </div>
       </header>
 
-      {/* Navigation Tabs - Compact */}
+      {/* Navigation Tabs - Clean & Focused */}
       <nav className="px-4 py-2 border-b border-border/30 bg-background/50 print:hidden" data-tour="nav-tabs">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            {navItems.map((item, index) => (
+          <div className="flex items-center gap-1 flex-wrap">
+            {/* Core Presentation Tabs */}
+            {coreNavItems.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => handleViewChange(item.id)}
@@ -354,20 +369,92 @@ export const QualityDashboard = () => {
                 {item.icon}
                 <span className="hidden sm:inline">{item.label}</span>
                 <span className="sm:hidden">{item.shortLabel}</span>
-                {/* Keyboard hint */}
                 <kbd className="hidden lg:inline-block ml-1 px-1 py-0.5 rounded bg-black/20 text-[9px] font-mono opacity-50">
                   {index + 1}
                 </kbd>
               </button>
             ))}
+
+            {/* Divider */}
+            <div className="hidden sm:block w-px h-5 bg-border/50 mx-1" />
+
+            {/* Patent Features Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all",
+                    patentNavItems.some(item => item.id === activeView)
+                      ? "bg-amber-500/20 text-amber-600 border border-amber-500/30"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  )}
+                >
+                  <Lightbulb className="w-4 h-4" />
+                  <span className="hidden sm:inline">Patent Claims</span>
+                  <span className="sm:hidden">IP</span>
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-56">
+                <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wide">
+                  Novel Patent-Pending Features
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {patentNavItems.map((item, index) => (
+                  <DropdownMenuItem
+                    key={item.id}
+                    onClick={() => handleViewChange(item.id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeView === item.id && "bg-primary/10 text-primary"
+                    )}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                    <span className="ml-auto text-[9px] text-muted-foreground">Claim {index + 1}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* More Options Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={cn(
+                    "flex items-center gap-1.5 px-2 py-1.5 rounded text-xs font-medium transition-all",
+                    extendedNavItems.some(item => item.id === activeView)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  )}
+                >
+                  <MoreHorizontal className="w-4 h-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wide">
+                  Extended Demo
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {extendedNavItems.map((item) => (
+                  <DropdownMenuItem
+                    key={item.id}
+                    onClick={() => handleViewChange(item.id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeView === item.id && "bg-primary/10 text-primary"
+                    )}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Quick Filters */}
           <div className="hidden md:flex items-center gap-2">
-            <button className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
-              <Filter className="w-3.5 h-3.5" />
-              <span>Filters</span>
-            </button>
             <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30">
               <span className="w-1.5 h-1.5 rounded-full bg-risk-high" />
               <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
