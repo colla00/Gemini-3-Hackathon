@@ -2,7 +2,8 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, HelpCircle, ShieldAlert, Award, Play, GitCompare, Target, Microscope
+  Activity, Zap, HelpCircle, ShieldAlert, Award, Play, GitCompare, Target, Microscope,
+  Gauge, RotateCcw, TrendingUp, MessageSquareText, ListChecks, Network
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from './DashboardOverview';
@@ -16,6 +17,12 @@ import { ValidationMetricsDashboard } from './ValidationMetricsDashboard';
 import { ResearchBanner } from './ResearchBanner';
 import { DemoControls } from './DemoControls';
 import { PrintView } from './PrintView';
+import { AdaptiveAlertThresholds } from './AdaptiveAlertThresholds';
+import { ClosedLoopTracking } from './ClosedLoopTracking';
+import { TemporalRiskForecast } from './TemporalRiskForecast';
+import { ContextAwareExplanations } from './ContextAwareExplanations';
+import { WorkloadPrioritization } from './WorkloadPrioritization';
+import { CrossOutcomeCorrelation } from './CrossOutcomeCorrelation';
 import { GuidedTour, TourButton } from './GuidedTour';
 import { ScreenProtection } from './ScreenProtection';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
@@ -24,15 +31,24 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 
-const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
-  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
-  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
-  { id: 'shapDeepDive', label: 'SHAP Deep-Dive', shortLabel: 'Deep-Dive', icon: <Microscope className="w-4 h-4" /> },
-  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
-  { id: 'guided', label: 'Guided Demo', shortLabel: 'Demo', icon: <Play className="w-4 h-4" /> },
-  { id: 'comparison', label: 'Comparison', shortLabel: 'Compare', icon: <GitCompare className="w-4 h-4" /> },
-  { id: 'validation', label: 'Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" /> },
+const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string; category?: string }[] = [
+  // Core Views
+  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" />, category: 'core' },
+  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" />, category: 'core' },
+  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" />, category: 'core' },
+  { id: 'shapDeepDive', label: 'SHAP Deep-Dive', shortLabel: 'Deep-Dive', icon: <Microscope className="w-4 h-4" />, category: 'core' },
+  // Patent Features
+  { id: 'adaptiveAlerts', label: 'Adaptive Alerts', shortLabel: 'Alerts', icon: <Gauge className="w-4 h-4" />, category: 'patent' },
+  { id: 'closedLoop', label: 'Closed-Loop', shortLabel: 'Tracking', icon: <RotateCcw className="w-4 h-4" />, category: 'patent' },
+  { id: 'temporalForecast', label: 'Temporal Forecast', shortLabel: 'Forecast', icon: <TrendingUp className="w-4 h-4" />, category: 'patent' },
+  { id: 'contextExplanations', label: 'Context Explain', shortLabel: 'Context', icon: <MessageSquareText className="w-4 h-4" />, category: 'patent' },
+  { id: 'workloadPriority', label: 'Workload Priority', shortLabel: 'Workload', icon: <ListChecks className="w-4 h-4" />, category: 'patent' },
+  { id: 'crossCorrelation', label: 'Cross-Correlation', shortLabel: 'Correlate', icon: <Network className="w-4 h-4" />, category: 'patent' },
+  // Demo & Validation
+  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" />, category: 'demo' },
+  { id: 'guided', label: 'Guided Demo', shortLabel: 'Demo', icon: <Play className="w-4 h-4" />, category: 'demo' },
+  { id: 'comparison', label: 'Comparison', shortLabel: 'Compare', icon: <GitCompare className="w-4 h-4" />, category: 'demo' },
+  { id: 'validation', label: 'Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" />, category: 'demo' },
 ];
 
 export const QualityDashboard = () => {
@@ -143,6 +159,18 @@ export const QualityDashboard = () => {
         return <ShapExplainability />;
       case 'shapDeepDive':
         return <ShapDeepDive />;
+      case 'adaptiveAlerts':
+        return <AdaptiveAlertThresholds />;
+      case 'closedLoop':
+        return <ClosedLoopTracking />;
+      case 'temporalForecast':
+        return <TemporalRiskForecast />;
+      case 'contextExplanations':
+        return <ContextAwareExplanations />;
+      case 'workloadPriority':
+        return <WorkloadPrioritization />;
+      case 'crossCorrelation':
+        return <CrossOutcomeCorrelation />;
       case 'workflow':
         return <ClinicalWorkflowView />;
       case 'guided':

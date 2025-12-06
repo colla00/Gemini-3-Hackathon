@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export type ViewType = 'dashboard' | 'patients' | 'shap' | 'shapDeepDive' | 'workflow' | 'guided' | 'comparison' | 'validation';
+export type ViewType = 'dashboard' | 'patients' | 'shap' | 'shapDeepDive' | 'workflow' | 'guided' | 'comparison' | 'validation' | 'adaptiveAlerts' | 'closedLoop' | 'temporalForecast' | 'contextExplanations' | 'workloadPriority' | 'crossCorrelation';
 
 interface AutoDemoConfig {
   views: ViewType[];
@@ -12,7 +12,7 @@ export const useAutoDemo = (onViewChange: (view: ViewType) => void) => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [config, setConfig] = useState<AutoDemoConfig>({
-    views: ['dashboard', 'patients', 'shap', 'shapDeepDive', 'workflow', 'guided', 'comparison', 'validation'],
+    views: ['dashboard', 'patients', 'shap', 'shapDeepDive', 'workflow', 'guided', 'comparison', 'validation', 'adaptiveAlerts', 'closedLoop', 'temporalForecast', 'contextExplanations', 'workloadPriority', 'crossCorrelation'],
     intervalMs: 8000,
     enabled: false,
   });
