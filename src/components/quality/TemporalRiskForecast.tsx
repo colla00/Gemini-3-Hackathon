@@ -260,7 +260,7 @@ export const TemporalRiskForecast = () => {
                       <div>
                         <span className="font-medium text-sm">{patient.id}</span>
                         <span className="text-xs text-muted-foreground ml-2">
-                          {patient.age}y • {patient.unit}
+                          {patient.ageRange} • {patient.room || 'N/A'}
                         </span>
                       </div>
                     </div>
