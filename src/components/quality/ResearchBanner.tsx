@@ -6,7 +6,7 @@ export const ResearchBanner = () => {
       <div className="flex items-center justify-center gap-3 text-[11px] flex-wrap">
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
         <span className="text-warning font-semibold uppercase tracking-wide">
-          Research Prototype — Patent-Pending Technology
+          Research Prototype — U.S. Provisional Patent App. No. 63/932,953
         </span>
         <span className="text-warning/70 hidden sm:inline">
           • Synthetic Data Only
@@ -20,7 +20,7 @@ export const ResearchBanner = () => {
         </div>
         <div className="hidden lg:flex items-center gap-2 text-warning/70">
           <Award className="w-3 h-3" />
-          <span>US Patent Pending</span>
+          <span>Patent Pending</span>
         </div>
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
       </div>
