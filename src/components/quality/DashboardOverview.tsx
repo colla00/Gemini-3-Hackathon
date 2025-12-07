@@ -5,6 +5,7 @@ import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskC
 import { ConfidenceIndicator } from './ConfidenceIndicator';
 import { InterventionsSummary } from './InterventionsPanel';
 import { ClinicalTooltip, MetricTooltip } from './ClinicalTooltip';
+import { AdaptiveThresholds } from './AdaptiveThresholds';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface DashboardOverviewProps {
@@ -300,13 +301,15 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
               <ClinicalTooltip term="NSO">Risk Categories</ClinicalTooltip>
             </h2>
             <div className="flex items-center gap-2">
+              {/* Adaptive Thresholds Indicator */}
+              <AdaptiveThresholds compact />
               {liveSimulation?.isActive && (
                 <span className="flex items-center gap-1 text-[10px] text-risk-low">
                   <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
                   Live
                 </span>
               )}
-              <span className="text-[10px] text-muted-foreground">Unit 4C Summary • Avg <ClinicalTooltip term="Confidence" showIcon={false}>Confidence</ClinicalTooltip>: 87%</span>
+              <span className="text-[10px] text-muted-foreground hidden md:inline">Unit 4C • Avg <ClinicalTooltip term="Confidence" showIcon={false}>Confidence</ClinicalTooltip>: 87%</span>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3" data-tour="risk-cards">
