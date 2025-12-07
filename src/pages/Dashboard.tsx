@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  PlayCircle, Printer, BookOpen, MessageCircle
+  PlayCircle, Printer, BookOpen, MessageCircle, Monitor
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -185,6 +185,13 @@ export const Dashboard = () => {
                 title="Practice Mode"
               >
                 <PlayCircle className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/presentation?mode=presenter"
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
+                title="Presenter Dashboard (dual-screen for Zoom)"
+              >
+                <Monitor className="w-4 h-4" />
               </Link>
               <Link
                 to="/presentation?mode=print"

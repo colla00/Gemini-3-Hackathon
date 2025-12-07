@@ -30,6 +30,8 @@ import { PresentationTimeline45 } from '@/components/presentation/PresentationTi
 import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
 import { PracticeMode } from '@/components/presentation/PracticeMode';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
+import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
+import { AudienceView } from '@/components/presentation/AudienceView';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -63,6 +65,26 @@ const PRESENTER_KEY = 'stanford2025';
 
 export const Presentation = () => {
   const [searchParams] = useSearchParams();
+  
+  // Check for special modes first
+  const mode = searchParams.get('mode');
+  
+  // Presenter Dashboard mode - private view with all controls
+  if (mode === 'presenter') {
+    return <PresenterDashboard />;
+  }
+  
+  // Audience mode - clean view synced with presenter
+  if (mode === 'audience') {
+    return <AudienceView />;
+  }
+
+  // Default presentation mode (legacy behavior)
+  return <DefaultPresentationView searchParams={searchParams} />;
+};
+
+// Separated default view to avoid hooks being called conditionally
+const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchParams }) => {
   const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
   const [completedSlides, setCompletedSlides] = useState<SlideType[]>([]);
   const [elapsedMinutes, setElapsedMinutes] = useState(0);
