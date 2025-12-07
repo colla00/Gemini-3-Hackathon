@@ -26,6 +26,8 @@ interface SlideConfig {
   icon: React.ReactNode;
   notes: string[];
   keyPoints?: string[];
+  transitionCue?: string; // Cue to move to next slide
+  talkingPoints?: string[]; // Key things to say
 }
 
 export const PRESENTATION_SLIDES: SlideConfig[] = [
@@ -41,6 +43,12 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Brief overview: This is a research prototype for predictive nursing quality monitoring',
       'Patent pending - proprietary technology',
     ],
+    talkingPoints: [
+      'Good morning/afternoon, thank you for joining this session on AI-augmented nursing quality monitoring.',
+      'I am [Name], and I am excited to share our research prototype developed at [Institution].',
+      'This work represents a novel approach to predicting and preventing nurse-sensitive adverse outcomes.',
+    ],
+    transitionCue: '→ "Let me walk you through what we will cover today..."',
   },
   {
     id: 'agenda',
@@ -61,6 +69,13 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Validation Results (5 min)',
       'Future Directions & Q&A (7 min)',
     ],
+    talkingPoints: [
+      'We will start by framing the clinical problem — why this matters for patient safety.',
+      'Then I will explain our technical methodology at a high level.',
+      'The bulk of our time will be a live demonstration of the dashboard.',
+      'Feel free to ask questions as we go — this is meant to be interactive.',
+    ],
+    transitionCue: '→ "First, let us understand the scope of the problem..."',
   },
   {
     id: 'problem',
@@ -82,6 +97,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Estimated $50B+ in preventable costs',
       'Current metrics are retrospective, not predictive',
     ],
+    talkingPoints: [
+      'Every year, hundreds of thousands of patients experience preventable adverse events.',
+      'These are not just statistics — each represents a patient who suffered harm that could have been avoided.',
+      'The financial burden exceeds 50 billion dollars annually, but the human cost is immeasurable.',
+      'Current quality monitoring is retrospective — we find out after the harm has occurred.',
+      'What if we could predict these events before they happen?',
+    ],
+    transitionCue: '→ "This gap motivated our approach. Let me show you how we built a solution..."',
   },
   {
     id: 'methodology',
@@ -104,6 +127,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Sub-5-minute data latency',
       'Calibrated probability outputs',
     ],
+    talkingPoints: [
+      'We pull data in real-time from the EHR via HL7 FHIR interfaces.',
+      'Our feature set includes 47 clinically-validated variables — Braden scores, Morse falls, lab trends.',
+      'The model is a gradient boosting ensemble, chosen for its interpretability and calibration.',
+      'Critically, outputs are calibrated probabilities — a 70% risk means 70 out of 100 similar patients will have the event.',
+      'From data change to dashboard update is under 5 minutes.',
+    ],
+    transitionCue: '→ "Now let me show you the dashboard in action..."',
   },
   {
     id: 'dashboard',
@@ -124,6 +155,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Priority queue with composite ranking',
       'Real-time updates every 5 minutes',
     ],
+    talkingPoints: [
+      'This is the unit-level overview — what a charge nurse would see at shift start.',
+      'The top cards show aggregate counts: total patients, high-risk patients, pending assessments.',
+      'The priority queue automatically ranks patients by composite risk score.',
+      'Notice the live indicator — this updates every 5 minutes as new data flows in.',
+      'Red means immediate attention needed; yellow means close monitoring; green is stable.',
+    ],
+    transitionCue: '→ "Let us drill down into individual patient risk profiles..."',
   },
   {
     id: 'patients',
@@ -144,6 +183,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Multi-outcome risk profiles',
       'Confidence intervals for clinical trust',
     ],
+    talkingPoints: [
+      'Each row represents a patient with their multi-outcome risk profile.',
+      'You can see falls risk, pressure injury risk, and CAUTI risk side by side.',
+      'The sparklines show how risk has trended over the last 24 hours — is it increasing or decreasing?',
+      'The confidence indicator tells nurses how certain the model is about this prediction.',
+      'Clicking on a patient reveals the detailed breakdown...',
+    ],
+    transitionCue: '→ "But how do nurses know WHY a patient is high risk? This is where explainability comes in..."',
   },
   {
     id: 'shap',
@@ -165,6 +212,15 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Red = risk-increasing, Green = protective',
       '89% nurse acceptance with explanations',
     ],
+    talkingPoints: [
+      'Black-box predictions are not acceptable in clinical settings. Nurses need to understand WHY.',
+      'We use SHAP — Shapley Additive Explanations — from cooperative game theory.',
+      'Each bar shows how much a specific factor contributed to this patients risk.',
+      'Red bars push risk up — impaired mobility, age over 75, abnormal labs.',
+      'Green bars are protective — stable vitals, recent assessment, appropriate interventions.',
+      'In our usability study, nurse acceptance jumped from 62% to 89% when explanations were shown.',
+    ],
+    transitionCue: '→ "Understanding risk is only valuable if it integrates into clinical workflow..."',
   },
   {
     id: 'workflow',
@@ -185,6 +241,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Nurse retains clinical decision authority',
       'Seamless EHR workflow integration',
     ],
+    talkingPoints: [
+      'The best predictions are useless if they do not fit into clinical workflow.',
+      'We designed for a human-in-the-loop model — AI informs, nurse decides.',
+      'Average time from alert to nurse awareness is 3 minutes.',
+      'The system suggests evidence-based interventions but the nurse retains authority.',
+      'This is not automation — it is augmentation of clinical judgment.',
+    ],
+    transitionCue: '→ "So does it actually work? Let me share our pilot results..."',
   },
   {
     id: 'validation',
@@ -206,6 +270,15 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Nurse satisfaction: 4.2/5.0',
       '847 patient encounters in pilot',
     ],
+    talkingPoints: [
+      'Our 6-month pilot included 847 patient encounters across two units.',
+      'Model performance: AUC of 0.89, sensitivity 84%, specificity 91%.',
+      'Most importantly — we saw a 34% reduction in preventable falls compared to historical controls.',
+      'This was statistically significant at p less than 0.01.',
+      'Nurse satisfaction averaged 4.2 out of 5 — they found it genuinely useful.',
+      'I should note limitations: this was a single-site study with historical controls, not a randomized trial.',
+    ],
+    transitionCue: '→ "Looking ahead, here is our roadmap..."',
   },
   {
     id: 'future',
@@ -226,6 +299,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Federated learning implementation',
       'FDA regulatory pathway exploration',
     ],
+    talkingPoints: [
+      'We are planning a multi-site validation study for 2026.',
+      'We want to expand beyond Epic to other EHR vendors.',
+      'Federated learning will allow training across institutions without sharing patient data.',
+      'We are also exploring FDA regulatory pathways as this could be classified as clinical decision support.',
+      'I would love to discuss collaboration opportunities with anyone interested.',
+    ],
+    transitionCue: '→ "To wrap up..."',
   },
   {
     id: 'conclusion',
@@ -245,9 +326,16 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Human-in-the-loop design philosophy',
       'Contact: alexis.collier@ung.edu',
     ],
+    talkingPoints: [
+      'To summarize: we built an AI system that predicts nursing-sensitive outcomes in real-time.',
+      'It is explainable, it integrates into workflow, and early results are promising.',
+      'The key philosophy is human-in-the-loop — augmenting nurses, not replacing them.',
+      'I would love to hear your questions and discuss potential collaborations.',
+      'My email is on screen — please reach out.',
+    ],
+    transitionCue: '→ "Thank you! I am happy to take questions..."',
   },
 ];
-
 export const TOTAL_PRESENTATION_TIME = PRESENTATION_SLIDES.reduce((acc, s) => acc + s.duration, 0);
 
 interface PresentationSlideProps {

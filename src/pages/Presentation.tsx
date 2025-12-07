@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight, FileText, Share2
+  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer
 } from 'lucide-react';
 import { AIAssistant } from '@/components/engagement/AIAssistant';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -26,6 +26,7 @@ import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
+import { PracticeMode } from '@/components/presentation/PracticeMode';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -69,6 +70,7 @@ export const Presentation = () => {
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
   const [showHandoffReport, setShowHandoffReport] = useState(false);
   const [showSessionModal, setShowSessionModal] = useState(false);
+  const [showPracticeMode, setShowPracticeMode] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
   const { logFeatureUse, logInteraction } = useSessionTracking();
   const { session, createSession, updateSlideProgress } = usePresentationSession();
@@ -258,6 +260,15 @@ export const Presentation = () => {
         />
       )}
 
+      {/* Practice Mode */}
+      <PracticeMode
+        currentSlide={currentSlide}
+        onNavigate={handleNavigate}
+        onGoToSlide={handleSlideChange}
+        isVisible={showPracticeMode}
+        onClose={() => setShowPracticeMode(false)}
+      />
+
       {/* Presenter Notes Panel - only in presenter mode */}
       {isPresenterMode && showPresenterNotes && (
         <PresenterNotesPanel
@@ -302,6 +313,19 @@ export const Presentation = () => {
             )}
           </div>
           <div className="flex items-center gap-3">
+            {/* Practice Mode toggle */}
+            <button
+              onClick={() => setShowPracticeMode(!showPracticeMode)}
+              className={cn(
+                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
+                showPracticeMode
+                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  : "text-primary-foreground/60 hover:text-primary-foreground"
+              )}
+            >
+              <Timer className="w-3 h-3" />
+              <span>Practice</span>
+            </button>
             {/* Presenter notes toggle - only show if in presenter mode */}
             {isPresenterMode && (
               <button

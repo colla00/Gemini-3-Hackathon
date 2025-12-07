@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { 
   ChevronLeft, ChevronRight, Clock, BookOpen, 
-  Lightbulb, MessageSquare, Eye, EyeOff
+  Lightbulb, MessageSquare, Eye, EyeOff, CheckCircle
 } from 'lucide-react';
 import { PRESENTATION_SLIDES, type SlideType, TOTAL_PRESENTATION_TIME } from './PresentationSlide';
 import { Button } from '@/components/ui/button';
@@ -127,7 +127,29 @@ export const PresenterNotesPanel = ({
       {/* Notes Content */}
       {showNotes && (
         <div className="flex-1 overflow-auto p-3">
+          {/* Talking Points - NEW */}
+          {slide.talkingPoints && slide.talkingPoints.length > 0 && (
+            <div className="mb-4">
+              <div className="text-xs font-semibold text-foreground mb-2 flex items-center gap-1.5">
+                <MessageSquare className="w-3.5 h-3.5 text-primary" />
+                What to Say
+              </div>
+              <div className="space-y-2">
+                {slide.talkingPoints.map((point, index) => (
+                  <div 
+                    key={index}
+                    className="text-sm text-foreground bg-primary/5 border-l-2 border-primary/30 pl-3 py-1.5 rounded-r"
+                  >
+                    "{point}"
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Speaker Notes */}
           <div className="space-y-2">
+            <div className="text-xs font-semibold text-muted-foreground mb-1">Reminders</div>
             {slide.notes.map((note, index) => (
               <div 
                 key={index}
@@ -143,8 +165,8 @@ export const PresenterNotesPanel = ({
           {slide.keyPoints && (
             <div className="mt-4 pt-3 border-t border-border">
               <div className="text-xs font-semibold text-foreground mb-2 flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-primary" />
-                Key Points
+                <CheckCircle className="w-3.5 h-3.5 text-risk-low" />
+                Key Points to Cover
               </div>
               <ul className="space-y-1">
                 {slide.keyPoints.map((point, index) => (
@@ -154,6 +176,19 @@ export const PresenterNotesPanel = ({
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* Transition Cue - NEW */}
+          {slide.transitionCue && (
+            <div className="mt-4 pt-3 border-t border-border">
+              <div className="text-xs font-semibold text-risk-medium mb-1 flex items-center gap-1.5">
+                <ChevronRight className="w-3.5 h-3.5" />
+                Transition Cue
+              </div>
+              <div className="text-sm font-medium text-foreground bg-risk-medium/10 px-3 py-2 rounded border border-risk-medium/20">
+                {slide.transitionCue}
+              </div>
             </div>
           )}
         </div>
