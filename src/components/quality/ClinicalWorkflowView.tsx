@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { 
   AlertTriangle, CheckCircle2, Shield, User, Activity, Clock, 
   MapPin, Pill, Bell, FileText, TrendingUp, ChevronRight,
-  ClipboardCheck, AlertCircle, Heart, Thermometer
+  ClipboardCheck, AlertCircle, Heart, Thermometer, ChevronDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ClosedLoopFeedback } from './ClosedLoopFeedback';
+import { TemporalForecasting } from './TemporalForecasting';
+import { PriorityScoring } from './PriorityScoring';
+import { AdaptiveThresholds } from './AdaptiveThresholds';
 interface TimelineEvent {
   time: string;
   type: 'alert' | 'assessment' | 'action' | 'outcome';
@@ -292,6 +295,39 @@ export const ClinicalWorkflowView = () => {
       {/* Closed-Loop Feedback Section - Patent Innovation */}
       <div className="mt-4">
         <ClosedLoopFeedback />
+      </div>
+
+      {/* Additional Patent Innovations - Collapsible */}
+      <div className="mt-4 space-y-4">
+        <details className="glass-card rounded-lg overflow-hidden group">
+          <summary className="flex items-center justify-between p-4 cursor-pointer hover:bg-secondary/30 transition-colors">
+            <span className="text-sm font-semibold text-foreground">Multi-Horizon Temporal Forecasting (Patent Claim 5)</span>
+            <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="p-4 pt-0 border-t border-border/20">
+            <TemporalForecasting />
+          </div>
+        </details>
+
+        <details className="glass-card rounded-lg overflow-hidden group">
+          <summary className="flex items-center justify-between p-4 cursor-pointer hover:bg-secondary/30 transition-colors">
+            <span className="text-sm font-semibold text-foreground">Workload Priority Scoring (Patent Claim 9)</span>
+            <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="p-4 pt-0 border-t border-border/20">
+            <PriorityScoring />
+          </div>
+        </details>
+
+        <details className="glass-card rounded-lg overflow-hidden group">
+          <summary className="flex items-center justify-between p-4 cursor-pointer hover:bg-secondary/30 transition-colors">
+            <span className="text-sm font-semibold text-foreground">Patient-Adaptive Thresholds (Patent Claim 6)</span>
+            <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="p-4 pt-0 border-t border-border/20">
+            <AdaptiveThresholds />
+          </div>
+        </details>
       </div>
     </div>
   );
