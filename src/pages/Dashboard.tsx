@@ -14,6 +14,7 @@ import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
 
@@ -171,11 +172,19 @@ export const Dashboard = () => {
               >
                 <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
               </button>
-              <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative">
+              <button 
+                onClick={() => toast.info('Notifications', { description: '3 new alerts: 2 high-risk patients, 1 pending intervention' })}
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors relative"
+                title="Notifications"
+              >
                 <Bell className="w-4 h-4" />
                 <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-risk-high" />
               </button>
-              <button className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors">
+              <button 
+                onClick={() => toast.info('Settings', { description: 'Settings panel coming soon. This is a research prototype.' })}
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
+                title="Settings"
+              >
                 <Settings className="w-4 h-4" />
               </button>
             </div>
