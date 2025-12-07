@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Home, Presentation, Lock, Target, Database, TrendingDown
+  Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
+  PlayCircle, Printer, BookOpen, MessageCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -178,6 +179,20 @@ export const Dashboard = () => {
               {/* Guided Demo Button */}
               <GuidedDemo onViewChange={(view) => handleViewChange(view as ViewType)} currentView={activeView} />
               
+              <Link
+                to="/presentation?mode=practice"
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-amber-500 transition-colors"
+                title="Practice Mode"
+              >
+                <PlayCircle className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/presentation?mode=print"
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
+                title="Print Handouts"
+              >
+                <Printer className="w-4 h-4" />
+              </Link>
               <Link
                 to="/presentation"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-primary transition-colors"
