@@ -22,6 +22,7 @@ import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
+import { OfflineIndicator } from '@/components/OfflineIndicator';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
@@ -309,6 +310,9 @@ export const Dashboard = () => {
       
       {/* Methodology AI Chatbot */}
       <MethodologyChat />
+      
+      {/* Offline Indicator */}
+      <OfflineIndicator />
     </div>
   );
 };
