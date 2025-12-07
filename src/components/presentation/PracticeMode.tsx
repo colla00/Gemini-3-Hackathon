@@ -53,32 +53,12 @@ export const PracticeMode = ({
   const isBehind = timeDelta > 60;
   const isNearEnd = slideProgress >= 80;
 
-  // Timer
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setElapsedSeconds(prev => prev + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning]);
-
-  // Track slide changes
-  useEffect(() => {
-    setSlideStartTime(elapsedSeconds);
-    setShowTransitionPrompt(false);
-  }, [currentSlide]);
-
-  // Show transition prompt when slide time is almost up
-  useEffect(() => {
-    if (isRunning && slideProgress >= 90 && !showTransitionPrompt && nextSlide) {
-      setShowTransitionPrompt(true);
-      if (soundEnabled) {
-        playChime();
-      }
-    }
-  }, [slideProgress, isRunning, showTransitionPrompt, nextSlide, soundEnabled]);
+  // Utility functions
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const playChime = () => {
     try {
@@ -101,12 +81,7 @@ export const PracticeMode = ({
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
+  // Handlers (defined before effects that use them)
   const handleReset = useCallback(() => {
     setIsRunning(false);
     setElapsedSeconds(0);
@@ -119,6 +94,63 @@ export const PracticeMode = ({
     setShowTransitionPrompt(false);
     onNavigate('next');
   }, [onNavigate]);
+
+  // Timer
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setElapsedSeconds(prev => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning]);
+
+  // Keyboard shortcuts (Space=play/pause, R=reset, N=next)
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          setIsRunning(prev => !prev);
+          break;
+        case 'KeyR':
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            handleReset();
+          }
+          break;
+        case 'KeyN':
+          e.preventDefault();
+          handleNextSlide();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isVisible, handleReset, handleNextSlide]);
+
+  // Track slide changes
+  useEffect(() => {
+    setSlideStartTime(elapsedSeconds);
+    setShowTransitionPrompt(false);
+  }, [currentSlide]);
+
+  // Show transition prompt when slide time is almost up
+  useEffect(() => {
+    if (isRunning && slideProgress >= 90 && !showTransitionPrompt && nextSlide) {
+      setShowTransitionPrompt(true);
+      if (soundEnabled) {
+        playChime();
+      }
+    }
+  }, [slideProgress, isRunning, showTransitionPrompt, nextSlide, soundEnabled]);
 
   if (!isVisible) return null;
 
