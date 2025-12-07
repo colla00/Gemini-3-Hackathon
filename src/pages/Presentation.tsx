@@ -200,6 +200,7 @@ export const Presentation = () => {
     onNextView: () => handleNavigate('next'),
     onPrevView: () => handleNavigate('prev'),
     onToggleLive: handleToggleLive,
+    onTogglePractice: () => setShowPracticeMode(prev => !prev),
     onPrint: handlePrint,
   });
 
