@@ -14,6 +14,8 @@ import { ValidationMetricsDashboard } from '@/components/quality/ValidationMetri
 import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagram';
 import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
+import { MethodologyChat } from '@/components/quality/MethodologyChat';
+import { GuidedDemo } from '@/components/quality/GuidedDemo';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -173,6 +175,9 @@ export const Dashboard = () => {
 
             {/* Quick Actions */}
             <div className="flex items-center gap-1">
+              {/* Guided Demo Button */}
+              <GuidedDemo onViewChange={(view) => handleViewChange(view as ViewType)} currentView={activeView} />
+              
               <Link
                 to="/presentation"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-primary transition-colors"
@@ -279,6 +284,9 @@ export const Dashboard = () => {
 
       {/* Settings Panel */}
       <SettingsPanel isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      
+      {/* Methodology AI Chatbot */}
+      <MethodologyChat />
     </div>
   );
 };
