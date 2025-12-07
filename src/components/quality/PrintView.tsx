@@ -156,6 +156,9 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           This report contains AI-generated risk predictions and should be used as a clinical decision support tool only. 
           All predictions require human clinical verification. Not intended for diagnostic or treatment decisions.
         </p>
+        <p className="mt-1 text-[9px] text-gray-400 text-center">
+          U.S. Provisional Patent Application No. 63/932,953 • Patent Pending
+        </p>
       </div>
     </div>
   );
