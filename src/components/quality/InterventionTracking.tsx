@@ -153,6 +153,9 @@ export const InterventionTracking = () => {
             before and after clinical actions. The system enables continuous learning and validates 
             the clinical utility of AI-guided interventions through real-world outcome tracking.
           </p>
+          <p className="mt-2 text-[10px] text-accent">
+            U.S. Provisional Patent Application No. 63/932,953 • Patent Pending
+          </p>
         </div>
       </CardContent>
     </Card>

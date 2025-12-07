@@ -351,6 +351,9 @@ export const ShapExplainability = () => {
                   in explainable AI for healthcare. Technology enables interpretable risk attribution 
                   while maintaining sub-5-minute data refresh.
                 </p>
+                <p className="text-[9px] text-accent mt-1.5 font-medium">
+                  U.S. Provisional Patent Application No. 63/932,953
+                </p>
               </div>
             </div>
           </div>
