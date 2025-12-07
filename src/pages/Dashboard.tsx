@@ -14,6 +14,7 @@ import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
@@ -28,6 +29,7 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+  const [showSettings, setShowSettings] = useState(false);
   const { logFeatureUse, logInteraction } = useSessionTracking();
   
   // Live simulation (can be toggled)
@@ -181,7 +183,7 @@ export const Dashboard = () => {
                 <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-risk-high" />
               </button>
               <button 
-                onClick={() => toast.info('Settings', { description: 'Settings panel coming soon. This is a research prototype.' })}
+                onClick={() => setShowSettings(true)}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
                 title="Settings"
               >
@@ -268,6 +270,9 @@ export const Dashboard = () => {
           </div>
         </div>
       </footer>
+
+      {/* Settings Panel */}
+      <SettingsPanel isOpen={showSettings} onClose={() => setShowSettings(false)} />
     </div>
   );
 };
