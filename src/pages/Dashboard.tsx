@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Home, Presentation, Lock
+  Activity, Home, Presentation, Lock, Target, Database, TrendingDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
 import { PatientListView } from '@/components/quality/PatientListView';
 import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
+import { ValidationMetricsDashboard } from '@/components/quality/ValidationMetricsDashboard';
+import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagram';
+import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
@@ -18,13 +21,16 @@ import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
 import { toast } from 'sonner';
 
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
+type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
   { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
   { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
   { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
+  { id: 'validation', label: 'Model Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" /> },
+  { id: 'integration', label: 'EHR Integration', shortLabel: 'EHR', icon: <Database className="w-4 h-4" /> },
+  { id: 'outcomes', label: 'Clinical Outcomes', shortLabel: 'Outcomes', icon: <TrendingDown className="w-4 h-4" /> },
 ];
 
 export const Dashboard = () => {
@@ -66,6 +72,12 @@ export const Dashboard = () => {
         return <ShapExplainability />;
       case 'workflow':
         return <ClinicalWorkflowView />;
+      case 'validation':
+        return <ValidationMetricsDashboard />;
+      case 'integration':
+        return <EHRIntegrationDiagram />;
+      case 'outcomes':
+        return <OutcomeComparisonPanel />;
       default:
         return <DashboardOverview liveSimulation={liveSimulation} />;
     }
@@ -199,23 +211,23 @@ export const Dashboard = () => {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50">
-        <div className="flex items-center justify-between">
+      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 overflow-x-auto">
+        <div className="flex items-center justify-between min-w-max">
           <div className="flex items-center gap-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleViewChange(item.id)}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all",
+                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
                   activeView === item.id
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 )}
               >
                 {item.icon}
-                <span className="hidden sm:inline">{item.label}</span>
-                <span className="sm:hidden">{item.shortLabel}</span>
+                <span className="hidden lg:inline">{item.label}</span>
+                <span className="lg:hidden">{item.shortLabel}</span>
               </button>
             ))}
           </div>
