@@ -1,4 +1,5 @@
-import { Activity, Shield, Info, LogOut } from 'lucide-react';
+import { Activity, Shield, LogOut, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { LiveBadge } from './LiveBadge';
 import { InfoModal } from './InfoModal';
 import { useAuth } from '@/hooks/useAuth';
@@ -21,7 +22,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { toast } from 'sonner';
 
 export const Header = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isAdmin } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
@@ -91,6 +92,14 @@ export const Header = () => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {isAdmin && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin" className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Admin Panel</span>
+                    </Link>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Sign out</span>
