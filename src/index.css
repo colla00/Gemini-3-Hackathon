@@ -466,3 +466,122 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
 }
+
+/* ======================================
+   ZOOM MODE OPTIMIZATIONS
+   Optimized for screen sharing / video calls
+   ====================================== */
+.zoom-mode {
+  /* Reduce/disable animations for smoother screen share */
+  --transition-speed: 0s !important;
+  
+  /* Increase base font size slightly for readability */
+  font-size: 105%;
+}
+
+/* Disable all animations in Zoom mode */
+.zoom-mode *,
+.zoom-mode *::before,
+.zoom-mode *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  animation-delay: 0ms !important;
+}
+
+/* Keep essential pulsing for live indicators but make it subtle */
+.zoom-mode .animate-pulse {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Higher contrast borders */
+.zoom-mode .glass-card {
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Increase text contrast */
+.zoom-mode .text-muted-foreground {
+  color: hsl(0 0% 75%);
+}
+
+/* Larger touch targets for demo clicks */
+.zoom-mode button,
+.zoom-mode [role="button"] {
+  min-height: 36px;
+  min-width: 36px;
+}
+
+/* Disable backdrop blur (can cause encoding issues) */
+.zoom-mode .glass-card,
+.zoom-mode [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Disable hover transforms (can cause flicker) */
+.zoom-mode .hover-lift:hover,
+.zoom-mode .hover-glow:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Solid backgrounds for dropdowns/tooltips */
+.zoom-mode [data-radix-popper-content-wrapper] * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Increase badge/label sizes */
+.zoom-mode .text-\[9px\],
+.zoom-mode .text-\[10px\] {
+  font-size: 11px !important;
+}
+
+.zoom-mode .text-\[8px\] {
+  font-size: 10px !important;
+}
+
+/* Ensure good contrast on risk badges */
+.zoom-mode .bg-risk-high\/10,
+.zoom-mode .bg-risk-high\/15,
+.zoom-mode .bg-risk-high\/20 {
+  background-color: hsl(0 84% 60% / 0.25);
+}
+
+.zoom-mode .bg-risk-medium\/10,
+.zoom-mode .bg-risk-medium\/15,
+.zoom-mode .bg-risk-medium\/20 {
+  background-color: hsl(38 92% 50% / 0.25);
+}
+
+.zoom-mode .bg-risk-low\/10,
+.zoom-mode .bg-risk-low\/15,
+.zoom-mode .bg-risk-low\/20 {
+  background-color: hsl(152 69% 45% / 0.25);
+}
+
+/* Disable animated gradients */
+.zoom-mode [class*="animate-"] {
+  animation: none !important;
+}
+
+/* Keep live dots visible but static */
+.zoom-mode .live-dot::after {
+  display: none;
+}
+
+/* Ensure charts are crisp */
+.zoom-mode svg {
+  shape-rendering: crispEdges;
+}
+
+/* Print styles stay unaffected */
+@media print {
+  .zoom-mode * {
+    animation: initial !important;
+    transition: initial !important;
+  }
+}

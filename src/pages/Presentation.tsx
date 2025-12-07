@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award
+  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award, Monitor
 } from 'lucide-react';
 import { AIAssistant } from '@/components/engagement/AIAssistant';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -25,6 +25,7 @@ import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
+import { ZoomModeProvider, ZoomModeToggle, useZoomMode } from '@/components/quality/ZoomModeToggle';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
 import { PracticeMode } from '@/components/presentation/PracticeMode';
@@ -244,6 +245,7 @@ export const Presentation = () => {
   };
 
   return (
+    <ZoomModeProvider>
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
       {/* Screen Protection - Always enabled */}
       <ScreenProtection enabled={true} />
@@ -357,6 +359,8 @@ export const Presentation = () => {
               <MousePointer className="w-3 h-3" />
               <span>Hotspots</span>
             </button>
+            {/* Zoom Mode toggle */}
+            <ZoomModeToggle />
             <Link 
               to="/dashboard"
               className="text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
@@ -564,5 +568,6 @@ export const Presentation = () => {
         isPresenter={isPresenterMode}
       />
     </div>
+    </ZoomModeProvider>
   );
 };
