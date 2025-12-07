@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Settings, X, Moon, Sun, Bell, BellOff, 
   Monitor, Smartphone, Eye, EyeOff, Zap, ZapOff,
@@ -16,7 +16,7 @@ interface SettingsPanelProps {
   onClose: () => void;
 }
 
-interface SettingsState {
+export interface SettingsState {
   theme: 'dark' | 'light' | 'system';
   notifications: {
     enabled: boolean;
@@ -31,6 +31,8 @@ interface SettingsState {
     liveUpdatesDefault: boolean;
   };
 }
+
+const SETTINGS_STORAGE_KEY = 'nso-dashboard-settings';
 
 const defaultSettings: SettingsState = {
   theme: 'dark',
@@ -48,9 +50,34 @@ const defaultSettings: SettingsState = {
   },
 };
 
+const loadSettings = (): SettingsState => {
+  try {
+    const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (stored) {
+      return { ...defaultSettings, ...JSON.parse(stored) };
+    }
+  } catch (e) {
+    console.warn('Failed to load settings from localStorage');
+  }
+  return defaultSettings;
+};
+
+const saveSettings = (settings: SettingsState): void => {
+  try {
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+  } catch (e) {
+    console.warn('Failed to save settings to localStorage');
+  }
+};
+
 export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
-  const [settings, setSettings] = useState<SettingsState>(defaultSettings);
+  const [settings, setSettings] = useState<SettingsState>(loadSettings);
   const [activeTab, setActiveTab] = useState<'theme' | 'notifications' | 'display'>('theme');
+
+  // Load settings on mount
+  useEffect(() => {
+    setSettings(loadSettings());
+  }, []);
 
   const updateNotificationSetting = (key: keyof SettingsState['notifications'], value: boolean) => {
     setSettings(prev => ({
@@ -73,8 +100,15 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   };
 
   const handleSave = () => {
-    toast.success('Settings saved', { description: 'Your preferences have been updated.' });
+    saveSettings(settings);
+    toast.success('Settings saved', { description: 'Your preferences have been saved and will persist.' });
     onClose();
+  };
+
+  const handleReset = () => {
+    setSettings(defaultSettings);
+    saveSettings(defaultSettings);
+    toast.info('Settings reset', { description: 'All preferences restored to defaults.' });
   };
 
   const tabs = [
@@ -297,7 +331,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
         {/* Actions */}
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/30">
           <button
-            onClick={() => setSettings(defaultSettings)}
+            onClick={handleReset}
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
             Reset to defaults
