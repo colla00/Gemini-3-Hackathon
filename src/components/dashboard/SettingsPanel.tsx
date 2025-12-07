@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { 
-  Settings, X, Moon, Sun, Bell, BellOff, 
-  Monitor, Smartphone, Eye, EyeOff, Zap, ZapOff,
+  Settings, Moon, Sun, Bell, BellOff, 
+  Monitor, Eye, EyeOff, Zap, ZapOff,
   Volume2, VolumeX, Layout, LayoutGrid, Check
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,104 +10,24 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
+import { useSettings } from '@/hooks/useSettings';
 
 interface SettingsPanelProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export interface SettingsState {
-  theme: 'dark' | 'light' | 'system';
-  notifications: {
-    enabled: boolean;
-    highRiskAlerts: boolean;
-    interventionReminders: boolean;
-    soundEnabled: boolean;
-  };
-  display: {
-    compactMode: boolean;
-    animationsEnabled: boolean;
-    showConfidenceScores: boolean;
-    liveUpdatesDefault: boolean;
-  };
-}
-
-const SETTINGS_STORAGE_KEY = 'nso-dashboard-settings';
-
-const defaultSettings: SettingsState = {
-  theme: 'dark',
-  notifications: {
-    enabled: true,
-    highRiskAlerts: true,
-    interventionReminders: true,
-    soundEnabled: false,
-  },
-  display: {
-    compactMode: false,
-    animationsEnabled: true,
-    showConfidenceScores: true,
-    liveUpdatesDefault: true,
-  },
-};
-
-const loadSettings = (): SettingsState => {
-  try {
-    const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
-    if (stored) {
-      return { ...defaultSettings, ...JSON.parse(stored) };
-    }
-  } catch (e) {
-    console.warn('Failed to load settings from localStorage');
-  }
-  return defaultSettings;
-};
-
-const saveSettings = (settings: SettingsState): void => {
-  try {
-    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
-  } catch (e) {
-    console.warn('Failed to save settings to localStorage');
-  }
-};
-
 export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
-  const [settings, setSettings] = useState<SettingsState>(loadSettings);
+  const { settings, updateTheme, updateNotification, updateDisplay, resetSettings } = useSettings();
   const [activeTab, setActiveTab] = useState<'theme' | 'notifications' | 'display'>('theme');
 
-  // Load settings on mount
-  useEffect(() => {
-    setSettings(loadSettings());
-  }, []);
-
-  const updateNotificationSetting = (key: keyof SettingsState['notifications'], value: boolean) => {
-    setSettings(prev => ({
-      ...prev,
-      notifications: {
-        ...prev.notifications,
-        [key]: value,
-      },
-    }));
-  };
-
-  const updateDisplaySetting = (key: keyof SettingsState['display'], value: boolean) => {
-    setSettings(prev => ({
-      ...prev,
-      display: {
-        ...prev.display,
-        [key]: value,
-      },
-    }));
-  };
-
   const handleSave = () => {
-    saveSettings(settings);
     toast.success('Settings saved', { description: 'Your preferences have been saved and will persist.' });
     onClose();
   };
 
   const handleReset = () => {
-    setSettings(defaultSettings);
-    saveSettings(defaultSettings);
+    resetSettings();
     toast.info('Settings reset', { description: 'All preferences restored to defaults.' });
   };
 
@@ -163,7 +83,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                   ].map(theme => (
                     <button
                       key={theme.id}
-                      onClick={() => setSettings(prev => ({ ...prev, theme: theme.id }))}
+                      onClick={() => updateTheme(theme.id)}
                       className={cn(
                         "flex flex-col items-center gap-2 p-3 rounded-lg border transition-all",
                         settings.theme === theme.id
@@ -209,7 +129,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                 </div>
                 <Switch
                   checked={settings.notifications.enabled}
-                  onCheckedChange={(checked) => updateNotificationSetting('enabled', checked)}
+                  onCheckedChange={(checked) => updateNotification('enabled', checked)}
                 />
               </div>
 
@@ -221,7 +141,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                   </div>
                   <Switch
                     checked={settings.notifications.highRiskAlerts}
-                    onCheckedChange={(checked) => updateNotificationSetting('highRiskAlerts', checked)}
+                    onCheckedChange={(checked) => updateNotification('highRiskAlerts', checked)}
                   />
                 </div>
 
@@ -232,7 +152,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                   </div>
                   <Switch
                     checked={settings.notifications.interventionReminders}
-                    onCheckedChange={(checked) => updateNotificationSetting('interventionReminders', checked)}
+                    onCheckedChange={(checked) => updateNotification('interventionReminders', checked)}
                   />
                 </div>
 
@@ -249,7 +169,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                   </div>
                   <Switch
                     checked={settings.notifications.soundEnabled}
-                    onCheckedChange={(checked) => updateNotificationSetting('soundEnabled', checked)}
+                    onCheckedChange={(checked) => updateNotification('soundEnabled', checked)}
                   />
                 </div>
               </div>
@@ -269,7 +189,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                 </div>
                 <Switch
                   checked={settings.display.compactMode}
-                  onCheckedChange={(checked) => updateDisplaySetting('compactMode', checked)}
+                  onCheckedChange={(checked) => updateDisplay('compactMode', checked)}
                 />
               </div>
 
@@ -287,7 +207,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                 </div>
                 <Switch
                   checked={settings.display.animationsEnabled}
-                  onCheckedChange={(checked) => updateDisplaySetting('animationsEnabled', checked)}
+                  onCheckedChange={(checked) => updateDisplay('animationsEnabled', checked)}
                 />
               </div>
 
@@ -305,7 +225,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                 </div>
                 <Switch
                   checked={settings.display.showConfidenceScores}
-                  onCheckedChange={(checked) => updateDisplaySetting('showConfidenceScores', checked)}
+                  onCheckedChange={(checked) => updateDisplay('showConfidenceScores', checked)}
                 />
               </div>
 
@@ -321,7 +241,7 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                 </div>
                 <Switch
                   checked={settings.display.liveUpdatesDefault}
-                  onCheckedChange={(checked) => updateDisplaySetting('liveUpdatesDefault', checked)}
+                  onCheckedChange={(checked) => updateDisplay('liveUpdatesDefault', checked)}
                 />
               </div>
             </div>
