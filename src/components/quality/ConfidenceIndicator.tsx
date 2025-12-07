@@ -1,13 +1,22 @@
 import { cn } from '@/lib/utils';
 import { HelpCircle } from 'lucide-react';
+import { useSettings } from '@/hooks/useSettings';
 
 interface ConfidenceIndicatorProps {
   confidence: number;
   showLabel?: boolean;
   size?: 'sm' | 'md';
+  forceShow?: boolean; // Override settings to always show
 }
 
-export const ConfidenceIndicator = ({ confidence, showLabel = true, size = 'sm' }: ConfidenceIndicatorProps) => {
+export const ConfidenceIndicator = ({ confidence, showLabel = true, size = 'sm', forceShow = false }: ConfidenceIndicatorProps) => {
+  const { settings } = useSettings();
+  
+  // Hide if settings say so (unless forceShow is true)
+  if (!forceShow && !settings.display.showConfidenceScores) {
+    return null;
+  }
+  
   // Determine confidence level
   const level = confidence >= 85 ? 'high' : confidence >= 70 ? 'medium' : 'low';
   
@@ -35,12 +44,18 @@ export const ConfidenceIndicator = ({ confidence, showLabel = true, size = 'sm' 
 };
 
 // Tooltip version for more context
-export const ConfidenceTooltip = ({ confidence }: { confidence: number }) => {
+export const ConfidenceTooltip = ({ confidence, forceShow = false }: { confidence: number; forceShow?: boolean }) => {
+  const { settings } = useSettings();
+  
+  if (!forceShow && !settings.display.showConfidenceScores) {
+    return null;
+  }
+  
   const level = confidence >= 85 ? 'High' : confidence >= 70 ? 'Medium' : 'Low';
   
   return (
     <div className="group relative inline-flex items-center">
-      <ConfidenceIndicator confidence={confidence} />
+      <ConfidenceIndicator confidence={confidence} forceShow={forceShow} />
       <HelpCircle className="w-3 h-3 ml-1 text-muted-foreground cursor-help" />
       
       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50">
