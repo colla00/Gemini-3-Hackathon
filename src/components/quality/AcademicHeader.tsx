@@ -24,60 +24,10 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'SHAP-Based Feature Attribution for Clinical Transparency',
     citation: 'Framework: Lundberg & Lee (2017) unified approach to model interpretation',
   },
-  shapDeepDive: {
-    title: 'Interactive SHAP Analysis',
-    subtitle: 'Individual Feature Contributions with Confidence Intervals',
-    citation: 'Innovation: Real-time attribution with statistical uncertainty quantification',
-  },
-  adaptiveAlerts: {
-    title: 'Adaptive Alert Thresholds',
-    subtitle: 'Context-Sensitive Dynamic Threshold Adjustment',
-    citation: 'Patent Claim 1: Personalized alerting based on patient trajectory & workload',
-  },
-  closedLoop: {
-    title: 'Closed-Loop Intervention Tracking',
-    subtitle: 'Bidirectional Integration with Clinical Workflow',
-    citation: 'Patent Claim 2: Automated outcome tracking with intervention attribution',
-  },
-  temporalForecast: {
-    title: 'Temporal Risk Forecasting',
-    subtitle: 'Multi-Horizon Predictive Analytics with Uncertainty Bounds',
-    citation: 'Patent Claim 3: 4-48 hour risk trajectory modeling with confidence intervals',
-  },
-  contextExplanations: {
-    title: 'Context-Aware Explanations',
-    subtitle: 'Role-Based Adaptive Model Interpretability',
-    citation: 'Patent Claim 4: Dynamic explanation generation for diverse stakeholders',
-  },
-  workloadPriority: {
-    title: 'Workload-Aware Prioritization',
-    subtitle: 'Resource-Optimized Clinical Task Scheduling',
-    citation: 'Patent Claim 5: Staffing-adjusted risk prioritization algorithm',
-  },
-  crossCorrelation: {
-    title: 'Cross-Outcome Correlation Analysis',
-    subtitle: 'Multi-Dimensional Risk Factor Interplay',
-    citation: 'Innovation: Simultaneous prediction of correlated nursing outcomes',
-  },
   workflow: {
     title: 'Clinical Validation & Human-in-the-Loop',
     subtitle: 'Real-World Intervention Workflow Demonstration',
     citation: 'Pilot Results: 34% reduction in preventable falls (p<0.01)',
-  },
-  guided: {
-    title: 'Guided Demo Mode',
-    subtitle: 'Automated Presentation with Narration & Patent Claims',
-    citation: 'Patent-Pending: 5 Novel Claims Submitted',
-  },
-  comparison: {
-    title: 'Workflow Comparison Analysis',
-    subtitle: 'Traditional vs AI-Enhanced Clinical Pathways',
-    citation: 'Results: 53% faster detection, 17% improvement in outcomes',
-  },
-  validation: {
-    title: 'Clinical Validation Metrics',
-    subtitle: 'Model Performance & Statistical Analysis',
-    citation: 'IRB #2025-001: Retrospective Cohort Study (n=422)',
   },
 };
 
