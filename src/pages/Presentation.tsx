@@ -28,6 +28,7 @@ import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
 import { PracticeMode } from '@/components/presentation/PracticeMode';
+import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -549,6 +550,9 @@ export const Presentation = () => {
       <AudienceQuestions sessionId={session?.id} currentSlide={currentSlide} isPresenter={isPresenterMode} />
       <LivePolls sessionId={session?.id} isPresenter={isPresenterMode} />
       {!isPresenterMode && <FeedbackPanel sessionId={session?.id} currentSlide={currentSlide} />}
+      
+      {/* Presenter Cheat Sheet */}
+      <PresenterCheatSheet />
       
       {/* Handoff Report Modal */}
       {showHandoffReport && <HandoffReport onClose={() => setShowHandoffReport(false)} />}
