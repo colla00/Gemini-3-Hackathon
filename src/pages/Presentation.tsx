@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer
+  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award
 } from 'lucide-react';
 import { AIAssistant } from '@/components/engagement/AIAssistant';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -24,6 +24,7 @@ import { PrintView } from '@/components/quality/PrintView';
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
+import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
 import { PracticeMode } from '@/components/presentation/PracticeMode';
@@ -532,11 +533,13 @@ export const Presentation = () => {
             <span className="hidden sm:inline text-border/50">|</span>
             <span className="hidden sm:inline opacity-60">Synthetic Data</span>
           </div>
-          <div className="flex items-center gap-2 opacity-60">
-            <Lock className="w-2.5 h-2.5" />
-            <span className="font-medium">Patent Pending</span>
-            <span className="text-border/50">|</span>
-            <span>Stanford AI+HEALTH 2025</span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-accent/10 border border-accent/20">
+              <Award className="w-2.5 h-2.5 text-accent" />
+              <span className="font-medium text-accent">U.S. Pat. App. 63/932,953</span>
+            </div>
+            <span className="text-border/50 hidden sm:inline">|</span>
+            <span className="hidden sm:inline">Stanford AI+HEALTH 2025</span>
           </div>
         </div>
       </footer>

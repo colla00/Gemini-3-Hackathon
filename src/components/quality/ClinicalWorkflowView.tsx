@@ -5,7 +5,7 @@ import {
   ClipboardCheck, AlertCircle, Heart, Thermometer
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
+import { ClosedLoopFeedback } from './ClosedLoopFeedback';
 interface TimelineEvent {
   time: string;
   type: 'alert' | 'assessment' | 'action' | 'outcome';
@@ -287,6 +287,11 @@ export const ClinicalWorkflowView = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Closed-Loop Feedback Section - Patent Innovation */}
+      <div className="mt-4">
+        <ClosedLoopFeedback />
       </div>
     </div>
   );
