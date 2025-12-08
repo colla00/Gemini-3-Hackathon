@@ -79,10 +79,10 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'integration',
     title: 'EHR Integration',
     view: 'integration',
-    narration: "The architecture supports enterprise EHR integration via HL7 FHIR and HL7v2. We're certified for Epic and Cerner with sub-30-second latency for real-time predictions.",
+    narration: "The architecture is designed for enterprise EHR integration via HL7 FHIR and HL7v2. The system is built to support Epic and Cerner with sub-30-second latency targets for real-time predictions.",
     duration: 10,
     icon: <Database className="w-4 h-4" />,
-    highlights: ['FHIR R4 compliant', 'Epic/Cerner certified', 'HIPAA/SOC2 ready']
+    highlights: ['FHIR R4 architecture', 'Epic/Cerner compatible', 'HIPAA-ready design']
   },
   {
     id: 'outcomes',

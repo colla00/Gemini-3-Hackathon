@@ -268,7 +268,7 @@ const Auth = () => {
         <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
             <Shield className="h-3 w-3" />
-            <span>HIPAA Compliant</span>
+            <span>Secure Authentication</span>
           </div>
           <div className="flex items-center gap-1">
             <Users className="h-3 w-3" />
