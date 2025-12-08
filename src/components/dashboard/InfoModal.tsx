@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { X, FlaskConical, AlertTriangle, GraduationCap, User, Building, ShieldX, Database, Scale, FileText } from 'lucide-react';
 import {
   Dialog,
@@ -10,18 +11,32 @@ import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export const InfoModal = () => {
+interface InfoModalProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  showTrigger?: boolean;
+}
+
+export const InfoModal = ({ open, onOpenChange, showTrigger = true }: InfoModalProps) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+  
+  const isControlled = open !== undefined;
+  const isOpen = isControlled ? open : internalOpen;
+  const setIsOpen = isControlled ? onOpenChange : setInternalOpen;
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-muted-foreground hover:text-foreground hover:bg-secondary"
-        >
-          <Info className="w-5 h-5" />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      {showTrigger && (
+        <DialogTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-foreground hover:bg-secondary"
+          >
+            <Info className="w-5 h-5" />
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="bg-card border-border max-w-lg max-h-[85vh]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
