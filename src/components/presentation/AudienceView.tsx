@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { BarChart3, Lock, Award, Activity } from 'lucide-react';
+import { BarChart3, Lock, Award, Activity, Radio, Wifi, WifiOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
 import { PatientListView } from '@/components/quality/PatientListView';
 import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
+import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -31,10 +32,26 @@ const slideToView: Record<string, string | null> = {
 export const AudienceView = () => {
   const { syncState } = usePresenterSync(false);
   const liveSimulation = useLiveSimulation(syncState.isLive, 5000);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [isConnected, setIsConnected] = useState(true);
   
   const currentSlide = syncState.currentSlide as SlideType;
   const currentSlideConfig = PRESENTATION_SLIDES.find(s => s.id === currentSlide);
+  const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
   const isDashboardSlide = slideToView[currentSlide] !== null;
+
+  // Track connection status based on sync updates
+  useEffect(() => {
+    setLastUpdate(new Date());
+    setIsConnected(true);
+    
+    // If no updates for 10 seconds, show disconnected
+    const timeout = setTimeout(() => {
+      setIsConnected(false);
+    }, 10000);
+    
+    return () => clearTimeout(timeout);
+  }, [syncState.timestamp]);
 
   const renderDashboardContent = () => {
     const view = slideToView[currentSlide];
@@ -56,6 +73,9 @@ export const AudienceView = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Research Disclaimer */}
+      <ResearchDisclaimer />
+
       {/* Clean header - no controls */}
       <div className="bg-primary py-2 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -76,6 +96,48 @@ export const AudienceView = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Sync Status Indicator */}
+      <div className="bg-secondary/80 border-b border-border/30 py-1.5 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Connection Status */}
+          <div className="flex items-center gap-2">
+            {isConnected ? (
+              <div className="flex items-center gap-1.5 text-risk-low">
+                <Wifi className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-medium uppercase tracking-wider">Synced with Presenter</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 text-amber-500">
+                <WifiOff className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-medium uppercase tracking-wider">Waiting for presenter...</span>
+              </div>
+            )}
+          </div>
+
+          {/* Slide Progress */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
+              <Radio className="w-3.5 h-3.5 text-primary" />
+              <span className="text-xs font-medium text-foreground">
+                Slide {currentIndex + 1} of {PRESENTATION_SLIDES.length}
+              </span>
+            </div>
+            <div className="hidden sm:block h-4 w-px bg-border" />
+            <span className="hidden sm:block text-xs text-muted-foreground truncate max-w-[200px]">
+              {currentSlideConfig?.title}
+            </span>
+          </div>
+
+          {/* Elapsed Time */}
+          {syncState.elapsedMinutes > 0 && (
+            <div className="hidden md:flex items-center gap-1.5 text-muted-foreground">
+              <Activity className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-medium">{syncState.elapsedMinutes}m elapsed</span>
+            </div>
+          )}
         </div>
       </div>
 
