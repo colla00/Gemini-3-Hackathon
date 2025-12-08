@@ -94,13 +94,13 @@ const demoSteps: DemoStep[] = [
     id: 'validation',
     title: 'Clinical Validation Results',
     duration: 60,
-    narration: 'Our validation study demonstrates significant improvements in early detection and intervention timing.',
-    presenterNotes: 'Present key metrics: AUC-ROC 0.847, Sensitivity 0.82, 4.2 hour earlier detection.',
+    narration: 'These illustrative metrics demonstrate the target performance goals for our predictive system.',
+    presenterNotes: 'Present illustrative metrics: AUC-ROC 0.847, Sensitivity 0.82. Emphasize these are targets, not validated results.',
     keyPoints: [
-      'AUC-ROC: 0.847 (95% CI: 0.821-0.873)',
-      'Sensitivity: 82% at 85% specificity',
-      '4.2 hours earlier detection',
-      'IRB-approved retrospective study'
+      'Target AUC-ROC: 0.847 (illustrative)',
+      'Target Sensitivity: 82% at 85% specificity',
+      'Earlier detection goal: 4+ hours',
+      'Validation studies planned'
     ]
   },
   {

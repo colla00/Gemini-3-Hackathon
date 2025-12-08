@@ -117,17 +117,29 @@ export const ValidationMetricsDashboard = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-foreground">Validation Metrics Dashboard</h2>
-          <p className="text-sm text-muted-foreground">Model Performance & Clinical Validation Results</p>
+          <p className="text-sm text-muted-foreground">Illustrative Model Performance Metrics (Synthetic Data)</p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge className="bg-risk-low/20 text-risk-low border-risk-low/30">
-            <CheckCircle className="w-3 h-3 mr-1" />
-            IRB Approved
+          <Badge className="bg-amber-500/20 text-amber-500 border-amber-500/30">
+            <AlertTriangle className="w-3 h-3 mr-1" />
+            Illustrative Only
           </Badge>
           <Badge className="bg-primary/20 text-primary border-primary/30">
             <Award className="w-3 h-3 mr-1" />
             Patent-Pending
           </Badge>
+        </div>
+      </div>
+
+      {/* Disclaimer Banner */}
+      <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+        <div className="flex items-start gap-2">
+          <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            <strong>Note:</strong> All metrics shown are illustrative examples based on synthetic demonstration data. 
+            These values represent target performance goals, not validated clinical results. 
+            Actual validation studies have not yet been conducted.
+          </p>
         </div>
       </div>
 
@@ -183,9 +195,9 @@ export const ValidationMetricsDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-base">Receiver Operating Characteristic (ROC) Curve</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-1">AUC = 0.847 demonstrates strong discriminative ability</p>
+                  <p className="text-xs text-muted-foreground mt-1">Illustrative AUC = 0.847 (synthetic demonstration)</p>
                 </div>
-                <Badge variant="outline">n = 422 patients</Badge>
+                <Badge variant="outline" className="text-amber-500 border-amber-500/30">Simulated Data</Badge>
               </div>
             </CardHeader>
             <CardContent>
