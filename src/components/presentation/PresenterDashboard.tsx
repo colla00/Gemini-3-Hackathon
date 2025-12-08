@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Monitor, ExternalLink, Play, Pause, Clock, ChevronLeft, ChevronRight,
   MessageCircle, BarChart, BookOpen, FileText, Volume2, VolumeX,
-  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2
+  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2, ShieldAlert
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -21,6 +22,7 @@ import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { LivePolls } from '@/components/engagement/LivePolls';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
 import { usePresentationSession } from '@/hooks/usePresentationSession';
+import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
 interface PresenterDashboardProps {
@@ -28,6 +30,7 @@ interface PresenterDashboardProps {
 }
 
 export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
+  const { isAdmin, loading } = useAuth();
   const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -38,6 +41,34 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   
   const { broadcast, openAudienceWindow, closeAudienceWindow, isAudienceWindowOpen } = usePresenterSync(true);
   const { session, createSession } = usePresentationSession();
+
+  // Admin-only access check
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md mx-auto">
+          <CardContent className="pt-6 text-center">
+            <ShieldAlert className="w-12 h-12 text-risk-high mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-foreground mb-2">Access Denied</h2>
+            <p className="text-muted-foreground mb-4">
+              Presenter mode is restricted to administrators only.
+            </p>
+            <Link to="/presentation">
+              <Button>Return to Presentation</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
   const currentSlideConfig = PRESENTATION_SLIDES[currentIndex];

@@ -41,16 +41,15 @@ const integrationSteps = [
 const technicalSpecs = [
   { label: 'Data Standard', value: 'HL7 FHIR R4 / HL7v2' },
   { label: 'Integration', value: 'REST API + ADT Listener' },
-  { label: 'Latency', value: '< 30 seconds' },
+  { label: 'Latency', value: '< 30 seconds (target)' },
   { label: 'Refresh Rate', value: 'Real-time / 4-hour batch' },
-  { label: 'Encryption', value: 'TLS 1.3 / AES-256' },
-  { label: 'Compliance', value: 'HIPAA / SOC 2 Type II' },
+  { label: 'Encryption', value: 'TLS 1.3 / AES-256 (planned)' },
+  { label: 'Compliance', value: 'HIPAA-ready architecture' },
 ];
 
+// Note: These are design targets, not current certifications
 const complianceBadges = [
-  { label: 'HIPAA', color: 'bg-risk-low/20 text-risk-low border-risk-low/30' },
-  { label: 'SOC 2', color: 'bg-primary/20 text-primary border-primary/30' },
-  { label: 'HITRUST', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+  { label: 'HIPAA Ready', color: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
 ];
 
 export const EHRIntegrationDiagram = () => {
@@ -158,9 +157,9 @@ export const EHRIntegrationDiagram = () => {
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { name: 'Epic', status: 'Certified', certified: true },
-                { name: 'Cerner', status: 'Certified', certified: true },
-                { name: 'MEDITECH', status: 'In Progress', certified: false },
+                { name: 'Epic', status: 'Designed For', certified: false },
+                { name: 'Cerner', status: 'Designed For', certified: false },
+                { name: 'MEDITECH', status: 'Planned', certified: false },
                 { name: 'Allscripts', status: 'Planned', certified: false },
               ].map((ehr, index) => (
                 <div 
