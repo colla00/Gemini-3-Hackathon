@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3 } from 'lucide-react';
+import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 
 function About() {
   return (
     <div className="min-h-screen bg-background">
+      {/* Research Prototype Disclaimer */}
+      <ResearchDisclaimer />
       {/* Header */}
       <header className="border-b border-border/40 bg-secondary/50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">

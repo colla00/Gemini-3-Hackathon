@@ -23,6 +23,7 @@ import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
 import { OfflineIndicator } from '@/components/OfflineIndicator';
+import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
@@ -91,6 +92,9 @@ export const Dashboard = () => {
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
       {/* Screen Protection */}
       <ScreenProtection enabled={true} />
+
+      {/* Research Prototype Disclaimer */}
+      <ResearchDisclaimer />
 
       {/* Cyan Header Stripe */}
       <div className="h-1.5 bg-primary w-full" />

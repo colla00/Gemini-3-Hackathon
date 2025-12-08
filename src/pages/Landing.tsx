@@ -4,6 +4,7 @@ import {
   Brain, Sparkles, Lock, FileText, Presentation, Play
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 
 const features = [
   {
@@ -55,6 +56,9 @@ const pages = [
 export const Landing = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Research Prototype Disclaimer */}
+      <ResearchDisclaimer />
+
       {/* Patent Notice Header */}
       <div className="bg-primary/5 border-b border-primary/20 py-2 px-4">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 text-xs text-primary">

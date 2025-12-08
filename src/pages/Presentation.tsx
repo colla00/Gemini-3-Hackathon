@@ -32,6 +32,7 @@ import { PracticeMode } from '@/components/presentation/PracticeMode';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
+import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -271,6 +272,9 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
       {/* Screen Protection - Always enabled */}
       <ScreenProtection enabled={true} />
+
+      {/* Research Prototype Disclaimer */}
+      <ResearchDisclaimer />
 
       {/* Presentation Timeline (Left sidebar) */}
       <PresentationTimeline45
