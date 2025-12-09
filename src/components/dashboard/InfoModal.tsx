@@ -130,10 +130,15 @@ export const InfoModal = ({ open, onOpenChange, showTrigger = true }: InfoModalP
                 <div className="flex items-start gap-2">
                   <FileText className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <p className="text-[10px] text-muted-foreground leading-relaxed">
-                    <strong>Disclaimer:</strong> This research prototype is provided for educational and demonstration purposes only. 
-                    It is not FDA cleared, not intended as a medical device, and should not be used for clinical decision-making. 
-                    All risk scores and predictions are illustrative only. Human clinical judgment is always required. 
-                    The developers assume no liability for any use of this demonstration software.
+                    <strong>Disclaimer:</strong> This software is a research prototype provided "AS IS" for educational and demonstration purposes only. 
+                    It has not been cleared or approved by the U.S. Food and Drug Administration (FDA). It is not a medical device under 21 CFR Part 820 
+                    and is not intended for diagnosis, treatment, cure, mitigation, or prevention of any disease or condition. 
+                    All data shown is simulated and does not represent real patients. All risk scores and predictions are illustrative only. 
+                    Clinical judgment by qualified healthcare professionals is always required. 
+                    The author(s) and affiliated institutions disclaim all liability for any use of this demonstration software.
+                    <br /><br />
+                    <strong>Intellectual Property:</strong> U.S. Provisional Patent Application No. 63/932,953 (Patent Pending). 
+                    © 2024–2025 Alexis Collier. All rights reserved.
                   </p>
                 </div>
               </div>

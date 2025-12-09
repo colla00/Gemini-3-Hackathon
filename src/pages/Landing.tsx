@@ -68,9 +68,9 @@ export const Landing = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-primary">
             <Lock className="w-3 h-3" />
-            <span className="font-medium">Patent Pending</span>
+            <span className="font-medium">U.S. Provisional Patent Application No. 63/932,953</span>
             <span className="text-primary/60">•</span>
-            <span className="text-primary/80">Proprietary Technology — All Rights Reserved</span>
+            <span className="text-primary/80">Patent Pending</span>
           </div>
           
           {/* Auth Status Indicator */}
@@ -282,9 +282,9 @@ export const Landing = () => {
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>© 2025 All Rights Reserved</span>
+            <span>© 2024–2025 Alexis Collier. All Rights Reserved.</span>
             <span className="text-border">|</span>
-            <span className="text-primary font-medium">Patent Pending</span>
+            <span className="text-primary font-medium">U.S. Pat. App. 63/932,953 Pending</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <a 
@@ -294,7 +294,7 @@ export const Landing = () => {
               alexis.collier@ung.edu
             </a>
             <span className="text-border">|</span>
-            <span className="text-muted-foreground">v0.1.0-demo</span>
+            <span className="text-muted-foreground">Research Prototype v0.1.0</span>
           </div>
         </div>
       </footer>
