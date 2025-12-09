@@ -38,7 +38,7 @@ export const ResearchDisclaimer = ({ variant = 'banner', className }: ResearchDi
           <p className="text-xs text-amber-600 dark:text-amber-400 font-medium text-center">
             <span className="font-bold uppercase tracking-wider">Research Prototype</span>
             <span className="mx-2">·</span>
-            <span>Not FDA cleared. Not for clinical use. Synthetic demonstration data only.</span>
+            <span>Not FDA cleared or approved. Not a medical device. Not for clinical use. Simulated data only.</span>
             <span className="mx-2">·</span>
             <button 
               onClick={() => setShowInfoModal(true)}

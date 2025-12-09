@@ -62,18 +62,25 @@ The following innovations are covered by this patent application:
 
 LEGAL DISCLAIMER
 
-Any unauthorized reproduction, distribution, modification, or use of this 
-technology or its associated documentation without prior written consent 
-from the patent holder(s) may result in legal action.
+This technology is the subject of a pending U.S. provisional patent application. 
+Patent pending status provides notice of potential patent rights but does not 
+guarantee that a patent will be granted.
 
-This patent notice accompanies all demonstrations, presentations, and 
-documentation related to the NSO Quality Dashboard research prototype.
+Any unauthorized reproduction, distribution, modification, or commercial use of 
+this technology or its associated documentation may constitute infringement of 
+intellectual property rights.
+
+This software is provided "AS IS" for educational and demonstration purposes only. 
+It has not been cleared or approved by the U.S. Food and Drug Administration (FDA). 
+It is not a medical device and is not intended for clinical use.
 
 ================================================================================
 
+© 2024–2025 Alexis Collier. All Rights Reserved.
+
 FOR LICENSING INQUIRIES:
 
-Contact: Stanford AI+HEALTH Research Program
+Contact: alexis.collier@ung.edu
 Reference: U.S. Provisional Patent App. No. ${PATENT_APP_NUMBER}
 
 ================================================================================
