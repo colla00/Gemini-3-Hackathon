@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, Navigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
@@ -45,6 +45,7 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 
 // Map slide types to view types for dashboard content
@@ -66,21 +67,35 @@ const PRESENTER_KEY = 'stanford2025';
 
 export const Presentation = () => {
   const [searchParams] = useSearchParams();
+  const { user, loading } = useAuth();
   
   // Check for special modes first
   const mode = searchParams.get('mode');
   
-  // Presenter Dashboard mode - private view with all controls
-  if (mode === 'presenter') {
-    return <PresenterDashboard />;
-  }
-  
-  // Audience mode - clean view synced with presenter
+  // Audience mode - PUBLIC, no auth required for screen sharing
   if (mode === 'audience') {
     return <AudienceView />;
   }
+  
+  // All other modes require authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  // Presenter Dashboard mode - private view with all controls (requires admin)
+  if (mode === 'presenter') {
+    return <PresenterDashboard />;
+  }
 
-  // Default presentation mode (legacy behavior)
+  // Default presentation mode (requires auth)
   return <DefaultPresentationView searchParams={searchParams} />;
 };
 
