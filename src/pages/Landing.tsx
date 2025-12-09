@@ -287,6 +287,13 @@ export const Landing = () => {
             <span className="text-primary font-medium">U.S. Pat. App. 63/932,953 Pending</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
+            <Link 
+              to="/terms" 
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              Terms of Use
+            </Link>
+            <span className="text-border">|</span>
             <a 
               href="mailto:alexis.collier@ung.edu" 
               className="text-muted-foreground hover:text-primary transition-colors"
