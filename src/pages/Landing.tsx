@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { QuickStartLauncher } from '@/components/presentation/QuickStartLauncher';
 
 const features = [
   {
@@ -132,6 +133,38 @@ export const Landing = () => {
           </div>
         </div>
       </header>
+
+      {/* Quick Start Presentation Section */}
+      <section className="py-12 px-6 bg-gradient-to-b from-primary/5 to-transparent border-b border-primary/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold text-foreground mb-4">
+                Ready to Present?
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Launch your 45-minute presentation with one click. Includes presenter controls, 
+                audience sync, and pacing timer.
+              </p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low" />
+                  Auto-opens audience window for screen sharing
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low" />
+                  Pre-flight checklist ensures you're ready
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low" />
+                  Visual countdown alerts at 60s, 30s, 10s
+                </li>
+              </ul>
+            </div>
+            <QuickStartLauncher />
+          </div>
+        </div>
+      </section>
 
       {/* Navigation Cards */}
       <section className="py-16 px-6 bg-secondary/30">
