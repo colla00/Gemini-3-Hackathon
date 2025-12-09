@@ -18,6 +18,7 @@ import {
   TOTAL_PRESENTATION_TIME 
 } from '@/components/presentation/PresentationSlide';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
+import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { LivePolls } from '@/components/engagement/LivePolls';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
@@ -162,6 +163,14 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Slide Countdown Overlay */}
+      <SlideCountdownOverlay
+        slideElapsedSeconds={slideElapsed}
+        slideDurationSeconds={slideDurationSeconds}
+        isVisible={isRunning}
+        position="top-right"
+      />
+
       {/* Header Bar */}
       <header className="sticky top-0 z-50 bg-secondary border-b border-border px-4 py-3">
         <div className="flex items-center justify-between">
