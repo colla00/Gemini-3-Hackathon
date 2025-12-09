@@ -8,6 +8,23 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { Activity, Shield, Users, ArrowLeft } from 'lucide-react';
+import { z } from 'zod';
+
+// Validation schemas
+const loginSchema = z.object({
+  email: z.string().trim().email('Please enter a valid email address').max(255, 'Email is too long'),
+  password: z.string().min(6, 'Password must be at least 6 characters').max(128, 'Password is too long'),
+});
+
+const signupSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100, 'Name is too long'),
+  email: z.string().trim().email('Please enter a valid email address').max(255, 'Email is too long'),
+  password: z.string().min(6, 'Password must be at least 6 characters').max(128, 'Password is too long'),
+});
+
+const resetSchema = z.object({
+  email: z.string().trim().email('Please enter a valid email address').max(255, 'Email is too long'),
+});
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -29,9 +46,18 @@ const Auth = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate input
+    const result = loginSchema.safeParse({ email: loginEmail, password: loginPassword });
+    if (!result.success) {
+      const firstError = result.error.errors[0];
+      toast.error('Validation error', { description: firstError.message });
+      return;
+    }
+
     setIsLoading(true);
 
-    const { error } = await signIn(loginEmail, loginPassword);
+    const { error } = await signIn(result.data.email, result.data.password);
     
     if (error) {
       toast.error('Login failed', { description: error.message });
@@ -45,15 +71,22 @@ const Auth = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    if (signupPassword.length < 6) {
-      toast.error('Password must be at least 6 characters');
-      setIsLoading(false);
+    
+    // Validate input
+    const result = signupSchema.safeParse({ 
+      name: signupName, 
+      email: signupEmail, 
+      password: signupPassword 
+    });
+    if (!result.success) {
+      const firstError = result.error.errors[0];
+      toast.error('Validation error', { description: firstError.message });
       return;
     }
 
-    const { error } = await signUp(signupEmail, signupPassword, signupName);
+    setIsLoading(true);
+
+    const { error } = await signUp(result.data.email, result.data.password, result.data.name);
     
     if (error) {
       if (error.message.includes('already registered')) {
@@ -71,9 +104,18 @@ const Auth = () => {
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate input
+    const result = resetSchema.safeParse({ email: resetEmail });
+    if (!result.success) {
+      const firstError = result.error.errors[0];
+      toast.error('Validation error', { description: firstError.message });
+      return;
+    }
+
     setIsLoading(true);
 
-    const { error } = await resetPassword(resetEmail);
+    const { error } = await resetPassword(result.data.email);
     
     if (error) {
       toast.error('Reset failed', { description: error.message });
