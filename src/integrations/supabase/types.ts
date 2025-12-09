@@ -241,6 +241,7 @@ export type Database = {
         Row: {
           audience_size: number | null
           created_at: string
+          creator_id: string | null
           ended_at: string | null
           id: string
           is_live: boolean | null
@@ -253,6 +254,7 @@ export type Database = {
         Insert: {
           audience_size?: number | null
           created_at?: string
+          creator_id?: string | null
           ended_at?: string | null
           id?: string
           is_live?: boolean | null
@@ -265,6 +267,7 @@ export type Database = {
         Update: {
           audience_size?: number | null
           created_at?: string
+          creator_id?: string | null
           ended_at?: string | null
           id?: string
           is_live?: boolean | null

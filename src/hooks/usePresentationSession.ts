@@ -15,11 +15,16 @@ export const usePresentationSession = () => {
 
   const createSession = useCallback(async (presenterName?: string) => {
     setIsLoading(true);
+    
+    // Get current user for creator_id
+    const { data: { user } } = await supabase.auth.getUser();
+    
     const { data, error } = await supabase
       .from('presentation_sessions')
       .insert({
         presenter_name: presenterName,
         is_live: true,
+        creator_id: user?.id || null,
       })
       .select()
       .single();
