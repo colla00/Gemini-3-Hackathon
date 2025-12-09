@@ -63,12 +63,12 @@ const impactStats = [
 ];
 
 const studyDetails = {
-  design: 'Prospective Quasi-Experimental',
-  setting: '3 Med/Surg Units, Academic Medical Center',
-  duration: '18 months (6-mo baseline, 12-mo intervention)',
-  sampleSize: '4,247 patient encounters',
+  design: 'Illustrative Study Design',
+  setting: 'Simulated Med/Surg Units',
+  duration: 'Projected 18-month study period',
+  sampleSize: 'Target: ~4,000 patient encounters',
   primaryEndpoint: 'Composite NSO event rate',
-  status: 'Manuscript in preparation'
+  status: 'Validation study planned'
 };
 
 export const OutcomeComparisonPanel = () => {
@@ -83,12 +83,24 @@ export const OutcomeComparisonPanel = () => {
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="bg-amber-500/20 text-amber-400 border-amber-500/30">
             <AlertTriangle className="w-3 h-3 mr-1" />
-            Simulated Data
+            Illustrative Data Only
           </Badge>
           <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30">
             <Award className="w-3 h-3 mr-1" />
-            IRB #2024-0847
+            Patent-Pending
           </Badge>
+        </div>
+      </div>
+
+      {/* Disclaimer Banner */}
+      <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+        <div className="flex items-start gap-2">
+          <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+          <p className="text-xs text-amber-600 dark:text-amber-400">
+            <strong>Important:</strong> All outcome metrics, reduction percentages, and statistical values shown are 
+            illustrative projections based on synthetic demonstration data. These represent target performance goals, 
+            not validated clinical results from completed studies.
+          </p>
         </div>
       </div>
 
@@ -115,7 +127,7 @@ export const OutcomeComparisonPanel = () => {
       {/* Outcome Comparison Cards */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Event Rate Reduction by Category</CardTitle>
+          <CardTitle className="text-base">Projected Event Rate Reduction by Category (Illustrative)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
@@ -166,8 +178,8 @@ export const OutcomeComparisonPanel = () => {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm flex items-center gap-2">
-            <Award className="w-4 h-4 text-primary" />
-            Study Methodology
+            <AlertTriangle className="w-4 h-4 text-amber-500" />
+            Proposed Study Methodology (Illustrative)
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -185,9 +197,10 @@ export const OutcomeComparisonPanel = () => {
           <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
             <div className="text-[11px] text-amber-500">
-              <strong>Important:</strong> Results shown are simulated for demonstration purposes. 
-              Actual clinical outcomes will vary based on implementation context, patient population, 
-              and care team engagement. This tool is designed to augment, not replace, clinical judgment.
+              <strong>Important:</strong> All results, statistics, and study parameters shown are illustrative 
+              projections for demonstration purposes only. No clinical validation studies have been completed. 
+              Actual outcomes will vary based on implementation context, patient population, and care team engagement. 
+              This tool is designed to augment, not replace, clinical judgment.
             </div>
           </div>
         </CardContent>
