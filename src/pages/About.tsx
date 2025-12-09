@@ -277,7 +277,7 @@ function About() {
               <div>
                 <h3 className="font-semibold mb-2">Principal Investigator</h3>
                 <p className="text-sm text-muted-foreground">
-                  Alexis Collier, PhD, RN<br />
+                  Alexis Collier, DHA, MHA, MSN (Student)<br />
                   University of North Georgia<br />
                   <a href="mailto:alexis.collier@ung.edu" className="text-primary hover:underline">
                     alexis.collier@ung.edu
