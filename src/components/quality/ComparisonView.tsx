@@ -190,10 +190,10 @@ export const ComparisonView = () => {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">Performance Metrics Comparison</CardTitle>
-            <Badge variant="outline" className="text-xs">
-              <Target className="w-3 h-3 mr-1" />
-              Validated Results
+            <CardTitle className="text-base">Performance Metrics Comparison (Illustrative)</CardTitle>
+            <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/30">
+              <AlertTriangle className="w-3 h-3 mr-1" />
+              Projected Goals
             </Badge>
           </div>
         </CardHeader>

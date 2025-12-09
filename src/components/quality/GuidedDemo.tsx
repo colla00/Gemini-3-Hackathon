@@ -70,10 +70,10 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'validation',
     title: 'Model Validation',
     view: 'validation',
-    narration: "Our validation dashboard shows model performance metrics. The ROC curve demonstrates an AUC of 0.847, with 82% sensitivity and 85% specificity. Temporal stability analysis confirms consistent performance.",
+    narration: "This dashboard shows our target performance metrics. We are aiming for an AUC above 0.85, with approximately 80% sensitivity and specificity. These are illustrative targets for our planned validation study.",
     duration: 12,
     icon: <Target className="w-4 h-4" />,
-    highlights: ['AUC-ROC analysis', 'Calibration curves', 'Temporal stability']
+    highlights: ['Target AUC-ROC', 'Planned calibration', 'Stability goals']
   },
   {
     id: 'integration',
@@ -88,10 +88,10 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'outcomes',
     title: 'Clinical Outcomes',
     view: 'outcomes',
-    narration: "Simulated outcome data shows 40% reduction in preventable events, 2.1 days shorter length of stay, and projected annual savings of $847,000 per 100-bed unit. Real-world validation is in progress.",
+    narration: "Illustrative outcome projections show target goals of 40% reduction in preventable events, 2 days shorter length of stay, and projected annual savings of $800,000 per 100-bed unit. These are targets, not validated results.",
     duration: 12,
     icon: <TrendingDown className="w-4 h-4" />,
-    highlights: ['40% event reduction', 'Cost savings', 'Nurse adoption metrics']
+    highlights: ['Target: 40% event reduction', 'Projected savings', 'Adoption goals']
   },
   {
     id: 'closing',

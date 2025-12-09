@@ -49,7 +49,7 @@ const featureDetails: FeatureDetail[] = [
     importance: 95,
     description: 'Assessment of patient\'s ability to move independently and safely',
     clinicalContext: 'Patient requires 2-person assist for transfers. Uses walker when ambulatory. History of unsteady gait documented.',
-    evidence: 'Strong predictor (OR 3.2, 95% CI: 2.8-3.7) based on N=12,847 fall events',
+    evidence: 'Strong predictor based on clinical literature (illustrative model)',
     dataSource: 'Nursing Assessment (q4h)',
     lastUpdated: '2 hours ago',
     trend: 'stable'
@@ -64,7 +64,7 @@ const featureDetails: FeatureDetail[] = [
     importance: 88,
     description: 'Count and type of medications associated with increased fall risk',
     clinicalContext: 'Opioids (Morphine PRN), Benzodiazepines (Lorazepam), Antihypertensives (Lisinopril), Diuretics (Furosemide)',
-    evidence: 'Each additional high-risk medication increases fall risk by 14% (p<0.001)',
+    evidence: 'High-risk medications associated with increased fall risk (literature-based)',
     dataSource: 'Pharmacy/MAR',
     lastUpdated: '45 mins ago',
     trend: 'up'
@@ -79,7 +79,7 @@ const featureDetails: FeatureDetail[] = [
     importance: 72,
     description: 'Age-related risk adjustment based on population statistics',
     clinicalContext: 'Age >75 places patient in highest risk category for age-related falls',
-    evidence: 'Linear relationship with fall risk above age 65 (β=0.008 per year)',
+    evidence: 'Age is a known risk factor for falls in clinical literature',
     dataSource: 'Demographics',
     lastUpdated: 'Static',
     trend: 'stable'
@@ -94,7 +94,7 @@ const featureDetails: FeatureDetail[] = [
     importance: 82,
     description: 'Assessment of cognitive function and delirium risk',
     clinicalContext: 'Patient occasionally confused about date. Follows simple commands. CAM negative for delirium.',
-    evidence: 'Cognitive impairment OR 2.1 (95% CI: 1.8-2.4) for falls',
+    evidence: 'Cognitive impairment is a recognized fall risk factor (literature-based)',
     dataSource: 'Nursing Assessment',
     lastUpdated: '4 hours ago',
     trend: 'stable'
@@ -124,7 +124,7 @@ const featureDetails: FeatureDetail[] = [
     importance: 91,
     description: 'History of previous falls as strongest single predictor',
     clinicalContext: 'Fall at home 3 months ago (hip contusion). Fall during previous admission 5 months ago (no injury).',
-    evidence: 'Prior falls OR 4.1 (95% CI: 3.6-4.7) - strongest individual predictor',
+    evidence: 'Prior falls are the strongest predictor in clinical literature',
     dataSource: 'Medical History / Incident Reports',
     lastUpdated: 'Admission',
     trend: 'stable'

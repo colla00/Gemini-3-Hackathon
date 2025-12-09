@@ -9,7 +9,7 @@ interface InterventionOutcome {
   riskBefore: number;
   riskAfter: number;
   effectiveness: number;
-  validated: boolean;
+  simulated: boolean;
 }
 
 const mockOutcomes: InterventionOutcome[] = [
@@ -20,7 +20,7 @@ const mockOutcomes: InterventionOutcome[] = [
     riskBefore: 68,
     riskAfter: 38,
     effectiveness: 44.1,
-    validated: true
+    simulated: true
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ const mockOutcomes: InterventionOutcome[] = [
     riskBefore: 72,
     riskAfter: 45,
     effectiveness: 37.5,
-    validated: true
+    simulated: true
   },
   {
     id: "3",
@@ -38,7 +38,7 @@ const mockOutcomes: InterventionOutcome[] = [
     riskBefore: 61,
     riskAfter: 39,
     effectiveness: 36.1,
-    validated: true
+    simulated: true
   }
 ];
 
@@ -52,7 +52,7 @@ export const InterventionTracking = () => {
           <div>
             <CardTitle className="text-lg">Intervention Efficacy Tracking</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">
-              Validated outcomes demonstrating AI-guided intervention effectiveness
+              Illustrative outcomes demonstrating AI-guided intervention concept (synthetic data)
             </p>
           </div>
           <div className="flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30">
@@ -68,7 +68,7 @@ export const InterventionTracking = () => {
             <div>
               <p className="text-sm text-muted-foreground mb-1">Average Risk Reduction</p>
               <p className="text-3xl font-bold text-accent">{avgEffectiveness.toFixed(1)}%</p>
-              <p className="text-xs text-muted-foreground mt-1">Across {mockOutcomes.length} validated interventions</p>
+              <p className="text-xs text-muted-foreground mt-1">Across {mockOutcomes.length} simulated interventions</p>
             </div>
             <TrendingDown className="w-12 h-12 text-accent/40" />
           </div>
@@ -77,7 +77,7 @@ export const InterventionTracking = () => {
         {/* Intervention List */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h4 className="font-medium text-sm">Recent Validated Outcomes</h4>
+            <h4 className="font-medium text-sm">Recent Simulated Outcomes</h4>
             <Badge variant="outline" className="text-xs">
               Unit 4C - Med/Surg
             </Badge>
@@ -97,8 +97,8 @@ export const InterventionTracking = () => {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h5 className="text-sm font-medium">{outcome.intervention}</h5>
-                    {outcome.validated && (
-                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                    {outcome.simulated && (
+                      <Badge variant="outline" className="text-[9px] text-amber-500 border-amber-500/30">Simulated</Badge>
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground">Implemented: {outcome.implemented}</p>

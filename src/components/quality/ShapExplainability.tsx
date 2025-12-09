@@ -312,24 +312,24 @@ export const ShapExplainability = () => {
                 <p className="text-[9px] text-muted-foreground">Novel real-time attribution integration</p>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Training Set</span>
-                <span className="text-foreground">N=45,000</span>
+                <span className="text-muted-foreground">Planned Training Set</span>
+                <span className="text-foreground">~45,000</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Validation Cohort</span>
-                <span className="text-foreground">N=2,847</span>
+                <span className="text-muted-foreground">Target Validation</span>
+                <span className="text-foreground">~3,000</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">AUC-ROC</span>
-                <span className="text-foreground">0.891 (95% CI: 0.87-0.91)</span>
+                <span className="text-muted-foreground">Target AUC-ROC</span>
+                <span className="text-foreground">0.85+ (goal)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Sensitivity</span>
-                <span className="text-foreground">84.7%</span>
+                <span className="text-muted-foreground">Target Sensitivity</span>
+                <span className="text-foreground">80%+ (goal)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Specificity</span>
-                <span className="text-foreground">82.3%</span>
+                <span className="text-muted-foreground">Target Specificity</span>
+                <span className="text-foreground">80%+ (goal)</span>
               </div>
               <div className="flex justify-between pt-1 border-t border-border/30">
                 <span className="text-muted-foreground">

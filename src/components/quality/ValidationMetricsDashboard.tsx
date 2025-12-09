@@ -484,29 +484,32 @@ export const ValidationMetricsDashboard = () => {
       <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm text-primary">Validation Study Details</CardTitle>
+            <AlertTriangle className="w-4 h-4 text-amber-500" />
+            <CardTitle className="text-sm text-amber-500">Planned Validation Study Details</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-4 gap-4 text-sm">
             <div>
-              <div className="text-muted-foreground text-xs">Study Design</div>
-              <div className="font-medium">Retrospective Cohort</div>
+              <div className="text-muted-foreground text-xs">Planned Design</div>
+              <div className="font-medium">Prospective Cohort</div>
             </div>
             <div>
-              <div className="text-muted-foreground text-xs">Sample Size</div>
-              <div className="font-medium">n = 422 patients</div>
+              <div className="text-muted-foreground text-xs">Target Sample Size</div>
+              <div className="font-medium">n ≈ 3,000 patients</div>
             </div>
             <div>
-              <div className="text-muted-foreground text-xs">IRB Approval</div>
-              <div className="font-medium">#2025-001</div>
+              <div className="text-muted-foreground text-xs">IRB Status</div>
+              <div className="font-medium">Submission planned</div>
             </div>
             <div>
-              <div className="text-muted-foreground text-xs">Validation Period</div>
-              <div className="font-medium">8 weeks (Jan-Feb 2025)</div>
+              <div className="text-muted-foreground text-xs">Target Timeline</div>
+              <div className="font-medium">2025-2026</div>
             </div>
           </div>
+          <p className="text-xs text-amber-500 mt-3">
+            Note: All data shown above is synthetic/illustrative. No actual validation study has been completed.
+          </p>
         </CardContent>
       </Card>
     </div>
