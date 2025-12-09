@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Users, Shield, Settings } from 'lucide-react';
+import { Users, Shield, Settings, RotateCcw, FileText } from 'lucide-react';
 import { Header } from '@/components/dashboard/Header';
 
 interface UserProfile {
@@ -234,6 +234,41 @@ const AdminPanel = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Testing Tools */}
+        <Card className="border-dashed">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-muted-foreground" />
+              <CardTitle className="text-base">Testing Tools</CardTitle>
+            </div>
+            <CardDescription>
+              Development and testing utilities
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between p-4 rounded-lg bg-secondary/50 border border-border">
+              <div className="flex items-center gap-3">
+                <FileText className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="font-medium text-sm">Terms Acceptance</p>
+                  <p className="text-xs text-muted-foreground">Reset to show the terms modal again</p>
+                </div>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  localStorage.removeItem('nso_terms_accepted');
+                  toast.success('Terms acceptance reset. Refresh the page to see the modal.');
+                }}
+              >
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Reset Terms
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
