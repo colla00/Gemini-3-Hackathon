@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { TermsAcceptanceModal } from '@/components/TermsAcceptanceModal';
 import { QuickStartLauncher } from '@/components/presentation/QuickStartLauncher';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -60,6 +61,9 @@ export const Landing = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      {/* Terms Acceptance Modal */}
+      <TermsAcceptanceModal />
+      
       {/* Research Prototype Disclaimer */}
       <ResearchDisclaimer />
 
