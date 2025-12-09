@@ -49,10 +49,6 @@ function About() {
               <Award className="w-3 h-3" />
               Patent-Pending Technology
             </Badge>
-            <Badge variant="outline" className="gap-1">
-              <FileText className="w-3 h-3" />
-              IRB #2025-001
-            </Badge>
           </div>
           <h1 className="text-4xl font-bold mb-4">NSO Quality Dashboard</h1>
           <p className="text-xl text-muted-foreground max-w-3xl">
@@ -282,12 +278,6 @@ function About() {
                   <a href="mailto:alexis.collier@ung.edu" className="text-primary hover:underline">
                     alexis.collier@ung.edu
                   </a>
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-2">Institution</h3>
-                <p className="text-sm text-muted-foreground">
-                  University of North Georgia
                 </p>
               </div>
             </div>
