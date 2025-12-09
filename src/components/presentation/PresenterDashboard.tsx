@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   Monitor, ExternalLink, Play, Pause, Clock, ChevronLeft, ChevronRight,
   MessageCircle, BarChart, BookOpen, FileText, Volume2, VolumeX,
-  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2, ShieldAlert, RefreshCw
+  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2, ShieldAlert, RefreshCw,
+  FastForward, Zap
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -80,6 +81,17 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const slideProgress = (slideElapsed / slideDurationSeconds) * 100;
   const overallProgress = (elapsedSeconds / totalDurationSeconds) * 100;
   const isOverTime = slideElapsed > slideDurationSeconds;
+  const overallOverTimeSeconds = elapsedSeconds - totalDurationSeconds;
+  const isEmergencyMode = overallOverTimeSeconds >= 300; // 5 minutes over
+  const conclusionSlide = PRESENTATION_SLIDES.find(s => s.id === 'conclusion');
+
+  const skipToConclusion = useCallback(() => {
+    if (conclusionSlide) {
+      setCurrentSlide('conclusion');
+      setSlideElapsed(0);
+      toast.warning('Skipped to conclusion slide', { duration: 3000 });
+    }
+  }, [conclusionSlide]);
 
   // Timer logic
   useEffect(() => {
@@ -170,6 +182,24 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
         isVisible={isRunning}
         position="top-right"
       />
+
+      {/* Emergency Skip to Conclusion Banner */}
+      {isEmergencyMode && currentSlide !== 'conclusion' && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-pulse">
+          <Button
+            onClick={skipToConclusion}
+            size="lg"
+            className="bg-risk-high hover:bg-risk-high/90 text-white shadow-2xl shadow-risk-high/50 border-2 border-white/20"
+          >
+            <Zap className="w-5 h-5 mr-2 animate-pulse" />
+            <span className="font-bold">EMERGENCY: Skip to Conclusion</span>
+            <FastForward className="w-5 h-5 ml-2" />
+          </Button>
+          <p className="text-center text-xs text-risk-high mt-2 font-medium">
+            {Math.floor(overallOverTimeSeconds / 60)}m over time
+          </p>
+        </div>
+      )}
 
       {/* Header Bar */}
       <header className="sticky top-0 z-50 bg-secondary border-b border-border px-4 py-3">
