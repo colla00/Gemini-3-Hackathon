@@ -65,11 +65,42 @@ export const Landing = () => {
 
       {/* Patent Notice Header */}
       <div className="bg-primary/5 border-b border-primary/20 py-2 px-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 text-xs text-primary">
-          <Lock className="w-3 h-3" />
-          <span className="font-medium">Patent Pending</span>
-          <span className="text-primary/60">•</span>
-          <span className="text-primary/80">Proprietary Technology — All Rights Reserved</span>
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs text-primary">
+            <Lock className="w-3 h-3" />
+            <span className="font-medium">Patent Pending</span>
+            <span className="text-primary/60">•</span>
+            <span className="text-primary/80">Proprietary Technology — All Rights Reserved</span>
+          </div>
+          
+          {/* Auth Status Indicator */}
+          {isAdmin ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30">
+                <div className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
+                <span className="text-xs font-medium text-risk-low">Admin</span>
+              </div>
+              <Link 
+                to="/auth" 
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  const { supabase } = await import('@/integrations/supabase/client');
+                  await supabase.auth.signOut();
+                  window.location.href = '/';
+                }}
+              >
+                Sign Out
+              </Link>
+            </div>
+          ) : (
+            <Link 
+              to="/auth" 
+              className="text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
 
