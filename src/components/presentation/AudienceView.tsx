@@ -30,10 +30,10 @@ const slideToView: Record<string, string | null> = {
 };
 
 export const AudienceView = () => {
-  const { syncState } = usePresenterSync(false);
+  const { syncState, connectionStatus } = usePresenterSync(false);
   const liveSimulation = useLiveSimulation(syncState.isLive, 5000);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
-  const [isConnected, setIsConnected] = useState(true);
+  const [lastSyncTime, setLastSyncTime] = useState<string>('--');
+  const [isStale, setIsStale] = useState(false);
   
   const currentSlide = syncState.currentSlide as SlideType;
   const currentSlideConfig = PRESENTATION_SLIDES.find(s => s.id === currentSlide);
@@ -42,13 +42,14 @@ export const AudienceView = () => {
 
   // Track connection status based on sync updates
   useEffect(() => {
-    setLastUpdate(new Date());
-    setIsConnected(true);
+    const now = new Date();
+    setLastSyncTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    setIsStale(false);
     
-    // If no updates for 10 seconds, show disconnected
+    // If no updates for 15 seconds, show stale warning
     const timeout = setTimeout(() => {
-      setIsConnected(false);
-    }, 10000);
+      setIsStale(true);
+    }, 15000);
     
     return () => clearTimeout(timeout);
   }, [syncState.timestamp]);
@@ -103,18 +104,26 @@ export const AudienceView = () => {
       <div className="bg-secondary/80 border-b border-border/30 py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Connection Status */}
-          <div className="flex items-center gap-2">
-            {isConnected ? (
+          <div className="flex items-center gap-3">
+            {connectionStatus === 'connected' && !isStale ? (
               <div className="flex items-center gap-1.5 text-risk-low">
                 <Wifi className="w-3.5 h-3.5" />
                 <span className="text-[10px] font-medium uppercase tracking-wider">Synced with Presenter</span>
               </div>
-            ) : (
+            ) : isStale ? (
               <div className="flex items-center gap-1.5 text-amber-500">
-                <WifiOff className="w-3.5 h-3.5" />
-                <span className="text-[10px] font-medium uppercase tracking-wider">Waiting for presenter...</span>
+                <WifiOff className="w-3.5 h-3.5 animate-pulse" />
+                <span className="text-[10px] font-medium uppercase tracking-wider">Waiting for updates...</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 text-muted-foreground">
+                <Wifi className="w-3.5 h-3.5 animate-pulse" />
+                <span className="text-[10px] font-medium uppercase tracking-wider">Connecting...</span>
               </div>
             )}
+            <span className="text-[10px] text-muted-foreground">
+              Last sync: {lastSyncTime}
+            </span>
           </div>
 
           {/* Slide Progress */}

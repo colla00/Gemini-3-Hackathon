@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   Monitor, ExternalLink, Play, Pause, Clock, ChevronLeft, ChevronRight,
   MessageCircle, BarChart, BookOpen, FileText, Volume2, VolumeX,
-  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2, ShieldAlert
+  Users, AlertTriangle, CheckCircle, Settings, X, Maximize2, ShieldAlert, RefreshCw
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -39,7 +39,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const [activeTab, setActiveTab] = useState('notes');
   const [audienceWindowOpen, setAudienceWindowOpen] = useState(false);
   
-  const { broadcast, openAudienceWindow, closeAudienceWindow, isAudienceWindowOpen } = usePresenterSync(true);
+  const { broadcast, openAudienceWindow, closeAudienceWindow, isAudienceWindowOpen, forceSync } = usePresenterSync(true);
   const { session, createSession } = usePresentationSession();
 
   // Admin-only access check
@@ -182,7 +182,21 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
             </Badge>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {audienceWindowOpen && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  forceSync();
+                  toast.success('Sync signal sent to audience');
+                }}
+                title="Force sync with audience"
+              >
+                <RefreshCw className="w-4 h-4 mr-1" />
+                Resync
+              </Button>
+            )}
             <Button
               variant={audienceWindowOpen ? "outline" : "default"}
               size="sm"
