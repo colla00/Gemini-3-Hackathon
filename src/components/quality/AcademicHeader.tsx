@@ -12,12 +12,12 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   dashboard: {
     title: 'System Architecture & Real-Time Monitoring',
     subtitle: 'Aggregate Risk Visualization for Nurse-Sensitive Outcomes',
-    citation: 'Methods: Real-time EHR integration with sub-5-minute data refresh',
+    citation: 'Design: Real-time EHR integration with sub-5-minute data refresh (illustrative)',
   },
   patients: {
     title: 'Individual Risk Stratification',
     subtitle: 'Patient-Level Predictive Analytics with Confidence Intervals',
-    citation: 'Validation: N=2,847 patients, AUC-ROC 0.89 (95% CI: 0.87-0.91)',
+    citation: 'Illustrative metrics — Validation study planned',
   },
   shap: {
     title: 'Explainable Artificial Intelligence',
@@ -27,7 +27,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   workflow: {
     title: 'Clinical Validation & Human-in-the-Loop',
     subtitle: 'Real-World Intervention Workflow Demonstration',
-    citation: 'Pilot Results: 34% reduction in preventable falls (p<0.01)',
+    citation: 'Target: 30-40% reduction in preventable falls (goal)',
   },
 };
 

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3 } from 'lucide-react';
+import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3, AlertTriangle } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 
 function About() {
@@ -154,46 +154,55 @@ function About() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Disclaimer Banner */}
+            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-amber-600 dark:text-amber-400">
+                <strong>Important:</strong> All metrics below are illustrative targets based on synthetic demonstration data. 
+                No clinical validation studies have been completed yet. Actual performance will be determined through planned prospective studies.
+              </p>
+            </div>
+            
             <div className="grid md:grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-muted/30">
                 <p className="text-sm text-muted-foreground mb-1">IRB Protocol</p>
-                <p className="text-2xl font-bold">#2025-001</p>
-                <p className="text-xs text-muted-foreground mt-1">Stanford Medicine</p>
+                <p className="text-2xl font-bold">Planned</p>
+                <p className="text-xs text-muted-foreground mt-1">Submission in preparation</p>
               </div>
               <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Validation Cohort</p>
-                <p className="text-2xl font-bold">N=2,847</p>
-                <p className="text-xs text-muted-foreground mt-1">Multi-site patients</p>
+                <p className="text-sm text-muted-foreground mb-1">Target Validation Cohort</p>
+                <p className="text-2xl font-bold">N≈3,000</p>
+                <p className="text-xs text-muted-foreground mt-1">Multi-site patients (planned)</p>
               </div>
               <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Primary Outcome</p>
-                <p className="text-2xl font-bold">34% ↓</p>
-                <p className="text-xs text-muted-foreground mt-1">Fall reduction (p&lt;0.01)</p>
+                <p className="text-sm text-muted-foreground mb-1">Target Outcome</p>
+                <p className="text-2xl font-bold">30-40% ↓</p>
+                <p className="text-xs text-muted-foreground mt-1">Fall reduction goal</p>
               </div>
             </div>
 
             <div className="p-4 rounded-lg border border-border">
-              <h3 className="font-semibold mb-3">Model Performance Metrics</h3>
+              <h3 className="font-semibold mb-3">Illustrative Model Performance Targets</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
-                  <p className="text-muted-foreground">AUC-ROC</p>
-                  <p className="text-xl font-bold">0.891</p>
-                  <p className="text-xs text-muted-foreground">95% CI: 0.87-0.91</p>
+                  <p className="text-muted-foreground">Target AUC-ROC</p>
+                  <p className="text-xl font-bold">0.85+</p>
+                  <p className="text-xs text-amber-500 mt-1">Goal metric</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Sensitivity</p>
-                  <p className="text-xl font-bold">84.7%</p>
-                  <p className="text-xs text-muted-foreground">High recall</p>
+                  <p className="text-muted-foreground">Target Sensitivity</p>
+                  <p className="text-xl font-bold">80%+</p>
+                  <p className="text-xs text-amber-500 mt-1">Goal metric</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Specificity</p>
-                  <p className="text-xl font-bold">82.3%</p>
-                  <p className="text-xs text-muted-foreground">Low false positive</p>
+                  <p className="text-muted-foreground">Target Specificity</p>
+                  <p className="text-xl font-bold">80%+</p>
+                  <p className="text-xs text-amber-500 mt-1">Goal metric</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">PPV</p>
-                  <p className="text-xl font-bold">75.6%</p>
-                  <p className="text-xs text-muted-foreground">Positive predictive</p>
+                  <p className="text-muted-foreground">Target PPV</p>
+                  <p className="text-xl font-bold">70%+</p>
+                  <p className="text-xs text-amber-500 mt-1">Goal metric</p>
                 </div>
               </div>
             </div>
@@ -210,22 +219,22 @@ function About() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="prose prose-sm max-w-none">
-              <h3 className="text-foreground font-semibold text-base">Machine Learning Pipeline</h3>
+              <h3 className="text-foreground font-semibold text-base">Proposed Machine Learning Pipeline</h3>
               <ul className="space-y-2 text-muted-foreground text-sm">
                 <li>
-                  <strong className="text-foreground">Algorithm:</strong> XGBoost ensemble with SHAP post-hoc explainability
+                  <strong className="text-foreground">Algorithm:</strong> XGBoost ensemble with SHAP post-hoc explainability (proposed)
                 </li>
                 <li>
-                  <strong className="text-foreground">Training Set:</strong> N=45,000 patient-days from 3 academic medical centers
+                  <strong className="text-foreground">Planned Training Set:</strong> Target ~45,000 patient-days from multiple academic medical centers
                 </li>
                 <li>
-                  <strong className="text-foreground">Features:</strong> 127 EHR-derived variables including vitals, labs, medications, mobility assessments
+                  <strong className="text-foreground">Features:</strong> ~127 EHR-derived variables including vitals, labs, medications, mobility assessments
                 </li>
                 <li>
                   <strong className="text-foreground">Target Outcomes:</strong> Falls, pressure injuries, hospital-acquired infections
                 </li>
                 <li>
-                  <strong className="text-foreground">Real-Time Integration:</strong> Sub-5-minute data refresh via HL7 FHIR streams
+                  <strong className="text-foreground">Real-Time Integration:</strong> Designed for sub-5-minute data refresh via HL7 FHIR streams
                 </li>
               </ul>
 

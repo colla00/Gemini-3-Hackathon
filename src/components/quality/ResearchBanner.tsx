@@ -16,7 +16,7 @@ export const ResearchBanner = () => {
         </span>
         <div className="hidden lg:flex items-center gap-2 text-warning/70">
           <FileText className="w-3 h-3" />
-          <span>IRB #2025-001</span>
+          <span>IRB Submission Planned</span>
         </div>
         <div className="hidden lg:flex items-center gap-2 text-warning/70">
           <Award className="w-3 h-3" />
