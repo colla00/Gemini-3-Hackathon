@@ -285,12 +285,10 @@ function About() {
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Institutional Partners</h3>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Stanford Medicine - Clinical validation</li>
-                  <li>• UCSF Health - Implementation site</li>
-                  <li>• University of North Georgia - Lead institution</li>
-                </ul>
+                <h3 className="font-semibold mb-2">Institution</h3>
+                <p className="text-sm text-muted-foreground">
+                  University of North Georgia
+                </p>
               </div>
             </div>
           </CardContent>
