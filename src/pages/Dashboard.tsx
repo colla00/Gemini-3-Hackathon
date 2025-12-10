@@ -16,7 +16,7 @@ import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagra
 import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { MethodologyChat } from '@/components/quality/MethodologyChat';
-import { GuidedDemo } from '@/components/quality/GuidedDemo';
+
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -183,9 +183,6 @@ export const Dashboard = () => {
 
             {/* Quick Actions - Cleaned up, no overlaps */}
             <div className="flex items-center gap-0.5">
-              {/* Guided Demo Button - Self-guided 45-min walkthrough */}
-              <GuidedDemo onViewChange={(view) => handleViewChange(view as ViewType)} currentView={activeView} />
-              
               <Link
                 to="/presentation?mode=presenter"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
