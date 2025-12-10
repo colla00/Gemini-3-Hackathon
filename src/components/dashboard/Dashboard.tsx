@@ -127,13 +127,13 @@ export const Dashboard = () => {
     trending: patients.filter((p) => p.trend === 'up').length,
   }), []);
 
-  // Demo scenarios for auto-advance mode
+  // Demo scenarios for auto-advance mode (aligned to ~5min presentation)
   const demoScenarios: DemoScenario[] = useMemo(() => [
     {
       id: 'intro',
       label: 'Dashboard Overview',
-      description: 'High-level view of nurse-sensitive outcomes across the unit',
-      duration: 12,
+      description: 'Unit-level view of nurse-sensitive outcomes monitoring',
+      duration: 10,
       action: () => {
         setSelectedPatient(null);
         setRiskTypeFilter('ALL');
@@ -142,9 +142,9 @@ export const Dashboard = () => {
     },
     {
       id: 'high-risk-falls',
-      label: 'High-Risk Falls Patient',
-      description: 'Patient A01 - Post-op with sedation and mobility deficits',
-      duration: 15,
+      label: 'Falls Risk - SHAP Analysis',
+      description: 'Patient A01: Post-op sedation + mobility → interpretable risk factors',
+      duration: 12,
       action: () => {
         const fallsPatient = patients.find(p => p.id === 'Patient A01');
         if (fallsPatient) setSelectedPatient(fallsPatient);
@@ -153,18 +153,28 @@ export const Dashboard = () => {
     {
       id: 'cauti-scenario',
       label: 'CAUTI Risk Escalation',
-      description: 'Patient C00 - Foley Day 8 with symptomatic UTI workup',
-      duration: 15,
+      description: 'Patient C00: Foley Day 8 + fever → catheter removal workflow',
+      duration: 12,
       action: () => {
         const cautiPatient = patients.find(p => p.riskType === 'CAUTI');
         if (cautiPatient) setSelectedPatient(cautiPatient);
       },
     },
     {
-      id: 'filter-demo',
-      label: 'Risk Filtering',
-      description: 'Filtering to show only high-risk patients',
+      id: 'pressure-injury',
+      label: 'Pressure Injury Prevention',
+      description: 'HAPI risk with Braden subscale + repositioning protocol',
       duration: 10,
+      action: () => {
+        const hapiPatient = patients.find(p => p.riskType === 'Pressure Injury');
+        if (hapiPatient) setSelectedPatient(hapiPatient);
+      },
+    },
+    {
+      id: 'filter-demo',
+      label: 'Priority Filtering',
+      description: 'Filter to high-risk patients for focused nursing rounds',
+      duration: 8,
       action: () => {
         setSelectedPatient(null);
         setRiskLevelFilter('HIGH');
@@ -172,20 +182,21 @@ export const Dashboard = () => {
       },
     },
     {
-      id: 'pressure-injury',
-      label: 'Pressure Injury Case',
-      description: 'HAPI risk assessment with Braden subscale analysis',
-      duration: 12,
+      id: 'handoff-context',
+      label: 'Shift Handoff',
+      description: 'Click Handoff phase above → generate CAUTI report',
+      duration: 10,
       action: () => {
-        const hapiPatient = patients.find(p => p.riskType === 'Pressure Injury');
-        if (hapiPatient) setSelectedPatient(hapiPatient);
+        setSelectedPatient(null);
+        setRiskLevelFilter('ALL');
+        setRiskTypeFilter('ALL');
       },
     },
     {
       id: 'summary',
-      label: 'Demo Complete',
-      description: 'Return to dashboard overview - Q&A time',
-      duration: 8,
+      label: 'Q&A Discussion',
+      description: 'EHR-driven, interpretable AI for nurse-sensitive outcomes',
+      duration: 10,
       action: () => {
         setSelectedPatient(null);
         setRiskLevelFilter('ALL');
