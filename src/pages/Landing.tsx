@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation, Play
+  Brain, Sparkles, Lock, FileText, Presentation, Play, FlaskConical
 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { TermsAcceptanceModal } from '@/components/TermsAcceptanceModal';
@@ -156,29 +162,65 @@ export const Landing = () => {
             </p>
 
             {/* Patent Metrics Badge */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-              <Link 
-                to="/about"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:scale-105 transition-all cursor-pointer"
-              >
-                <Brain className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold text-primary">AUROC 0.89</span>
-              </Link>
-              <Link 
-                to="/about"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:scale-105 transition-all cursor-pointer"
-              >
-                <FileText className="w-4 h-4 text-accent" />
-                <span className="text-sm font-semibold text-accent">9 Patent Claims</span>
-              </Link>
-              <Link 
-                to="/about"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30 hover:bg-risk-low/20 hover:scale-105 transition-all cursor-pointer"
-              >
-                <Activity className="w-4 h-4 text-risk-low" />
-                <span className="text-sm font-semibold text-risk-low">40-70% Alert Reduction</span>
-              </Link>
-            </div>
+            <TooltipProvider>
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link 
+                      to="/about"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:scale-105 transition-all cursor-pointer"
+                    >
+                      <Brain className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-semibold text-primary">AUROC 0.89</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                        <FlaskConical className="w-2.5 h-2.5" />
+                        Synthetic
+                      </span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-xs"><strong>Model Performance:</strong> AUROC measured on synthetic validation datasets (HiRID, MIMIC-IV, eICU-CRD). Not yet validated in clinical settings.</p>
+                  </TooltipContent>
+                </Tooltip>
+                
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link 
+                      to="/about"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:scale-105 transition-all cursor-pointer"
+                    >
+                      <FileText className="w-4 h-4 text-accent" />
+                      <span className="text-sm font-semibold text-accent">9 Patent Claims</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium">
+                        Pending
+                      </span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-xs"><strong>Patent Status:</strong> U.S. Provisional Patent Application No. 63/932,953 filed December 2025. Claims cover integrated explainability, forecasting, and closed-loop feedback.</p>
+                  </TooltipContent>
+                </Tooltip>
+                
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link 
+                      to="/about"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30 hover:bg-risk-low/20 hover:scale-105 transition-all cursor-pointer"
+                    >
+                      <Activity className="w-4 h-4 text-risk-low" />
+                      <span className="text-sm font-semibold text-risk-low">40-70% Alert Reduction</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                        <FlaskConical className="w-2.5 h-2.5" />
+                        Projected
+                      </span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-xs"><strong>Projected Improvement:</strong> Estimated false-positive reduction vs. fixed thresholds based on adaptive threshold design. Requires clinical validation.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </TooltipProvider>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
