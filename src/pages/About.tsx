@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play } from 'lucide-react';
+import { 
+  Award, FileText, Users, Target, Lightbulb, Shield, Brain, 
+  TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play 
+} from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
+
 function About() {
   return (
     <div className="min-h-screen bg-background">
