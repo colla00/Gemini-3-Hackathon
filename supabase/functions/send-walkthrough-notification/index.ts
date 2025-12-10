@@ -65,9 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
           ` : ''}
         </table>
         <p style="margin-top: 20px;">
-          <a href="https://your-app.lovable.app/admin" style="background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
-            Review in Admin Panel
-          </a>
+          Log in to the admin panel to review this request.
         </p>
       `,
     });
