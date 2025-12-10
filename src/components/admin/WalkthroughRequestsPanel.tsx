@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuditLog } from '@/hooks/useAuditLog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -25,6 +26,7 @@ export const WalkthroughRequestsPanel = () => {
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { logAction } = useAuditLog();
 
   useEffect(() => {
     fetchRequests();
@@ -49,6 +51,8 @@ export const WalkthroughRequestsPanel = () => {
   const updateRequestStatus = async (id: string, status: 'approved' | 'denied') => {
     setProcessingId(id);
     
+    const request = requests.find(r => r.id === id);
+    
     const { error } = await supabase
       .from('walkthrough_access_requests')
       .update({ 
@@ -61,6 +65,18 @@ export const WalkthroughRequestsPanel = () => {
       toast.error(`Failed to ${status} request`);
       console.error('Error updating request:', error);
     } else {
+      // Log the admin action
+      await logAction({
+        action: status === 'approved' ? 'approve' : 'reject',
+        resource_type: 'walkthrough_request',
+        resource_id: id,
+        details: {
+          requester_email: request?.email || '',
+          requester_name: request?.name || '',
+          new_status: status,
+        }
+      });
+      
       toast.success(`Request ${status}`);
       fetchRequests();
     }

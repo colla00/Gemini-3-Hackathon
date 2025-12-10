@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useAuditLog } from '@/hooks/useAuditLog';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,6 +29,7 @@ interface UserRole {
 
 const AdminPanel = () => {
   const { isAdmin } = useAuth();
+  const { logAction } = useAuditLog();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [userRoles, setUserRoles] = useState<Record<string, UserRole[]>>({});
   const [loading, setLoading] = useState(true);
@@ -72,6 +74,10 @@ const AdminPanel = () => {
   };
 
   const updateUserRole = async (userId: string, newRole: 'admin' | 'staff' | 'viewer') => {
+    const user = users.find(u => u.user_id === userId);
+    const previousRoles = userRoles[userId] || [];
+    const previousRole = previousRoles[0]?.role || 'none';
+    
     await supabase
       .from('user_roles')
       .delete()
@@ -84,6 +90,19 @@ const AdminPanel = () => {
     if (error) {
       toast.error('Failed to update role');
     } else {
+      // Log the role change
+      await logAction({
+        action: 'role_change',
+        resource_type: 'user_role',
+        resource_id: userId,
+        details: {
+          target_user_email: user?.email || '',
+          target_user_name: user?.full_name || '',
+          previous_role: previousRole,
+          new_role: newRole,
+        }
+      });
+      
       toast.success('Role updated');
       fetchUsers();
     }
