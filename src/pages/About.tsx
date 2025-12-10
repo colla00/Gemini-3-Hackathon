@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
-
+import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
 function About() {
   return (
     <div className="min-h-screen bg-background">
@@ -171,6 +171,13 @@ function About() {
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Detailed Patent Claims */}
+        <Card>
+          <CardContent className="pt-6">
+            <PatentClaimsSummary />
           </CardContent>
         </Card>
 
