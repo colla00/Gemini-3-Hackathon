@@ -5,6 +5,14 @@ import { DashboardOverview } from '@/components/quality/DashboardOverview';
 import { PatientListView } from '@/components/quality/PatientListView';
 import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
+import { EHRDataFlowSlide } from '@/components/quality/EHRDataFlowSlide';
+import { AlertTimelineSlide } from '@/components/quality/AlertTimelineSlide';
+import { ComparisonSlide } from '@/components/quality/ComparisonSlide';
+import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
+import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
+import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
+import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { 
@@ -15,17 +23,26 @@ import {
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
 
+// Map slide types to view types - must match all slides
 const slideToView: Record<string, string | null> = {
   'title': null,
   'agenda': null,
+  'video-demo': 'video-demo',
   'problem': null,
+  'comparison': 'comparison',
   'methodology': null,
+  'ml-features': 'ml-features',
+  'ehr-flow': 'ehr-flow',
+  'alert-timeline': 'alert-timeline',
   'dashboard': 'dashboard',
   'patients': 'patients',
+  'patient-journey': 'patient-journey',
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
+  'roi': 'roi',
   'future': null,
+  'qa-prep': 'qa-prep',
   'conclusion': null,
 };
 
@@ -67,6 +84,22 @@ export const AudienceView = () => {
         return <ShapExplainability />;
       case 'workflow':
         return <ClinicalWorkflowView />;
+      case 'video-demo':
+        return <VideoDemoSlide />;
+      case 'comparison':
+        return <ComparisonSlide />;
+      case 'ml-features':
+        return <MLFeaturesSlide />;
+      case 'ehr-flow':
+        return <EHRDataFlowSlide />;
+      case 'alert-timeline':
+        return <AlertTimelineSlide />;
+      case 'patient-journey':
+        return <PatientJourneySlide />;
+      case 'roi':
+        return <ROICalculatorSlide />;
+      case 'qa-prep':
+        return <QAPrepSlide />;
       default:
         return null;
     }
