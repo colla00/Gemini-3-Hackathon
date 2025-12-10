@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   Play, Pause, SkipForward, SkipBack, Settings, 
-  Timer, ChevronDown, X, Maximize2, Volume2, VolumeX 
+  Timer, ChevronDown, X, Maximize2, Minimize2, Volume2, VolumeX 
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -27,12 +27,16 @@ export interface DemoScenario {
 interface DemoModeControllerProps {
   scenarios: DemoScenario[];
   onScenarioChange?: (scenario: DemoScenario, index: number) => void;
+  onFullscreenChange?: (isFullscreen: boolean) => void;
+  isFullscreen?: boolean;
   className?: string;
 }
 
 export const DemoModeController = ({ 
   scenarios, 
   onScenarioChange,
+  onFullscreenChange,
+  isFullscreen = false,
   className 
 }: DemoModeControllerProps) => {
   const [isRunning, setIsRunning] = useState(false);
@@ -250,6 +254,17 @@ export const DemoModeController = ({
         </div>
         <div className="flex items-center gap-1">
           <button
+            onClick={() => onFullscreenChange?.(!isFullscreen)}
+            className="p-1.5 rounded hover:bg-secondary transition-colors"
+            title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+          >
+            {isFullscreen ? (
+              <Minimize2 className="w-3.5 h-3.5 text-foreground" />
+            ) : (
+              <Maximize2 className="w-3.5 h-3.5 text-muted-foreground" />
+            )}
+          </button>
+          <button
             onClick={() => setIsMuted(!isMuted)}
             className="p-1.5 rounded hover:bg-secondary transition-colors"
           >
@@ -263,6 +278,7 @@ export const DemoModeController = ({
             onClick={() => {
               if (isRunning) stopDemo();
               setIsExpanded(false);
+              onFullscreenChange?.(false);
             }}
             className="p-1.5 rounded hover:bg-secondary transition-colors"
           >

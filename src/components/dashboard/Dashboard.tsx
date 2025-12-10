@@ -12,6 +12,7 @@ import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
 import { DemoModeController, type DemoScenario } from './DemoModeController';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
+import { cn } from '@/lib/utils';
 
 export const Dashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -21,6 +22,7 @@ export const Dashboard = () => {
   const [sortBy, setSortBy] = useState<'riskScore' | 'lastUpdated' | 'id'>('riskScore');
   const [timeOffset, setTimeOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPresentationMode, setIsPresentationMode] = useState(false);
 
   // Update timestamps every 30 seconds
   useEffect(() => {
@@ -196,9 +198,12 @@ export const Dashboard = () => {
   const monitoringPatients = filteredPatients.slice(3);
 
   return (
-    <div className="min-h-screen flex flex-col gradient-burgundy">
-      <WarningBanner />
-      <Header />
+    <div className={cn(
+      "min-h-screen flex flex-col gradient-burgundy transition-all duration-300",
+      isPresentationMode && "presentation-mode"
+    )}>
+      {!isPresentationMode && <WarningBanner />}
+      {!isPresentationMode && <Header />}
       
       <main className={`flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
         {selectedPatient ? (
@@ -264,10 +269,14 @@ export const Dashboard = () => {
         )}
       </main>
 
-      <Footer />
+      {!isPresentationMode && <Footer />}
 
       {/* Demo Mode Controller */}
-      <DemoModeController scenarios={demoScenarios} />
+      <DemoModeController 
+        scenarios={demoScenarios} 
+        isFullscreen={isPresentationMode}
+        onFullscreenChange={setIsPresentationMode}
+      />
     </div>
   );
 };
