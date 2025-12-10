@@ -85,15 +85,17 @@ export const WalkthroughAccessButton = () => {
 
     setIsSubmitting(true);
     try {
+      const requestData = {
+        name: formData.name.trim(),
+        email: formData.email.trim() || user?.email || '',
+        organization: formData.organization.trim() || null,
+        role: formData.role.trim() || null,
+        reason: formData.reason.trim() || null,
+      };
+
       const { error } = await supabase
         .from('walkthrough_access_requests')
-        .insert({
-          name: formData.name.trim(),
-          email: formData.email.trim() || user?.email,
-          organization: formData.organization.trim() || null,
-          role: formData.role.trim() || null,
-          reason: formData.reason.trim() || null,
-        });
+        .insert(requestData);
 
       if (error) {
         if (error.code === '23505') {
@@ -103,6 +105,15 @@ export const WalkthroughAccessButton = () => {
         }
         return;
       }
+
+      // Send email notification to admin (fire and forget)
+      supabase.functions.invoke('send-walkthrough-notification', {
+        body: requestData,
+      }).then(({ error: notifyError }) => {
+        if (notifyError) {
+          console.error('Failed to send notification email:', notifyError);
+        }
+      });
 
       toast.success('Access request submitted! You will be notified when approved.');
       setShowRequestModal(false);
