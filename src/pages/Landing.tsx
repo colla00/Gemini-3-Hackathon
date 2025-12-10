@@ -50,7 +50,7 @@ const pages = [
     external: true,
   },
   {
-    to: '/presentation',
+    to: '/presentation?autostart=true',
     icon: Presentation,
     title: '45-Min Walkthrough',
     description: 'Automated interactive presentation',
@@ -173,7 +173,7 @@ export const Landing = () => {
                 <span>Watch Demo</span>
               </a>
               <Link
-                to="/presentation"
+                to="/presentation?autostart=true"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-all border border-emerald-500/30"
               >
                 <Presentation className="w-5 h-5" />
