@@ -16,8 +16,8 @@ interface UserProfile {
   user_id: string;
   email: string | null;
   full_name: string | null;
-  role: string | null;
   created_at: string;
+  updated_at: string;
 }
 
 interface UserRole {

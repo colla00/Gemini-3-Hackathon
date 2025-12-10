@@ -12,6 +12,7 @@ serve(async (req) => {
   }
 
   const MAX_TEXT_LENGTH = 4096;
+  const ALLOWED_VOICES = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'] as const;
 
   try {
     const { text, voice = 'alloy' } = await req.json();
@@ -26,6 +27,13 @@ serve(async (req) => {
     if (text.length > MAX_TEXT_LENGTH) {
       return new Response(
         JSON.stringify({ error: `Text exceeds ${MAX_TEXT_LENGTH} character limit` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!ALLOWED_VOICES.includes(voice)) {
+      return new Response(
+        JSON.stringify({ error: `Invalid voice. Must be one of: ${ALLOWED_VOICES.join(', ')}` }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
