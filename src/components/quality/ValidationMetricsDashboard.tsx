@@ -146,25 +146,25 @@ export const ValidationMetricsDashboard = () => {
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
-          label="AUC-ROC"
-          value="0.847"
-          ci="0.821-0.873"
+          label="AUROC"
+          value="0.89"
+          ci="0.86-0.92"
           icon={<Target className="w-5 h-5 text-primary" />}
           trend="stable"
           description="Area Under ROC Curve"
         />
         <MetricCard
           label="Sensitivity"
-          value="82.0%"
-          ci="76.8-87.2"
+          value="87.0%"
+          ci="83.2-90.8"
           icon={<Activity className="w-5 h-5 text-primary" />}
           trend="up"
           description="True Positive Rate"
         />
         <MetricCard
           label="Specificity"
-          value="85.3%"
-          ci="80.1-90.5"
+          value="86.0%"
+          ci="82.1-89.9"
           icon={<CheckCircle className="w-5 h-5 text-primary" />}
           trend="stable"
           description="True Negative Rate"
@@ -172,7 +172,7 @@ export const ValidationMetricsDashboard = () => {
         <MetricCard
           label="PPV"
           value="85.0%"
-          ci="79.6-90.4"
+          ci="80.8-89.2"
           icon={<TrendingUp className="w-5 h-5 text-primary" />}
           trend="up"
           description="Positive Predictive Value"
@@ -195,7 +195,7 @@ export const ValidationMetricsDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-base">Receiver Operating Characteristic (ROC) Curve</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-1">Illustrative AUC = 0.847 (synthetic demonstration)</p>
+                  <p className="text-xs text-muted-foreground mt-1">Illustrative AUROC = 0.89 (synthetic demonstration)</p>
                 </div>
                 <Badge variant="outline" className="text-amber-500 border-amber-500/30">Simulated Data</Badge>
               </div>
@@ -240,7 +240,7 @@ export const ValidationMetricsDashboard = () => {
                 </ResponsiveContainer>
               </div>
               <div className="mt-4 p-3 rounded-lg bg-secondary/50 text-xs text-muted-foreground">
-                <strong>Interpretation:</strong> AUC of 0.847 indicates the model correctly ranks a randomly chosen positive case higher than a randomly chosen negative case 84.7% of the time.
+                <strong>Interpretation:</strong> AUROC of 0.89 indicates the model correctly ranks a randomly chosen positive case higher than a randomly chosen negative case 89% of the time.
               </div>
             </CardContent>
           </Card>
