@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useAuditLog } from '@/hooks/useAuditLog';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Users, Shield, Settings, RotateCcw, FileText, Presentation } from 'lucide-react';
+import { Users, Shield, Settings, RotateCcw, FileText } from 'lucide-react';
 import { WalkthroughRequestsPanel } from '@/components/admin/WalkthroughRequestsPanel';
 import { Header } from '@/components/dashboard/Header';
 
@@ -29,7 +27,6 @@ interface UserRole {
 
 const AdminPanel = () => {
   const { isAdmin } = useAuth();
-  const { logAction } = useAuditLog();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [userRoles, setUserRoles] = useState<Record<string, UserRole[]>>({});
   const [loading, setLoading] = useState(true);
@@ -71,41 +68,6 @@ const AdminPanel = () => {
 
     setUsers(profiles || []);
     setLoading(false);
-  };
-
-  const updateUserRole = async (userId: string, newRole: 'admin' | 'staff' | 'viewer') => {
-    const user = users.find(u => u.user_id === userId);
-    const previousRoles = userRoles[userId] || [];
-    const previousRole = previousRoles[0]?.role || 'none';
-    
-    await supabase
-      .from('user_roles')
-      .delete()
-      .eq('user_id', userId);
-
-    const { error } = await supabase
-      .from('user_roles')
-      .insert({ user_id: userId, role: newRole });
-
-    if (error) {
-      toast.error('Failed to update role');
-    } else {
-      // Log the role change
-      await logAction({
-        action: 'role_change',
-        resource_type: 'user_role',
-        resource_id: userId,
-        details: {
-          target_user_email: user?.email || '',
-          target_user_name: user?.full_name || '',
-          previous_role: previousRole,
-          new_role: newRole,
-        }
-      });
-      
-      toast.success('Role updated');
-      fetchUsers();
-    }
   };
 
   const getRoleBadgeVariant = (role: string) => {
@@ -178,7 +140,6 @@ const AdminPanel = () => {
                     <TableHead>Email</TableHead>
                     <TableHead>Role</TableHead>
                     <TableHead>Joined</TableHead>
-                    <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -199,21 +160,6 @@ const AdminPanel = () => {
                         </TableCell>
                         <TableCell className="text-muted-foreground">
                           {new Date(user.created_at).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>
-                          <Select
-                            value={currentRole}
-                            onValueChange={(value) => updateUserRole(user.user_id, value as 'admin' | 'staff' | 'viewer')}
-                          >
-                            <SelectTrigger className="w-28">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="viewer">Viewer</SelectItem>
-                              <SelectItem value="staff">Staff</SelectItem>
-                              <SelectItem value="admin">Admin</SelectItem>
-                            </SelectContent>
-                          </Select>
                         </TableCell>
                       </TableRow>
                     );
