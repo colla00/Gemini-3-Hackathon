@@ -193,13 +193,6 @@ export const Dashboard = () => {
               >
                 <Monitor className="w-4 h-4" />
               </Link>
-              <Link
-                to="/presentation"
-                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-primary transition-colors"
-                title="Presentation Mode"
-              >
-                <Presentation className="w-4 h-4" />
-              </Link>
               <button 
                 onClick={() => liveSimulation.updateSimulation()}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"

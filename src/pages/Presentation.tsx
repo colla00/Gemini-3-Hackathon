@@ -219,11 +219,7 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
     
     setCurrentSlide(slideId);
     logFeatureUse(`Presentation Slide: ${slideId}`);
-    
-    if (soundEnabled) {
-      narration.soundEffects.playTransition();
-    }
-  }, [currentSlide, soundEnabled, narration, logFeatureUse]);
+  }, [currentSlide, logFeatureUse]);
 
   const handleNavigate = useCallback((direction: 'prev' | 'next') => {
     const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
