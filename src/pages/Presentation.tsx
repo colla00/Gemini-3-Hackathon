@@ -20,6 +20,8 @@ import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
 import { EHRDataFlowSlide } from '@/components/quality/EHRDataFlowSlide';
 import { AlertTimelineSlide } from '@/components/quality/AlertTimelineSlide';
+import { ComparisonSlide } from '@/components/quality/ComparisonSlide';
+import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
@@ -55,11 +57,13 @@ const slideToView: Record<string, ViewType | null> = {
   'title': null,
   'agenda': null,
   'problem': null,
+  'comparison': 'comparison',
   'methodology': null,
   'ehr-flow': 'ehr-flow',
   'alert-timeline': 'alert-timeline',
   'dashboard': 'dashboard',
   'patients': 'patients',
+  'patient-journey': 'patient-journey',
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
@@ -285,6 +289,10 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
         return <EHRDataFlowSlide />;
       case 'alert-timeline':
         return <AlertTimelineSlide />;
+      case 'comparison':
+        return <ComparisonSlide />;
+      case 'patient-journey':
+        return <PatientJourneySlide />;
       default:
         return null;
     }

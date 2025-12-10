@@ -8,12 +8,14 @@ import {
 export type SlideType = 
   | 'title' 
   | 'agenda' 
-  | 'problem' 
+  | 'problem'
+  | 'comparison' 
   | 'methodology'
   | 'ehr-flow'
   | 'alert-timeline' 
   | 'dashboard' 
-  | 'patients' 
+  | 'patients'
+  | 'patient-journey' 
   | 'shap' 
   | 'workflow' 
   | 'validation' 
@@ -106,7 +108,33 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Current quality monitoring is retrospective — we find out after the harm has occurred.',
       'What if we could predict these events before they happen?',
     ],
-    transitionCue: '→ "This gap motivated our approach. Let me show you how we built a solution..."',
+    transitionCue: '→ "Let me show you how our approach compares to traditional monitoring..."',
+  },
+  {
+    id: 'comparison',
+    title: 'Traditional vs Predictive',
+    subtitle: 'Paradigm Shift in Quality Monitoring',
+    duration: 4,
+    icon: <TrendingUp className="w-8 h-8" />,
+    notes: [
+      'Contrast reactive vs proactive approaches',
+      'Highlight key differentiators: timing, data richness, explainability',
+      'Show projected outcome improvements',
+      'Emphasize these are targets, not completed results',
+    ],
+    keyPoints: [
+      'Traditional: Retrospective, post-event analysis',
+      'Predictive: Real-time, prevention-focused',
+      'Target: 40% reduction in preventable falls',
+      'Augmented decision-making, not replacement',
+    ],
+    talkingPoints: [
+      'Traditional quality monitoring tells us what happened after the fact.',
+      'Our predictive approach shifts the paradigm to prevention.',
+      'Instead of incident reports, we generate proactive alerts.',
+      'The goal is not to replace nursing judgment, but to augment it with data.',
+    ],
+    transitionCue: '→ "Now let me explain our technical methodology..."',
   },
   {
     id: 'methodology',
@@ -244,6 +272,33 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'The sparklines show how risk has trended over the last 24 hours — is it increasing or decreasing?',
       'The confidence indicator tells nurses how certain the model is about this prediction.',
       'Clicking on a patient reveals the detailed breakdown...',
+    ],
+    transitionCue: '→ "Let me show you a complete patient journey through the system..."',
+  },
+  {
+    id: 'patient-journey',
+    title: 'Patient Journey',
+    subtitle: 'From Admission to Safe Discharge',
+    duration: 4,
+    icon: <Users className="w-8 h-8" />,
+    notes: [
+      'Walk through the animated patient timeline',
+      'Show risk score changes at each stage',
+      'Highlight the intervention point',
+      'Emphasize the successful prevention outcome',
+    ],
+    keyPoints: [
+      'Risk tracked from admission to discharge',
+      'Real-time updates as clinical data changes',
+      'Intervention triggered at threshold',
+      'Outcome: Fall prevented, safe discharge',
+    ],
+    talkingPoints: [
+      'Let me show you how this works for a real patient scenario.',
+      'Margaret Johnson, 78 years old, admitted for hip replacement.',
+      'Watch how her risk score evolves as new data comes in.',
+      'When vitals change on day 2, the system detects rising risk and alerts the nurse.',
+      'Preventive interventions are applied, and she is discharged safely without a fall.',
     ],
     transitionCue: '→ "But how do nurses know WHY a patient is high risk? This is where explainability comes in..."',
   },
