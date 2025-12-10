@@ -48,6 +48,8 @@ import {
   TOTAL_PRESENTATION_TIME 
 } from '@/components/presentation/PresentationSlide';
 import { useAutoDemo, type ViewType } from '@/hooks/useAutoDemo';
+import { useAutoWalkthrough } from '@/hooks/useAutoWalkthrough';
+import { AutoWalkthroughOverlay } from '@/components/presentation/AutoWalkthroughOverlay';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useNarration } from '@/hooks/useNarration';
@@ -136,6 +138,9 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
   const isPresenterMode = searchParams.get('presenter') === PRESENTER_KEY;
   const [showPresenterNotes, setShowPresenterNotes] = useState(isPresenterMode);
 
+  // Check if auto-walkthrough should start automatically
+  const autoStartWalkthrough = searchParams.get('autostart') === 'true';
+
   // Track elapsed time
   useEffect(() => {
     if (!presentationStartTime) return;
@@ -201,8 +206,11 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
     }
   }, [handleSlideChange]);
 
-  // Auto-demo functionality
+  // Auto-demo functionality (legacy)
   const autoDemo = useAutoDemo(handleViewChange);
+
+  // Auto-walkthrough with timed slide transitions
+  const autoWalkthrough = useAutoWalkthrough(handleSlideChange, autoStartWalkthrough);
 
   // Print disabled - no printing allowed
 
@@ -615,6 +623,24 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
           </div>
         </div>
       </footer>
+
+      {/* Auto Walkthrough Overlay */}
+      <AutoWalkthroughOverlay
+        isRunning={autoWalkthrough.isRunning}
+        isPaused={autoWalkthrough.isPaused}
+        currentSlideIndex={autoWalkthrough.currentSlideIndex}
+        progress={autoWalkthrough.progress}
+        formattedElapsed={autoWalkthrough.formattedElapsed}
+        formattedRemaining={autoWalkthrough.formattedRemaining}
+        currentSlide={autoWalkthrough.currentSlide}
+        totalSlides={autoWalkthrough.totalSlides}
+        onStart={autoWalkthrough.startWalkthrough}
+        onStop={autoWalkthrough.stopWalkthrough}
+        onTogglePause={autoWalkthrough.togglePause}
+        onNext={autoWalkthrough.nextSlide}
+        onPrev={autoWalkthrough.prevSlide}
+        onJumpTo={autoWalkthrough.jumpToSlide}
+      />
 
       {/* Engagement Components */}
       <AIAssistant />
