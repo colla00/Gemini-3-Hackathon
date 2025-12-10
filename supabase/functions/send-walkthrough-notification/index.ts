@@ -27,7 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Received walkthrough request notification:", data);
 
     // Send notification email to admin
-    const adminEmail = "admin@example.com"; // You can change this to your actual admin email
+    const adminEmail = "info@alexiscollier.com";
     
     const adminEmailResponse = await resend.emails.send({
       from: "NSO Quality Dashboard <onboarding@resend.dev>",
