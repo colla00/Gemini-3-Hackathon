@@ -703,3 +703,10 @@
 .presentation-mode .bg-card {
   background-color: hsl(0 0% 8% / 0.8);
 }
+
+/* Disable all printing */
+@media print {
+  html, body {
+    display: none !important;
+  }
+}

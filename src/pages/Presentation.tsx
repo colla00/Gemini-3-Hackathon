@@ -28,7 +28,7 @@ import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
 import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
-import { PrintView } from '@/components/quality/PrintView';
+
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
@@ -128,7 +128,7 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
   const [showHandoffReport, setShowHandoffReport] = useState(false);
   const [showSessionModal, setShowSessionModal] = useState(false);
   const [showPracticeMode, setShowPracticeMode] = useState(false);
-  const printRef = useRef<HTMLDivElement>(null);
+  
   const { logFeatureUse, logInteraction } = useSessionTracking();
   const { session, createSession, updateSlideProgress } = usePresentationSession();
 
@@ -204,10 +204,7 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
   // Auto-demo functionality
   const autoDemo = useAutoDemo(handleViewChange);
 
-  // Print handler
-  const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
+  // Print disabled - no printing allowed
 
   // Toggle handlers
   const handleToggleSound = useCallback(() => {
@@ -258,7 +255,6 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
     onPrevView: () => handleNavigate('prev'),
     onToggleLive: handleToggleLive,
     onTogglePractice: () => setShowPracticeMode(prev => !prev),
-    onPrint: handlePrint,
   });
 
   // Update time periodically
@@ -372,8 +368,6 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
         onGoToStep={guidedTour.goToStep}
       />
 
-      {/* Print View (hidden on screen) */}
-      <PrintView ref={printRef} viewType={activeView} />
 
       {/* Presentation Mode Banner */}
       <div className="bg-primary py-1.5 px-4 print:hidden">
