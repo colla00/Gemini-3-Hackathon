@@ -22,6 +22,7 @@ import { EHRDataFlowSlide } from '@/components/quality/EHRDataFlowSlide';
 import { AlertTimelineSlide } from '@/components/quality/AlertTimelineSlide';
 import { ComparisonSlide } from '@/components/quality/ComparisonSlide';
 import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
+import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
@@ -67,6 +68,7 @@ const slideToView: Record<string, ViewType | null> = {
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
+  'roi': 'roi',
   'future': null,
   'conclusion': null,
 };
@@ -293,6 +295,8 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
         return <ComparisonSlide />;
       case 'patient-journey':
         return <PatientJourneySlide />;
+      case 'roi':
+        return <ROICalculatorSlide />;
       default:
         return null;
     }

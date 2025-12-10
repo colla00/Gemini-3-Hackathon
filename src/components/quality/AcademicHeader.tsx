@@ -49,6 +49,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Complete Care Episode with Risk Tracking',
     citation: 'Illustrative scenario for demonstration',
   },
+  'roi': {
+    title: 'Return on Investment Analysis',
+    subtitle: 'Projected Cost Savings from NSO Prevention',
+    citation: 'Estimates based on AHRQ and CMS data',
+  },
 };
 
 interface AcademicHeaderProps {
