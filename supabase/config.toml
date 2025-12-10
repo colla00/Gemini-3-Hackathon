@@ -7,3 +7,7 @@ verify_jwt = true
 [functions.methodology-chat]
 enabled = true
 verify_jwt = true
+
+[functions.send-walkthrough-notification]
+enabled = true
+verify_jwt = false

@@ -7,7 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Users, Shield, Settings, RotateCcw, FileText } from 'lucide-react';
+import { Users, Shield, Settings, RotateCcw, FileText, Presentation } from 'lucide-react';
+import { WalkthroughRequestsPanel } from '@/components/admin/WalkthroughRequestsPanel';
 import { Header } from '@/components/dashboard/Header';
 
 interface UserProfile {
@@ -234,6 +235,9 @@ const AdminPanel = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Walkthrough Access Requests */}
+        <WalkthroughRequestsPanel />
 
         {/* Testing Tools */}
         <Card className="border-dashed">

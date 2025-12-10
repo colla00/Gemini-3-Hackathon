@@ -71,6 +71,20 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
 
       if (error) throw error;
 
+      // Send email notification (fire and forget - don't block on this)
+      supabase.functions.invoke('send-walkthrough-notification', {
+        body: {
+          name: data.name,
+          email: data.email,
+          organization: data.organization,
+          role: data.role,
+          reason: data.reason,
+        },
+      }).catch((emailError) => {
+        console.error('Email notification failed:', emailError);
+        // Don't show error to user as the request was still saved
+      });
+
       setIsSubmitted(true);
       toast.success('Request submitted successfully!');
     } catch (error) {
