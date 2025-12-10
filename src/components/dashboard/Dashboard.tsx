@@ -10,6 +10,7 @@ import { MonitoringList } from './MonitoringList';
 import { QuickStats } from './QuickStats';
 import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
+import { DemoModeController, type DemoScenario } from './DemoModeController';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 
 export const Dashboard = () => {
@@ -124,6 +125,73 @@ export const Dashboard = () => {
     trending: patients.filter((p) => p.trend === 'up').length,
   }), []);
 
+  // Demo scenarios for auto-advance mode
+  const demoScenarios: DemoScenario[] = useMemo(() => [
+    {
+      id: 'intro',
+      label: 'Dashboard Overview',
+      description: 'High-level view of nurse-sensitive outcomes across the unit',
+      duration: 12,
+      action: () => {
+        setSelectedPatient(null);
+        setRiskTypeFilter('ALL');
+        setRiskLevelFilter('ALL');
+      },
+    },
+    {
+      id: 'high-risk-falls',
+      label: 'High-Risk Falls Patient',
+      description: 'Patient A01 - Post-op with sedation and mobility deficits',
+      duration: 15,
+      action: () => {
+        const fallsPatient = patients.find(p => p.id === 'Patient A01');
+        if (fallsPatient) setSelectedPatient(fallsPatient);
+      },
+    },
+    {
+      id: 'cauti-scenario',
+      label: 'CAUTI Risk Escalation',
+      description: 'Patient C00 - Foley Day 8 with symptomatic UTI workup',
+      duration: 15,
+      action: () => {
+        const cautiPatient = patients.find(p => p.riskType === 'CAUTI');
+        if (cautiPatient) setSelectedPatient(cautiPatient);
+      },
+    },
+    {
+      id: 'filter-demo',
+      label: 'Risk Filtering',
+      description: 'Filtering to show only high-risk patients',
+      duration: 10,
+      action: () => {
+        setSelectedPatient(null);
+        setRiskLevelFilter('HIGH');
+        setRiskTypeFilter('ALL');
+      },
+    },
+    {
+      id: 'pressure-injury',
+      label: 'Pressure Injury Case',
+      description: 'HAPI risk assessment with Braden subscale analysis',
+      duration: 12,
+      action: () => {
+        const hapiPatient = patients.find(p => p.riskType === 'Pressure Injury');
+        if (hapiPatient) setSelectedPatient(hapiPatient);
+      },
+    },
+    {
+      id: 'summary',
+      label: 'Demo Complete',
+      description: 'Return to dashboard overview - Q&A time',
+      duration: 8,
+      action: () => {
+        setSelectedPatient(null);
+        setRiskLevelFilter('ALL');
+        setRiskTypeFilter('ALL');
+      },
+    },
+  ], []);
+
   const priorityPatients = filteredPatients.slice(0, 3);
   const monitoringPatients = filteredPatients.slice(3);
 
@@ -197,6 +265,9 @@ export const Dashboard = () => {
       </main>
 
       <Footer />
+
+      {/* Demo Mode Controller */}
+      <DemoModeController scenarios={demoScenarios} />
     </div>
   );
 };
