@@ -17,116 +17,141 @@ interface TalkingPoint {
 const talkingPoints: TalkingPoint[] = [
   {
     slide: 'Title',
-    duration: '1m',
+    duration: '2m',
     keyPoints: [
-      'Introduce yourself and affiliation',
-      'Patent-pending technology disclosure',
-      'Thank committee for the opportunity',
+      'Say hi, introduce yourself',
+      'Thank everyone for coming',
+      'This is a prototype - still research',
+      'Patent pending - my own work',
     ],
   },
   {
     slide: 'Agenda',
-    duration: '1m',
+    duration: '2m',
     keyPoints: [
-      'Preview the 4 live demo tabs',
-      'Emphasize this is working prototype, not slides',
+      'Quick roadmap of 38 minutes',
+      'Demo is the fun part',
+      'Questions welcome anytime',
     ],
   },
   {
     slide: 'Problem',
     duration: '5m',
     keyPoints: [
-      '60-99% false positive rates in current alert systems',
-      'Alert fatigue leads to missed deterioration',
-      'Black-box AI = clinician distrust',
-      'No closed-loop feedback in existing systems',
+      '700K falls, 2.5M bed sores, 75K catheter infections per year',
+      '$50 billion in costs',
+      'Current systems tell us AFTER bad stuff happens',
+      'What if we could predict problems BEFORE?',
     ],
   },
   {
-    slide: 'Methodology',
+    slide: 'Comparison',
     duration: '4m',
     keyPoints: [
-      'XGBoost + SHAP for explainability',
-      'Multi-outcome prediction (Falls, HAPI, CAUTI)',
-      'Real-time data integration',
+      'Old way: react after the fact',
+      'My way: predict and prevent',
+      'NOT replacing nurses - helping them',
+      'COMPETITIVE EDGE: Unlike Epic/Cerner reminders - this is real-time ML with explainability',
+    ],
+    patentRef: 'Differentiation',
+  },
+  {
+    slide: 'Methodology',
+    duration: '8m',
+    keyPoints: [
+      'Pulls data from medical records in real-time',
+      '47 clinical factors analyzed',
+      'Uses gradient boosting AI',
+      'Updates within 5 minutes of new data',
     ],
     patentRef: 'Claims 1-4',
   },
   {
-    slide: 'Dashboard (Tab 1)',
-    duration: '6m',
+    slide: 'Dashboard',
+    duration: '5m',
     keyPoints: [
-      'Point out "Adaptive Thresholds" badge - hover for tooltip',
-      'Show confidence indicators on each risk card',
-      'Demonstrate priority queue ranking',
-      'Click "Live" toggle to show real-time updates',
+      'Quick stats at top for whole unit',
+      'Priority queue auto-ranks patients by risk',
+      'Red = danger, Yellow = watch, Green = okay',
+      'Updates every 5 minutes',
     ],
-    demoAction: 'Hover over "Adaptive Thresholds" badge',
+    demoAction: 'Point out Live indicator, color coding',
     patentRef: 'Claim 6',
   },
   {
-    slide: 'Patients (Tab 2)',
-    duration: '6m',
+    slide: 'Patients',
+    duration: '5m',
     keyPoints: [
-      'Click any patient row for detail expansion',
-      'Show multi-outcome view (Falls, HAPI, CAUTI together)',
-      'Point out confidence percentages',
-      'Explain the worklist prioritization',
+      'Each row shows all risks for one patient',
+      'Mini charts show 24-hour trends',
+      'Confidence indicator = how sure AI is',
+      'Click any row for details',
     ],
-    demoAction: 'Click patient row to expand',
+    demoAction: 'Click a patient row to expand details',
   },
   {
-    slide: 'SHAP (Tab 3)',
+    slide: 'SHAP',
     duration: '8m',
     keyPoints: [
-      'THIS IS THE KEY DIFFERENTIATOR',
-      'Explain waterfall chart: base risk + factors',
-      'Red bars increase risk, green decrease',
-      'Cumulative column shows running total',
-      'Point out patent-pending badge',
+      'THIS IS THE BIG DIFFERENTIATOR',
+      'Most AI is a black box - no explanation',
+      'SHAP shows WHY patient is at risk',
+      'Red bars = bad, Green bars = protective',
+      'Nurses can take action on specific factors',
     ],
-    demoAction: 'Change patient dropdown to show different attribution',
-    patentRef: 'Claims 4, 8',
+    demoAction: 'Walk through the waterfall chart',
+    patentRef: 'Claims 4, 8 (KEY)',
   },
   {
-    slide: 'Workflow (Tab 4)',
-    duration: '8m',
+    slide: 'Workflow',
+    duration: '5m',
     keyPoints: [
-      'Timeline shows real-world clinical scenario',
-      'Scroll to "Closed-Loop Feedback" section',
-      'CLICK "Demo Loop" BUTTON - wait 7 seconds',
-      'Explain: detect → capture → delay → recalculate → quantify',
-      'This is our KEY PATENT INNOVATION',
+      'AI informs, nurse decides - always',
+      'Alert to nurse in about 3 minutes',
+      'Suggests actions, nurse has final say',
+      'Like GPS - suggests route, you drive',
     ],
-    demoAction: 'Click "Demo Loop" button and narrate the steps',
+    demoAction: 'Show the closed-loop feedback demo',
     patentRef: 'Claim 7 (KEY)',
   },
   {
     slide: 'Validation',
-    duration: '3m',
+    duration: '5m',
     keyPoints: [
-      'Target AUROC: 0.89 (synthetic data only, not clinically validated)',
-      'Design target: 40-70% false positive reduction via adaptive thresholds',
-      'Key innovations: multi-horizon forecasting, closed-loop feedback',
-      'Planned training: ~45,000 patient-days (prospective study needed)',
+      'BE HONEST: 0.89 accuracy is from TEST DATA only',
+      'NO clinical trial done yet',
+      'Goals are TARGETS, not proven results',
+      'Real hospital study is being planned',
+    ],
+  },
+  {
+    slide: 'ROI',
+    duration: '4m',
+    keyPoints: [
+      'Falls cost ~$30K each',
+      'Bed sores $20K-$150K each',
+      'These are projections IF it works',
+      'Strong financial case if validated',
     ],
   },
   {
     slide: 'Future',
-    duration: '2m',
+    duration: '3m',
     keyPoints: [
-      'Multi-hospital deployment',
-      'Additional outcome types',
-      'Continuous learning from intervention outcomes',
+      'Real hospital study planned 2026',
+      'Want to work with more EHR systems',
+      'Looking into FDA requirements',
+      'NEED PARTNERS AND COLLABORATORS',
     ],
   },
   {
     slide: 'Conclusion',
-    duration: '1m',
+    duration: '2m',
     keyPoints: [
-      'Recap: Explainable + Adaptive + Closed-Loop',
-      'Thank the committee',
-      'Open for questions',
+      'AI predicts problems in real-time',
+      'Shows nurses WHY (not just what)',
+      'Helps nurses, does not replace them',
+      'Thank everyone, take questions',
     ],
   },
 ];
@@ -219,14 +244,14 @@ export const PresenterCheatSheet = () => {
         {/* Key Points */}
         <div className="space-y-2">
           <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Key Talking Points
+            Say This
           </span>
           {currentPoint.keyPoints.map((point, index) => (
             <div key={index} className="flex items-start gap-2 text-sm">
               <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <span className={cn(
                 "text-foreground",
-                point.includes('KEY') || point.includes('DIFFERENTIATOR') ? "font-bold text-primary" : ""
+                point.includes('KEY') || point.includes('DIFFERENTIATOR') || point.includes('HONEST') || point.includes('COMPETITIVE') ? "font-bold text-primary" : ""
               )}>
                 {point}
               </span>
@@ -239,7 +264,7 @@ export const PresenterCheatSheet = () => {
           <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
             <div className="flex items-center gap-2 mb-1">
               <MousePointer className="w-4 h-4 text-primary" />
-              <span className="text-xs font-semibold text-primary">Demo Action</span>
+              <span className="text-xs font-semibold text-primary">Do This</span>
             </div>
             <p className="text-sm text-foreground">{currentPoint.demoAction}</p>
           </div>
@@ -292,7 +317,7 @@ export const PresenterCheatSheet = () => {
         <div className="flex items-start gap-2">
           <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
           <div className="text-[10px] text-warning">
-            <strong>Remember:</strong> This is SYNTHETIC DATA. Say "research prototype" and "patent-pending" at start.
+            <strong>Remember:</strong> This is TEST DATA. Say "research prototype" and "patent pending" at the start. Be HONEST about validation status.
           </div>
         </div>
       </div>
