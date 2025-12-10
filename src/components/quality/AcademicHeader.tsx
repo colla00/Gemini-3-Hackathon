@@ -29,6 +29,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Real-World Intervention Workflow Demonstration',
     citation: 'Target: 30-40% reduction in preventable falls (goal)',
   },
+  'ehr-flow': {
+    title: 'EHR Data Flow Architecture',
+    subtitle: 'Standards-Based Integration for Any Compliant System',
+    citation: 'Standards: HL7 FHIR R4, HL7v2, CDA/C-CDA',
+  },
 };
 
 interface AcademicHeaderProps {

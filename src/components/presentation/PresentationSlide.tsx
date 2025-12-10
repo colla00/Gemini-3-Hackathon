@@ -9,7 +9,8 @@ export type SlideType =
   | 'title' 
   | 'agenda' 
   | 'problem' 
-  | 'methodology' 
+  | 'methodology'
+  | 'ehr-flow' 
   | 'dashboard' 
   | 'patients' 
   | 'shap' 
@@ -133,6 +134,32 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'The model architecture is a gradient boosting ensemble, chosen for its interpretability and calibration.',
       'Outputs will be calibrated probabilities — a 70% risk would mean 70 out of 100 similar patients will have the event.',
       'Our target is from data change to dashboard update in under 5 minutes.',
+    ],
+    transitionCue: '→ "Let me show you how data flows through the system..."',
+  },
+  {
+    id: 'ehr-flow',
+    title: 'EHR Data Flow',
+    subtitle: 'Standards-Based Integration Architecture',
+    duration: 3,
+    icon: <GitBranch className="w-8 h-8" />,
+    notes: [
+      'Explain the data pipeline from EHR to dashboard',
+      'Emphasize standards-based approach (HL7 FHIR, HL7v2)',
+      'Highlight real-time processing with <30s latency target',
+      'Note compatibility with any standards-compliant EHR',
+    ],
+    keyPoints: [
+      'Standards-based: HL7 FHIR R4 & HL7v2',
+      'Real-time ingestion with <30s target latency',
+      'ML pipeline for 4 NSO predictions',
+      'Compatible with any compliant EHR system',
+    ],
+    talkingPoints: [
+      'Our architecture is built on healthcare interoperability standards.',
+      'Data flows from the EHR through a real-time ingestion layer with sub-30-second latency.',
+      'The ML pipeline processes incoming data and generates predictions for all four nursing-sensitive outcomes.',
+      'Because we use standards like FHIR, this is compatible with any compliant EHR system.',
     ],
     transitionCue: '→ "Now let me show you the dashboard concept..."',
   },
