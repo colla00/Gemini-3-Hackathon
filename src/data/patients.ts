@@ -50,6 +50,46 @@ export interface Patient {
 
 export const patients: Patient[] = [
   {
+    id: 'Patient C00',
+    riskLevel: 'HIGH',
+    riskScore: 78,
+    riskType: 'CAUTI',
+    trend: 'up',
+    lastUpdated: '~1h',
+    lastUpdatedMinutes: 1,
+    ageRange: '74-78',
+    admissionDate: 'Day 8',
+    isDemo: true,
+    room: '405A',
+    diagnosis: 'Neurogenic Bladder - Spinal Cord Injury',
+    riskSummary: 'Foley Day 8 + fever 38.2°C + cloudy urine → STAT UA ordered',
+    riskFactors: [
+      { name: 'Extended catheter duration (>7 days)', icon: '⏱️', contribution: 0.35 },
+      { name: 'New-onset fever (38.2°C)', icon: '🌡️', contribution: 0.28 },
+      { name: 'Cloudy urine with sediment', icon: '🔬', contribution: 0.22 },
+      { name: 'Immunocompromised status', icon: '🛡️', contribution: 0.12 },
+      { name: 'CAUTI bundle compliance', icon: '✅', contribution: -0.10 },
+    ],
+    clinicalNotes: 'Indwelling Foley catheter Day 8 for neurogenic bladder. New fever 38.2°C this shift. Urine cloudy with visible sediment. Patient reports suprapubic discomfort. UA and culture ordered STAT. Urology consulted for catheter removal evaluation. CAUTI bundle compliant - daily necessity review documented.',
+    interventions: [
+      { date: 'Day 1', type: 'CAUTI Bundle Initiated', description: 'Sterile insertion, securement device, daily necessity review', outcome: 'Ongoing - compliant' },
+      { date: 'Day 5', type: 'Urology Consult', description: 'Evaluation for intermittent catheterization', outcome: 'Pending bladder scan results' },
+      { date: 'Day 7', type: 'Catheter Necessity Review', description: 'Continued medical indication documented', outcome: 'Retention confirmed' },
+      { date: 'Day 8', type: 'STAT UA/Culture', description: 'Symptomatic UTI workup - fever, cloudy urine, discomfort', outcome: 'Pending results' },
+    ],
+    vitals: [
+      { name: 'BP', value: '132/86', status: 'normal' },
+      { name: 'HR', value: '96', status: 'warning' },
+      { name: 'SpO2', value: '96%', status: 'normal' },
+      { name: 'Temp', value: '100.8°F', status: 'critical' },
+    ],
+    nursingOutcomes: [
+      { metric: 'Catheter Days', baseline: 0, current: 8, target: 0, unit: 'days' },
+      { metric: 'CAUTI Bundle Compliance', baseline: 100, current: 100, target: 100, unit: '%' },
+      { metric: 'Temperature', baseline: 98.6, current: 100.8, target: 98.6, unit: '°F' },
+    ],
+  },
+  {
     id: 'Patient A01',
     riskLevel: 'HIGH',
     riskScore: 72,
