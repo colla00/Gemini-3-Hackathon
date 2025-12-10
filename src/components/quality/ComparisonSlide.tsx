@@ -47,31 +47,31 @@ const comparisonMetrics: ComparisonMetric[] = [
 
 const outcomeMetrics = [
   {
-    label: 'Falls Rate',
-    traditional: '3.5 per 1,000 days',
-    predictive: '2.1 per 1,000 days',
-    improvement: '-40%',
+    label: 'Falls Rate Target',
+    traditional: '~3.5/1,000 days',
+    predictive: '~2.1/1,000 days',
+    improvement: '~40% target',
     isPositive: true,
   },
   {
-    label: 'Alert Fatigue',
-    traditional: 'High (many false alarms)',
-    predictive: 'Low (calibrated)',
-    improvement: '-60%',
+    label: 'Alert Fatigue Goal',
+    traditional: 'High (baseline)',
+    predictive: 'Reduced',
+    improvement: 'Design goal',
     isPositive: true,
   },
   {
-    label: 'Documentation Time',
-    traditional: '15 min/assessment',
-    predictive: '5 min/review',
-    improvement: '-67%',
+    label: 'Review Time Goal',
+    traditional: '~15 min',
+    predictive: '~5 min',
+    improvement: '~67% target',
     isPositive: true,
   },
   {
-    label: 'Intervention Speed',
+    label: 'Response Goal',
     traditional: 'Post-incident',
-    predictive: '<30 min from alert',
-    improvement: 'Preventive',
+    predictive: 'Preventive',
+    improvement: 'Design goal',
     isPositive: true,
   },
 ];
@@ -246,8 +246,8 @@ export const ComparisonSlide = () => {
 
       {/* Disclaimer */}
       <div className="mt-4 text-center">
-        <p className="text-[9px] text-muted-foreground italic">
-          * Projected outcomes based on literature review and pilot design. Validation study in planning.
+        <p className="text-[9px] text-muted-foreground italic bg-amber-500/10 rounded px-2 py-1 inline-block">
+          ⚠️ All metrics are design targets, not validated results. Clinical validation studies have not been conducted.
         </p>
       </div>
     </div>

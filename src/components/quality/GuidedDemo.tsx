@@ -88,10 +88,10 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'outcomes',
     title: 'Clinical Outcomes',
     view: 'outcomes',
-    narration: "Illustrative outcome projections show target goals of 40% reduction in preventable events, 2 days shorter length of stay, and projected annual savings of $800,000 per 100-bed unit. These are targets, not validated results.",
+    narration: "These are design targets, not validated results. We aim for approximately 40% reduction in preventable events. No clinical trials have been conducted. Annual savings projections require validation.",
     duration: 12,
     icon: <TrendingDown className="w-4 h-4" />,
-    highlights: ['Target: 40% event reduction', 'Projected savings', 'Adoption goals']
+    highlights: ['Design target: ~40% reduction', 'Not validated', 'Requires clinical study']
   },
   {
     id: 'closing',

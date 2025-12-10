@@ -430,19 +430,19 @@ export const ShapExplainability = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Target AUC-ROC</span>
-                <span className="text-foreground">0.85+ (goal)</span>
+                <span className="text-foreground">0.85+ <span className="text-amber-500 text-[10px]">(design target)</span></span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Target Sensitivity</span>
-                <span className="text-foreground">80%+ (goal)</span>
+                <span className="text-foreground">80%+ <span className="text-amber-500 text-[10px]">(design target)</span></span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Target Specificity</span>
-                <span className="text-foreground">80%+ (goal)</span>
+                <span className="text-foreground">80%+ <span className="text-amber-500 text-[10px]">(design target)</span></span>
               </div>
               <div className="flex justify-between pt-1 border-t border-border/30">
                 <span className="text-muted-foreground">Data Sources</span>
-                <span className="text-foreground">HiRID, MIMIC-IV, eICU</span>
+                <span className="text-foreground">Synthetic (HiRID, MIMIC-IV, eICU)</span>
               </div>
             </div>
           </div>
