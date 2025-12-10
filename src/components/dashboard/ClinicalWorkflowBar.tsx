@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { Clock, Users, ArrowRightLeft, Coffee, Stethoscope } from 'lucide-react';
+import { Clock, Users, ArrowRightLeft, Coffee, Stethoscope, Droplets, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { CAUTIHandoffReport } from '@/components/reports/CAUTIHandoffReport';
+import { HandoffReport } from '@/components/reports/HandoffReport';
 
 interface WorkflowPhase {
   id: string;
@@ -49,6 +52,8 @@ const workflowPhases: WorkflowPhase[] = [
 
 export const ClinicalWorkflowBar = () => {
   const [activePhase, setActivePhase] = useState('rounds');
+  const [showCAUTIReport, setShowCAUTIReport] = useState(false);
+  const [showHandoffReport, setShowHandoffReport] = useState(false);
 
   return (
     <TooltipProvider>
@@ -94,12 +99,62 @@ export const ClinicalWorkflowBar = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
-            <span className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
-            <span className="font-medium text-muted-foreground">System Active</span>
+          <div className="flex items-center gap-3">
+            {/* Handoff Reports - Show when handoff phase is active */}
+            {activePhase === 'handoff' && (
+              <div className="flex items-center gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowCAUTIReport(true)}
+                      className="h-7 px-2.5 text-xs gap-1.5 bg-blue-500/10 border-blue-500/30 text-blue-600 hover:bg-blue-500/20 hover:text-blue-700"
+                    >
+                      <Droplets className="w-3.5 h-3.5" />
+                      <span className="hidden lg:inline">CAUTI Report</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Generate CAUTI handoff report</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowHandoffReport(true)}
+                      className="h-7 px-2.5 text-xs gap-1.5"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span className="hidden lg:inline">Full Report</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Generate full shift handoff report</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            )}
+            
+            <div className="flex items-center gap-2 text-xs">
+              <span className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
+              <span className="font-medium text-muted-foreground">System Active</span>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* CAUTI Handoff Report Modal */}
+      {showCAUTIReport && (
+        <CAUTIHandoffReport onClose={() => setShowCAUTIReport(false)} />
+      )}
+
+      {/* Full Handoff Report Modal */}
+      {showHandoffReport && (
+        <HandoffReport onClose={() => setShowHandoffReport(false)} />
+      )}
     </TooltipProvider>
   );
 };
