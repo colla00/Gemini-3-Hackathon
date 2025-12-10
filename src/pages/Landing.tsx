@@ -39,13 +39,23 @@ const pages = [
     title: 'Quality Dashboard',
     description: 'Explore the clinical dashboard interface',
     color: 'bg-primary/10 text-primary border-primary/20',
+    external: false,
+  },
+  {
+    to: 'https://youtu.be/DA5pwKx5o0s',
+    icon: Play,
+    title: 'Watch Demo Video',
+    description: 'Stanford AI+HEALTH presentation recording',
+    color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
+    external: true,
   },
   {
     to: '/presentation',
     icon: Presentation,
-    title: 'Watch Demo',
-    description: '45-minute interactive walkthrough',
-    color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
+    title: '45-Min Walkthrough',
+    description: 'Automated interactive presentation',
+    color: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+    external: false,
   },
   {
     to: '/about',
@@ -53,6 +63,7 @@ const pages = [
     title: 'About & Methodology',
     description: 'Research context and approach',
     color: 'bg-risk-low/10 text-risk-low border-risk-low/20',
+    external: false,
   },
 ];
 
@@ -152,12 +163,21 @@ export const Landing = () => {
                 <span>Enter Dashboard</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link
-                to="/presentation"
+              <a
+                href="https://youtu.be/DA5pwKx5o0s"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
               >
                 <Play className="w-5 h-5" />
                 <span>Watch Demo</span>
+              </a>
+              <Link
+                to="/presentation"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-all border border-emerald-500/30"
+              >
+                <Presentation className="w-5 h-5" />
+                <span>45-Min Walkthrough</span>
               </Link>
             </div>
 
@@ -213,27 +233,51 @@ export const Landing = () => {
             Explore the Prototype
           </h3>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             {pages.map((page) => (
-              <Link
-                key={page.to}
-                to={page.to}
-                className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1"
-              >
-                <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
-                  page.color
-                )}>
-                  <page.icon className="w-6 h-6" />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {page.title}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {page.description}
-                </p>
-                <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
+              page.external ? (
+                <a
+                  key={page.to}
+                  href={page.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1"
+                >
+                  <div className={cn(
+                    "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
+                    page.color
+                  )}>
+                    <page.icon className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {page.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {page.description}
+                  </p>
+                  <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </a>
+              ) : (
+                <Link
+                  key={page.to}
+                  to={page.to}
+                  className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1"
+                >
+                  <div className={cn(
+                    "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
+                    page.color
+                  )}>
+                    <page.icon className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {page.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {page.description}
+                  </p>
+                  <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+              )
             ))}
           </div>
         </div>

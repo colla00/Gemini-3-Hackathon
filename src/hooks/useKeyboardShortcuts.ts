@@ -9,7 +9,6 @@ interface ShortcutHandlers {
   onPrevView?: () => void;
   onToggleLive?: () => void;
   onTogglePractice?: () => void;
-  onPrint?: () => void;
 }
 
 const viewKeys: Record<string, ViewType> = {
@@ -65,17 +64,16 @@ export const useKeyboardShortcuts = (handlers: ShortcutHandlers) => {
       return;
     }
 
-    // P key for practice mode toggle (without ctrl)
+    // P key for practice mode toggle
     if (key === 'p' && !event.ctrlKey && !event.metaKey && handlers.onTogglePractice) {
       event.preventDefault();
       handlers.onTogglePractice();
       return;
     }
 
-    // Ctrl+P for print
-    if (key === 'p' && (event.ctrlKey || event.metaKey) && handlers.onPrint) {
+    // Block Ctrl+P print
+    if (key === 'p' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault();
-      handlers.onPrint();
       return;
     }
 
@@ -100,7 +98,6 @@ export const useKeyboardShortcuts = (handlers: ShortcutHandlers) => {
       { key: 'D', description: 'Toggle auto-demo' },
       { key: 'L', description: 'Toggle live updates' },
       { key: 'P', description: 'Toggle practice mode' },
-      { key: 'Ctrl+P', description: 'Print view' },
       { key: 'Esc', description: 'Stop demo' },
     ],
   };
