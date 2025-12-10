@@ -374,17 +374,25 @@ export const Landing = () => {
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  View Patent Claims
+                  {claimsExpanded ? 'Collapse Patent Claims' : 'View Patent Claims'}
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   9 claims covering novel AI methods for nurse-sensitive outcomes
                 </p>
               </div>
             </div>
-            <ChevronDown className={cn(
-              "w-5 h-5 text-muted-foreground transition-transform duration-300",
-              claimsExpanded && "rotate-180"
-            )} />
+            <div className="flex items-center gap-2">
+              <span className={cn(
+                "text-xs font-medium transition-opacity duration-300",
+                claimsExpanded ? "opacity-100 text-primary" : "opacity-0"
+              )}>
+                Click to collapse
+              </span>
+              <ChevronDown className={cn(
+                "w-5 h-5 text-muted-foreground transition-transform duration-300",
+                claimsExpanded && "rotate-180"
+              )} />
+            </div>
           </button>
           
           <div className={cn(
