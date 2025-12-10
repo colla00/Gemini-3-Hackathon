@@ -157,18 +157,27 @@ export const Landing = () => {
 
             {/* Patent Metrics Badge */}
             <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
+              <Link 
+                to="/about"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:scale-105 transition-all cursor-pointer"
+              >
                 <Brain className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold text-primary">AUROC 0.89</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30">
+              </Link>
+              <Link 
+                to="/about"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:scale-105 transition-all cursor-pointer"
+              >
                 <FileText className="w-4 h-4 text-accent" />
                 <span className="text-sm font-semibold text-accent">9 Patent Claims</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30">
+              </Link>
+              <Link 
+                to="/about"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30 hover:bg-risk-low/20 hover:scale-105 transition-all cursor-pointer"
+              >
                 <Activity className="w-4 h-4 text-risk-low" />
                 <span className="text-sm font-semibold text-risk-low">40-70% Alert Reduction</span>
-              </div>
+              </Link>
             </div>
 
             {/* CTA Buttons */}
