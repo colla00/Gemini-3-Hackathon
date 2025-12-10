@@ -12,8 +12,8 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
-import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
+import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { 
   PresentationSlideView, 
@@ -24,6 +24,7 @@ import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
 
 // Map slide types to view types - must match all slides
+// NOTE: 'qa-prep' is null because it's presenter-only content
 const slideToView: Record<string, string | null> = {
   'title': null,
   'agenda': null,
@@ -42,7 +43,7 @@ const slideToView: Record<string, string | null> = {
   'validation': null,
   'roi': 'roi',
   'future': null,
-  'qa-prep': 'qa-prep',
+  'qa-prep': null, // Presenter-only - audience sees slide view instead
   'conclusion': null,
 };
 
@@ -98,8 +99,6 @@ export const AudienceView = () => {
         return <PatientJourneySlide />;
       case 'roi':
         return <ROICalculatorSlide />;
-      case 'qa-prep':
-        return <QAPrepSlide />;
       default:
         return null;
     }
@@ -199,6 +198,13 @@ export const AudienceView = () => {
           />
         ) : null}
       </main>
+
+      {/* Audience Q&A - allows audience to submit questions */}
+      <AudienceQuestions 
+        sessionId="nso-demo-session" 
+        currentSlide={currentSlide}
+        isPresenter={false}
+      />
 
       {/* Minimal footer */}
       <footer className="py-2 px-4 bg-secondary/60 border-t border-border/20">
