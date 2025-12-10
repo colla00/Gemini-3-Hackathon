@@ -393,36 +393,63 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
 
       {/* Presentation Mode Banner */}
       <div className="bg-primary py-1.5 px-4 print:hidden">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 text-primary-foreground">
-            <GraduationCap className="w-4 h-4" />
-            <span className="text-sm font-medium">Self-Paced Walkthrough</span>
-            <span className="text-primary-foreground/60 text-xs">
-              • Slide {currentIndex + 1}/{PRESENTATION_SLIDES.length}
-            </span>
+        <div className="max-w-7xl mx-auto flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-primary-foreground">
+              <GraduationCap className="w-4 h-4" />
+              <span className="text-sm font-medium">Self-Paced Walkthrough</span>
+              <span className="text-primary-foreground/60 text-xs">
+                • Slide {currentIndex + 1}/{PRESENTATION_SLIDES.length}
+              </span>
+              <span className="text-primary-foreground/60 text-xs">
+                • {completedSlides.length + (completedSlides.includes(currentSlide) ? 0 : 1)} viewed
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              {/* Hotspots toggle */}
+              <button
+                onClick={() => setHotspotsEnabled(!hotspotsEnabled)}
+                className={cn(
+                  "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
+                  hotspotsEnabled
+                    ? "bg-primary-foreground/20 text-primary-foreground"
+                    : "text-primary-foreground/60 hover:text-primary-foreground"
+                )}
+              >
+                <MousePointer className="w-3 h-3" />
+                <span>Hotspots</span>
+              </button>
+              {/* Zoom Mode toggle */}
+              <ZoomModeToggle />
+              <Link 
+                to="/dashboard"
+                className="text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+              >
+                Exit →
+              </Link>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            {/* Hotspots toggle */}
-            <button
-              onClick={() => setHotspotsEnabled(!hotspotsEnabled)}
-              className={cn(
-                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
-                hotspotsEnabled
-                  ? "bg-primary-foreground/20 text-primary-foreground"
-                  : "text-primary-foreground/60 hover:text-primary-foreground"
-              )}
-            >
-              <MousePointer className="w-3 h-3" />
-              <span>Hotspots</span>
-            </button>
-            {/* Zoom Mode toggle */}
-            <ZoomModeToggle />
-            <Link 
-              to="/dashboard"
-              className="text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-            >
-              Exit →
-            </Link>
+          {/* Progress indicator */}
+          <div className="flex items-center gap-1">
+            {PRESENTATION_SLIDES.map((slide, index) => {
+              const isViewed = completedSlides.includes(slide.id) || slide.id === currentSlide;
+              const isCurrent = slide.id === currentSlide;
+              return (
+                <button
+                  key={slide.id}
+                  onClick={() => handleSlideChange(slide.id)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all cursor-pointer hover:opacity-80",
+                    isCurrent 
+                      ? "w-6 bg-primary-foreground" 
+                      : isViewed 
+                        ? "w-3 bg-primary-foreground/60" 
+                        : "w-2 bg-primary-foreground/25"
+                  )}
+                  title={`${slide.title} ${isViewed ? '(viewed)' : ''}`}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
