@@ -55,6 +55,18 @@ export const ClinicalWorkflowBar = () => {
   const [showCAUTIReport, setShowCAUTIReport] = useState(false);
   const [showHandoffReport, setShowHandoffReport] = useState(false);
 
+  // Determine shift based on current time
+  const getShiftInfo = () => {
+    const hour = new Date().getHours();
+    if (hour >= 7 && hour < 19) {
+      return { label: 'Day Shift', time: '7A–7P' };
+    } else {
+      return { label: 'Night Shift', time: '7P–7A' };
+    }
+  };
+  
+  const shiftInfo = getShiftInfo();
+
   return (
     <TooltipProvider>
       <div className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl px-5 py-3">
@@ -66,7 +78,7 @@ export const ClinicalWorkflowBar = () => {
               </span>
             </div>
             <div className="h-4 w-px bg-border/40" />
-            <span className="text-xs font-medium text-foreground">Day Shift · 7A–7P</span>
+            <span className="text-xs font-medium text-foreground">{shiftInfo.label} · {shiftInfo.time}</span>
           </div>
           
           <div className="flex items-center gap-1">
