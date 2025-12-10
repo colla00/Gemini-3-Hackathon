@@ -30,7 +30,7 @@ const handler = async (req: Request): Promise<Response> => {
     const adminEmail = "info@alexiscollier.com";
     
     const adminEmailResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <onboarding@resend.dev>",
+      from: "NSO Quality Dashboard <info@alexiscollier.com>",
       to: [adminEmail],
       subject: `New Walkthrough Access Request from ${data.name}`,
       html: `
@@ -74,7 +74,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to requester
     const confirmationResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <onboarding@resend.dev>",
+      from: "NSO Quality Dashboard <info@alexiscollier.com>",
       to: [data.email],
       subject: "Your Walkthrough Request Has Been Received",
       html: `
