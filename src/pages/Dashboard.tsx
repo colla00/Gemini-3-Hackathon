@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
+  LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  PlayCircle, Printer, BookOpen, MessageCircle, Monitor
+  Monitor
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -172,38 +172,26 @@ export const Dashboard = () => {
               )}
             </div>
 
-            {/* Time & Shift */}
+            {/* Time & Shift - Dynamic based on time of day */}
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Clock className="w-3.5 h-3.5" />
               <span>{currentTime}</span>
-              <span className="text-primary font-medium">• Night Shift</span>
+              <span className="text-primary font-medium">
+                • {new Date().getHours() >= 7 && new Date().getHours() < 19 ? 'Day Shift' : 'Night Shift'}
+              </span>
             </div>
 
-            {/* Quick Actions */}
-            <div className="flex items-center gap-1">
-              {/* Guided Demo Button */}
+            {/* Quick Actions - Cleaned up, no overlaps */}
+            <div className="flex items-center gap-0.5">
+              {/* Guided Demo Button - Self-guided 45-min walkthrough */}
               <GuidedDemo onViewChange={(view) => handleViewChange(view as ViewType)} currentView={activeView} />
               
-              <Link
-                to="/presentation?mode=practice"
-                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-amber-500 transition-colors"
-                title="Practice Mode"
-              >
-                <PlayCircle className="w-4 h-4" />
-              </Link>
               <Link
                 to="/presentation?mode=presenter"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
                 title="Presenter Dashboard (dual-screen for Zoom)"
               >
                 <Monitor className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/presentation?mode=print"
-                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-                title="Print Handouts"
-              >
-                <Printer className="w-4 h-4" />
               </Link>
               <Link
                 to="/presentation"

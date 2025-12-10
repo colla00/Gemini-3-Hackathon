@@ -218,11 +218,12 @@ export const GuidedDemo = ({ onViewChange, currentView }: GuidedDemoProps) => {
       <Button
         onClick={startDemo}
         variant="outline"
-        className="gap-2 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
+        size="sm"
+        className="gap-1.5 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20 text-xs"
       >
-        <Presentation className="w-4 h-4" />
-        <span className="hidden sm:inline">Start Guided Demo</span>
-        <span className="sm:hidden">Demo</span>
+        <Presentation className="w-3.5 h-3.5" />
+        <span className="hidden md:inline">45-Min Walkthrough</span>
+        <span className="md:hidden">Demo</span>
       </Button>
     );
   }

@@ -19,7 +19,7 @@ export const QuickStartLauncher = ({ className }: QuickStartLauncherProps) => {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
   const [showChecklist, setShowChecklist] = useState(false);
-  const [selectedMode, setSelectedMode] = useState<'presenter' | 'audience' | 'practice'>('presenter');
+  const [selectedMode, setSelectedMode] = useState<'presenter' | 'audience'>('presenter');
 
   const launchModes = [
     {
@@ -40,15 +40,6 @@ export const QuickStartLauncher = ({ className }: QuickStartLauncherProps) => {
       badgeVariant: 'secondary' as const,
       requiresAdmin: false,
     },
-    {
-      id: 'practice' as const,
-      title: 'Practice Mode',
-      description: 'Run through with timer and pacing',
-      icon: Play,
-      badge: 'Rehearsal',
-      badgeVariant: 'outline' as const,
-      requiresAdmin: false,
-    },
   ];
 
   const handleLaunch = () => {
@@ -66,13 +57,10 @@ export const QuickStartLauncher = ({ className }: QuickStartLauncherProps) => {
       case 'audience':
         navigate('/presentation?mode=audience');
         break;
-      case 'practice':
-        navigate('/presentation');
-        break;
     }
   };
 
-  const handleModeSelect = (modeId: 'presenter' | 'audience' | 'practice') => {
+  const handleModeSelect = (modeId: 'presenter' | 'audience') => {
     if (modeId === 'presenter' && !isAdmin) return;
     setSelectedMode(modeId);
   };
