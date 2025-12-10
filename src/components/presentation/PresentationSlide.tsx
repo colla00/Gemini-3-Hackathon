@@ -7,7 +7,8 @@ import {
 
 export type SlideType = 
   | 'title' 
-  | 'agenda' 
+  | 'agenda'
+  | 'video-demo' 
   | 'problem'
   | 'comparison' 
   | 'methodology'
@@ -21,7 +22,8 @@ export type SlideType =
   | 'workflow' 
   | 'validation'
   | 'roi' 
-  | 'future' 
+  | 'future'
+  | 'qa-prep' 
   | 'conclusion';
 
 interface SlideConfig {
@@ -80,6 +82,29 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Then I will explain our technical methodology at a high level.',
       'The bulk of our time will be a live demonstration of the dashboard.',
       'Feel free to ask questions as we go — this is meant to be interactive.',
+    ],
+    transitionCue: '→ "You can also watch the full recorded demo..."',
+  },
+  {
+    id: 'video-demo',
+    title: 'Recorded Presentation',
+    subtitle: '45-Minute Walkthrough Video',
+    duration: 1,
+    icon: <BarChart3 className="w-8 h-8" />,
+    notes: [
+      'This is the recorded version of the presentation',
+      'Can be used for remote viewing or review',
+      'Full 45-minute walkthrough of all features',
+    ],
+    keyPoints: [
+      'Stanford AI+HEALTH 2025',
+      '45-minute complete walkthrough',
+      'All dashboard features demonstrated',
+      'Available for async viewing',
+    ],
+    talkingPoints: [
+      'This recorded version covers everything in the live presentation.',
+      'Feel free to pause and explore the dashboard alongside the video.',
     ],
     transitionCue: '→ "First, let us understand the scope of the problem..."',
   },
@@ -472,6 +497,31 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Federated learning will allow training across institutions without sharing patient data.',
       'We are also exploring FDA regulatory pathways as this could be classified as clinical decision support.',
       'I would love to discuss collaboration opportunities with anyone interested.',
+    ],
+    transitionCue: '→ "Before Q&A, let me review anticipated questions..."',
+  },
+  {
+    id: 'qa-prep',
+    title: 'Q&A Preparation',
+    subtitle: 'Anticipated Questions & Responses',
+    duration: 0,
+    icon: <MessageSquare className="w-8 h-8" />,
+    notes: [
+      'PRESENTER ONLY - Review before Q&A',
+      'Common questions with suggested responses',
+      'Key points to remember',
+      'Difficulty ratings for preparation',
+    ],
+    keyPoints: [
+      'Validation status and timeline',
+      'Model accuracy and false positives',
+      'EHR integration approach',
+      'Regulatory considerations',
+    ],
+    talkingPoints: [
+      'Review these before the Q&A session',
+      'Focus on the "hard" difficulty questions',
+      'Remember: this is a research prototype',
     ],
     transitionCue: '→ "To wrap up..."',
   },

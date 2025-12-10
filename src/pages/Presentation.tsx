@@ -24,6 +24,8 @@ import { ComparisonSlide } from '@/components/quality/ComparisonSlide';
 import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
+import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
@@ -58,6 +60,7 @@ import { Button } from '@/components/ui/button';
 const slideToView: Record<string, ViewType | null> = {
   'title': null,
   'agenda': null,
+  'video-demo': 'video-demo',
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,
@@ -72,6 +75,7 @@ const slideToView: Record<string, ViewType | null> = {
   'validation': null,
   'roi': 'roi',
   'future': null,
+  'qa-prep': 'qa-prep',
   'conclusion': null,
 };
 
@@ -301,6 +305,10 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
         return <ROICalculatorSlide />;
       case 'ml-features':
         return <MLFeaturesSlide />;
+      case 'video-demo':
+        return <VideoDemoSlide />;
+      case 'qa-prep':
+        return <QAPrepSlide />;
       default:
         return null;
     }

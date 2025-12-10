@@ -59,6 +59,16 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '47 Clinical Features Across 7 Categories',
     citation: 'Features from validated scales and EHR data',
   },
+  'video-demo': {
+    title: 'Recorded Presentation',
+    subtitle: '45-Minute Walkthrough Video',
+    citation: 'Stanford AI+HEALTH 2025',
+  },
+  'qa-prep': {
+    title: 'Q&A Preparation',
+    subtitle: 'Anticipated Questions & Responses',
+    citation: 'Presenter reference only',
+  },
 };
 
 interface AcademicHeaderProps {
