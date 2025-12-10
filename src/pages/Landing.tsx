@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { TermsAcceptanceModal } from '@/components/TermsAcceptanceModal';
 import { QuickStartLauncher } from '@/components/presentation/QuickStartLauncher';
+import { WalkthroughRequestModal } from '@/components/WalkthroughRequestModal';
 import { useAuth } from '@/hooks/useAuth';
 
 const features = [
@@ -39,7 +40,7 @@ const pages = [
     title: 'Quality Dashboard',
     description: 'Explore the clinical dashboard interface',
     color: 'bg-primary/10 text-primary border-primary/20',
-    external: false,
+    type: 'link' as const,
   },
   {
     to: 'https://youtu.be/DA5pwKx5o0s',
@@ -47,15 +48,15 @@ const pages = [
     title: 'Watch Demo Video',
     description: 'Stanford AI+HEALTH presentation recording',
     color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
-    external: true,
+    type: 'external' as const,
   },
   {
-    to: 'mailto:alexis.collier@ung.edu?subject=Request%20Access%20to%2045-Min%20Walkthrough&body=I%20would%20like%20to%20request%20access%20to%20the%2045-minute%20automated%20walkthrough%20of%20the%20NSO%20Quality%20Dashboard.',
+    to: '',
     icon: Presentation,
     title: '45-Min Walkthrough',
     description: 'Request automated presentation access',
     color: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-    external: true,
+    type: 'modal' as const,
   },
   {
     to: '/about',
@@ -63,7 +64,7 @@ const pages = [
     title: 'About & Methodology',
     description: 'Research context and approach',
     color: 'bg-risk-low/10 text-risk-low border-risk-low/20',
-    external: false,
+    type: 'link' as const,
   },
 ];
 
@@ -172,13 +173,14 @@ export const Landing = () => {
                 <Play className="w-5 h-5" />
                 <span>Watch Demo</span>
               </a>
-              <a
-                href="mailto:alexis.collier@ung.edu?subject=Request%20Access%20to%2045-Min%20Walkthrough&body=I%20would%20like%20to%20request%20access%20to%20the%2045-minute%20automated%20walkthrough%20of%20the%20NSO%20Quality%20Dashboard."
-                className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-all border border-emerald-500/30"
-              >
-                <Presentation className="w-5 h-5" />
-                <span>Request 45-Min Walkthrough</span>
-              </a>
+              <WalkthroughRequestModal
+                trigger={
+                  <button className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-all border border-emerald-500/30">
+                    <Presentation className="w-5 h-5" />
+                    <span>Request 45-Min Walkthrough</span>
+                  </button>
+                }
+              />
             </div>
 
             {/* Conference Badge */}
@@ -234,30 +236,59 @@ export const Landing = () => {
           </h3>
           
           <div className="grid md:grid-cols-4 gap-6">
-            {pages.map((page) => (
-              page.external ? (
-                <a
-                  key={page.to}
-                  href={page.to}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1"
-                >
-                  <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
-                    page.color
-                  )}>
-                    <page.icon className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {page.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {page.description}
-                  </p>
-                  <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                </a>
-              ) : (
+            {pages.map((page) => {
+              if (page.type === 'modal') {
+                return (
+                  <WalkthroughRequestModal
+                    key={page.title}
+                    trigger={
+                      <button className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1 text-left w-full">
+                        <div className={cn(
+                          "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
+                          page.color
+                        )}>
+                          <page.icon className="w-6 h-6" />
+                        </div>
+                        <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                          {page.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {page.description}
+                        </p>
+                        <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </button>
+                    }
+                  />
+                );
+              }
+              
+              if (page.type === 'external') {
+                return (
+                  <a
+                    key={page.to}
+                    href={page.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <div className={cn(
+                      "w-12 h-12 rounded-xl flex items-center justify-center mb-4 border",
+                      page.color
+                    )}>
+                      <page.icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {page.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      {page.description}
+                    </p>
+                    <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </a>
+                );
+              }
+              
+              return (
                 <Link
                   key={page.to}
                   to={page.to}
@@ -277,8 +308,8 @@ export const Landing = () => {
                   </p>
                   <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
-              )
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
