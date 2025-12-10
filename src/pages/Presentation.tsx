@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useSearchParams, Navigate } from 'react-router-dom';
 import { 
-  LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
-  RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
-  Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award, Monitor,
+  LayoutDashboard, Users, BarChart3, GitBranch,
+  Clock, Building2, User,
+  Activity, Home, GraduationCap, 
+  MousePointer, ChevronLeft, ChevronRight, Award,
   FlaskConical, AlertTriangle
 } from 'lucide-react';
 import { AIAssistant } from '@/components/engagement/AIAssistant';
@@ -35,9 +35,6 @@ import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
 import { ZoomModeProvider, ZoomModeToggle, useZoomMode } from '@/components/quality/ZoomModeToggle';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
-import { PresenterNotesPanel } from '@/components/presentation/PresenterNotesPanel';
-import { PracticeMode } from '@/components/presentation/PracticeMode';
-import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
@@ -169,14 +166,13 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
   const [hotspotsEnabled, setHotspotsEnabled] = useState(true);
   const [showHandoffReport, setShowHandoffReport] = useState(false);
   const [showSessionModal, setShowSessionModal] = useState(false);
-  const [showPracticeMode, setShowPracticeMode] = useState(false);
+  const [selfPacedMode, setSelfPacedMode] = useState(true); // Default to self-paced (no timing pressure)
   
   const { logFeatureUse, logInteraction } = useSessionTracking();
   const { session, createSession, updateSlideProgress } = usePresentationSession();
 
-  // Only show presenter notes if presenter key is provided
+  // Check for presenter mode (admin only via Zoom)
   const isPresenterMode = searchParams.get('presenter') === PRESENTER_KEY;
-  const [showPresenterNotes, setShowPresenterNotes] = useState(isPresenterMode);
 
   // Check if auto-walkthrough should start automatically
   const autoStartWalkthrough = searchParams.get('autostart') === 'true';
@@ -302,7 +298,6 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
     onNextView: () => handleNavigate('next'),
     onPrevView: () => handleNavigate('prev'),
     onToggleLive: handleToggleLive,
-    onTogglePractice: () => setShowPracticeMode(prev => !prev),
   });
 
   // Update time periodically
@@ -380,25 +375,6 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         />
       )}
 
-      {/* Practice Mode */}
-      <PracticeMode
-        currentSlide={currentSlide}
-        onNavigate={handleNavigate}
-        onGoToSlide={handleSlideChange}
-        isVisible={showPracticeMode}
-        onClose={() => setShowPracticeMode(false)}
-      />
-
-      {/* Presenter Notes Panel - only in presenter mode */}
-      {isPresenterMode && showPresenterNotes && (
-        <PresenterNotesPanel
-          currentSlide={currentSlide}
-          elapsedMinutes={elapsedMinutes}
-          onNavigate={handleNavigate}
-          onGoToSlide={handleSlideChange}
-        />
-      )}
-
       {/* Guided Tour Overlay */}
       <GuidedTour
         isActive={guidedTour.isActive}
@@ -420,45 +396,12 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary-foreground">
             <GraduationCap className="w-4 h-4" />
-            <span className="text-sm font-medium">45-Minute Presentation</span>
+            <span className="text-sm font-medium">Self-Paced Walkthrough</span>
             <span className="text-primary-foreground/60 text-xs">
               • Slide {currentIndex + 1}/{PRESENTATION_SLIDES.length}
             </span>
-            {presentationStartTime && (
-              <span className="text-primary-foreground/60 text-xs">
-                • {elapsedMinutes}m elapsed
-              </span>
-            )}
           </div>
           <div className="flex items-center gap-3">
-            {/* Practice Mode toggle */}
-            <button
-              onClick={() => setShowPracticeMode(!showPracticeMode)}
-              className={cn(
-                "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
-                showPracticeMode
-                  ? "bg-primary-foreground/20 text-primary-foreground"
-                  : "text-primary-foreground/60 hover:text-primary-foreground"
-              )}
-            >
-              <Timer className="w-3 h-3" />
-              <span>Practice</span>
-            </button>
-            {/* Presenter notes toggle - only show if in presenter mode */}
-            {isPresenterMode && (
-              <button
-                onClick={() => setShowPresenterNotes(!showPresenterNotes)}
-                className={cn(
-                  "flex items-center gap-1.5 px-2 py-1 rounded text-xs transition-colors",
-                  showPresenterNotes
-                    ? "bg-primary-foreground/20 text-primary-foreground"
-                    : "text-primary-foreground/60 hover:text-primary-foreground"
-                )}
-              >
-                <LayoutDashboard className="w-3 h-3" />
-                <span>Notes</span>
-              </button>
-            )}
             {/* Hotspots toggle */}
             <button
               onClick={() => setHotspotsEnabled(!hotspotsEnabled)}
@@ -685,10 +628,6 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
       <AudienceQuestions sessionId={session?.id} currentSlide={currentSlide} isPresenter={isPresenterMode} />
       <LivePolls sessionId={session?.id} isPresenter={isPresenterMode} />
       {!isPresenterMode && <FeedbackPanel sessionId={session?.id} currentSlide={currentSlide} />}
-      
-      {/* Presenter Cheat Sheet */}
-      <PresenterCheatSheet />
-      
       {/* Handoff Report Modal */}
       {showHandoffReport && <HandoffReport onClose={() => setShowHandoffReport(false)} />}
       
