@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow';
+export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'ehr-flow';
 
 interface AutoDemoConfig {
   views: ViewType[];
