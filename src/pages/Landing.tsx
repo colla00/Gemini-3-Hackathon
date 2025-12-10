@@ -50,12 +50,12 @@ const pages = [
     external: true,
   },
   {
-    to: '/presentation?autostart=true',
+    to: 'mailto:alexis.collier@ung.edu?subject=Request%20Access%20to%2045-Min%20Walkthrough&body=I%20would%20like%20to%20request%20access%20to%20the%2045-minute%20automated%20walkthrough%20of%20the%20NSO%20Quality%20Dashboard.',
     icon: Presentation,
     title: '45-Min Walkthrough',
-    description: 'Automated interactive presentation',
+    description: 'Request automated presentation access',
     color: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-    external: false,
+    external: true,
   },
   {
     to: '/about',
@@ -172,13 +172,13 @@ export const Landing = () => {
                 <Play className="w-5 h-5" />
                 <span>Watch Demo</span>
               </a>
-              <Link
-                to="/presentation?autostart=true"
+              <a
+                href="mailto:alexis.collier@ung.edu?subject=Request%20Access%20to%2045-Min%20Walkthrough&body=I%20would%20like%20to%20request%20access%20to%20the%2045-minute%20automated%20walkthrough%20of%20the%20NSO%20Quality%20Dashboard."
                 className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-all border border-emerald-500/30"
               >
                 <Presentation className="w-5 h-5" />
-                <span>45-Min Walkthrough</span>
-              </Link>
+                <span>Request 45-Min Walkthrough</span>
+              </a>
             </div>
 
             {/* Conference Badge */}
@@ -330,7 +330,7 @@ export const Landing = () => {
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>© 2024–2025 Alexis Collier. All Rights Reserved.</span>
+            <span>© 2025 Alexis Collier. All Rights Reserved.</span>
             <span className="text-border">|</span>
             <span className="text-primary font-medium">U.S. Pat. App. 63/932,953 Pending</span>
           </div>
