@@ -628,3 +628,78 @@
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
 }
+
+/* ======================================
+   PRESENTATION MODE (fullscreen demo)
+   ====================================== */
+.presentation-mode {
+  padding-top: 1rem;
+}
+
+.presentation-mode main {
+  padding-top: 1.5rem;
+  padding-bottom: 6rem;
+  max-width: 90rem;
+}
+
+/* Larger text for projection */
+.presentation-mode .text-xs {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.presentation-mode .text-sm {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.presentation-mode .text-base {
+  font-size: 1.1rem;
+}
+
+.presentation-mode .text-lg {
+  font-size: 1.3rem;
+}
+
+.presentation-mode .text-xl {
+  font-size: 1.5rem;
+}
+
+.presentation-mode .text-2xl {
+  font-size: 1.75rem;
+}
+
+/* Larger cards and spacing */
+.presentation-mode .glass-card {
+  padding: 1.5rem;
+}
+
+.presentation-mode .rounded-xl {
+  border-radius: 1rem;
+}
+
+/* Larger badges and icons */
+.presentation-mode .w-4 {
+  width: 1.25rem;
+}
+
+.presentation-mode .h-4 {
+  height: 1.25rem;
+}
+
+.presentation-mode .w-5 {
+  width: 1.5rem;
+}
+
+.presentation-mode .h-5 {
+  height: 1.5rem;
+}
+
+/* Enhanced visibility for projectors */
+.presentation-mode .border-border {
+  border-color: hsl(0 0% 35%);
+}
+
+.presentation-mode .bg-card {
+  background-color: hsl(0 0% 8% / 0.8);
+}
