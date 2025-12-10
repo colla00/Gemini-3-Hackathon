@@ -31,7 +31,7 @@ export const PresentationTimeline45 = ({
           <div className="flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-semibold text-foreground uppercase tracking-wide">
-              45-Min Walkthrough
+              Walkthrough
             </span>
           </div>
         </div>

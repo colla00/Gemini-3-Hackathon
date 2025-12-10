@@ -63,7 +63,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'agenda',
     title: 'Presentation Agenda',
-    subtitle: '45-Minute Walkthrough',
+    subtitle: '38-Minute Walkthrough',
     duration: 2,
     icon: <BookOpen className="w-8 h-8" />,
     notes: [
@@ -80,10 +80,10 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Future Directions & Q&A (7 min)',
     ],
     talkingPoints: [
-      'Here is the roadmap for the next 45 minutes. I have structured this to give you both the "why" and the "how."',
+      'Here is the roadmap for the next 38 minutes. I have structured this to give you both the "why" and the "how."',
       'I will start by framing the clinical problem — why nurse-sensitive outcomes matter so much for patient safety and hospital quality metrics.',
       'Then I will walk through my technical methodology at a high level. I will not get too deep into the math, but I want you to understand the architecture.',
-      'The bulk of our time — about 15 minutes — will be a live demonstration of the actual dashboard. This is the fun part where you can see the system in action.',
+      'I will show a quick 5-minute demonstration of the actual dashboard. This is the fun part where you can see the system in action.',
       'I will spend some time on explainability, because I believe strongly that nurses need to understand WHY a patient is flagged as high-risk, not just that they are.',
       'Then I will be transparent about validation status and future directions.',
       'Please, please feel free to interrupt with questions at any point. I find the interactive discussions are often the most valuable part of these sessions.',
