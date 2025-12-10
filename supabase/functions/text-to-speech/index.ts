@@ -11,12 +11,21 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const MAX_TEXT_LENGTH = 4096;
+
   try {
     const { text, voice = 'alloy' } = await req.json();
 
     if (!text) {
       return new Response(
         JSON.stringify({ error: 'Text is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (text.length > MAX_TEXT_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Text exceeds ${MAX_TEXT_LENGTH} character limit` }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

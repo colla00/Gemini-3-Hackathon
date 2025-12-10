@@ -30,6 +30,9 @@ IMPORTANT DISCLAIMERS to include when relevant:
 
 Keep answers concise (2-3 paragraphs max), clinically accurate, and accessible to both technical and clinical audiences. Use bullet points for complex explanations.`;
 
+const MAX_MESSAGE_LENGTH = 2000;
+const MAX_MESSAGES = 20;
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -37,6 +40,28 @@ serve(async (req) => {
 
   try {
     const { messages } = await req.json();
+
+    // Validate message lengths and count
+    if (!Array.isArray(messages)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid messages format' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (messages.length > MAX_MESSAGES) {
+      return new Response(
+        JSON.stringify({ error: `Too many messages. Maximum ${MAX_MESSAGES} allowed.` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (messages.some((m: any) => typeof m.content === 'string' && m.content.length > MAX_MESSAGE_LENGTH)) {
+      return new Response(
+        JSON.stringify({ error: `Message too long. Maximum ${MAX_MESSAGE_LENGTH} characters allowed.` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {

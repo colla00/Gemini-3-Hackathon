@@ -33,7 +33,19 @@ export const AIAssistant = () => {
     }
   }, [messages]);
 
+  const MAX_MESSAGE_LENGTH = 2000;
+
   const streamChat = async (userMessage: string) => {
+    if (!userMessage.trim() || isLoading) return;
+    
+    if (userMessage.length > MAX_MESSAGE_LENGTH) {
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `Message too long. Please limit your message to ${MAX_MESSAGE_LENGTH} characters.` 
+      }]);
+      return;
+    }
+
     const newMessages = [...messages, { role: 'user' as const, content: userMessage }];
     setMessages(newMessages);
     setInput('');
