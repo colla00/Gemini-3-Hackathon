@@ -150,10 +150,26 @@ export const Landing = () => {
               <br />Monitoring
             </h2>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6">
               A research prototype demonstrating predictive analytics for Falls, Pressure Injuries, 
               CAUTI, and Device Complications with explainable AI attribution.
             </p>
+
+            {/* Patent Metrics Badge */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
+                <Brain className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">AUROC 0.89</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30">
+                <FileText className="w-4 h-4 text-accent" />
+                <span className="text-sm font-semibold text-accent">9 Patent Claims</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30">
+                <Activity className="w-4 h-4 text-risk-low" />
+                <span className="text-sm font-semibold text-risk-low">40-70% Alert Reduction</span>
+              </div>
+            </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
