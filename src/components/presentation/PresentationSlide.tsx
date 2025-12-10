@@ -620,15 +620,40 @@ export const TOTAL_PRESENTATION_TIME = PRESENTATION_SLIDES.reduce((acc, s) => ac
 interface PresentationSlideProps {
   slide: SlideConfig;
   isActive: boolean;
+  isAudience?: boolean; // Hide presenter-only content
   children?: React.ReactNode;
 }
 
-export const PresentationSlideView = ({ slide, isActive, children }: PresentationSlideProps) => {
+export const PresentationSlideView = ({ slide, isActive, isAudience = false, children }: PresentationSlideProps) => {
   if (!isActive) return null;
 
   // For slides that have dashboard content (dashboard, patients, shap, workflow)
   if (children) {
     return <>{children}</>;
+  }
+
+  // For qa-prep slide, show simplified version to audience
+  if (slide.id === 'qa-prep' && isAudience) {
+    return (
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-8">
+        <div className="max-w-4xl w-full animate-fade-in text-center">
+          <div className="w-20 h-20 mx-auto mb-8 rounded-2xl flex items-center justify-center bg-primary/20 text-primary">
+            <MessageSquare className="w-12 h-12" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Questions & Discussion
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+            Please use Zoom chat or raise your hand
+          </p>
+          <div className="mt-12 max-w-lg mx-auto p-6 rounded-xl bg-card border border-border/50">
+            <p className="text-muted-foreground">
+              The presenter will now take questions from the audience.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   // Full-screen slide view for intro/transition slides
