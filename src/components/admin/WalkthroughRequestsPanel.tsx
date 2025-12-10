@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { toast } from 'sonner';
-import { Presentation, CheckCircle, XCircle, Clock, RefreshCw, Mail } from 'lucide-react';
+import { Presentation, CheckCircle, XCircle, Clock, RefreshCw, Mail, ChevronDown, ChevronRight, Building, Briefcase, MessageSquare } from 'lucide-react';
 
 interface WalkthroughRequest {
   id: string;
@@ -23,6 +24,7 @@ export const WalkthroughRequestsPanel = () => {
   const [requests, setRequests] = useState<WalkthroughRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchRequests();
@@ -78,6 +80,10 @@ export const WalkthroughRequestsPanel = () => {
 
   const pendingCount = requests.filter(r => r.status === 'pending').length;
 
+  const toggleExpanded = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -99,7 +105,7 @@ export const WalkthroughRequestsPanel = () => {
           </div>
         </div>
         <CardDescription>
-          Review and manage walkthrough access requests from potential users
+          Review and manage walkthrough access requests from potential users. Click a row to see full details.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -111,77 +117,129 @@ export const WalkthroughRequestsPanel = () => {
             <p>No walkthrough requests yet</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Organization</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Requested</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {requests.map((request) => (
-                <TableRow key={request.id}>
-                  <TableCell className="font-medium">{request.name}</TableCell>
-                  <TableCell>
-                    <a 
-                      href={`mailto:${request.email}`} 
-                      className="text-primary hover:underline"
-                    >
-                      {request.email}
-                    </a>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {request.organization || '—'}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {request.role || '—'}
-                  </TableCell>
-                  <TableCell>{getStatusBadge(request.status)}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(request.created_at).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    {request.status === 'pending' ? (
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-emerald-600 hover:bg-emerald-500/10"
-                          onClick={() => updateRequestStatus(request.id, 'approved')}
-                          disabled={processingId === request.id}
-                        >
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          Approve
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-destructive hover:bg-destructive/10"
-                          onClick={() => updateRequestStatus(request.id, 'denied')}
-                          disabled={processingId === request.id}
-                        >
-                          <XCircle className="w-4 h-4 mr-1" />
-                          Deny
-                        </Button>
+          <div className="space-y-2">
+            {requests.map((request) => (
+              <Collapsible
+                key={request.id}
+                open={expandedId === request.id}
+                onOpenChange={() => toggleExpanded(request.id)}
+              >
+                <div className="border rounded-lg overflow-hidden">
+                  <CollapsibleTrigger asChild>
+                    <div className="flex items-center justify-between p-4 hover:bg-secondary/50 cursor-pointer transition-colors">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="text-muted-foreground">
+                          {expandedId === request.id ? (
+                            <ChevronDown className="w-4 h-4" />
+                          ) : (
+                            <ChevronRight className="w-4 h-4" />
+                          )}
+                        </div>
+                        <div className="flex-1 grid grid-cols-4 gap-4 items-center">
+                          <div>
+                            <p className="font-medium text-foreground">{request.name}</p>
+                            <a 
+                              href={`mailto:${request.email}`} 
+                              className="text-sm text-primary hover:underline"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {request.email}
+                            </a>
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {request.organization || '—'}
+                          </div>
+                          <div>
+                            {getStatusBadge(request.status)}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {new Date(request.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
                       </div>
-                    ) : (
-                      <span className="text-sm text-muted-foreground">
-                        {request.reviewed_at 
-                          ? `Reviewed ${new Date(request.reviewed_at).toLocaleDateString()}`
-                          : '—'
-                        }
-                      </span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                      {request.status === 'pending' && (
+                        <div className="flex gap-2 ml-4" onClick={(e) => e.stopPropagation()}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-emerald-600 hover:bg-emerald-500/10"
+                            onClick={() => updateRequestStatus(request.id, 'approved')}
+                            disabled={processingId === request.id}
+                          >
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            Approve
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-destructive hover:bg-destructive/10"
+                            onClick={() => updateRequestStatus(request.id, 'denied')}
+                            disabled={processingId === request.id}
+                          >
+                            <XCircle className="w-4 h-4 mr-1" />
+                            Deny
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent>
+                    <div className="px-4 pb-4 pt-0 border-t bg-secondary/30">
+                      <div className="grid md:grid-cols-3 gap-4 pt-4">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            <Building className="w-3 h-3" />
+                            Organization
+                          </div>
+                          <p className="text-sm text-foreground">
+                            {request.organization || 'Not provided'}
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            <Briefcase className="w-3 h-3" />
+                            Role
+                          </div>
+                          <p className="text-sm text-foreground">
+                            {request.role || 'Not provided'}
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            <Clock className="w-3 h-3" />
+                            Timeline
+                          </div>
+                          <p className="text-sm text-foreground">
+                            Requested: {new Date(request.created_at).toLocaleString()}
+                          </p>
+                          {request.reviewed_at && (
+                            <p className="text-sm text-muted-foreground">
+                              Reviewed: {new Date(request.reviewed_at).toLocaleString()}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {request.reason && (
+                        <div className="mt-4 space-y-1">
+                          <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            <MessageSquare className="w-3 h-3" />
+                            Reason for Request
+                          </div>
+                          <p className="text-sm text-foreground bg-background/50 p-3 rounded-md border">
+                            {request.reason}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </CollapsibleContent>
+                </div>
+              </Collapsible>
+            ))}
+          </div>
         )}
       </CardContent>
     </Card>
