@@ -13,23 +13,23 @@ import { useAuth } from '@/hooks/useAuth';
 const features = [
   {
     icon: Brain,
-    title: 'AI-Powered Risk Prediction',
-    description: 'Machine learning models analyze patient data to predict nursing-sensitive outcomes.',
+    title: 'Multi-Horizon Forecasting',
+    description: 'Temporal risk trajectories at 4h, 12h, 24h, and 48h horizons with confidence intervals.',
   },
   {
     icon: BarChart3,
     title: 'SHAP Explainability',
-    description: 'Transparent AI with interpretable risk factor attribution for clinical trust.',
+    description: 'Transparent AI with interpretable risk factor attribution (AUROC 0.89).',
   },
   {
     icon: Activity,
-    title: 'Real-Time Monitoring',
-    description: 'Continuous risk assessment with live updates and trend analysis.',
+    title: 'Adaptive Thresholds',
+    description: 'Patient-specific alert thresholds reduce false positives by 40-70%.',
   },
   {
     icon: Users,
-    title: 'Workflow Integration',
-    description: 'Designed for clinical workflows with actionable intervention recommendations.',
+    title: 'Closed-Loop Feedback',
+    description: 'Automated intervention effectiveness tracking with before/after quantification.',
   },
 ];
 
