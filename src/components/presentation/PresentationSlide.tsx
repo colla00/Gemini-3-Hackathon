@@ -10,7 +10,8 @@ export type SlideType =
   | 'agenda' 
   | 'problem' 
   | 'methodology'
-  | 'ehr-flow' 
+  | 'ehr-flow'
+  | 'alert-timeline' 
   | 'dashboard' 
   | 'patients' 
   | 'shap' 
@@ -160,6 +161,33 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Data flows from the EHR through a real-time ingestion layer with sub-30-second latency.',
       'The ML pipeline processes incoming data and generates predictions for all four nursing-sensitive outcomes.',
       'Because we use standards like FHIR, this is compatible with any compliant EHR system.',
+    ],
+    transitionCue: '→ "Let me show you the journey of a single data point..."',
+  },
+  {
+    id: 'alert-timeline',
+    title: 'Alert Timeline',
+    subtitle: 'From EHR Event to Clinical Action',
+    duration: 3,
+    icon: <Clock className="w-8 h-8" />,
+    notes: [
+      'Walk through the animated timeline',
+      'Emphasize sub-30-second end-to-end latency',
+      'Highlight each processing stage with timestamps',
+      'Show how quickly nurses are notified',
+    ],
+    keyPoints: [
+      'EHR event captured in real-time',
+      'FHIR data ingested within 8 seconds',
+      'ML risk score computed in 15 seconds',
+      'Nurse notified within 22 seconds total',
+    ],
+    talkingPoints: [
+      'Let me walk you through what happens when a nurse documents vitals in the EHR.',
+      'Within 8 seconds, the FHIR bundle is received by our ingestion layer.',
+      'By 15 seconds, the ML pipeline has computed a new risk score with SHAP explanations.',
+      'At 22 seconds, the dashboard updates and the nurse receives a notification if thresholds are met.',
+      'This sub-30-second latency is critical for timely intervention.',
     ],
     transitionCue: '→ "Now let me show you the dashboard concept..."',
   },

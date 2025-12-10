@@ -34,6 +34,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Standards-Based Integration for Any Compliant System',
     citation: 'Standards: HL7 FHIR R4, HL7v2, CDA/C-CDA',
   },
+  'alert-timeline': {
+    title: 'Real-Time Alert Pipeline',
+    subtitle: 'From EHR Event to Clinical Action in Under 30 Seconds',
+    citation: 'Target latency: <30s end-to-end',
+  },
 };
 
 interface AcademicHeaderProps {

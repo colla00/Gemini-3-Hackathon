@@ -19,6 +19,7 @@ import { PatientListView } from '@/components/quality/PatientListView';
 import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
 import { EHRDataFlowSlide } from '@/components/quality/EHRDataFlowSlide';
+import { AlertTimelineSlide } from '@/components/quality/AlertTimelineSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
 import { PrintView } from '@/components/quality/PrintView';
@@ -56,6 +57,7 @@ const slideToView: Record<string, ViewType | null> = {
   'problem': null,
   'methodology': null,
   'ehr-flow': 'ehr-flow',
+  'alert-timeline': 'alert-timeline',
   'dashboard': 'dashboard',
   'patients': 'patients',
   'shap': 'shap',
@@ -281,6 +283,8 @@ const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchPara
         return <ClinicalWorkflowView />;
       case 'ehr-flow':
         return <EHRDataFlowSlide />;
+      case 'alert-timeline':
+        return <AlertTimelineSlide />;
       default:
         return null;
     }
