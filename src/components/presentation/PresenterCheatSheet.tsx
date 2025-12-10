@@ -105,8 +105,9 @@ const talkingPoints: TalkingPoint[] = [
     slide: 'Validation',
     duration: '3m',
     keyPoints: [
-      'Target AUC-ROC: 0.85+ (illustrative)',
-      'Target: 40-70% false positive reduction',
+      'Target AUROC: 0.89, Sensitivity: 87%, Specificity: 86%',
+      'Target: 40-70% false positive reduction via adaptive thresholds',
+      'Key innovations: multi-horizon forecasting, closed-loop feedback',
       'Planned training: ~45,000 patient-days',
     ],
   },

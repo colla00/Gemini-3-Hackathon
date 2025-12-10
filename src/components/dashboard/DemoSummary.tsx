@@ -5,27 +5,27 @@ const summaryPoints = [
   {
     icon: <Target className="w-5 h-5" />,
     title: 'Nurse-Sensitive Outcomes',
-    description: 'Falls, pressure injuries, CAUTI',
+    description: 'Falls, pressure injuries, CAUTI, device complications',
   },
   {
     icon: <Brain className="w-5 h-5" />,
-    title: 'Interpretable AI',
-    description: 'SHAP-based risk factor attribution',
+    title: 'SHAP Explainability',
+    description: 'Interpretable risk attribution (AUROC 0.89)',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,
-    title: 'Risk Trajectory',
-    description: 'Dynamic monitoring over time',
+    title: 'Multi-Horizon Forecasting',
+    description: '4h, 12h, 24h, 48h risk trajectories',
   },
   {
     icon: <Users className="w-5 h-5" />,
-    title: 'Human-in-the-Loop',
-    description: 'Clinician judgment remains central',
+    title: 'Adaptive Thresholds',
+    description: '40-70% false positive reduction',
   },
   {
     icon: <Shield className="w-5 h-5" />,
-    title: 'Workflow Integration',
-    description: 'Shift handoffs & intervention tracking',
+    title: 'Closed-Loop Feedback',
+    description: 'Intervention effectiveness tracking',
   },
 ];
 
