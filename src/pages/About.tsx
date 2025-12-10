@@ -320,9 +320,9 @@ function About() {
                   <div className="flex items-start gap-3">
                     <XCircle className="w-4 h-4 text-muted-foreground mt-0.5" />
                     <div>
-                      <p className="font-medium text-sm">&gt;80% Clinician Trust</p>
+                      <p className="font-medium text-sm">Clinician Adoption & Trust</p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Based on literature comparing explainable vs. black-box AI. No user studies conducted for this system.
+                        No user studies conducted. Literature suggests explainable AI improves trust, but this requires validation for this specific system.
                       </p>
                     </div>
                   </div>
@@ -387,24 +387,28 @@ function About() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">False Positive Reduction</p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-sm text-muted-foreground">Alert Reduction Target</p>
+                  <Badge variant="outline" className="text-[9px] border-amber-500/30 text-amber-600 dark:text-amber-400">Design Target</Badge>
+                </div>
                 <p className="text-2xl font-bold">40-70%</p>
-                <p className="text-xs text-muted-foreground mt-1">vs. fixed thresholds</p>
+                <p className="text-xs text-muted-foreground mt-1">vs. fixed thresholds (not validated)</p>
               </div>
-              <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Advance Warning</p>
+              <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-sm text-muted-foreground">Warning Lead Time</p>
+                  <Badge variant="outline" className="text-[9px] border-amber-500/30 text-amber-600 dark:text-amber-400">Design Target</Badge>
+                </div>
                 <p className="text-2xl font-bold">6-48 hrs</p>
-                <p className="text-xs text-muted-foreground mt-1">before deterioration</p>
+                <p className="text-xs text-muted-foreground mt-1">design goal (not validated)</p>
               </div>
               <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Clinician Trust</p>
-                <p className="text-2xl font-bold">&gt;80%</p>
-                <p className="text-xs text-muted-foreground mt-1">vs. &lt;50% for black-box</p>
-              </div>
-              <div className="p-4 rounded-lg bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Forecast Horizons</p>
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-sm text-muted-foreground">Forecast Horizons</p>
+                  <Badge variant="outline" className="text-[9px] border-primary/30 text-primary">Implemented</Badge>
+                </div>
                 <p className="text-2xl font-bold">4-48 hrs</p>
                 <p className="text-xs text-muted-foreground mt-1">multi-horizon prediction</p>
               </div>

@@ -10,55 +10,53 @@ const outcomeMetrics = [
     baseline: { rate: 3.2, label: 'per 1,000 patient days' },
     withNSO: { rate: 1.9, label: 'per 1,000 patient days' },
     reduction: 41,
-    pValue: 0.003,
-    confidence: '95% CI: 28-54%'
   },
   {
     category: 'Pressure Injuries',
     baseline: { rate: 2.8, label: 'per 1,000 patient days' },
     withNSO: { rate: 1.7, label: 'per 1,000 patient days' },
     reduction: 39,
-    pValue: 0.008,
-    confidence: '95% CI: 22-56%'
   },
   {
     category: 'CAUTI',
     baseline: { rate: 1.9, label: 'per 1,000 catheter days' },
     withNSO: { rate: 1.2, label: 'per 1,000 catheter days' },
     reduction: 37,
-    pValue: 0.012,
-    confidence: '95% CI: 18-56%'
   },
 ];
 
 const impactStats = [
   {
     icon: TrendingDown,
-    value: '40%',
-    label: 'Avg. Reduction',
+    value: '~40%',
+    label: 'Target Reduction',
     sublabel: 'in preventable events',
-    color: 'text-risk-low'
+    color: 'text-risk-low',
+    tag: 'Design Target'
   },
   {
     icon: Clock,
-    value: '2.1 days',
-    label: 'Shorter LOS',
+    value: '~2 days',
+    label: 'Target LOS Reduction',
     sublabel: 'for high-risk patients',
-    color: 'text-primary'
+    color: 'text-primary',
+    tag: 'Design Target'
   },
   {
     icon: DollarSign,
-    value: '$847K',
-    label: 'Annual Savings',
-    sublabel: 'per 100-bed unit',
-    color: 'text-risk-low'
+    value: 'TBD',
+    label: 'Projected Savings',
+    sublabel: 'requires validation',
+    color: 'text-muted-foreground',
+    tag: 'Not Validated'
   },
   {
     icon: Users,
-    value: '94%',
-    label: 'Nurse Adoption',
-    sublabel: 'after 90-day pilot',
-    color: 'text-primary'
+    value: 'TBD',
+    label: 'Adoption Rate',
+    sublabel: 'no pilot conducted',
+    color: 'text-muted-foreground',
+    tag: 'Not Validated'
   },
 ];
 
@@ -119,6 +117,9 @@ export const OutcomeComparisonPanel = () => {
                   <div className="text-[10px] text-muted-foreground/70">{stat.sublabel}</div>
                 </div>
               </div>
+              <Badge variant="outline" className="mt-2 text-[9px] border-amber-500/30 text-amber-600 dark:text-amber-400">
+                {stat.tag}
+              </Badge>
             </CardContent>
           </Card>
         ))}
@@ -134,16 +135,17 @@ export const OutcomeComparisonPanel = () => {
             {outcomeMetrics.map((metric, index) => (
               <div key={index} className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-foreground">{metric.category}</span>
-                    <span className="text-[10px] text-muted-foreground ml-2">{metric.confidence}</span>
+                    <Badge variant="outline" className="text-[9px] border-amber-500/30 text-amber-600 dark:text-amber-400">
+                      Design Target
+                    </Badge>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline" className="bg-risk-low/20 text-risk-low border-risk-low/30">
                       <TrendingDown className="w-3 h-3 mr-1" />
-                      {metric.reduction}% reduction
+                      ~{metric.reduction}% target
                     </Badge>
-                    <span className="text-[10px] text-muted-foreground">p={metric.pValue}</span>
                   </div>
                 </div>
                 

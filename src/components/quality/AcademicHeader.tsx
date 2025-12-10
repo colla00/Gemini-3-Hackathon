@@ -27,7 +27,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   workflow: {
     title: 'Clinical Validation & Human-in-the-Loop',
     subtitle: 'Real-World Intervention Workflow Demonstration',
-    citation: 'Target: 30-40% reduction in preventable falls (goal)',
+    citation: 'Design target: 30-40% reduction in preventable falls (not validated)',
   },
   'ehr-flow': {
     title: 'EHR Data Flow Architecture',
