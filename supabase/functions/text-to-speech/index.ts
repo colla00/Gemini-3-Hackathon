@@ -1,9 +1,42 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Rate limiting configuration
+const RATE_LIMIT_REQUESTS = 10; // Max requests per window
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute window
+
+// In-memory rate limit store (resets on function cold start)
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+function getRateLimitKey(req: Request): string {
+  // Use Authorization header or IP as identifier
+  const authHeader = req.headers.get('authorization') || '';
+  const forwarded = req.headers.get('x-forwarded-for') || 'unknown';
+  return `tts:${authHeader.slice(-20)}:${forwarded.split(',')[0]}`;
+}
+
+function checkRateLimit(key: string): { allowed: boolean; remaining: number; resetIn: number } {
+  const now = Date.now();
+  const entry = rateLimitStore.get(key);
+  
+  if (!entry || now >= entry.resetAt) {
+    // New window
+    rateLimitStore.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return { allowed: true, remaining: RATE_LIMIT_REQUESTS - 1, resetIn: RATE_LIMIT_WINDOW_MS };
+  }
+  
+  if (entry.count >= RATE_LIMIT_REQUESTS) {
+    return { allowed: false, remaining: 0, resetIn: entry.resetAt - now };
+  }
+  
+  entry.count++;
+  return { allowed: true, remaining: RATE_LIMIT_REQUESTS - entry.count, resetIn: entry.resetAt - now };
+}
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -15,6 +48,30 @@ serve(async (req) => {
   const ALLOWED_VOICES = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'] as const;
 
   try {
+    // Check rate limit
+    const rateLimitKey = getRateLimitKey(req);
+    const rateLimit = checkRateLimit(rateLimitKey);
+    
+    if (!rateLimit.allowed) {
+      console.warn(`Rate limit exceeded for key: ${rateLimitKey}`);
+      return new Response(
+        JSON.stringify({ 
+          error: 'Rate limit exceeded. Please try again later.',
+          retryAfter: Math.ceil(rateLimit.resetIn / 1000)
+        }),
+        { 
+          status: 429, 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'Retry-After': String(Math.ceil(rateLimit.resetIn / 1000)),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(Math.ceil(rateLimit.resetIn / 1000))
+          } 
+        }
+      );
+    }
+
     const { text, voice = 'alloy' } = await req.json();
 
     if (!text) {
@@ -47,7 +104,7 @@ serve(async (req) => {
       );
     }
 
-    console.log(`Generating speech for text (${text.length} chars) with voice: ${voice}`);
+    console.log(`Generating speech for text (${text.length} chars) with voice: ${voice}. Remaining requests: ${rateLimit.remaining}`);
 
     // Generate speech from text using OpenAI TTS
     const response = await fetch('https://api.openai.com/v1/audio/speech', {
@@ -57,9 +114,9 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'tts-1-hd', // High-definition model for better quality
+        model: 'tts-1-hd',
         input: text,
-        voice: voice, // alloy, echo, fable, onyx, nova, shimmer
+        voice: voice,
         response_format: 'mp3',
         speed: 1.0,
       }),
@@ -84,7 +141,14 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ audioContent: base64Audio, format: 'mp3' }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { 
+        headers: { 
+          ...corsHeaders, 
+          'Content-Type': 'application/json',
+          'X-RateLimit-Remaining': String(rateLimit.remaining),
+          'X-RateLimit-Reset': String(Math.ceil(rateLimit.resetIn / 1000))
+        } 
+      }
     );
   } catch (error) {
     console.error('Error in text-to-speech function:', error);
