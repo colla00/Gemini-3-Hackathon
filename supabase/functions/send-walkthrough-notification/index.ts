@@ -14,6 +14,7 @@ interface WalkthroughRequestData {
   organization?: string;
   role?: string;
   reason?: string;
+  type?: 'new_request' | 'approved' | 'denied';
 }
 
 // HTML escape function to prevent XSS/HTML injection
@@ -46,7 +47,8 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const data: WalkthroughRequestData = await req.json();
-    console.log("Received walkthrough request notification for:", escapeHtml(data.email));
+    const notificationType = data.type || 'new_request';
+    console.log(`Processing ${notificationType} notification for:`, escapeHtml(data.email));
 
     // Validate inputs
     if (!data.name || !data.email) {
@@ -80,9 +82,74 @@ const handler = async (req: Request): Promise<Response> => {
     const safeRole = escapeHtml(data.role);
     const safeReason = escapeHtml(data.reason);
 
-    // Send notification email to admin
     const adminEmail = "info@alexiscollier.com";
-    
+    const dashboardUrl = "https://nso-quality-dashboard.lovable.app";
+
+    // Handle approval notification
+    if (notificationType === 'approved') {
+      const approvalEmailResponse = await resend.emails.send({
+        from: "NSO Quality Dashboard <info@alexiscollier.com>",
+        to: [data.email],
+        subject: "Your Walkthrough Access Has Been Approved! 🎉",
+        html: `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #10b981;">Welcome to the NSO Quality Dashboard!</h2>
+            <p>Hi ${safeName},</p>
+            <p>Great news! Your request to access the 45-minute NSO Quality Dashboard walkthrough has been <strong style="color: #10b981;">approved</strong>.</p>
+            <p>You now have full access to:</p>
+            <ul>
+              <li>Complete 45-minute interactive walkthrough</li>
+              <li>All dashboard features and demonstrations</li>
+              <li>Clinical workflow simulations</li>
+              <li>AI-powered analysis tools</li>
+            </ul>
+            <div style="margin: 30px 0;">
+              <a href="${dashboardUrl}/presentation" 
+                 style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500;">
+                Access the Walkthrough
+              </a>
+            </div>
+            <p>If you have any questions, feel free to reply to this email.</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
+          </div>
+        `,
+      });
+
+      console.log("Approval email sent:", approvalEmailResponse);
+
+      return new Response(
+        JSON.stringify({ success: true, approvalEmail: approvalEmailResponse }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Handle denial notification
+    if (notificationType === 'denied') {
+      const denialEmailResponse = await resend.emails.send({
+        from: "NSO Quality Dashboard <info@alexiscollier.com>",
+        to: [data.email],
+        subject: "Update on Your Walkthrough Access Request",
+        html: `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2>NSO Quality Dashboard</h2>
+            <p>Hi ${safeName},</p>
+            <p>Thank you for your interest in the NSO Quality Dashboard walkthrough.</p>
+            <p>After reviewing your request, we're unable to grant access at this time. This may be due to limited availability or eligibility requirements for the current phase of the research prototype.</p>
+            <p>If you believe this was in error or would like to provide additional information, please reply to this email and we'll be happy to reconsider your request.</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
+          </div>
+        `,
+      });
+
+      console.log("Denial email sent:", denialEmailResponse);
+
+      return new Response(
+        JSON.stringify({ success: true, denialEmail: denialEmailResponse }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
       from: "NSO Quality Dashboard <info@alexiscollier.com>",
       to: [adminEmail],
@@ -126,7 +193,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Admin notification sent:", adminEmailResponse);
 
-    // Send confirmation email to requester (use original email for sending, escaped for display)
     const confirmationResponse = await resend.emails.send({
       from: "NSO Quality Dashboard <info@alexiscollier.com>",
       to: [data.email],
@@ -149,10 +215,7 @@ const handler = async (req: Request): Promise<Response> => {
         adminEmail: adminEmailResponse,
         confirmationEmail: confirmationResponse 
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: any) {
     console.error("Error in send-walkthrough-notification:", error);

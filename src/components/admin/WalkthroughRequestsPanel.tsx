@@ -64,22 +64,44 @@ export const WalkthroughRequestsPanel = () => {
     if (error) {
       toast.error(`Failed to ${status} request`);
       console.error('Error updating request:', error);
-    } else {
-      // Log the admin action
-      await logAction({
-        action: status === 'approved' ? 'approve' : 'reject',
-        resource_type: 'walkthrough_request',
-        resource_id: id,
-        details: {
-          requester_email: request?.email || '',
-          requester_name: request?.name || '',
-          new_status: status,
+      setProcessingId(null);
+      return;
+    }
+
+    // Send email notification to user
+    if (request) {
+      supabase.functions.invoke('send-walkthrough-notification', {
+        body: {
+          name: request.name,
+          email: request.email,
+          organization: request.organization,
+          role: request.role,
+          type: status,
+        },
+      }).then(({ error: notifyError }) => {
+        if (notifyError) {
+          console.error('Failed to send notification email:', notifyError);
+          toast.error('Status updated but email notification failed');
+        } else {
+          console.log(`${status} notification email sent to ${request.email}`);
         }
       });
-      
-      toast.success(`Request ${status}`);
-      fetchRequests();
     }
+
+    // Log the admin action
+    await logAction({
+      action: status === 'approved' ? 'approve' : 'reject',
+      resource_type: 'walkthrough_request',
+      resource_id: id,
+      details: {
+        requester_email: request?.email || '',
+        requester_name: request?.name || '',
+        new_status: status,
+      }
+    });
+    
+    toast.success(`Request ${status} - notification email sent`);
+    fetchRequests();
     setProcessingId(null);
   };
 
