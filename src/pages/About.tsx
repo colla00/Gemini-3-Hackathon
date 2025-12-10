@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw } from 'lucide-react';
+import { Award, FileText, Users, Target, Lightbulb, Shield, Brain, TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
 function About() {
@@ -386,13 +386,15 @@ function About() {
               <BarChart3 className="w-4 h-4" />
               <span>View Dashboard</span>
             </Link>
-            <Link
-              to="/presentation"
+            <a
+              href="https://youtu.be/DA5pwKx5o0s"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-secondary text-foreground rounded-xl font-medium hover:bg-secondary/80 transition-colors border border-border"
             >
-              <FileText className="w-4 h-4" />
-              <span>Watch Demo</span>
-            </Link>
+              <Play className="w-4 h-4" />
+              <span>Watch Demo Video</span>
+            </a>
           </div>
         </div>
       </div>
