@@ -4,7 +4,8 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Bell, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Zap, Home, ShieldAlert, Lock, GraduationCap, 
-  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award, Monitor
+  MousePointer, ChevronLeft, ChevronRight, FileText, Share2, Timer, Award, Monitor,
+  FlaskConical, AlertTriangle
 } from 'lucide-react';
 import { AIAssistant } from '@/components/engagement/AIAssistant';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -95,6 +96,16 @@ export const Presentation = () => {
     return <AudienceView />;
   }
   
+  // Demo mode - PUBLIC, no auth required, with watermark
+  if (mode === 'demo') {
+    return (
+      <>
+        <DemoModeWatermark />
+        <DefaultPresentationView searchParams={searchParams} isDemoMode={true} />
+      </>
+    );
+  }
+  
   // All other modes require authentication
   if (loading) {
     return (
@@ -114,11 +125,42 @@ export const Presentation = () => {
   }
 
   // Default presentation mode (requires auth)
-  return <DefaultPresentationView searchParams={searchParams} />;
+  return <DefaultPresentationView searchParams={searchParams} isDemoMode={false} />;
 };
 
+// Demo Mode Watermark Component
+const DemoModeWatermark = () => (
+  <div className="fixed inset-0 pointer-events-none z-[100] flex items-center justify-center overflow-hidden">
+    {/* Corner badges */}
+    <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/90 text-amber-950 font-bold text-sm shadow-lg pointer-events-auto">
+      <FlaskConical className="w-4 h-4" />
+      DEMO MODE
+    </div>
+    <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/90 text-amber-950 font-bold text-sm shadow-lg pointer-events-auto">
+      <AlertTriangle className="w-4 h-4" />
+      NOT FOR CLINICAL USE
+    </div>
+    
+    {/* Diagonal watermark */}
+    <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
+      <div className="text-[120px] font-black text-foreground rotate-[-30deg] whitespace-nowrap tracking-widest">
+        DEMO MODE • RESEARCH PROTOTYPE • DEMO MODE
+      </div>
+    </div>
+    
+    {/* Bottom banner */}
+    <div className="absolute bottom-0 left-0 right-0 bg-amber-500/90 text-amber-950 text-center py-2 px-4 font-semibold text-sm pointer-events-auto">
+      <span className="flex items-center justify-center gap-2">
+        <FlaskConical className="w-4 h-4" />
+        Public Demo — Synthetic Data Only — Not FDA Cleared — U.S. Pat. App. 63/932,953 Pending
+        <FlaskConical className="w-4 h-4" />
+      </span>
+    </div>
+  </div>
+);
+
 // Separated default view to avoid hooks being called conditionally
-const DefaultPresentationView = ({ searchParams }: { searchParams: URLSearchParams }) => {
+const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchParams: URLSearchParams; isDemoMode?: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
   const [completedSlides, setCompletedSlides] = useState<SlideType[]>([]);
   const [elapsedMinutes, setElapsedMinutes] = useState(0);
