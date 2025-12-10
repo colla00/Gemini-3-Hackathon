@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Info, HelpCircle, TrendingUp, AlertTriangle, ChevronDown, BarChart2, Award } from 'lucide-react';
+import { ArrowRight, Info, HelpCircle, TrendingUp, AlertTriangle, ChevronDown, BarChart2, Award, Shield, Syringe } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { shapFactors, patients, getRiskLevelColor, type ShapFactor } from '@/data/nursingOutcomes';
+import { shapFactorsFalls, shapFactorsHAPI, shapFactorsCAUTI, patients, getRiskLevelColor, type ShapFactor, type RiskCategory } from '@/data/nursingOutcomes';
 import { ClinicalTooltip, MetricTooltip } from './ClinicalTooltip';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -141,12 +141,50 @@ const FactorCard = ({ factor, index }: { factor: ShapFactor; index: number }) =>
 
 export const ShapExplainability = () => {
   const [selectedPatientIndex, setSelectedPatientIndex] = useState(0);
-  const maxContribution = Math.max(...shapFactors.map(f => Math.abs(f.contribution)));
-  const finalScore = shapFactors[shapFactors.length - 1].cumulative;
+  const [selectedRiskType, setSelectedRiskType] = useState<RiskCategory>('FALLS');
+  
+  // Get SHAP factors based on selected risk type
+  const getShapFactors = () => {
+    switch (selectedRiskType) {
+      case 'FALLS': return shapFactorsFalls;
+      case 'HAPI': return shapFactorsHAPI;
+      case 'CAUTI': return shapFactorsCAUTI;
+      default: return shapFactorsFalls;
+    }
+  };
+  
+  const currentShapFactors = getShapFactors();
+  const maxContribution = Math.max(...currentShapFactors.map(f => Math.abs(f.contribution)));
+  const finalScore = currentShapFactors[currentShapFactors.length - 1].cumulative;
   const selectedPatient = patients[selectedPatientIndex];
 
-  const riskFactors = shapFactors.filter(f => f.type === 'risk');
-  const protectiveFactors = shapFactors.filter(f => f.type === 'protective');
+  const riskFactors = currentShapFactors.filter(f => f.type === 'risk');
+  const protectiveFactors = currentShapFactors.filter(f => f.type === 'protective');
+  
+  // Get patient's risk level and confidence for selected risk type
+  const getPatientRiskData = () => {
+    switch (selectedRiskType) {
+      case 'FALLS': return { level: selectedPatient.fallsLevel, confidence: selectedPatient.fallsConfidence, risk: selectedPatient.fallsRisk };
+      case 'HAPI': return { level: selectedPatient.hapiLevel, confidence: selectedPatient.hapiConfidence, risk: selectedPatient.hapiRisk };
+      case 'CAUTI': return { level: selectedPatient.cautiLevel, confidence: selectedPatient.cautiConfidence, risk: selectedPatient.cautiRisk };
+      default: return { level: selectedPatient.fallsLevel, confidence: selectedPatient.fallsConfidence, risk: selectedPatient.fallsRisk };
+    }
+  };
+  
+  const patientRiskData = getPatientRiskData();
+  
+  // Get risk type label and description
+  const getRiskTypeInfo = () => {
+    switch (selectedRiskType) {
+      case 'FALLS': return { label: 'Falls Risk', description: 'probability of a fall event within 24 hours', icon: AlertTriangle };
+      case 'HAPI': return { label: 'Pressure Injury Risk', description: 'probability of pressure injury development', icon: Shield };
+      case 'CAUTI': return { label: 'CAUTI Risk', description: 'probability of catheter-associated UTI', icon: Syringe };
+      default: return { label: 'Falls Risk', description: 'probability of a fall event within 24 hours', icon: AlertTriangle };
+    }
+  };
+  
+  const riskTypeInfo = getRiskTypeInfo();
+  const RiskIcon = riskTypeInfo.icon;
   
   return (
     <div className="space-y-4">
@@ -157,21 +195,72 @@ export const ShapExplainability = () => {
             <BarChart2 className="w-4 h-4 text-primary" />
             <ClinicalTooltip term="SHAP">SHAP Risk Attribution</ClinicalTooltip>
           </h2>
-          <p className="text-[11px] text-muted-foreground">Feature contribution analysis for risk score calculation</p>
+          <p className="text-[11px] text-muted-foreground">Feature contribution analysis for {riskTypeInfo.label.toLowerCase()}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] text-muted-foreground">Viewing:</span>
-          <select
-            value={selectedPatientIndex}
-            onChange={(e) => setSelectedPatientIndex(Number(e.target.value))}
-            className="text-xs py-1 px-2 rounded bg-secondary border border-border/50 text-primary font-medium cursor-pointer"
-          >
-            {patients.map((p, i) => (
-              <option key={p.id} value={i}>
-                {p.mrn} ({p.fallsLevel})
-              </option>
-            ))}
-          </select>
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Risk Type Selector */}
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-muted-foreground">Risk Type:</span>
+            <div className="flex rounded-lg overflow-hidden border border-border/50">
+              <button
+                onClick={() => setSelectedRiskType('FALLS')}
+                className={cn(
+                  "px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1",
+                  selectedRiskType === 'FALLS' 
+                    ? "bg-risk-high/20 text-risk-high" 
+                    : "bg-secondary hover:bg-secondary/80 text-muted-foreground"
+                )}
+              >
+                <AlertTriangle className="w-3 h-3" />
+                Falls
+              </button>
+              <button
+                onClick={() => setSelectedRiskType('HAPI')}
+                className={cn(
+                  "px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1 border-x border-border/50",
+                  selectedRiskType === 'HAPI' 
+                    ? "bg-risk-medium/20 text-risk-medium" 
+                    : "bg-secondary hover:bg-secondary/80 text-muted-foreground"
+                )}
+              >
+                <Shield className="w-3 h-3" />
+                HAPI
+              </button>
+              <button
+                onClick={() => setSelectedRiskType('CAUTI')}
+                className={cn(
+                  "px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1",
+                  selectedRiskType === 'CAUTI' 
+                    ? "bg-primary/20 text-primary" 
+                    : "bg-secondary hover:bg-secondary/80 text-muted-foreground"
+                )}
+              >
+                <Syringe className="w-3 h-3" />
+                CAUTI
+              </button>
+            </div>
+          </div>
+          
+          {/* Patient Selector */}
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-muted-foreground">Patient:</span>
+            <select
+              value={selectedPatientIndex}
+              onChange={(e) => setSelectedPatientIndex(Number(e.target.value))}
+              className="text-xs py-1 px-2 rounded bg-secondary border border-border/50 text-primary font-medium cursor-pointer"
+            >
+              {patients.map((p, i) => {
+                const riskLevel = selectedRiskType === 'FALLS' ? p.fallsLevel 
+                  : selectedRiskType === 'HAPI' ? p.hapiLevel 
+                  : p.cautiLevel;
+                return (
+                  <option key={p.id} value={i}>
+                    {p.mrn} ({riskLevel})
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -211,9 +300,9 @@ export const ShapExplainability = () => {
 
           {/* SHAP Bars */}
           <div className="border-t border-border/30 pt-3">
-            {shapFactors.map((factor, index) => (
+            {currentShapFactors.map((factor, index) => (
               <ShapBar 
-                key={index} 
+                key={`${selectedRiskType}-${index}`} 
                 factor={factor} 
                 maxContribution={maxContribution} 
                 index={index}
@@ -224,14 +313,17 @@ export const ShapExplainability = () => {
 
           {/* Final Score */}
           <div className="mt-4 p-4 rounded-lg bg-secondary/30 border border-border/30 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] text-muted-foreground block">Final Calculated Risk</span>
-              <span className="text-xs text-muted-foreground">After all factor adjustments</span>
+            <div className="flex items-center gap-2">
+              <RiskIcon className={cn("w-5 h-5", getRiskLevelColor(patientRiskData.level))} />
+              <div>
+                <span className="text-[10px] text-muted-foreground block">Final {riskTypeInfo.label}</span>
+                <span className="text-xs text-muted-foreground">After all factor adjustments</span>
+              </div>
             </div>
             <MetricTooltip 
-              label="Final Risk Score"
+              label={`Final ${riskTypeInfo.label}`}
               value={`${finalScore}%`}
-              details="Sum of base risk and all contributing factors. This is the model's predicted probability of a fall event within 24 hours."
+              details={`Sum of base risk and all contributing factors. This is the model's predicted ${riskTypeInfo.description}.`}
               trend={finalScore >= 65 ? 'up' : finalScore >= 35 ? 'stable' : 'down'}
             >
               <div className="flex items-center gap-1 cursor-help">
@@ -251,7 +343,17 @@ export const ShapExplainability = () => {
         <div className="space-y-4">
           {/* Patient Context */}
           <div className="glass-card rounded-lg p-4 opacity-0 animate-fade-in" style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}>
-            <h3 className="text-xs font-semibold text-foreground mb-3">Patient Context</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-semibold text-foreground">Patient Context</h3>
+              <div className={cn(
+                "px-2 py-0.5 rounded text-[10px] font-semibold uppercase",
+                patientRiskData.level === 'HIGH' ? 'bg-risk-high/20 text-risk-high' :
+                patientRiskData.level === 'MODERATE' ? 'bg-risk-medium/20 text-risk-medium' :
+                'bg-risk-low/20 text-risk-low'
+              )}>
+                {patientRiskData.level}
+              </div>
+            </div>
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">
@@ -273,13 +375,20 @@ export const ShapExplainability = () => {
                 </span>
                 <span className="text-foreground font-medium">{selectedPatient.los} days</span>
               </div>
+              <div className="flex justify-between text-xs pt-2 border-t border-border/30">
+                <span className="text-muted-foreground flex items-center gap-1">
+                  <RiskIcon className="w-3 h-3" />
+                  {riskTypeInfo.label}
+                </span>
+                <span className={cn("font-bold tabular-nums", getRiskLevelColor(patientRiskData.level))}>
+                  {patientRiskData.risk}%
+                </span>
+              </div>
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">
-                  <ClinicalTooltip term="Falls Risk" showIcon={false}>Risk Level</ClinicalTooltip>
+                  <ClinicalTooltip term="Confidence" showIcon={false}>Model Confidence</ClinicalTooltip>
                 </span>
-                <span className={cn("font-semibold", getRiskLevelColor(selectedPatient.fallsLevel))}>
-                  {selectedPatient.fallsLevel}
-                </span>
+                <span className="text-primary font-medium">{patientRiskData.confidence}%</span>
               </div>
             </div>
           </div>
@@ -288,8 +397,8 @@ export const ShapExplainability = () => {
           <div className="glass-card rounded-lg p-4 opacity-0 animate-fade-in" style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}>
             <h3 className="text-xs font-semibold text-foreground mb-3">Factor Breakdown</h3>
             <div className="grid grid-cols-2 gap-2">
-              {shapFactors.map((factor, index) => (
-                <FactorCard key={index} factor={factor} index={index} />
+              {currentShapFactors.map((factor, index) => (
+                <FactorCard key={`${selectedRiskType}-${index}`} factor={factor} index={index} />
               ))}
             </div>
           </div>
@@ -332,10 +441,8 @@ export const ShapExplainability = () => {
                 <span className="text-foreground">80%+ (goal)</span>
               </div>
               <div className="flex justify-between pt-1 border-t border-border/30">
-                <span className="text-muted-foreground">
-                  <ClinicalTooltip term="Confidence" showIcon={false}>Model Confidence</ClinicalTooltip>
-                </span>
-                <span className="text-primary font-medium">{selectedPatient.fallsConfidence}%</span>
+                <span className="text-muted-foreground">Data Sources</span>
+                <span className="text-foreground">HiRID, MIMIC-IV, eICU</span>
               </div>
             </div>
           </div>

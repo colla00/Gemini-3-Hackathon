@@ -451,13 +451,37 @@ export const patients: PatientData[] = [
   },
 ];
 
-// SHAP Waterfall Data
-export const shapFactors: ShapFactor[] = [
+// SHAP Waterfall Data - Falls
+export const shapFactorsFalls: ShapFactor[] = [
   { factor: 'Base Risk', contribution: 15, cumulative: 15, type: 'base' },
   { factor: 'Sedation', contribution: 32, cumulative: 47, type: 'risk' },
   { factor: 'Mobility', contribution: 28, cumulative: 75, type: 'risk' },
   { factor: 'Bed Alarm', contribution: -15, cumulative: 60, type: 'protective' },
 ];
+
+// SHAP Waterfall Data - HAPI (Pressure Injury)
+export const shapFactorsHAPI: ShapFactor[] = [
+  { factor: 'Base Risk', contribution: 12, cumulative: 12, type: 'base' },
+  { factor: 'Braden Score', contribution: 25, cumulative: 37, type: 'risk' },
+  { factor: 'Immobility', contribution: 22, cumulative: 59, type: 'risk' },
+  { factor: 'Malnutrition', contribution: 18, cumulative: 77, type: 'risk' },
+  { factor: 'Turn Protocol', contribution: -12, cumulative: 65, type: 'protective' },
+  { factor: 'Specialty Bed', contribution: -10, cumulative: 55, type: 'protective' },
+];
+
+// SHAP Waterfall Data - CAUTI (Catheter-Associated UTI)
+export const shapFactorsCAUTI: ShapFactor[] = [
+  { factor: 'Base Risk', contribution: 8, cumulative: 8, type: 'base' },
+  { factor: 'Catheter Days (>7)', contribution: 35, cumulative: 43, type: 'risk' },
+  { factor: 'Fever (38.2°C)', contribution: 22, cumulative: 65, type: 'risk' },
+  { factor: 'Cloudy Urine', contribution: 18, cumulative: 83, type: 'risk' },
+  { factor: 'Immunocompromised', contribution: 12, cumulative: 95, type: 'risk' },
+  { factor: 'Bundle Compliance', contribution: -10, cumulative: 85, type: 'protective' },
+  { factor: 'Daily Review', contribution: -7, cumulative: 78, type: 'protective' },
+];
+
+// Legacy export for backwards compatibility
+export const shapFactors = shapFactorsFalls;
 
 // Clinical Workflow Stages
 export const workflowStages: WorkflowStage[] = [
