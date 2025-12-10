@@ -54,6 +54,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Projected Cost Savings from NSO Prevention',
     citation: 'Estimates based on AHRQ and CMS data',
   },
+  'ml-features': {
+    title: 'Machine Learning Feature Set',
+    subtitle: '47 Clinical Features Across 7 Categories',
+    citation: 'Features from validated scales and EHR data',
+  },
 };
 
 interface AcademicHeaderProps {
