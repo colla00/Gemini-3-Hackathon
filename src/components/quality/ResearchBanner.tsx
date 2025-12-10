@@ -16,7 +16,7 @@ export const ResearchBanner = () => {
         </span>
         <div className="hidden lg:flex items-center gap-2 text-warning/70">
           <Database className="w-3 h-3" />
-          <span>AUROC 0.89 (Synthetic)</span>
+          <span>Target AUROC 0.89</span>
         </div>
         <div className="hidden xl:flex items-center gap-2 text-warning/70">
           <FileText className="w-3 h-3" />

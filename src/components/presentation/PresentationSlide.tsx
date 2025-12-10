@@ -190,15 +190,15 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     ],
     keyPoints: [
       'Real-time EHR integration via HL7 FHIR (planned)',
-      '47 clinical features from validated scales',
+      '47 clinical features from published assessment scales',
       'Gradient boosting ensemble model (proposed)',
       'Target: sub-5-minute data latency',
       'Calibrated probability outputs',
     ],
     talkingPoints: [
       'Let me explain how the system works technically, while keeping it accessible.',
-      'The architecture pulls data from the EHR in real-time via HL7 FHIR interfaces. FHIR is the modern healthcare interoperability standard, so this approach should work with any compliant system.',
-      'I identified 47 clinical features that research indicates are predictive of nurse-sensitive outcomes. These include validated assessment scales like Braden for pressure injuries and Morse for falls.',
+      'The architecture is designed to pull data from the EHR in real-time via HL7 FHIR interfaces. FHIR is the modern healthcare interoperability standard, so this approach should work with any compliant system.',
+      'I identified 47 clinical features that research literature indicates are predictive of nurse-sensitive outcomes. These include published assessment scales like Braden for pressure injuries and Morse for falls.',
       'For the machine learning model, I chose gradient boosting. I specifically wanted something that produces calibrated probabilities and is inherently interpretable.',
       'What does calibrated mean? If the model indicates a 70 percent fall risk, approximately 70 out of 100 patients with similar profiles would actually fall. This accuracy is crucial for clinical trust.',
       'If nurses see too many false alarms, they will ignore the system.',
@@ -215,12 +215,12 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     notes: [
       '7 categories of clinical data',
       'Vital signs with 24-hour trends',
-      'Validated nursing assessments',
+      'Published nursing assessments',
       'Labs, medications, mobility, timing',
     ],
     keyPoints: [
       'Vital signs and 24-hour trends',
-      'Validated nursing assessments',
+      'Published nursing assessments',
       'Laboratory values',
       'Medications and mobility factors',
     ],

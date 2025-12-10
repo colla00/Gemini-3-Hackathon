@@ -117,7 +117,7 @@ export const ValidationMetricsDashboard = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-foreground">Validation Metrics Dashboard</h2>
-          <p className="text-sm text-muted-foreground">Illustrative Model Performance Metrics (Synthetic Data)</p>
+          <p className="text-sm text-muted-foreground">Design Target Metrics (No Testing Conducted)</p>
         </div>
         <div className="flex items-center gap-2">
           <Badge className="bg-amber-500/20 text-amber-500 border-amber-500/30">
@@ -136,9 +136,9 @@ export const ValidationMetricsDashboard = () => {
         <div className="flex items-start gap-2">
           <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
           <p className="text-xs text-amber-600 dark:text-amber-400">
-            <strong>Note:</strong> All metrics shown are illustrative examples based on synthetic demonstration data. 
-            These values represent target performance goals, not validated clinical results. 
-            Actual validation studies have not yet been conducted.
+            <strong>Important:</strong> All metrics shown are design targets based on published literature benchmarks. 
+            No model training, testing, or validation has been conducted. 
+            These values represent performance goals, not actual results.
           </p>
         </div>
       </div>
@@ -195,9 +195,9 @@ export const ValidationMetricsDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-base">Receiver Operating Characteristic (ROC) Curve</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-1">Illustrative AUROC = 0.89 (synthetic demonstration)</p>
+                  <p className="text-xs text-muted-foreground mt-1">Design target AUROC = 0.89 (no testing conducted)</p>
                 </div>
-                <Badge variant="outline" className="text-amber-500 border-amber-500/30">Simulated Data</Badge>
+                <Badge variant="outline" className="text-amber-500 border-amber-500/30">Design Target</Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -240,7 +240,7 @@ export const ValidationMetricsDashboard = () => {
                 </ResponsiveContainer>
               </div>
               <div className="mt-4 p-3 rounded-lg bg-secondary/50 text-xs text-muted-foreground">
-                <strong>Interpretation:</strong> AUROC of 0.89 indicates the model correctly ranks a randomly chosen positive case higher than a randomly chosen negative case 89% of the time.
+                <strong>Note:</strong> This is a design target visualization. AUROC of 0.89 represents our performance goal based on published literature. No actual model has been trained or tested.
               </div>
             </CardContent>
           </Card>

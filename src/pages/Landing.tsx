@@ -25,7 +25,7 @@ const features = [
   {
     icon: BarChart3,
     title: 'SHAP Explainability',
-    description: 'Transparent AI with interpretable risk factor attribution (AUROC 0.89).',
+    description: 'Transparent AI with interpretable risk factor attribution.',
   },
   {
     icon: Activity,
@@ -171,15 +171,15 @@ export const Landing = () => {
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:scale-105 transition-all cursor-pointer"
                     >
                       <Brain className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-semibold text-primary">AUROC 0.89</span>
+                      <span className="text-sm font-semibold text-primary">Target AUROC 0.89</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
                         <FlaskConical className="w-2.5 h-2.5" />
-                        Synthetic
+                        Design Goal
                       </span>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
-                    <p className="text-xs"><strong>Model Performance:</strong> AUROC measured on synthetic validation datasets (HiRID, MIMIC-IV, eICU-CRD). Not yet validated in clinical settings.</p>
+                    <p className="text-xs"><strong>Design Target:</strong> AUROC 0.89 is a design goal based on published literature benchmarks. No model training or validation has been conducted yet.</p>
                   </TooltipContent>
                 </Tooltip>
                 

@@ -60,7 +60,7 @@ const talkingPoints: TalkingPoint[] = [
     duration: '8m',
     keyPoints: [
       'Real-time EHR data via HL7 FHIR',
-      '47 clinical features from validated scales',
+      '47 clinical features from published scales',
       'Gradient boosting for calibrated probabilities',
       'Target: updates within 5 minutes',
     ],
@@ -118,9 +118,9 @@ const talkingPoints: TalkingPoint[] = [
     slide: 'Validation',
     duration: '5m',
     keyPoints: [
-      'BE TRANSPARENT: 0.89 AUROC is synthetic data only',
-      'NO clinical trial completed yet',
-      'Targets are design goals, not proven results',
+      'BE TRANSPARENT: 0.89 AUROC is a DESIGN TARGET only',
+      'NO model training or testing completed',
+      'All metrics are goals based on literature',
       'Prospective study in planning',
     ],
   },
