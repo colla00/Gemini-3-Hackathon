@@ -487,6 +487,26 @@
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
   animation-delay: 0ms !important;
+  animation-fill-mode: forwards !important;
+}
+
+/* CRITICAL: Force visibility on elements that use opacity-0 with animations */
+.zoom-mode .opacity-0 {
+  opacity: 1 !important;
+}
+
+.zoom-mode [style*="opacity: 0"] {
+  opacity: 1 !important;
+}
+
+/* Ensure animate-fade-in elements are visible */
+.zoom-mode .animate-fade-in,
+.zoom-mode .animate-slide-in-right,
+.zoom-mode .animate-slide-in-left,
+.zoom-mode .animate-slide-up,
+.zoom-mode [class*="animate-"] {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* Keep essential pulsing for live indicators but make it subtle */
