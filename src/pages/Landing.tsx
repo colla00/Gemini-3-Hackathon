@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useState, useRef } from 'react';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation, Play, ChevronDown
+  Brain, Sparkles, Lock, FileText, Presentation, Play
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { TermsAcceptanceModal } from '@/components/TermsAcceptanceModal';
 import { QuickStartLauncher } from '@/components/presentation/QuickStartLauncher';
 import { WalkthroughRequestModal } from '@/components/WalkthroughRequestModal';
-import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
 import { useAuth } from '@/hooks/useAuth';
 
 const features = [
@@ -72,23 +70,6 @@ const pages = [
 
 export const Landing = () => {
   const { isAdmin } = useAuth();
-  const [claimsExpanded, setClaimsExpanded] = useState(false);
-  const claimsSectionRef = useRef<HTMLDivElement>(null);
-
-  const handleClaimsToggle = () => {
-    const willExpand = !claimsExpanded;
-    setClaimsExpanded(willExpand);
-    
-    if (willExpand) {
-      // Scroll to claims section after expansion animation starts
-      setTimeout(() => {
-        claimsSectionRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
-        });
-      }, 100);
-    }
-  };
   
   return (
     <div className="min-h-screen bg-background">
@@ -357,51 +338,6 @@ export const Landing = () => {
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Patent Claims Collapsible Section */}
-      <section ref={claimsSectionRef} className="py-12 px-6 bg-secondary/20 border-t border-border/30 scroll-mt-4">
-        <div className="max-w-6xl mx-auto">
-          <button
-            onClick={handleClaimsToggle}
-            className="w-full flex items-center justify-between p-4 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <FileText className="w-5 h-5 text-primary" />
-              </div>
-              <div className="text-left">
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {claimsExpanded ? 'Collapse Patent Claims' : 'View Patent Claims'}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  9 claims covering novel AI methods for nurse-sensitive outcomes
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className={cn(
-                "text-xs font-medium transition-opacity duration-300",
-                claimsExpanded ? "opacity-100 text-primary" : "opacity-0"
-              )}>
-                Click to collapse
-              </span>
-              <ChevronDown className={cn(
-                "w-5 h-5 text-muted-foreground transition-transform duration-300",
-                claimsExpanded && "rotate-180"
-              )} />
-            </div>
-          </button>
-          
-          <div className={cn(
-            "overflow-hidden transition-all duration-500 ease-in-out",
-            claimsExpanded ? "max-h-[3000px] opacity-100 mt-6" : "max-h-0 opacity-0"
-          )}>
-            <div className="p-6 rounded-xl bg-card border border-border/50">
-              <PatentClaimsSummary />
-            </div>
           </div>
         </div>
       </section>
