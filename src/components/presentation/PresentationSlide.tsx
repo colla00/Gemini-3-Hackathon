@@ -11,6 +11,7 @@ export type SlideType =
   | 'problem'
   | 'comparison' 
   | 'methodology'
+  | 'ml-features'
   | 'ehr-flow'
   | 'alert-timeline' 
   | 'dashboard' 
@@ -165,7 +166,34 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Outputs will be calibrated probabilities — a 70% risk would mean 70 out of 100 similar patients will have the event.',
       'Our target is from data change to dashboard update in under 5 minutes.',
     ],
-    transitionCue: '→ "Let me show you how data flows through the system..."',
+    transitionCue: '→ "Let me show you the features we use..."',
+  },
+  {
+    id: 'ml-features',
+    title: 'Clinical Feature Set',
+    subtitle: '47 Features Across 7 Categories',
+    duration: 3,
+    icon: <Brain className="w-8 h-8" />,
+    notes: [
+      'Walk through the feature categories',
+      'Highlight validated assessment scales (Morse, Braden)',
+      'Explain how features map to different outcomes',
+      'Click into categories for detail',
+    ],
+    keyPoints: [
+      'Vital signs and trends',
+      'Validated nursing assessments',
+      'Laboratory values',
+      'Mobility and medication factors',
+    ],
+    talkingPoints: [
+      'Our model uses 47 clinical features organized into 7 categories.',
+      'These include vital signs with 24-hour trends, not just point values.',
+      'We incorporate validated scales like Morse Fall Scale and Braden Score.',
+      'Lab values, medication exposure, and temporal factors round out the feature set.',
+      'Click any category to see the specific features included.',
+    ],
+    transitionCue: '→ "Now let me show you how data flows through the system..."',
   },
   {
     id: 'ehr-flow',
