@@ -16,7 +16,7 @@ import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagra
 import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { MethodologyChat } from '@/components/quality/MethodologyChat';
-
+import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAccessButton';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -183,6 +183,9 @@ export const Dashboard = () => {
 
             {/* Quick Actions - Cleaned up, no overlaps */}
             <div className="flex items-center gap-0.5">
+              {/* Walkthrough Access Button - shows based on approval status */}
+              <WalkthroughAccessButton />
+              
               <Link
                 to="/presentation?mode=presenter"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
