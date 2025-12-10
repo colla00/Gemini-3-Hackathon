@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Award, FileText, Users, Target, Lightbulb, Shield, Brain, 
-  TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play 
+  TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play,
+  CheckCircle, XCircle, FlaskConical, CircleDot
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
@@ -182,6 +183,189 @@ function About() {
         <Card>
           <CardContent className="pt-6">
             <PatentClaimsSummary />
+          </CardContent>
+        </Card>
+
+        {/* Validation Status */}
+        <Card className="border-primary/30">
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircle className="w-5 h-5 text-primary" />
+              <CardTitle>Validation Status</CardTitle>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Transparency about what has been verified vs. what requires future validation
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Verified/Proven */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle className="w-4 h-4 text-risk-low" />
+                <h3 className="font-semibold text-risk-low">Documented & Verifiable</h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg border border-risk-low/30 bg-risk-low/5">
+                  <div className="flex items-start gap-3">
+                    <Award className="w-4 h-4 text-risk-low mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">Patent Application Filed</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        U.S. Provisional Patent No. 63/932,953 filed December 2025. Verifiable through USPTO public records.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-risk-low/30 bg-risk-low/5">
+                  <div className="flex items-start gap-3">
+                    <FileText className="w-4 h-4 text-risk-low mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">9 Patent Claims Documented</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Claims covering integrated explainability, forecasting, adaptive thresholds, and closed-loop feedback.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-risk-low/30 bg-risk-low/5">
+                  <div className="flex items-start gap-3">
+                    <Brain className="w-4 h-4 text-risk-low mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">Technical Architecture Designed</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        System architecture, ML pipeline, and integration patterns fully specified in patent application.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-risk-low/30 bg-risk-low/5">
+                  <div className="flex items-start gap-3">
+                    <BarChart3 className="w-4 h-4 text-risk-low mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">SHAP Explainability Framework</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Based on established, peer-reviewed SHAP methodology for ML interpretability.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Synthetic Data Results */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <FlaskConical className="w-4 h-4 text-amber-500" />
+                <h3 className="font-semibold text-amber-600 dark:text-amber-400">Synthetic Data Results</h3>
+                <Badge variant="outline" className="text-[10px] border-amber-500/30 text-amber-600 dark:text-amber-400">
+                  Not Clinically Validated
+                </Badge>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg border border-amber-500/30 bg-amber-500/5">
+                  <div className="flex items-start gap-3">
+                    <TrendingUp className="w-4 h-4 text-amber-500 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">AUROC 0.89</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Measured on synthetic validation datasets (HiRID, MIMIC-IV, eICU-CRD). Real-world performance may differ.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-amber-500/30 bg-amber-500/5">
+                  <div className="flex items-start gap-3">
+                    <Target className="w-4 h-4 text-amber-500 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">Sensitivity 0.87 / Specificity 0.86</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Performance metrics from synthetic data testing. Requires clinical validation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Projected/Theoretical */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <CircleDot className="w-4 h-4 text-muted-foreground" />
+                <h3 className="font-semibold text-muted-foreground">Projected (Requires Validation)</h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg border border-border bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">40-70% False Positive Reduction</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Theoretical improvement vs. fixed thresholds based on adaptive threshold design. No clinical trial data.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-border bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">6-48 Hour Advance Warning</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Design target for multi-horizon forecasting. Actual lead times require prospective validation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-border bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">&gt;80% Clinician Trust</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Based on literature comparing explainable vs. black-box AI. No user studies conducted for this system.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg border border-border bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <div>
+                      <p className="font-medium text-sm">Clinical Outcome Improvements</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Reduced falls, pressure injuries, and CAUTI are targets, not proven outcomes. IRB study planned.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Next Steps */}
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                Validation Roadmap
+              </h3>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  IRB approval for prospective clinical study (Planned)
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Pilot deployment at partner institution (Planned)
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Clinical outcome measurement and publication (Planned)
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  FDA 510(k) submission if clinical use pursued (Future)
+                </li>
+              </ul>
+            </div>
           </CardContent>
         </Card>
 
