@@ -36,8 +36,18 @@ export const MethodologyChat = () => {
     }
   }, [messages]);
 
+  const MAX_MESSAGE_LENGTH = 2000;
+
   const sendMessage = async (messageText: string) => {
     if (!messageText.trim() || isLoading) return;
+    
+    if (messageText.length > MAX_MESSAGE_LENGTH) {
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `Message too long. Please limit your message to ${MAX_MESSAGE_LENGTH} characters.` 
+      }]);
+      return;
+    }
 
     const userMsg: Message = { role: 'user', content: messageText };
     setMessages(prev => [...prev, userMsg]);
