@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskCategoryData } from '@/data/nursingOutcomes';
 import { ConfidenceIndicator } from './ConfidenceIndicator';
@@ -19,7 +19,7 @@ interface DashboardOverviewProps {
 const RiskCard = ({ data, index, isLive }: { data: RiskCategoryData; index: number; isLive?: boolean }) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const TrendIcon = data.trend === 'up' ? TrendingUp : data.trend === 'down' ? TrendingDown : Minus;
-  const CategoryIcon = data.category === 'FALLS' ? AlertTriangle : data.category === 'HAPI' ? Shield : Activity;
+  const CategoryIcon = data.category === 'FALLS' ? AlertTriangle : data.category === 'HAPI' ? Shield : data.category === 'CAUTI' ? Syringe : Activity;
   
   useEffect(() => {
     // Animate score on mount
