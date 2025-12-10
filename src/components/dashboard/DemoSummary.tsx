@@ -10,7 +10,7 @@ const summaryPoints = [
   {
     icon: <Brain className="w-5 h-5" />,
     title: 'SHAP Explainability',
-    description: 'Interpretable risk attribution (AUROC 0.89)',
+    description: 'Interpretable risk attribution (Target AUROC 0.89)',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,
@@ -20,7 +20,7 @@ const summaryPoints = [
   {
     icon: <Users className="w-5 h-5" />,
     title: 'Adaptive Thresholds',
-    description: '40-70% false positive reduction',
+    description: 'Projected 40-70% false positive reduction',
   },
   {
     icon: <Shield className="w-5 h-5" />,
@@ -30,9 +30,9 @@ const summaryPoints = [
 ];
 
 const dataSources = [
-  { name: 'HiRID', desc: 'High-resolution ICU data' },
-  { name: 'MIMIC-IV', desc: 'Critical care benchmark' },
-  { name: 'eICU-CRD', desc: 'Multi-center ICU cohort' },
+  { name: 'HiRID', desc: 'Reference dataset' },
+  { name: 'MIMIC-IV', desc: 'Reference dataset' },
+  { name: 'eICU-CRD', desc: 'Reference dataset' },
 ];
 
 interface DemoSummaryProps {
@@ -73,7 +73,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
       <div className="flex flex-wrap items-center justify-center gap-4 py-3 border-t border-b border-border/30 mb-4">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Database className="w-3.5 h-3.5" />
-          <span className="font-medium">Model trained on:</span>
+          <span className="font-medium">Planned data sources:</span>
         </div>
         {dataSources.map((source) => (
           <div key={source.name} className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary/50 border border-border/30">
