@@ -1,16 +1,16 @@
-import { CheckCircle, Target, Brain, Users, Shield, TrendingUp } from 'lucide-react';
+import { CheckCircle, Target, Brain, Users, Shield, TrendingUp, Database } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const summaryPoints = [
   {
     icon: <Target className="w-5 h-5" />,
     title: 'Nurse-Sensitive Outcomes',
-    description: 'Falls, pressure injuries, device complications',
+    description: 'Falls, pressure injuries, CAUTI',
   },
   {
     icon: <Brain className="w-5 h-5" />,
     title: 'Interpretable AI',
-    description: 'Transparent risk factor contributions',
+    description: 'SHAP-based risk factor attribution',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,
@@ -24,9 +24,15 @@ const summaryPoints = [
   },
   {
     icon: <Shield className="w-5 h-5" />,
-    title: 'Workflow-Aware',
-    description: 'Integrated into clinical routines',
+    title: 'Workflow Integration',
+    description: 'Shift handoffs & intervention tracking',
   },
+];
+
+const dataSources = [
+  { name: 'HiRID', desc: 'High-resolution ICU data' },
+  { name: 'MIMIC-IV', desc: 'Critical care benchmark' },
+  { name: 'eICU-CRD', desc: 'Multi-center ICU cohort' },
 ];
 
 interface DemoSummaryProps {
@@ -63,10 +69,24 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
         ))}
       </div>
 
-      <div className="flex items-center justify-center gap-2 pt-4 border-t border-border/30">
+      {/* Data Sources Attribution */}
+      <div className="flex flex-wrap items-center justify-center gap-4 py-3 border-t border-b border-border/30 mb-4">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <Database className="w-3.5 h-3.5" />
+          <span className="font-medium">Model trained on:</span>
+        </div>
+        {dataSources.map((source) => (
+          <div key={source.name} className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary/50 border border-border/30">
+            <span className="text-xs font-semibold text-foreground">{source.name}</span>
+            <span className="text-[10px] text-muted-foreground hidden sm:inline">· {source.desc}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-center gap-2">
         <CheckCircle className="w-4 h-4 text-risk-low" />
         <span className="text-xs text-muted-foreground">
-          Research prototype using de-identified clinical data
+          Research prototype · Synthetic demonstration data
         </span>
       </div>
     </div>
