@@ -1,4 +1,4 @@
-import { AlertTriangle, FileText, Award } from 'lucide-react';
+import { AlertTriangle, FileText, Award, Database } from 'lucide-react';
 
 export const ResearchBanner = () => {
   return (
@@ -15,10 +15,14 @@ export const ResearchBanner = () => {
           • Not for clinical use
         </span>
         <div className="hidden lg:flex items-center gap-2 text-warning/70">
-          <FileText className="w-3 h-3" />
-          <span>IRB Submission Planned</span>
+          <Database className="w-3 h-3" />
+          <span>Models: HiRID, MIMIC-IV, eICU</span>
         </div>
-        <div className="hidden lg:flex items-center gap-2 text-warning/70">
+        <div className="hidden xl:flex items-center gap-2 text-warning/70">
+          <FileText className="w-3 h-3" />
+          <span>IRB Planned</span>
+        </div>
+        <div className="hidden xl:flex items-center gap-2 text-warning/70">
           <Award className="w-3 h-3" />
           <span>Patent Pending</span>
         </div>
