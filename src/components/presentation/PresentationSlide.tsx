@@ -23,7 +23,6 @@ export type SlideType =
   | 'validation'
   | 'roi' 
   | 'future'
-  | 'qa-prep' 
   | 'conclusion';
 
 interface SlideConfig {
@@ -553,27 +552,39 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'And honestly? I am looking for collaborators. I am one person. I have built this prototype, but turning it into something that actually helps patients is going to require partnerships.',
       'If anyone here is interested in discussing — whether for validation studies, EHR integration, or research collaboration — I would love to connect.',
     ],
-    transitionCue: '→ "Before Q&A, let me review some anticipated questions..."',
+    transitionCue: '→ "To wrap up and take questions..."',
   },
   {
-    id: 'qa-prep',
-    title: 'Q&A Preparation',
-    subtitle: 'Anticipated Questions & Responses',
-    duration: 0,
+    id: 'conclusion',
+    title: 'Thank You',
+    subtitle: 'Questions & Discussion',
+    duration: 2,
     icon: <MessageSquare className="w-8 h-8" />,
     notes: [
-      'PRESENTER ONLY - Review before Q&A',
-      'Common questions with suggested responses',
-      'Key points to remember',
-      'Difficulty ratings for preparation',
+      'Summarize key takeaways',
+      'Invite questions from the audience',
+      'Provide contact information',
+      'Mention collaboration opportunities',
     ],
     keyPoints: [
-      'Validation status and timeline',
-      'Model accuracy and false positives',
-      'EHR integration approach',
-      'Regulatory considerations',
+      'AI-augmented nursing quality monitoring',
+      'Real-time, explainable risk prediction',
+      'Human-in-the-loop design philosophy',
+      'Contact: alexis.collier@ung.edu',
     ],
     talkingPoints: [
+      'To summarize what I have shared today: I built a prototype AI system that predicts nursing-sensitive outcomes in real-time.',
+      'The system is explainable — nurses can see exactly why a patient is flagged as high-risk using SHAP visualizations.',
+      'It is designed to integrate into clinical workflow rather than disrupting it.',
+      'The core philosophy is human-in-the-loop: augmenting nursing judgment, not replacing it.',
+      'I want to be honest about where I am: this is a research prototype with a provisional patent. Clinical validation is still ahead of me.',
+      'But I believe the approach is sound, and I am excited about the potential to help prevent patient harm.',
+      'Thank you so much for your time and attention today. I genuinely appreciate you being here.',
+      'I would love to hear your questions, answer any concerns, and discuss potential collaborations.',
+      'My email is on the screen: alexis.collier@ung.edu. Please do not hesitate to reach out.',
+      '',
+      '--- ANTICIPATED Q&A CHEAT SHEET ---',
+      '',
       '--- VALIDATION QUESTION (HARD) ---',
       'Q: "What validation studies have you completed?"',
       'A: This is currently a research prototype. I have designed the system based on clinical workflow analysis and literature review, but prospective validation studies are planned for 2026. The metrics shown today are targets and illustrative examples, not completed study results.',
@@ -617,38 +628,6 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       '--- REMEMBER ---',
       'This is a research prototype. Metrics are targets, not results. Validation studies planned. Contact: alexis.collier@ung.edu',
     ],
-    transitionCue: '→ "To wrap up..."',
-  },
-  {
-    id: 'conclusion',
-    title: 'Thank You',
-    subtitle: 'Questions & Discussion',
-    duration: 2,
-    icon: <MessageSquare className="w-8 h-8" />,
-    notes: [
-      'Summarize key takeaways',
-      'Invite questions from the audience',
-      'Provide contact information',
-      'Mention collaboration opportunities',
-    ],
-    keyPoints: [
-      'AI-augmented nursing quality monitoring',
-      'Real-time, explainable risk prediction',
-      'Human-in-the-loop design philosophy',
-      'Contact: alexis.collier@ung.edu',
-    ],
-    talkingPoints: [
-      'To summarize what I have shared today: I built a prototype AI system that predicts nursing-sensitive outcomes in real-time.',
-      'The system is explainable — nurses can see exactly why a patient is flagged as high-risk using SHAP visualizations.',
-      'It is designed to integrate into clinical workflow rather than disrupting it.',
-      'The core philosophy is human-in-the-loop: augmenting nursing judgment, not replacing it.',
-      'I want to be honest about where I am: this is a research prototype with a provisional patent. Clinical validation is still ahead of me.',
-      'But I believe the approach is sound, and I am excited about the potential to help prevent patient harm.',
-      'Thank you so much for your time and attention today. I genuinely appreciate you being here.',
-      'I would love to hear your questions, answer any concerns, and discuss potential collaborations.',
-      'My email is on the screen: alexis.collier@ung.edu. Please do not hesitate to reach out.',
-      'My email is on screen — please reach out.',
-    ],
     transitionCue: '→ "Thank you! I am happy to take questions..."',
   },
 ];
@@ -667,30 +646,6 @@ export const PresentationSlideView = ({ slide, isActive, isAudience = false, chi
   // For slides that have dashboard content (dashboard, patients, shap, workflow)
   if (children) {
     return <>{children}</>;
-  }
-
-  // For qa-prep slide, show simplified version to audience
-  if (slide.id === 'qa-prep' && isAudience) {
-    return (
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-8">
-        <div className="max-w-4xl w-full animate-fade-in text-center">
-          <div className="w-20 h-20 mx-auto mb-8 rounded-2xl flex items-center justify-center bg-primary/20 text-primary">
-            <MessageSquare className="w-12 h-12" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Questions & Discussion
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-            Please use Zoom chat or raise your hand
-          </p>
-          <div className="mt-12 max-w-lg mx-auto p-6 rounded-xl bg-card border border-border/50">
-            <p className="text-muted-foreground">
-              The presenter will now take questions from the audience.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   // Full-screen slide view for intro/transition slides

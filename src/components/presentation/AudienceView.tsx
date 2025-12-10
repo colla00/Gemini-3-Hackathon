@@ -23,7 +23,6 @@ import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
 
 // Map slide types to view types - must match all slides
-// NOTE: 'qa-prep' is null because it's presenter-only content
 const slideToView: Record<string, string | null> = {
   'title': null,
   'agenda': null,
@@ -42,7 +41,6 @@ const slideToView: Record<string, string | null> = {
   'validation': null,
   'roi': 'roi',
   'future': null,
-  'qa-prep': null, // Presenter-only - audience sees slide view instead
   'conclusion': null,
 };
 

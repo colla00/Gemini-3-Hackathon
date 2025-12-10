@@ -30,7 +30,6 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
-import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -59,7 +58,6 @@ const slideToView: Record<string, string | null> = {
   'validation': null,
   'roi': 'roi',
   'future': null,
-  'qa-prep': 'qa-prep',
   'conclusion': null,
 };
 
@@ -454,7 +452,6 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'alert-timeline' && <AlertTimelineSlide />}
                       {slideToView[currentSlide] === 'patient-journey' && <PatientJourneySlide />}
                       {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
-                      {slideToView[currentSlide] === 'qa-prep' && <QAPrepSlide />}
                     </div>
                   ) : currentSlideConfig ? (
                     <PresentationSlideView slide={currentSlideConfig} isActive={true} />

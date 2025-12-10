@@ -64,11 +64,6 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '45-Minute Walkthrough Video',
     citation: 'Stanford AI+HEALTH 2025',
   },
-  'qa-prep': {
-    title: 'Q&A Preparation',
-    subtitle: 'Anticipated Questions & Responses',
-    citation: 'Presenter reference only',
-  },
 };
 
 interface AcademicHeaderProps {

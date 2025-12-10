@@ -20,7 +20,7 @@ export const PresentationTimeline45 = ({
     { label: 'Introduction', slides: ['title', 'agenda', 'video-demo'] as SlideType[] },
     { label: 'Background', slides: ['problem', 'comparison', 'methodology', 'ml-features', 'ehr-flow', 'alert-timeline'] as SlideType[] },
     { label: 'Demonstration', slides: ['dashboard', 'patients', 'patient-journey', 'shap', 'workflow'] as SlideType[] },
-    { label: 'Conclusion', slides: ['validation', 'roi', 'future', 'qa-prep', 'conclusion'] as SlideType[] },
+    { label: 'Conclusion', slides: ['validation', 'roi', 'future', 'conclusion'] as SlideType[] },
   ];
 
   return (
