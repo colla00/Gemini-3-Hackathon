@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
   Brain, Sparkles, Lock, FileText, Presentation, Play, ChevronDown
@@ -73,6 +73,22 @@ const pages = [
 export const Landing = () => {
   const { isAdmin } = useAuth();
   const [claimsExpanded, setClaimsExpanded] = useState(false);
+  const claimsSectionRef = useRef<HTMLDivElement>(null);
+
+  const handleClaimsToggle = () => {
+    const willExpand = !claimsExpanded;
+    setClaimsExpanded(willExpand);
+    
+    if (willExpand) {
+      // Scroll to claims section after expansion animation starts
+      setTimeout(() => {
+        claimsSectionRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 100);
+    }
+  };
   
   return (
     <div className="min-h-screen bg-background">
@@ -346,10 +362,10 @@ export const Landing = () => {
       </section>
 
       {/* Patent Claims Collapsible Section */}
-      <section className="py-12 px-6 bg-secondary/20 border-t border-border/30">
+      <section ref={claimsSectionRef} className="py-12 px-6 bg-secondary/20 border-t border-border/30 scroll-mt-4">
         <div className="max-w-6xl mx-auto">
           <button
-            onClick={() => setClaimsExpanded(!claimsExpanded)}
+            onClick={handleClaimsToggle}
             className="w-full flex items-center justify-between p-4 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all group"
           >
             <div className="flex items-center gap-3">
