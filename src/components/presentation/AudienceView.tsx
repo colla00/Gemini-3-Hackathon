@@ -13,7 +13,6 @@ import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
-import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { 
   PresentationSlideView, 
@@ -195,16 +194,10 @@ export const AudienceView = () => {
           <PresentationSlideView
             slide={currentSlideConfig}
             isActive={true}
+            isAudience={true}
           />
         ) : null}
       </main>
-
-      {/* Audience Q&A - allows audience to submit questions */}
-      <AudienceQuestions 
-        sessionId="nso-demo-session" 
-        currentSlide={currentSlide}
-        isPresenter={false}
-      />
 
       {/* Minimal footer */}
       <footer className="py-2 px-4 bg-secondary/60 border-t border-border/20">
