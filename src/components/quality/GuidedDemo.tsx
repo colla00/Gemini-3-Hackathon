@@ -216,7 +216,7 @@ export const GuidedDemo = ({ onViewChange, currentView }: GuidedDemoProps) => {
   if (!isActive) {
     return (
       <Button
-        onClick={startDemo}
+        onClick={() => window.location.href = '/presentation'}
         variant="outline"
         size="sm"
         className="gap-1.5 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20 text-xs"
