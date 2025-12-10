@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const integrationSteps = [
   {
     id: 'ehr',
-    label: 'Epic/Cerner EHR',
+    label: 'EHR System',
     sublabel: 'HL7 FHIR R4',
     icon: Database,
     color: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
@@ -152,35 +152,35 @@ export const EHRIntegrationDiagram = () => {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Supported EHR Systems</CardTitle>
+            <CardTitle className="text-sm">EHR Compatibility</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { name: 'Epic', status: 'Designed For', certified: false },
-                { name: 'Cerner', status: 'Designed For', certified: false },
-                { name: 'MEDITECH', status: 'Planned', certified: false },
-                { name: 'Allscripts', status: 'Planned', certified: false },
-              ].map((ehr, index) => (
-                <div 
-                  key={index} 
-                  className={cn(
-                    "p-3 rounded-lg border text-center",
-                    ehr.certified 
-                      ? "bg-risk-low/10 border-risk-low/30" 
-                      : "bg-secondary/50 border-border/50"
-                  )}
-                >
-                  <div className="text-sm font-bold text-foreground">{ehr.name}</div>
-                  <div className={cn(
-                    "text-[10px]",
-                    ehr.certified ? "text-risk-low" : "text-muted-foreground"
-                  )}>
-                    {ehr.certified && <CheckCircle className="w-3 h-3 inline mr-1" />}
-                    {ehr.status}
-                  </div>
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+                <div className="text-sm font-bold text-foreground mb-1">Standards-Based Architecture</div>
+                <div className="text-[11px] text-muted-foreground">
+                  Built on HL7 FHIR R4 and HL7v2 standards for broad EHR compatibility
                 </div>
-              ))}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: 'HL7 FHIR R4', desc: 'REST API' },
+                  { label: 'HL7v2 ADT', desc: 'Event Messages' },
+                  { label: 'CDA/C-CDA', desc: 'Documents' },
+                  { label: 'Custom APIs', desc: 'Adaptable' },
+                ].map((standard, index) => (
+                  <div 
+                    key={index} 
+                    className="p-2 rounded-lg bg-secondary/50 border border-border/50 text-center"
+                  >
+                    <div className="text-xs font-medium text-foreground">{standard.label}</div>
+                    <div className="text-[10px] text-muted-foreground">{standard.desc}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-muted-foreground italic">
+                Compatible with any EHR system supporting standard healthcare data exchange protocols
+              </p>
             </div>
           </CardContent>
         </Card>
