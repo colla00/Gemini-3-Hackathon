@@ -71,7 +71,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [slideElapsed, setSlideElapsed] = useState(0);
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState('notes');
   const [audienceWindowOpen, setAudienceWindowOpen] = useState(false);
   
