@@ -15,9 +15,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   PRESENTATION_SLIDES, 
+  PresentationSlideView,
   type SlideType,
   TOTAL_PRESENTATION_TIME 
 } from '@/components/presentation/PresentationSlide';
+import { DashboardOverview } from '@/components/quality/DashboardOverview';
+import { PatientListView } from '@/components/quality/PatientListView';
+import { ShapExplainability } from '@/components/quality/ShapExplainability';
+import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
+import { EHRDataFlowSlide } from '@/components/quality/EHRDataFlowSlide';
+import { AlertTimelineSlide } from '@/components/quality/AlertTimelineSlide';
+import { ComparisonSlide } from '@/components/quality/ComparisonSlide';
+import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
+import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
+import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
+import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { QAPrepSlide } from '@/components/quality/QAPrepSlide';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -26,6 +39,29 @@ import { usePresenterSync } from '@/hooks/usePresenterSync';
 import { usePresentationSession } from '@/hooks/usePresentationSession';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+
+// Map slides to content components
+const slideToView: Record<string, string | null> = {
+  'title': null,
+  'agenda': null,
+  'video-demo': 'video-demo',
+  'problem': null,
+  'comparison': 'comparison',
+  'methodology': null,
+  'ml-features': 'ml-features',
+  'ehr-flow': 'ehr-flow',
+  'alert-timeline': 'alert-timeline',
+  'dashboard': 'dashboard',
+  'patients': 'patients',
+  'patient-journey': 'patient-journey',
+  'shap': 'shap',
+  'workflow': 'workflow',
+  'validation': null,
+  'roi': 'roi',
+  'future': null,
+  'qa-prep': 'qa-prep',
+  'conclusion': null,
+};
 
 interface PresenterDashboardProps {
   onClose?: () => void;
@@ -402,12 +438,31 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
               </div>
             </CardHeader>
             <CardContent>
-              {/* Slide preview would go here - for now show talking points */}
-              <div className="aspect-video bg-secondary rounded-lg border border-border flex items-center justify-center mb-4">
-                <div className="text-center">
-                  <Maximize2 className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">Slide Preview</p>
-                  <p className="text-xs text-muted-foreground">Visible in audience window</p>
+              {/* Slide preview - show actual content */}
+              <div className="aspect-video bg-secondary rounded-lg border border-border overflow-hidden mb-4">
+                <div className="w-full h-full transform scale-[0.5] origin-top-left" style={{ width: '200%', height: '200%' }}>
+                  {slideToView[currentSlide] ? (
+                    <div className="w-full h-full">
+                      {slideToView[currentSlide] === 'dashboard' && <DashboardOverview />}
+                      {slideToView[currentSlide] === 'patients' && <PatientListView />}
+                      {slideToView[currentSlide] === 'shap' && <ShapExplainability />}
+                      {slideToView[currentSlide] === 'workflow' && <ClinicalWorkflowView />}
+                      {slideToView[currentSlide] === 'video-demo' && <VideoDemoSlide />}
+                      {slideToView[currentSlide] === 'comparison' && <ComparisonSlide />}
+                      {slideToView[currentSlide] === 'ml-features' && <MLFeaturesSlide />}
+                      {slideToView[currentSlide] === 'ehr-flow' && <EHRDataFlowSlide />}
+                      {slideToView[currentSlide] === 'alert-timeline' && <AlertTimelineSlide />}
+                      {slideToView[currentSlide] === 'patient-journey' && <PatientJourneySlide />}
+                      {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
+                      {slideToView[currentSlide] === 'qa-prep' && <QAPrepSlide />}
+                    </div>
+                  ) : currentSlideConfig ? (
+                    <PresentationSlideView slide={currentSlideConfig} isActive={true} />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <p className="text-muted-foreground">No preview available</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
