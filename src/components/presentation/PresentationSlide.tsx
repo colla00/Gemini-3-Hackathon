@@ -18,7 +18,8 @@ export type SlideType =
   | 'patient-journey' 
   | 'shap' 
   | 'workflow' 
-  | 'validation' 
+  | 'validation'
+  | 'roi' 
   | 'future' 
   | 'conclusion';
 
@@ -387,6 +388,34 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'This demonstration shows illustrative metrics — actual validation studies are planned.',
       'We are preparing IRB submission for a prospective multi-site study.',
       'Important note: all metrics shown today are targets and projections, not completed study results.',
+    ],
+    transitionCue: '→ "Let me show you the potential return on investment..."',
+  },
+  {
+    id: 'roi',
+    title: 'ROI Calculator',
+    subtitle: 'Projected Cost Savings from Prevention',
+    duration: 4,
+    icon: <Target className="w-8 h-8" />,
+    notes: [
+      'Walk through the interactive calculator',
+      'Adjust parameters for different hospital sizes',
+      'Show the compounding effect of prevention',
+      'Emphasize these are projections, not guarantees',
+    ],
+    keyPoints: [
+      'Adjust parameters for your institution',
+      'Falls cost $30K average per incident',
+      'Additional savings from HAPI, CAUTI, LOS',
+      'Projected 3-5x return on investment',
+    ],
+    talkingPoints: [
+      'Let me show you the potential financial impact.',
+      'This calculator lets you adjust parameters for your institution.',
+      'With 200 beds, we project preventing about 40 falls per year.',
+      'At $30,000 per fall, that represents over $1 million in direct savings.',
+      'Add in pressure injury and CAUTI prevention, and the ROI becomes compelling.',
+      'These are projections — actual results will depend on your specific context.',
     ],
     transitionCue: '→ "Looking ahead, here is our roadmap..."',
   },
