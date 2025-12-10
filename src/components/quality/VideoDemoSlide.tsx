@@ -19,7 +19,7 @@ export const VideoDemoSlide = () => {
           EHR Driven Quality Dashboard for Nurse Sensitive Outcomes
         </h1>
         <p className="text-sm text-muted-foreground">
-          Stanford AI+HEALTH 2025 - 45-Minute Walkthrough
+          Stanford AI+HEALTH 2025 - Platform Overview
         </p>
       </div>
 
@@ -61,8 +61,8 @@ export const VideoDemoSlide = () => {
               <Clock className="w-5 h-5 text-amber-500" />
             </div>
             <div>
-              <div className="text-sm font-bold text-foreground">45 Minutes</div>
-              <div className="text-[10px] text-muted-foreground">Full Walkthrough</div>
+              <div className="text-sm font-bold text-foreground">5 Minutes</div>
+              <div className="text-[10px] text-muted-foreground">Video Overview</div>
             </div>
           </CardContent>
         </Card>
