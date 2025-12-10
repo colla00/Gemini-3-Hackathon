@@ -18,8 +18,8 @@ export const PresentationTimeline45 = ({
   // Group slides by category
   const groups = [
     { label: 'Introduction', slides: ['title', 'agenda'] as SlideType[] },
-    { label: 'Background', slides: ['problem', 'methodology', 'ehr-flow', 'alert-timeline'] as SlideType[] },
-    { label: 'Demonstration', slides: ['dashboard', 'patients', 'shap', 'workflow'] as SlideType[] },
+    { label: 'Background', slides: ['problem', 'comparison', 'methodology', 'ehr-flow', 'alert-timeline'] as SlideType[] },
+    { label: 'Demonstration', slides: ['dashboard', 'patients', 'patient-journey', 'shap', 'workflow'] as SlideType[] },
     { label: 'Conclusion', slides: ['validation', 'future', 'conclusion'] as SlideType[] },
   ];
 

@@ -39,6 +39,16 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'From EHR Event to Clinical Action in Under 30 Seconds',
     citation: 'Target latency: <30s end-to-end',
   },
+  'comparison': {
+    title: 'Traditional vs Predictive Monitoring',
+    subtitle: 'Paradigm Shift in Quality Measurement',
+    citation: 'Projected outcomes based on literature review',
+  },
+  'patient-journey': {
+    title: 'Patient Journey Visualization',
+    subtitle: 'Complete Care Episode with Risk Tracking',
+    citation: 'Illustrative scenario for demonstration',
+  },
 };
 
 interface AcademicHeaderProps {
