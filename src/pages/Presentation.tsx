@@ -450,8 +450,6 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         </div>
       </div>
       
-      {/* Research Banner - only for dashboard slides */}
-      {isDashboardSlide && <ResearchBanner />}
 
       {/* Dashboard Header - only for dashboard slides */}
       {isDashboardSlide && (

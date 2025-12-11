@@ -14,7 +14,6 @@ import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView'
 import { ValidationMetricsDashboard } from '@/components/quality/ValidationMetricsDashboard';
 import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagram';
 import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
-import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { MethodologyChat } from '@/components/quality/MethodologyChat';
 import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAccessButton';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
@@ -98,9 +97,6 @@ export const Dashboard = () => {
 
       {/* Cyan Header Stripe */}
       <div className="h-1.5 bg-primary w-full" />
-      
-      {/* Research Banner - Compact */}
-      <ResearchBanner />
 
       {/* Main Header Bar */}
       <header className="px-4 py-2 border-b border-border/40 bg-secondary/50">
@@ -270,8 +266,6 @@ export const Dashboard = () => {
       <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30">
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <div className="flex items-center gap-3">
-            <span className="text-primary font-semibold">⚠️ Research Prototype</span>
-            <span className="hidden sm:inline text-border">|</span>
             <span className="hidden sm:inline">Synthetic Data Only</span>
             <span className="hidden md:inline text-border">|</span>
             <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
