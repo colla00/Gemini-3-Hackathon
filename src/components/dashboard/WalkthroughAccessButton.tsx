@@ -20,6 +20,22 @@ const requestSchema = z.object({
 
 type AccessStatus = 'loading' | 'none' | 'pending' | 'approved' | 'denied';
 
+// Rate limiting: one request per email per hour
+const RATE_LIMIT_KEY = 'walkthrough_request_last_submitted';
+const RATE_LIMIT_MS = 60 * 60 * 1000; // 1 hour
+
+const checkClientRateLimit = (): boolean => {
+  const lastSubmitted = localStorage.getItem(RATE_LIMIT_KEY);
+  if (!lastSubmitted) return true;
+  
+  const elapsed = Date.now() - parseInt(lastSubmitted, 10);
+  return elapsed > RATE_LIMIT_MS;
+};
+
+const setClientRateLimit = () => {
+  localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
+};
+
 export const WalkthroughAccessButton = () => {
   const { user } = useAuth();
   const [accessStatus, setAccessStatus] = useState<AccessStatus>('loading');
@@ -75,6 +91,12 @@ export const WalkthroughAccessButton = () => {
   };
 
   const handleSubmitRequest = async () => {
+    // Client-side rate limiting
+    if (!checkClientRateLimit()) {
+      toast.error('Please wait before submitting another request. Try again in an hour.');
+      return;
+    }
+
     // Validate form
     const result = requestSchema.safeParse(formData);
     if (!result.success) {
@@ -115,6 +137,9 @@ export const WalkthroughAccessButton = () => {
         }
       });
 
+      // Set rate limit after successful submission
+      setClientRateLimit();
+      
       toast.success('Access request submitted! You will be notified when approved.');
       setShowRequestModal(false);
       setAccessStatus('pending');
