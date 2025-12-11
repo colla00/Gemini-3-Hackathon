@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 export type SlideType = 
+  | 'disclaimer'
   | 'title' 
   | 'agenda'
   | 'video-demo' 
@@ -38,6 +39,37 @@ interface SlideConfig {
 }
 
 export const PRESENTATION_SLIDES: SlideConfig[] = [
+  {
+    id: 'disclaimer',
+    title: 'Important Disclaimer',
+    subtitle: 'Research Concept Prototype',
+    duration: 2,
+    icon: <AlertTriangle className="w-12 h-12" />,
+    notes: [
+      'Read this slide clearly',
+      'Emphasize untested status',
+      'Set expectations upfront',
+      'This builds trust and credibility',
+    ],
+    keyPoints: [
+      'This is a concept prototype only',
+      'No clinical testing has been conducted',
+      'All metrics shown are design targets, not validated results',
+      'Simulated data for demonstration purposes',
+      'Not FDA cleared or approved',
+      'Not intended for clinical decision-making',
+    ],
+    talkingPoints: [
+      'Before I begin, I want to be completely transparent about what you are about to see.',
+      'This is a concept prototype. It represents my vision for what predictive nursing quality monitoring could look like.',
+      'I have not conducted any clinical testing. The accuracy metrics you will see — like the 0.89 AUROC — are design targets based on published literature, not results from my own validation studies.',
+      'All patient data shown is simulated for demonstration purposes only.',
+      'This system is not FDA cleared or approved. It is not a medical device and should not be used for clinical decision-making.',
+      'I share this work to demonstrate the concept and methodology, and to gather feedback on the approach.',
+      'With that context established, let me introduce the project.',
+    ],
+    transitionCue: '→ "With that important context, let me introduce myself and the project..."',
+  },
   {
     id: 'title',
     title: 'NSO Quality Dashboard',
@@ -610,6 +642,7 @@ export const PresentationSlideView = ({ slide, isActive, isAudience = false, chi
         <div className="text-center">
           <div className={cn(
             "w-20 h-20 mx-auto mb-8 rounded-2xl flex items-center justify-center",
+            slide.id === 'disclaimer' ? "bg-amber-500/20 text-amber-500" :
             slide.id === 'problem' ? "bg-risk-high/20 text-risk-high" :
             slide.id === 'validation' ? "bg-risk-low/20 text-risk-low" :
             slide.id === 'conclusion' ? "bg-accent/20 text-accent" :
