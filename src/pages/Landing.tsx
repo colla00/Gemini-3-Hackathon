@@ -52,7 +52,7 @@ const pages = [
     to: 'https://youtu.be/DA5pwKx5o0s',
     icon: Play,
     title: 'Watch Demo Video',
-    description: 'Stanford AI+HEALTH presentation recording',
+    description: 'Conference presentation recording',
     color: 'bg-risk-medium/10 text-risk-medium border-risk-medium/20',
     type: 'external' as const,
   },
@@ -250,11 +250,11 @@ export const Landing = () => {
               />
             </div>
 
-            {/* Conference Badge */}
+            {/* Research Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50">
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm text-muted-foreground">
-                Stanford AI+HEALTH 2025
+                Research Prototype
               </span>
             </div>
           </div>

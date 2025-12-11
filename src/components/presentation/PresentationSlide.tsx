@@ -134,7 +134,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Contact information at the end',
     ],
     keyPoints: [
-      'Stanford AI+HEALTH 2025',
+      'Conference Presentation Recording',
       '5-minute platform overview',
       'Dashboard features demonstrated',
       'Available for async viewing',

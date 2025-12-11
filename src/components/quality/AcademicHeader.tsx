@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { GraduationCap, Calendar, MapPin, FileText } from 'lucide-react';
+import { GraduationCap, Calendar, FileText } from 'lucide-react';
 import type { ViewType } from '@/hooks/useAutoDemo';
 
 interface SectionMeta {
@@ -62,7 +62,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'video-demo': {
     title: 'Recorded Presentation',
     subtitle: '45-Minute Walkthrough Video',
-    citation: 'Stanford AI+HEALTH 2025',
+    citation: 'Conference Presentation',
   },
 };
 
@@ -82,22 +82,18 @@ export const AcademicHeader = ({
   return (
     <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-b border-primary/20 px-4 py-3 print:hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Conference badge */}
+        {/* Research badge */}
         <div className="flex items-center gap-4 mb-2">
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/20 border border-primary/30">
             <GraduationCap className="w-3 h-3 text-primary" />
             <span className="text-[9px] font-semibold text-primary uppercase tracking-wider">
-              Stanford AI+HEALTH 2025
+              Research Prototype
             </span>
           </div>
           <div className="flex items-center gap-3 text-[9px] text-muted-foreground">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               Research Presentation
-            </span>
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3 h-3" />
-              Li Ka Shing Center
             </span>
           </div>
         </div>

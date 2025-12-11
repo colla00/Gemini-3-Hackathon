@@ -12,7 +12,7 @@ import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView'
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { Button } from '@/components/ui/button';
 
-const ACCESS_KEY = 'stanford2025';
+const ACCESS_KEY = 'presenter2025';
 const EXPIRATION_DATE = new Date('2025-12-15T23:59:59'); // 2 weeks from Dec 1, 2025
 type DemoSection = {
   id: string;
@@ -185,7 +185,7 @@ export const RecordingDemo = () => {
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-primary mb-8">
               <Sparkles className="w-4 h-4" />
-              <span>Stanford AI+HEALTH 2025</span>
+              <span>Research Prototype</span>
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6 mb-8">
@@ -236,7 +236,7 @@ export const RecordingDemo = () => {
             </p>
             <div className="flex items-center justify-center gap-3 text-lg text-primary">
               <Sparkles className="w-5 h-5" />
-              <span>Stanford AI+HEALTH 2025</span>
+              <span>Research Prototype</span>
             </div>
             <p className="text-muted-foreground mt-6">
               Predictive Analytics for Falls, Pressure Injuries, CAUTI & Device Complications

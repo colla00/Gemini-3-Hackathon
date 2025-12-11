@@ -557,8 +557,8 @@ function About() {
               or commercial use is prohibited.
             </p>
             <p>
-              <strong className="text-foreground">Conference Presentation:</strong> This demonstration is prepared for 
-              Stanford AI+HEALTH 2025 and represents a research prototype under active development.
+              <strong className="text-foreground">Research Status:</strong> This represents a research prototype 
+              under active development.
             </p>
           </CardContent>
         </Card>
@@ -610,7 +610,7 @@ function About() {
               alexis.collier@ung.edu
             </a>
             <span className="text-border">|</span>
-            <span className="text-muted-foreground">Stanford AI+HEALTH 2025</span>
+            <span className="text-muted-foreground">Research Prototype</span>
           </div>
         </div>
       </footer>
