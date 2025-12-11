@@ -267,7 +267,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. All clinical decisions require human verification.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              NSO Quality Dashboard • Stanford AI+HEALTH 2025
+              NSO Quality Dashboard • Research Prototype
             </p>
             <p className="text-[9px] text-muted-foreground/70 mt-1">
               U.S. Provisional Patent Application No. 63/932,953 • Patent Pending

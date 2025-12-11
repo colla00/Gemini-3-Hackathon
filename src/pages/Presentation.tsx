@@ -77,7 +77,7 @@ const slideToView: Record<string, ViewType | null> = {
   'conclusion': null,
 };
 
-const PRESENTER_KEY = 'stanford2025';
+const PRESENTER_KEY = 'presenter2025';
 
 export const Presentation = () => {
   const [searchParams] = useSearchParams();
@@ -623,7 +623,7 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
               <span className="font-medium text-accent">U.S. Pat. App. 63/932,953</span>
             </div>
             <span className="text-border/50 hidden sm:inline">|</span>
-            <span className="hidden sm:inline">Stanford AI+HEALTH 2025</span>
+            <span className="hidden sm:inline">Research Prototype</span>
           </div>
         </div>
       </footer>

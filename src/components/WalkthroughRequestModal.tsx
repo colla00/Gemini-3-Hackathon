@@ -181,7 +181,7 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
                   <FormItem>
                     <FormLabel>Organization</FormLabel>
                     <FormControl>
-                      <Input placeholder="Stanford Health Care" {...field} />
+                      <Input placeholder="Your Organization" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

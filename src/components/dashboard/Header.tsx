@@ -58,7 +58,7 @@ export const Header = () => {
                 <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/50 border border-border/30 cursor-default">
                   <Shield className="w-3.5 h-3.5 text-primary" />
                   <span className="text-[10px] font-semibold text-primary tracking-wide uppercase">
-                    Stanford AI+HEALTH 2025
+                    Research Prototype
                   </span>
                 </div>
               </TooltipTrigger>

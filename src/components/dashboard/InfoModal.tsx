@@ -48,7 +48,7 @@ export const InfoModal = ({ open, onOpenChange, showTrigger = true }: InfoModalP
         <ScrollArea className="max-h-[60vh] pr-4">
           <div className="mt-4 space-y-4">
             <p className="text-muted-foreground">
-              Stanford AI+HEALTH 2025 Demonstration
+              Research Prototype Demonstration
             </p>
             
             {/* Key Features */}
