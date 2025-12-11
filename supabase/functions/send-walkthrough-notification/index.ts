@@ -8,6 +8,65 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_REQUESTS_PER_WINDOW = 3; // Max 3 requests per IP per hour
+
+// In-memory rate limit store (resets when function cold starts)
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+// Clean up expired entries periodically
+const cleanupRateLimitStore = () => {
+  const now = Date.now();
+  for (const [key, value] of rateLimitStore.entries()) {
+    if (now > value.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+};
+
+// Check and update rate limit for an IP
+const checkRateLimit = (ip: string): { allowed: boolean; remaining: number; resetAt: number } => {
+  cleanupRateLimitStore();
+  
+  const now = Date.now();
+  const existing = rateLimitStore.get(ip);
+  
+  if (!existing || now > existing.resetAt) {
+    // New window
+    const resetAt = now + RATE_LIMIT_WINDOW_MS;
+    rateLimitStore.set(ip, { count: 1, resetAt });
+    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1, resetAt };
+  }
+  
+  if (existing.count >= MAX_REQUESTS_PER_WINDOW) {
+    // Rate limited
+    return { allowed: false, remaining: 0, resetAt: existing.resetAt };
+  }
+  
+  // Increment counter
+  existing.count++;
+  return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - existing.count, resetAt: existing.resetAt };
+};
+
+// Get client IP from request headers
+const getClientIP = (req: Request): string => {
+  // Check common headers for client IP (reverse proxy headers)
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    // Take the first IP in the chain (original client)
+    return forwardedFor.split(',')[0].trim();
+  }
+  
+  const realIP = req.headers.get('x-real-ip');
+  if (realIP) {
+    return realIP.trim();
+  }
+  
+  // Fallback to a default (shouldn't happen in production)
+  return 'unknown';
+};
+
 interface WalkthroughRequestData {
   name: string;
   email: string;
@@ -44,6 +103,38 @@ const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  // Get client IP and check rate limit
+  const clientIP = getClientIP(req);
+  const rateLimit = checkRateLimit(clientIP);
+  
+  // Add rate limit headers to all responses
+  const rateLimitHeaders = {
+    'X-RateLimit-Limit': MAX_REQUESTS_PER_WINDOW.toString(),
+    'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+    'X-RateLimit-Reset': Math.ceil(rateLimit.resetAt / 1000).toString(),
+  };
+
+  if (!rateLimit.allowed) {
+    console.log(`Rate limit exceeded for IP: ${clientIP}`);
+    return new Response(
+      JSON.stringify({ 
+        error: "Too many requests. Please try again later.",
+        retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000)
+      }),
+      { 
+        status: 429, 
+        headers: { 
+          "Content-Type": "application/json", 
+          "Retry-After": Math.ceil((rateLimit.resetAt - Date.now()) / 1000).toString(),
+          ...rateLimitHeaders,
+          ...corsHeaders 
+        } 
+      }
+    );
+  }
+
+  console.log(`Request from IP ${clientIP}, remaining: ${rateLimit.remaining}`);
 
   try {
     const data: WalkthroughRequestData = await req.json();
