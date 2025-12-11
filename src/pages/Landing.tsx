@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Sparkles, Lock, FileText, Presentation, Play, FlaskConical
+  Brain, Lock, FileText, Presentation, Play, FlaskConical
 } from 'lucide-react';
 import {
   Tooltip,
@@ -250,13 +250,6 @@ export const Landing = () => {
               />
             </div>
 
-            {/* Research Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm text-muted-foreground">
-                Research Prototype
-              </span>
-            </div>
           </div>
         </div>
       </header>
