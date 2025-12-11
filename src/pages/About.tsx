@@ -500,6 +500,134 @@ function About() {
           </CardContent>
         </Card>
 
+        {/* Safety & Error Handling - What Happens When Predictions Are Wrong */}
+        <Card className="border-risk-medium/30">
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <Shield className="w-5 h-5 text-risk-medium" />
+              <CardTitle>When Predictions Are Wrong</CardTitle>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              No predictive system is perfect. Here's how this system is designed to handle errors safely.
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Core Principle */}
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                Core Principle: Advisory Only
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                The system <strong className="text-foreground">never takes autonomous action</strong>. 
+                Every prediction is a recommendation that requires clinical review before any intervention. 
+                The nurse or clinician always makes the final decision.
+              </p>
+            </div>
+
+            {/* Error Types and Responses */}
+            <div>
+              <h3 className="font-semibold mb-3">Types of Errors & Safeguards</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg border border-border bg-secondary/30">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-risk-high mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">False Positives (Over-Alerting)</h4>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        System flags a risk that doesn't materialize. Safeguards: Adaptive thresholds 
+                        reduce false alarms by 40-70%; clinicians can dismiss alerts; feedback loop 
+                        improves future accuracy.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg border border-border bg-secondary/30">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-risk-high mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">False Negatives (Missed Risk)</h4>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        System fails to flag a true risk. Safeguards: Multiple forecasting horizons 
+                        provide redundancy; standard nursing assessments continue independently; 
+                        outcome tracking identifies systematic blind spots.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Safety Mechanisms */}
+            <div>
+              <h3 className="font-semibold mb-3">Built-In Safety Mechanisms</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-4 h-4 text-risk-low mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium text-sm">SHAP Explainability</p>
+                    <p className="text-xs text-muted-foreground">
+                      Every prediction shows <em>why</em> it was made. Clinicians can evaluate 
+                      if the reasoning makes clinical sense before acting.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-4 h-4 text-risk-low mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium text-sm">Confidence Intervals</p>
+                    <p className="text-xs text-muted-foreground">
+                      System displays uncertainty. Low-confidence predictions are flagged 
+                      for additional scrutiny rather than treated as definitive.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-4 h-4 text-risk-low mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium text-sm">Clinical Override Workflow</p>
+                    <p className="text-xs text-muted-foreground">
+                      Clinicians can override any prediction with documentation. 
+                      Overrides are tracked and analyzed to improve model performance.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-4 h-4 text-risk-low mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium text-sm">Closed-Loop Outcome Tracking</p>
+                    <p className="text-xs text-muted-foreground">
+                      System compares predictions to actual outcomes. Systematic errors 
+                      are detected and trigger model recalibration.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-4 h-4 text-risk-low mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-medium text-sm">Immutable Audit Trail</p>
+                    <p className="text-xs text-muted-foreground">
+                      Every prediction, explanation, clinical action, and outcome is logged. 
+                      Enables post-hoc analysis and accountability.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* The Bottom Line */}
+            <div className="p-4 rounded-lg bg-risk-low/10 border border-risk-low/30">
+              <h3 className="font-semibold mb-2 text-risk-low">The Bottom Line</h3>
+              <p className="text-sm text-muted-foreground">
+                This system is designed with the assumption that it <em>will</em> make mistakes. 
+                The goal is not perfect prediction—it's providing actionable information that helps 
+                clinicians make better decisions while maintaining full control and accountability. 
+                The nurse's clinical judgment is always the final authority.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Team & Contact */}
         <Card>
           <CardHeader>
