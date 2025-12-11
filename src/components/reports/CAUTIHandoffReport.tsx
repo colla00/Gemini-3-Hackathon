@@ -393,7 +393,7 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. CAUTI risk predictions require clinical validation.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              NSO Quality Dashboard • Research Prototype • Based on NHSN CAUTI Prevention Guidelines
+              NSO Quality Dashboard • Based on NHSN CAUTI Prevention Guidelines
             </p>
             <p className="text-[9px] text-muted-foreground/70 mt-1">
               U.S. Provisional Patent Application No. 63/932,953 • Patent Pending

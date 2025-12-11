@@ -149,7 +149,6 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           </div>
           <div className="flex items-center gap-4">
             <span>Generated: {currentDate} at {currentTime}</span>
-            <span>Research Prototype</span>
           </div>
         </div>
         <p className="mt-2 text-[10px]">
