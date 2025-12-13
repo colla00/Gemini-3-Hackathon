@@ -140,7 +140,10 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
       </div>
 
       {/* Footer */}
-      <div className="mt-8 pt-4 border-t border-gray-300 text-xs text-gray-500">
+      <div className="mt-8 pt-4 border-t-2 border-black text-xs text-gray-600">
+        <div className="text-center mb-3 font-semibold">
+          Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending | Protected Design – Do Not Copy
+        </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <AlertTriangle className="w-3 h-3" />
@@ -155,8 +158,8 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           This report contains AI-generated risk predictions and should be used as a clinical decision support tool only. 
           All predictions require human clinical verification. Not intended for diagnostic or treatment decisions.
         </p>
-        <p className="mt-1 text-[9px] text-gray-400 text-center">
-          U.S. Provisional Patent Application No. 63/932,953 • Patent Pending
+        <p className="mt-2 text-[9px] text-center">
+          U.S. Provisional Patent Application No. 63/932,953 • Created by Dr. Alexis Collier (Patent Pending)
         </p>
       </div>
     </div>
