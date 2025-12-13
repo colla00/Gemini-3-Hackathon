@@ -1,8 +1,11 @@
 export const Footer = () => {
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-50 py-2.5 px-4 bg-background/90 backdrop-blur-sm border-t border-border/20">
-      <div className="max-w-7xl mx-auto flex items-center justify-center text-xs text-muted-foreground">
+      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-1 text-xs text-muted-foreground">
         <span className="font-medium text-center">
+          Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending | Protected Design – Do Not Copy
+        </span>
+        <span className="text-center opacity-70">
           Prototype for research demonstration. Uses mock, de-identified data only.
         </span>
       </div>
