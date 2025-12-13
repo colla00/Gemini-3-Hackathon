@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { Presentation } from "./pages/Presentation";
@@ -28,6 +29,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <WatermarkOverlay />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Landing />} />
