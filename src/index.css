@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,90 +6,90 @@
 
 @layer base {
   :root {
-    /* Dark burgundy background: #600000 = hsl(0, 100%, 19%) with overlay */
-    --background: 0 100% 12%;
-    --foreground: 0 0% 100%;
+    /* Professional healthcare dark blue background */
+    --background: 210 40% 11%;
+    --foreground: 210 20% 98%;
 
-    /* Glass morphism card backgrounds */
-    --card: 0 0% 0% / 0.5;
-    --card-foreground: 0 0% 100%;
+    /* Clean card backgrounds with subtle transparency */
+    --card: 210 35% 15%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 210 35% 13%;
+    --popover-foreground: 210 20% 98%;
 
-    /* Cyan accent: #00B4D8 = hsl(193, 100%, 43%) */
-    --primary: 193 100% 43%;
-    --primary-foreground: 0 0% 100%;
+    /* Teal primary accent */
+    --primary: 174 72% 46%;
+    --primary-foreground: 210 40% 11%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 30% 20%;
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 210 25% 25%;
+    --muted-foreground: 210 15% 60%;
 
-    --accent: 193 100% 43%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 210 40% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 25%;
-    --input: 0 0% 18%;
-    --ring: 193 100% 43%;
+    --border: 210 25% 25%;
+    --input: 210 30% 18%;
+    --ring: 174 72% 46%;
 
     --radius: 0.625rem;
 
     /* Risk level colors - clinical indicators */
     --risk-high: 0 84% 60%;
     --risk-medium: 38 92% 50%;
-    --risk-low: 152 69% 31%;
+    --risk-low: 152 69% 40%;
 
     /* SHAP chart colors */
     --shap-positive: 0 91% 71%;
-    --shap-negative: 142 69% 58%;
+    --shap-negative: 152 69% 50%;
 
     /* Warning color */
     --warning: 45 93% 47%;
 
     /* Custom gradients */
-    --gradient-burgundy: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 10%) 100%);
-    --gradient-card: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(193 100% 43%) 0%, hsl(193 100% 35%) 100%);
+    --gradient-healthcare: linear-gradient(180deg, hsl(210 40% 14%) 0%, hsl(210 40% 8%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(210 35% 15%) 0%, hsl(210 35% 12%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(174 72% 46%) 0%, hsl(199 89% 48%) 100%);
 
     /* Shadows */
-    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 20px rgba(0, 180, 216, 0.3);
+    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 20px rgba(45, 212, 191, 0.25);
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 210 35% 12%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 174 72% 46%;
+    --sidebar-primary-foreground: 210 40% 11%;
+    --sidebar-accent: 210 30% 20%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 210 25% 25%;
+    --sidebar-ring: 174 72% 46%;
   }
 
   .dark {
-    --background: 0 100% 12%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 0% / 0.5;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 193 100% 43%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 193 100% 43%;
-    --accent-foreground: 0 0% 100%;
+    --background: 210 40% 11%;
+    --foreground: 210 20% 98%;
+    --card: 210 35% 15%;
+    --card-foreground: 210 20% 98%;
+    --popover: 210 35% 13%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 174 72% 46%;
+    --primary-foreground: 210 40% 11%;
+    --secondary: 210 30% 20%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 210 25% 25%;
+    --muted-foreground: 210 15% 65%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 210 40% 11%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 25%;
-    --input: 0 0% 18%;
-    --ring: 193 100% 43%;
+    --border: 210 25% 25%;
+    --input: 210 30% 18%;
+    --ring: 174 72% 46%;
     --warning: 45 93% 47%;
   }
 }
@@ -101,19 +101,19 @@
 
   body {
     @apply text-foreground font-sans antialiased;
-    font-family: 'Montserrat', system-ui, sans-serif;
-    background: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 8%) 100%);
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(180deg, hsl(210 40% 14%) 0%, hsl(210 40% 6%) 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
 
   /* Glass morphism base card style */
   .glass-card {
-    background: rgba(0, 0, 0, 0.5);
+    background: hsl(210 35% 15% / 0.8);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid hsl(210 25% 30% / 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -266,21 +266,21 @@
     border-color: hsl(45 93% 47% / 0.4);
   }
 
-  .gradient-burgundy {
-    background: linear-gradient(180deg, hsl(0 100% 19%) 0%, hsl(0 100% 8%) 100%);
+  .gradient-healthcare {
+    background: linear-gradient(180deg, hsl(210 40% 14%) 0%, hsl(210 40% 6%) 100%);
   }
 
   .gradient-card {
-    background: rgba(0, 0, 0, 0.5);
+    background: hsl(210 35% 15% / 0.8);
     backdrop-filter: blur(16px);
   }
 
   .shadow-card {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.25);
   }
 
   /* Animation utilities */
@@ -325,7 +325,7 @@
     @apply transition-all duration-300;
   }
   .hover-glow:hover {
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.25);
   }
 
   /* Progress bar animation */
