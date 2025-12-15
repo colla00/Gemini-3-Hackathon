@@ -9,6 +9,7 @@ import { WorkflowSequence } from './WorkflowSequence';
 import { InterventionTimer } from './InterventionTimer';
 import { EfficacySummary } from './EfficacyBadge';
 import { MultiOutcomeComparison } from './MultiOutcomeComparison';
+import { AdaptiveThresholdVisualization } from './AdaptiveThresholdVisualization';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
 import {
@@ -223,6 +224,9 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
           {/* Efficacy Summary (Patent: Intervention efficacy tracking) */}
           <EfficacySummary patientId={patient.id} />
+
+          {/* Adaptive Threshold Visualization (Patent: Confidence-based risk stratification) */}
+          <AdaptiveThresholdVisualization patient={patient} />
 
           {/* Clinical Notes */}
           <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
