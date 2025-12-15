@@ -38,6 +38,7 @@ import { PresentationTimeline45 } from '@/components/presentation/PresentationTi
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -415,6 +416,10 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
                 <MousePointer className="w-3 h-3" />
                 <span>Hotspots</span>
               </button>
+              {/* Theme toggle */}
+              <div className="[&_button]:text-primary-foreground [&_button]:hover:bg-primary-foreground/20">
+                <ThemeToggle />
+              </div>
               {/* Zoom Mode toggle */}
               <ZoomModeToggle />
               <Link 
