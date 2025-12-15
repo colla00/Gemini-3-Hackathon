@@ -10,6 +10,7 @@ import { InterventionTimer } from './InterventionTimer';
 import { EfficacySummary } from './EfficacyBadge';
 import { MultiOutcomeComparison } from './MultiOutcomeComparison';
 import { AdaptiveThresholdVisualization } from './AdaptiveThresholdVisualization';
+import { ClosedLoopAnimation } from './ClosedLoopAnimation';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
 import {
@@ -224,6 +225,9 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
           {/* Efficacy Summary (Patent: Intervention efficacy tracking) */}
           <EfficacySummary patientId={patient.id} />
+
+          {/* Closed-Loop Animation (Patent: Intervention efficacy tracking) */}
+          <ClosedLoopAnimation />
 
           {/* Adaptive Threshold Visualization (Patent: Confidence-based risk stratification) */}
           <AdaptiveThresholdVisualization patient={patient} />
