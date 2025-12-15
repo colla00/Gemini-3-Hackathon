@@ -14,6 +14,7 @@ import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { TermsAcceptanceModal } from '@/components/TermsAcceptanceModal';
 import { QuickStartLauncher } from '@/components/presentation/QuickStartLauncher';
 import { WalkthroughRequestModal } from '@/components/WalkthroughRequestModal';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 
 const features = [
@@ -103,34 +104,38 @@ export const Landing = () => {
             </a>
           </div>
           
-          {/* Auth Status Indicator */}
-          {isAdmin ? (
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30">
-                <div className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
-                <span className="text-xs font-medium text-risk-low">Admin</span>
+          {/* Auth Status & Theme Toggle */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            
+            {isAdmin ? (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30">
+                  <div className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
+                  <span className="text-xs font-medium text-risk-low">Admin</span>
+                </div>
+                <Link 
+                  to="/auth" 
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    const { supabase } = await import('@/integrations/supabase/client');
+                    await supabase.auth.signOut();
+                    window.location.href = '/';
+                  }}
+                >
+                  Sign Out
+                </Link>
               </div>
+            ) : (
               <Link 
                 to="/auth" 
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  const { supabase } = await import('@/integrations/supabase/client');
-                  await supabase.auth.signOut();
-                  window.location.href = '/';
-                }}
+                className="text-xs text-muted-foreground hover:text-primary transition-colors"
               >
-                Sign Out
+                Sign In
               </Link>
-            </div>
-          ) : (
-            <Link 
-              to="/auth" 
-              className="text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
-              Sign In
-            </Link>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
