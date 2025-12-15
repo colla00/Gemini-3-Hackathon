@@ -2,11 +2,13 @@ import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import { ShapChart } from './ShapChart';
+import { GroupedShapChart } from './GroupedShapChart';
 import { RiskTrendChart } from './RiskTrendChart';
 import { SuggestedActions } from './SuggestedActions';
 import { WorkflowSequence } from './WorkflowSequence';
 import { InterventionTimer } from './InterventionTimer';
 import { EfficacySummary } from './EfficacyBadge';
+import { MultiOutcomeComparison } from './MultiOutcomeComparison';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
 import {
@@ -184,32 +186,9 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             </div>
           </div>
 
-          {/* SHAP Explainability Chart (Patent: Real-time SHAP integration) */}
+          {/* Grouped SHAP Explainability Chart (Patent: Real-time SHAP integration) */}
           <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-primary" />
-                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                  SHAP Explainability
-                </h3>
-              </div>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/30">
-                Patent Claim #1
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 text-[10px] mb-3">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded bg-shap-positive" />
-                <span className="text-muted-foreground">Increases Risk</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded bg-shap-negative" />
-                <span className="text-muted-foreground">Reduces Risk</span>
-              </div>
-            </div>
-            
-            <ShapChart factors={patient.riskFactors} />
+            <GroupedShapChart factors={patient.riskFactors} />
             
             {/* Clinical Insight Box */}
             <div className="mt-4 p-3.5 rounded-lg border border-primary/40 bg-primary/5">
@@ -229,6 +208,9 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
               De-identified clinical features · Synthetic demonstration only
             </p>
           </div>
+
+          {/* Multi-Outcome Comparison (Patent: Multi-outcome risk prediction) */}
+          <MultiOutcomeComparison patient={patient} />
 
           {/* Suggested Actions (Patent: AI-guided intervention framework) */}
           <SuggestedActions patient={patient} />
