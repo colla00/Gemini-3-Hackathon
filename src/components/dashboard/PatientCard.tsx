@@ -1,6 +1,7 @@
-import { TrendingUp, TrendingDown, Minus, Clock, Star, ChevronRight } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Clock, Star, ChevronRight, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
+import { RiskTrendChart } from './RiskTrendChart';
 import type { Patient } from '@/data/patients';
 import {
   Tooltip,
@@ -15,9 +16,10 @@ interface PatientCardProps {
   index: number;
   displayTime: string;
   isRefreshing?: boolean;
+  showSparkline?: boolean;
 }
 
-export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing }: PatientCardProps) => {
+export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing, showSparkline = true }: PatientCardProps) => {
   const TrendIcon = patient.trend === 'up' ? TrendingUp : patient.trend === 'down' ? TrendingDown : Minus;
   const trendColor = patient.trend === 'up' ? 'text-risk-high' : patient.trend === 'down' ? 'text-risk-low' : 'text-muted-foreground';
   const trendLabel = patient.trend === 'up' ? 'Increasing' : patient.trend === 'down' ? 'Decreasing' : 'Stable';
@@ -36,6 +38,9 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
   }[patient.riskLevel];
 
   const isHighRisk = patient.riskLevel === 'HIGH';
+
+  // Simulated confidence interval
+  const confidenceRange = patient.riskLevel === 'HIGH' ? 8 : patient.riskLevel === 'MEDIUM' ? 6 : 4;
 
   return (
     <TooltipProvider>
@@ -83,13 +88,26 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
         </div>
 
         {/* Risk Score Section */}
-        <div className="px-4 pb-3">
+        <div className="px-4 pb-2">
           <div className="flex items-end justify-between">
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-baseline gap-1">
               <span className={cn("text-4xl font-extrabold tracking-tight", riskScoreColor)}>
                 {patient.riskScore}
               </span>
               <span className={cn("text-lg font-semibold", riskScoreColor)}>%</span>
+              {/* Confidence indicator (Patent: Confidence-based risk stratification) */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-[10px] text-muted-foreground ml-1 flex items-center gap-0.5">
+                    <Activity className="w-2.5 h-2.5" />
+                    ±{confidenceRange}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">95% CI: {patient.riskScore - confidenceRange}-{patient.riskScore + confidenceRange}%</p>
+                  <p className="text-[10px] text-muted-foreground">Confidence-based stratification</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -106,6 +124,19 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
             </Tooltip>
           </div>
         </div>
+
+        {/* Sparkline Trend Chart (Patent: Multi-horizon forecasting) */}
+        {showSparkline && (
+          <div className="px-4 pb-2">
+            <RiskTrendChart 
+              currentScore={patient.riskScore} 
+              trend={patient.trend}
+              className="h-14"
+              showConfidenceBands={true}
+              showHorizons={false}
+            />
+          </div>
+        )}
 
         {/* Micro-explanation */}
         <div className="px-4 pb-3">
