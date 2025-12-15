@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import { Landing } from "./pages/Landing";
@@ -24,9 +25,10 @@ const queryClient = new QueryClient();
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <SettingsProvider>
-          <TooltipProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <AuthProvider>
+          <SettingsProvider>
+            <TooltipProvider>
             <Toaster />
             <Sonner />
             <WatermarkOverlay />
@@ -60,8 +62,9 @@ const App = () => (
           </TooltipProvider>
         </SettingsProvider>
       </AuthProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+</HelmetProvider>
 );
 
 export default App;

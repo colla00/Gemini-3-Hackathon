@@ -2,6 +2,7 @@ import { Activity, LogOut, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LiveBadge } from './LiveBadge';
 import { InfoModal } from './InfoModal';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,6 +47,8 @@ export const Header = () => {
         </div>
         
         <div className="flex items-center gap-2 md:gap-3">
+          <ThemeToggle />
+          
           <InfoModal />
           
           <LiveBadge />
