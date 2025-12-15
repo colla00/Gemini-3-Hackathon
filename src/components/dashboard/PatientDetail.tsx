@@ -11,6 +11,7 @@ import { EfficacySummary } from './EfficacyBadge';
 import { MultiOutcomeComparison } from './MultiOutcomeComparison';
 import { AdaptiveThresholdVisualization } from './AdaptiveThresholdVisualization';
 import { ClosedLoopAnimation } from './ClosedLoopAnimation';
+import { AIWorkflowPipeline } from './AIWorkflowPipeline';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
 import {
@@ -231,6 +232,11 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
           {/* Adaptive Threshold Visualization (Patent: Confidence-based risk stratification) */}
           <AdaptiveThresholdVisualization patient={patient} />
+
+          {/* AI Workflow Pipeline (Patent: Clinical workflow integration) */}
+          <div className="lg:col-span-3">
+            <AIWorkflowPipeline />
+          </div>
 
           {/* Clinical Notes */}
           <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
