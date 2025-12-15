@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award
+  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail
 } from 'lucide-react';
 import {
   Tooltip,
@@ -93,6 +93,14 @@ export const Landing = () => {
             <span className="font-medium">U.S. Provisional Patent Application No. 63/932,953</span>
             <span className="text-primary/60">•</span>
             <span className="text-primary/80">Patent Pending</span>
+            <span className="text-primary/60">•</span>
+            <a 
+              href="mailto:alexis.collier@ung.edu?subject=Licensing%20Inquiry%20-%20Patent%20App%2063/932,953&body=I%20am%20interested%20in%20discussing%20licensing%20opportunities%20for%20the%20NSO%20Quality%20Dashboard%20technology%20(U.S.%20Provisional%20Patent%20Application%20No.%2063/932,953).%0A%0AOrganization:%0AIntended%20Use:%0A"
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-accent/20 border border-accent/30 text-accent hover:bg-accent/30 transition-colors font-medium"
+            >
+              <Mail className="w-3 h-3" />
+              Licensing Inquiries
+            </a>
           </div>
           
           {/* Auth Status Indicator */}
