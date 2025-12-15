@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 function About() {
   return (
@@ -36,6 +37,7 @@ function About() {
           </div>
           
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               to="/dashboard"
               className="text-xs text-muted-foreground hover:text-primary transition-colors"
