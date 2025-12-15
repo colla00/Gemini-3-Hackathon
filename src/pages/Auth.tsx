@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { Activity, Shield, Users, ArrowLeft } from 'lucide-react';
 import { z } from 'zod';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 // Validation schemas
 const loginSchema = z.object({
@@ -130,6 +131,11 @@ const Auth = () => {
   if (showForgotPassword) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        {/* Theme Toggle - Top Right */}
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+        
         <div className="w-full max-w-md space-y-8">
           <div className="text-center space-y-2">
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -182,6 +188,11 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      {/* Theme Toggle - Top Right */}
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center space-y-2">
