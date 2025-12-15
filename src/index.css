@@ -6,67 +6,67 @@
 
 @layer base {
   :root {
-    /* Light mode - Professional healthcare white/blue */
-    --background: 210 40% 98%;
-    --foreground: 210 40% 11%;
+    /* Light mode - Professional healthcare with WCAG AA+ contrast */
+    --background: 210 30% 98%;
+    --foreground: 215 25% 17%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 40% 11%;
+    --card-foreground: 215 25% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 40% 11%;
+    --popover-foreground: 215 25% 17%;
 
-    /* Teal primary accent */
-    --primary: 174 72% 40%;
+    /* Teal primary - darkened for AA contrast on white */
+    --primary: 174 65% 32%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 30% 94%;
-    --secondary-foreground: 210 40% 11%;
+    --secondary: 210 25% 93%;
+    --secondary-foreground: 215 25% 17%;
 
-    --muted: 210 25% 92%;
-    --muted-foreground: 210 15% 45%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 40%;
 
-    --accent: 199 89% 45%;
+    --accent: 199 80% 38%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 55%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 25% 88%;
-    --input: 210 30% 94%;
-    --ring: 174 72% 40%;
+    --border: 215 20% 82%;
+    --input: 210 25% 93%;
+    --ring: 174 65% 32%;
 
     --radius: 0.625rem;
 
-    /* Risk level colors - clinical indicators */
-    --risk-high: 0 84% 55%;
-    --risk-medium: 38 92% 45%;
-    --risk-low: 152 69% 35%;
+    /* Risk level colors - adjusted for light backgrounds (WCAG AA) */
+    --risk-high: 0 72% 45%;
+    --risk-medium: 30 85% 38%;
+    --risk-low: 152 55% 30%;
 
-    /* SHAP chart colors */
-    --shap-positive: 0 80% 60%;
-    --shap-negative: 152 69% 40%;
+    /* SHAP chart colors - darker for light mode */
+    --shap-positive: 0 70% 50%;
+    --shap-negative: 152 55% 35%;
 
-    /* Warning color */
-    --warning: 45 93% 47%;
+    /* Warning color - darkened for light backgrounds */
+    --warning: 40 85% 38%;
 
     /* Custom gradients */
-    --gradient-healthcare: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 40% 95%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 30% 98%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(174 72% 40%) 0%, hsl(199 89% 45%) 100%);
+    --gradient-healthcare: linear-gradient(180deg, hsl(210 30% 98%) 0%, hsl(210 30% 95%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(174 65% 32%) 0%, hsl(199 80% 38%) 100%);
 
-    /* Shadows */
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 20px rgba(20, 184, 166, 0.15);
+    /* Shadows - subtle for light mode */
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 0 16px rgba(20, 130, 120, 0.12);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 210 40% 11%;
-    --sidebar-primary: 174 72% 40%;
+    --sidebar-foreground: 215 25% 17%;
+    --sidebar-primary: 174 65% 32%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 30% 94%;
-    --sidebar-accent-foreground: 210 40% 11%;
-    --sidebar-border: 210 25% 88%;
-    --sidebar-ring: 174 72% 40%;
+    --sidebar-accent: 210 25% 93%;
+    --sidebar-accent-foreground: 215 25% 17%;
+    --sidebar-border: 215 20% 82%;
+    --sidebar-ring: 174 65% 32%;
   }
 
   .dark {
