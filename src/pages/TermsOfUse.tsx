@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileText, Shield, AlertTriangle, Scale, Lock } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const TermsOfUse = () => {
   return (
@@ -9,7 +10,7 @@ export const TermsOfUse = () => {
       
       {/* Header */}
       <header className="border-b border-border/50 bg-card/50">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link 
             to="/" 
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -17,6 +18,7 @@ export const TermsOfUse = () => {
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 
