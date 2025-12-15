@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'display': ['3rem', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
@@ -90,12 +90,12 @@ export default {
           to: { height: "0" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(0, 180, 216, 0.3)" },
-          "50%": { boxShadow: "0 0 40px rgba(0, 180, 216, 0.5)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(45, 212, 191, 0.25)" },
+          "50%": { boxShadow: "0 0 40px rgba(45, 212, 191, 0.4)" },
         },
         "pulse-live": {
-          "0%, 100%": { boxShadow: "0 0 10px rgba(239, 68, 68, 0.4)" },
-          "50%": { boxShadow: "0 0 25px rgba(239, 68, 68, 0.8)" },
+          "0%, 100%": { boxShadow: "0 0 10px rgba(45, 212, 191, 0.3)" },
+          "50%": { boxShadow: "0 0 25px rgba(45, 212, 191, 0.6)" },
         },
         "pulse-subtle": {
           "0%, 100%": { opacity: "1" },
