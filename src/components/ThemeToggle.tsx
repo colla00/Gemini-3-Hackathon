@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Monitor } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,17 @@ import {
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
 
+  const handleThemeChange = (newTheme: string) => {
+    // Add transitioning class for smooth animation
+    document.documentElement.classList.add('transitioning');
+    setTheme(newTheme);
+    
+    // Remove class after transition completes
+    setTimeout(() => {
+      document.documentElement.classList.remove('transitioning');
+    }, 300);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,16 +32,16 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           <Sun className="mr-2 h-4 w-4" />
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           <Moon className="mr-2 h-4 w-4" />
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          <span className="mr-2 h-4 w-4 flex items-center justify-center text-xs">💻</span>
+        <DropdownMenuItem onClick={() => handleThemeChange("system")}>
+          <Monitor className="mr-2 h-4 w-4" />
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

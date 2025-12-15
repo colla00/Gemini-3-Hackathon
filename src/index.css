@@ -134,16 +134,35 @@
     @apply border-border;
   }
 
+  /* Theme transition for smooth light/dark mode switching */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.transitioning,
+  html.transitioning *,
+  html.transitioning *::before,
+  html.transitioning *::after {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                fill 0.3s ease,
+                stroke 0.3s ease !important;
+  }
+
   body {
     @apply text-foreground font-sans antialiased bg-background;
     font-family: 'Inter', system-ui, sans-serif;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Glass morphism base card style */
   .glass-card {
     @apply bg-card/80 backdrop-blur-xl border border-border/30;
     box-shadow: var(--shadow-card);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 }
 
