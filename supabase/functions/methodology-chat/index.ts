@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -7,10 +8,7 @@ const corsHeaders = {
 
 // Rate limiting configuration
 const RATE_LIMIT_REQUESTS = 20; // Max requests per window
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute window
-
-// In-memory rate limit store (resets on function cold start)
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW_SECONDS = 60; // 1 minute window
 
 function getRateLimitKey(req: Request): string {
   const authHeader = req.headers.get('authorization') || '';
@@ -18,21 +16,24 @@ function getRateLimitKey(req: Request): string {
   return `chat:${authHeader.slice(-20)}:${forwarded.split(',')[0]}`;
 }
 
-function checkRateLimit(key: string): { allowed: boolean; remaining: number; resetIn: number } {
-  const now = Date.now();
-  const entry = rateLimitStore.get(key);
+async function checkRateLimit(supabase: any, key: string, maxRequests: number, windowSeconds: number) {
+  const { data, error } = await supabase.rpc('check_rate_limit', {
+    p_key: key,
+    p_max_requests: maxRequests,
+    p_window_seconds: windowSeconds
+  });
   
-  if (!entry || now >= entry.resetAt) {
-    rateLimitStore.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return { allowed: true, remaining: RATE_LIMIT_REQUESTS - 1, resetIn: RATE_LIMIT_WINDOW_MS };
+  if (error) {
+    console.error('Rate limit check error:', error);
+    // Fail open - allow request if rate limit check fails
+    return { allowed: true, remaining: maxRequests - 1, resetAt: Math.floor(Date.now() / 1000) + windowSeconds };
   }
   
-  if (entry.count >= RATE_LIMIT_REQUESTS) {
-    return { allowed: false, remaining: 0, resetIn: entry.resetAt - now };
-  }
-  
-  entry.count++;
-  return { allowed: true, remaining: RATE_LIMIT_REQUESTS - entry.count, resetIn: entry.resetAt - now };
+  return {
+    allowed: data.allowed,
+    remaining: data.remaining,
+    resetAt: data.reset_at
+  };
 }
 
 const SYSTEM_PROMPT = `You are an expert AI assistant for the NSO (Nurse-Sensitive Outcomes) Quality Dashboard - a research prototype demonstrating predictive analytics for nursing quality monitoring.
@@ -68,25 +69,31 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Initialize Supabase client with service role for rate limiting
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
   // Check rate limit
   const rateLimitKey = getRateLimitKey(req);
-  const rateLimit = checkRateLimit(rateLimitKey);
+  const rateLimit = await checkRateLimit(supabase, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
   
   if (!rateLimit.allowed) {
     console.warn(`Rate limit exceeded for key: ${rateLimitKey}`);
+    const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
     return new Response(
       JSON.stringify({ 
         error: 'Rate limit exceeded. Please try again later.',
-        retryAfter: Math.ceil(rateLimit.resetIn / 1000)
+        retryAfter
       }),
       { 
         status: 429, 
         headers: { 
           ...corsHeaders, 
           'Content-Type': 'application/json',
-          'Retry-After': String(Math.ceil(rateLimit.resetIn / 1000)),
+          'Retry-After': String(retryAfter),
           'X-RateLimit-Remaining': '0',
-          'X-RateLimit-Reset': String(Math.ceil(rateLimit.resetIn / 1000))
+          'X-RateLimit-Reset': String(rateLimit.resetAt)
         } 
       }
     );
@@ -168,7 +175,7 @@ serve(async (req) => {
         ...corsHeaders, 
         "Content-Type": "text/event-stream",
         'X-RateLimit-Remaining': String(rateLimit.remaining),
-        'X-RateLimit-Reset': String(Math.ceil(rateLimit.resetIn / 1000))
+        'X-RateLimit-Reset': String(rateLimit.resetAt)
       },
     });
   } catch (error) {

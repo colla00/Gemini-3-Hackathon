@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
@@ -9,63 +10,41 @@ const corsHeaders = {
 };
 
 // Rate limiting configuration
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
-const MAX_REQUESTS_PER_WINDOW = 3; // Max 3 requests per IP per hour
-
-// In-memory rate limit store (resets when function cold starts)
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
-
-// Clean up expired entries periodically
-const cleanupRateLimitStore = () => {
-  const now = Date.now();
-  for (const [key, value] of rateLimitStore.entries()) {
-    if (now > value.resetAt) {
-      rateLimitStore.delete(key);
-    }
-  }
-};
-
-// Check and update rate limit for an IP
-const checkRateLimit = (ip: string): { allowed: boolean; remaining: number; resetAt: number } => {
-  cleanupRateLimitStore();
-  
-  const now = Date.now();
-  const existing = rateLimitStore.get(ip);
-  
-  if (!existing || now > existing.resetAt) {
-    // New window
-    const resetAt = now + RATE_LIMIT_WINDOW_MS;
-    rateLimitStore.set(ip, { count: 1, resetAt });
-    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1, resetAt };
-  }
-  
-  if (existing.count >= MAX_REQUESTS_PER_WINDOW) {
-    // Rate limited
-    return { allowed: false, remaining: 0, resetAt: existing.resetAt };
-  }
-  
-  // Increment counter
-  existing.count++;
-  return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - existing.count, resetAt: existing.resetAt };
-};
+const RATE_LIMIT_REQUESTS = 3; // Max 3 requests per window
+const RATE_LIMIT_WINDOW_SECONDS = 3600; // 1 hour window
 
 // Get client IP from request headers
 const getClientIP = (req: Request): string => {
-  // Check common headers for client IP (reverse proxy headers)
   const forwardedFor = req.headers.get('x-forwarded-for');
   if (forwardedFor) {
-    // Take the first IP in the chain (original client)
     return forwardedFor.split(',')[0].trim();
   }
-  
   const realIP = req.headers.get('x-real-ip');
   if (realIP) {
     return realIP.trim();
   }
-  
-  // Fallback to a default (shouldn't happen in production)
   return 'unknown';
 };
+
+async function checkRateLimit(supabase: any, key: string, maxRequests: number, windowSeconds: number) {
+  const { data, error } = await supabase.rpc('check_rate_limit', {
+    p_key: key,
+    p_max_requests: maxRequests,
+    p_window_seconds: windowSeconds
+  });
+  
+  if (error) {
+    console.error('Rate limit check error:', error);
+    // Fail open - allow request if rate limit check fails
+    return { allowed: true, remaining: maxRequests - 1, resetAt: Math.floor(Date.now() / 1000) + windowSeconds };
+  }
+  
+  return {
+    allowed: data.allowed,
+    remaining: data.remaining,
+    resetAt: data.reset_at
+  };
+}
 
 interface WalkthroughRequestData {
   name: string;
@@ -104,29 +83,36 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Initialize Supabase client with service role for rate limiting
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
   // Get client IP and check rate limit
   const clientIP = getClientIP(req);
-  const rateLimit = checkRateLimit(clientIP);
+  const rateLimitKey = `walkthrough:${clientIP}`;
+  const rateLimit = await checkRateLimit(supabase, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
   
   // Add rate limit headers to all responses
   const rateLimitHeaders = {
-    'X-RateLimit-Limit': MAX_REQUESTS_PER_WINDOW.toString(),
+    'X-RateLimit-Limit': RATE_LIMIT_REQUESTS.toString(),
     'X-RateLimit-Remaining': rateLimit.remaining.toString(),
-    'X-RateLimit-Reset': Math.ceil(rateLimit.resetAt / 1000).toString(),
+    'X-RateLimit-Reset': rateLimit.resetAt.toString(),
   };
 
   if (!rateLimit.allowed) {
     console.log(`Rate limit exceeded for IP: ${clientIP}`);
+    const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
     return new Response(
       JSON.stringify({ 
         error: "Too many requests. Please try again later.",
-        retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000)
+        retryAfter
       }),
       { 
         status: 429, 
         headers: { 
           "Content-Type": "application/json", 
-          "Retry-After": Math.ceil((rateLimit.resetAt - Date.now()) / 1000).toString(),
+          "Retry-After": retryAfter.toString(),
           ...rateLimitHeaders,
           ...corsHeaders 
         } 
@@ -210,7 +196,7 @@ const handler = async (req: Request): Promise<Response> => {
 
       return new Response(
         JSON.stringify({ success: true, approvalEmail: approvalEmailResponse }),
-        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        { status: 200, headers: { "Content-Type": "application/json", ...rateLimitHeaders, ...corsHeaders } }
       );
     }
 
@@ -236,7 +222,7 @@ const handler = async (req: Request): Promise<Response> => {
 
       return new Response(
         JSON.stringify({ success: true, denialEmail: denialEmailResponse }),
-        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        { status: 200, headers: { "Content-Type": "application/json", ...rateLimitHeaders, ...corsHeaders } }
       );
     }
 
@@ -306,7 +292,7 @@ const handler = async (req: Request): Promise<Response> => {
         adminEmail: adminEmailResponse,
         confirmationEmail: confirmationResponse 
       }),
-      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      { status: 200, headers: { "Content-Type": "application/json", ...rateLimitHeaders, ...corsHeaders } }
     );
   } catch (error: any) {
     console.error("Error in send-walkthrough-notification:", error);
