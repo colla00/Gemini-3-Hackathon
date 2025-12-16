@@ -342,6 +342,39 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limit_violations: {
+        Row: {
+          created_at: string
+          endpoint: string
+          first_violation_at: string
+          id: string
+          ip_address: string | null
+          key: string
+          last_violation_at: string
+          violation_count: number
+        }
+        Insert: {
+          created_at?: string
+          endpoint: string
+          first_violation_at?: string
+          id?: string
+          ip_address?: string | null
+          key: string
+          last_violation_at?: string
+          violation_count?: number
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string
+          first_violation_at?: string
+          id?: string
+          ip_address?: string | null
+          key?: string
+          last_violation_at?: string
+          violation_count?: number
+        }
+        Relationships: []
+      }
       rate_limits: {
         Row: {
           count: number
@@ -483,16 +516,25 @@ export type Database = {
         }
         Returns: Json
       }
+      cleanup_rate_limit_violations: {
+        Args: { p_older_than_days?: number }
+        Returns: number
+      }
       cleanup_rate_limits: {
         Args: { p_older_than_hours?: number }
         Returns: number
       }
+      get_rate_limit_stats: { Args: { p_hours?: number }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      log_rate_limit_violation: {
+        Args: { p_endpoint: string; p_ip_address: string; p_key: string }
+        Returns: undefined
       }
     }
     Enums: {

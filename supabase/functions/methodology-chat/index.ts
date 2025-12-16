@@ -9,11 +9,20 @@ const corsHeaders = {
 // Rate limiting configuration
 const RATE_LIMIT_REQUESTS = 20; // Max requests per window
 const RATE_LIMIT_WINDOW_SECONDS = 60; // 1 minute window
+const ENDPOINT_NAME = 'methodology-chat';
 
 function getRateLimitKey(req: Request): string {
   const authHeader = req.headers.get('authorization') || '';
   const forwarded = req.headers.get('x-forwarded-for') || 'unknown';
   return `chat:${authHeader.slice(-20)}:${forwarded.split(',')[0]}`;
+}
+
+function getClientIP(req: Request): string {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0].trim();
+  }
+  return req.headers.get('x-real-ip')?.trim() || 'unknown';
 }
 
 async function checkRateLimit(supabase: any, key: string, maxRequests: number, windowSeconds: number) {
@@ -25,7 +34,6 @@ async function checkRateLimit(supabase: any, key: string, maxRequests: number, w
   
   if (error) {
     console.error('Rate limit check error:', error);
-    // Fail open - allow request if rate limit check fails
     return { allowed: true, remaining: maxRequests - 1, resetAt: Math.floor(Date.now() / 1000) + windowSeconds };
   }
   
@@ -34,6 +42,19 @@ async function checkRateLimit(supabase: any, key: string, maxRequests: number, w
     remaining: data.remaining,
     resetAt: data.reset_at
   };
+}
+
+async function logViolation(supabase: any, key: string, ip: string, endpoint: string) {
+  try {
+    await supabase.rpc('log_rate_limit_violation', {
+      p_key: key,
+      p_ip_address: ip,
+      p_endpoint: endpoint
+    });
+    console.log(`Rate limit violation logged for ${endpoint} from IP ${ip}`);
+  } catch (error) {
+    console.error('Failed to log rate limit violation:', error);
+  }
 }
 
 const SYSTEM_PROMPT = `You are an expert AI assistant for the NSO (Nurse-Sensitive Outcomes) Quality Dashboard - a research prototype demonstrating predictive analytics for nursing quality monitoring.
@@ -76,10 +97,15 @@ serve(async (req) => {
 
   // Check rate limit
   const rateLimitKey = getRateLimitKey(req);
+  const clientIP = getClientIP(req);
   const rateLimit = await checkRateLimit(supabase, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
   
   if (!rateLimit.allowed) {
-    console.warn(`Rate limit exceeded for key: ${rateLimitKey}`);
+    console.warn(`Rate limit exceeded for key: ${rateLimitKey}, IP: ${clientIP}`);
+    
+    // Log violation for monitoring
+    await logViolation(supabase, rateLimitKey, clientIP, ENDPOINT_NAME);
+    
     const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
     return new Response(
       JSON.stringify({ 
