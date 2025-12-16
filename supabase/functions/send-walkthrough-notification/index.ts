@@ -12,6 +12,7 @@ const corsHeaders = {
 // Rate limiting configuration
 const RATE_LIMIT_REQUESTS = 3; // Max 3 requests per window
 const RATE_LIMIT_WINDOW_SECONDS = 3600; // 1 hour window
+const ENDPOINT_NAME = 'send-walkthrough-notification';
 
 // Get client IP from request headers
 const getClientIP = (req: Request): string => {
@@ -19,11 +20,7 @@ const getClientIP = (req: Request): string => {
   if (forwardedFor) {
     return forwardedFor.split(',')[0].trim();
   }
-  const realIP = req.headers.get('x-real-ip');
-  if (realIP) {
-    return realIP.trim();
-  }
-  return 'unknown';
+  return req.headers.get('x-real-ip')?.trim() || 'unknown';
 };
 
 async function checkRateLimit(supabase: any, key: string, maxRequests: number, windowSeconds: number) {
@@ -35,7 +32,6 @@ async function checkRateLimit(supabase: any, key: string, maxRequests: number, w
   
   if (error) {
     console.error('Rate limit check error:', error);
-    // Fail open - allow request if rate limit check fails
     return { allowed: true, remaining: maxRequests - 1, resetAt: Math.floor(Date.now() / 1000) + windowSeconds };
   }
   
@@ -44,6 +40,19 @@ async function checkRateLimit(supabase: any, key: string, maxRequests: number, w
     remaining: data.remaining,
     resetAt: data.reset_at
   };
+}
+
+async function logViolation(supabase: any, key: string, ip: string, endpoint: string) {
+  try {
+    await supabase.rpc('log_rate_limit_violation', {
+      p_key: key,
+      p_ip_address: ip,
+      p_endpoint: endpoint
+    });
+    console.log(`Rate limit violation logged for ${endpoint} from IP ${ip}`);
+  } catch (error) {
+    console.error('Failed to log rate limit violation:', error);
+  }
 }
 
 interface WalkthroughRequestData {
@@ -102,6 +111,10 @@ const handler = async (req: Request): Promise<Response> => {
 
   if (!rateLimit.allowed) {
     console.log(`Rate limit exceeded for IP: ${clientIP}`);
+    
+    // Log violation for monitoring
+    await logViolation(supabase, rateLimitKey, clientIP, ENDPOINT_NAME);
+    
     const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
     return new Response(
       JSON.stringify({ 
