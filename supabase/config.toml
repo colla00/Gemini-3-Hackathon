@@ -11,3 +11,7 @@ verify_jwt = true
 [functions.send-walkthrough-notification]
 enabled = true
 verify_jwt = false
+
+[functions.check-abuse-alerts]
+enabled = true
+verify_jwt = false
