@@ -1,7 +1,12 @@
 import { Shield } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export const WatermarkOverlay = () => {
-  const watermarkText = "© Dr. Alexis Collier – Patent Pending";
+  const { user } = useAuth();
+  
+  const baseWatermark = "© Dr. Alexis Collier – Patent Pending";
+  const userIdentifier = user?.email ? ` | ${user.email}` : '';
+  const watermarkText = baseWatermark + userIdentifier;
   
   // Create a grid of watermarks
   const rows = 8;
@@ -45,6 +50,15 @@ export const WatermarkOverlay = () => {
           Do Not Copy
         </span>
       </div>
+
+      {/* User identification in bottom right - more visible for accountability */}
+      {user?.email && (
+        <div className="absolute bottom-16 right-4 text-foreground/[0.06] dark:text-foreground/[0.08]">
+          <span className="text-[9px] font-mono tracking-tight">
+            Viewer: {user.email}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

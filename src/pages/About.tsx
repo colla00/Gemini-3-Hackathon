@@ -1,18 +1,35 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Award, FileText, Users, Target, Lightbulb, Shield, Brain, 
   TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play,
-  CheckCircle, XCircle, FlaskConical, CircleDot, List, ChevronRight, Download
+  CheckCircle, XCircle, FlaskConical, CircleDot, List, ChevronRight
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
 import { PatentStrengthening } from '@/components/quality/PatentStrengthening';
 import { PatentFeatureMapping } from '@/components/quality/PatentFeatureMapping';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useAuditLog } from '@/hooks/useAuditLog';
 
 function About() {
+  const { logAction } = useAuditLog();
+
+  // Log page view on mount
+  useEffect(() => {
+    logAction({
+      action: 'view',
+      resource_type: 'about_page',
+      details: {
+        page: 'about',
+        contains_patent_info: true,
+        timestamp: new Date().toISOString()
+      }
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Research Prototype Disclaimer */}

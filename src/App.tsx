@@ -47,7 +47,11 @@ const App = () => (
                     <AdminPanel />
                   </ProtectedRoute>
                 } />
-                <Route path="/presentation" element={<Presentation />} />
+                <Route path="/presentation" element={
+                  <ProtectedRoute>
+                    <Presentation />
+                  </ProtectedRoute>
+                } />
                 <Route path="/record" element={
                   <ProtectedRoute>
                     <RecordingDemo />

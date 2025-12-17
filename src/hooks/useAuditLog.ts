@@ -16,7 +16,10 @@ export type AuditResourceType =
   | 'user_role'
   | 'user_profile'
   | 'presentation_session'
-  | 'handoff_report';
+  | 'handoff_report'
+  | 'patent_documentation'
+  | 'about_page'
+  | 'presentation_page';
 
 interface AuditLogEntry {
   action: AuditAction;
