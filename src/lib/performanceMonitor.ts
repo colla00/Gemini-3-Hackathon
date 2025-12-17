@@ -19,11 +19,36 @@ export interface PerformanceReport {
   customMetrics: PerformanceMetric[];
 }
 
+export interface PerformanceBudget {
+  interaction: number;  // Max ms for user interactions
+  filter: number;       // Max ms for filter operations
+  navigation: number;   // Max ms for page transitions
+  render: number;       // Max ms for component renders
+}
+
+export interface BudgetViolation {
+  metric: PerformanceMetric;
+  budget: number;
+  exceeded: number;
+}
+
+export type BudgetViolationCallback = (violation: BudgetViolation) => void;
+
+const DEFAULT_BUDGET: PerformanceBudget = {
+  interaction: 100,  // 100ms for instant feel
+  filter: 50,        // 50ms for filter operations
+  navigation: 300,   // 300ms for navigation
+  render: 16,        // 16ms for 60fps renders
+};
+
 class PerformanceMonitor {
   private metrics: PerformanceMetric[] = [];
   private marks: Map<string, number> = new Map();
   private observer: PerformanceObserver | null = null;
   private isEnabled: boolean = true;
+  private budget: PerformanceBudget = { ...DEFAULT_BUDGET };
+  private budgetCallbacks: Set<BudgetViolationCallback> = new Set();
+  private budgetAlertsEnabled: boolean = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -108,11 +133,16 @@ class PerformanceMonitor {
   }
 
   /**
-   * Add a custom metric
+   * Add a custom metric and check against budget
    */
   addMetric(metric: PerformanceMetric): void {
     if (!this.isEnabled) return;
     this.metrics.push(metric);
+    
+    // Check budget and notify if exceeded
+    if (this.budgetAlertsEnabled) {
+      this.checkBudget(metric);
+    }
     
     // Keep only last 100 metrics to prevent memory issues
     if (this.metrics.length > 100) {
@@ -121,16 +151,89 @@ class PerformanceMonitor {
   }
 
   /**
-   * Record a user interaction timing
+   * Record a user interaction timing with budget check
    */
   recordInteraction(name: string, duration: number): void {
-    this.addMetric({
+    const metric: PerformanceMetric = {
       name,
       value: duration,
       unit: 'ms',
       timestamp: Date.now(),
       category: 'interaction',
-    });
+    };
+    this.addMetric(metric);
+  }
+
+  /**
+   * Enable budget alerts
+   */
+  enableBudgetAlerts(enabled: boolean): void {
+    this.budgetAlertsEnabled = enabled;
+  }
+
+  /**
+   * Check if budget alerts are enabled
+   */
+  isBudgetAlertsEnabled(): boolean {
+    return this.budgetAlertsEnabled;
+  }
+
+  /**
+   * Set custom budget thresholds
+   */
+  setBudget(budget: Partial<PerformanceBudget>): void {
+    this.budget = { ...this.budget, ...budget };
+  }
+
+  /**
+   * Get current budget
+   */
+  getBudget(): PerformanceBudget {
+    return { ...this.budget };
+  }
+
+  /**
+   * Subscribe to budget violations
+   */
+  onBudgetViolation(callback: BudgetViolationCallback): () => void {
+    this.budgetCallbacks.add(callback);
+    return () => this.budgetCallbacks.delete(callback);
+  }
+
+  /**
+   * Check a metric against the budget
+   */
+  private checkBudget(metric: PerformanceMetric): void {
+    if (metric.unit !== 'ms') return;
+    
+    let budgetThreshold: number | null = null;
+    
+    // Determine which budget applies
+    if (metric.name.includes('filter') || metric.name.includes('search')) {
+      budgetThreshold = this.budget.filter;
+    } else if (metric.name.includes('navigation') || metric.name.includes('patient-selection')) {
+      budgetThreshold = this.budget.navigation;
+    } else if (metric.name.includes('render')) {
+      budgetThreshold = this.budget.render;
+    } else if (metric.category === 'interaction') {
+      budgetThreshold = this.budget.interaction;
+    }
+    
+    if (budgetThreshold && metric.value > budgetThreshold) {
+      const violation: BudgetViolation = {
+        metric,
+        budget: budgetThreshold,
+        exceeded: metric.value - budgetThreshold,
+      };
+      
+      this.budgetCallbacks.forEach(callback => {
+        try {
+          callback(violation);
+        } catch (e) {
+          console.error('Budget violation callback error:', e);
+        }
+      });
+    }
   }
 
   /**

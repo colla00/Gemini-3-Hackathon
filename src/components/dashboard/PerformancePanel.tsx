@@ -3,8 +3,11 @@ import { performanceMonitor, type PerformanceReport } from '@/lib/performanceMon
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Activity, Clock, Zap, RefreshCw, BarChart3 } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Activity, Clock, Zap, RefreshCw, BarChart3, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { usePerformanceBudget } from '@/hooks/usePerformanceBudget';
 
 interface PerformancePanelProps {
   className?: string;
@@ -13,6 +16,10 @@ interface PerformancePanelProps {
 export const PerformancePanel = ({ className }: PerformancePanelProps) => {
   const [report, setReport] = useState<ReturnType<typeof performanceMonitor.generateReport> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [budgetAlertsEnabled, setBudgetAlertsEnabled] = useState(false);
+  
+  // Enable budget alerts with toast notifications
+  usePerformanceBudget(budgetAlertsEnabled);
 
   const refreshMetrics = () => {
     setReport(performanceMonitor.generateReport());
@@ -115,6 +122,22 @@ export const PerformancePanel = ({ className }: PerformancePanelProps) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Budget Alerts Toggle */}
+        <div className="flex items-center justify-between p-2 rounded-lg bg-secondary/30">
+          <div className="flex items-center gap-2">
+            <Bell className="w-3 h-3 text-muted-foreground" />
+            <Label htmlFor="budget-alerts" className="text-xs cursor-pointer">
+              Budget Alerts
+            </Label>
+          </div>
+          <Switch
+            id="budget-alerts"
+            checked={budgetAlertsEnabled}
+            onCheckedChange={setBudgetAlertsEnabled}
+            className="scale-75"
+          />
         </div>
 
         {/* Custom Metrics Averages */}
