@@ -44,6 +44,13 @@ export type Database = {
             referencedRelation: "presentation_sessions"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "ai_chat_history_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
+            referencedColumns: ["id"]
+          },
         ]
       }
       audience_questions: {
@@ -86,6 +93,13 @@ export type Database = {
             columns: ["session_id"]
             isOneToOne: false
             referencedRelation: "presentation_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audience_questions_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
             referencedColumns: ["id"]
           },
         ]
@@ -163,6 +177,13 @@ export type Database = {
             columns: ["session_id"]
             isOneToOne: false
             referencedRelation: "presentation_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedback_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
             referencedColumns: ["id"]
           },
         ]
@@ -269,6 +290,13 @@ export type Database = {
             columns: ["session_id"]
             isOneToOne: false
             referencedRelation: "presentation_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "polls_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
             referencedColumns: ["id"]
           },
         ]
@@ -462,6 +490,13 @@ export type Database = {
             referencedRelation: "presentation_sessions"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "viewer_analytics_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
+            referencedColumns: ["id"]
+          },
         ]
       }
       walkthrough_access_requests: {
@@ -505,7 +540,39 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_sessions: {
+        Row: {
+          audience_size: number | null
+          id: string | null
+          is_live: boolean | null
+          presenter_name: string | null
+          session_key: string | null
+          slides_completed: number | null
+          started_at: string | null
+          total_slides: number | null
+        }
+        Insert: {
+          audience_size?: number | null
+          id?: string | null
+          is_live?: boolean | null
+          presenter_name?: string | null
+          session_key?: string | null
+          slides_completed?: number | null
+          started_at?: string | null
+          total_slides?: number | null
+        }
+        Update: {
+          audience_size?: number | null
+          id?: string | null
+          is_live?: boolean | null
+          presenter_name?: string | null
+          session_key?: string | null
+          slides_completed?: number | null
+          started_at?: string | null
+          total_slides?: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       check_rate_limit: {
