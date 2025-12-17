@@ -11,6 +11,7 @@ import { QuickStats } from './QuickStats';
 import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
 import { DemoModeController, type DemoScenario } from './DemoModeController';
+import { PerformancePanel } from './PerformancePanel';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { cn } from '@/lib/utils';
 
@@ -288,6 +289,9 @@ export const Dashboard = () => {
         isFullscreen={isPresentationMode}
         onFullscreenChange={setIsPresentationMode}
       />
+
+      {/* Performance Monitoring Panel */}
+      <PerformancePanel />
     </div>
   );
 };
