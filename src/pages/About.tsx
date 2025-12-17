@@ -9,6 +9,7 @@ import {
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
 import { PatentStrengthening } from '@/components/quality/PatentStrengthening';
+import { PatentFeatureMapping } from '@/components/quality/PatentFeatureMapping';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 function About() {
@@ -193,6 +194,13 @@ function About() {
         <Card>
           <CardContent className="pt-6">
             <PatentStrengthening />
+          </CardContent>
+        </Card>
+
+        {/* Patent Feature Mapping */}
+        <Card>
+          <CardContent className="pt-6">
+            <PatentFeatureMapping />
           </CardContent>
         </Card>
 
