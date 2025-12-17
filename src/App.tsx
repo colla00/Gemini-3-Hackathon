@@ -53,7 +53,11 @@ const App = () => (
                     <RecordingDemo />
                   </ProtectedRoute>
                 } />
-                <Route path="/about" element={<About />} />
+                <Route path="/about" element={
+                  <ProtectedRoute>
+                    <About />
+                  </ProtectedRoute>
+                } />
                 <Route path="/terms" element={<TermsOfUse />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
