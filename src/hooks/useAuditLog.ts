@@ -38,6 +38,35 @@ export const useAuditLog = () => {
     }
 
     try {
+      // Use edge function to capture IP address
+      const { data, error } = await supabase.functions.invoke('log-audit', {
+        body: {
+          action: entry.action,
+          resource_type: entry.resource_type,
+          resource_id: entry.resource_id,
+          details: entry.details,
+        }
+      });
+
+      if (error) {
+        console.error('Failed to write audit log via edge function:', error);
+        // Fallback to direct insert (without IP)
+        await fallbackLogAction(entry);
+      } else {
+        console.log('Audit log created with IP tracking:', data?.id);
+      }
+    } catch (err) {
+      console.error('Audit log error:', err);
+      // Fallback to direct insert (without IP)
+      await fallbackLogAction(entry);
+    }
+  };
+
+  // Fallback if edge function fails - logs without IP address
+  const fallbackLogAction = async (entry: AuditLogEntry) => {
+    if (!user) return;
+    
+    try {
       const { error } = await supabase
         .from('audit_logs')
         .insert([{
@@ -47,13 +76,14 @@ export const useAuditLog = () => {
           resource_type: entry.resource_type,
           resource_id: entry.resource_id,
           details: entry.details as Json,
+          ip_address: null, // Cannot capture IP from client-side
         }]);
 
       if (error) {
-        console.error('Failed to write audit log:', error);
+        console.error('Fallback audit log failed:', error);
       }
     } catch (err) {
-      console.error('Audit log error:', err);
+      console.error('Fallback audit log error:', err);
     }
   };
 
