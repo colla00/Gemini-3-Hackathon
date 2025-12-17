@@ -10,6 +10,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
@@ -40,6 +41,7 @@ const App = () => (
         <AuthProvider>
           <SettingsProvider>
             <TooltipProvider>
+            <ErrorBoundary>
             <Toaster />
             <Sonner />
             <WatermarkOverlay />
@@ -96,6 +98,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
+            </ErrorBoundary>
           </TooltipProvider>
         </SettingsProvider>
       </AuthProvider>

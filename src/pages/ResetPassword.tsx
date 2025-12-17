@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { PasswordInput } from '@/components/PasswordInput';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { toast } from 'sonner';
-import { Activity, KeyRound } from 'lucide-react';
+import { Activity, KeyRound, ArrowLeft } from 'lucide-react';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const ResetPassword = () => {
   // Check if user has a valid session from the reset link
   useEffect(() => {
     if (!session) {
-      // Give it a moment to load
       const timer = setTimeout(() => {
         if (!session) {
           toast.error('Invalid or expired reset link');
@@ -58,10 +58,15 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      {/* Theme Toggle - Top Right */}
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Activity className="h-8 w-8 text-primary" />
+            <Activity className="h-8 w-8 text-primary" aria-hidden="true" />
             <h1 className="text-2xl font-bold text-foreground">NSO Quality Dashboard</h1>
           </div>
         </div>
@@ -70,44 +75,51 @@ const ResetPassword = () => {
           <form onSubmit={handleUpdatePassword}>
             <CardHeader>
               <div className="flex items-center gap-2">
-                <KeyRound className="h-5 w-5 text-primary" />
+                <KeyRound className="h-5 w-5 text-primary" aria-hidden="true" />
                 <CardTitle>Set New Password</CardTitle>
               </div>
               <CardDescription>
-                Enter your new password below
+                Create a strong password for your account
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="new-password">New Password</Label>
-                <Input
+                <PasswordInput
                   id="new-password"
-                  type="password"
-                  placeholder="••••••••"
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  onChange={setNewPassword}
+                  showStrength
+                  showRequirements
                   required
                   minLength={6}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirm-password">Confirm Password</Label>
-                <Input
+                <PasswordInput
                   id="confirm-password"
-                  type="password"
-                  placeholder="••••••••"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={setConfirmPassword}
                   required
                   minLength={6}
                 />
+                {confirmPassword && newPassword !== confirmPassword && (
+                  <p className="text-xs text-destructive">Passwords do not match</p>
+                )}
               </div>
-              <p className="text-xs text-muted-foreground">Minimum 6 characters</p>
             </CardContent>
-            <CardFooter>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+            <CardFooter className="flex flex-col gap-3">
+              <Button type="submit" className="w-full" disabled={isLoading || newPassword !== confirmPassword}>
                 {isLoading ? 'Updating...' : 'Update Password'}
               </Button>
+              <Link
+                to="/auth"
+                className="inline-flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Sign In
+              </Link>
             </CardFooter>
           </form>
         </Card>
