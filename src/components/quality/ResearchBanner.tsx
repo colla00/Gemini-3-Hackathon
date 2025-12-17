@@ -6,7 +6,7 @@ export const ResearchBanner = () => {
       <div className="flex items-center justify-center gap-3 text-[11px] flex-wrap">
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
         <span className="text-warning font-semibold uppercase tracking-wide">
-          Research Prototype — U.S. Provisional Patent App. No. 63/932,953
+          Research Prototype — Patent Pending
         </span>
         <span className="text-warning/70 hidden sm:inline">
           • Synthetic Data Only
