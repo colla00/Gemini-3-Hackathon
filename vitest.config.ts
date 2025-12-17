@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
@@ -15,6 +16,9 @@ export default defineConfig({
         'node_modules/',
         'src/__tests__/setup.ts',
       ],
+    },
+    typecheck: {
+      enabled: false,
     },
   },
   resolve: {
