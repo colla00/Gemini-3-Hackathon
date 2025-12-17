@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Award, FileText, Users, Target, Lightbulb, Shield, Brain, 
   TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play,
-  CheckCircle, XCircle, FlaskConical, CircleDot, List, ChevronRight
+  CheckCircle, XCircle, FlaskConical, CircleDot, List, ChevronRight, Download
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
@@ -60,9 +60,21 @@ function About() {
             </Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Clinical Risk Intelligence System</h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mb-6">
             Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
           </p>
+          
+          {/* Download Section */}
+          <div className="flex flex-wrap gap-3">
+            <a 
+              href="/documents/PROVISIONAL_PATENT_APPLICATION.docx" 
+              download="PROVISIONAL_PATENT_APPLICATION_63-932-953.docx"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium text-sm"
+            >
+              <Download className="w-4 h-4" />
+              Download Patent Application (.docx)
+            </a>
+          </div>
         </div>
       </div>
 
