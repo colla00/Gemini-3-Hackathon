@@ -54,6 +54,7 @@ import { useNarration } from '@/hooks/useNarration';
 import { useGuidedTour } from '@/hooks/useGuidedTour';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { useAuth } from '@/hooks/useAuth';
+import { useAuditLog } from '@/hooks/useAuditLog';
 import { Button } from '@/components/ui/button';
 
 // Map slide types to view types for dashboard content
@@ -171,6 +172,22 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
   
   const { logFeatureUse, logInteraction } = useSessionTracking();
   const { session, createSession, updateSlideProgress } = usePresentationSession();
+  const { logAction } = useAuditLog();
+
+  // Log page view on mount (for authenticated users)
+  useEffect(() => {
+    if (!isDemoMode) {
+      logAction({
+        action: 'view',
+        resource_type: 'presentation_page',
+        details: {
+          page: 'presentation',
+          contains_patent_info: true,
+          timestamp: new Date().toISOString()
+        }
+      });
+    }
+  }, []);
 
   // Check for presenter mode (admin only via Zoom)
   const isPresenterMode = searchParams.get('presenter') === PRESENTER_KEY;

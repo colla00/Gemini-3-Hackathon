@@ -107,7 +107,61 @@ export const TermsOfUse = () => {
                 <li>Remove or alter any proprietary notices or labels</li>
                 <li>Use the Software for any commercial purpose</li>
                 <li>Create derivative works based on the Software</li>
+                <li>Screenshot, record, or capture any portion of the interface without authorization</li>
+                <li>Share access credentials with unauthorized parties</li>
               </ul>
+            </div>
+          </section>
+
+          {/* Access Monitoring & Evidence Collection */}
+          <section className="p-6 rounded-xl bg-accent/5 border border-accent/30">
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
+              <Shield className="w-5 h-5 text-accent" />
+              4. Access Monitoring & Evidence Collection
+            </h2>
+            <div className="space-y-3 text-muted-foreground">
+              <p>
+                <strong>Session Tracking:</strong> By accessing this Software, you acknowledge and consent to the 
+                collection and storage of access logs, including but not limited to: timestamps of access, 
+                pages viewed, duration of sessions, and user identification information.
+              </p>
+              <p>
+                <strong>Watermarking:</strong> All views of the Software include visible and invisible watermarks 
+                containing user identification. Screenshots or recordings may be traced back to the viewing user.
+              </p>
+              <p>
+                <strong>Evidence Preservation:</strong> Access logs are maintained for patent enforcement and 
+                intellectual property protection purposes. These records may be used as evidence in any 
+                legal proceedings related to unauthorized use or infringement.
+              </p>
+              <p>
+                <strong>Audit Trail:</strong> All significant actions within the Software are logged and 
+                timestamped. This audit trail serves as a forensic record of access and usage patterns.
+              </p>
+            </div>
+          </section>
+
+          {/* Confidentiality */}
+          <section className="p-6 rounded-xl bg-card border border-border">
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
+              <Lock className="w-5 h-5 text-primary" />
+              5. Confidentiality Obligations
+            </h2>
+            <div className="space-y-3 text-muted-foreground">
+              <p>
+                By accessing this Software, you agree to treat all information, methodologies, algorithms, 
+                user interfaces, and technical specifications as confidential information. You agree to:
+              </p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Not disclose any aspect of the Software to third parties</li>
+                <li>Not discuss technical details, algorithms, or methodologies publicly</li>
+                <li>Protect access credentials with the same degree of care as your own confidential information</li>
+                <li>Immediately notify the author of any unauthorized access or disclosure</li>
+                <li>Return or destroy any materials containing confidential information upon request</li>
+              </ul>
+              <p className="font-medium text-foreground">
+                Breach of confidentiality may result in immediate termination of access and legal action.
+              </p>
             </div>
           </section>
 
@@ -115,7 +169,7 @@ export const TermsOfUse = () => {
           <section className="p-6 rounded-xl bg-card border border-border">
             <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
               <Shield className="w-5 h-5 text-primary" />
-              4. Disclaimer of Warranties
+              6. Disclaimer of Warranties
             </h2>
             <div className="space-y-3 text-muted-foreground">
               <p className="uppercase font-medium text-foreground text-sm">
@@ -134,7 +188,7 @@ export const TermsOfUse = () => {
           {/* Limitation of Liability */}
           <section className="p-6 rounded-xl bg-card border border-border">
             <h2 className="text-xl font-semibold text-foreground mt-0">
-              5. Limitation of Liability
+              7. Limitation of Liability
             </h2>
             <div className="space-y-3 text-muted-foreground">
               <p className="uppercase font-medium text-foreground text-sm">
@@ -151,7 +205,7 @@ export const TermsOfUse = () => {
           {/* Indemnification */}
           <section className="p-6 rounded-xl bg-card border border-border">
             <h2 className="text-xl font-semibold text-foreground mt-0">
-              6. Indemnification
+              8. Indemnification
             </h2>
             <p className="text-muted-foreground">
               You agree to indemnify, defend, and hold harmless the author, affiliated institutions, and their 
@@ -164,7 +218,7 @@ export const TermsOfUse = () => {
           {/* Governing Law */}
           <section className="p-6 rounded-xl bg-card border border-border">
             <h2 className="text-xl font-semibold text-foreground mt-0">
-              7. Governing Law
+              9. Governing Law
             </h2>
             <p className="text-muted-foreground">
               These Terms shall be governed by and construed in accordance with the laws of the State of Georgia, 
@@ -175,7 +229,7 @@ export const TermsOfUse = () => {
           {/* Contact */}
           <section className="p-6 rounded-xl bg-secondary/50 border border-border">
             <h2 className="text-xl font-semibold text-foreground mt-0">
-              8. Contact Information
+              10. Contact Information
             </h2>
             <div className="text-muted-foreground">
               <p>For questions regarding these Terms of Use or licensing inquiries:</p>
