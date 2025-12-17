@@ -136,10 +136,10 @@ const Auth = () => {
           <ThemeToggle />
         </div>
         
-        <div className="w-full max-w-md space-y-8">
+        <main className="w-full max-w-md space-y-8">
           <div className="text-center space-y-2">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Activity className="h-8 w-8 text-primary" />
+              <Activity className="h-8 w-8 text-primary" aria-hidden="true" />
               <h1 className="text-2xl font-bold text-foreground">NSO Quality Dashboard</h1>
             </div>
           </div>
@@ -175,13 +175,13 @@ const Auth = () => {
                   className="w-full"
                   onClick={() => setShowForgotPassword(false)}
                 >
-                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
                   Back to Sign In
                 </Button>
               </CardFooter>
             </form>
           </Card>
-        </div>
+        </main>
       </div>
     );
   }
@@ -193,11 +193,11 @@ const Auth = () => {
         <ThemeToggle />
       </div>
       
-      <div className="w-full max-w-md space-y-8">
+      <main className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Activity className="h-8 w-8 text-primary" />
+            <Activity className="h-8 w-8 text-primary" aria-hidden="true" />
             <h1 className="text-2xl font-bold text-foreground">NSO Quality Dashboard</h1>
           </div>
           <p className="text-muted-foreground">
@@ -320,15 +320,15 @@ const Auth = () => {
         {/* Security Notice */}
         <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
-            <Shield className="h-3 w-3" />
+            <Shield className="h-3 w-3" aria-hidden="true" />
             <span>Secure Authentication</span>
           </div>
           <div className="flex items-center gap-1">
-            <Users className="h-3 w-3" />
+            <Users className="h-3 w-3" aria-hidden="true" />
             <span>Role-Based Access</span>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

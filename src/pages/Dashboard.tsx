@@ -23,18 +23,19 @@ import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
 import { OfflineIndicator } from '@/components/OfflineIndicator';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { SkipLink } from '@/components/SkipLink';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
-  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" /> },
-  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" /> },
-  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" /> },
-  { id: 'validation', label: 'Model Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" /> },
-  { id: 'integration', label: 'EHR Integration', shortLabel: 'EHR', icon: <Database className="w-4 h-4" /> },
-  { id: 'outcomes', label: 'Clinical Outcomes', shortLabel: 'Outcomes', icon: <TrendingDown className="w-4 h-4" /> },
+  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'validation', label: 'Model Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'integration', label: 'EHR Integration', shortLabel: 'EHR', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'outcomes', label: 'Clinical Outcomes', shortLabel: 'Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
 ];
 
 export const Dashboard = () => {
@@ -89,6 +90,9 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
+      {/* Skip Link for Keyboard Navigation - WCAG 2.1 AA */}
+      <SkipLink targetId="dashboard-main" />
+      
       {/* Screen Protection */}
       <ScreenProtection enabled={true} />
 
@@ -96,7 +100,7 @@ export const Dashboard = () => {
       <ResearchDisclaimer />
 
       {/* Cyan Header Stripe */}
-      <div className="h-1.5 bg-primary w-full" />
+      <div className="h-1.5 bg-primary w-full" aria-hidden="true" />
 
       {/* Main Header Bar */}
       <header className="px-4 py-2 border-b border-border/40 bg-secondary/50">
@@ -107,13 +111,13 @@ export const Dashboard = () => {
             <Link 
               to="/"
               className="p-2 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-              title="Back to Home"
+              aria-label="Back to Home"
             >
-              <Home className="w-4 h-4" />
+              <Home className="w-4 h-4" aria-hidden="true" />
             </Link>
 
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
+              <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center" aria-hidden="true">
                 <BarChart3 className="w-4 h-4 text-primary" />
               </div>
               <div>
@@ -123,21 +127,27 @@ export const Dashboard = () => {
             </div>
             
             {/* Unit Selector */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors">
-              <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+            <button 
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors"
+              aria-label="Select unit: Unit 4C - Med/Surg"
+              aria-haspopup="listbox"
+            >
+              <Building2 className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
               <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
-              <ChevronDown className="w-3 h-3 text-muted-foreground" />
-            </div>
+              <ChevronDown className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
+            </button>
           </div>
 
           {/* Center: Search */}
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-4">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
+              <label htmlFor="patient-search" className="sr-only">Search patients, MRN, or room number</label>
               <input 
-                type="text" 
+                id="patient-search"
+                type="search" 
                 placeholder="Search patients, MRN, room..."
-                className="w-full pl-9 pr-4 py-1.5 text-xs bg-secondary border border-border/50 rounded focus:outline-none focus:border-primary/50 text-foreground placeholder:text-muted-foreground transition-colors"
+                className="w-full pl-9 pr-4 py-1.5 text-xs bg-secondary border border-border/50 rounded focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground placeholder:text-muted-foreground transition-colors"
               />
             </div>
           </div>
@@ -145,70 +155,73 @@ export const Dashboard = () => {
           {/* Right: Status & Actions */}
           <div className="flex items-center gap-3">
             {/* Live Status */}
-            <div 
+            <button 
               className={cn(
-                "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all cursor-pointer",
+                "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
                 liveSimulation.isActive 
                   ? "bg-risk-low/10 border-risk-low/30" 
                   : "bg-secondary border-border/50"
               )}
               onClick={handleLiveToggle}
+              aria-pressed={liveSimulation.isActive}
+              aria-label={liveSimulation.isActive ? "Live updates enabled. Click to pause." : "Live updates paused. Click to resume."}
             >
               {liveSimulation.isActive ? (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-risk-low animate-pulse" aria-hidden="true" />
                   <span className="text-[10px] font-medium text-risk-low uppercase">Live</span>
-                  <Activity className="w-3 h-3 text-risk-low" />
+                  <Activity className="w-3 h-3 text-risk-low" aria-hidden="true" />
                 </>
               ) : (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" aria-hidden="true" />
                   <span className="text-[10px] font-medium text-muted-foreground uppercase">Paused</span>
                 </>
               )}
-            </div>
+            </button>
 
             {/* Time & Shift - Dynamic based on time of day */}
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Clock className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground" aria-label={`Current time: ${currentTime}, ${new Date().getHours() >= 7 && new Date().getHours() < 19 ? 'Day Shift' : 'Night Shift'}`}>
+              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{currentTime}</span>
+              <span className="text-primary font-medium" aria-hidden="true">•</span>
               <span className="text-primary font-medium">
-                • {new Date().getHours() >= 7 && new Date().getHours() < 19 ? 'Day Shift' : 'Night Shift'}
+                {new Date().getHours() >= 7 && new Date().getHours() < 19 ? 'Day Shift' : 'Night Shift'}
               </span>
             </div>
 
             {/* Quick Actions - Cleaned up, no overlaps */}
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-0.5" role="toolbar" aria-label="Quick actions">
               {/* Walkthrough Access Button - shows based on approval status */}
               <WalkthroughAccessButton />
               
               <Link
                 to="/presentation?mode=presenter"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
-                title="Presenter Dashboard (dual-screen for Zoom)"
+                aria-label="Open Presenter Dashboard for dual-screen Zoom presentation"
               >
-                <Monitor className="w-4 h-4" />
+                <Monitor className="w-4 h-4" aria-hidden="true" />
               </Link>
               <button 
                 onClick={() => liveSimulation.updateSimulation()}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-                title="Refresh data"
+                aria-label="Refresh data"
               >
-                <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} />
+                <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} aria-hidden="true" />
               </button>
               <NotificationsDropdown />
               <button 
                 onClick={() => setShowSettings(true)}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-                title="Settings"
+                aria-label="Open settings"
               >
-                <Settings className="w-4 h-4" />
+                <Settings className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
 
             {/* User */}
             <div className="flex items-center gap-2 pl-3 border-l border-border/50">
-              <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center" aria-hidden="true">
                 <User className="w-3.5 h-3.5 text-primary" />
               </div>
               <span className="hidden md:block text-xs font-medium text-foreground">
@@ -220,13 +233,16 @@ export const Dashboard = () => {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 overflow-x-auto">
+      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 overflow-x-auto" aria-label="Dashboard views">
         <div className="flex items-center justify-between min-w-max">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" role="tablist" aria-label="View options">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleViewChange(item.id)}
+                role="tab"
+                aria-selected={activeView === item.id}
+                aria-controls={`${item.id}-panel`}
                 className={cn(
                   "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
                   activeView === item.id
@@ -243,12 +259,15 @@ export const Dashboard = () => {
 
           {/* Quick Filters */}
           <div className="hidden md:flex items-center gap-2">
-            <button className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
-              <Filter className="w-3.5 h-3.5" />
+            <button 
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              aria-label="Open filters"
+            >
+              <Filter className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Filters</span>
             </button>
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-risk-high" />
+            <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30" role="status" aria-live="polite">
+              <span className="w-1.5 h-1.5 rounded-full bg-risk-high" aria-hidden="true" />
               <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
             </div>
           </div>
@@ -256,29 +275,29 @@ export const Dashboard = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 overflow-auto pb-16">
+      <main id="dashboard-main" className="flex-1 p-4 overflow-auto pb-16" role="tabpanel" aria-label={`${navItems.find(n => n.id === activeView)?.label || 'Dashboard'} view`}>
         <div className="max-w-7xl mx-auto animate-fade-in">
           {renderView()}
         </div>
       </main>
 
       {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30">
+      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30" role="contentinfo">
         <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline">Synthetic Data Only</span>
-            <span className="hidden md:inline text-border">|</span>
+            <span className="hidden md:inline text-border" aria-hidden="true">|</span>
             <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
-              <User className="w-3 h-3 text-amber-500" />
+              <User className="w-3 h-3 text-amber-500" aria-hidden="true" />
               <span className="text-amber-500 font-semibold uppercase tracking-wide">Human-in-the-Loop Required</span>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-primary">
-              <Lock className="w-3 h-3" />
+              <Lock className="w-3 h-3" aria-hidden="true" />
               <span className="font-medium">Patent Pending</span>
             </div>
-            <span className="text-border">|</span>
+            <span className="text-border" aria-hidden="true">|</span>
             <span>v0.1.0</span>
           </div>
         </div>
