@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldAlert, Clock, FileText, History, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShieldAlert, Clock, History, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SessionHistoryViewer } from './SessionHistoryViewer';
 
@@ -215,35 +215,16 @@ export const ScreenProtection = ({
                     <span className="font-semibold">{eventCount}</span>
                   </div>
                 </div>
-                <div className="flex gap-1.5 mt-2">
-                  <button
-                    onClick={() => {
-                      logInteraction('Exported evidence log');
-                      const evidence = exportEvidence();
-                      const blob = new Blob([evidence], { type: 'application/json' });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = `patent-evidence-${new Date().toISOString().split('T')[0]}.json`;
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                    className="flex-1 flex items-center justify-center gap-1 px-1.5 py-1 bg-primary/10 hover:bg-primary/20 text-primary text-[8px] font-medium rounded transition-colors pointer-events-auto"
-                  >
-                    <FileText className="w-2.5 h-2.5" />
-                    Export
-                  </button>
-                  <button
-                    onClick={() => {
-                      logInteraction('Opened session history viewer');
-                      setShowHistory(true);
-                    }}
-                    className="flex-1 flex items-center justify-center gap-1 px-1.5 py-1 bg-secondary hover:bg-secondary/80 text-foreground text-[8px] font-medium rounded transition-colors pointer-events-auto"
-                  >
-                    <History className="w-2.5 h-2.5" />
-                    History
-                  </button>
-                </div>
+                <button
+                  onClick={() => {
+                    logInteraction('Opened session history viewer');
+                    setShowHistory(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-1 px-1.5 py-1 bg-secondary hover:bg-secondary/80 text-foreground text-[8px] font-medium rounded transition-colors pointer-events-auto mt-2"
+                >
+                  <History className="w-2.5 h-2.5" />
+                  History
+                </button>
               </>
             )}
           </div>

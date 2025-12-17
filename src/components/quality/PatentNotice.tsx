@@ -1,114 +1,10 @@
-import { useState } from 'react';
-import { FileText, Download, Award, Shield, Lightbulb } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { FileText, Award, Shield, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const PATENT_APP_NUMBER = '63/932,953';
 const FILING_DATE = 'December 2024';
 
 export const PatentNotice = () => {
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const generatePatentNoticePDF = () => {
-    setIsGenerating(true);
-    
-    // Create patent notice content
-    const patentContent = `
-PATENT NOTICE
-U.S. Provisional Patent Application No. ${PATENT_APP_NUMBER}
-
-================================================================================
-
-TITLE: NSO Quality Dashboard - AI-Powered Nursing-Sensitive Outcome Prediction 
-       and Clinical Decision Support System
-
-FILING DATE: ${FILING_DATE}
-
-APPLICATION STATUS: Patent Pending
-
-================================================================================
-
-NOTICE OF PROPRIETARY RIGHTS
-
-This technology, including but not limited to the methodologies, algorithms, 
-user interfaces, data processing techniques, and clinical decision support 
-features demonstrated herein, is protected under U.S. patent law.
-
-The following innovations are covered by this patent application:
-
-1. REAL-TIME SHAP INTEGRATION
-   Novel integration of SHapley Additive exPlanations (SHAP) with clinical 
-   workflows for real-time, interpretable risk attribution in healthcare 
-   settings.
-
-2. MULTI-OUTCOME RISK PREDICTION
-   Simultaneous prediction and monitoring of multiple nursing-sensitive 
-   outcomes (Falls, HAPI, CAUTI) using ensemble machine learning with 
-   explainable AI components.
-
-3. CLINICAL WORKFLOW OPTIMIZATION
-   AI-guided intervention suggestion system that integrates with existing 
-   clinical workflows and provides evidence-based recommendations.
-
-4. INTERVENTION EFFICACY TRACKING
-   Novel methodology for measuring and validating the effectiveness of 
-   AI-guided clinical interventions through continuous outcome monitoring.
-
-5. CONFIDENCE-BASED RISK STRATIFICATION
-   Dynamic risk scoring system with integrated confidence intervals and 
-   model uncertainty quantification for clinical decision support.
-
-================================================================================
-
-LEGAL DISCLAIMER
-
-This technology is the subject of a pending U.S. provisional patent application. 
-Patent pending status provides notice of potential patent rights but does not 
-guarantee that a patent will be granted.
-
-Any unauthorized reproduction, distribution, modification, or commercial use of 
-this technology or its associated documentation may constitute infringement of 
-intellectual property rights.
-
-This software is provided "AS IS" for educational and demonstration purposes only. 
-It has not been cleared or approved by the U.S. Food and Drug Administration (FDA). 
-It is not a medical device and is not intended for clinical use.
-
-================================================================================
-
-© 2024–2025 Alexis Collier. All Rights Reserved.
-
-FOR LICENSING INQUIRIES:
-
-Contact: alexis.collier@ung.edu
-Reference: U.S. Provisional Patent App. No. ${PATENT_APP_NUMBER}
-
-================================================================================
-
-This document was auto-generated on: ${new Date().toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    })}
-
-CONFIDENTIAL - RESEARCH PROTOTYPE - NOT FOR CLINICAL USE
-    `.trim();
-
-    // Create and download text file (can be converted to PDF by user)
-    const blob = new Blob([patentContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Patent_Notice_${PATENT_APP_NUMBER.replace('/', '-')}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    setIsGenerating(false);
-  };
-
   return (
     <Card className="border-accent/30 bg-accent/5">
       <CardHeader className="pb-3">
@@ -158,18 +54,8 @@ CONFIDENTIAL - RESEARCH PROTOTYPE - NOT FOR CLINICAL USE
           </ul>
         </div>
 
-        <Button 
-          onClick={generatePatentNoticePDF} 
-          disabled={isGenerating}
-          variant="outline"
-          className="w-full border-accent/30 text-accent hover:bg-accent/10"
-        >
-          <Download className="w-4 h-4 mr-2" />
-          {isGenerating ? 'Generating...' : 'Download Patent Notice'}
-        </Button>
-
         <p className="text-[10px] text-center text-muted-foreground">
-          Attach this notice to all exported reports and presentations
+          Patent pending - proprietary technology
         </p>
       </CardContent>
     </Card>

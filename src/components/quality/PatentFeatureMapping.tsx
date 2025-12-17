@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { 
-  Award, CheckCircle2, FileText, Download, BarChart3, 
+  Award, CheckCircle2, FileText, BarChart3, 
   Activity, Timer, TrendingDown, Brain, Shield, Lightbulb,
   ChevronDown, ChevronRight, ExternalLink, Database, TrendingUp, Target
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Accordion,
@@ -175,82 +173,6 @@ const claimMappings: ClaimMapping[] = [
 ];
 
 export const PatentFeatureMapping = () => {
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const generatePatentDocument = () => {
-    setIsGenerating(true);
-
-    const documentContent = `
-================================================================================
-PATENT FEATURE MAPPING DOCUMENT
-U.S. Provisional Patent Application No. ${PATENT_INFO.applicationNumber}
-================================================================================
-
-TITLE: ${PATENT_INFO.title}
-
-INVENTOR: ${PATENT_INFO.inventor}
-FILING DATE: ${PATENT_INFO.filingDate}
-STATUS: ${PATENT_INFO.status}
-
-================================================================================
-CLAIM-TO-IMPLEMENTATION MAPPING
-================================================================================
-
-${claimMappings.map(claim => `
-CLAIM ${claim.claimNumber}: ${claim.claimTitle.toUpperCase()}
-Type: ${claim.claimType === 'independent' ? 'Independent Claim' : 'Dependent Claim'}
-Status: ${claim.status.toUpperCase()}
-
-Description:
-${claim.description}
-
-Implemented Features:
-${claim.implementedFeatures.map((f, i) => `  ${i + 1}. ${f.feature}
-     Component: ${f.component}
-     Location: ${f.location}`).join('\n')}
-`).join('\n--------------------------------------------------------------------------------\n')}
-
-================================================================================
-IMPLEMENTATION SUMMARY
-================================================================================
-
-Total Claims Mapped: ${claimMappings.length}
-Fully Implemented: ${claimMappings.filter(c => c.status === 'implemented').length}
-Partially Implemented: ${claimMappings.filter(c => c.status === 'partial').length}
-Planned: ${claimMappings.filter(c => c.status === 'planned').length}
-
-Total Features Documented: ${claimMappings.reduce((sum, c) => sum + c.implementedFeatures.length, 0)}
-
-================================================================================
-INTELLECTUAL PROPERTY NOTICE
-================================================================================
-
-Copyright © ${new Date().getFullYear()} ${PATENT_INFO.inventor}. All Rights Reserved.
-
-This document and the technology it describes are protected under U.S. patent law.
-Unauthorized reproduction, distribution, or commercial use is prohibited.
-
-Clinical Risk Intelligence Dashboard – Patent Pending
-Protected Design – Do Not Copy
-
-================================================================================
-Document Generated: ${new Date().toLocaleString()}
-================================================================================
-    `.trim();
-
-    const blob = new Blob([documentContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Patent_Feature_Mapping_${PATENT_INFO.applicationNumber.replace('/', '-')}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-
-    setIsGenerating(false);
-  };
-
   const implementedCount = claimMappings.filter(c => c.status === 'implemented').length;
   const totalFeatures = claimMappings.reduce((sum, c) => sum + c.implementedFeatures.length, 0);
 
@@ -297,15 +219,6 @@ Document Generated: ${new Date().toLocaleString()}
               <div className="text-xs text-muted-foreground mt-1">Coverage</div>
             </div>
           </div>
-
-          <Button 
-            onClick={generatePatentDocument}
-            disabled={isGenerating}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            {isGenerating ? 'Generating...' : 'Download Patent Feature Mapping Document'}
-          </Button>
         </CardContent>
       </Card>
 
