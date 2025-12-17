@@ -111,7 +111,7 @@ export const TermsAcceptanceModal = () => {
           {/* Copyright Notice */}
           <p className="text-[10px] text-center text-muted-foreground">
             © 2024–2025 Alexis Collier. All Rights Reserved.<br />
-            U.S. Provisional Patent Application No. 63/932,953 (Patent Pending)
+            Patent Pending
           </p>
         </div>
       </DialogContent>

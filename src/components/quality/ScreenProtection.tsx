@@ -12,7 +12,7 @@ interface ScreenProtectionProps {
 
 export const ScreenProtection = ({ 
   enabled = true, 
-  watermarkText = 'U.S. PROVISIONAL PATENT APP. NO. 63/932,953',
+  watermarkText = 'PATENT PENDING',
   showDynamicInfo = true 
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
@@ -234,7 +234,7 @@ export const ScreenProtection = ({
       {/* Corner watermarks */}
       <div className="fixed top-2 left-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          U.S. PROV. PAT. APP. 63/932,953
+          PATENT PENDING
         </div>
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">

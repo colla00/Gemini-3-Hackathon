@@ -54,7 +54,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
                 Reduces false positives by 40-70% compared to fixed thresholds.
               </p>
               <div className="text-[9px] text-accent">
-                U.S. Pat. App. 63/932,953 - Claim 6
+                Patent Pending
               </div>
             </div>
           </TooltipContent>
@@ -172,7 +172,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
               Threshold = Baseline + (k × σ) where k adjusts based on clinical context
             </p>
             <p className="text-accent mt-1">
-              U.S. Provisional Patent Application No. 63/932,953
+              Patent Pending
             </p>
           </div>
         </div>

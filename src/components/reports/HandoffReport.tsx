@@ -270,7 +270,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               NSO Quality Dashboard • Research Prototype
             </p>
             <p className="text-[9px] text-muted-foreground/70 mt-1">
-              U.S. Provisional Patent Application No. 63/932,953 • Patent Pending
+              Patent Pending
             </p>
           </div>
         </div>

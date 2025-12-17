@@ -159,7 +159,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           All predictions require human clinical verification. Not intended for diagnostic or treatment decisions.
         </p>
         <p className="mt-2 text-[9px] text-center">
-          U.S. Provisional Patent Application No. 63/932,953 • Created by Dr. Alexis Collier (Patent Pending)
+          Created by Dr. Alexis Collier • Patent Pending
         </p>
       </div>
     </div>

@@ -242,7 +242,7 @@ export const TemporalForecasting = ({ compact = false }: { compact?: boolean }) 
               Multi-horizon forecasting with trajectory classification and inflection point detection 
               enables proactive intervention before clinical deterioration.
             </span>
-            <p className="text-accent mt-1">U.S. Provisional Patent Application No. 63/932,953</p>
+            <p className="text-accent mt-1">Patent Pending</p>
           </div>
         </div>
       </div>
