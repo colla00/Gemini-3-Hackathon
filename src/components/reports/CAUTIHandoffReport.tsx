@@ -396,7 +396,7 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
               NSO Quality Dashboard • Based on NHSN CAUTI Prevention Guidelines
             </p>
             <p className="text-[9px] text-muted-foreground/70 mt-1">
-              U.S. Provisional Patent Application No. 63/932,953 • Patent Pending
+              Patent Pending
             </p>
           </div>
         </div>

@@ -95,8 +95,8 @@ export const TermsOfUse = () => {
                 copyright law and international treaties.
               </p>
               <p>
-                <strong>Patent Pending:</strong> This technology is the subject of U.S. Provisional Patent Application 
-                No. 63/932,953 (filed December 2024). Patent pending status provides notice of potential patent rights.
+                <strong>Patent Pending:</strong> This technology is the subject of a pending patent application. 
+                Patent pending status provides notice of potential patent rights.
               </p>
               <p>
                 <strong>Restrictions:</strong> You may not, without prior written consent:
@@ -249,7 +249,7 @@ export const TermsOfUse = () => {
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30 mt-12">
         <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
           <p>© 2024–2025 Alexis Collier. All Rights Reserved.</p>
-          <p className="mt-1">U.S. Provisional Patent Application No. 63/932,953 (Patent Pending)</p>
+          <p className="mt-1">Patent Pending</p>
         </div>
       </footer>
     </div>

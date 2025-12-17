@@ -207,7 +207,7 @@ export const AudienceView = () => {
           </div>
           <div className="flex items-center gap-2">
             <Award className="w-3 h-3 text-primary" />
-            <span className="font-medium">U.S. Pat. App. 63/932,953</span>
+            <span className="font-medium">Patent Pending</span>
           </div>
         </div>
       </footer>

@@ -102,7 +102,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-xs">U.S. Prov. Pat. App. 63/932,953</p>
+                  <p className="text-xs">Patent Pending</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -266,7 +266,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             <span className="text-sm font-semibold text-accent">Protected Innovation</span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Features on this page are covered by U.S. Provisional Patent Application No. 63/932,953
+            Features on this page are patent pending
           </p>
           <p className="text-[10px] text-muted-foreground mt-1">
             © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending
