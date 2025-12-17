@@ -6,8 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Checkbox } from '@/components/ui/checkbox';
+import { PasswordInput } from '@/components/PasswordInput';
 import { toast } from 'sonner';
-import { Activity, Shield, Users, ArrowLeft } from 'lucide-react';
+import { Activity, Shield, Users, ArrowLeft, Home } from 'lucide-react';
 import { z } from 'zod';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -32,6 +34,7 @@ const Auth = () => {
   const { signIn, signUp, resetPassword } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState('');
@@ -48,7 +51,6 @@ const Auth = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate input
     const result = loginSchema.safeParse({ email: loginEmail, password: loginPassword });
     if (!result.success) {
       const firstError = result.error.errors[0];
@@ -63,6 +65,11 @@ const Auth = () => {
     if (error) {
       toast.error('Login failed', { description: error.message });
     } else {
+      if (rememberMe) {
+        localStorage.setItem('nso_remember_email', result.data.email);
+      } else {
+        localStorage.removeItem('nso_remember_email');
+      }
       toast.success('Welcome back!');
       navigate('/dashboard');
     }
@@ -73,7 +80,6 @@ const Auth = () => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate input
     const result = signupSchema.safeParse({ 
       name: signupName, 
       email: signupEmail, 
@@ -106,7 +112,6 @@ const Auth = () => {
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate input
     const result = resetSchema.safeParse({ email: resetEmail });
     if (!result.success) {
       const firstError = result.error.errors[0];
@@ -128,10 +133,27 @@ const Auth = () => {
     setIsLoading(false);
   };
 
+  // Load remembered email on mount
+  useState(() => {
+    const remembered = localStorage.getItem('nso_remember_email');
+    if (remembered) {
+      setLoginEmail(remembered);
+      setRememberMe(true);
+    }
+  });
+
   if (showForgotPassword) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        {/* Theme Toggle - Top Right */}
+        <div className="absolute top-4 left-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Home className="w-4 h-4" />
+            <span className="hidden sm:inline">Home</span>
+          </Link>
+        </div>
         <div className="absolute top-4 right-4">
           <ThemeToggle />
         </div>
@@ -188,13 +210,20 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Theme Toggle - Top Right */}
+      <div className="absolute top-4 left-4">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <Home className="w-4 h-4" />
+          <span className="hidden sm:inline">Home</span>
+        </Link>
+      </div>
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
       
       <main className="w-full max-w-md space-y-8">
-        {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Activity className="h-8 w-8 text-primary" aria-hidden="true" />
@@ -205,7 +234,6 @@ const Auth = () => {
           </p>
         </div>
 
-        {/* Auth Card */}
         <Card className="border-border/50 bg-card/50 backdrop-blur">
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
@@ -244,14 +272,22 @@ const Auth = () => {
                         Forgot password?
                       </button>
                     </div>
-                    <Input
+                    <PasswordInput
                       id="login-password"
-                      type="password"
-                      placeholder="••••••••"
                       value={loginPassword}
-                      onChange={(e) => setLoginPassword(e.target.value)}
+                      onChange={setLoginPassword}
                       required
                     />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="remember-me"
+                      checked={rememberMe}
+                      onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                    />
+                    <Label htmlFor="remember-me" className="text-sm font-normal cursor-pointer">
+                      Remember me
+                    </Label>
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -295,16 +331,14 @@ const Auth = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>
-                    <Input
+                    <PasswordInput
                       id="signup-password"
-                      type="password"
-                      placeholder="••••••••"
                       value={signupPassword}
-                      onChange={(e) => setSignupPassword(e.target.value)}
+                      onChange={setSignupPassword}
+                      showStrength
                       required
                       minLength={6}
                     />
-                    <p className="text-xs text-muted-foreground">Minimum 6 characters</p>
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -317,7 +351,6 @@ const Auth = () => {
           </Tabs>
         </Card>
 
-        {/* Security Notice */}
         <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
             <Shield className="h-3 w-3" aria-hidden="true" />

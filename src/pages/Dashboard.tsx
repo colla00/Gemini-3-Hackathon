@@ -21,7 +21,7 @@ import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
-import { OfflineIndicator } from '@/components/OfflineIndicator';
+import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { SkipLink } from '@/components/SkipLink';
 import { toast } from 'sonner';
@@ -210,6 +210,7 @@ export const Dashboard = () => {
                 <RefreshCw className={cn("w-4 h-4", liveSimulation.isActive && "animate-spin")} style={{ animationDuration: '3s' }} aria-hidden="true" />
               </button>
               <NotificationsDropdown />
+              <KeyboardShortcutsHelp />
               <button 
                 onClick={() => setShowSettings(true)}
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
@@ -308,9 +309,6 @@ export const Dashboard = () => {
       
       {/* Methodology AI Chatbot */}
       <MethodologyChat />
-      
-      {/* Offline Indicator */}
-      <OfflineIndicator />
     </div>
   );
 };
