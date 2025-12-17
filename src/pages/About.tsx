@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
+import { PatentStrengthening } from '@/components/quality/PatentStrengthening';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 function About() {
@@ -185,6 +186,13 @@ function About() {
         <Card>
           <CardContent className="pt-6">
             <PatentClaimsSummary />
+          </CardContent>
+        </Card>
+
+        {/* Patent Strengthening Analysis */}
+        <Card>
+          <CardContent className="pt-6">
+            <PatentStrengthening />
           </CardContent>
         </Card>
 
