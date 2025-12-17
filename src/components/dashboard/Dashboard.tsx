@@ -14,6 +14,8 @@ import { DemoModeController, type DemoScenario } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { cn } from '@/lib/utils';
+import { usePerformanceTracking } from '@/hooks/usePerformance';
+import { performanceMonitor } from '@/lib/performanceMonitor';
 
 export const Dashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -24,6 +26,9 @@ export const Dashboard = () => {
   const [timeOffset, setTimeOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+
+  // Performance tracking
+  const { trackInteraction } = usePerformanceTracking('Dashboard');
 
   // Update timestamps every 30 seconds
   useEffect(() => {
@@ -57,10 +62,7 @@ export const Dashboard = () => {
         if (demoPatient) handleSelectPatient(demoPatient);
       }
       if (e.key === 'r' && !selectedPatient) {
-        setSearchQuery('');
-        setRiskLevelFilter('ALL');
-        setRiskTypeFilter('ALL');
-        setSortBy('riskScore');
+        handleResetFilters();
       }
     };
 
@@ -72,21 +74,84 @@ export const Dashboard = () => {
     return formatRelativeTime(baseMinutes + timeOffset);
   }, [timeOffset]);
 
-  const handleSelectPatient = (patient: Patient) => {
+  // Tracked patient selection
+  const handleSelectPatient = useCallback((patient: Patient) => {
+    const endTracking = trackInteraction('patient-selection');
+    performanceMonitor.addMetric({
+      name: 'patient-selected',
+      value: 1,
+      unit: 'count',
+      timestamp: Date.now(),
+      category: 'interaction',
+    });
+    
     setIsTransitioning(true);
     setTimeout(() => {
       setSelectedPatient(patient);
       setIsTransitioning(false);
+      endTracking();
     }, 200);
-  };
+  }, [trackInteraction]);
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
+    const endTracking = trackInteraction('patient-deselection');
     setIsTransitioning(true);
     setTimeout(() => {
       setSelectedPatient(null);
       setIsTransitioning(false);
+      endTracking();
     }, 200);
-  };
+  }, [trackInteraction]);
+
+  // Tracked filter handlers
+  const handleSearchChange = useCallback((value: string) => {
+    performanceMonitor.recordInteraction('filter-search', performance.now());
+    setSearchQuery(value);
+  }, []);
+
+  const handleRiskLevelChange = useCallback((value: RiskLevel | 'ALL') => {
+    performanceMonitor.recordInteraction('filter-risk-level', performance.now());
+    performanceMonitor.addMetric({
+      name: 'filter-risk-level-change',
+      value: 1,
+      unit: 'count',
+      timestamp: Date.now(),
+      category: 'interaction',
+    });
+    setRiskLevelFilter(value);
+  }, []);
+
+  const handleRiskTypeChange = useCallback((value: RiskType | 'ALL') => {
+    performanceMonitor.recordInteraction('filter-risk-type', performance.now());
+    performanceMonitor.addMetric({
+      name: 'filter-risk-type-change',
+      value: 1,
+      unit: 'count',
+      timestamp: Date.now(),
+      category: 'interaction',
+    });
+    setRiskTypeFilter(value);
+  }, []);
+
+  const handleSortChange = useCallback((value: 'riskScore' | 'lastUpdated' | 'id') => {
+    performanceMonitor.recordInteraction('filter-sort', performance.now());
+    performanceMonitor.addMetric({
+      name: 'filter-sort-change',
+      value: 1,
+      unit: 'count',
+      timestamp: Date.now(),
+      category: 'interaction',
+    });
+    setSortBy(value);
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    performanceMonitor.recordInteraction('filter-reset', performance.now());
+    setSearchQuery('');
+    setRiskLevelFilter('ALL');
+    setRiskTypeFilter('ALL');
+    setSortBy('riskScore');
+  }, []);
 
   const filteredPatients = useMemo(() => {
     let result = [...patients];
@@ -245,13 +310,13 @@ export const Dashboard = () => {
             {/* Filters */}
             <FilterBar
               searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
+              onSearchChange={handleSearchChange}
               riskLevelFilter={riskLevelFilter}
-              onRiskLevelChange={setRiskLevelFilter}
+              onRiskLevelChange={handleRiskLevelChange}
               riskTypeFilter={riskTypeFilter}
-              onRiskTypeChange={setRiskTypeFilter}
+              onRiskTypeChange={handleRiskTypeChange}
               sortBy={sortBy}
-              onSortChange={setSortBy}
+              onSortChange={handleSortChange}
             />
 
             {filteredPatients.length > 0 ? (
