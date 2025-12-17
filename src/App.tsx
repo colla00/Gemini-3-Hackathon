@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,16 +10,26 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
+import { 
+  DashboardSkeleton, 
+  PageSkeleton, 
+  PresentationSkeleton, 
+  AdminSkeleton 
+} from "@/components/skeletons";
+
+// Eagerly loaded (critical path)
 import { Landing } from "./pages/Landing";
-import { Dashboard } from "./pages/Dashboard";
-import { Presentation } from "./pages/Presentation";
-import { RecordingDemo } from "./pages/RecordingDemo";
-import About from "./pages/About";
 import Auth from "./pages/Auth";
-import ResetPassword from "./pages/ResetPassword";
-import AdminPanel from "./pages/AdminPanel";
-import TermsOfUse from "./pages/TermsOfUse";
 import NotFound from "./pages/NotFound";
+
+// Lazy loaded (heavy components)
+const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m.Dashboard })));
+const Presentation = lazy(() => import("./pages/Presentation").then(m => ({ default: m.Presentation })));
+const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ default: m.RecordingDemo })));
+const About = lazy(() => import("./pages/About"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 
 const queryClient = new QueryClient();
 
@@ -36,33 +47,51 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/reset-password" element={
+                  <Suspense fallback={<PageSkeleton />}>
+                    <ResetPassword />
+                  </Suspense>
+                } />
                 <Route path="/dashboard" element={
                   <ProtectedRoute>
-                    <Dashboard />
+                    <Suspense fallback={<DashboardSkeleton />}>
+                      <Dashboard />
+                    </Suspense>
                   </ProtectedRoute>
                 } />
                 <Route path="/admin" element={
                   <ProtectedRoute>
-                    <AdminPanel />
+                    <Suspense fallback={<AdminSkeleton />}>
+                      <AdminPanel />
+                    </Suspense>
                   </ProtectedRoute>
                 } />
                 <Route path="/presentation" element={
                   <ProtectedRoute>
-                    <Presentation />
+                    <Suspense fallback={<PresentationSkeleton />}>
+                      <Presentation />
+                    </Suspense>
                   </ProtectedRoute>
                 } />
                 <Route path="/record" element={
                   <ProtectedRoute>
-                    <RecordingDemo />
+                    <Suspense fallback={<PresentationSkeleton />}>
+                      <RecordingDemo />
+                    </Suspense>
                   </ProtectedRoute>
                 } />
                 <Route path="/about" element={
                   <ProtectedRoute>
-                    <About />
+                    <Suspense fallback={<PageSkeleton />}>
+                      <About />
+                    </Suspense>
                   </ProtectedRoute>
                 } />
-                <Route path="/terms" element={<TermsOfUse />} />
+                <Route path="/terms" element={
+                  <Suspense fallback={<PageSkeleton />}>
+                    <TermsOfUse />
+                  </Suspense>
+                } />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
