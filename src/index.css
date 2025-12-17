@@ -134,6 +134,33 @@
     @apply border-border;
   }
 
+  /* Skip link - visible only on focus for keyboard users */
+  .skip-link {
+    @apply sr-only;
+  }
+  
+  .skip-link:focus {
+    @apply not-sr-only absolute top-4 left-4 z-[100];
+    @apply px-4 py-2 bg-primary text-primary-foreground;
+    @apply rounded-md font-medium shadow-lg;
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+
+  /* Enhanced focus indicators for WCAG 2.1 AA */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Ensure links have visible focus */
+  a:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 rounded-sm;
+  }
+
+  /* High contrast focus for interactive cards */
+  .focus-card:focus-visible {
+    @apply ring-2 ring-primary ring-offset-2;
+  }
+
   /* Theme transition for smooth light/dark mode switching */
   html {
     transition: background-color 0.3s ease, color 0.3s ease;
