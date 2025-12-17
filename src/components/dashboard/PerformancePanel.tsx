@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { performanceMonitor, type PerformanceReport } from '@/lib/performanceMonitor';
+import { performanceMonitor, type PerformanceBudget } from '@/lib/performanceMonitor';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Activity, Clock, Zap, RefreshCw, BarChart3, Bell } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Activity, Clock, Zap, RefreshCw, BarChart3, Bell, Settings, MousePointer, Filter, Navigation, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePerformanceBudget } from '@/hooks/usePerformanceBudget';
 
@@ -13,10 +15,18 @@ interface PerformancePanelProps {
   className?: string;
 }
 
+const DEFAULT_BUDGET: PerformanceBudget = {
+  interaction: 100,
+  filter: 50,
+  navigation: 300,
+  render: 16,
+};
+
 export const PerformancePanel = ({ className }: PerformancePanelProps) => {
   const [report, setReport] = useState<ReturnType<typeof performanceMonitor.generateReport> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [budgetAlertsEnabled, setBudgetAlertsEnabled] = useState(false);
+  const [budget, setBudget] = useState<PerformanceBudget>(DEFAULT_BUDGET);
   
   // Enable budget alerts with toast notifications
   usePerformanceBudget(budgetAlertsEnabled);
@@ -32,6 +42,12 @@ export const PerformancePanel = ({ className }: PerformancePanelProps) => {
       return () => clearInterval(interval);
     }
   }, [isVisible]);
+
+  const updateBudget = (key: keyof PerformanceBudget, value: number) => {
+    const newBudget = { ...budget, [key]: value };
+    setBudget(newBudget);
+    performanceMonitor.setBudget(newBudget);
+  };
 
   const getScoreColor = (value: number, thresholds: { good: number; moderate: number }) => {
     if (value <= thresholds.good) return 'text-green-500';
@@ -68,6 +84,101 @@ export const PerformancePanel = ({ className }: PerformancePanelProps) => {
             Performance Monitor
           </CardTitle>
           <div className="flex gap-1">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <Settings className="w-3 h-3" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-72" align="end" side="top">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-sm mb-3">Budget Thresholds (ms)</h4>
+                    <p className="text-xs text-muted-foreground mb-4">
+                      Set maximum allowed time for each operation type
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <MousePointer className="w-4 h-4 text-muted-foreground shrink-0" />
+                      <div className="flex-1">
+                        <Label htmlFor="budget-interaction" className="text-xs">Interactions</Label>
+                        <Input
+                          id="budget-interaction"
+                          type="number"
+                          min={10}
+                          max={1000}
+                          value={budget.interaction}
+                          onChange={(e) => updateBudget('interaction', Number(e.target.value))}
+                          className="h-8 text-xs mt-1"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Filter className="w-4 h-4 text-muted-foreground shrink-0" />
+                      <div className="flex-1">
+                        <Label htmlFor="budget-filter" className="text-xs">Filters</Label>
+                        <Input
+                          id="budget-filter"
+                          type="number"
+                          min={10}
+                          max={500}
+                          value={budget.filter}
+                          onChange={(e) => updateBudget('filter', Number(e.target.value))}
+                          className="h-8 text-xs mt-1"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Navigation className="w-4 h-4 text-muted-foreground shrink-0" />
+                      <div className="flex-1">
+                        <Label htmlFor="budget-navigation" className="text-xs">Navigation</Label>
+                        <Input
+                          id="budget-navigation"
+                          type="number"
+                          min={50}
+                          max={2000}
+                          value={budget.navigation}
+                          onChange={(e) => updateBudget('navigation', Number(e.target.value))}
+                          className="h-8 text-xs mt-1"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <Layers className="w-4 h-4 text-muted-foreground shrink-0" />
+                      <div className="flex-1">
+                        <Label htmlFor="budget-render" className="text-xs">Render (60fps = 16ms)</Label>
+                        <Input
+                          id="budget-render"
+                          type="number"
+                          min={8}
+                          max={100}
+                          value={budget.render}
+                          onChange={(e) => updateBudget('render', Number(e.target.value))}
+                          className="h-8 text-xs mt-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full text-xs"
+                    onClick={() => {
+                      setBudget(DEFAULT_BUDGET);
+                      performanceMonitor.setBudget(DEFAULT_BUDGET);
+                    }}
+                  >
+                    Reset to Defaults
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={refreshMetrics}>
               <RefreshCw className="w-3 h-3" />
             </Button>
