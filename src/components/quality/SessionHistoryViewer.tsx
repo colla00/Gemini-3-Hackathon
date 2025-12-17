@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { 
-  History, X, Clock, Calendar, Activity, Download, 
+  History, X, Clock, Calendar, Activity, 
   ChevronDown, ChevronRight, Trash2, Eye, Mail, Globe, MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -75,28 +75,6 @@ export const SessionHistoryViewer = ({ isOpen, onClose }: SessionHistoryViewerPr
     }
     return true;
   });
-
-  const exportAllSessions = () => {
-    const evidence = {
-      exportedAt: new Date().toISOString(),
-      exportedBy: 'Patent Evidence Tracker',
-      totalSessions: sessions.length,
-      sessions: sessions.map(s => ({
-        ...s,
-        duration: formatDuration(s.startTime, s.lastActivity),
-        eventCount: s.events.length
-      }))
-    };
-    
-    const blob = new Blob([JSON.stringify(evidence, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `patent-evidence-full-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   const clearAllSessions = () => {
     if (confirm('Are you sure you want to clear all session history? This cannot be undone.')) {
       localStorage.removeItem(STORAGE_KEY);
@@ -148,13 +126,6 @@ export const SessionHistoryViewer = ({ isOpen, onClose }: SessionHistoryViewerPr
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={exportAllSessions}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary/10 text-primary text-xs font-medium hover:bg-primary/20 transition-colors"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Export All
-            </button>
             <button
               onClick={clearAllSessions}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-risk-high/10 text-risk-high text-xs font-medium hover:bg-risk-high/20 transition-colors"
