@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Award, FileText, Users, Target, Lightbulb, Shield, Brain, 
   TrendingUp, Home, BarChart3, AlertTriangle, Clock, Zap, RefreshCw, Play,
-  CheckCircle, XCircle, FlaskConical, CircleDot
+  CheckCircle, XCircle, FlaskConical, CircleDot, List, ChevronRight
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { PatentClaimsSummary } from '@/components/quality/PatentClaimsSummary';
@@ -66,9 +66,42 @@ function About() {
         </div>
       </div>
 
+      {/* Table of Contents Navigation */}
+      <div className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-6xl mx-auto px-6">
+          <nav className="flex items-center gap-1 py-2 overflow-x-auto scrollbar-hide">
+            <List className="w-4 h-4 text-muted-foreground mr-2 flex-shrink-0" />
+            <a href="#key-claims" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors whitespace-nowrap">
+              <Award className="w-3 h-3" />
+              Key Claims
+            </a>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/50 flex-shrink-0" />
+            <a href="#claims-summary" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors whitespace-nowrap">
+              <FileText className="w-3 h-3" />
+              Claims Summary
+            </a>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/50 flex-shrink-0" />
+            <a href="#strengthening" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors whitespace-nowrap">
+              <Shield className="w-3 h-3" />
+              Prior Art Analysis
+            </a>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/50 flex-shrink-0" />
+            <a href="#feature-mapping" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors whitespace-nowrap">
+              <BarChart3 className="w-3 h-3" />
+              Feature Mapping
+            </a>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/50 flex-shrink-0" />
+            <a href="#validation" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors whitespace-nowrap">
+              <CheckCircle className="w-3 h-3" />
+              Validation
+            </a>
+          </nav>
+        </div>
+      </div>
+
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-8">
         {/* Patent-Worthy Innovations */}
-        <Card className="border-accent/30">
+        <Card id="key-claims" className="border-accent/30 scroll-mt-20">
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Award className="w-5 h-5 text-accent" />
@@ -184,28 +217,28 @@ function About() {
         </Card>
 
         {/* Detailed Patent Claims */}
-        <Card>
+        <Card id="claims-summary" className="scroll-mt-20">
           <CardContent className="pt-6">
             <PatentClaimsSummary />
           </CardContent>
         </Card>
 
         {/* Patent Strengthening Analysis */}
-        <Card>
+        <Card id="strengthening" className="scroll-mt-20">
           <CardContent className="pt-6">
             <PatentStrengthening />
           </CardContent>
         </Card>
 
         {/* Patent Feature Mapping */}
-        <Card>
+        <Card id="feature-mapping" className="scroll-mt-20">
           <CardContent className="pt-6">
             <PatentFeatureMapping />
           </CardContent>
         </Card>
 
         {/* Validation Status */}
-        <Card className="border-primary/30">
+        <Card id="validation" className="border-primary/30 scroll-mt-20">
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="w-5 h-5 text-primary" />
