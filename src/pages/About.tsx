@@ -1,17 +1,83 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
-  Shield, Database, Users, Zap
+  Shield, Database, Users, Zap, ChevronDown, ChevronUp, Mail, Linkedin,
+  GraduationCap, Calendar, CheckCircle2
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuditLog } from '@/hooks/useAuditLog';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+
+const faqs = [
+  {
+    question: "What is the NSO Quality Dashboard?",
+    answer: "It's a research prototype demonstrating how AI can help nurses identify patients at risk for nurse-sensitive outcomes like falls, pressure injuries, and hospital-acquired infections. All data shown is simulated for demonstration purposes."
+  },
+  {
+    question: "Is this system ready for clinical use?",
+    answer: "No. This is a research prototype intended for educational and demonstration purposes only. It has not been validated for clinical use and is not FDA cleared or approved."
+  },
+  {
+    question: "How does the risk prediction work?",
+    answer: "The system uses machine learning algorithms that analyze multiple patient factors to generate risk scores. SHAP (SHapley Additive exPlanations) values are used to explain which factors contribute most to each prediction."
+  },
+  {
+    question: "What outcomes does the system track?",
+    answer: "The prototype focuses on nurse-sensitive outcomes including falls, pressure injuries, CAUTI (catheter-associated urinary tract infections), CLABSI (central line-associated bloodstream infections), sepsis, and respiratory deterioration."
+  },
+  {
+    question: "Can I use this for my research?",
+    answer: "For research collaboration or licensing inquiries, please contact Alexis Collier at alexis.collier@ung.edu. Note that this technology is patent pending."
+  }
+];
+
+const timeline = [
+  {
+    date: "2024 Q1",
+    title: "Concept Development",
+    description: "Initial research and conceptual framework development",
+    completed: true
+  },
+  {
+    date: "2024 Q2",
+    title: "Prototype Design",
+    description: "UI/UX design and architecture planning",
+    completed: true
+  },
+  {
+    date: "2024 Q3",
+    title: "Core Development",
+    description: "Implementation of risk prediction algorithms and dashboard",
+    completed: true
+  },
+  {
+    date: "2024 Q4",
+    title: "Patent Filing",
+    description: "Provisional patent application submitted",
+    completed: true
+  },
+  {
+    date: "2025 Q1",
+    title: "Stakeholder Demos",
+    description: "Presentations to healthcare organizations and investors",
+    completed: false
+  },
+  {
+    date: "2025 Q2+",
+    title: "Validation Research",
+    description: "IRB approval and clinical validation studies",
+    completed: false
+  }
+];
 
 function About() {
   const { logAction } = useAuditLog();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     logAction({
@@ -84,6 +150,53 @@ function About() {
       </div>
 
       <main id="main-content" className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+        {/* Team Information */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <GraduationCap className="w-5 h-5 text-primary" aria-hidden="true" />
+              <CardTitle>Research Team</CardTitle>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Meet the team behind this research
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="p-6 rounded-lg border border-border bg-secondary/30">
+              <div className="flex flex-col sm:flex-row gap-6 items-start">
+                <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center shrink-0">
+                  <span className="text-2xl font-bold text-primary">AC</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-1">Alexis Collier</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Principal Investigator • University of North Georgia
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    College of Health Sciences & Professions. Research focuses on the intersection 
+                    of artificial intelligence and nursing practice, with emphasis on improving 
+                    patient outcomes through predictive analytics.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <Button variant="outline" size="sm" asChild>
+                      <a href="mailto:alexis.collier@ung.edu">
+                        <Mail className="w-4 h-4 mr-2" />
+                        Contact
+                      </a>
+                    </Button>
+                    <Button variant="ghost" size="sm" asChild>
+                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="w-4 h-4 mr-2" />
+                        LinkedIn
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Core Capabilities */}
         <Card>
           <CardHeader>
@@ -173,6 +286,80 @@ function About() {
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Development Timeline */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-5 h-5 text-primary" aria-hidden="true" />
+              <CardTitle>Development Timeline</CardTitle>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Project milestones and future plans
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="relative">
+              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
+              <div className="space-y-6">
+                {timeline.map((item, index) => (
+                  <div key={index} className="relative pl-10">
+                    <div className={`absolute left-2.5 w-3 h-3 rounded-full border-2 ${
+                      item.completed 
+                        ? 'bg-primary border-primary' 
+                        : 'bg-background border-muted-foreground'
+                    }`} />
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                      <Badge variant={item.completed ? "default" : "outline"} className="w-fit">
+                        {item.date}
+                      </Badge>
+                      {item.completed && (
+                        <CheckCircle2 className="w-4 h-4 text-primary hidden sm:block" />
+                      )}
+                    </div>
+                    <h3 className="font-semibold mt-1">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* FAQ Section */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="w-5 h-5 text-primary" aria-hidden="true" />
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Common questions about this research prototype
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {faqs.map((faq, index) => (
+              <Collapsible key={index} open={openFaq === index} onOpenChange={() => setOpenFaq(openFaq === index ? null : index)}>
+                <CollapsibleTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-between p-4 h-auto text-left hover:bg-secondary/50"
+                  >
+                    <span className="font-medium">{faq.question}</span>
+                    {openFaq === index ? (
+                      <ChevronUp className="w-4 h-4 shrink-0 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 shrink-0 text-muted-foreground" />
+                    )}
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="px-4 pb-4">
+                  <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                </CollapsibleContent>
+              </Collapsible>
+            ))}
           </CardContent>
         </Card>
 
