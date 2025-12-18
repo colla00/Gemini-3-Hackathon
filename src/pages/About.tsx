@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
   Shield, Database, Users, Zap, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap, Calendar, CheckCircle2
+  GraduationCap
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -36,44 +36,6 @@ const faqs = [
   }
 ];
 
-const timeline = [
-  {
-    date: "2024 Q1",
-    title: "Concept Development",
-    description: "Initial research and conceptual framework development",
-    completed: true
-  },
-  {
-    date: "2024 Q2",
-    title: "Prototype Design",
-    description: "UI/UX design and architecture planning",
-    completed: true
-  },
-  {
-    date: "2024 Q3",
-    title: "Core Development",
-    description: "Implementation of risk prediction algorithms and dashboard",
-    completed: true
-  },
-  {
-    date: "2024 Q4",
-    title: "Patent Filing",
-    description: "Provisional patent application submitted",
-    completed: true
-  },
-  {
-    date: "2025 Q1",
-    title: "Stakeholder Demos",
-    description: "Presentations to healthcare organizations and investors",
-    completed: false
-  },
-  {
-    date: "2025 Q2+",
-    title: "Validation Research",
-    description: "IRB approval and clinical validation studies",
-    completed: false
-  }
-];
 
 function About() {
   const { logAction } = useAuditLog();
@@ -185,7 +147,7 @@ function About() {
                       </a>
                     </Button>
                     <Button variant="ghost" size="sm" asChild>
-                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                      <a href="https://linkedin.com/in/alexiscollier" target="_blank" rel="noopener noreferrer">
                         <Linkedin className="w-4 h-4 mr-2" />
                         LinkedIn
                       </a>
@@ -289,44 +251,6 @@ function About() {
           </CardContent>
         </Card>
 
-        {/* Development Timeline */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <Calendar className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Development Timeline</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Project milestones and future plans
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="relative">
-              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-              <div className="space-y-6">
-                {timeline.map((item, index) => (
-                  <div key={index} className="relative pl-10">
-                    <div className={`absolute left-2.5 w-3 h-3 rounded-full border-2 ${
-                      item.completed 
-                        ? 'bg-primary border-primary' 
-                        : 'bg-background border-muted-foreground'
-                    }`} />
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                      <Badge variant={item.completed ? "default" : "outline"} className="w-fit">
-                        {item.date}
-                      </Badge>
-                      {item.completed && (
-                        <CheckCircle2 className="w-4 h-4 text-primary hidden sm:block" />
-                      )}
-                    </div>
-                    <h3 className="font-semibold mt-1">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* FAQ Section */}
         <Card>
