@@ -19,9 +19,11 @@ import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAcces
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
+import { useSessionTimeout } from '@/hooks/useSessionTimeout';
 import { SettingsPanel } from '@/components/dashboard/SettingsPanel';
 import { NotificationsDropdown } from '@/components/dashboard/NotificationsDropdown';
 import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp';
+import { SessionTimeoutWarning } from '@/components/SessionTimeoutWarning';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { SkipLink } from '@/components/SkipLink';
 import { toast } from 'sonner';
@@ -43,6 +45,13 @@ export const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [showSettings, setShowSettings] = useState(false);
   const { logFeatureUse, logInteraction } = useSessionTracking();
+  
+  // Session timeout for HIPAA compliance (30 min timeout, 5 min warning)
+  const { showWarning, remainingTime, extendSession, formatTime } = useSessionTimeout({
+    timeoutMinutes: 30,
+    warningMinutes: 5,
+    enabled: true,
+  });
   
   // Live simulation (can be toggled)
   const liveSimulation = useLiveSimulation(true, 5000);
@@ -306,6 +315,14 @@ export const Dashboard = () => {
 
       {/* Settings Panel */}
       <SettingsPanel isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      
+      {/* Session Timeout Warning - HIPAA Compliance */}
+      <SessionTimeoutWarning
+        open={showWarning}
+        remainingTime={remainingTime}
+        formatTime={formatTime}
+        onExtend={extendSession}
+      />
       
       {/* Methodology AI Chatbot */}
       <MethodologyChat />
