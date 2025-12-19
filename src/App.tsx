@@ -83,11 +83,9 @@ const App = () => (
                   </ProtectedRoute>
                 } />
                 <Route path="/about" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<PageSkeleton />}>
-                      <About />
-                    </Suspense>
-                  </ProtectedRoute>
+                  <Suspense fallback={<PageSkeleton />}>
+                    <About />
+                  </Suspense>
                 } />
                 <Route path="/terms" element={
                   <Suspense fallback={<PageSkeleton />}>
