@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
   Shield, Database, Users, Zap, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap, BookOpen, ExternalLink
+  GraduationCap
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -36,32 +36,6 @@ const faqs = [
   }
 ];
 
-const publications = [
-  {
-    title: "Predictive Analytics in Nursing: A Framework for Nurse-Sensitive Outcome Prediction",
-    authors: "Collier, A.",
-    venue: "University of North Georgia Research",
-    year: "2024",
-    type: "Working Paper",
-    status: "In Progress"
-  },
-  {
-    title: "Explainable AI for Clinical Decision Support: SHAP-Based Risk Visualization",
-    authors: "Collier, A.",
-    venue: "Healthcare Informatics Research",
-    year: "2025",
-    type: "Manuscript",
-    status: "In Preparation"
-  },
-  {
-    title: "System and Method for Predicting Nurse-Sensitive Patient Outcomes",
-    authors: "Collier, A.",
-    venue: "U.S. Patent Application",
-    year: "2024",
-    type: "Patent",
-    status: "Pending"
-  }
-];
 
 
 function About() {
@@ -183,45 +157,6 @@ function About() {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Publications & Research */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Publications & Research</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Academic work and intellectual property related to this project
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {publications.map((pub, index) => (
-              <div key={index} className="p-4 rounded-lg border border-border bg-secondary/30">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant={pub.type === "Patent" ? "default" : "secondary"} className="text-xs">
-                        {pub.type}
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">
-                        {pub.status}
-                      </Badge>
-                    </div>
-                    <h3 className="font-semibold text-sm mb-1">{pub.title}</h3>
-                    <p className="text-xs text-muted-foreground mb-1">{pub.authors}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {pub.venue} • {pub.year}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <p className="text-xs text-muted-foreground pt-2">
-              For citation requests or research collaboration inquiries, please contact the principal investigator.
-            </p>
           </CardContent>
         </Card>
 
