@@ -342,7 +342,7 @@ function About() {
       {/* Footer */}
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Research Prototype • Patent Pending • Not for Clinical Use</p>
+          <p>© {new Date().getFullYear()} Dr. Alexis Collier • Clinical Risk Intelligence Dashboard • Patent Pending • Not for Clinical Use</p>
         </div>
       </footer>
     </div>
