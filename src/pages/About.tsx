@@ -12,6 +12,7 @@ import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuditLog } from '@/hooks/useAuditLog';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import alexisPhoto from '@/assets/alexis-collier.png';
 
 const faqs = [
   {
@@ -127,9 +128,11 @@ function About() {
           <CardContent>
             <div className="p-6 rounded-lg border border-border bg-secondary/30">
               <div className="flex flex-col sm:flex-row gap-6 items-start">
-                <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center shrink-0">
-                  <span className="text-2xl font-bold text-primary">AC</span>
-                </div>
+                <img 
+                  src={alexisPhoto} 
+                  alt="Alexis Collier" 
+                  className="w-20 h-20 rounded-full object-cover object-top border-2 border-primary/40 shrink-0"
+                />
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold mb-1">Alexis Collier</h3>
                   <p className="text-sm text-muted-foreground mb-3">
