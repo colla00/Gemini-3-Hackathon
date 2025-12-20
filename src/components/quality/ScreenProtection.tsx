@@ -243,7 +243,7 @@ export const ScreenProtection = ({
         </div>
       </div>
 
-      {/* Global styles to prevent selection */}
+      {/* Global styles to prevent selection and printing */}
       <style>{`
         /* Prevent text selection on sensitive areas */
         [data-protected="true"],
@@ -254,10 +254,20 @@ export const ScreenProtection = ({
           user-select: none;
         }
 
-        /* Make watermark visible in screenshots but subtle during use */
+        /* Completely block printing */
         @media print {
-          .print\\:hidden {
+          body * {
             display: none !important;
+            visibility: hidden !important;
+          }
+          body::before {
+            content: "© Dr. Alexis Collier - Patent Pending - Printing is disabled for this protected content.";
+            display: block !important;
+            visibility: visible !important;
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #333;
           }
         }
 
@@ -268,6 +278,11 @@ export const ScreenProtection = ({
           -moz-user-drag: none;
           -o-user-drag: none;
           user-drag: none;
+        }
+
+        /* Disable save as */
+        body {
+          -webkit-touch-callout: none;
         }
       `}</style>
 
