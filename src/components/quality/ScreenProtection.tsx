@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldAlert, Clock, History, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShieldAlert, Clock, History, ChevronDown, ChevronUp, Printer } from 'lucide-react';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { SessionHistoryViewer } from './SessionHistoryViewer';
 
@@ -16,6 +16,7 @@ export const ScreenProtection = ({
   showDynamicInfo = true 
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
+  const [showPrintWarning, setShowPrintWarning] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toISOString());
   const [showHistory, setShowHistory] = useState(false);
   const [trackerCollapsed, setTrackerCollapsed] = useState(true);
@@ -48,14 +49,32 @@ export const ScreenProtection = ({
       setTimeout(() => setIsBlurred(false), 300);
     };
 
-    // Detect print attempts
+    // Detect print attempts and show warning overlay
     const handleBeforePrint = () => {
+      setShowPrintWarning(true);
       setIsBlurred(true);
+      logInteraction('Print attempt blocked');
     };
 
     const handleAfterPrint = () => {
-      setTimeout(() => setIsBlurred(false), 500);
+      setTimeout(() => {
+        setShowPrintWarning(false);
+        setIsBlurred(false);
+      }, 500);
     };
+
+    // Also detect Ctrl+P / Cmd+P keypress to show warning before browser dialog
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        setShowPrintWarning(true);
+        logInteraction('Print shortcut blocked (Ctrl+P)');
+        // Auto-hide after 4 seconds
+        setTimeout(() => setShowPrintWarning(false), 4000);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('blur', handleBlur);
@@ -69,8 +88,9 @@ export const ScreenProtection = ({
       window.removeEventListener('focus', handleFocus);
       window.removeEventListener('beforeprint', handleBeforePrint);
       window.removeEventListener('afterprint', handleAfterPrint);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [enabled]);
+  }, [enabled, logInteraction]);
 
   // Prevent right-click context menu on protected content
   useEffect(() => {
@@ -119,6 +139,40 @@ export const ScreenProtection = ({
           </div>
         )}
       </div>
+
+      {/* Print Warning Overlay */}
+      {showPrintWarning && (
+        <div className="fixed inset-0 z-[10000] bg-background/95 backdrop-blur-lg flex items-center justify-center animate-fade-in">
+          <div className="max-w-md mx-auto text-center p-8 bg-card border border-destructive/30 rounded-2xl shadow-2xl">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-destructive/10 flex items-center justify-center">
+              <Printer className="w-10 h-10 text-destructive" />
+              <div className="absolute">
+                <div className="w-24 h-1 bg-destructive rotate-45 rounded-full" />
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-3">
+              Printing Disabled
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              This content is protected intellectual property. Printing, copying, and 
+              exporting are not permitted without explicit written authorization.
+            </p>
+            <div className="p-3 bg-secondary/50 rounded-lg border border-border mb-6">
+              <p className="text-xs text-muted-foreground">
+                <span className="font-semibold text-foreground">© Dr. Alexis Collier</span>
+                <br />
+                Patent Pending • All Rights Reserved
+              </p>
+            </div>
+            <button
+              onClick={() => setShowPrintWarning(false)}
+              className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            >
+              I Understand
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Diagonal Watermark Pattern */}
       <div 
