@@ -42,7 +42,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
   // Confidence interval based on risk level
   const confidenceInterval = patient.riskLevel === 'HIGH' ? 8 : patient.riskLevel === 'MEDIUM' ? 6 : 4;
 
-  // Generate clinical insight based on patient data
+  // Generate clinical context based on patient data
   const getInsight = () => {
     const topFactor = patient.riskFactors.reduce((prev, curr) => 
       Math.abs(curr.contribution) > Math.abs(prev.contribution) ? curr : prev
@@ -50,9 +50,9 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
     const protectiveFactor = patient.riskFactors.find(f => f.contribution < 0);
     
     if (topFactor && protectiveFactor) {
-      return `Notice how ${topFactor.name.toLowerCase()} (${topFactor.contribution >= 0 ? '+' : ''}${topFactor.contribution.toFixed(2)}) outweighs ${protectiveFactor.name.toLowerCase()} in the risk model.`;
+      return `Signals suggest ${topFactor.name.toLowerCase()} may be a primary factor, while ${protectiveFactor.name.toLowerCase()} appears to be a protective element.`;
     }
-    return `The primary risk driver is ${topFactor.name.toLowerCase()} contributing ${topFactor.contribution >= 0 ? '+' : ''}${topFactor.contribution.toFixed(2)} to the overall score.`;
+    return `Context indicates ${topFactor.name.toLowerCase()} may be a primary contributing factor for this patient.`;
   };
 
   return (
@@ -111,58 +111,44 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {/* Risk Score Card with Confidence Interval */}
+          {/* Risk Assessment Card */}
           <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
             <div className="flex items-center gap-2 mb-4">
               <Activity className="w-4 h-4 text-primary" />
               <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                Current Risk Assessment
+                Current Risk Signal
               </h3>
             </div>
             
             <div className={cn("rounded-xl border p-5 mb-5 text-center", riskScoreBg)}>
-              <span className={cn("text-6xl font-extrabold", riskScoreColor)}>
-                {patient.riskScore}%
-              </span>
-              {/* Confidence interval display (Patent: Confidence-based risk stratification) */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <p className="text-muted-foreground mt-2 text-sm font-medium cursor-help">
-                    {patient.riskType} Risk Score
-                    <span className="ml-2 text-xs opacity-70">
-                      (95% CI: {patient.riskScore - confidenceInterval}-{patient.riskScore + confidenceInterval}%)
-                    </span>
-                  </p>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs font-medium">Confidence-Based Stratification</p>
-                  <p className="text-[10px] text-muted-foreground">Model uncertainty quantification</p>
-                </TooltipContent>
-              </Tooltip>
+              <RiskBadge level={patient.riskLevel} className="text-lg px-5 py-2.5" />
+              <p className="text-muted-foreground mt-3 text-sm font-medium">
+                {patient.riskType} Risk
+              </p>
             </div>
 
-            {/* Multi-Horizon Risk Trajectory (Patent: Multi-horizon forecasting) */}
+            {/* Risk Trajectory - emphasizes change over time */}
             <div className="mb-5">
               <div className="flex items-center justify-between mb-2">
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Multi-Horizon Forecast
+                  Risk Trajectory
                 </h4>
                 <span className="text-[9px] px-1.5 py-0.5 rounded bg-primary/10 text-primary">
-                  4h-48h
+                  Trend
                 </span>
               </div>
               <RiskTrendChart 
                 currentScore={patient.riskScore} 
                 trend={patient.trend}
                 className="h-24"
-                showConfidenceBands={true}
-                showHorizons={true}
+                showConfidenceBands={false}
+                showHorizons={false}
               />
             </div>
 
             <div className="space-y-2">
               <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                Ranked Contributing Factors
+                Contributing Factors
               </h4>
               {patient.riskFactors
                 .sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution))
@@ -178,11 +164,13 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                   </span>
                   <span
                     className={cn(
-                      "font-mono font-semibold text-xs",
-                      factor.contribution >= 0 ? "text-risk-high" : "text-risk-low"
+                      "text-xs font-medium px-2 py-0.5 rounded",
+                      factor.contribution >= 0 
+                        ? "bg-risk-high/10 text-risk-high" 
+                        : "bg-risk-low/10 text-risk-low"
                     )}
                   >
-                    {factor.contribution >= 0 ? '+' : ''}{factor.contribution.toFixed(2)}
+                    {factor.contribution >= 0 ? 'Elevates' : 'Reduces'}
                   </span>
                 </div>
               ))}
@@ -193,12 +181,12 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
           <div className="bg-card rounded-xl border border-border/50 p-5 shadow-card">
             <GroupedShapChart factors={patient.riskFactors} />
             
-            {/* Clinical Insight Box */}
+            {/* Clinical Context Box */}
             <div className="mt-4 p-3.5 rounded-lg border border-primary/40 bg-primary/5">
               <div className="flex items-start gap-2.5">
                 <Lightbulb className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="text-xs font-semibold text-primary mb-1">Workflow-Aware Insight</h4>
+                  <h4 className="text-xs font-semibold text-primary mb-1">Clinical Context</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     {getInsight()}
                   </p>

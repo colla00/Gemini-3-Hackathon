@@ -2,6 +2,7 @@ import { AlertTriangle, TrendingUp, TrendingDown, Minus, Info, ChevronRight, Sta
 import { cn } from '@/lib/utils';
 import type { Patient } from '@/data/patients';
 import { RiskTrendChart } from './RiskTrendChart';
+import { RiskBadge } from './RiskBadge';
 import {
   Tooltip,
   TooltipContent,
@@ -141,14 +142,9 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
               </span>
             </div>
 
-            {/* Score & Trend */}
+            {/* Risk Signal & Trend */}
             <div className="flex items-end justify-between mb-4">
-              <div className="flex items-baseline gap-1">
-                <span className={cn("text-4xl font-extrabold tracking-tight", riskStyles.score)}>
-                  {patient.riskScore}
-                </span>
-                <span className={cn("text-lg font-semibold", riskStyles.score)}>%</span>
-              </div>
+              <RiskBadge level={patient.riskLevel} className="text-sm" />
               
               <div className={cn("flex items-center gap-1.5 text-xs font-medium", trendStyles.color)}>
                 <TrendIcon className="w-4 h-4" />
@@ -182,16 +178,16 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
         </button>
       </TooltipTrigger>
       <TooltipContent side="bottom" className="max-w-xs p-3">
-        <p className="text-xs font-semibold text-foreground mb-2">Top Contributing Factors</p>
+        <p className="text-xs font-semibold text-foreground mb-2">Contributing Factors</p>
         <div className="space-y-1">
           {topFactors.map(factor => (
             <div key={factor.name} className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">{factor.name}</span>
               <span className={cn(
-                "font-mono font-medium",
-                factor.contribution >= 0 ? "text-risk-high" : "text-risk-low"
+                "font-medium px-1.5 py-0.5 rounded text-[10px]",
+                factor.contribution >= 0 ? "bg-risk-high/10 text-risk-high" : "bg-risk-low/10 text-risk-low"
               )}>
-                {factor.contribution >= 0 ? '+' : ''}{factor.contribution.toFixed(2)}
+                {factor.contribution >= 0 ? 'Elevates' : 'Reduces'}
               </span>
             </div>
           ))}

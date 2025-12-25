@@ -23,28 +23,28 @@ interface Action {
 const getActionsForRiskType = (riskType: RiskType, riskLevel: string): Action[] => {
   const actionSets: Record<RiskType, Action[]> = {
     'Falls': [
-      { id: '1', label: 'Verify bed alarm status', priority: 'high', rationale: 'Primary fall prevention measure for high-risk patients' },
-      { id: '2', label: 'Assess mobility with PT', priority: 'high', rationale: 'Baseline mobility assessment informs intervention plan' },
-      { id: '3', label: 'Review sedation timing', priority: 'medium', rationale: 'Recent sedation increases fall risk window' },
+      { id: '1', label: 'Verify bed alarm status', priority: 'high', rationale: 'Signals suggest this may warrant attention given mobility factors' },
+      { id: '2', label: 'Assess mobility with PT', priority: 'high', rationale: 'Context indicates mobility assessment may inform care planning' },
+      { id: '3', label: 'Review sedation timing', priority: 'medium', rationale: 'Factors contributing include recent medication administration' },
       { id: '4', label: 'Update fall risk signage', priority: 'low', rationale: 'Visual cues support team awareness', completed: true },
     ],
     'Pressure Injury': [
-      { id: '1', label: 'Document repositioning schedule', priority: 'high', rationale: 'Pressure relief is primary prevention strategy' },
-      { id: '2', label: 'Assess skin integrity', priority: 'high', rationale: 'Early detection enables timely intervention' },
-      { id: '3', label: 'Evaluate nutritional status', priority: 'medium', rationale: 'Albumin and nutrition affect tissue healing' },
-      { id: '4', label: 'Review support surface', priority: 'low', rationale: 'Specialized surfaces reduce pressure points', completed: true },
+      { id: '1', label: 'Document repositioning schedule', priority: 'high', rationale: 'Signals suggest pressure relief may warrant review' },
+      { id: '2', label: 'Assess skin integrity', priority: 'high', rationale: 'Context indicates early assessment may be beneficial' },
+      { id: '3', label: 'Evaluate nutritional status', priority: 'medium', rationale: 'Factors contributing include albumin and nutritional indicators' },
+      { id: '4', label: 'Review support surface', priority: 'low', rationale: 'Specialized surfaces may reduce pressure points', completed: true },
     ],
     'Device Complication': [
-      { id: '1', label: 'Inspect device insertion site', priority: 'high', rationale: 'Site assessment detects early complications' },
-      { id: '2', label: 'Verify device necessity', priority: 'high', rationale: 'Daily review supports timely removal' },
-      { id: '3', label: 'Document dwell time', priority: 'medium', rationale: 'Duration correlates with complication risk' },
-      { id: '4', label: 'Reinforce aseptic technique', priority: 'low', rationale: 'Consistent technique prevents infection', completed: true },
+      { id: '1', label: 'Inspect device insertion site', priority: 'high', rationale: 'Signals suggest site assessment may be warranted' },
+      { id: '2', label: 'Verify device necessity', priority: 'high', rationale: 'Context indicates daily review may support timely decisions' },
+      { id: '3', label: 'Document dwell time', priority: 'medium', rationale: 'Factors contributing include device duration' },
+      { id: '4', label: 'Reinforce aseptic technique', priority: 'low', rationale: 'Consistent technique supports infection prevention', completed: true },
     ],
     'CAUTI': [
-      { id: '1', label: 'Review catheter necessity daily', priority: 'high', rationale: 'Early removal is the primary CAUTI prevention strategy' },
-      { id: '2', label: 'Assess for UTI symptoms', priority: 'high', rationale: 'Early detection enables prompt treatment' },
-      { id: '3', label: 'Verify securement device intact', priority: 'medium', rationale: 'Proper securement prevents trauma and migration' },
-      { id: '4', label: 'Document CAUTI bundle compliance', priority: 'low', rationale: 'Bundle adherence reduces infection rates', completed: true },
+      { id: '1', label: 'Review catheter necessity daily', priority: 'high', rationale: 'Signals suggest catheter review may be warranted' },
+      { id: '2', label: 'Assess for UTI symptoms', priority: 'high', rationale: 'Context indicates symptom assessment may support early detection' },
+      { id: '3', label: 'Verify securement device intact', priority: 'medium', rationale: 'Factors contributing include securement status' },
+      { id: '4', label: 'Document CAUTI bundle compliance', priority: 'low', rationale: 'Bundle adherence supports infection prevention', completed: true },
     ],
   };
 
@@ -66,12 +66,12 @@ export const SuggestedActions = ({ patient }: SuggestedActionsProps) => {
         <div className="flex items-center gap-2 mb-4">
           <Shield className="w-4 h-4 text-primary" />
           <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-            Suggested Action Pathways
+            Considerations for Review
           </h3>
         </div>
 
         <p className="text-xs text-muted-foreground mb-4">
-          Workflow-aware recommendations based on interpretable AI analysis
+          Context-informed pathways based on current clinical signals
         </p>
 
         <div className="space-y-2">

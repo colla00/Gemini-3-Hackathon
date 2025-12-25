@@ -77,6 +77,15 @@ const ShapBar = ({ factor, maxContribution }: { factor: Factor; maxContribution:
   const isPositive = factor.contribution >= 0;
   const barWidth = Math.min(100, (Math.abs(factor.contribution) / maxContribution) * 100);
   
+  // Convert contribution to relative influence labels
+  const getInfluenceLabel = (contribution: number) => {
+    const abs = Math.abs(contribution);
+    if (abs > 0.25) return 'Strong';
+    if (abs > 0.15) return 'Moderate';
+    if (abs > 0.08) return 'Mild';
+    return 'Minimal';
+  };
+  
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -101,16 +110,16 @@ const ShapBar = ({ factor, maxContribution }: { factor: Factor; maxContribution:
             )}
           </div>
           <span className={cn(
-            "text-xs font-mono font-semibold w-12 text-right",
-            isPositive ? "text-risk-high" : "text-risk-low"
+            "text-[10px] font-medium w-16 text-right px-1.5 py-0.5 rounded",
+            isPositive ? "bg-risk-high/10 text-risk-high" : "bg-risk-low/10 text-risk-low"
           )}>
-            {isPositive ? '+' : ''}{factor.contribution.toFixed(2)}
+            {getInfluenceLabel(factor.contribution)}
           </span>
         </div>
       </TooltipTrigger>
       <TooltipContent>
         <p className="text-xs">
-          <strong>{factor.name}</strong> contributes {isPositive ? 'positively' : 'negatively'} to risk
+          <strong>{factor.name}</strong>: {getInfluenceLabel(factor.contribution)} {isPositive ? 'elevating' : 'protective'} influence
         </p>
       </TooltipContent>
     </Tooltip>
@@ -158,31 +167,20 @@ export const GroupedShapChart = ({ factors, className }: GroupedShapChartProps) 
           <div className="flex items-center gap-2">
             <BarChart3 className="w-4 h-4 text-primary" />
             <h4 className="text-sm font-semibold text-foreground">
-              Grouped SHAP Analysis
+              Factor Analysis
             </h4>
           </div>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-accent/10 border border-accent/30">
-                <Award className="w-3 h-3 text-accent" />
-                <span className="text-[9px] text-accent font-medium">Claim #1</span>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="text-xs">Real-time SHAP Integration (Patent Pending)</p>
-            </TooltipContent>
-          </Tooltip>
         </div>
 
         {/* Legend */}
         <div className="flex items-center gap-4 text-[10px]">
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded bg-risk-high" />
-            <span className="text-muted-foreground">Increases Risk</span>
+            <span className="text-muted-foreground">Elevates Risk</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded bg-risk-low" />
-            <span className="text-muted-foreground">Decreases Risk</span>
+            <span className="text-muted-foreground">Protective</span>
           </div>
         </div>
 
@@ -220,10 +218,10 @@ export const GroupedShapChart = ({ factors, className }: GroupedShapChartProps) 
                     </div>
                     <div className="flex items-center gap-3">
                       <span className={cn(
-                        "text-sm font-mono font-bold",
-                        isPositiveTotal ? "text-risk-high" : "text-risk-low"
+                        "text-xs font-medium px-2 py-0.5 rounded",
+                        isPositiveTotal ? "bg-risk-high/10 text-risk-high" : "bg-risk-low/10 text-risk-low"
                       )}>
-                        {isPositiveTotal ? '+' : ''}{category.totalContribution.toFixed(2)}
+                        {isPositiveTotal ? 'Elevating' : 'Protective'}
                       </span>
                       {isExpanded ? (
                         <ChevronDown className="w-4 h-4 text-muted-foreground" />
@@ -252,21 +250,22 @@ export const GroupedShapChart = ({ factors, className }: GroupedShapChartProps) 
         {/* Summary */}
         <div className="p-3 rounded-lg bg-secondary/30 border border-border/30">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-muted-foreground">Net Risk Contribution:</span>
+            <span className="text-muted-foreground">Overall Factor Influence:</span>
             <span className={cn(
-              "font-mono font-bold",
+              "font-medium px-2 py-0.5 rounded",
               factors.reduce((sum, f) => sum + f.contribution, 0) >= 0 
-                ? "text-risk-high" 
-                : "text-risk-low"
+                ? "bg-risk-high/10 text-risk-high" 
+                : "bg-risk-low/10 text-risk-low"
             )}>
-              {factors.reduce((sum, f) => sum + f.contribution, 0) >= 0 ? '+' : ''}
-              {factors.reduce((sum, f) => sum + f.contribution, 0).toFixed(2)}
+              {factors.reduce((sum, f) => sum + f.contribution, 0) >= 0 
+                ? 'Net Elevating' 
+                : 'Net Protective'}
             </span>
           </div>
         </div>
 
         <p className="text-[9px] text-muted-foreground text-center">
-          Hierarchical factor grouping • Real-time SHAP integration
+          Factor grouping by clinical domain
         </p>
       </div>
     </TooltipProvider>
