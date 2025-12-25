@@ -112,16 +112,11 @@ export const RiskTrendChart = ({
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const data = payload[0].payload;
+                const trendLabel = trend === 'up' ? 'Rising' : trend === 'down' ? 'Declining' : 'Stable';
                 return (
                   <div className="bg-card border border-border/50 rounded-lg p-2 shadow-lg text-xs">
-                    <div className="font-semibold text-foreground">{data.time} Horizon</div>
-                    <div className="text-primary">Risk: {data.value}%</div>
-                    {showConfidenceBands && (
-                      <>
-                        <div className="text-muted-foreground">Range: {data.lowerBound}-{data.upperBound}%</div>
-                        <div className="text-muted-foreground">Confidence: {data.confidence}%</div>
-                      </>
-                    )}
+                    <div className="font-semibold text-foreground">{data.time}</div>
+                    <div className="text-primary">Trajectory: {trendLabel}</div>
                   </div>
                 );
               }
@@ -131,12 +126,9 @@ export const RiskTrendChart = ({
         </AreaChart>
       </ResponsiveContainer>
       
-      {/* Patent label */}
-      <div className="flex justify-between items-center mt-1 px-1">
-        <span className="text-[8px] text-muted-foreground/60">Multi-horizon forecast</span>
-        {showConfidenceBands && (
-          <span className="text-[8px] text-muted-foreground/60">± Confidence interval</span>
-        )}
+      {/* Trend label */}
+      <div className="flex justify-center items-center mt-1 px-1">
+        <span className="text-[8px] text-muted-foreground/60">Risk trajectory over time</span>
       </div>
     </div>
   );
