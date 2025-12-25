@@ -87,7 +87,7 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
 
   const trendStyles = {
     up: { color: 'text-risk-high', label: 'Rising' },
-    down: { color: 'text-risk-low', label: 'Falling' },
+    down: { color: 'text-risk-low', label: 'Declining' },
     stable: { color: 'text-muted-foreground', label: 'Stable' },
   }[patient.trend];
 
@@ -111,14 +111,6 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
             "group"
           )}
         >
-          {/* Rank indicator */}
-          <div className={cn(
-            "absolute -top-2.5 -left-2.5 w-7 h-7 rounded-full bg-card border-2 border-border/50 flex items-center justify-center",
-            patient.riskLevel === 'HIGH' && riskStyles.pulse
-          )}>
-            <span className="text-[10px] font-bold text-foreground">#{rank}</span>
-          </div>
-
           <div className="p-5">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
@@ -134,18 +126,11 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
                 <span className="text-xs text-muted-foreground font-medium">{patient.riskType}</span>
               </div>
               
-              <span className={cn(
-                "px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wide",
-                riskStyles.badge
-              )}>
-                {patient.riskLevel}
-              </span>
+              <RiskBadge level={patient.riskLevel} showIcon={false} />
             </div>
 
             {/* Risk Signal & Trend */}
             <div className="flex items-end justify-between mb-4">
-              <RiskBadge level={patient.riskLevel} className="text-sm" />
-              
               <div className={cn("flex items-center gap-1.5 text-xs font-medium", trendStyles.color)}>
                 <TrendIcon className="w-4 h-4" />
                 <span>{trendStyles.label}</span>

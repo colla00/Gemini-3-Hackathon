@@ -14,38 +14,49 @@ interface QuickStatsProps {
   trending: number;
 }
 
+// Convert counts to qualitative indicators
+const getQualitativeLabel = (count: number, type: 'patients' | 'elevated' | 'rising') => {
+  if (type === 'patients') {
+    return count === 0 ? 'None' : count === 1 ? 'One' : count <= 3 ? 'Few' : 'Several';
+  }
+  if (count === 0) return 'None';
+  if (count === 1) return 'One';
+  if (count <= 2) return 'Some';
+  return 'Multiple';
+};
+
 export const QuickStats = ({ total, high, medium, trending }: QuickStatsProps) => {
   return (
     <TooltipProvider>
       <div className="flex flex-wrap items-center gap-2 mb-6">
         <StatPill
           icon={<Users className="w-3.5 h-3.5" />}
-          value={total}
           label="Patients"
-          tooltip="Total patients currently monitored"
+          qualitative={getQualitativeLabel(total, 'patients')}
+          tooltip="Patients currently monitored"
         />
         <div className="w-px h-5 bg-border/40 hidden sm:block" />
         <StatPill
           icon={<AlertTriangle className="w-3.5 h-3.5" />}
-          value={high}
-          label="Urgent"
+          label="Elevated"
+          qualitative={getQualitativeLabel(high, 'elevated')}
           color="high"
           pulse={high > 0}
-          tooltip="High-risk patients requiring clinician review"
+          tooltip="Patients with elevated signals requiring review"
         />
         <StatPill
           icon={<Activity className="w-3.5 h-3.5" />}
-          value={medium}
-          label="Elevated"
+          label="Moderate"
+          qualitative={getQualitativeLabel(medium, 'elevated')}
           color="medium"
-          tooltip="Patients with elevated risk trajectory"
+          tooltip="Patients with moderate signal levels"
         />
         <StatPill
           icon={<TrendingUp className="w-3.5 h-3.5" />}
-          value={trending}
           label="Rising"
+          qualitative={getQualitativeLabel(trending, 'rising')}
           color="warning"
-          tooltip="Patients with increasing risk trends"
+          tooltip="Patients with rising trajectory"
         />
       </div>
     </TooltipProvider>
@@ -54,14 +65,14 @@ export const QuickStats = ({ total, high, medium, trending }: QuickStatsProps) =
 
 interface StatPillProps {
   icon: React.ReactNode;
-  value: number;
   label: string;
+  qualitative: string;
   color?: 'high' | 'medium' | 'warning';
   pulse?: boolean;
   tooltip: string;
 }
 
-const StatPill = ({ icon, value, label, color, pulse, tooltip }: StatPillProps) => {
+const StatPill = ({ icon, label, qualitative, color, pulse, tooltip }: StatPillProps) => {
   const colorStyles = {
     high: 'text-risk-high',
     medium: 'text-risk-medium',
@@ -85,8 +96,8 @@ const StatPill = ({ icon, value, label, color, pulse, tooltip }: StatPillProps) 
           <span className={cn("text-muted-foreground", color && colorStyles[color])}>
             {icon}
           </span>
-          <span className={cn("text-sm font-bold tabular-nums", color ? colorStyles[color] : "text-foreground")}>
-            {value}
+          <span className={cn("text-sm font-semibold", color ? colorStyles[color] : "text-foreground")}>
+            {qualitative}
           </span>
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
             {label}
