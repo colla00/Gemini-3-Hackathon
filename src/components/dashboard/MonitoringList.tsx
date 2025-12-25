@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronRight, Clock, TrendingUp, TrendingDown, Minus, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Patient } from '@/data/patients';
+import { RiskBadge } from './RiskBadge';
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +20,13 @@ interface MonitoringListProps {
   onSelect: (patient: Patient) => void;
   displayTime: (minutes: number) => string;
 }
+
+// Qualitative trend labels
+const trendLabels = {
+  up: 'Rising',
+  down: 'Declining',
+  stable: 'Stable',
+};
 
 export const MonitoringList = ({ patients, onSelect, displayTime }: MonitoringListProps) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -38,7 +46,7 @@ export const MonitoringList = ({ patients, onSelect, displayTime }: MonitoringLi
                 <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
               )}
               <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
-                Monitoring ({patients.length})
+                Monitoring
               </span>
             </div>
             <div className="h-px flex-1 bg-border/30" />
@@ -47,11 +55,10 @@ export const MonitoringList = ({ patients, onSelect, displayTime }: MonitoringLi
 
         <CollapsibleContent>
           <div className="bg-card/30 rounded-xl border border-border/20 overflow-hidden">
-            <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-4 py-2 border-b border-border/20 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+            <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-4 py-2 border-b border-border/20 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
               <span>Patient</span>
-              <span className="text-center">Risk</span>
-              <span className="text-center">Score</span>
-              <span className="text-center">Trend</span>
+              <span className="text-center">Signal</span>
+              <span className="text-center">Trajectory</span>
               <span className="text-right">Updated</span>
             </div>
             
@@ -81,12 +88,6 @@ interface MonitoringRowProps {
 const MonitoringRow = ({ patient, onClick, displayTime }: MonitoringRowProps) => {
   const TrendIcon = patient.trend === 'up' ? TrendingUp : patient.trend === 'down' ? TrendingDown : Minus;
   
-  const riskStyles = {
-    HIGH: { badge: 'bg-risk-high/10 text-risk-high', score: 'text-risk-high' },
-    MEDIUM: { badge: 'bg-risk-medium/10 text-risk-medium', score: 'text-risk-medium' },
-    LOW: { badge: 'bg-risk-low/10 text-risk-low', score: 'text-risk-low' },
-  }[patient.riskLevel];
-
   const trendColor = {
     up: 'text-risk-high',
     down: 'text-risk-low',
@@ -96,7 +97,7 @@ const MonitoringRow = ({ patient, onClick, displayTime }: MonitoringRowProps) =>
   return (
     <button
       onClick={onClick}
-      className="w-full grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 items-center px-4 py-3 hover:bg-secondary/20 transition-colors text-left group"
+      className="w-full grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center px-4 py-3 hover:bg-secondary/20 transition-colors text-left group"
     >
       <div className="flex items-center gap-3 min-w-0">
         <div className="min-w-0">
@@ -118,19 +119,11 @@ const MonitoringRow = ({ patient, onClick, displayTime }: MonitoringRowProps) =>
         </div>
       </div>
 
-      <span className={cn(
-        "px-2 py-0.5 rounded text-[10px] font-bold uppercase text-center",
-        riskStyles.badge
-      )}>
-        {patient.riskLevel}
-      </span>
+      <RiskBadge level={patient.riskLevel} showIcon={false} className="text-[10px]" />
 
-      <span className={cn("text-sm font-bold tabular-nums text-center w-12", riskStyles.score)}>
-        {patient.riskScore}%
-      </span>
-
-      <div className={cn("flex items-center justify-center", trendColor)}>
-        <TrendIcon className="w-4 h-4" />
+      <div className={cn("flex items-center gap-1.5", trendColor)}>
+        <TrendIcon className="w-3.5 h-3.5" />
+        <span className="text-[10px] font-medium">{trendLabels[patient.trend]}</span>
       </div>
 
       <div className="flex items-center gap-1.5 text-muted-foreground justify-end">
