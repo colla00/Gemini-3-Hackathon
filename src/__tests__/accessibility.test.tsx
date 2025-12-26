@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, cleanup } from '@testing-library/react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { axe } from 'jest-axe';
@@ -8,6 +8,10 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import { SettingsProvider } from '@/hooks/useSettings';
 import { RiskBadge } from '@/components/dashboard/RiskBadge';
 import { SkipLink } from '@/components/SkipLink';
+import { PatientCard } from '@/components/dashboard/PatientCard';
+import { FilterBar } from '@/components/dashboard/FilterBar';
+import { InfoModal } from '@/components/dashboard/InfoModal';
+import type { Patient } from '@/data/patients';
 
 // Custom assertion helper for axe violations
 function expectNoViolations(results: AxeResults) {
@@ -40,6 +44,27 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// Mock patient data for testing
+const mockPatient: Patient = {
+  id: 'PT-001',
+  ageRange: '60-70',
+  room: '401A',
+  riskLevel: 'HIGH',
+  riskScore: 0.85,
+  riskType: 'Falls',
+  trend: 'up',
+  lastUpdated: new Date().toISOString(),
+  lastUpdatedMinutes: 2,
+  admissionDate: '2024-01-15',
+  riskSummary: 'Elevated fall risk due to mobility limitations and medication effects.',
+  clinicalNotes: 'Patient requires assistance with ambulation.',
+  riskFactors: [
+    { name: 'Mobility', icon: 'activity', contribution: 0.3 },
+    { name: 'Medications', icon: 'pill', contribution: 0.2 },
+  ],
+  isDemo: false,
+};
+
 describe('Accessibility - WCAG 2.1 AA Compliance', () => {
   beforeEach(() => {
     cleanup();
@@ -49,6 +74,9 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     cleanup();
   });
 
+  // ============================================
+  // RiskBadge Component Tests
+  // ============================================
   describe('RiskBadge Component', () => {
     it('should have no accessibility violations for HIGH risk', async () => {
       const { container } = render(
@@ -106,6 +134,9 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     });
   });
 
+  // ============================================
+  // SkipLink Component Tests
+  // ============================================
   describe('SkipLink Component', () => {
     it('should have no accessibility violations', async () => {
       const { container } = render(
@@ -153,6 +184,277 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     });
   });
 
+  // ============================================
+  // PatientCard Component Tests
+  // ============================================
+  describe('PatientCard Component', () => {
+    const mockOnClick = vi.fn();
+
+    beforeEach(() => {
+      mockOnClick.mockClear();
+    });
+
+    it('should have no accessibility violations', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should have proper role and aria-label', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('article[role="button"]');
+      expect(card).toBeTruthy();
+      expect(card?.getAttribute('aria-label')).toContain('Patient PT-001');
+      expect(card?.getAttribute('aria-label')).toContain('Falls');
+      expect(card?.getAttribute('aria-label')).toContain('Elevated');
+    });
+
+    it('should be keyboard focusable with tabindex', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('[tabindex="0"]');
+      expect(card).toBeTruthy();
+    });
+
+    it('should respond to Enter key', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('article');
+      if (card) {
+        fireEvent.keyDown(card, { key: 'Enter' });
+        expect(mockOnClick).toHaveBeenCalledTimes(1);
+      }
+    });
+
+    it('should respond to Space key', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('article');
+      if (card) {
+        fireEvent.keyDown(card, { key: ' ' });
+        expect(mockOnClick).toHaveBeenCalledTimes(1);
+      }
+    });
+
+    it('should have focus ring styles for accessibility', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('article');
+      expect(card?.className).toContain('focus:ring');
+    });
+
+    it('should have trend status with aria-label', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={mockOnClick}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const trendStatus = container.querySelector('[role="status"][aria-label*="trend"]');
+      expect(trendStatus).toBeTruthy();
+    });
+  });
+
+  // ============================================
+  // FilterBar Component Tests
+  // ============================================
+  describe('FilterBar Component', () => {
+    const mockFilterProps = {
+      searchQuery: '',
+      onSearchChange: vi.fn(),
+      riskLevelFilter: 'ALL' as const,
+      onRiskLevelChange: vi.fn(),
+      riskTypeFilter: 'ALL' as const,
+      onRiskTypeChange: vi.fn(),
+      sortBy: 'riskScore' as const,
+      onSortChange: vi.fn(),
+    };
+
+    it('should have no accessibility violations', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <FilterBar {...mockFilterProps} />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should have accessible search input with placeholder', () => {
+      render(
+        <TestWrapper>
+          <FilterBar {...mockFilterProps} />
+        </TestWrapper>
+      );
+
+      const searchInput = screen.getByPlaceholderText('Search patient ID...');
+      expect(searchInput).toBeTruthy();
+      expect(searchInput.getAttribute('type')).toBe('text');
+    });
+
+    it('should have keyboard accessible select triggers', () => {
+      const { container } = render(
+        <TestWrapper>
+          <FilterBar {...mockFilterProps} />
+        </TestWrapper>
+      );
+
+      const selectTriggers = container.querySelectorAll('button[role="combobox"]');
+      expect(selectTriggers.length).toBeGreaterThan(0);
+      
+      selectTriggers.forEach(trigger => {
+        expect(trigger.getAttribute('aria-expanded')).toBeDefined();
+      });
+    });
+
+    it('should have clear button when filters are active', () => {
+      render(
+        <TestWrapper>
+          <FilterBar {...mockFilterProps} searchQuery="test" />
+        </TestWrapper>
+      );
+
+      const clearButton = screen.getByText('Clear');
+      expect(clearButton).toBeTruthy();
+    });
+  });
+
+  // ============================================
+  // InfoModal Component Tests
+  // ============================================
+  describe('InfoModal Component', () => {
+    it('should have no accessibility violations when closed', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <InfoModal showTrigger={true} />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should have accessible trigger button', () => {
+      const { container } = render(
+        <TestWrapper>
+          <InfoModal showTrigger={true} />
+        </TestWrapper>
+      );
+
+      const triggerButton = container.querySelector('button');
+      expect(triggerButton).toBeTruthy();
+    });
+
+    it('should have no accessibility violations when open', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <InfoModal open={true} onOpenChange={() => {}} showTrigger={false} />
+        </TestWrapper>
+      );
+
+      // Wait for dialog to render
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should have proper dialog role and title', async () => {
+      render(
+        <TestWrapper>
+          <InfoModal open={true} onOpenChange={() => {}} showTrigger={false} />
+        </TestWrapper>
+      );
+
+      // Wait for dialog to render
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toBeTruthy();
+      
+      // Check for dialog title
+      const title = screen.getByText('Research Prototype');
+      expect(title).toBeTruthy();
+    });
+  });
+
+  // ============================================
+  // Semantic HTML Structure Tests
+  // ============================================
   describe('Semantic HTML Structure', () => {
     it('should have proper heading hierarchy in test structure', async () => {
       const { container } = render(
@@ -177,6 +479,9 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     });
   });
 
+  // ============================================
+  // Color Contrast Tests
+  // ============================================
   describe('Color Contrast', () => {
     it('RiskBadge should have sufficient color contrast', async () => {
       const { container } = render(
@@ -198,6 +503,9 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     });
   });
 
+  // ============================================
+  // Keyboard Navigation Tests
+  // ============================================
   describe('Keyboard Navigation', () => {
     it('RiskBadge should be keyboard focusable', () => {
       const { container } = render(
@@ -222,8 +530,28 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
         expect(link.getAttribute('href')).toBeTruthy();
       });
     });
+
+    it('PatientCard should have visible focus indicator class', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={() => {}}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      const card = container.querySelector('article');
+      expect(card?.className).toContain('focus:outline-none');
+      expect(card?.className).toContain('focus:ring-2');
+    });
   });
 
+  // ============================================
+  // Screen Reader Support Tests
+  // ============================================
   describe('Screen Reader Support', () => {
     it('RiskBadge should have descriptive aria-label', () => {
       const { container } = render(
@@ -245,6 +573,49 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
 
       const icon = container.querySelector('svg');
       expect(icon?.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('PatientCard decorative icons should be hidden', () => {
+      const { container } = render(
+        <TestWrapper>
+          <PatientCard
+            patient={mockPatient}
+            onClick={() => {}}
+            index={0}
+            displayTime="2 min ago"
+          />
+        </TestWrapper>
+      );
+
+      // Check that trend icon is hidden
+      const trendIcon = container.querySelector('[role="status"] svg');
+      expect(trendIcon?.getAttribute('aria-hidden')).toBe('true');
+    });
+  });
+
+  // ============================================
+  // Form Accessibility Tests
+  // ============================================
+  describe('Form Accessibility', () => {
+    it('FilterBar inputs should be properly labeled', () => {
+      render(
+        <TestWrapper>
+          <FilterBar
+            searchQuery=""
+            onSearchChange={() => {}}
+            riskLevelFilter="ALL"
+            onRiskLevelChange={() => {}}
+            riskTypeFilter="ALL"
+            onRiskTypeChange={() => {}}
+            sortBy="riskScore"
+            onSortChange={() => {}}
+          />
+        </TestWrapper>
+      );
+
+      // Search input has placeholder as accessible name
+      const searchInput = screen.getByPlaceholderText('Search patient ID...');
+      expect(searchInput).toBeTruthy();
     });
   });
 });
