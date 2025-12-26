@@ -18,11 +18,13 @@ import { cn } from '@/lib/utils';
 import { usePerformanceTracking } from '@/hooks/usePerformance';
 import { performanceMonitor } from '@/lib/performanceMonitor';
 
-// Skip link targets for keyboard navigation
+// Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
   { id: 'main-content', label: 'Skip to main content' },
-  { id: 'patient-list', label: 'Skip to patient list' },
+  { id: 'workflow-nav', label: 'Skip to workflow navigation' },
+  { id: 'quick-stats', label: 'Skip to patient statistics' },
   { id: 'filters', label: 'Skip to filters' },
+  { id: 'patient-list', label: 'Skip to patient list' },
 ];
 
 export const Dashboard = () => {
@@ -317,7 +319,7 @@ export const Dashboard = () => {
             </section>
 
             {/* Clinical Workflow Context */}
-            <nav aria-label="Clinical workflow phases">
+            <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
               <ClinicalWorkflowBar />
             </nav>
 
@@ -327,7 +329,7 @@ export const Dashboard = () => {
             </section>
 
             {/* Quick Stats Overview */}
-            <section aria-label="Patient statistics summary">
+            <section id="quick-stats" aria-label="Patient statistics summary" tabIndex={-1}>
               <QuickStats
                 total={stats.total}
                 high={stats.high}
