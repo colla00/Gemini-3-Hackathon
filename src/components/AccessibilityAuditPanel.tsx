@@ -1,9 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
 import { 
   CheckCircle, 
   XCircle, 
@@ -12,14 +14,21 @@ import {
   ChevronDown,
   Loader2,
   ExternalLink,
-  Accessibility
+  Accessibility,
+  Shield,
+  Keyboard,
+  Eye,
+  FileText
 } from 'lucide-react';
 import { 
   runAccessibilityAudit, 
   getViolationSummary, 
   passesWCAG21AA,
+  getComplianceSummary,
+  checkAccessibilityFeatures,
   type AuditResult,
-  type ViolationSummary
+  type ViolationSummary,
+  type FeatureCheck
 } from '@/lib/accessibilityAudit';
 import { cn } from '@/lib/utils';
 
@@ -31,6 +40,8 @@ export const AccessibilityAuditPanel = ({ className }: AccessibilityAuditPanelPr
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<AuditResult | null>(null);
   const [violations, setViolations] = useState<ViolationSummary[]>([]);
+  const [featureChecks, setFeatureChecks] = useState<FeatureCheck[]>([]);
+  const [activeTab, setActiveTab] = useState('overview');
 
   const runAudit = useCallback(async () => {
     setIsRunning(true);
@@ -38,6 +49,7 @@ export const AccessibilityAuditPanel = ({ className }: AccessibilityAuditPanelPr
       const auditResults = await runAccessibilityAudit(document);
       setResults(auditResults);
       setViolations(getViolationSummary(auditResults));
+      setFeatureChecks(checkAccessibilityFeatures(document.body));
     } catch (error) {
       console.error('Accessibility audit failed:', error);
     } finally {
@@ -74,6 +86,8 @@ export const AccessibilityAuditPanel = ({ className }: AccessibilityAuditPanelPr
     }
   };
 
+  const summary = results ? getComplianceSummary(results) : null;
+
   return (
     <Card className={cn("w-full", className)}>
       <CardHeader>
@@ -99,70 +113,149 @@ export const AccessibilityAuditPanel = ({ className }: AccessibilityAuditPanelPr
           </Button>
         </div>
         <CardDescription>
-          WCAG 2.1 AA compliance verification
+          WCAG 2.1 AA compliance verification with detailed feature checks
         </CardDescription>
       </CardHeader>
 
       <CardContent>
         {!results && !isRunning && (
-          <p className="text-sm text-muted-foreground text-center py-8">
-            Click "Run Audit" to check this page for accessibility issues
-          </p>
+          <div className="text-center py-8 space-y-3">
+            <Shield className="w-12 h-12 mx-auto text-muted-foreground/50" aria-hidden="true" />
+            <p className="text-sm text-muted-foreground">
+              Click "Run Audit" to check this page for accessibility issues
+            </p>
+            <p className="text-xs text-muted-foreground/70">
+              Tests against WCAG 2.1 AA standards using axe-core
+            </p>
+          </div>
         )}
 
-        {results && (
-          <div className="space-y-4">
-            {/* Summary */}
-            <div 
-              className={cn(
-                "p-4 rounded-lg border",
-                passesWCAG21AA(results) 
-                  ? "bg-risk-low/10 border-risk-low/30" 
-                  : "bg-risk-high/10 border-risk-high/30"
-              )}
-              role="status"
-              aria-live="polite"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                {passesWCAG21AA(results) ? (
-                  <CheckCircle className="w-5 h-5 text-risk-low" aria-hidden="true" />
-                ) : (
-                  <XCircle className="w-5 h-5 text-risk-high" aria-hidden="true" />
-                )}
-                <span className="font-semibold">
-                  {passesWCAG21AA(results) 
-                    ? 'Passes WCAG 2.1 AA' 
-                    : 'Violations Found'}
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                <div className="flex items-center gap-1">
-                  <CheckCircle className="w-3 h-3 text-risk-low" aria-hidden="true" />
-                  <span>{results.passes.length} passed</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <XCircle className="w-3 h-3 text-risk-high" aria-hidden="true" />
-                  <span>{results.violations.length} violations</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <AlertTriangle className="w-3 h-3 text-risk-medium" aria-hidden="true" />
-                  <span>{results.incomplete.length} review needed</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Info className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
-                  <span>{results.inapplicable.length} N/A</span>
-                </div>
-              </div>
-            </div>
+        {results && summary && (
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="overview" className="text-xs">
+                <Eye className="w-3 h-3 mr-1" aria-hidden="true" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="violations" className="text-xs">
+                <AlertTriangle className="w-3 h-3 mr-1" aria-hidden="true" />
+                Violations ({violations.length})
+              </TabsTrigger>
+              <TabsTrigger value="features" className="text-xs">
+                <Keyboard className="w-3 h-3 mr-1" aria-hidden="true" />
+                Features
+              </TabsTrigger>
+            </TabsList>
 
-            {/* Violations List */}
-            {violations.length > 0 && (
-              <div>
-                <h3 className="font-semibold mb-2">Violations</h3>
-                <ScrollArea className="h-[300px]">
+            {/* Overview Tab */}
+            <TabsContent value="overview" className="space-y-4">
+              {/* Score Card */}
+              <div 
+                className={cn(
+                  "p-4 rounded-lg border",
+                  summary.level === 'pass' 
+                    ? "bg-risk-low/10 border-risk-low/30" 
+                    : summary.level === 'warning'
+                    ? "bg-risk-medium/10 border-risk-medium/30"
+                    : "bg-risk-high/10 border-risk-high/30"
+                )}
+                role="status"
+                aria-live="polite"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    {summary.level === 'pass' ? (
+                      <CheckCircle className="w-6 h-6 text-risk-low" aria-hidden="true" />
+                    ) : summary.level === 'warning' ? (
+                      <AlertTriangle className="w-6 h-6 text-risk-medium" aria-hidden="true" />
+                    ) : (
+                      <XCircle className="w-6 h-6 text-risk-high" aria-hidden="true" />
+                    )}
+                    <div>
+                      <span className="font-semibold text-lg">
+                        {summary.level === 'pass' 
+                          ? 'WCAG 2.1 AA Compliant' 
+                          : summary.level === 'warning'
+                          ? 'Minor Issues Found'
+                          : 'Violations Detected'}
+                      </span>
+                      <p className="text-xs text-muted-foreground">
+                        {summary.passCount} rules passed
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className={cn(
+                      "text-3xl font-bold",
+                      summary.score >= 90 ? "text-risk-low" :
+                      summary.score >= 70 ? "text-risk-medium" :
+                      "text-risk-high"
+                    )}>
+                      {summary.score}
+                    </span>
+                    <p className="text-xs text-muted-foreground">Score</p>
+                  </div>
+                </div>
+                
+                <Progress 
+                  value={summary.score} 
+                  className={cn(
+                    "h-2",
+                    summary.score >= 90 ? "[&>div]:bg-risk-low" :
+                    summary.score >= 70 ? "[&>div]:bg-risk-medium" :
+                    "[&>div]:bg-risk-high"
+                  )}
+                />
+              </div>
+
+              {/* Quick Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="p-3 rounded-lg bg-risk-high/10 border border-risk-high/20 text-center">
+                  <span className="text-2xl font-bold text-risk-high">{summary.criticalCount}</span>
+                  <p className="text-xs text-muted-foreground">Critical</p>
+                </div>
+                <div className="p-3 rounded-lg bg-risk-medium/10 border border-risk-medium/20 text-center">
+                  <span className="text-2xl font-bold text-risk-medium">{summary.seriousCount}</span>
+                  <p className="text-xs text-muted-foreground">Serious</p>
+                </div>
+                <div className="p-3 rounded-lg bg-warning/10 border border-warning/20 text-center">
+                  <span className="text-2xl font-bold text-warning">{summary.moderateCount}</span>
+                  <p className="text-xs text-muted-foreground">Moderate</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border text-center">
+                  <span className="text-2xl font-bold text-muted-foreground">{summary.minorCount}</span>
+                  <p className="text-xs text-muted-foreground">Minor</p>
+                </div>
+              </div>
+
+              {/* Incomplete Notice */}
+              {summary.incompleteCount > 0 && (
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/10 border border-primary/30">
+                  <Info className="w-4 h-4 text-primary mt-0.5" aria-hidden="true" />
+                  <div className="text-sm">
+                    <span className="font-medium">{summary.incompleteCount} items need manual review</span>
+                    <p className="text-xs text-muted-foreground">
+                      Some checks require human verification
+                    </p>
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+
+            {/* Violations Tab */}
+            <TabsContent value="violations">
+              {violations.length === 0 ? (
+                <div className="text-center py-8">
+                  <CheckCircle className="w-12 h-12 mx-auto text-risk-low mb-2" aria-hidden="true" />
+                  <p className="text-sm font-medium text-risk-low">No Violations Found</p>
+                  <p className="text-xs text-muted-foreground">
+                    This page meets WCAG 2.1 AA standards
+                  </p>
+                </div>
+              ) : (
+                <ScrollArea className="h-[280px]">
                   <div className="space-y-2 pr-4">
-                    {violations.map((violation, index) => (
+                    {violations.map((violation) => (
                       <Collapsible key={violation.id}>
                         <CollapsibleTrigger asChild>
                           <button
@@ -223,14 +316,54 @@ export const AccessibilityAuditPanel = ({ className }: AccessibilityAuditPanelPr
                     ))}
                   </div>
                 </ScrollArea>
-              </div>
-            )}
+              )}
+            </TabsContent>
 
-            {/* Timestamp */}
-            <p className="text-xs text-muted-foreground text-right">
-              Audited: {new Date(results.timestamp).toLocaleString()}
-            </p>
-          </div>
+            {/* Features Tab */}
+            <TabsContent value="features">
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground mb-3">
+                  Quick checks for common accessibility features
+                </p>
+                {featureChecks.map((check, index) => (
+                  <div 
+                    key={index}
+                    className={cn(
+                      "flex items-center justify-between p-3 rounded-lg border",
+                      check.passed 
+                        ? "bg-risk-low/5 border-risk-low/20" 
+                        : "bg-risk-high/5 border-risk-high/20"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      {check.passed ? (
+                        <CheckCircle className="w-4 h-4 text-risk-low" aria-hidden="true" />
+                      ) : (
+                        <XCircle className="w-4 h-4 text-risk-high" aria-hidden="true" />
+                      )}
+                      <div>
+                        <span className="text-sm font-medium">{check.name}</span>
+                        <p className="text-xs text-muted-foreground">{check.details}</p>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant={check.passed ? "secondary" : "destructive"} 
+                      className="text-xs"
+                    >
+                      {check.passed ? 'Pass' : 'Fail'}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
+
+        {/* Timestamp */}
+        {results && (
+          <p className="text-xs text-muted-foreground text-right mt-4">
+            Audited: {new Date(results.timestamp).toLocaleString()}
+          </p>
         )}
       </CardContent>
     </Card>

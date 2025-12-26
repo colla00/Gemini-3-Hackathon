@@ -18,12 +18,7 @@ import { cn } from '@/lib/utils';
 import { usePerformanceTracking } from '@/hooks/usePerformance';
 import { performanceMonitor } from '@/lib/performanceMonitor';
 
-// Skip link targets for keyboard navigation
-const skipLinkTargets = [
-  { id: 'main-content', label: 'Skip to main content' },
-  { id: 'patient-list', label: 'Skip to patient list' },
-  { id: 'filters', label: 'Skip to filters' },
-];
+// Using enhanced SkipLink with dashboard variant
 
 export const Dashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -288,7 +283,7 @@ export const Dashboard = () => {
       isPresentationMode && "presentation-mode"
     )}>
       {/* Skip Links for Keyboard Navigation */}
-      <SkipLink targets={skipLinkTargets} />
+      <SkipLink variant="dashboard" />
       
       {!isPresentationMode && <WarningBanner />}
       {!isPresentationMode && (
