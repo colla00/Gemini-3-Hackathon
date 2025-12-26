@@ -82,7 +82,7 @@ export const Landing = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Skip Link for Keyboard Navigation - WCAG 2.1 AA */}
-      <SkipLink targetId="main-content" />
+      <SkipLink targets={[{ id: 'main-content', label: 'Skip to main content' }]} />
       
       {/* Terms Acceptance Modal */}
       <TermsAcceptanceModal />
