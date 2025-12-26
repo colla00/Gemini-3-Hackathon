@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, TrendingDown, Award } from "lucide-react";
 
@@ -6,9 +6,9 @@ interface InterventionOutcome {
   id: string;
   intervention: string;
   implemented: string;
-  riskBefore: number;
-  riskAfter: number;
-  effectiveness: number;
+  riskBeforeLevel: 'Low' | 'Moderate' | 'Elevated';
+  riskAfterLevel: 'Low' | 'Moderate' | 'Elevated';
+  effectivenessLabel: 'Strong' | 'Moderate' | 'Mild';
   simulated: boolean;
 }
 
@@ -17,33 +17,62 @@ const mockOutcomes: InterventionOutcome[] = [
     id: "1",
     intervention: "Bed Alarm + Q2H Positioning",
     implemented: "11/29 02:00",
-    riskBefore: 68,
-    riskAfter: 38,
-    effectiveness: 44.1,
+    riskBeforeLevel: 'Elevated',
+    riskAfterLevel: 'Moderate',
+    effectivenessLabel: 'Strong',
     simulated: true
   },
   {
     id: "2",
     intervention: "Mobility Enhancement Protocol",
     implemented: "11/28 14:30",
-    riskBefore: 72,
-    riskAfter: 45,
-    effectiveness: 37.5,
+    riskBeforeLevel: 'Elevated',
+    riskAfterLevel: 'Moderate',
+    effectivenessLabel: 'Moderate',
     simulated: true
   },
   {
     id: "3",
     intervention: "Med Reconciliation + Sedation Review",
     implemented: "11/27 08:00",
-    riskBefore: 61,
-    riskAfter: 39,
-    effectiveness: 36.1,
+    riskBeforeLevel: 'Moderate',
+    riskAfterLevel: 'Low',
+    effectivenessLabel: 'Moderate',
     simulated: true
   }
 ];
 
+const getLevelColor = (level: string) => {
+  switch (level) {
+    case 'Elevated': return 'bg-risk-high/60';
+    case 'Moderate': return 'bg-risk-medium/60';
+    case 'Low': return 'bg-risk-low/60';
+    default: return 'bg-muted/60';
+  }
+};
+
+const getLevelWidth = (level: string) => {
+  switch (level) {
+    case 'Elevated': return '85%';
+    case 'Moderate': return '55%';
+    case 'Low': return '25%';
+    default: return '50%';
+  }
+};
+
+const getLevelTextColor = (level: string) => {
+  switch (level) {
+    case 'Elevated': return 'text-risk-high';
+    case 'Moderate': return 'text-risk-medium';
+    case 'Low': return 'text-risk-low';
+    default: return 'text-muted-foreground';
+  }
+};
+
 export const InterventionTracking = () => {
-  const avgEffectiveness = mockOutcomes.reduce((sum, o) => sum + o.effectiveness, 0) / mockOutcomes.length;
+  const strongEffects = mockOutcomes.filter(o => o.effectivenessLabel === 'Strong').length;
+  const overallEffectiveness = strongEffects > mockOutcomes.length / 2 ? 'Strong' : 
+                               strongEffects > 0 ? 'Moderate' : 'Mild';
 
   return (
     <Card className="border-accent/20">
@@ -57,18 +86,20 @@ export const InterventionTracking = () => {
           </div>
           <div className="flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30">
             <Award className="w-3 h-3 text-accent" />
-            <span className="text-xs text-accent font-medium">Patent-Pending</span>
+            <span className="text-xs text-accent font-medium">Patent Pending</span>
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Summary Metric */}
+        {/* Summary Metric - Qualitative */}
         <div className="p-4 rounded-lg bg-gradient-to-r from-accent/10 via-accent/5 to-transparent border border-accent/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Average Risk Reduction</p>
-              <p className="text-3xl font-bold text-accent">{avgEffectiveness.toFixed(1)}%</p>
-              <p className="text-xs text-muted-foreground mt-1">Across {mockOutcomes.length} simulated interventions</p>
+              <p className="text-sm text-muted-foreground mb-1">Observed Risk Reduction</p>
+              <p className="text-2xl font-bold text-accent">{overallEffectiveness}</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Across {mockOutcomes.length > 2 ? 'several' : 'multiple'} simulated interventions
+              </p>
             </div>
             <TrendingDown className="w-12 h-12 text-accent/40" />
           </div>
@@ -104,24 +135,24 @@ export const InterventionTracking = () => {
                   <p className="text-xs text-muted-foreground">Implemented: {outcome.implemented}</p>
                 </div>
                 <Badge 
-                  variant={outcome.effectiveness > 40 ? "default" : "secondary"}
+                  variant={outcome.effectivenessLabel === 'Strong' ? "default" : "secondary"}
                   className="text-xs"
                 >
-                  -{outcome.effectiveness.toFixed(1)}% risk
+                  {outcome.effectivenessLabel} effect
                 </Badge>
               </div>
 
-              {/* Risk Visualization */}
+              {/* Risk Visualization - Qualitative */}
               <div className="flex items-center gap-3 mt-2">
                 <div className="flex-1">
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="text-muted-foreground">Before</span>
-                    <span className="font-mono text-destructive">{outcome.riskBefore}%</span>
+                    <span className={getLevelTextColor(outcome.riskBeforeLevel)}>{outcome.riskBeforeLevel}</span>
                   </div>
                   <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-destructive/60 rounded-full"
-                      style={{ width: `${outcome.riskBefore}%` }}
+                      className={`h-full rounded-full ${getLevelColor(outcome.riskBeforeLevel)}`}
+                      style={{ width: getLevelWidth(outcome.riskBeforeLevel) }}
                     />
                   </div>
                 </div>
@@ -131,12 +162,12 @@ export const InterventionTracking = () => {
                 <div className="flex-1">
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="text-muted-foreground">After</span>
-                    <span className="font-mono text-green-600">{outcome.riskAfter}%</span>
+                    <span className={getLevelTextColor(outcome.riskAfterLevel)}>{outcome.riskAfterLevel}</span>
                   </div>
                   <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-green-600/60 rounded-full"
-                      style={{ width: `${outcome.riskAfter}%` }}
+                      className={`h-full rounded-full ${getLevelColor(outcome.riskAfterLevel)}`}
+                      style={{ width: getLevelWidth(outcome.riskAfterLevel) }}
                     />
                   </div>
                 </div>
@@ -149,7 +180,7 @@ export const InterventionTracking = () => {
         <div className="text-xs text-muted-foreground p-3 bg-muted/20 rounded border border-border/50">
           <p className="font-medium mb-1">Validation Framework:</p>
           <p>
-            This novel tracking system measures intervention efficacy by comparing model-predicted risk 
+            This novel tracking system observes intervention efficacy by comparing risk signals 
             before and after clinical actions. The system enables continuous learning and validates 
             the clinical utility of AI-guided interventions through real-world outcome tracking.
           </p>
@@ -158,6 +189,11 @@ export const InterventionTracking = () => {
           </p>
         </div>
       </CardContent>
+      <CardFooter className="pt-0">
+        <p className="text-[9px] text-muted-foreground w-full text-center">
+          Clinical Risk Intelligence Dashboard – Patent Pending
+        </p>
+      </CardFooter>
     </Card>
   );
 };

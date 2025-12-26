@@ -111,8 +111,30 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
     }
   };
 
+  const getTrendLabel = (trend?: string) => {
+    switch (trend) {
+      case 'up': return 'Rising';
+      case 'down': return 'Declining';
+      default: return 'Stable';
+    }
+  };
+
+  const getRiskSignal = (riskScore: number) => {
+    if (riskScore >= 65) return 'Elevated';
+    if (riskScore >= 35) return 'Moderate';
+    return 'Low';
+  };
+
+  const getQualitativeCount = (count: number) => {
+    if (count === 0) return 'None';
+    if (count === 1) return 'One';
+    if (count <= 3) return 'Few';
+    if (count <= 6) return 'Several';
+    return 'Multiple';
+  };
+
   const getCatheterDayStatus = (days: number) => {
-    if (days >= 7) return { color: 'text-risk-high', bg: 'bg-risk-high/10', label: 'Critical - Removal Review' };
+    if (days >= 7) return { color: 'text-risk-high', bg: 'bg-risk-high/10', label: 'Extended - Removal Review' };
     if (days >= 5) return { color: 'text-risk-medium', bg: 'bg-risk-medium/10', label: 'Due for Necessity Review' };
     return { color: 'text-muted-foreground', bg: 'bg-secondary', label: 'Monitoring' };
   };
@@ -192,38 +214,38 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
             </div>
           </div>
 
-          {/* CAUTI Stats */}
+          {/* CAUTI Stats - Qualitative */}
           <div className="grid grid-cols-4 gap-4 mb-6 print:mb-4">
             <div className="p-4 rounded-lg bg-risk-high/10 border border-risk-high/30">
               <div className="flex items-center gap-2 mb-1">
                 <AlertTriangle className="w-4 h-4 text-risk-high" />
-                <span className="text-2xl font-bold text-risk-high">{highRiskCAUTI.length}</span>
+                <span className="text-lg font-bold text-risk-high">{getQualitativeCount(highRiskCAUTI.length)}</span>
               </div>
-              <p className="text-xs text-muted-foreground">High CAUTI Risk</p>
+              <p className="text-xs text-muted-foreground">Elevated CAUTI Risk</p>
             </div>
             <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
               <div className="flex items-center gap-2 mb-1">
                 <Droplets className="w-4 h-4 text-blue-500" />
-                <span className="text-2xl font-bold text-blue-600">{cautiPatients.length}</span>
+                <span className="text-lg font-bold text-blue-600">{getQualitativeCount(cautiPatients.length)}</span>
               </div>
               <p className="text-xs text-muted-foreground">Active Catheters</p>
             </div>
             <div className="p-4 rounded-lg bg-risk-medium/10 border border-risk-medium/30">
               <div className="flex items-center gap-2 mb-1">
                 <Calendar className="w-4 h-4 text-risk-medium" />
-                <span className="text-2xl font-bold text-risk-medium">
-                  {highRiskCAUTI.filter(p => getCatheterDays(p) >= 5).length}
+                <span className="text-lg font-bold text-risk-medium">
+                  {getQualitativeCount(highRiskCAUTI.filter(p => getCatheterDays(p) >= 5).length)}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground">≥5 Catheter Days</p>
+              <p className="text-xs text-muted-foreground">Extended Duration</p>
             </div>
             <div className="p-4 rounded-lg bg-secondary border border-border">
               <div className="flex items-center gap-2 mb-1">
                 <ClipboardCheck className="w-4 h-4 text-foreground" />
-                <span className="text-2xl font-bold text-foreground">
-                  {highRiskCAUTI.filter(p => 
+                <span className="text-lg font-bold text-foreground">
+                  {getQualitativeCount(highRiskCAUTI.filter(p => 
                     p.interventions?.some(i => i.outcome?.toLowerCase().includes('complet'))
-                  ).length}
+                  ).length)}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">Interventions Complete</p>
@@ -267,15 +289,18 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
                             <span className="px-2 py-0.5 text-[10px] rounded-full bg-blue-500/20 text-blue-600 font-medium">
                               CAUTI Risk
                             </span>
-                            <TrendIcon trend={patient.trend} />
+                            <div className="flex items-center gap-1">
+                              <TrendIcon trend={patient.trend} />
+                              <span className="text-[10px] text-muted-foreground">{getTrendLabel(patient.trend)}</span>
+                            </div>
                           </div>
                           <p className="text-xs text-muted-foreground mt-0.5">
                             {patient.room} • {patient.ageRange} • {patient.admissionDate}
                           </p>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-risk-high">{cautiRisk}%</div>
-                          <p className="text-[10px] text-muted-foreground">CAUTI Risk</p>
+                          <div className="text-lg font-bold text-risk-high">{getRiskSignal(cautiRisk)}</div>
+                          <p className="text-[10px] text-muted-foreground">Risk Signal</p>
                         </div>
                       </div>
 
@@ -390,13 +415,10 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
           {/* Footer */}
           <div className="pt-4 border-t border-border text-center print:mt-8">
             <p className="text-xs text-muted-foreground">
-              <strong>⚠️ Research Prototype</strong> - Synthetic data only. CAUTI risk predictions require clinical validation.
+              <strong>⚠️ Research Prototype</strong> - Synthetic data only. CAUTI risk signals require clinical validation.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              NSO Quality Dashboard • Based on NHSN CAUTI Prevention Guidelines
-            </p>
-            <p className="text-[9px] text-muted-foreground/70 mt-1">
-              Patent Pending
+              Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Minus, Clock, Star, ChevronRight, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Clock, Star, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import { RiskTrendChart } from './RiskTrendChart';
@@ -19,13 +19,33 @@ interface PatientCardProps {
   showSparkline?: boolean;
 }
 
+// Convert numeric risk to categorical signal
+const getRiskSignal = (riskLevel: string): string => {
+  switch (riskLevel) {
+    case 'HIGH': return 'Elevated';
+    case 'MEDIUM': return 'Moderate';
+    case 'LOW': return 'Low';
+    default: return 'Low';
+  }
+};
+
+// Get qualitative trend label
+const getTrendLabel = (trend: string): string => {
+  switch (trend) {
+    case 'up': return 'Rising';
+    case 'down': return 'Declining';
+    default: return 'Stable';
+  }
+};
+
 export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing, showSparkline = true }: PatientCardProps) => {
   const TrendIcon = patient.trend === 'up' ? TrendingUp : patient.trend === 'down' ? TrendingDown : Minus;
   const trendColor = patient.trend === 'up' ? 'text-risk-high' : patient.trend === 'down' ? 'text-risk-low' : 'text-muted-foreground';
-  const trendLabel = patient.trend === 'up' ? 'Increasing' : patient.trend === 'down' ? 'Decreasing' : 'Stable';
+  const trendLabel = getTrendLabel(patient.trend);
   const trendBg = patient.trend === 'up' ? 'bg-risk-high/10' : patient.trend === 'down' ? 'bg-risk-low/10' : 'bg-secondary';
 
-  const riskScoreColor = {
+  const riskSignal = getRiskSignal(patient.riskLevel);
+  const riskSignalColor = {
     HIGH: 'text-risk-high',
     MEDIUM: 'text-risk-medium',
     LOW: 'text-risk-low',
@@ -38,9 +58,6 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
   }[patient.riskLevel];
 
   const isHighRisk = patient.riskLevel === 'HIGH';
-
-  // Simulated confidence interval
-  const confidenceRange = patient.riskLevel === 'HIGH' ? 8 : patient.riskLevel === 'MEDIUM' ? 6 : 4;
 
   return (
     <TooltipProvider>
@@ -87,27 +104,14 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
           </div>
         </div>
 
-        {/* Risk Score Section */}
+        {/* Risk Signal Section - Categorical */}
         <div className="px-4 pb-2">
           <div className="flex items-end justify-between">
-            <div className="flex items-baseline gap-1">
-              <span className={cn("text-4xl font-extrabold tracking-tight", riskScoreColor)}>
-                {patient.riskScore}
+            <div className="flex items-baseline gap-2">
+              <span className={cn("text-2xl font-extrabold tracking-tight", riskSignalColor)}>
+                {riskSignal}
               </span>
-              <span className={cn("text-lg font-semibold", riskScoreColor)}>%</span>
-              {/* Confidence indicator (Patent: Confidence-based risk stratification) */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="text-[10px] text-muted-foreground ml-1 flex items-center gap-0.5">
-                    <Activity className="w-2.5 h-2.5" />
-                    ±{confidenceRange}
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">95% CI: {patient.riskScore - confidenceRange}-{patient.riskScore + confidenceRange}%</p>
-                  <p className="text-[10px] text-muted-foreground">Confidence-based stratification</p>
-                </TooltipContent>
-              </Tooltip>
+              <span className="text-xs text-muted-foreground">risk signal</span>
             </div>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -119,20 +123,20 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Risk trend over last 24 hours</p>
+                <p>Risk trend over recent observations</p>
               </TooltipContent>
             </Tooltip>
           </div>
         </div>
 
-        {/* Sparkline Trend Chart (Patent: Multi-horizon forecasting) */}
+        {/* Sparkline Trend Chart */}
         {showSparkline && (
           <div className="px-4 pb-2">
             <RiskTrendChart 
               currentScore={patient.riskScore} 
               trend={patient.trend}
               className="h-14"
-              showConfidenceBands={true}
+              showConfidenceBands={false}
               showHorizons={false}
             />
           </div>
