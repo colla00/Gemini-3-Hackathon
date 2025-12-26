@@ -59,16 +59,28 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
 
   const isHighRisk = patient.riskLevel === 'HIGH';
 
+  // Accessibility description for screen readers
+  const cardAriaLabel = `Patient ${patient.id}, ${patient.riskType}, ${riskSignal} risk signal, trend ${trendLabel}. ${patient.riskSummary}`;
+
   return (
     <TooltipProvider>
-      <button
+      <article
+        role="button"
+        tabIndex={0}
         onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        aria-label={cardAriaLabel}
         className={cn(
           "w-full rounded-xl bg-card border border-border/40 shadow-card",
           "border-l-4",
           riskBorderColor,
           "hover:border-primary/50 hover:shadow-glow hover:-translate-y-1 transition-all duration-300",
-          "text-left group animate-slide-up",
+          "text-left group animate-slide-up cursor-pointer",
           "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background",
           "active:scale-[0.98]",
           isHighRisk && "ring-1 ring-risk-high/20"
@@ -105,19 +117,26 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
         </div>
 
         {/* Risk Signal Section - Categorical */}
-        <div className="px-4 pb-2">
+        <div className="px-4 pb-2" aria-label={`Risk level: ${riskSignal}`}>
           <div className="flex items-end justify-between">
             <div className="flex items-baseline gap-2">
-              <span className={cn("text-2xl font-extrabold tracking-tight", riskSignalColor)}>
+              <span 
+                className={cn("text-2xl font-extrabold tracking-tight", riskSignalColor)}
+                aria-hidden="true"
+              >
                 {riskSignal}
               </span>
-              <span className="text-xs text-muted-foreground">risk signal</span>
+              <span className="text-xs text-muted-foreground" aria-hidden="true">risk signal</span>
             </div>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className={cn("flex items-center gap-1.5 px-2 py-1 rounded-md", trendBg)}>
-                  <TrendIcon className={cn("w-3.5 h-3.5", trendColor)} />
-                  <span className={cn("text-xs font-semibold", trendColor)}>
+                <div 
+                  className={cn("flex items-center gap-1.5 px-2 py-1 rounded-md", trendBg)}
+                  role="status"
+                  aria-label={`Risk trend: ${trendLabel}`}
+                >
+                  <TrendIcon className={cn("w-3.5 h-3.5", trendColor)} aria-hidden="true" />
+                  <span className={cn("text-xs font-semibold", trendColor)} aria-hidden="true">
                     {trendLabel}
                   </span>
                 </div>
@@ -162,7 +181,7 @@ export const PatientCard = ({ patient, onClick, index, displayTime, isRefreshing
             </div>
           </div>
         </div>
-      </button>
+      </article>
     </TooltipProvider>
   );
 };
