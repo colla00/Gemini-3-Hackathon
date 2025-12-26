@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { 
   Settings, Moon, Sun, Bell, BellOff, 
   Monitor, Eye, EyeOff, Zap, ZapOff,
-  Volume2, VolumeX, Layout, LayoutGrid, Check
+  Volume2, VolumeX, Layout, LayoutGrid, Check, Accessibility
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { useSettings } from '@/hooks/useSettings';
+import { AccessibilityAuditPanel } from '@/components/AccessibilityAuditPanel';
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ interface SettingsPanelProps {
 
 export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   const { settings, updateTheme, updateNotification, updateDisplay, resetSettings } = useSettings();
-  const [activeTab, setActiveTab] = useState<'theme' | 'notifications' | 'display'>('theme');
+  const [activeTab, setActiveTab] = useState<'theme' | 'notifications' | 'display' | 'accessibility'>('theme');
 
   const handleSave = () => {
     toast.success('Settings saved', { description: 'Your preferences have been saved and will persist.' });
@@ -32,9 +33,10 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   };
 
   const tabs = [
-    { id: 'theme' as const, label: 'Appearance', icon: <Sun className="w-4 h-4" /> },
-    { id: 'notifications' as const, label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
-    { id: 'display' as const, label: 'Display', icon: <Layout className="w-4 h-4" /> },
+    { id: 'theme' as const, label: 'Appearance', icon: <Sun className="w-4 h-4" aria-hidden="true" /> },
+    { id: 'notifications' as const, label: 'Notifications', icon: <Bell className="w-4 h-4" aria-hidden="true" /> },
+    { id: 'display' as const, label: 'Display', icon: <Layout className="w-4 h-4" aria-hidden="true" /> },
+    { id: 'accessibility' as const, label: 'Accessibility', icon: <Accessibility className="w-4 h-4" aria-hidden="true" /> },
   ];
 
   return (
@@ -243,6 +245,48 @@ export const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
                   checked={settings.display.liveUpdatesDefault}
                   onCheckedChange={(checked) => updateDisplay('liveUpdatesDefault', checked)}
                 />
+              </div>
+            </div>
+          )}
+
+          {/* Accessibility Audit */}
+          {activeTab === 'accessibility' && (
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+                <p className="text-sm text-foreground font-medium mb-1">WCAG 2.1 AA Compliance</p>
+                <p className="text-[11px] text-muted-foreground">
+                  Run automated accessibility audits to verify compliance with WCAG 2.1 AA standards.
+                </p>
+              </div>
+              
+              <AccessibilityAuditPanel />
+              
+              <Separator className="bg-border/50" />
+              
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-foreground">Accessibility Features</p>
+                <ul className="space-y-1.5 text-[11px] text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-risk-low" aria-hidden="true" />
+                    Skip links for keyboard navigation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-risk-low" aria-hidden="true" />
+                    Semantic HTML landmarks
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-risk-low" aria-hidden="true" />
+                    ARIA labels on interactive elements
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-risk-low" aria-hidden="true" />
+                    Keyboard-focusable risk badges
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3 h-3 text-risk-low" aria-hidden="true" />
+                    Screen reader descriptions
+                  </li>
+                </ul>
               </div>
             </div>
           )}
