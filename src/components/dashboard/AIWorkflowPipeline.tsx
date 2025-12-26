@@ -169,8 +169,8 @@ export const AIWorkflowPipeline = ({
           <div className="flex items-center gap-2">
             <Zap className="w-3.5 h-3.5 text-primary" />
             <div>
-              <span className="text-[10px] text-muted-foreground block">Latency</span>
-              <span className="text-xs font-semibold text-primary">{'<'}2 seconds</span>
+              <span className="text-[10px] text-muted-foreground block">Response</span>
+              <span className="text-xs font-semibold text-primary">Near Real-Time</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
