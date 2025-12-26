@@ -90,6 +90,31 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
     }
   };
 
+  const getTrendLabel = (trend: string) => {
+    switch (trend) {
+      case 'up': return 'Rising';
+      case 'down': return 'Declining';
+      default: return 'Stable';
+    }
+  };
+
+  const getRiskSignal = (level: string) => {
+    switch (level) {
+      case 'HIGH': return 'Elevated';
+      case 'MEDIUM': return 'Moderate';
+      case 'LOW': return 'Low';
+      default: return 'Low';
+    }
+  };
+
+  const getQualitativeCount = (count: number) => {
+    if (count === 0) return 'None';
+    if (count === 1) return 'One';
+    if (count <= 3) return 'Few';
+    if (count <= 6) return 'Several';
+    return 'Multiple';
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 print:p-0 print:bg-white">
       <div className="bg-card border border-border rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col print:border-none print:shadow-none print:max-h-none">
@@ -155,33 +180,33 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               </span>
               <span className="flex items-center gap-1">
                 <User className="w-3.5 h-3.5" />
-                {patients.length} patients
+                {getQualitativeCount(patients.length)} patients
               </span>
             </div>
           </div>
 
-          {/* Quick Stats */}
+          {/* Quick Stats - Qualitative */}
           <div className="grid grid-cols-3 gap-4 mb-6 print:mb-4">
             <div className="p-4 rounded-lg bg-risk-high/10 border border-risk-high/30">
               <div className="flex items-center gap-2 mb-1">
                 <AlertTriangle className="w-4 h-4 text-risk-high" />
-                <span className="text-2xl font-bold text-risk-high">{highRiskPatients.length}</span>
+                <span className="text-lg font-bold text-risk-high">{getQualitativeCount(highRiskPatients.length)}</span>
               </div>
-              <p className="text-xs text-muted-foreground">High Risk Patients</p>
+              <p className="text-xs text-muted-foreground">Elevated Risk Patients</p>
             </div>
             <div className="p-4 rounded-lg bg-risk-medium/10 border border-risk-medium/30">
               <div className="flex items-center gap-2 mb-1">
                 <AlertTriangle className="w-4 h-4 text-risk-medium" />
-                <span className="text-2xl font-bold text-risk-medium">{mediumRiskPatients.length}</span>
+                <span className="text-lg font-bold text-risk-medium">{getQualitativeCount(mediumRiskPatients.length)}</span>
               </div>
-              <p className="text-xs text-muted-foreground">Medium Risk Patients</p>
+              <p className="text-xs text-muted-foreground">Moderate Risk Patients</p>
             </div>
             <div className="p-4 rounded-lg bg-secondary border border-border">
               <div className="flex items-center gap-2 mb-1">
                 <TrendingUp className="w-4 h-4 text-risk-high" />
-                <span className="text-2xl font-bold text-foreground">{trendingUp.length}</span>
+                <span className="text-lg font-bold text-foreground">{getQualitativeCount(trendingUp.length)}</span>
               </div>
-              <p className="text-xs text-muted-foreground">Trending Up</p>
+              <p className="text-xs text-muted-foreground">Rising Trend</p>
             </div>
           </div>
 
@@ -189,7 +214,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
           <section className="mb-6 print:mb-4">
             <h3 className="flex items-center gap-2 font-semibold text-foreground mb-3">
               <span className="w-2 h-2 rounded-full bg-risk-high" />
-              High Priority - Immediate Attention Required
+              Elevated Priority - Immediate Attention Required
             </h3>
             <div className="space-y-3">
               {highRiskPatients.map((patient) => (
@@ -204,15 +229,18 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
                         <span className="px-2 py-0.5 text-[10px] rounded-full bg-risk-high/20 text-risk-high font-medium">
                           {patient.riskType}
                         </span>
-                        <TrendIcon trend={patient.trend} />
+                        <div className="flex items-center gap-1">
+                          <TrendIcon trend={patient.trend} />
+                          <span className="text-[10px] text-muted-foreground">{getTrendLabel(patient.trend)}</span>
+                        </div>
                       </div>
                       <p className="text-xs text-muted-foreground mt-0.5">
                         {patient.room} • {patient.ageRange} • {patient.admissionDate}
                       </p>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-bold text-risk-high">{patient.riskScore}%</div>
-                      <p className="text-[10px] text-muted-foreground">Risk Score</p>
+                      <div className="text-lg font-bold text-risk-high">{getRiskSignal(patient.riskLevel)}</div>
+                      <p className="text-[10px] text-muted-foreground">Risk Signal</p>
                     </div>
                   </div>
                   <p className="text-sm text-foreground mb-2">{patient.riskSummary}</p>
@@ -240,7 +268,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
           <section className="mb-6 print:mb-4">
             <h3 className="flex items-center gap-2 font-semibold text-foreground mb-3">
               <span className="w-2 h-2 rounded-full bg-risk-medium" />
-              Medium Priority - Monitor Closely
+              Moderate Priority - Monitor Closely
             </h3>
             <div className="grid grid-cols-2 gap-3 print:grid-cols-2">
               {mediumRiskPatients.slice(0, 6).map((patient) => (
@@ -251,7 +279,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-medium text-sm text-foreground">{patient.id}</span>
                     <div className="flex items-center gap-1">
-                      <span className="text-sm font-bold text-risk-medium">{patient.riskScore}%</span>
+                      <span className="text-sm font-bold text-risk-medium">{getRiskSignal(patient.riskLevel)}</span>
                       <TrendIcon trend={patient.trend} />
                     </div>
                   </div>
@@ -267,10 +295,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. All clinical decisions require human verification.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              NSO Quality Dashboard • Research Prototype
-            </p>
-            <p className="text-[9px] text-muted-foreground/70 mt-1">
-              Patent Pending
+              Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending
             </p>
           </div>
         </div>
