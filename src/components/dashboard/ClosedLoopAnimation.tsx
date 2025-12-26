@@ -125,9 +125,11 @@ export const ClosedLoopAnimation = ({ className, autoPlay = false }: ClosedLoopA
     setIsPlaying(!isPlaying);
   };
 
-  const initialScore = 78;
-  const reduction = initialScore - Math.round(riskScore);
-  const reductionPercent = Math.round((reduction / initialScore) * 100);
+  // Convert numeric to qualitative signals
+  const getRiskSignal = (score: number) => score >= 70 ? 'Elevated' : score >= 40 ? 'Moderate' : 'Low';
+  const getEffectLabel = (reduction: number) => reduction >= 30 ? 'Strong' : reduction >= 15 ? 'Moderate' : 'Mild';
+  const currentSignal = getRiskSignal(riskScore);
+  const effectLabel = getEffectLabel(78 - Math.round(riskScore));
 
   return (
     <TooltipProvider>
@@ -159,16 +161,16 @@ export const ClosedLoopAnimation = ({ className, autoPlay = false }: ClosedLoopA
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="text-center p-4 rounded-full bg-background border-2 border-border shadow-lg">
               <div className={cn(
-                "text-3xl font-extrabold transition-all duration-500",
+                "text-2xl font-extrabold transition-all duration-500",
                 riskScore >= 70 ? "text-risk-high" : riskScore >= 40 ? "text-risk-medium" : "text-risk-low"
               )}>
-                {Math.round(riskScore)}%
+                {currentSignal}
               </div>
-              <div className="text-[10px] text-muted-foreground">Risk Score</div>
-              {reduction > 0 && (
+              <div className="text-[10px] text-muted-foreground">Risk Signal</div>
+              {riskScore < 78 && (
                 <div className="flex items-center justify-center gap-1 mt-1 text-risk-low">
                   <TrendingDown className="w-3 h-3" />
-                  <span className="text-xs font-bold">-{reduction}%</span>
+                  <span className="text-xs font-bold">{effectLabel} Effect</span>
                 </div>
               )}
             </div>
@@ -343,7 +345,7 @@ export const ClosedLoopAnimation = ({ className, autoPlay = false }: ClosedLoopA
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-risk-low">-{reductionPercent}%</div>
+                <div className="text-2xl font-bold text-risk-low">{effectLabel}</div>
                 <div className="text-[10px] text-muted-foreground">Risk Reduction</div>
               </div>
             </div>

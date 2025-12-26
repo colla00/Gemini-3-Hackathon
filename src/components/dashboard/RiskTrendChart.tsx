@@ -113,10 +113,12 @@ export const RiskTrendChart = ({
               if (active && payload && payload.length) {
                 const data = payload[0].payload;
                 const trendLabel = trend === 'up' ? 'Rising' : trend === 'down' ? 'Declining' : 'Stable';
+                const riskLevel = data.value >= 70 ? 'Elevated' : data.value >= 40 ? 'Moderate' : 'Low';
                 return (
                   <div className="bg-card border border-border/50 rounded-lg p-2 shadow-lg text-xs">
                     <div className="font-semibold text-foreground">{data.time}</div>
-                    <div className="text-primary">Trajectory: {trendLabel}</div>
+                    <div className="text-primary">Signal: {riskLevel}</div>
+                    <div className="text-muted-foreground">Trajectory: {trendLabel}</div>
                   </div>
                 );
               }
