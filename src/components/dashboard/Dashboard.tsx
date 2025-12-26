@@ -12,10 +12,18 @@ import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
 import { DemoModeController, type DemoScenario } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
+import { SkipLink } from '@/components/SkipLink';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { cn } from '@/lib/utils';
 import { usePerformanceTracking } from '@/hooks/usePerformance';
 import { performanceMonitor } from '@/lib/performanceMonitor';
+
+// Skip link targets for keyboard navigation
+const skipLinkTargets = [
+  { id: 'main-content', label: 'Skip to main content' },
+  { id: 'patient-list', label: 'Skip to patient list' },
+  { id: 'filters', label: 'Skip to filters' },
+];
 
 export const Dashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -279,10 +287,23 @@ export const Dashboard = () => {
       "min-h-screen flex flex-col gradient-burgundy transition-all duration-300",
       isPresentationMode && "presentation-mode"
     )}>
-      {!isPresentationMode && <WarningBanner />}
-      {!isPresentationMode && <Header />}
+      {/* Skip Links for Keyboard Navigation */}
+      <SkipLink targets={skipLinkTargets} />
       
-      <main className={`flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+      {!isPresentationMode && <WarningBanner />}
+      {!isPresentationMode && (
+        <header role="banner">
+          <Header />
+        </header>
+      )}
+      
+      <main 
+        id="main-content"
+        role="main"
+        aria-label="Clinical Risk Dashboard"
+        className={`flex-1 px-4 md:px-8 py-6 max-w-7xl mx-auto w-full pb-24 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+        tabIndex={-1}
+      >
         {selectedPatient ? (
           <PatientDetail
             patient={selectedPatient}
@@ -291,52 +312,70 @@ export const Dashboard = () => {
         ) : (
           <div className="animate-fade-in space-y-6">
             {/* Demo Summary */}
-            <DemoSummary className="mb-2" />
+            <section aria-label="Demo overview">
+              <DemoSummary className="mb-2" />
+            </section>
 
             {/* Clinical Workflow Context */}
-            <ClinicalWorkflowBar />
+            <nav aria-label="Clinical workflow phases">
+              <ClinicalWorkflowBar />
+            </nav>
 
             {/* System Workflow Sequence */}
-            <WorkflowSequence activeStep="output" />
+            <section aria-label="System workflow">
+              <WorkflowSequence activeStep="output" />
+            </section>
 
             {/* Quick Stats Overview */}
-            <QuickStats
-              total={stats.total}
-              high={stats.high}
-              medium={stats.medium}
-              trending={stats.trending}
-            />
+            <section aria-label="Patient statistics summary">
+              <QuickStats
+                total={stats.total}
+                high={stats.high}
+                medium={stats.medium}
+                trending={stats.trending}
+              />
+            </section>
 
             {/* Filters */}
-            <FilterBar
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-              riskLevelFilter={riskLevelFilter}
-              onRiskLevelChange={handleRiskLevelChange}
-              riskTypeFilter={riskTypeFilter}
-              onRiskTypeChange={handleRiskTypeChange}
-              sortBy={sortBy}
-              onSortChange={handleSortChange}
-            />
+            <section id="filters" aria-label="Patient filters" tabIndex={-1}>
+              <FilterBar
+                searchQuery={searchQuery}
+                onSearchChange={handleSearchChange}
+                riskLevelFilter={riskLevelFilter}
+                onRiskLevelChange={handleRiskLevelChange}
+                riskTypeFilter={riskTypeFilter}
+                onRiskTypeChange={handleRiskTypeChange}
+                sortBy={sortBy}
+                onSortChange={handleSortChange}
+              />
+            </section>
 
             {filteredPatients.length > 0 ? (
-              <>
+              <div id="patient-list" tabIndex={-1} aria-label="Patient monitoring list">
                 {/* Priority Queue */}
-                <PriorityQueue
-                  patients={priorityPatients}
-                  onSelect={handleSelectPatient}
-                  displayTime={getDisplayTime}
-                />
+                <section aria-label="Priority patients requiring immediate attention">
+                  <PriorityQueue
+                    patients={priorityPatients}
+                    onSelect={handleSelectPatient}
+                    displayTime={getDisplayTime}
+                  />
+                </section>
 
                 {/* Monitoring List */}
-                <MonitoringList
-                  patients={monitoringPatients}
-                  onSelect={handleSelectPatient}
-                  displayTime={getDisplayTime}
-                />
-              </>
+                <section aria-label="Additional patients for monitoring">
+                  <MonitoringList
+                    patients={monitoringPatients}
+                    onSelect={handleSelectPatient}
+                    displayTime={getDisplayTime}
+                  />
+                </section>
+              </div>
             ) : (
-              <div className="text-center py-20 bg-card/30 rounded-2xl border border-border/20">
+              <div 
+                className="text-center py-20 bg-card/30 rounded-2xl border border-border/20"
+                role="status"
+                aria-live="polite"
+              >
                 <p className="text-muted-foreground text-base">
                   No patients match the current filters.
                 </p>
@@ -346,7 +385,11 @@ export const Dashboard = () => {
         )}
       </main>
 
-      {!isPresentationMode && <Footer />}
+      {!isPresentationMode && (
+        <footer role="contentinfo">
+          <Footer />
+        </footer>
+      )}
 
       {/* Demo Mode Controller */}
       <DemoModeController 

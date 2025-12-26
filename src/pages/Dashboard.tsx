@@ -100,7 +100,7 @@ export const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
       {/* Skip Link for Keyboard Navigation - WCAG 2.1 AA */}
-      <SkipLink targetId="dashboard-main" />
+      <SkipLink targets={[{ id: 'dashboard-main', label: 'Skip to main content' }]} />
       
       {/* Screen Protection */}
       <ScreenProtection enabled={true} />
