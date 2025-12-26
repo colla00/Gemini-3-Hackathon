@@ -15,6 +15,13 @@ const levelLabels: Record<RiskLevel, string> = {
   LOW: 'Low',
 };
 
+// Accessibility descriptions for screen readers
+const levelDescriptions: Record<RiskLevel, string> = {
+  HIGH: 'Elevated risk level requiring priority attention',
+  MEDIUM: 'Moderate risk level requiring monitoring',
+  LOW: 'Low risk level with stable indicators',
+};
+
 export const RiskBadge = ({ level, className, showIcon = true }: RiskBadgeProps) => {
   const baseStyles = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold tracking-wide";
   
@@ -31,9 +38,14 @@ export const RiskBadge = ({ level, className, showIcon = true }: RiskBadgeProps)
   }[level];
 
   return (
-    <span className={cn(baseStyles, levelStyles[level], className)}>
-      {showIcon && <Icon className="w-3 h-3" />}
-      {levelLabels[level]}
+    <span 
+      className={cn(baseStyles, levelStyles[level], className)}
+      role="status"
+      aria-label={levelDescriptions[level]}
+      tabIndex={0}
+    >
+      {showIcon && <Icon className="w-3 h-3" aria-hidden="true" />}
+      <span aria-hidden="true">{levelLabels[level]}</span>
     </span>
   );
 };
