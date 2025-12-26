@@ -37,10 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    // Prevent refresh-token storms during demos (can trigger 429s and forced logouts)
-    // We rely on the 1-hour access token lifetime for session stability.
-    (supabase.auth as any).stopAutoRefresh?.();
-
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
