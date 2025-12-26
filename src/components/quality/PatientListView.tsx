@@ -65,23 +65,17 @@ const PatientRow = ({ patient, onClick, isSelected, index, isLive }: { patient: 
         </div>
       </td>
 
-      {/* Falls Risk with Sparkline */}
+      {/* Falls Risk with Sparkline - Qualitative */}
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
           <div className="w-20">
             <ClinicalTooltip term="Falls Risk" showIcon={false}>
               <div className="flex items-baseline gap-0.5">
-                <span className={cn("text-lg font-bold tabular-nums", getRiskLevelColor(patient.fallsLevel))}>
-                  {patient.fallsRisk}
+                <span className={cn("text-base font-bold", getRiskLevelColor(patient.fallsLevel))}>
+                  {patient.fallsLevel === 'HIGH' ? 'Elevated' : patient.fallsLevel === 'MODERATE' ? 'Moderate' : 'Low'}
                 </span>
-                <span className="text-xs text-muted-foreground">%</span>
               </div>
             </ClinicalTooltip>
-            <div className="flex items-center gap-1 mt-0.5">
-              <ClinicalTooltip term="Confidence" showIcon={false}>
-                <ConfidenceIndicator confidence={patient.fallsConfidence} showLabel={false} size="sm" />
-              </ClinicalTooltip>
-            </div>
           </div>
           <RiskSparkline data={patient.fallsTrend} level={patient.fallsLevel} />
           <span className={cn(
@@ -90,41 +84,33 @@ const PatientRow = ({ patient, onClick, isSelected, index, isLive }: { patient: 
             patient.fallsLevel === 'MODERATE' ? 'bg-risk-medium/20 text-risk-medium' :
             'bg-risk-low/20 text-risk-low'
           )}>
-            {patient.fallsLevel}
+            {patient.fallsLevel === 'HIGH' ? 'Elevated' : patient.fallsLevel === 'MODERATE' ? 'Moderate' : 'Low'}
           </span>
         </div>
       </td>
 
-      {/* HAPI Risk */}
+      {/* HAPI Risk - Qualitative */}
       <td className="py-3 px-4">
         <div className="flex items-center gap-2">
           <div>
             <ClinicalTooltip term="HAPI" showIcon={false}>
-              <div className="flex items-baseline gap-0.5">
-                <span className={cn("text-sm font-semibold tabular-nums", getRiskLevelColor(patient.hapiLevel))}>
-                  {patient.hapiRisk}
-                </span>
-                <span className="text-[10px] text-muted-foreground">%</span>
-              </div>
+              <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.hapiLevel))}>
+                {patient.hapiLevel === 'HIGH' ? 'Elevated' : patient.hapiLevel === 'MODERATE' ? 'Moderate' : 'Low'}
+              </span>
             </ClinicalTooltip>
-            <ConfidenceIndicator confidence={patient.hapiConfidence} showLabel={false} size="sm" />
           </div>
         </div>
       </td>
 
-      {/* CAUTI Risk */}
+      {/* CAUTI Risk - Qualitative */}
       <td className="py-3 px-4">
         <div className="flex items-center gap-2">
           <div>
             <ClinicalTooltip term="CAUTI" showIcon={false}>
-              <div className="flex items-baseline gap-0.5">
-                <span className={cn("text-sm font-semibold tabular-nums", getRiskLevelColor(patient.cautiLevel))}>
-                  {patient.cautiRisk}
-                </span>
-                <span className="text-[10px] text-muted-foreground">%</span>
-              </div>
+              <span className={cn("text-sm font-semibold", getRiskLevelColor(patient.cautiLevel))}>
+                {patient.cautiLevel === 'HIGH' ? 'Elevated' : patient.cautiLevel === 'MODERATE' ? 'Moderate' : 'Low'}
+              </span>
             </ClinicalTooltip>
-            <ConfidenceIndicator confidence={patient.cautiConfidence} showLabel={false} size="sm" />
           </div>
         </div>
       </td>
@@ -170,7 +156,7 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
       <span className="text-primary font-medium">Last assessed: {patient.lastAssessed}</span>
     </div>
 
-    {/* Risk Scores with Confidence */}
+    {/* Risk Scores - Qualitative */}
     <div className="grid grid-cols-3 gap-2 mb-4">
       <TooltipProvider>
         <Tooltip>
@@ -179,8 +165,9 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
               <ClinicalTooltip term="Falls Risk" showIcon={false}>
                 <span className="text-[10px] text-muted-foreground block">Falls</span>
               </ClinicalTooltip>
-              <span className={cn("text-2xl font-bold tabular-nums", getRiskLevelColor(patient.fallsLevel))}>{patient.fallsRisk}%</span>
-              <div className="mt-1"><ConfidenceIndicator confidence={patient.fallsConfidence} size="sm" /></div>
+              <span className={cn("text-lg font-bold", getRiskLevelColor(patient.fallsLevel))}>
+                {patient.fallsLevel === 'HIGH' ? 'Elevated' : patient.fallsLevel === 'MODERATE' ? 'Moderate' : 'Low'}
+              </span>
             </div>
           </TooltipTrigger>
           <TooltipContent className="text-[10px]">
@@ -193,27 +180,29 @@ const PatientDetailPanel = ({ patient, onClose }: { patient: PatientData; onClos
         <ClinicalTooltip term="HAPI" showIcon={false}>
           <span className="text-[10px] text-muted-foreground block">HAPI</span>
         </ClinicalTooltip>
-        <span className={cn("text-2xl font-bold tabular-nums", getRiskLevelColor(patient.hapiLevel))}>{patient.hapiRisk}%</span>
-        <div className="mt-1"><ConfidenceIndicator confidence={patient.hapiConfidence} size="sm" /></div>
+        <span className={cn("text-lg font-bold", getRiskLevelColor(patient.hapiLevel))}>
+          {patient.hapiLevel === 'HIGH' ? 'Elevated' : patient.hapiLevel === 'MODERATE' ? 'Moderate' : 'Low'}
+        </span>
       </div>
       
       <div className={cn("p-3 rounded-lg text-center", patient.cautiLevel === 'HIGH' ? 'bg-risk-high/10 border border-risk-high/30' : 'bg-muted/20')}>
         <ClinicalTooltip term="CAUTI" showIcon={false}>
           <span className="text-[10px] text-muted-foreground block">CAUTI</span>
         </ClinicalTooltip>
-        <span className={cn("text-2xl font-bold tabular-nums", getRiskLevelColor(patient.cautiLevel))}>{patient.cautiRisk}%</span>
-        <div className="mt-1"><ConfidenceIndicator confidence={patient.cautiConfidence} size="sm" /></div>
+        <span className={cn("text-lg font-bold", getRiskLevelColor(patient.cautiLevel))}>
+          {patient.cautiLevel === 'HIGH' ? 'Elevated' : patient.cautiLevel === 'MODERATE' ? 'Moderate' : 'Low'}
+        </span>
       </div>
     </div>
 
-    {/* 24h Trend */}
+    {/* 24h Trend - Qualitative */}
     <div className="p-3 rounded-lg bg-secondary/30 mb-4">
       <span className="text-[10px] font-semibold text-muted-foreground uppercase block mb-2">24-Hour Falls Risk Trend</span>
       <div className="flex items-center gap-4">
         <RiskSparkline data={patient.fallsTrend} level={patient.fallsLevel} width={120} height={40} />
         <div className="text-[10px] text-muted-foreground">
-          <div>Start: {patient.fallsTrend[0]?.value.toFixed(0)}%</div>
-          <div>Current: {patient.fallsTrend[patient.fallsTrend.length - 1]?.value.toFixed(0)}%</div>
+          <div>Trajectory: {patient.fallsTrend[patient.fallsTrend.length - 1]?.value > patient.fallsTrend[0]?.value ? 'Rising' : 
+                           patient.fallsTrend[patient.fallsTrend.length - 1]?.value < patient.fallsTrend[0]?.value ? 'Declining' : 'Stable'}</div>
         </div>
       </div>
     </div>
@@ -413,25 +402,31 @@ export const PatientListView = ({ liveSimulation }: PatientListViewProps) => {
         )}
       </div>
 
-      {/* Legend */}
+      {/* Legend - Qualitative */}
       <div className="flex flex-wrap items-center gap-4 text-[10px] text-muted-foreground">
         <span className="font-medium">
-          <ClinicalTooltip term="RLS">Risk Thresholds</ClinicalTooltip>:
+          <ClinicalTooltip term="RLS">Risk Signals</ClinicalTooltip>:
         </span>
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-risk-high" />
-          <span>High (&gt;65%)</span>
+          <span>Elevated</span>
         </div>
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-risk-medium" />
-          <span>Moderate (35-65%)</span>
+          <span>Moderate</span>
         </div>
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-risk-low" />
-          <span>Low (&lt;35%)</span>
+          <span>Low</span>
         </div>
         <span className="text-primary">• Sparklines show 24-hour trend</span>
-        <span className="text-warning">• <ClinicalTooltip term="Confidence" showIcon={false}>Confidence</ClinicalTooltip> indicates model reliability</span>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-4 pt-3 border-t border-border/30 text-center">
+        <p className="text-[9px] text-muted-foreground">
+          Clinical Risk Intelligence Dashboard – Patent Pending
+        </p>
       </div>
     </div>
   );

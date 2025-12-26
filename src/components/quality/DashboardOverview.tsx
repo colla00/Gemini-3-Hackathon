@@ -76,30 +76,29 @@ const RiskCard = ({ data, index, isLive }: { data: RiskCategoryData; index: numb
         </div>
       </div>
 
-      {/* Score Display */}
+      {/* Score Display - Qualitative */}
       <MetricTooltip 
-        label="Unit Risk Score" 
-        value={`${data.score}%`}
-        details="Aggregate risk score for all patients in Unit 4C. Based on individual patient assessments."
+        label="Unit Risk Signal" 
+        value={data.level === 'HIGH' ? 'Elevated' : data.level === 'MODERATE' ? 'Moderate' : 'Low'}
+        details="Aggregate risk signal for all patients in Unit 4C. Based on individual patient assessments."
         trend={data.trend === 'up' ? 'up' : data.trend === 'down' ? 'down' : 'stable'}
       >
         <div className="flex items-end gap-1 mb-2">
-          <span className={cn("text-4xl font-bold leading-none tabular-nums transition-all", getRiskLevelColor(data.level))}>
-            {animatedScore}
+          <span className={cn("text-2xl font-bold leading-none transition-all", getRiskLevelColor(data.level))}>
+            {data.level === 'HIGH' ? 'Elevated' : data.level === 'MODERATE' ? 'Moderate' : 'Low'}
           </span>
-          <span className="text-lg font-semibold text-muted-foreground mb-0.5">%</span>
           {isLive && (
             <RefreshCw className="w-3 h-3 text-risk-low ml-1 animate-spin" style={{ animationDuration: '3s' }} />
           )}
         </div>
       </MetricTooltip>
 
-      {/* Progress Bar */}
+      {/* Progress Bar - Visual indicator */}
       <div className="w-full h-1.5 bg-muted/30 rounded-full overflow-hidden mb-3">
         <div
           className={cn("h-full rounded-full transition-all duration-1000 ease-out", getRiskLevelBg(data.level))}
           style={{ 
-            width: `${animatedScore}%`,
+            width: data.level === 'HIGH' ? '85%' : data.level === 'MODERATE' ? '55%' : '25%',
           }}
         />
       </div>
@@ -168,7 +167,17 @@ const QuickStatCard = ({ label, value, icon: Icon, color, subtext, index, toolti
   </TooltipProvider>
 );
 
-const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; index: number }) => (
+const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; index: number }) => {
+  const getRiskSignal = (level: string) => {
+    switch (level) {
+      case 'HIGH': return 'Elevated';
+      case 'MODERATE': return 'Moderate';
+      case 'LOW': return 'Low';
+      default: return 'Low';
+    }
+  };
+
+  return (
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger asChild>
@@ -197,12 +206,9 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <span className={cn("text-sm font-bold tabular-nums", getRiskLevelColor(patient.fallsLevel))}>
-                {patient.fallsRisk}%
+              <span className={cn("text-sm font-bold", getRiskLevelColor(patient.fallsLevel))}>
+                {getRiskSignal(patient.fallsLevel)}
               </span>
-              <div className="flex items-center gap-1 justify-end">
-                <ConfidenceIndicator confidence={patient.fallsConfidence} showLabel={false} size="sm" />
-              </div>
             </div>
             <div className={cn(
               "px-2 py-0.5 rounded text-[10px] font-semibold uppercase",
@@ -210,7 +216,7 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
               patient.fallsLevel === 'MODERATE' ? 'bg-risk-medium/20 text-risk-medium' :
               'bg-risk-low/20 text-risk-low'
             )}>
-              {patient.fallsLevel}
+              {getRiskSignal(patient.fallsLevel)}
             </div>
           </div>
         </div>
@@ -243,21 +249,30 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
-);
+  );
+};
 
 export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) => {
+  const getQualitativeCount = (count: number) => {
+    if (count === 0) return 'None';
+    if (count === 1) return 'One';
+    if (count <= 3) return 'Few';
+    if (count <= 6) return 'Several';
+    return 'Multiple';
+  };
+
   const highRiskCount = patients.filter(p => p.fallsLevel === 'HIGH').length;
   const moderateRiskCount = patients.filter(p => p.fallsLevel === 'MODERATE').length;
   const immediateActions = patients.flatMap(p => p.interventions).filter(i => i.priority === 'immediate').length;
 
   return (
     <div className="space-y-4">
-      {/* Quick Stats Row */}
+      {/* Quick Stats Row - Qualitative */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-tour="quick-stats">
         <QuickStatCard 
           index={0} 
           label="Total Patients" 
-          value={patients.length} 
+          value={getQualitativeCount(patients.length)} 
           icon={Users} 
           color="bg-primary/20 text-primary" 
           subtext="Unit 4C Census"
@@ -265,26 +280,26 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
         />
         <QuickStatCard 
           index={1} 
-          label="High Risk" 
-          value={highRiskCount} 
+          label="Elevated Risk" 
+          value={getQualitativeCount(highRiskCount)} 
           icon={AlertCircle} 
           color="bg-risk-high/20 text-risk-high" 
           subtext="Immediate attention"
-          tooltip="Patients with >65% risk score requiring immediate assessment"
+          tooltip="Patients with elevated risk signals requiring immediate assessment"
         />
         <QuickStatCard 
           index={2} 
           label="Moderate Risk" 
-          value={moderateRiskCount} 
+          value={getQualitativeCount(moderateRiskCount)} 
           icon={AlertTriangle} 
           color="bg-risk-medium/20 text-risk-medium" 
           subtext="Monitoring required"
-          tooltip="Patients with 35-65% risk score requiring enhanced monitoring"
+          tooltip="Patients with moderate risk signals requiring enhanced monitoring"
         />
         <QuickStatCard 
           index={3} 
           label="Pending Actions" 
-          value={immediateActions} 
+          value={getQualitativeCount(immediateActions)} 
           icon={Clock} 
           color="bg-warning/20 text-warning" 
           subtext="Immediate priority"
@@ -309,7 +324,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
                   Live
                 </span>
               )}
-              <span className="text-[10px] text-muted-foreground hidden md:inline">Unit 4C • Avg <ClinicalTooltip term="Confidence" showIcon={false}>Confidence</ClinicalTooltip>: 87%</span>
+              <span className="text-[10px] text-muted-foreground hidden md:inline">Unit 4C</span>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3" data-tour="risk-cards">
@@ -322,7 +337,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
           <div className="p-2.5 rounded bg-warning/10 border border-warning/30 flex items-center gap-2">
             <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0 animate-pulse" />
             <p className="text-[11px] text-warning">
-              <strong>Synthetic Data:</strong> All values are simulated for demonstration. <ClinicalTooltip term="Confidence" showIcon={false}>Confidence scores</ClinicalTooltip> indicate model prediction reliability.
+              <strong>Synthetic Data:</strong> All values are simulated for demonstration. Risk signals are categorical, not numerical.
             </p>
           </div>
         </div>
@@ -350,6 +365,13 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
           {/* Interventions Summary */}
           <InterventionsSummary patients={patients} />
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-4 pt-3 border-t border-border/30 text-center">
+        <p className="text-[9px] text-muted-foreground">
+          Clinical Risk Intelligence Dashboard – Patent Pending
+        </p>
       </div>
     </div>
   );
