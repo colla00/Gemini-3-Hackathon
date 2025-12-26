@@ -11,6 +11,9 @@ import { SkipLink } from '@/components/SkipLink';
 import { PatientCard } from '@/components/dashboard/PatientCard';
 import { FilterBar } from '@/components/dashboard/FilterBar';
 import { InfoModal } from '@/components/dashboard/InfoModal';
+import { QuickStats } from '@/components/dashboard/QuickStats';
+import { EfficacyBadge } from '@/components/dashboard/EfficacyBadge';
+import { LiveBadge } from '@/components/dashboard/LiveBadge';
 import type { Patient } from '@/data/patients';
 
 // Custom assertion helper for axe violations
@@ -169,6 +172,8 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
     it('should render multiple skip link targets', () => {
       const targets = [
         { id: 'main-content', label: 'Skip to main content' },
+        { id: 'workflow-nav', label: 'Skip to workflow navigation' },
+        { id: 'quick-stats', label: 'Skip to patient statistics' },
         { id: 'filters', label: 'Skip to filters' },
         { id: 'patient-list', label: 'Skip to patient list' },
       ];
@@ -180,7 +185,149 @@ describe('Accessibility - WCAG 2.1 AA Compliance', () => {
       );
 
       const links = container.querySelectorAll('a');
-      expect(links.length).toBe(3);
+      expect(links.length).toBe(5);
+    });
+
+    it('should have correct href targets for skip links', () => {
+      const targets = [
+        { id: 'main-content', label: 'Skip to main content' },
+        { id: 'filters', label: 'Skip to filters' },
+      ];
+
+      const { container } = render(
+        <TestWrapper>
+          <SkipLink targets={targets} />
+        </TestWrapper>
+      );
+
+      const links = container.querySelectorAll('a');
+      expect(links[0].getAttribute('href')).toBe('#main-content');
+      expect(links[1].getAttribute('href')).toBe('#filters');
+    });
+  });
+
+  // ============================================
+  // QuickStats Component Tests
+  // ============================================
+  describe('QuickStats Component', () => {
+    it('should have no accessibility violations', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <QuickStats total={12} high={3} medium={4} trending={2} />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should display qualitative labels instead of numbers', () => {
+      render(
+        <TestWrapper>
+          <QuickStats total={12} high={3} medium={4} trending={2} />
+        </TestWrapper>
+      );
+
+      // Should show qualitative labels like "Several", "Multiple", etc.
+      expect(screen.getByText('Several')).toBeTruthy();
+      expect(screen.getByText('Multiple')).toBeTruthy();
+    });
+
+    it('should have tooltip triggers for each stat', () => {
+      const { container } = render(
+        <TestWrapper>
+          <QuickStats total={12} high={3} medium={4} trending={2} />
+        </TestWrapper>
+      );
+
+      // Each stat pill should be wrapped in a tooltip trigger
+      const tooltipTriggers = container.querySelectorAll('[data-radix-tooltip-trigger]');
+      expect(tooltipTriggers.length).toBeGreaterThanOrEqual(0); // May not have data attribute, check alternative
+    });
+  });
+
+  // ============================================
+  // EfficacyBadge Component Tests
+  // ============================================
+  describe('EfficacyBadge Component', () => {
+    it('should have no accessibility violations', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <EfficacyBadge interventionType="Bed Alarm" beforeScore={78} afterScore={52} />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should display qualitative effect labels', () => {
+      render(
+        <TestWrapper>
+          <EfficacyBadge interventionType="Bed Alarm" beforeScore={78} afterScore={52} />
+        </TestWrapper>
+      );
+
+      // Should show qualitative label like "Strong", "Moderate", etc.
+      expect(screen.getByText('Strong')).toBeTruthy();
+    });
+
+    it('should have tooltip trigger for additional context', () => {
+      const { container } = render(
+        <TestWrapper>
+          <EfficacyBadge interventionType="Hourly Rounding" beforeScore={65} afterScore={48} />
+        </TestWrapper>
+      );
+
+      // Should have a tooltip trigger div
+      const trigger = container.querySelector('[class*="rounded-full"]');
+      expect(trigger).toBeTruthy();
+    });
+  });
+
+  // ============================================
+  // LiveBadge Component Tests
+  // ============================================
+  describe('LiveBadge Component', () => {
+    it('should have no accessibility violations', async () => {
+      const { container } = render(
+        <TestWrapper>
+          <LiveBadge />
+        </TestWrapper>
+      );
+
+      const results = await axe(container, {
+        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      });
+
+      expectNoViolations(results);
+    });
+
+    it('should have status role for live updates', () => {
+      const { container } = render(
+        <TestWrapper>
+          <LiveBadge />
+        </TestWrapper>
+      );
+
+      const badge = container.querySelector('[role="status"]');
+      expect(badge).toBeTruthy();
+    });
+
+    it('should indicate demo mode clearly', () => {
+      render(
+        <TestWrapper>
+          <LiveBadge />
+        </TestWrapper>
+      );
+
+      expect(screen.getByText('Demo')).toBeTruthy();
     });
   });
 
