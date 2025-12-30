@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   BarChart3, Play, Clock, ChevronRight, Brain, Activity, 
-  Users, GitBranch, Sparkles, GraduationCap, ShieldX
+  Users, GitBranch, Sparkles, GraduationCap, ShieldX, Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -21,6 +21,8 @@ type DemoSection = {
   duration: number; // seconds
   icon: React.ReactNode;
   component: 'intro' | 'dashboard' | 'patients' | 'shap' | 'workflow' | 'outro';
+  patentClaims?: string;
+  patentDescription?: string;
 };
 
 const DEMO_SECTIONS: DemoSection[] = [
@@ -30,7 +32,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'AI-Assisted Nursing Quality Monitoring',
     duration: 15, 
     icon: <Brain className="w-8 h-8" />,
-    component: 'intro'
+    component: 'intro',
+    patentClaims: 'Claims 1-20',
+    patentDescription: 'Clinical Risk Intelligence System'
   },
   { 
     id: 'dashboard', 
@@ -38,7 +42,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'Unit-wide risk monitoring and metrics',
     duration: 65, 
     icon: <Activity className="w-6 h-6" />,
-    component: 'dashboard'
+    component: 'dashboard',
+    patentClaims: 'Claims 1-4',
+    patentDescription: 'Multi-outcome risk prediction with confidence scoring'
   },
   { 
     id: 'patients', 
@@ -46,7 +52,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'Priority queue with live risk updates',
     duration: 70, 
     icon: <Users className="w-6 h-6" />,
-    component: 'patients'
+    component: 'patients',
+    patentClaims: 'Claims 1-4, 8-10',
+    patentDescription: 'Priority scoring and nurse-sensitive outcome tracking'
   },
   { 
     id: 'shap', 
@@ -54,7 +62,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'SHAP-based explainability for clinical trust',
     duration: 70, 
     icon: <BarChart3 className="w-6 h-6" />,
-    component: 'shap'
+    component: 'shap',
+    patentClaims: 'Claims 1-4',
+    patentDescription: 'SHAP-based explainability with cumulative risk attribution'
   },
   { 
     id: 'workflow', 
@@ -62,7 +72,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'Intervention recommendations and outcomes',
     duration: 65, 
     icon: <GitBranch className="w-6 h-6" />,
-    component: 'workflow'
+    component: 'workflow',
+    patentClaims: 'Claims 5-7, 11-20',
+    patentDescription: 'Temporal forecasting, adaptive thresholds, closed-loop feedback'
   },
   { 
     id: 'outro', 
@@ -70,7 +82,9 @@ const DEMO_SECTIONS: DemoSection[] = [
     subtitle: 'Questions welcome during live session',
     duration: 15, 
     icon: <GraduationCap className="w-8 h-8" />,
-    component: 'outro'
+    component: 'outro',
+    patentClaims: 'Patent Pending',
+    patentDescription: 'U.S. Provisional Application, December 2025'
   },
 ];
 
@@ -306,6 +320,17 @@ export const RecordingDemo = () => {
                   <div className="text-xs text-muted-foreground">{currentSection.subtitle}</div>
                 </div>
               </div>
+
+              {/* Patent Claims Badge */}
+              {currentSection.patentClaims && (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30">
+                  <Award className="w-4 h-4 text-accent" />
+                  <div>
+                    <div className="text-xs font-semibold text-accent">{currentSection.patentClaims}</div>
+                    <div className="text-[10px] text-accent/80">{currentSection.patentDescription}</div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right: Timer */}
