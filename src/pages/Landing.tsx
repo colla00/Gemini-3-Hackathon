@@ -224,14 +224,14 @@ export const Landing = () => {
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:scale-105 transition-all cursor-pointer"
                     >
                       <FileText className="w-4 h-4 text-accent" aria-hidden="true" />
-                      <span className="text-sm font-semibold text-accent">9 Patent Claims</span>
+                      <span className="text-sm font-semibold text-accent">20 Patent Claims</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium">
                         Pending
                       </span>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
-                    <p className="text-xs"><strong>Patent Status:</strong> Patent pending. Technology covers integrated explainability, forecasting, and closed-loop feedback.</p>
+                    <p className="text-xs"><strong>U.S. Provisional Patent:</strong> Clinical Risk Intelligence System with Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback. Filed December 2025.</p>
                   </TooltipContent>
                 </Tooltip>
                 
@@ -458,7 +458,7 @@ export const Landing = () => {
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <span>© 2025 Alexis Collier. All Rights Reserved.</span>
             <span className="text-border">|</span>
-            <span className="text-primary font-medium">Patent Pending</span>
+            <span className="text-primary font-medium">U.S. Patent Pending · 35 U.S.C. § 111(b)</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <Link 
