@@ -95,20 +95,27 @@ function About() {
       {/* Hero Section */}
       <div className="border-b border-border bg-gradient-to-r from-primary/10 via-accent/5 to-background">
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
             <Badge variant="outline" className="gap-1">
               <Award className="w-3 h-3" aria-hidden="true" />
               Research Prototype
             </Badge>
             <Badge variant="secondary" className="gap-1">
               <Shield className="w-3 h-3" aria-hidden="true" />
-              Patent Pending
+              U.S. Patent Pending
+            </Badge>
+            <Badge variant="secondary" className="gap-1 bg-accent/10 text-accent border-accent/30">
+              <FileText className="w-3 h-3" aria-hidden="true" />
+              20 Claims · Dec 2025
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Clinical Risk Intelligence</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            An AI-powered system designed to help nurses identify and respond to patient deterioration 
-            through predictive analytics and real-time monitoring.
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">Clinical Risk Intelligence System</h1>
+          <p className="text-base text-muted-foreground max-w-2xl mb-4">
+            With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+          </p>
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            A patent-pending AI-powered system designed to help nurses identify and respond to patient deterioration 
+            through predictive analytics and real-time monitoring. Filed under 35 U.S.C. § 111(b).
           </p>
         </div>
       </div>
@@ -319,21 +326,35 @@ function About() {
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Database className="w-5 h-5 text-warning" aria-hidden="true" />
-              <CardTitle>Research Status</CardTitle>
+              <CardTitle>Research Status & Intellectual Property</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="p-4 rounded-lg border border-accent/30 bg-accent/5">
+              <p className="text-sm font-semibold mb-2 text-accent">U.S. Provisional Patent Application</p>
+              <p className="text-xs text-muted-foreground mb-3">
+                <strong>Title:</strong> Clinical Risk Intelligence System with Integrated Explainability, 
+                Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+              </p>
+              <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                <div><strong>Inventor:</strong> Alexis Collier</div>
+                <div><strong>Filed:</strong> December 2025</div>
+                <div><strong>Claims:</strong> 20 patent claims</div>
+                <div><strong>Status:</strong> Patent Pending</div>
+              </div>
+            </div>
             <div className="p-4 rounded-lg border border-warning/30 bg-warning/5">
               <p className="text-sm font-medium mb-2">This is a Research Prototype</p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Uses synthetic data for demonstration purposes</li>
                 <li>• Not validated for clinical use</li>
                 <li>• Requires IRB approval and clinical trials before deployment</li>
-                <li>• Patent application pending</li>
+                <li>• All intellectual property rights reserved</li>
               </ul>
             </div>
             <p className="text-xs text-muted-foreground">
-              For licensing inquiries or research collaboration, please contact us through appropriate channels.
+              © 2025 Alexis Collier. All rights reserved. Patent pending pursuant to 35 U.S.C. § 111(b). 
+              For licensing inquiries or research collaboration, please contact alexis.collier@ung.edu.
             </p>
           </CardContent>
         </Card>
@@ -341,8 +362,9 @@ function About() {
 
       {/* Footer */}
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
-        <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Dr. Alexis Collier • Clinical Risk Intelligence Dashboard • Patent Pending • Not for Clinical Use</p>
+        <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
+          <p>© {new Date().getFullYear()} Alexis Collier. All Rights Reserved.</p>
+          <p>Clinical Risk Intelligence System • U.S. Patent Pending · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
         </div>
       </footer>
     </div>
