@@ -13,7 +13,7 @@ import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { Button } from '@/components/ui/button';
 
 const ACCESS_KEY = 'presenter2025';
-const EXPIRATION_DATE = new Date('2025-12-15T23:59:59'); // 2 weeks from Dec 1, 2025
+const EXPIRATION_DATE = new Date('2026-12-31T23:59:59'); // Extended for patent evidence
 type DemoSection = {
   id: string;
   title: string;
