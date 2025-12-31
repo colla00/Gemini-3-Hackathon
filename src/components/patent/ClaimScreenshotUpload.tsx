@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 interface ClaimScreenshotUploadProps {
   claimNumber: number;
   documentHash: string;
-  existingScreenshots?: { id: string; file_path: string; caption: string | null }[];
+  existingScreenshots?: { id: string; file_path: string; caption?: string | null }[];
   onUploadComplete?: () => void;
 }
 
