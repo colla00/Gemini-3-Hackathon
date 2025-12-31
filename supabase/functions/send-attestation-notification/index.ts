@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const PATENT_ATTORNEY_EMAIL = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@alexiscollier.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -14,7 +15,6 @@ interface AttestationNotificationRequest {
   organization: string | null;
   claimsCount: number;
   attestedAt: string;
-  recipientEmail: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -29,9 +29,10 @@ const handler = async (req: Request): Promise<Response> => {
       witnessTitle, 
       organization, 
       claimsCount, 
-      attestedAt,
-      recipientEmail 
+      attestedAt
     }: AttestationNotificationRequest = await req.json();
+    
+    const recipientEmail = PATENT_ATTORNEY_EMAIL;
 
     console.log("Sending attestation notification to:", recipientEmail);
     console.log("Attestation details:", { witnessName, witnessTitle, organization, claimsCount, attestedAt });
