@@ -414,6 +414,24 @@ export const PatentEvidence = () => {
         title: 'Attestation Recorded',
         description: 'Your witness attestation has been permanently recorded.',
       });
+
+      // Send email notification to patent attorneys (fire and forget)
+      supabase.functions.invoke('send-attestation-notification', {
+        body: {
+          witnessName: newAttestation.witnessName,
+          witnessTitle: newAttestation.witnessTitle,
+          organization: newAttestation.organization || null,
+          claimsCount: PATENT_CLAIMS.length,
+          attestedAt: attestedAt,
+          recipientEmail: 'patent-team@example.com' // Configure as needed
+        }
+      }).then(({ error }) => {
+        if (error) {
+          console.error('Failed to send notification email:', error);
+        } else {
+          console.log('Attestation notification email sent');
+        }
+      });
     } catch (err) {
       console.error('Failed to save attestation:', err);
       toast({
