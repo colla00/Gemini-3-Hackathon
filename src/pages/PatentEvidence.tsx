@@ -3,7 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
   RefreshCw, Users, Activity, CheckCircle2, ExternalLink, FileText,
-  Play, Camera, Hash, Shield, Calendar, Fingerprint
+  Play, Camera, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
+  UserCheck, Building2, AlertCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -34,9 +35,25 @@ const generateDocumentHash = (content: string): string => {
   return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
 };
 
-const DOCUMENT_VERSION = '1.0.0';
+const DOCUMENT_VERSION = '1.1.0';
 const DOCUMENT_CREATED = '2025-12-30T00:00:00Z';
 const LAST_UPDATED = new Date().toISOString();
+
+// Video recording sections mapped to claims
+const VIDEO_SECTIONS: Record<string, { title: string; duration: string; claims: number[] }> = {
+  dashboard: { title: 'Dashboard Overview Recording', duration: '2-3 min', claims: [1, 12, 15, 19] },
+  patients: { title: 'Patient Worklist Recording', duration: '3-4 min', claims: [4, 8, 11, 16] },
+  shap: { title: 'SHAP Explainability Recording', duration: '4-5 min', claims: [2, 3, 17, 18] },
+  workflow: { title: 'Clinical Workflow Recording', duration: '5-6 min', claims: [5, 6, 7, 9, 10, 13, 14] },
+};
+
+interface AttestationData {
+  witnessName: string;
+  witnessTitle: string;
+  organization: string;
+  attestedAt: string | null;
+  signature: string;
+}
 
 const PATENT_CLAIMS: PatentClaim[] = [
   // System Claims (1-4)
@@ -271,10 +288,28 @@ export const PatentEvidence = () => {
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [capturedAt, setCapturedAt] = useState<string | null>(null);
+  const [showAttestationForm, setShowAttestationForm] = useState(false);
+  const [attestation, setAttestation] = useState<AttestationData>({
+    witnessName: '',
+    witnessTitle: '',
+    organization: '',
+    attestedAt: null,
+    signature: ''
+  });
   
   const accessKey = searchParams.get('key');
   const isExpired = new Date() > EXPIRATION_DATE;
   const hasAccess = accessKey === ACCESS_KEY && !isExpired;
+  
+  const handleAttestation = () => {
+    if (attestation.witnessName && attestation.witnessTitle && attestation.signature) {
+      setAttestation(prev => ({
+        ...prev,
+        attestedAt: new Date().toISOString()
+      }));
+      setShowAttestationForm(false);
+    }
+  };
 
   // Calculate document hash for integrity verification
   const documentHash = useMemo(() => {
@@ -451,12 +486,124 @@ export const PatentEvidence = () => {
           </div>
         </div>
 
-        {/* Quick Links to Demo */}
+        {/* Witness Attestation Section */}
         <div className="bg-card rounded-xl border border-border p-4 mb-6">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <Play className="w-4 h-4 text-risk-low" />
-              <h3 className="text-sm font-semibold text-foreground">Recording Demo</h3>
+              <UserCheck className="w-4 h-4 text-purple-500" />
+              <h3 className="text-sm font-semibold text-foreground">Witness Attestation</h3>
+            </div>
+            {!attestation.attestedAt && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAttestationForm(!showAttestationForm)}
+                className="gap-2"
+              >
+                <PenLine className="w-3 h-3" />
+                {showAttestationForm ? 'Cancel' : 'Add Attestation'}
+              </Button>
+            )}
+          </div>
+
+          {attestation.attestedAt ? (
+            <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-purple-500" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground mb-1">
+                    Attested by {attestation.witnessName}
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {attestation.witnessTitle}{attestation.organization && ` • ${attestation.organization}`}
+                  </p>
+                  <div className="flex items-center gap-4 text-xs">
+                    <span className="text-muted-foreground">
+                      Signed: {new Date(attestation.attestedAt).toLocaleString()}
+                    </span>
+                    <span className="font-mono text-purple-500">
+                      Signature: {attestation.signature}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-xs text-muted-foreground italic border-t border-border/50 pt-3">
+                    "I hereby attest that I have reviewed the above patent claims and their corresponding 
+                    implementations in the Clinical Risk Intelligence System software. The implementations 
+                    described accurately reflect the working functionality of the system as of the date of this attestation."
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : showAttestationForm ? (
+            <div className="space-y-3">
+              <div className="grid md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-muted-foreground mb-1 block">Full Name *</label>
+                  <input
+                    type="text"
+                    value={attestation.witnessName}
+                    onChange={(e) => setAttestation(prev => ({ ...prev, witnessName: e.target.value }))}
+                    className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
+                    placeholder="Dr. Jane Smith"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-muted-foreground mb-1 block">Title/Role *</label>
+                  <input
+                    type="text"
+                    value={attestation.witnessTitle}
+                    onChange={(e) => setAttestation(prev => ({ ...prev, witnessTitle: e.target.value }))}
+                    className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
+                    placeholder="Chief Technology Officer"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground mb-1 block">Organization</label>
+                <input
+                  type="text"
+                  value={attestation.organization}
+                  onChange={(e) => setAttestation(prev => ({ ...prev, organization: e.target.value }))}
+                  className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
+                  placeholder="University Medical Center"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground mb-1 block">Electronic Signature (Type your initials) *</label>
+                <input
+                  type="text"
+                  value={attestation.signature}
+                  onChange={(e) => setAttestation(prev => ({ ...prev, signature: e.target.value }))}
+                  className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm font-mono text-foreground"
+                  placeholder="J.S."
+                />
+              </div>
+              <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                <p className="text-xs text-muted-foreground">
+                  <AlertCircle className="w-3 h-3 inline mr-1" />
+                  By signing, you attest that you have reviewed all 20 patent claims and their working implementations 
+                  in the Clinical Risk Intelligence System software.
+                </p>
+              </div>
+              <Button onClick={handleAttestation} className="w-full gap-2" disabled={!attestation.witnessName || !attestation.witnessTitle || !attestation.signature}>
+                <PenLine className="w-4 h-4" />
+                Sign Attestation
+              </Button>
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              Add a witness attestation to formally verify that all patent claims have working implementations.
+            </p>
+          )}
+        </div>
+
+        {/* Video Recording Sections */}
+        <div className="bg-card rounded-xl border border-border p-4 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Video className="w-4 h-4 text-red-500" />
+              <h3 className="text-sm font-semibold text-foreground">Video Recording Guide</h3>
             </div>
             <Button
               variant="outline"
@@ -465,25 +612,72 @@ export const PatentEvidence = () => {
               className="gap-2"
             >
               <Play className="w-3 h-3" />
-              Launch Demo
+              Launch Recording Demo
             </Button>
           </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Record each section to create comprehensive video evidence of all patent claims in action.
+          </p>
+          <div className="grid md:grid-cols-2 gap-3">
+            {Object.entries(VIDEO_SECTIONS).map(([key, section]) => (
+              <div
+                key={key}
+                className="p-3 rounded-lg bg-secondary/50 border border-border/50 hover:border-red-500/30 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-foreground">{section.title}</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-500 font-medium">
+                    {section.duration}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {section.claims.map(claimNum => (
+                    <span
+                      key={claimNum}
+                      className="text-[10px] px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium"
+                    >
+                      Claim {claimNum}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-3 rounded-lg bg-red-500/5 border border-red-500/20">
+            <p className="text-xs text-muted-foreground">
+              <Video className="w-3 h-3 inline mr-1 text-red-500" />
+              <strong className="text-foreground">Recording Tip:</strong> Use screen recording software (OBS, Loom, or similar) 
+              to capture the demo while narrating each claim's implementation. Total estimated recording time: 15-20 minutes.
+            </p>
+          </div>
+        </div>
+
+        {/* Quick Links to Demo */}
+        <div className="bg-card rounded-xl border border-border p-4 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Camera className="w-4 h-4 text-blue-500" />
+              <h3 className="text-sm font-semibold text-foreground">Screenshot Capture</h3>
+            </div>
+          </div>
           <p className="text-xs text-muted-foreground mb-3">
-            Interactive demonstration showcasing all patent claims with visible claim labels. Use for video recording patent evidence.
+            Navigate to the demo sections below to capture screenshots of each claim's implementation.
           </p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(DEMO_SECTION_LABELS).filter(([key]) => key !== 'intro' && key !== 'outro').map(([key, label]) => {
               const claimsInSection = PATENT_CLAIMS.filter(c => c.demoSection === key);
               return (
-                <div
+                <button
                   key={key}
-                  className="px-2.5 py-1.5 rounded-lg bg-secondary border border-border text-xs"
+                  onClick={() => navigate('/record?key=presenter2025')}
+                  className="px-2.5 py-1.5 rounded-lg bg-secondary border border-border text-xs hover:border-blue-500/50 transition-colors group"
                 >
+                  <Camera className="w-3 h-3 inline mr-1 text-muted-foreground group-hover:text-blue-500" />
                   <span className="text-foreground font-medium">{label}</span>
                   <span className="text-muted-foreground ml-1.5">
                     ({claimsInSection.length} claims)
                   </span>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -531,6 +725,10 @@ export const PatentEvidence = () => {
           {filteredClaims.map((claim, index) => {
             const config = categoryConfig[claim.category];
             const Icon = config.icon;
+            // Find which video section this claim belongs to
+            const videoSection = Object.entries(VIDEO_SECTIONS).find(([_, section]) => 
+              section.claims.includes(claim.number)
+            );
             
             return (
               <div 
@@ -551,7 +749,7 @@ export const PatentEvidence = () => {
                         <h3 className="text-base font-semibold text-foreground mb-1">
                           Claim {claim.number}: {claim.title}
                         </h3>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center flex-wrap gap-2">
                           <span className={cn("px-2 py-0.5 rounded text-[10px] font-medium border flex items-center gap-1", config.color)}>
                             <Icon className="w-3 h-3" />
                             {config.label}
@@ -565,6 +763,12 @@ export const PatentEvidence = () => {
                             <CheckCircle2 className="w-3 h-3 inline mr-1" />
                             {claim.status.charAt(0).toUpperCase() + claim.status.slice(1)}
                           </span>
+                          {videoSection && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-red-500/10 text-red-500 flex items-center gap-1">
+                              <Video className="w-3 h-3" />
+                              Video: {videoSection[1].title.replace(' Recording', '')}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -614,11 +818,25 @@ export const PatentEvidence = () => {
                         )}
                       </div>
                       
-                      {/* Screenshot placeholder */}
-                      <div className="mt-3 p-3 rounded-lg bg-muted/20 border border-dashed border-border/50">
-                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                          <Camera className="w-3 h-3" />
-                          <span>Screenshot capture: Navigate to demo to capture live implementation</span>
+                      {/* Evidence Capture Actions */}
+                      <div className="mt-3 grid md:grid-cols-2 gap-2">
+                        <div className="p-2.5 rounded-lg bg-blue-500/5 border border-blue-500/20">
+                          <div className="flex items-center gap-2 text-[10px]">
+                            <Camera className="w-3.5 h-3.5 text-blue-500" />
+                            <span className="text-blue-500 font-medium">Screenshot</span>
+                          </div>
+                          <p className="text-[10px] text-muted-foreground mt-1">
+                            Capture UI screenshot from demo
+                          </p>
+                        </div>
+                        <div className="p-2.5 rounded-lg bg-red-500/5 border border-red-500/20">
+                          <div className="flex items-center gap-2 text-[10px]">
+                            <Video className="w-3.5 h-3.5 text-red-500" />
+                            <span className="text-red-500 font-medium">Video Recording</span>
+                          </div>
+                          <p className="text-[10px] text-muted-foreground mt-1">
+                            {videoSection ? `Include in ${videoSection[1].title}` : 'Record feature in action'}
+                          </p>
                         </div>
                       </div>
                     </div>
