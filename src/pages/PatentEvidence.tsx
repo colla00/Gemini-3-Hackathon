@@ -1,26 +1,16 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
-  RefreshCw, Users, Activity, CheckCircle2, ExternalLink, FileText,
-  Play, Camera, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
-  UserCheck, Building2, AlertCircle, Loader2, Database, Upload, X, Image, Trash2
+  RefreshCw, Activity, CheckCircle2, ExternalLink, FileText,
+  Play, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
+  UserCheck, AlertCircle, Loader2, Database
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-
-interface ClaimScreenshot {
-  id: string;
-  claimNumber: number;
-  filePath: string;
-  fileName: string;
-  caption: string | null;
-  uploadedAt: string;
-  url: string;
-}
 
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
@@ -314,9 +304,6 @@ export const PatentEvidence = () => {
     attestedAt: null,
     signature: ''
   });
-  const [screenshots, setScreenshots] = useState<ClaimScreenshot[]>([]);
-  const [uploadingClaim, setUploadingClaim] = useState<number | null>(null);
-  const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
   
   const accessKey = searchParams.get('key');
   const isExpired = new Date() > EXPIRATION_DATE;
@@ -364,184 +351,6 @@ export const PatentEvidence = () => {
     loadAttestations();
   }, [hasAccess, documentHash]);
 
-  // Load existing screenshots from database
-  useEffect(() => {
-    const loadScreenshots = async () => {
-      if (!hasAccess) return;
-      
-      try {
-        const { data, error } = await supabase
-          .from('patent_claim_screenshots')
-          .select('*')
-          .eq('document_hash', documentHash)
-          .order('uploaded_at', { ascending: false });
-
-        if (error) {
-          console.error('Error loading screenshots:', error);
-        } else if (data && data.length > 0) {
-          const screenshotsWithUrls = await Promise.all(
-            data.map(async (s) => {
-              const { data: urlData } = supabase.storage
-                .from('patent-screenshots')
-                .getPublicUrl(s.file_path);
-              
-              return {
-                id: s.id,
-                claimNumber: s.claim_number,
-                filePath: s.file_path,
-                fileName: s.file_name,
-                caption: s.caption,
-                uploadedAt: s.uploaded_at,
-                url: urlData.publicUrl
-              };
-            })
-          );
-          setScreenshots(screenshotsWithUrls);
-        }
-      } catch (err) {
-        console.error('Failed to load screenshots:', err);
-      }
-    };
-
-    loadScreenshots();
-  }, [hasAccess, documentHash]);
-
-  // Handle screenshot upload
-  const handleScreenshotUpload = async (claimNumber: number, file: File) => {
-    if (!file) return;
-
-    setUploadingClaim(claimNumber);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        toast({
-          title: 'Authentication Required',
-          description: 'You must be logged in to upload screenshots.',
-          variant: 'destructive'
-        });
-        return;
-      }
-
-      // Create unique file path
-      const fileExt = file.name.split('.').pop();
-      const fileName = `claim-${claimNumber}-${Date.now()}.${fileExt}`;
-      const filePath = `${user.id}/${documentHash}/${fileName}`;
-
-      // Upload to storage
-      const { error: uploadError } = await supabase.storage
-        .from('patent-screenshots')
-        .upload(filePath, file);
-
-      if (uploadError) {
-        console.error('Upload error:', uploadError);
-        toast({
-          title: 'Upload Failed',
-          description: 'Could not upload screenshot. Please try again.',
-          variant: 'destructive'
-        });
-        return;
-      }
-
-      // Save metadata to database
-      const { data: metadata, error: dbError } = await supabase
-        .from('patent_claim_screenshots')
-        .insert({
-          claim_number: claimNumber,
-          document_hash: documentHash,
-          file_path: filePath,
-          file_name: file.name,
-          file_size: file.size,
-          uploaded_by: user.id
-        })
-        .select()
-        .single();
-
-      if (dbError) {
-        console.error('Database error:', dbError);
-        toast({
-          title: 'Error',
-          description: 'Screenshot uploaded but metadata save failed.',
-          variant: 'destructive'
-        });
-        return;
-      }
-
-      // Get public URL
-      const { data: urlData } = supabase.storage
-        .from('patent-screenshots')
-        .getPublicUrl(filePath);
-
-      const newScreenshot: ClaimScreenshot = {
-        id: metadata.id,
-        claimNumber: claimNumber,
-        filePath: filePath,
-        fileName: file.name,
-        caption: null,
-        uploadedAt: metadata.uploaded_at,
-        url: urlData.publicUrl
-      };
-
-      setScreenshots(prev => [newScreenshot, ...prev]);
-
-      toast({
-        title: 'Screenshot Uploaded',
-        description: `Screenshot for Claim ${claimNumber} has been saved.`
-      });
-    } catch (err) {
-      console.error('Failed to upload screenshot:', err);
-      toast({
-        title: 'Error',
-        description: 'Failed to upload screenshot.',
-        variant: 'destructive'
-      });
-    } finally {
-      setUploadingClaim(null);
-    }
-  };
-
-  // Handle screenshot deletion
-  const handleDeleteScreenshot = async (screenshot: ClaimScreenshot) => {
-    try {
-      // Delete from storage
-      const { error: storageError } = await supabase.storage
-        .from('patent-screenshots')
-        .remove([screenshot.filePath]);
-
-      if (storageError) {
-        console.error('Storage delete error:', storageError);
-      }
-
-      // Delete from database
-      const { error: dbError } = await supabase
-        .from('patent_claim_screenshots')
-        .delete()
-        .eq('id', screenshot.id);
-
-      if (dbError) {
-        toast({
-          title: 'Error',
-          description: 'Could not delete screenshot.',
-          variant: 'destructive'
-        });
-        return;
-      }
-
-      setScreenshots(prev => prev.filter(s => s.id !== screenshot.id));
-
-      toast({
-        title: 'Screenshot Deleted',
-        description: 'Screenshot has been removed.'
-      });
-    } catch (err) {
-      console.error('Failed to delete screenshot:', err);
-    }
-  };
-
-  // Get screenshots for a specific claim
-  const getClaimScreenshots = (claimNumber: number) => {
-    return screenshots.filter(s => s.claimNumber === claimNumber);
-  };
   
   const handleAttestation = async () => {
     if (!attestation.witnessName || !attestation.witnessTitle || !attestation.signature) {
@@ -992,37 +801,6 @@ export const PatentEvidence = () => {
           </div>
         </div>
 
-        {/* Quick Links to Demo */}
-        <div className="bg-card rounded-xl border border-border p-4 mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Camera className="w-4 h-4 text-blue-500" />
-              <h3 className="text-sm font-semibold text-foreground">Screenshot Capture</h3>
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground mb-3">
-            Navigate to the demo sections below to capture screenshots of each claim's implementation.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {Object.entries(DEMO_SECTION_LABELS).filter(([key]) => key !== 'intro' && key !== 'outro').map(([key, label]) => {
-              const claimsInSection = PATENT_CLAIMS.filter(c => c.demoSection === key);
-              return (
-                <button
-                  key={key}
-                  onClick={() => navigate('/record?key=presenter2025')}
-                  className="px-2.5 py-1.5 rounded-lg bg-secondary border border-border text-xs hover:border-blue-500/50 transition-colors group"
-                >
-                  <Camera className="w-3 h-3 inline mr-1 text-muted-foreground group-hover:text-blue-500" />
-                  <span className="text-foreground font-medium">{label}</span>
-                  <span className="text-muted-foreground ml-1.5">
-                    ({claimsInSection.length} claims)
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         {/* Category Filters */}
         <div className="mb-6">
           <h2 className="text-sm font-medium text-muted-foreground mb-3">Filter by Category</h2>
@@ -1158,89 +936,18 @@ export const PatentEvidence = () => {
                         )}
                       </div>
                       
-                      {/* Uploaded Screenshots */}
-                      {(() => {
-                        const claimScreenshots = getClaimScreenshots(claim.number);
-                        return claimScreenshots.length > 0 && (
-                          <div className="mt-3 space-y-2">
-                            <span className="text-[10px] font-medium text-blue-500 uppercase tracking-wide">
-                              Uploaded Screenshots ({claimScreenshots.length})
-                            </span>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                              {claimScreenshots.map(screenshot => (
-                                <div key={screenshot.id} className="relative group">
-                                  <a 
-                                    href={screenshot.url} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="block"
-                                  >
-                                    <img 
-                                      src={screenshot.url} 
-                                      alt={`Claim ${claim.number} screenshot`}
-                                      className="w-full h-20 object-cover rounded-lg border border-border hover:border-blue-500/50 transition-colors"
-                                    />
-                                  </a>
-                                  <button
-                                    onClick={() => handleDeleteScreenshot(screenshot)}
-                                    className="absolute top-1 right-1 p-1 rounded bg-destructive/80 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                                    title="Delete screenshot"
-                                  >
-                                    <X className="w-3 h-3" />
-                                  </button>
-                                  <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded text-[8px] bg-black/60 text-white">
-                                    {new Date(screenshot.uploadedAt).toLocaleDateString()}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        );
-                      })()}
-                      
-                      {/* Evidence Capture Actions */}
-                      <div className="mt-3 grid md:grid-cols-2 gap-2">
-                        <div 
-                          className="p-2.5 rounded-lg bg-blue-500/5 border border-blue-500/20 hover:border-blue-500/50 cursor-pointer transition-colors"
-                          onClick={() => fileInputRefs.current[claim.number]?.click()}
-                        >
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            ref={el => fileInputRefs.current[claim.number] = el}
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                handleScreenshotUpload(claim.number, file);
-                                e.target.value = '';
-                              }
-                            }}
-                          />
-                          <div className="flex items-center gap-2 text-[10px]">
-                            {uploadingClaim === claim.number ? (
-                              <Loader2 className="w-3.5 h-3.5 text-blue-500 animate-spin" />
-                            ) : (
-                              <Upload className="w-3.5 h-3.5 text-blue-500" />
-                            )}
-                            <span className="text-blue-500 font-medium">
-                              {uploadingClaim === claim.number ? 'Uploading...' : 'Upload Screenshot'}
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-muted-foreground mt-1">
-                            Click to upload UI screenshot
-                          </p>
-                        </div>
-                        <div className="p-2.5 rounded-lg bg-red-500/5 border border-red-500/20">
+                      {/* Video Recording Info */}
+                      {videoSection && (
+                        <div className="mt-3 p-2.5 rounded-lg bg-red-500/5 border border-red-500/20">
                           <div className="flex items-center gap-2 text-[10px]">
                             <Video className="w-3.5 h-3.5 text-red-500" />
                             <span className="text-red-500 font-medium">Video Recording</span>
                           </div>
                           <p className="text-[10px] text-muted-foreground mt-1">
-                            {videoSection ? `Include in ${videoSection[1].title}` : 'Record feature in action'}
+                            Include in {videoSection[1].title}
                           </p>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
