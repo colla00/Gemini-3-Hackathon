@@ -4,7 +4,7 @@ import {
   Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
   RefreshCw, Activity, CheckCircle2, ExternalLink, FileText,
   Play, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
-  UserCheck, AlertCircle, Loader2, Database, Download, Mail, Image
+  UserCheck, AlertCircle, Loader2, Database, Download, Mail, Image, QrCode
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { generatePatentEvidencePDF } from '@/lib/pdfExport';
 import { ClaimScreenshotUpload } from '@/components/patent/ClaimScreenshotUpload';
-
+import { SignatureCanvas } from '@/components/patent/SignatureCanvas';
+import { QRCodeVerification } from '@/components/patent/QRCodeVerification';
+import { useAuditLog } from '@/hooks/useAuditLog';
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
 
@@ -59,7 +61,13 @@ interface AttestationData {
   organization: string;
   attestedAt: string | null;
   signature: string;
+  signatureImage?: string;
   persistedAt?: string;
+}
+
+interface ClaimScreenshot {
+  claimNumber: number;
+  screenshots: { id: string; file_path: string; caption?: string | null }[];
 }
 
 const PATENT_CLAIMS: PatentClaim[] = [
@@ -294,19 +302,23 @@ export const PatentEvidence = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
+  const { logAction } = useAuditLog();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [capturedAt, setCapturedAt] = useState<string | null>(null);
   const [showAttestationForm, setShowAttestationForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [attestations, setAttestations] = useState<AttestationData[]>([]);
+  const [claimScreenshots, setClaimScreenshots] = useState<Record<number, { id: string; file_path: string; caption?: string | null }[]>>({});
+  const [useCanvasSignature, setUseCanvasSignature] = useState(false);
   const [attestation, setAttestation] = useState<AttestationData>({
     witnessName: '',
     witnessTitle: '',
     witnessEmail: '',
     organization: '',
     attestedAt: null,
-    signature: ''
+    signature: '',
+    signatureImage: ''
   });
   
   const accessKey = searchParams.get('key');
@@ -319,47 +331,89 @@ export const PatentEvidence = () => {
     return generateDocumentHash(content + DOCUMENT_VERSION);
   }, []);
 
-  // Load existing attestations from database
+  // Load existing attestations and screenshots from database
   useEffect(() => {
-    const loadAttestations = async () => {
+    const loadData = async () => {
       if (!hasAccess) return;
       
       setIsLoading(true);
       try {
-        const { data, error } = await supabase
+        // Load attestations
+        const { data: attestationData, error: attestationError } = await supabase
           .from('patent_attestations')
           .select('*')
           .eq('document_hash', documentHash)
           .order('attested_at', { ascending: false });
 
-        if (error) {
-          console.error('Error loading attestations:', error);
-        } else if (data && data.length > 0) {
-          setAttestations(data.map(a => ({
+        if (attestationError) {
+          console.error('Error loading attestations:', attestationError);
+        } else if (attestationData && attestationData.length > 0) {
+          setAttestations(attestationData.map(a => ({
             id: a.id,
             witnessName: a.witness_name,
             witnessTitle: a.witness_title,
-            witnessEmail: '', // Not stored in DB for existing records
+            witnessEmail: '',
             organization: a.organization || '',
             attestedAt: a.attested_at,
             signature: a.signature,
             persistedAt: a.created_at
           })));
         }
+
+        // Load screenshots for all claims
+        const { data: screenshotData, error: screenshotError } = await supabase
+          .from('patent_claim_screenshots')
+          .select('id, claim_number, file_path')
+          .eq('document_hash', documentHash);
+
+        if (screenshotError) {
+          console.error('Error loading screenshots:', screenshotError);
+        } else if (screenshotData) {
+          const grouped: Record<number, { id: string; file_path: string }[]> = {};
+          screenshotData.forEach(s => {
+            if (!grouped[s.claim_number]) grouped[s.claim_number] = [];
+            grouped[s.claim_number].push({ id: s.id, file_path: s.file_path });
+          });
+          setClaimScreenshots(grouped);
+        }
+
+        // Log page access
+        logAction({
+          action: 'view',
+          resource_type: 'patent_documentation',
+          details: { document_hash: documentHash, claims_count: PATENT_CLAIMS.length }
+        });
       } catch (err) {
-        console.error('Failed to load attestations:', err);
+        console.error('Failed to load data:', err);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadAttestations();
+    loadData();
   }, [hasAccess, documentHash]);
 
   
   const handleAttestation = async () => {
-    if (!attestation.witnessName || !attestation.witnessTitle || !attestation.signature) {
+    const hasValidSignature = attestation.signature || attestation.signatureImage;
+    if (!attestation.witnessName || !attestation.witnessTitle || !hasValidSignature) {
       return;
+    }
+
+    // Check rate limit first
+    try {
+      const { data: rateLimitData, error: rateLimitError } = await supabase.functions.invoke('check-attestation-rate-limit');
+      
+      if (rateLimitError || !rateLimitData?.allowed) {
+        toast({
+          title: 'Rate Limit Exceeded',
+          description: rateLimitData?.message || 'Too many attestation attempts. Please try again later.',
+          variant: 'destructive'
+        });
+        return;
+      }
+    } catch (err) {
+      console.warn('Rate limit check failed, continuing...', err);
     }
 
     setIsSaving(true);
@@ -376,7 +430,7 @@ export const PatentEvidence = () => {
           witness_name: attestation.witnessName,
           witness_title: attestation.witnessTitle,
           organization: attestation.organization || null,
-          signature: attestation.signature,
+          signature: attestation.signatureImage || attestation.signature,
           attested_at: attestedAt,
           claims_count: PATENT_CLAIMS.length,
           user_agent: navigator.userAgent,
@@ -402,7 +456,7 @@ export const PatentEvidence = () => {
         witnessEmail: attestation.witnessEmail,
         organization: attestation.organization,
         attestedAt: attestedAt,
-        signature: attestation.signature,
+        signature: attestation.signatureImage || attestation.signature,
         persistedAt: data.created_at
       };
 
@@ -413,9 +467,23 @@ export const PatentEvidence = () => {
         witnessEmail: '',
         organization: '',
         attestedAt: null,
-        signature: ''
+        signature: '',
+        signatureImage: ''
       });
+      setUseCanvasSignature(false);
       setShowAttestationForm(false);
+
+      // Log the attestation action
+      logAction({
+        action: 'create',
+        resource_type: 'patent_documentation',
+        resource_id: data.id,
+        details: { 
+          action_type: 'attestation',
+          witness_name: attestation.witnessName,
+          claims_count: PATENT_CLAIMS.length
+        }
+      });
 
       toast({
         title: 'Attestation Recorded',
@@ -576,7 +644,7 @@ export const PatentEvidence = () => {
         </div>
 
         {/* Evidence Integrity & Audit Trail */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
           {/* Document Integrity */}
           <div className="bg-card rounded-xl border border-border p-4">
             <div className="flex items-center gap-2 mb-3">
@@ -636,6 +704,18 @@ export const PatentEvidence = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* QR Code Verification */}
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <QrCode className="w-4 h-4 text-emerald-500" />
+              <h3 className="text-sm font-semibold text-foreground">Quick Verify</h3>
+            </div>
+            <QRCodeVerification 
+              documentHash={documentHash} 
+              documentVersion={DOCUMENT_VERSION} 
+            />
           </div>
         </div>
 
@@ -761,16 +841,58 @@ export const PatentEvidence = () => {
                   disabled={isSaving}
                 />
               </div>
+              {/* Signature Options */}
               <div>
-                <label className="text-xs text-muted-foreground mb-1 block">Electronic Signature (Type your initials) *</label>
-                <input
-                  type="text"
-                  value={attestation.signature}
-                  onChange={(e) => setAttestation(prev => ({ ...prev, signature: e.target.value }))}
-                  className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm font-mono text-foreground"
-                  placeholder="J.S."
-                  disabled={isSaving}
-                />
+                <div className="flex items-center gap-4 mb-2">
+                  <label className="text-xs text-muted-foreground">Signature Method *</label>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setUseCanvasSignature(false)}
+                      className={cn(
+                        "px-2 py-1 rounded text-xs font-medium transition-colors",
+                        !useCanvasSignature ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                      )}
+                    >
+                      Type Initials
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUseCanvasSignature(true)}
+                      className={cn(
+                        "px-2 py-1 rounded text-xs font-medium transition-colors",
+                        useCanvasSignature ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                      )}
+                    >
+                      Draw Signature
+                    </button>
+                  </div>
+                </div>
+                
+                {useCanvasSignature ? (
+                  <SignatureCanvas
+                    onSignatureComplete={(dataUrl) => setAttestation(prev => ({ ...prev, signatureImage: dataUrl, signature: '' }))}
+                    disabled={isSaving}
+                  />
+                ) : (
+                  <>
+                    <label className="text-xs text-muted-foreground mb-1 block">Type your initials *</label>
+                    <input
+                      type="text"
+                      value={attestation.signature}
+                      onChange={(e) => setAttestation(prev => ({ ...prev, signature: e.target.value, signatureImage: '' }))}
+                      className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm font-mono text-foreground"
+                      placeholder="J.S."
+                      disabled={isSaving}
+                    />
+                  </>
+                )}
+                {attestation.signatureImage && (
+                  <div className="mt-2 p-2 bg-secondary/50 rounded-lg">
+                    <p className="text-[10px] text-muted-foreground mb-1">Captured Signature:</p>
+                    <img src={attestation.signatureImage} alt="Signature" className="max-h-12" />
+                  </div>
+                )}
               </div>
               <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
                 <p className="text-xs text-muted-foreground">
@@ -782,7 +904,7 @@ export const PatentEvidence = () => {
               <Button 
                 onClick={handleAttestation} 
                 className="w-full gap-2" 
-                disabled={!attestation.witnessName || !attestation.witnessTitle || !attestation.signature || isSaving}
+                disabled={!attestation.witnessName || !attestation.witnessTitle || (!attestation.signature && !attestation.signatureImage) || isSaving}
               >
                 {isSaving ? (
                   <>
@@ -1006,6 +1128,31 @@ export const PatentEvidence = () => {
                           </p>
                         </div>
                       )}
+
+                      {/* Screenshot Upload */}
+                      <div className="mt-3 pt-3 border-t border-border/30">
+                        <ClaimScreenshotUpload
+                          claimNumber={claim.number}
+                          documentHash={documentHash}
+                          existingScreenshots={claimScreenshots[claim.number]}
+                          onUploadComplete={() => {
+                            // Refresh screenshots for this claim
+                            supabase
+                              .from('patent_claim_screenshots')
+                              .select('id, file_path')
+                              .eq('document_hash', documentHash)
+                              .eq('claim_number', claim.number)
+                              .then(({ data }) => {
+                                if (data) {
+                                  setClaimScreenshots(prev => ({
+                                    ...prev,
+                                    [claim.number]: data
+                                  }));
+                                }
+                              });
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

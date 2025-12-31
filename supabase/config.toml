@@ -27,3 +27,7 @@ verify_jwt = true
 [functions.send-witness-confirmation]
 enabled = true
 verify_jwt = false
+
+[functions.check-attestation-rate-limit]
+enabled = true
+verify_jwt = false
