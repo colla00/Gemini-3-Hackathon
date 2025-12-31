@@ -28,6 +28,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m
 const Presentation = lazy(() => import("./pages/Presentation").then(m => ({ default: m.Presentation })));
 const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ default: m.RecordingDemo })));
 const PatentEvidence = lazy(() => import("./pages/PatentEvidence").then(m => ({ default: m.PatentEvidence })));
+const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
 const About = lazy(() => import("./pages/About"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
@@ -92,6 +93,13 @@ const App = () => (
                   <Suspense fallback={<PageSkeleton />}>
                     <PatentEvidence />
                   </Suspense>
+                } />
+                <Route path="/patent-attestations" element={
+                  <ProtectedRoute>
+                    <Suspense fallback={<AdminSkeleton />}>
+                      <PatentAttestationsAdmin />
+                    </Suspense>
+                  </ProtectedRoute>
                 } />
                 <Route path="/terms" element={
                   <Suspense fallback={<PageSkeleton />}>
