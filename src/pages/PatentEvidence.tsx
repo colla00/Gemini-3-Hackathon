@@ -415,15 +415,14 @@ export const PatentEvidence = () => {
         description: 'Your witness attestation has been permanently recorded.',
       });
 
-      // Send email notification to patent attorneys (fire and forget)
+      // Send email notification to patent attorney (fire and forget)
       supabase.functions.invoke('send-attestation-notification', {
         body: {
           witnessName: newAttestation.witnessName,
           witnessTitle: newAttestation.witnessTitle,
           organization: newAttestation.organization || null,
           claimsCount: PATENT_CLAIMS.length,
-          attestedAt: attestedAt,
-          recipientEmail: 'patent-team@example.com' // Configure as needed
+          attestedAt: attestedAt
         }
       }).then(({ error }) => {
         if (error) {
