@@ -4,13 +4,15 @@ import {
   Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
   RefreshCw, Activity, CheckCircle2, ExternalLink, FileText,
   Play, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
-  UserCheck, AlertCircle, Loader2, Database
+  UserCheck, AlertCircle, Loader2, Database, Download, Mail, Image
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { generatePatentEvidencePDF } from '@/lib/pdfExport';
+import { ClaimScreenshotUpload } from '@/components/patent/ClaimScreenshotUpload';
 
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
@@ -53,6 +55,7 @@ interface AttestationData {
   id?: string;
   witnessName: string;
   witnessTitle: string;
+  witnessEmail: string;
   organization: string;
   attestedAt: string | null;
   signature: string;
@@ -300,6 +303,7 @@ export const PatentEvidence = () => {
   const [attestation, setAttestation] = useState<AttestationData>({
     witnessName: '',
     witnessTitle: '',
+    witnessEmail: '',
     organization: '',
     attestedAt: null,
     signature: ''
@@ -335,6 +339,7 @@ export const PatentEvidence = () => {
             id: a.id,
             witnessName: a.witness_name,
             witnessTitle: a.witness_title,
+            witnessEmail: '', // Not stored in DB for existing records
             organization: a.organization || '',
             attestedAt: a.attested_at,
             signature: a.signature,
@@ -394,6 +399,7 @@ export const PatentEvidence = () => {
         id: data.id,
         witnessName: attestation.witnessName,
         witnessTitle: attestation.witnessTitle,
+        witnessEmail: attestation.witnessEmail,
         organization: attestation.organization,
         attestedAt: attestedAt,
         signature: attestation.signature,
@@ -404,6 +410,7 @@ export const PatentEvidence = () => {
       setAttestation({
         witnessName: '',
         witnessTitle: '',
+        witnessEmail: '',
         organization: '',
         attestedAt: null,
         signature: ''
@@ -424,13 +431,22 @@ export const PatentEvidence = () => {
           claimsCount: PATENT_CLAIMS.length,
           attestedAt: attestedAt
         }
-      }).then(({ error }) => {
-        if (error) {
-          console.error('Failed to send notification email:', error);
-        } else {
-          console.log('Attestation notification email sent');
-        }
       });
+
+      // Send confirmation email to witness if email provided
+      if (attestation.witnessEmail) {
+        supabase.functions.invoke('send-witness-confirmation', {
+          body: {
+            witnessName: newAttestation.witnessName,
+            witnessTitle: newAttestation.witnessTitle,
+            witnessEmail: attestation.witnessEmail,
+            organization: newAttestation.organization || null,
+            claimsCount: PATENT_CLAIMS.length,
+            attestedAt: attestedAt,
+            documentHash: documentHash
+          }
+        });
+      }
     } catch (err) {
       console.error('Failed to save attestation:', err);
       toast({
@@ -504,9 +520,20 @@ export const PatentEvidence = () => {
                 <span className="font-semibold text-foreground">Patent Evidence Documentation</span>
               </div>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30">
-              <FileText className="w-4 h-4 text-accent" />
-              <span className="text-sm text-accent font-medium">Confidential</span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => generatePatentEvidencePDF(PATENT_CLAIMS, attestations, documentHash, DOCUMENT_VERSION)}
+                className="gap-2"
+              >
+                <Download className="w-4 h-4" />
+                Export PDF
+              </Button>
+              <div className="px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-accent" />
+                <span className="text-sm text-accent font-medium">Confidential</span>
+              </div>
             </div>
           </div>
         </div>
@@ -708,6 +735,20 @@ export const PatentEvidence = () => {
                     disabled={isSaving}
                   />
                 </div>
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground mb-1 block flex items-center gap-1">
+                  <Mail className="w-3 h-3" />
+                  Your Email (for confirmation)
+                </label>
+                <input
+                  type="email"
+                  value={attestation.witnessEmail}
+                  onChange={(e) => setAttestation(prev => ({ ...prev, witnessEmail: e.target.value }))}
+                  className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
+                  placeholder="jane.smith@hospital.org"
+                  disabled={isSaving}
+                />
               </div>
               <div>
                 <label className="text-xs text-muted-foreground mb-1 block">Organization</label>
