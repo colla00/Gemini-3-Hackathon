@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   BarChart3, Play, Clock, ChevronRight, Brain, Activity, 
-  Users, GitBranch, Sparkles, GraduationCap, ShieldX, Award
+  Users, GitBranch, Sparkles, GraduationCap, ShieldX, Award,
+  FileText, ExternalLink
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -217,6 +218,30 @@ export const RecordingDemo = () => {
               </div>
             </div>
 
+            {/* Link to Patent Evidence */}
+            <div className="bg-card border border-border rounded-xl p-4 mb-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-accent/20 border border-accent/40 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm">Patent Evidence Documentation</h3>
+                    <p className="text-xs text-muted-foreground">View all 20 claims with implementation details</p>
+                  </div>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/patent-evidence?key=patent2025')}
+                  className="gap-2"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  View Claims
+                </Button>
+              </div>
+            </div>
+
             <Button 
               size="lg" 
               onClick={handleStart}
@@ -321,15 +346,18 @@ export const RecordingDemo = () => {
                 </div>
               </div>
 
-              {/* Patent Claims Badge */}
+              {/* Patent Claims Badge with link */}
               {currentSection.patentClaims && (
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30">
+                <button
+                  onClick={() => window.open('/patent-evidence?key=patent2025', '_blank')}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent/20 transition-colors"
+                >
                   <Award className="w-4 h-4 text-accent" />
                   <div>
                     <div className="text-xs font-semibold text-accent">{currentSection.patentClaims}</div>
                     <div className="text-[10px] text-accent/80">{currentSection.patentDescription}</div>
                   </div>
-                </div>
+                </button>
               )}
             </div>
 
