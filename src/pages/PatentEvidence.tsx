@@ -4,11 +4,13 @@ import {
   Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
   RefreshCw, Users, Activity, CheckCircle2, ExternalLink, FileText,
   Play, Camera, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
-  UserCheck, Building2, AlertCircle
+  UserCheck, Building2, AlertCircle, Loader2, Database
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
@@ -48,11 +50,13 @@ const VIDEO_SECTIONS: Record<string, { title: string; duration: string; claims: 
 };
 
 interface AttestationData {
+  id?: string;
   witnessName: string;
   witnessTitle: string;
   organization: string;
   attestedAt: string | null;
   signature: string;
+  persistedAt?: string;
 }
 
 const PATENT_CLAIMS: PatentClaim[] = [
@@ -286,9 +290,13 @@ const DEMO_SECTION_LABELS: Record<string, string> = {
 export const PatentEvidence = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [capturedAt, setCapturedAt] = useState<string | null>(null);
   const [showAttestationForm, setShowAttestationForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [attestations, setAttestations] = useState<AttestationData[]>([]);
   const [attestation, setAttestation] = useState<AttestationData>({
     witnessName: '',
     witnessTitle: '',
@@ -300,22 +308,122 @@ export const PatentEvidence = () => {
   const accessKey = searchParams.get('key');
   const isExpired = new Date() > EXPIRATION_DATE;
   const hasAccess = accessKey === ACCESS_KEY && !isExpired;
-  
-  const handleAttestation = () => {
-    if (attestation.witnessName && attestation.witnessTitle && attestation.signature) {
-      setAttestation(prev => ({
-        ...prev,
-        attestedAt: new Date().toISOString()
-      }));
-      setShowAttestationForm(false);
-    }
-  };
 
   // Calculate document hash for integrity verification
   const documentHash = useMemo(() => {
     const content = PATENT_CLAIMS.map(c => `${c.number}:${c.title}:${c.description}`).join('|');
     return generateDocumentHash(content + DOCUMENT_VERSION);
   }, []);
+
+  // Load existing attestations from database
+  useEffect(() => {
+    const loadAttestations = async () => {
+      if (!hasAccess) return;
+      
+      setIsLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('patent_attestations')
+          .select('*')
+          .eq('document_hash', documentHash)
+          .order('attested_at', { ascending: false });
+
+        if (error) {
+          console.error('Error loading attestations:', error);
+        } else if (data && data.length > 0) {
+          setAttestations(data.map(a => ({
+            id: a.id,
+            witnessName: a.witness_name,
+            witnessTitle: a.witness_title,
+            organization: a.organization || '',
+            attestedAt: a.attested_at,
+            signature: a.signature,
+            persistedAt: a.created_at
+          })));
+        }
+      } catch (err) {
+        console.error('Failed to load attestations:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadAttestations();
+  }, [hasAccess, documentHash]);
+  
+  const handleAttestation = async () => {
+    if (!attestation.witnessName || !attestation.witnessTitle || !attestation.signature) {
+      return;
+    }
+
+    setIsSaving(true);
+    const attestedAt = new Date().toISOString();
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      const { data, error } = await supabase
+        .from('patent_attestations')
+        .insert({
+          document_hash: documentHash,
+          document_version: DOCUMENT_VERSION,
+          witness_name: attestation.witnessName,
+          witness_title: attestation.witnessTitle,
+          organization: attestation.organization || null,
+          signature: attestation.signature,
+          attested_at: attestedAt,
+          claims_count: PATENT_CLAIMS.length,
+          user_agent: navigator.userAgent,
+          created_by: user?.id || null
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error saving attestation:', error);
+        toast({
+          title: 'Attestation Error',
+          description: 'You must be logged in to submit an attestation.',
+          variant: 'destructive'
+        });
+        return;
+      }
+
+      const newAttestation: AttestationData = {
+        id: data.id,
+        witnessName: attestation.witnessName,
+        witnessTitle: attestation.witnessTitle,
+        organization: attestation.organization,
+        attestedAt: attestedAt,
+        signature: attestation.signature,
+        persistedAt: data.created_at
+      };
+
+      setAttestations(prev => [newAttestation, ...prev]);
+      setAttestation({
+        witnessName: '',
+        witnessTitle: '',
+        organization: '',
+        attestedAt: null,
+        signature: ''
+      });
+      setShowAttestationForm(false);
+
+      toast({
+        title: 'Attestation Recorded',
+        description: 'Your witness attestation has been permanently recorded.',
+      });
+    } catch (err) {
+      console.error('Failed to save attestation:', err);
+      toast({
+        title: 'Error',
+        description: 'Failed to save attestation. Please try again.',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   // Record capture timestamp on page load
   useEffect(() => {
@@ -491,52 +599,74 @@ export const PatentEvidence = () => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <UserCheck className="w-4 h-4 text-purple-500" />
-              <h3 className="text-sm font-semibold text-foreground">Witness Attestation</h3>
+              <h3 className="text-sm font-semibold text-foreground">Witness Attestations</h3>
+              {attestations.length > 0 && (
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-purple-500/20 text-purple-500">
+                  {attestations.length} recorded
+                </span>
+              )}
+              {isLoading && <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />}
             </div>
-            {!attestation.attestedAt && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowAttestationForm(!showAttestationForm)}
-                className="gap-2"
-              >
-                <PenLine className="w-3 h-3" />
-                {showAttestationForm ? 'Cancel' : 'Add Attestation'}
-              </Button>
-            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowAttestationForm(!showAttestationForm)}
+              className="gap-2"
+            >
+              <PenLine className="w-3 h-3" />
+              {showAttestationForm ? 'Cancel' : 'Add Attestation'}
+            </Button>
           </div>
 
-          {attestation.attestedAt ? (
-            <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground mb-1">
-                    Attested by {attestation.witnessName}
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    {attestation.witnessTitle}{attestation.organization && ` • ${attestation.organization}`}
-                  </p>
-                  <div className="flex items-center gap-4 text-xs">
-                    <span className="text-muted-foreground">
-                      Signed: {new Date(attestation.attestedAt).toLocaleString()}
-                    </span>
-                    <span className="font-mono text-purple-500">
-                      Signature: {attestation.signature}
-                    </span>
+          {/* Existing Attestations */}
+          {attestations.length > 0 && (
+            <div className="space-y-3 mb-4">
+              {attestations.map((att, idx) => (
+                <div key={att.id || idx} className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-5 h-5 text-purple-500" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="text-sm font-medium text-foreground mb-1">
+                            Attested by {att.witnessName}
+                          </p>
+                          <p className="text-xs text-muted-foreground mb-2">
+                            {att.witnessTitle}{att.organization && ` • ${att.organization}`}
+                          </p>
+                        </div>
+                        {att.persistedAt && (
+                          <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-medium bg-risk-low/20 text-risk-low flex items-center gap-1">
+                            <Database className="w-3 h-3" />
+                            Persisted
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                        <span className="text-muted-foreground">
+                          Signed: {att.attestedAt ? new Date(att.attestedAt).toLocaleString() : 'Unknown'}
+                        </span>
+                        <span className="font-mono text-purple-500">
+                          Signature: {att.signature}
+                        </span>
+                      </div>
+                      <p className="mt-3 text-xs text-muted-foreground italic border-t border-border/50 pt-3">
+                        "I hereby attest that I have reviewed the above patent claims and their corresponding 
+                        implementations in the Clinical Risk Intelligence System software. The implementations 
+                        described accurately reflect the working functionality of the system as of the date of this attestation."
+                      </p>
+                    </div>
                   </div>
-                  <p className="mt-3 text-xs text-muted-foreground italic border-t border-border/50 pt-3">
-                    "I hereby attest that I have reviewed the above patent claims and their corresponding 
-                    implementations in the Clinical Risk Intelligence System software. The implementations 
-                    described accurately reflect the working functionality of the system as of the date of this attestation."
-                  </p>
                 </div>
-              </div>
+              ))}
             </div>
-          ) : showAttestationForm ? (
-            <div className="space-y-3">
+          )}
+
+          {/* Attestation Form */}
+          {showAttestationForm ? (
+            <div className="space-y-3 p-4 rounded-lg bg-secondary/30 border border-border/50">
               <div className="grid md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs text-muted-foreground mb-1 block">Full Name *</label>
@@ -546,6 +676,7 @@ export const PatentEvidence = () => {
                     onChange={(e) => setAttestation(prev => ({ ...prev, witnessName: e.target.value }))}
                     className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
                     placeholder="Dr. Jane Smith"
+                    disabled={isSaving}
                   />
                 </div>
                 <div>
@@ -556,6 +687,7 @@ export const PatentEvidence = () => {
                     onChange={(e) => setAttestation(prev => ({ ...prev, witnessTitle: e.target.value }))}
                     className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
                     placeholder="Chief Technology Officer"
+                    disabled={isSaving}
                   />
                 </div>
               </div>
@@ -567,6 +699,7 @@ export const PatentEvidence = () => {
                   onChange={(e) => setAttestation(prev => ({ ...prev, organization: e.target.value }))}
                   className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
                   placeholder="University Medical Center"
+                  disabled={isSaving}
                 />
               </div>
               <div>
@@ -577,23 +710,38 @@ export const PatentEvidence = () => {
                   onChange={(e) => setAttestation(prev => ({ ...prev, signature: e.target.value }))}
                   className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm font-mono text-foreground"
                   placeholder="J.S."
+                  disabled={isSaving}
                 />
               </div>
               <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
                 <p className="text-xs text-muted-foreground">
                   <AlertCircle className="w-3 h-3 inline mr-1" />
-                  By signing, you attest that you have reviewed all 20 patent claims and their working implementations 
-                  in the Clinical Risk Intelligence System software.
+                  By signing, you attest that you have reviewed all {PATENT_CLAIMS.length} patent claims and their working implementations. 
+                  Your attestation will be permanently recorded with a timestamp.
                 </p>
               </div>
-              <Button onClick={handleAttestation} className="w-full gap-2" disabled={!attestation.witnessName || !attestation.witnessTitle || !attestation.signature}>
-                <PenLine className="w-4 h-4" />
-                Sign Attestation
+              <Button 
+                onClick={handleAttestation} 
+                className="w-full gap-2" 
+                disabled={!attestation.witnessName || !attestation.witnessTitle || !attestation.signature || isSaving}
+              >
+                {isSaving ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Saving Attestation...
+                  </>
+                ) : (
+                  <>
+                    <Database className="w-4 h-4" />
+                    Sign & Record Attestation
+                  </>
+                )}
               </Button>
             </div>
-          ) : (
+          ) : attestations.length === 0 && (
             <p className="text-xs text-muted-foreground">
-              Add a witness attestation to formally verify that all patent claims have working implementations.
+              Add a witness attestation to formally verify that all patent claims have working implementations. 
+              Attestations are permanently recorded in the database with timestamps.
             </p>
           )}
         </div>
