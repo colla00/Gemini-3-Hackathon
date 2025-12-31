@@ -272,6 +272,45 @@ export type Database = {
         }
         Relationships: []
       }
+      patent_claim_screenshots: {
+        Row: {
+          caption: string | null
+          claim_number: number
+          created_at: string
+          document_hash: string
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          uploaded_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          caption?: string | null
+          claim_number: number
+          created_at?: string
+          document_hash: string
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          caption?: string | null
+          claim_number?: number
+          created_at?: string
+          document_hash?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       poll_responses: {
         Row: {
           created_at: string
