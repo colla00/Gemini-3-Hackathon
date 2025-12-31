@@ -224,6 +224,54 @@ export type Database = {
         }
         Relationships: []
       }
+      patent_attestations: {
+        Row: {
+          attested_at: string
+          claims_count: number
+          created_at: string
+          created_by: string | null
+          document_hash: string
+          document_version: string
+          id: string
+          ip_address: string | null
+          organization: string | null
+          signature: string
+          user_agent: string | null
+          witness_name: string
+          witness_title: string
+        }
+        Insert: {
+          attested_at?: string
+          claims_count?: number
+          created_at?: string
+          created_by?: string | null
+          document_hash: string
+          document_version: string
+          id?: string
+          ip_address?: string | null
+          organization?: string | null
+          signature: string
+          user_agent?: string | null
+          witness_name: string
+          witness_title: string
+        }
+        Update: {
+          attested_at?: string
+          claims_count?: number
+          created_at?: string
+          created_by?: string | null
+          document_hash?: string
+          document_version?: string
+          id?: string
+          ip_address?: string | null
+          organization?: string | null
+          signature?: string
+          user_agent?: string | null
+          witness_name?: string
+          witness_title?: string
+        }
+        Relationships: []
+      }
       poll_responses: {
         Row: {
           created_at: string
