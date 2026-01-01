@@ -15,6 +15,10 @@ import { generatePatentEvidencePDF } from '@/lib/pdfExport';
 import { ClaimScreenshotUpload } from '@/components/patent/ClaimScreenshotUpload';
 import { SignatureCanvas } from '@/components/patent/SignatureCanvas';
 import { QRCodeVerification } from '@/components/patent/QRCodeVerification';
+import { EvidenceTimeline } from '@/components/patent/EvidenceTimeline';
+import { MultiWitnessPanel } from '@/components/patent/MultiWitnessPanel';
+import { PrintLegalView } from '@/components/patent/PrintLegalView';
+import { AttestationAnalytics } from '@/components/patent/AttestationAnalytics';
 import { useAuditLog } from '@/hooks/useAuditLog';
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
@@ -598,6 +602,12 @@ export const PatentEvidence = () => {
                 <Download className="w-4 h-4" />
                 Export PDF
               </Button>
+              <PrintLegalView 
+                claims={PATENT_CLAIMS}
+                attestations={attestations}
+                documentHash={documentHash}
+                documentVersion={DOCUMENT_VERSION}
+              />
               <div className="px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-accent" />
                 <span className="text-sm text-accent font-medium">Confidential</span>
@@ -925,6 +935,28 @@ export const PatentEvidence = () => {
               Attestations are permanently recorded in the database with timestamps.
             </p>
           )}
+        </div>
+
+        {/* Multi-Witness, Timeline & Analytics Section */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-card rounded-xl border border-border p-4">
+            <MultiWitnessPanel 
+              documentHash={documentHash} 
+              onStartAttestation={() => setShowAttestationForm(true)} 
+            />
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-4 h-4 text-blue-500" />
+              <h3 className="text-sm font-semibold text-foreground">Activity Timeline</h3>
+            </div>
+            <EvidenceTimeline documentHash={documentHash} />
+          </div>
+        </div>
+
+        {/* Analytics Section */}
+        <div className="bg-card rounded-xl border border-border p-4 mb-6">
+          <AttestationAnalytics documentHash={documentHash} />
         </div>
 
         {/* Video Recording Sections */}
