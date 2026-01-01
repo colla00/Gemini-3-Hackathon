@@ -53,6 +53,39 @@ export type Database = {
           },
         ]
       }
+      attestation_groups: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          document_hash: string
+          document_version: string
+          id: string
+          required_witnesses: number
+          status: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_hash: string
+          document_version: string
+          id?: string
+          required_witnesses?: number
+          status?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_hash?: string
+          document_version?: string
+          id?: string
+          required_witnesses?: number
+          status?: string
+        }
+        Relationships: []
+      }
       audience_questions: {
         Row: {
           answer: string | null
@@ -224,8 +257,42 @@ export type Database = {
         }
         Relationships: []
       }
+      patent_activities: {
+        Row: {
+          activity_type: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          document_hash: string
+          id: string
+          metadata: Json | null
+          title: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          document_hash: string
+          id?: string
+          metadata?: Json | null
+          title: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          document_hash?: string
+          id?: string
+          metadata?: Json | null
+          title?: string
+        }
+        Relationships: []
+      }
       patent_attestations: {
         Row: {
+          attestation_group_id: string | null
           attested_at: string
           claims_count: number
           created_at: string
@@ -241,6 +308,7 @@ export type Database = {
           witness_title: string
         }
         Insert: {
+          attestation_group_id?: string | null
           attested_at?: string
           claims_count?: number
           created_at?: string
@@ -256,6 +324,7 @@ export type Database = {
           witness_title: string
         }
         Update: {
+          attestation_group_id?: string | null
           attested_at?: string
           claims_count?: number
           created_at?: string
@@ -270,7 +339,15 @@ export type Database = {
           witness_name?: string
           witness_title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "patent_attestations_attestation_group_id_fkey"
+            columns: ["attestation_group_id"]
+            isOneToOne: false
+            referencedRelation: "attestation_groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       patent_claim_screenshots: {
         Row: {
