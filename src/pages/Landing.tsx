@@ -468,6 +468,13 @@ export const Landing = () => {
               Terms of Use
             </Link>
             <span className="text-border">|</span>
+            <Link 
+              to="/privacy" 
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-border">|</span>
             <a 
               href="mailto:alexis.collier@ung.edu" 
               className="text-muted-foreground hover:text-primary transition-colors"
