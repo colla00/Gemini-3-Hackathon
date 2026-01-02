@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-import { Monitor, Wifi, ZoomOut, ZoomIn, Maximize } from 'lucide-react';
+import { useState, useEffect, createContext, useContext, useCallback } from 'react';
+import { Monitor, Wifi, ZoomOut, ZoomIn, Maximize, Minimize } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
@@ -172,6 +172,55 @@ export const ZoomScaleControl = () => {
           <TooltipContent side="bottom">Fit to screen (70%)</TooltipContent>
         </Tooltip>
       </div>
+    </TooltipProvider>
+  );
+};
+
+export const FullscreenToggle = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Fullscreen error:', err);
+    }
+  }, []);
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleFullscreen}
+            className="h-7 w-7 p-0 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/20"
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4" />
+            ) : (
+              <Maximize className="w-4 h-4" />
+            )}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          {isFullscreen ? 'Exit fullscreen (Esc)' : 'Enter fullscreen (F11)'}
+        </TooltipContent>
+      </Tooltip>
     </TooltipProvider>
   );
 };
