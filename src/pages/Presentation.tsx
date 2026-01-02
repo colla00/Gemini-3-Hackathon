@@ -33,7 +33,7 @@ import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
-import { ZoomModeProvider, ZoomModeToggle, useZoomMode } from '@/components/quality/ZoomModeToggle';
+import { ZoomModeProvider, ZoomModeToggle, ZoomScaleControl, ZoomableContent, useZoomMode } from '@/components/quality/ZoomModeToggle';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
@@ -438,6 +438,8 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
               <div className="[&_button]:text-primary-foreground [&_button]:hover:bg-primary-foreground/20">
                 <ThemeToggle />
               </div>
+              {/* Zoom Scale Control */}
+              <ZoomScaleControl />
               {/* Zoom Mode toggle */}
               <ZoomModeToggle />
               <Link 
@@ -588,16 +590,18 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto pb-24 print:pb-0">
-        {isDashboardSlide ? (
-          <div className="p-4 max-w-7xl mx-auto animate-fade-in">
-            {renderDashboardContent()}
-          </div>
-        ) : (
-          <PresentationSlideView
-            slide={currentSlideConfig!}
-            isActive={true}
-          />
-        )}
+        <ZoomableContent>
+          {isDashboardSlide ? (
+            <div className="p-4 max-w-7xl mx-auto animate-fade-in">
+              {renderDashboardContent()}
+            </div>
+          ) : (
+            <PresentationSlideView
+              slide={currentSlideConfig!}
+              isActive={true}
+            />
+          )}
+        </ZoomableContent>
       </main>
 
       {/* Slide Navigation Controls */}
