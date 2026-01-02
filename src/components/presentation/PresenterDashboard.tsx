@@ -41,6 +41,7 @@ import { toast } from 'sonner';
 
 // Map slides to content components
 const slideToView: Record<string, string | null> = {
+  'disclaimer': null,
   'title': null,
   'agenda': null,
   'video-demo': 'video-demo',
@@ -67,7 +68,7 @@ interface PresenterDashboardProps {
 
 export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const { isAdmin, loading } = useAuth();
-  const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
+  const [currentSlide, setCurrentSlide] = useState<SlideType>('disclaimer');
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [slideElapsed, setSlideElapsed] = useState(0);

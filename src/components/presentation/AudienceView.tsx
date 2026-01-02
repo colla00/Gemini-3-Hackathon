@@ -24,6 +24,7 @@ import { usePresenterSync } from '@/hooks/usePresenterSync';
 
 // Map slide types to view types - must match all slides
 const slideToView: Record<string, string | null> = {
+  'disclaimer': null,
   'title': null,
   'agenda': null,
   'video-demo': 'video-demo',
