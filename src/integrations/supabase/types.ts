@@ -818,6 +818,10 @@ export type Database = {
         }
         Returns: Json
       }
+      check_witness_email: {
+        Args: { _witness_email: string }
+        Returns: boolean
+      }
       cleanup_rate_limit_violations: {
         Args: { p_older_than_days?: number }
         Returns: number
