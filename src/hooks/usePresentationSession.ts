@@ -16,20 +16,33 @@ export const usePresentationSession = () => {
   const createSession = useCallback(async (presenterName?: string) => {
     setIsLoading(true);
     
-    // Get current user for creator_id
+    // Get current user for creator_id (required for RLS - must be admin)
     const { data: { user } } = await supabase.auth.getUser();
     
+    if (!user) {
+      console.error('User must be authenticated to create a session');
+      setIsLoading(false);
+      return null;
+    }
+
     const { data, error } = await supabase
       .from('presentation_sessions')
       .insert({
         presenter_name: presenterName,
         is_live: true,
-        creator_id: user?.id || null,
+        creator_id: user.id,
       })
       .select()
       .single();
 
-    if (!error && data) {
+    if (error) {
+      // RLS will reject non-admin users
+      console.error('Failed to create session (admin role required):', error.message);
+      setIsLoading(false);
+      return null;
+    }
+
+    if (data) {
       setSession(data);
       // Store session ID in localStorage for viewers
       localStorage.setItem('presentation_session_id', data.id);
