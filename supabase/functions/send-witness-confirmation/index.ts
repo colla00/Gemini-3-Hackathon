@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
@@ -16,6 +17,8 @@ interface WitnessConfirmationRequest {
   claimsCount: number;
   attestedAt: string;
   documentHash: string;
+  attestationId?: string;
+  confirmationToken?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -32,10 +35,34 @@ const handler = async (req: Request): Promise<Response> => {
       organization, 
       claimsCount, 
       attestedAt,
-      documentHash
+      documentHash,
+      attestationId,
+      confirmationToken
     }: WitnessConfirmationRequest = await req.json();
 
     console.log("Sending witness confirmation to:", witnessEmail);
+
+    // Update attestation with email and confirmation token if provided
+    if (attestationId && confirmationToken) {
+      const supabase = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+      );
+
+      await supabase
+        .from('patent_attestations')
+        .update({
+          witness_email: witnessEmail,
+          confirmation_token: confirmationToken,
+          confirmation_sent_at: new Date().toISOString()
+        })
+        .eq('id', attestationId);
+    }
+
+    // Generate confirmation link
+    const confirmLink = confirmationToken 
+      ? `${Deno.env.get("SUPABASE_URL")?.replace('.supabase.co', '.lovable.app')}/patent-evidence?key=patent2025&confirm=${confirmationToken}`
+      : null;
 
     const formattedDate = new Date(attestedAt).toLocaleString('en-US', {
       weekday: 'long',
@@ -61,7 +88,9 @@ const handler = async (req: Request): Promise<Response> => {
           .detail-label { font-weight: 600; color: #64748b; width: 140px; }
           .detail-value { color: #1e293b; }
           .badge { display: inline-block; background: #22c55e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+          .badge-pending { background: #f59e0b; }
           .hash-box { background: #1e293b; color: #10b981; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; word-break: break-all; }
+          .button { display: inline-block; background: #059669; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 20px 0; }
         </style>
       </head>
       <body>
@@ -71,11 +100,22 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="margin: 10px 0 0; opacity: 0.9;">Your witness attestation has been recorded</p>
           </div>
           <div class="content">
-            <p><span class="badge">Confirmed</span></p>
+            <p><span class="badge${confirmLink ? ' badge-pending' : ''}">
+              ${confirmLink ? 'Email Verification Required' : 'Confirmed'}
+            </span></p>
             
             <p style="margin-top: 16px;">Dear ${witnessName},</p>
             
-            <p>Thank you for providing your witness attestation for the Clinical Risk Intelligence System patent documentation. Your attestation has been permanently recorded and cryptographically signed.</p>
+            <p>Thank you for providing your witness attestation for the Clinical Risk Intelligence System patent documentation. Your attestation has been ${confirmLink ? 'recorded and requires email verification' : 'permanently recorded and cryptographically signed'}.</p>
+            
+            ${confirmLink ? `
+            <p style="text-align: center;">
+              <a href="${confirmLink}" class="button">Verify Email Address</a>
+            </p>
+            <p style="font-size: 13px; color: #64748b; text-align: center;">
+              Click the button above to verify your email and complete the attestation.
+            </p>
+            ` : ''}
             
             <div style="margin-top: 20px;">
               <div class="detail-row">

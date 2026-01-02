@@ -35,3 +35,7 @@ verify_jwt = false
 [functions.send-attorney-notification]
 enabled = true
 verify_jwt = true
+
+[functions.send-witness-invitation]
+enabled = true
+verify_jwt = false

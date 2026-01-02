@@ -19,6 +19,8 @@ import { EvidenceTimeline } from '@/components/patent/EvidenceTimeline';
 import { MultiWitnessPanel } from '@/components/patent/MultiWitnessPanel';
 import { PrintLegalView } from '@/components/patent/PrintLegalView';
 import { AttestationAnalytics } from '@/components/patent/AttestationAnalytics';
+import { WitnessInvitationPanel } from '@/components/patent/WitnessInvitationPanel';
+import { FullPDFExport } from '@/components/patent/FullPDFExport';
 import { useAuditLog } from '@/hooks/useAuditLog';
 const ACCESS_KEY = 'patent2025';
 const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
@@ -937,7 +939,7 @@ export const PatentEvidence = () => {
           )}
         </div>
 
-        {/* Multi-Witness, Timeline & Analytics Section */}
+        {/* Multi-Witness, Timeline, Invitations & Analytics Section */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="bg-card rounded-xl border border-border p-4">
             <MultiWitnessPanel 
@@ -946,11 +948,28 @@ export const PatentEvidence = () => {
             />
           </div>
           <div className="bg-card rounded-xl border border-border p-4">
+            <WitnessInvitationPanel 
+              documentHash={documentHash}
+              documentVersion={DOCUMENT_VERSION}
+            />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-card rounded-xl border border-border p-4">
             <div className="flex items-center gap-2 mb-3">
               <Clock className="w-4 h-4 text-blue-500" />
               <h3 className="text-sm font-semibold text-foreground">Activity Timeline</h3>
             </div>
             <EvidenceTimeline documentHash={documentHash} />
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <FullPDFExport
+              claims={PATENT_CLAIMS}
+              attestations={attestations}
+              documentHash={documentHash}
+              documentVersion={DOCUMENT_VERSION}
+            />
           </div>
         </div>
 

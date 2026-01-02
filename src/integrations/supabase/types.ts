@@ -295,15 +295,20 @@ export type Database = {
           attestation_group_id: string | null
           attested_at: string
           claims_count: number
+          confirmation_sent_at: string | null
+          confirmation_token: string | null
+          confirmed_at: string | null
           created_at: string
           created_by: string | null
           document_hash: string
           document_version: string
+          email_confirmed: boolean | null
           id: string
           ip_address: string | null
           organization: string | null
           signature: string
           user_agent: string | null
+          witness_email: string | null
           witness_name: string
           witness_title: string
         }
@@ -311,15 +316,20 @@ export type Database = {
           attestation_group_id?: string | null
           attested_at?: string
           claims_count?: number
+          confirmation_sent_at?: string | null
+          confirmation_token?: string | null
+          confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           document_hash: string
           document_version: string
+          email_confirmed?: boolean | null
           id?: string
           ip_address?: string | null
           organization?: string | null
           signature: string
           user_agent?: string | null
+          witness_email?: string | null
           witness_name: string
           witness_title: string
         }
@@ -327,15 +337,20 @@ export type Database = {
           attestation_group_id?: string | null
           attested_at?: string
           claims_count?: number
+          confirmation_sent_at?: string | null
+          confirmation_token?: string | null
+          confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           document_hash?: string
           document_version?: string
+          email_confirmed?: boolean | null
           id?: string
           ip_address?: string | null
           organization?: string | null
           signature?: string
           user_agent?: string | null
+          witness_email?: string | null
           witness_name?: string
           witness_title?: string
         }
@@ -701,6 +716,62 @@ export type Database = {
           status?: string
         }
         Relationships: []
+      }
+      witness_invitations: {
+        Row: {
+          attestation_id: string | null
+          completed_at: string | null
+          created_at: string
+          document_hash: string
+          document_version: string
+          expires_at: string
+          id: string
+          invitation_token: string
+          invited_at: string
+          invited_by: string | null
+          status: string
+          witness_email: string
+          witness_name: string | null
+        }
+        Insert: {
+          attestation_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          document_hash: string
+          document_version: string
+          expires_at?: string
+          id?: string
+          invitation_token?: string
+          invited_at?: string
+          invited_by?: string | null
+          status?: string
+          witness_email: string
+          witness_name?: string | null
+        }
+        Update: {
+          attestation_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          document_hash?: string
+          document_version?: string
+          expires_at?: string
+          id?: string
+          invitation_token?: string
+          invited_at?: string
+          invited_by?: string | null
+          status?: string
+          witness_email?: string
+          witness_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "witness_invitations_attestation_id_fkey"
+            columns: ["attestation_id"]
+            isOneToOne: false
+            referencedRelation: "patent_attestations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
