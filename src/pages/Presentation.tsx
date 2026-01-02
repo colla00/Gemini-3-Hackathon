@@ -33,7 +33,7 @@ import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
-import { ZoomModeProvider, ZoomModeToggle, ZoomScaleControl, ZoomableContent, useZoomMode } from '@/components/quality/ZoomModeToggle';
+import { ZoomModeProvider, ZoomModeToggle, ZoomScaleControl, ZoomableContent, FullscreenToggle, useZoomMode } from '@/components/quality/ZoomModeToggle';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
@@ -440,6 +440,8 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
               </div>
               {/* Zoom Scale Control */}
               <ZoomScaleControl />
+              {/* Fullscreen toggle */}
+              <FullscreenToggle />
               {/* Zoom Mode toggle */}
               <ZoomModeToggle />
               <Link 
