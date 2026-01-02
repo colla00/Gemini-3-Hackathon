@@ -166,7 +166,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Patent System <onboarding@resend.dev>",
+        from: "Patent System <info@alexiscollier.com>",
         to: [witnessEmail],
         subject: `Attestation Confirmation - Patent Evidence Documentation`,
         html: emailHtml,
