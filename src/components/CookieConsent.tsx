@@ -20,21 +20,33 @@ const defaultPreferences: CookiePreferences = {
 };
 
 export const CookieConsent = () => {
+  const [isClient, setIsClient] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
 
+  // Ensure we only run on client
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+    
     const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!consent) {
       setShowBanner(true);
     } else {
       const storedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY);
       if (storedPrefs) {
-        setPreferences(JSON.parse(storedPrefs));
+        try {
+          setPreferences(JSON.parse(storedPrefs));
+        } catch (e) {
+          console.error('Failed to parse cookie preferences:', e);
+        }
       }
     }
-  }, []);
+  }, [isClient]);
 
   const handleAcceptAll = () => {
     const allAccepted: CookiePreferences = {
