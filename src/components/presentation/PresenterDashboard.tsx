@@ -192,11 +192,17 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
     setAudienceWindowOpen(false);
   }, [closeAudienceWindow]);
 
-  // Create session on mount
+  // Create session on mount (requires admin role via RLS)
   useEffect(() => {
-    if (!session) {
-      createSession('Presenter');
-    }
+    const initSession = async () => {
+      if (!session) {
+        const newSession = await createSession('Presenter');
+        if (!newSession) {
+          toast.error('Failed to create session. Admin role required.');
+        }
+      }
+    };
+    initSession();
   }, [session, createSession]);
 
   // Check audience window status periodically
