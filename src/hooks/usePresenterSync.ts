@@ -26,7 +26,7 @@ const getInitialState = (isPresenter: boolean): SyncState => {
     }
   }
   return {
-    currentSlide: 'title',
+    currentSlide: 'disclaimer',
     isLive: true,
     elapsedMinutes: 0,
     timestamp: Date.now(),

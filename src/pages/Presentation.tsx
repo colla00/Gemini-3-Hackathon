@@ -59,6 +59,7 @@ import { Button } from '@/components/ui/button';
 
 // Map slide types to view types for dashboard content
 const slideToView: Record<string, ViewType | null> = {
+  'disclaimer': null,
   'title': null,
   'agenda': null,
   'video-demo': 'video-demo',
@@ -158,7 +159,7 @@ const DemoModeWatermark = () => (
 
 // Separated default view to avoid hooks being called conditionally
 const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchParams: URLSearchParams; isDemoMode?: boolean }) => {
-  const [currentSlide, setCurrentSlide] = useState<SlideType>('title');
+  const [currentSlide, setCurrentSlide] = useState<SlideType>('disclaimer');
   const [completedSlides, setCompletedSlides] = useState<SlideType[]>([]);
   const [elapsedMinutes, setElapsedMinutes] = useState(0);
   const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null);
