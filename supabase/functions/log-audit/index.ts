@@ -70,6 +70,31 @@ Deno.serve(async (req) => {
 
     console.log(`[log-audit] User: ${user.email} (${user.id})`);
 
+    // Check if user has admin or staff role before allowing audit log insertion
+    const { data: roles, error: roleError } = await supabaseAuth
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id);
+
+    if (roleError) {
+      console.error('[log-audit] Role check error:', roleError);
+      return new Response(
+        JSON.stringify({ error: 'Failed to verify permissions' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const hasPermission = roles?.some(r => ['admin', 'staff'].includes(r.role));
+    if (!hasPermission) {
+      console.error('[log-audit] Unauthorized - user lacks admin or staff role:', user.email);
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - admin or staff role required' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`[log-audit] User authorized with roles:`, roles?.map(r => r.role));
+
     // Parse request body
     const body: AuditLogRequest = await req.json();
     
