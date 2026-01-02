@@ -357,6 +357,13 @@ export const TermsOfUse = () => {
               </div>
             </section>
 
+            {/* Links */}
+            <div className="flex gap-4 text-sm">
+              <Link to="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </Link>
+            </div>
+
           </div>
         </main>
       </div>

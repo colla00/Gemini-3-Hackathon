@@ -208,10 +208,6 @@ export const useSessionTracking = () => {
         events: [...session.events, endEvent]
       };
       
-      // Use sendBeacon for reliable logging on page unload
-      const blob = new Blob([JSON.stringify(updated)], { type: 'application/json' });
-      navigator.sendBeacon?.('data:application/json', blob);
-      
       // Also try localStorage as backup
       saveSession(updated);
     };

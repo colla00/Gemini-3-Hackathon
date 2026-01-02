@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { WatermarkOverlay } from "@/components/WatermarkOverlay";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { CookieConsent } from "@/components/CookieConsent";
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
@@ -33,6 +34,7 @@ const About = lazy(() => import("./pages/About"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
 
 const queryClient = new QueryClient();
 
@@ -47,6 +49,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <WatermarkOverlay />
+            <CookieConsent />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Landing />} />
@@ -104,6 +107,11 @@ const App = () => (
                 <Route path="/terms" element={
                   <Suspense fallback={<PageSkeleton />}>
                     <TermsOfUse />
+                  </Suspense>
+                } />
+                <Route path="/privacy" element={
+                  <Suspense fallback={<PageSkeleton />}>
+                    <PrivacyPolicy />
                   </Suspense>
                 } />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
