@@ -33,6 +33,42 @@ export const ZoomModeProvider = ({ children }: { children: React.ReactNode }) =>
     }
   }, [isZoomMode]);
 
+  // Keyboard shortcuts for zoom controls
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle if Ctrl/Cmd is pressed
+      if (!e.ctrlKey && !e.metaKey) return;
+
+      switch (e.key) {
+        case '-':
+        case '_':
+          e.preventDefault();
+          setZoomLevel(prev => {
+            const currentIndex = ZOOM_LEVELS.indexOf(prev);
+            if (currentIndex > 0) return ZOOM_LEVELS[currentIndex - 1];
+            return prev;
+          });
+          break;
+        case '=':
+        case '+':
+          e.preventDefault();
+          setZoomLevel(prev => {
+            const currentIndex = ZOOM_LEVELS.indexOf(prev);
+            if (currentIndex < ZOOM_LEVELS.length - 1) return ZOOM_LEVELS[currentIndex + 1];
+            return prev;
+          });
+          break;
+        case '0':
+          e.preventDefault();
+          setZoomLevel(100);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const toggleZoomMode = () => setIsZoomMode(prev => !prev);
 
   return (
