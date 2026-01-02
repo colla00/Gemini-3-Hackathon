@@ -24,12 +24,13 @@
     --secondary-foreground: 215 25% 17%;
 
     --muted: 210 20% 94%;
-    --muted-foreground: 215 16% 40%;
+    /* Darkened from 40% to 35% for WCAG AA compliance (4.5:1 ratio) */
+    --muted-foreground: 215 20% 35%;
 
-    --accent: 199 80% 38%;
+    --accent: 199 80% 32%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 45%;
+    --destructive: 0 72% 42%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 215 20% 82%;
@@ -38,22 +39,22 @@
 
     --radius: 0.625rem;
 
-    /* Risk level colors - adjusted for light backgrounds (WCAG AA) */
-    --risk-high: 0 72% 45%;
-    --risk-medium: 30 85% 38%;
-    --risk-low: 152 55% 30%;
+    /* Risk level colors - WCAG AA compliant for light backgrounds */
+    --risk-high: 0 72% 42%;
+    --risk-medium: 30 85% 35%;
+    --risk-low: 152 60% 28%;
 
     /* SHAP chart colors - darker for light mode */
-    --shap-positive: 0 70% 50%;
-    --shap-negative: 152 55% 35%;
+    --shap-positive: 0 70% 45%;
+    --shap-negative: 152 55% 32%;
 
-    /* Warning color - darkened for light backgrounds */
-    --warning: 40 85% 38%;
+    /* Warning color - darkened for WCAG AA on light backgrounds */
+    --warning: 35 80% 32%;
 
     /* Custom gradients */
     --gradient-healthcare: linear-gradient(180deg, hsl(210 30% 98%) 0%, hsl(210 30% 95%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(174 65% 32%) 0%, hsl(199 80% 38%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(174 65% 32%) 0%, hsl(199 80% 32%) 100%);
 
     /* Shadows - subtle for light mode */
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
@@ -207,139 +208,139 @@
   }
 
   .text-risk-high {
-    color: hsl(0 84% 60%);
+    color: hsl(var(--risk-high));
   }
   
   .text-risk-medium {
-    color: hsl(38 92% 50%);
+    color: hsl(var(--risk-medium));
   }
   
   .text-risk-low {
-    color: hsl(152 69% 45%);
+    color: hsl(var(--risk-low));
   }
 
   .bg-risk-high {
-    background-color: hsl(0 84% 60%);
+    background-color: hsl(var(--risk-high));
   }
   
   .bg-risk-medium {
-    background-color: hsl(38 92% 50%);
+    background-color: hsl(var(--risk-medium));
   }
   
   .bg-risk-low {
-    background-color: hsl(152 69% 45%);
+    background-color: hsl(var(--risk-low));
   }
 
   .bg-risk-high\/10 {
-    background-color: hsl(0 84% 60% / 0.1);
+    background-color: hsl(var(--risk-high) / 0.1);
   }
 
   .bg-risk-high\/15 {
-    background-color: hsl(0 84% 60% / 0.15);
+    background-color: hsl(var(--risk-high) / 0.15);
   }
 
   .bg-risk-high\/20 {
-    background-color: hsl(0 84% 60% / 0.2);
+    background-color: hsl(var(--risk-high) / 0.2);
   }
 
   .bg-risk-medium\/10 {
-    background-color: hsl(38 92% 50% / 0.1);
+    background-color: hsl(var(--risk-medium) / 0.1);
   }
 
   .bg-risk-medium\/15 {
-    background-color: hsl(38 92% 50% / 0.15);
+    background-color: hsl(var(--risk-medium) / 0.15);
   }
   
   .bg-risk-medium\/20 {
-    background-color: hsl(38 92% 50% / 0.2);
+    background-color: hsl(var(--risk-medium) / 0.2);
   }
 
   .bg-risk-low\/10 {
-    background-color: hsl(152 69% 45% / 0.1);
+    background-color: hsl(var(--risk-low) / 0.1);
   }
 
   .bg-risk-low\/15 {
-    background-color: hsl(152 69% 45% / 0.15);
+    background-color: hsl(var(--risk-low) / 0.15);
   }
   
   .bg-risk-low\/20 {
-    background-color: hsl(152 69% 45% / 0.2);
+    background-color: hsl(var(--risk-low) / 0.2);
   }
 
   .border-risk-high {
-    border-color: hsl(0 84% 60%);
+    border-color: hsl(var(--risk-high));
   }
 
   .border-risk-high\/30 {
-    border-color: hsl(0 84% 60% / 0.3);
+    border-color: hsl(var(--risk-high) / 0.3);
   }
   
   .border-risk-high\/40 {
-    border-color: hsl(0 84% 60% / 0.4);
+    border-color: hsl(var(--risk-high) / 0.4);
   }
 
   .border-risk-medium {
-    border-color: hsl(38 92% 50%);
+    border-color: hsl(var(--risk-medium));
   }
 
   .border-risk-medium\/30 {
-    border-color: hsl(38 92% 50% / 0.3);
+    border-color: hsl(var(--risk-medium) / 0.3);
   }
 
   .border-risk-low {
-    border-color: hsl(152 69% 45%);
+    border-color: hsl(var(--risk-low));
   }
 
   .border-risk-low\/30 {
-    border-color: hsl(152 69% 45% / 0.3);
+    border-color: hsl(var(--risk-low) / 0.3);
   }
   
   .border-risk-low\/40 {
-    border-color: hsl(152 69% 45% / 0.4);
+    border-color: hsl(var(--risk-low) / 0.4);
   }
 
   .border-l-risk-high {
-    border-left-color: hsl(0 84% 60%);
+    border-left-color: hsl(var(--risk-high));
   }
 
   .border-l-risk-medium {
-    border-left-color: hsl(38 92% 50%);
+    border-left-color: hsl(var(--risk-medium));
   }
 
   .border-l-risk-low {
-    border-left-color: hsl(152 69% 45%);
+    border-left-color: hsl(var(--risk-low));
   }
 
   .ring-risk-high\/20 {
-    --tw-ring-color: hsl(0 84% 60% / 0.2);
+    --tw-ring-color: hsl(var(--risk-high) / 0.2);
   }
 
   .ring-risk-high\/30 {
-    --tw-ring-color: hsl(0 84% 60% / 0.3);
+    --tw-ring-color: hsl(var(--risk-high) / 0.3);
   }
 
   .text-warning {
-    color: hsl(45 93% 47%);
+    color: hsl(var(--warning));
   }
 
   .bg-warning\/10 {
-    background-color: hsl(45 93% 47% / 0.1);
+    background-color: hsl(var(--warning) / 0.1);
   }
 
   .bg-warning\/15 {
-    background-color: hsl(45 93% 47% / 0.15);
+    background-color: hsl(var(--warning) / 0.15);
   }
 
   .bg-warning\/20 {
-    background-color: hsl(45 93% 47% / 0.2);
+    background-color: hsl(var(--warning) / 0.2);
   }
 
   .border-warning\/30 {
-    border-color: hsl(45 93% 47% / 0.3);
+    border-color: hsl(var(--warning) / 0.3);
   }
   
   .border-warning\/40 {
-    border-color: hsl(45 93% 47% / 0.4);
+    border-color: hsl(var(--warning) / 0.4);
   }
 
   .gradient-healthcare {
