@@ -14,6 +14,7 @@ interface Invitation {
   expires_at: string;
   invitation_token: string;
   completed_at: string | null;
+  invited_by: string | null;
 }
 
 interface WitnessInvitationPanelProps {
@@ -27,11 +28,21 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     witnessEmail: '',
     witnessName: '',
-    invitedBy: ''
+    inviterName: ''
   });
+
+  // Get current user on mount
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setCurrentUserId(user?.id || null);
+    };
+    getUser();
+  }, []);
 
   // Load existing invitations
   useEffect(() => {
@@ -81,11 +92,20 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
   }, [documentHash]);
 
   const handleSendInvitation = async () => {
-    if (!formData.witnessEmail) return;
+    if (!formData.witnessEmail || !currentUserId) {
+      if (!currentUserId) {
+        toast({
+          title: 'Authentication Required',
+          description: 'You must be logged in to send invitations.',
+          variant: 'destructive'
+        });
+      }
+      return;
+    }
 
     setIsSending(true);
     try {
-      // Create invitation in database
+      // Create invitation in database - invited_by must be current user ID for RLS
       const { data: invitation, error: dbError } = await supabase
         .from('witness_invitations')
         .insert({
@@ -93,7 +113,7 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
           document_version: documentVersion,
           witness_email: formData.witnessEmail,
           witness_name: formData.witnessName || null,
-          invited_by: formData.invitedBy || null,
+          invited_by: currentUserId, // Must be user ID for RLS policy
           status: 'pending'
         })
         .select()
@@ -106,7 +126,7 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
         body: {
           witnessEmail: formData.witnessEmail,
           witnessName: formData.witnessName || 'Witness',
-          invitedBy: formData.invitedBy || 'Patent Documentation Team',
+          invitedBy: formData.inviterName || 'Patent Documentation Team',
           invitationToken: invitation.invitation_token,
           documentHash,
           expiresAt: invitation.expires_at
@@ -122,7 +142,7 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
         description: `Invitation email sent to ${formData.witnessEmail}`
       });
 
-      setFormData({ witnessEmail: '', witnessName: '', invitedBy: '' });
+      setFormData({ witnessEmail: '', witnessName: '', inviterName: '' });
       setShowForm(false);
     } catch (err) {
       console.error('Failed to send invitation:', err);
@@ -258,13 +278,13 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
               />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Invited By (optional)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Your Name (optional)</label>
               <input
                 type="text"
-                value={formData.invitedBy}
-                onChange={(e) => setFormData(prev => ({ ...prev, invitedBy: e.target.value }))}
+                value={formData.inviterName}
+                onChange={(e) => setFormData(prev => ({ ...prev, inviterName: e.target.value }))}
                 className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-sm text-foreground"
-                placeholder="Your name"
+                placeholder="Your name (for email)"
                 disabled={isSending}
               />
             </div>
@@ -275,7 +295,7 @@ export const WitnessInvitationPanel = ({ documentHash, documentVersion }: Witnes
           </p>
           <Button
             onClick={handleSendInvitation}
-            disabled={!formData.witnessEmail || isSending}
+            disabled={!formData.witnessEmail || isSending || !currentUserId}
             className="w-full gap-2"
           >
             {isSending ? (
