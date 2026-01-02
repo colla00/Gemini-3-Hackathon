@@ -137,6 +137,26 @@ export default {
           "0%, 50%, 100%": { opacity: "1" },
           "25%, 75%": { opacity: "0.4" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 5px rgba(45, 212, 191, 0.3)" },
+          "50%": { boxShadow: "0 0 20px rgba(45, 212, 191, 0.6), 0 0 40px rgba(45, 212, 191, 0.3)" },
+        },
+        "number-tick": {
+          "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        "slide-up-fade": {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        "bounce-subtle": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -153,6 +173,11 @@ export default {
         "progress-fill": "progress-fill 1s ease-out forwards",
         "count-up": "count-up 0.6s ease-out forwards",
         "blink": "blink 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "number-tick": "number-tick 0.3s ease-out forwards",
+        "slide-up-fade": "slide-up-fade 0.4s ease-out forwards",
+        "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
       },
     },
   },

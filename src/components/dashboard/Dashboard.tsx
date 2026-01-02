@@ -12,6 +12,8 @@ import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
 import { DemoModeController, type DemoScenario } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
+import { InvestorKPIs } from './InvestorKPIs';
+import { LiveMetricsBar } from './LiveMetricsBar';
 import { SkipLink } from '@/components/SkipLink';
 import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { cn } from '@/lib/utils';
@@ -316,6 +318,16 @@ export const Dashboard = () => {
             {/* Demo Summary */}
             <section aria-label="Demo overview">
               <DemoSummary className="mb-2" />
+            </section>
+
+            {/* Live System Metrics Bar */}
+            <section aria-label="Live system metrics">
+              <LiveMetricsBar />
+            </section>
+
+            {/* Investor-Focused KPIs */}
+            <section aria-label="Impact metrics for investors">
+              <InvestorKPIs />
             </section>
 
             {/* Clinical Workflow Context */}
