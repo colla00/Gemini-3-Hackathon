@@ -1,22 +1,28 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Monitor, Wifi } from 'lucide-react';
+import { Monitor, Wifi, ZoomOut, ZoomIn, Maximize } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
 
 interface ZoomModeContextType {
   isZoomMode: boolean;
   toggleZoomMode: () => void;
+  zoomLevel: number;
+  setZoomLevel: (level: number) => void;
 }
 
 const ZoomModeContext = createContext<ZoomModeContextType>({
   isZoomMode: false,
   toggleZoomMode: () => {},
+  zoomLevel: 100,
+  setZoomLevel: () => {},
 });
 
 export const useZoomMode = () => useContext(ZoomModeContext);
 
 export const ZoomModeProvider = ({ children }: { children: React.ReactNode }) => {
   const [isZoomMode, setIsZoomMode] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(100);
 
   useEffect(() => {
     // Apply Zoom-optimized styles to document
@@ -30,11 +36,13 @@ export const ZoomModeProvider = ({ children }: { children: React.ReactNode }) =>
   const toggleZoomMode = () => setIsZoomMode(prev => !prev);
 
   return (
-    <ZoomModeContext.Provider value={{ isZoomMode, toggleZoomMode }}>
+    <ZoomModeContext.Provider value={{ isZoomMode, toggleZoomMode, zoomLevel, setZoomLevel }}>
       {children}
     </ZoomModeContext.Provider>
   );
 };
+
+const ZOOM_LEVELS = [50, 60, 70, 80, 90, 100];
 
 export const ZoomModeToggle = () => {
   const { isZoomMode, toggleZoomMode } = useZoomMode();
@@ -77,5 +85,109 @@ export const ZoomModeToggle = () => {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
+  );
+};
+
+export const ZoomScaleControl = () => {
+  const { zoomLevel, setZoomLevel } = useZoomMode();
+
+  const handleZoomOut = () => {
+    const currentIndex = ZOOM_LEVELS.indexOf(zoomLevel);
+    if (currentIndex > 0) {
+      setZoomLevel(ZOOM_LEVELS[currentIndex - 1]);
+    }
+  };
+
+  const handleZoomIn = () => {
+    const currentIndex = ZOOM_LEVELS.indexOf(zoomLevel);
+    if (currentIndex < ZOOM_LEVELS.length - 1) {
+      setZoomLevel(ZOOM_LEVELS[currentIndex + 1]);
+    }
+  };
+
+  const handleReset = () => {
+    setZoomLevel(100);
+  };
+
+  return (
+    <TooltipProvider>
+      <div className="flex items-center gap-1 bg-secondary/50 rounded-lg px-1 py-0.5">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleZoomOut}
+              disabled={zoomLevel <= ZOOM_LEVELS[0]}
+              className="h-6 w-6 p-0 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/20 disabled:opacity-30"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Zoom out</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={handleReset}
+              className="text-xs font-medium text-primary-foreground/80 hover:text-primary-foreground min-w-[3rem] text-center"
+            >
+              {zoomLevel}%
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Reset to 100%</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleZoomIn}
+              disabled={zoomLevel >= 100}
+              className="h-6 w-6 p-0 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/20 disabled:opacity-30"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Zoom in</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setZoomLevel(70)}
+              className={cn(
+                "h-6 px-1.5 text-xs text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/20",
+                zoomLevel === 70 && "bg-primary-foreground/20"
+              )}
+            >
+              <Maximize className="w-3 h-3 mr-1" />
+              Fit
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Fit to screen (70%)</TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
+  );
+};
+
+export const ZoomableContent = ({ children }: { children: React.ReactNode }) => {
+  const { zoomLevel } = useZoomMode();
+  
+  return (
+    <div 
+      className="origin-top-left transition-transform duration-200"
+      style={{ 
+        transform: `scale(${zoomLevel / 100})`,
+        width: `${10000 / zoomLevel}%`,
+      }}
+    >
+      {children}
+    </div>
   );
 };
