@@ -49,8 +49,8 @@ const App = () => (
             <Toaster />
             <Sonner />
             <WatermarkOverlay />
-            <CookieConsent />
             <BrowserRouter>
+              <CookieConsent />
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/auth" element={<Auth />} />
