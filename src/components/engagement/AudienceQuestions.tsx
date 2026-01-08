@@ -4,6 +4,13 @@ import { MessageSquare, Send, ThumbsUp, Check, X, ChevronDown, ChevronUp } from 
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+// Validation schema for questions
+const questionSchema = z.object({
+  question: z.string().trim().min(1, "Question is required").max(500, "Question must be under 500 characters"),
+  asked_by: z.string().trim().max(100, "Name must be under 100 characters").optional(),
+});
 
 interface Question {
   id: string;
@@ -32,6 +39,7 @@ export const AudienceQuestions = ({
   const [newQuestion, setNewQuestion] = useState('');
   const [askedBy, setAskedBy] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const { toast } = useToast();
 
   // Fetch questions and subscribe to realtime updates
@@ -78,11 +86,29 @@ export const AudienceQuestions = ({
     e.preventDefault();
     if (!newQuestion.trim() || !sessionId) return;
 
+    // Validate input
+    const validation = questionSchema.safeParse({
+      question: newQuestion,
+      asked_by: askedBy || undefined,
+    });
+
+    if (!validation.success) {
+      const errorMsg = validation.error.errors[0]?.message || "Invalid input";
+      setValidationError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setValidationError(null);
     setIsLoading(true);
     const { error } = await supabase.from('audience_questions').insert({
       session_id: sessionId,
-      question: newQuestion.trim(),
-      asked_by: askedBy.trim() || 'Anonymous',
+      question: validation.data.question,
+      asked_by: validation.data.asked_by || 'Anonymous',
       slide_context: currentSlide,
     });
 
@@ -220,19 +246,29 @@ export const AudienceQuestions = ({
 
       {/* Submit Form */}
       <form onSubmit={handleSubmitQuestion} className="p-3 border-t border-border space-y-2">
-        <input
-          type="text"
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
-          placeholder="Ask a question..."
-          className="w-full px-3 py-2 text-sm bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder:text-muted-foreground"
-        />
+        <div>
+          <input
+            type="text"
+            value={newQuestion}
+            onChange={(e) => setNewQuestion(e.target.value)}
+            placeholder="Ask a question..."
+            maxLength={500}
+            className="w-full px-3 py-2 text-sm bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder:text-muted-foreground"
+          />
+          <div className="flex justify-between mt-1">
+            {validationError && (
+              <span className="text-[10px] text-destructive">{validationError}</span>
+            )}
+            <span className="text-[10px] text-muted-foreground ml-auto">{newQuestion.length}/500</span>
+          </div>
+        </div>
         <div className="flex gap-2">
           <input
             type="text"
             value={askedBy}
             onChange={(e) => setAskedBy(e.target.value)}
             placeholder="Your name (optional)"
+            maxLength={100}
             className="flex-1 px-3 py-1.5 text-xs bg-secondary border border-border rounded focus:outline-none focus:ring-1 focus:ring-primary text-foreground placeholder:text-muted-foreground"
           />
           <Button type="submit" size="sm" disabled={isLoading || !newQuestion.trim()}>
