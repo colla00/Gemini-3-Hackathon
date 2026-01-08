@@ -1,4 +1,5 @@
 import { Suspense, lazy, useState, useEffect } from "react";
+import { BarChart3 } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -49,9 +50,14 @@ const App = () => {
   if (!mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin" />
-          <span className="text-sm text-muted-foreground">Loading...</span>
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative">
+            <div className="w-16 h-16 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center animate-pulse">
+              <BarChart3 className="w-8 h-8 text-primary" />
+            </div>
+            <div className="absolute -inset-2 rounded-2xl border-2 border-primary/20 border-t-primary animate-spin" />
+          </div>
+          <span className="text-sm text-muted-foreground font-medium">Loading NSO Dashboard...</span>
         </div>
       </div>
     );
