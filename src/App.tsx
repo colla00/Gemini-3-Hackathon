@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -38,93 +38,106 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ de
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-        <AuthProvider>
-          <SettingsProvider>
-            <TooltipProvider>
-            <ErrorBoundary>
-            <Toaster />
-            <Sonner />
-            <WatermarkOverlay />
-            <BrowserRouter>
-              <CookieConsent />
-              <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/reset-password" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <ResetPassword />
-                  </Suspense>
-                } />
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<DashboardSkeleton />}>
-                      <Dashboard />
+const App = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent hydration issues with providers
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <AuthProvider>
+            <SettingsProvider>
+              <TooltipProvider>
+              <ErrorBoundary>
+              <Toaster />
+              <Sonner />
+              <WatermarkOverlay />
+              <BrowserRouter>
+                <CookieConsent />
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/reset-password" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <ResetPassword />
                     </Suspense>
-                  </ProtectedRoute>
-                } />
-                <Route path="/admin" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<AdminSkeleton />}>
-                      <AdminPanel />
+                  } />
+                  <Route path="/dashboard" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<DashboardSkeleton />}>
+                        <Dashboard />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<AdminSkeleton />}>
+                        <AdminPanel />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/presentation" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PresentationSkeleton />}>
+                        <Presentation />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/record" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PresentationSkeleton />}>
+                        <RecordingDemo />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/about" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <About />
                     </Suspense>
-                  </ProtectedRoute>
-                } />
-                <Route path="/presentation" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<PresentationSkeleton />}>
-                      <Presentation />
+                  } />
+                  <Route path="/patent-evidence" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <PatentEvidence />
                     </Suspense>
-                  </ProtectedRoute>
-                } />
-                <Route path="/record" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<PresentationSkeleton />}>
-                      <RecordingDemo />
+                  } />
+                  <Route path="/patent-attestations" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<AdminSkeleton />}>
+                        <PatentAttestationsAdmin />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/terms" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <TermsOfUse />
                     </Suspense>
-                  </ProtectedRoute>
-                } />
-                <Route path="/about" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <About />
-                  </Suspense>
-                } />
-                <Route path="/patent-evidence" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <PatentEvidence />
-                  </Suspense>
-                } />
-                <Route path="/patent-attestations" element={
-                  <ProtectedRoute>
-                    <Suspense fallback={<AdminSkeleton />}>
-                      <PatentAttestationsAdmin />
+                  } />
+                  <Route path="/privacy" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <PrivacyPolicy />
                     </Suspense>
-                  </ProtectedRoute>
-                } />
-                <Route path="/terms" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <TermsOfUse />
-                  </Suspense>
-                } />
-                <Route path="/privacy" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <PrivacyPolicy />
-                  </Suspense>
-                } />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-            </ErrorBoundary>
-          </TooltipProvider>
-        </SettingsProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-</HelmetProvider>
-);
+                  } />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+              </ErrorBoundary>
+            </TooltipProvider>
+          </SettingsProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
+  );
+};
 
 export default App;
