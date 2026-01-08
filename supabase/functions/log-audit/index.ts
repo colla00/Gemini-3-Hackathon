@@ -127,7 +127,7 @@ Deno.serve(async (req) => {
     if (error) {
       console.error('[log-audit] Insert error:', error);
       return new Response(
-        JSON.stringify({ error: 'Failed to log audit entry', details: error.message }),
+        JSON.stringify({ error: 'Failed to log audit entry', code: 'INSERT_ERROR' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

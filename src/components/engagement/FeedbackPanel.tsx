@@ -7,6 +7,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+// Validation schema for feedback
+const feedbackSchema = z.object({
+  message: z.string().trim().max(1000, "Message must be under 1000 characters").optional(),
+  name: z.string().trim().max(100, "Name must be under 100 characters").optional(),
+});
 
 interface FeedbackPanelProps {
   sessionId?: string;
@@ -21,6 +28,7 @@ export const FeedbackPanel = ({ sessionId, currentSlide }: FeedbackPanelProps) =
   const [name, setName] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,14 +42,32 @@ export const FeedbackPanel = ({ sessionId, currentSlide }: FeedbackPanelProps) =
       return;
     }
 
+    // Validate input
+    const validation = feedbackSchema.safeParse({
+      message: message || undefined,
+      name: name || undefined,
+    });
+
+    if (!validation.success) {
+      const errorMsg = validation.error.errors[0]?.message || "Invalid input";
+      setValidationError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setValidationError(null);
     setIsLoading(true);
     const { error } = await supabase.from('feedback').insert({
       session_id: sessionId,
       slide_id: currentSlide,
       feedback_type: feedbackType || 'neutral',
       rating: rating || null,
-      message: message.trim() || null,
-      submitted_by: name.trim() || 'Anonymous',
+      message: validation.data.message || null,
+      submitted_by: validation.data.name || 'Anonymous',
     });
 
     if (error) {
@@ -192,9 +218,16 @@ export const FeedbackPanel = ({ sessionId, currentSlide }: FeedbackPanelProps) =
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Share specific feedback or suggestions..."
+            maxLength={1000}
             className="w-full px-3 py-2 text-sm bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder:text-muted-foreground resize-none"
             rows={3}
           />
+          <div className="flex justify-between mt-1">
+            {validationError && (
+              <span className="text-[10px] text-destructive">{validationError}</span>
+            )}
+            <span className="text-[10px] text-muted-foreground ml-auto">{message.length}/1000</span>
+          </div>
         </div>
 
         {/* Name */}
@@ -204,6 +237,7 @@ export const FeedbackPanel = ({ sessionId, currentSlide }: FeedbackPanelProps) =
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name (optional)"
+            maxLength={100}
             className="w-full px-3 py-2 text-sm bg-secondary border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder:text-muted-foreground"
           />
         </div>
