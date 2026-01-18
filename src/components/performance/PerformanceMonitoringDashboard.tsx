@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   Activity, 
   Gauge, 
@@ -17,7 +17,9 @@ import {
   Zap,
   Timer,
   BarChart3,
-  Shield
+  Shield,
+  FileText,
+  Keyboard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -25,9 +27,14 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { usePerformanceDashboard, type HookMetrics } from '@/hooks/usePerformanceDashboard';
 import { usePerformanceRegression } from '@/hooks/usePerformanceRegression';
+import { useMetricHistory } from '@/hooks/useMetricHistory';
+import { usePerformanceShortcuts, getShortcutText } from '@/hooks/usePerformanceShortcuts';
 import { RegressionAlertPanel } from './RegressionAlertPanel';
+import { MetricSparkline } from './MetricSparkline';
+import { downloadPerformanceReportPdf } from '@/lib/performanceReportPdf';
 
 interface PerformanceDashboardProps {
   className?: string;
@@ -154,6 +161,7 @@ export const PerformanceMonitoringDashboard = ({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [showViolations, setShowViolations] = useState(false);
   const [activeTab, setActiveTab] = useState<'metrics' | 'regression'>('metrics');
+  const [showShortcuts, setShowShortcuts] = useState(false);
   
   const {
     summary,
@@ -169,7 +177,22 @@ export const PerformanceMonitoringDashboard = ({
     enableNotifications: true,
   });
 
-  const handleExport = () => {
+  const metricHistory = useMetricHistory({ maxDataPoints: 30 });
+
+  // Update metric history when summary changes
+  useEffect(() => {
+    if (isMonitoring) {
+      metricHistory.addDataPoint('pageLoad', summary.webVitals.pageLoad);
+      metricHistory.addDataPoint('fcp', summary.webVitals.fcp);
+      metricHistory.addDataPoint('tti', summary.webVitals.tti);
+      metricHistory.addDataPoint('avgInteractionTime', summary.avgInteractionTime);
+      if (summary.memoryUsage) {
+        metricHistory.addDataPoint('memoryUsage', summary.memoryUsage);
+      }
+    }
+  }, [summary.lastUpdated, isMonitoring]);
+
+  const handleExportJson = useCallback(() => {
     const report = exportReport();
     const blob = new Blob([report], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -178,7 +201,42 @@ export const PerformanceMonitoringDashboard = ({
     a.download = `performance-report-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }, [exportReport]);
+
+  const handleExportPdf = useCallback(() => {
+    downloadPerformanceReportPdf({
+      summary,
+      baseline: regression.baseline,
+      alerts: regression.alerts,
+      projectName: 'CareGuard Application',
+      generatedAt: new Date(),
+    });
+  }, [summary, regression.baseline, regression.alerts]);
+
+  const toggleDashboard = useCallback(() => {
+    setIsExpanded(prev => !prev);
+  }, []);
+
+  const toggleMonitoring = useCallback(() => {
+    if (isMonitoring) {
+      stopMonitoring();
+    } else {
+      startMonitoring();
+    }
+  }, [isMonitoring, stopMonitoring, startMonitoring]);
+
+  // Keyboard shortcuts
+  usePerformanceShortcuts({
+    enabled: true,
+    isExpanded,
+    actions: {
+      toggleDashboard,
+      captureBaseline: regression.captureBaseline,
+      clearMetrics,
+      exportReport: handleExportPdf,
+      toggleMonitoring,
+    },
+  });
 
   const memoryMB = summary.memoryUsage ? summary.memoryUsage / (1024 * 1024) : 0;
   const memoryStatus = getPerformanceStatus(
@@ -263,11 +321,20 @@ export const PerformanceMonitoringDashboard = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={handleExport}
+            onClick={handleExportJson}
             className="h-7 w-7 p-0"
-            title="Export report"
+            title="Export JSON"
           >
             <Download className="w-3.5 h-3.5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleExportPdf}
+            className="h-7 w-7 p-0"
+            title="Export PDF"
+          >
+            <FileText className="w-3.5 h-3.5" />
           </Button>
           <Button
             variant="ghost"
