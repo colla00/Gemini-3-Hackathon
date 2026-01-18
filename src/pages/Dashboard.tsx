@@ -26,6 +26,7 @@ import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp';
 import { SessionTimeoutWarning } from '@/components/SessionTimeoutWarning';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { SkipLink } from '@/components/SkipLink';
+import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
@@ -326,6 +327,9 @@ export const Dashboard = () => {
       
       {/* Methodology AI Chatbot */}
       <MethodologyChat />
+      
+      {/* Performance Monitoring Dashboard */}
+      <PerformanceMonitoringDashboard />
     </div>
   );
 };
