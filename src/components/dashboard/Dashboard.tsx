@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FilterBar } from './FilterBar';
@@ -15,10 +15,12 @@ import { PerformancePanel } from './PerformancePanel';
 import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
 import { SkipLink } from '@/components/SkipLink';
-import { patients, type Patient, type RiskLevel, type RiskType, formatRelativeTime } from '@/data/patients';
 import { cn } from '@/lib/utils';
 import { usePerformanceTracking } from '@/hooks/usePerformance';
+import { usePatients } from '@/hooks/usePatients';
 import { performanceMonitor } from '@/lib/performanceMonitor';
+import { formatRelativeTime } from '@/utils/timeFormatters';
+import type { Patient } from '@/types/patient';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -31,13 +33,21 @@ const skipLinkTargets = [
 
 export const Dashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [riskLevelFilter, setRiskLevelFilter] = useState<RiskLevel | 'ALL'>('ALL');
-  const [riskTypeFilter, setRiskTypeFilter] = useState<RiskType | 'ALL'>('ALL');
-  const [sortBy, setSortBy] = useState<'riskScore' | 'lastUpdated' | 'id'>('riskScore');
   const [timeOffset, setTimeOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+
+  // Use the patients hook for data and filtering
+  const {
+    filteredPatients,
+    priorityPatients,
+    monitoringPatients,
+    stats,
+    filters,
+    actions,
+    findPatientById,
+    findPatientByRiskType,
+  } = usePatients();
 
   // Performance tracking
   const { trackInteraction } = usePerformanceTracking('Dashboard');
@@ -62,25 +72,25 @@ export const Dashboard = () => {
         document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
       }
       if (e.key === '1' && !selectedPatient) {
-        const demoPatient = patients.find(p => p.id === 'PT-2847');
+        const demoPatient = findPatientById('PT-2847');
         if (demoPatient) handleSelectPatient(demoPatient);
       }
       if (e.key === '2' && !selectedPatient) {
-        const demoPatient = patients.find(p => p.id === 'PT-1923');
+        const demoPatient = findPatientById('PT-1923');
         if (demoPatient) handleSelectPatient(demoPatient);
       }
       if (e.key === '3' && !selectedPatient) {
-        const demoPatient = patients.find(p => p.id === 'PT-5612');
+        const demoPatient = findPatientById('PT-5612');
         if (demoPatient) handleSelectPatient(demoPatient);
       }
       if (e.key === 'r' && !selectedPatient) {
-        handleResetFilters();
+        actions.resetFilters();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPatient]);
+  }, [selectedPatient, findPatientById, actions]);
 
   const getDisplayTime = useCallback((baseMinutes: number) => {
     return formatRelativeTime(baseMinutes + timeOffset);
@@ -115,98 +125,8 @@ export const Dashboard = () => {
     }, 200);
   }, [trackInteraction]);
 
-  // Tracked filter handlers
-  const handleSearchChange = useCallback((value: string) => {
-    performanceMonitor.recordInteraction('filter-search', performance.now());
-    setSearchQuery(value);
-  }, []);
-
-  const handleRiskLevelChange = useCallback((value: RiskLevel | 'ALL') => {
-    performanceMonitor.recordInteraction('filter-risk-level', performance.now());
-    performanceMonitor.addMetric({
-      name: 'filter-risk-level-change',
-      value: 1,
-      unit: 'count',
-      timestamp: Date.now(),
-      category: 'interaction',
-    });
-    setRiskLevelFilter(value);
-  }, []);
-
-  const handleRiskTypeChange = useCallback((value: RiskType | 'ALL') => {
-    performanceMonitor.recordInteraction('filter-risk-type', performance.now());
-    performanceMonitor.addMetric({
-      name: 'filter-risk-type-change',
-      value: 1,
-      unit: 'count',
-      timestamp: Date.now(),
-      category: 'interaction',
-    });
-    setRiskTypeFilter(value);
-  }, []);
-
-  const handleSortChange = useCallback((value: 'riskScore' | 'lastUpdated' | 'id') => {
-    performanceMonitor.recordInteraction('filter-sort', performance.now());
-    performanceMonitor.addMetric({
-      name: 'filter-sort-change',
-      value: 1,
-      unit: 'count',
-      timestamp: Date.now(),
-      category: 'interaction',
-    });
-    setSortBy(value);
-  }, []);
-
-  const handleResetFilters = useCallback(() => {
-    performanceMonitor.recordInteraction('filter-reset', performance.now());
-    setSearchQuery('');
-    setRiskLevelFilter('ALL');
-    setRiskTypeFilter('ALL');
-    setSortBy('riskScore');
-  }, []);
-
-  const filteredPatients = useMemo(() => {
-    let result = [...patients];
-
-    if (searchQuery) {
-      result = result.filter((p) =>
-        p.id.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    if (riskLevelFilter !== 'ALL') {
-      result = result.filter((p) => p.riskLevel === riskLevelFilter);
-    }
-
-    if (riskTypeFilter !== 'ALL') {
-      result = result.filter((p) => p.riskType === riskTypeFilter);
-    }
-
-    result.sort((a, b) => {
-      switch (sortBy) {
-        case 'riskScore':
-          return b.riskScore - a.riskScore;
-        case 'id':
-          return a.id.localeCompare(b.id);
-        case 'lastUpdated':
-          return a.lastUpdatedMinutes - b.lastUpdatedMinutes;
-        default:
-          return 0;
-      }
-    });
-
-    return result;
-  }, [searchQuery, riskLevelFilter, riskTypeFilter, sortBy]);
-
-  const stats = useMemo(() => ({
-    total: patients.length,
-    high: patients.filter((p) => p.riskLevel === 'HIGH').length,
-    medium: patients.filter((p) => p.riskLevel === 'MEDIUM').length,
-    trending: patients.filter((p) => p.trend === 'up').length,
-  }), []);
-
   // Demo scenarios for auto-advance mode (aligned to ~5min presentation)
-  const demoScenarios: DemoScenario[] = useMemo(() => [
+  const demoScenarios: DemoScenario[] = [
     {
       id: 'intro',
       label: 'Dashboard Overview',
@@ -214,8 +134,8 @@ export const Dashboard = () => {
       duration: 10,
       action: () => {
         setSelectedPatient(null);
-        setRiskTypeFilter('ALL');
-        setRiskLevelFilter('ALL');
+        actions.setRiskTypeFilter('ALL');
+        actions.setRiskLevelFilter('ALL');
       },
     },
     {
@@ -224,7 +144,7 @@ export const Dashboard = () => {
       description: 'Patient A01: Post-op sedation + mobility → interpretable risk factors',
       duration: 12,
       action: () => {
-        const fallsPatient = patients.find(p => p.id === 'Patient A01');
+        const fallsPatient = findPatientById('Patient A01');
         if (fallsPatient) setSelectedPatient(fallsPatient);
       },
     },
@@ -234,7 +154,7 @@ export const Dashboard = () => {
       description: 'Patient C00: Foley Day 8 + fever → catheter removal workflow',
       duration: 12,
       action: () => {
-        const cautiPatient = patients.find(p => p.riskType === 'CAUTI');
+        const cautiPatient = findPatientByRiskType('CAUTI');
         if (cautiPatient) setSelectedPatient(cautiPatient);
       },
     },
@@ -244,7 +164,7 @@ export const Dashboard = () => {
       description: 'HAPI risk with Braden subscale + repositioning protocol',
       duration: 10,
       action: () => {
-        const hapiPatient = patients.find(p => p.riskType === 'Pressure Injury');
+        const hapiPatient = findPatientByRiskType('Pressure Injury');
         if (hapiPatient) setSelectedPatient(hapiPatient);
       },
     },
@@ -255,8 +175,8 @@ export const Dashboard = () => {
       duration: 8,
       action: () => {
         setSelectedPatient(null);
-        setRiskLevelFilter('HIGH');
-        setRiskTypeFilter('ALL');
+        actions.setRiskLevelFilter('HIGH');
+        actions.setRiskTypeFilter('ALL');
       },
     },
     {
@@ -266,8 +186,8 @@ export const Dashboard = () => {
       duration: 10,
       action: () => {
         setSelectedPatient(null);
-        setRiskLevelFilter('ALL');
-        setRiskTypeFilter('ALL');
+        actions.setRiskLevelFilter('ALL');
+        actions.setRiskTypeFilter('ALL');
       },
     },
     {
@@ -277,14 +197,11 @@ export const Dashboard = () => {
       duration: 10,
       action: () => {
         setSelectedPatient(null);
-        setRiskLevelFilter('ALL');
-        setRiskTypeFilter('ALL');
+        actions.setRiskLevelFilter('ALL');
+        actions.setRiskTypeFilter('ALL');
       },
     },
-  ], []);
-
-  const priorityPatients = filteredPatients.slice(0, 3);
-  const monitoringPatients = filteredPatients.slice(3);
+  ];
 
   return (
     <div className={cn(
@@ -353,14 +270,14 @@ export const Dashboard = () => {
             {/* Filters */}
             <section id="filters" aria-label="Patient filters" tabIndex={-1}>
               <FilterBar
-                searchQuery={searchQuery}
-                onSearchChange={handleSearchChange}
-                riskLevelFilter={riskLevelFilter}
-                onRiskLevelChange={handleRiskLevelChange}
-                riskTypeFilter={riskTypeFilter}
-                onRiskTypeChange={handleRiskTypeChange}
-                sortBy={sortBy}
-                onSortChange={handleSortChange}
+                searchQuery={filters.searchQuery}
+                onSearchChange={actions.setSearchQuery}
+                riskLevelFilter={filters.riskLevelFilter}
+                onRiskLevelChange={actions.setRiskLevelFilter}
+                riskTypeFilter={filters.riskTypeFilter}
+                onRiskTypeChange={actions.setRiskTypeFilter}
+                sortBy={filters.sortBy}
+                onSortChange={actions.setSortBy}
               />
             </section>
 
