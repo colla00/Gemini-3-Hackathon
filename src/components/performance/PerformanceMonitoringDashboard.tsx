@@ -17,9 +17,7 @@ import {
   Zap,
   Timer,
   BarChart3,
-  Shield,
-  FileText,
-  Keyboard
+  Shield
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -27,14 +25,12 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { usePerformanceDashboard, type HookMetrics } from '@/hooks/usePerformanceDashboard';
 import { usePerformanceRegression } from '@/hooks/usePerformanceRegression';
 import { useMetricHistory } from '@/hooks/useMetricHistory';
-import { usePerformanceShortcuts, getShortcutText } from '@/hooks/usePerformanceShortcuts';
+import { usePerformanceShortcuts } from '@/hooks/usePerformanceShortcuts';
 import { RegressionAlertPanel } from './RegressionAlertPanel';
 import { MetricSparkline } from './MetricSparkline';
-import { downloadPerformanceReportPdf } from '@/lib/performanceReportPdf';
 
 interface PerformanceDashboardProps {
   className?: string;
@@ -203,15 +199,6 @@ export const PerformanceMonitoringDashboard = ({
     URL.revokeObjectURL(url);
   }, [exportReport]);
 
-  const handleExportPdf = useCallback(() => {
-    downloadPerformanceReportPdf({
-      summary,
-      baseline: regression.baseline,
-      alerts: regression.alerts,
-      projectName: 'CareGuard Application',
-      generatedAt: new Date(),
-    });
-  }, [summary, regression.baseline, regression.alerts]);
 
   const toggleDashboard = useCallback(() => {
     setIsExpanded(prev => !prev);
@@ -233,7 +220,7 @@ export const PerformanceMonitoringDashboard = ({
       toggleDashboard,
       captureBaseline: regression.captureBaseline,
       clearMetrics,
-      exportReport: handleExportPdf,
+      exportReport: handleExportJson,
       toggleMonitoring,
     },
   });
@@ -326,15 +313,6 @@ export const PerformanceMonitoringDashboard = ({
             title="Export JSON"
           >
             <Download className="w-3.5 h-3.5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleExportPdf}
-            className="h-7 w-7 p-0"
-            title="Export PDF"
-          >
-            <FileText className="w-3.5 h-3.5" />
           </Button>
           <Button
             variant="ghost"
