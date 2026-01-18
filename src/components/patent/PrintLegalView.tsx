@@ -1,28 +1,11 @@
 import { useRef } from 'react';
 import { Printer, FileText, Award, Calendar, Hash, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-interface PatentClaim {
-  number: number;
-  title: string;
-  description: string;
-  category: string;
-  implementation: string;
-  componentPath: string;
-  status: string;
-}
-
-interface Attestation {
-  witnessName: string;
-  witnessTitle: string;
-  organization?: string;
-  attestedAt: string | null;
-  signature: string;
-}
+import type { PatentClaim, AttestationData } from '@/types/patent';
 
 interface PrintLegalViewProps {
   claims: PatentClaim[];
-  attestations: Attestation[];
+  attestations: AttestationData[];
   documentHash: string;
   documentVersion: string;
 }

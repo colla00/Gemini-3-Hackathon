@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
-  Award, ShieldX, ArrowLeft, Brain, BarChart3, Clock, Sliders, 
-  RefreshCw, Activity, CheckCircle2, ExternalLink, FileText,
+  Award, ShieldX, ArrowLeft, Clock,
   Play, Hash, Shield, Calendar, Fingerprint, Video, PenLine,
-  UserCheck, AlertCircle, Loader2, Database, Download, Mail, Image, QrCode
+  UserCheck, AlertCircle, Loader2, Database, Download, Mail, Image, QrCode,
+  FileText, CheckCircle2, ExternalLink
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -22,287 +22,22 @@ import { AttestationAnalytics } from '@/components/patent/AttestationAnalytics';
 import { WitnessInvitationPanel } from '@/components/patent/WitnessInvitationPanel';
 import { FullPDFExport } from '@/components/patent/FullPDFExport';
 import { useAuditLog } from '@/hooks/useAuditLog';
-const ACCESS_KEY = 'patent2025';
-const EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
 
-interface PatentClaim {
-  number: number;
-  title: string;
-  description: string;
-  category: 'system' | 'explainability' | 'forecasting' | 'thresholds' | 'feedback' | 'workflow';
-  implementation: string;
-  componentPath: string;
-  status: 'implemented' | 'demonstrated' | 'prototype';
-  demoSection?: string; // Links to RecordingDemo section
-}
+// Import centralized types, constants, and data
+import type { AttestationData, ClaimCategory } from '@/types/patent';
+import { 
+  PATENT_ACCESS_KEY, 
+  PATENT_EXPIRATION_DATE, 
+  DOCUMENT_VERSION,
+  DOCUMENT_CREATED,
+  generateDocumentHash,
+  VIDEO_SECTIONS,
+  DEMO_SECTION_LABELS
+} from '@/constants/patent';
+import { PATENT_CLAIMS, CATEGORY_CONFIG } from '@/data/patentClaims';
+import type { CategoryConfig } from '@/types/patent';
 
-// Generate cryptographic document hash for evidence integrity
-const generateDocumentHash = (content: string): string => {
-  let hash = 0;
-  for (let i = 0; i < content.length; i++) {
-    const char = content.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
-  }
-  return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-};
-
-const DOCUMENT_VERSION = '1.1.0';
-const DOCUMENT_CREATED = '2025-12-30T00:00:00Z';
 const LAST_UPDATED = new Date().toISOString();
-
-// Video recording sections mapped to claims
-const VIDEO_SECTIONS: Record<string, { title: string; duration: string; claims: number[] }> = {
-  dashboard: { title: 'Dashboard Overview Recording', duration: '2-3 min', claims: [1, 12, 15, 19] },
-  patients: { title: 'Patient Worklist Recording', duration: '3-4 min', claims: [4, 8, 11, 16] },
-  shap: { title: 'SHAP Explainability Recording', duration: '4-5 min', claims: [2, 3, 17, 18] },
-  workflow: { title: 'Clinical Workflow Recording', duration: '5-6 min', claims: [5, 6, 7, 9, 10, 13, 14] },
-};
-
-interface AttestationData {
-  id?: string;
-  witnessName: string;
-  witnessTitle: string;
-  witnessEmail: string;
-  organization: string;
-  attestedAt: string | null;
-  signature: string;
-  signatureImage?: string;
-  persistedAt?: string;
-}
-
-interface ClaimScreenshot {
-  claimNumber: number;
-  screenshots: { id: string; file_path: string; caption?: string | null }[];
-}
-
-const PATENT_CLAIMS: PatentClaim[] = [
-  // System Claims (1-4)
-  {
-    number: 1,
-    title: 'Clinical Risk Intelligence System',
-    description: 'A clinical risk intelligence system for predicting nurse-sensitive patient outcomes, comprising: a data ingestion module configured to receive real-time patient data from electronic health record systems; a multi-outcome risk prediction engine utilizing machine learning models trained on nurse-sensitive outcomes.',
-    category: 'system',
-    implementation: 'Full dashboard system with real-time EHR data integration, multi-outcome risk scoring for Falls, HAPI, CAUTI, and device complications.',
-    componentPath: 'src/components/dashboard/Dashboard.tsx',
-    status: 'demonstrated',
-    demoSection: 'dashboard'
-  },
-  {
-    number: 2,
-    title: 'SHAP Explainability Integration',
-    description: 'The system of claim 1, wherein the explainability module utilizes SHapley Additive exPlanations (SHAP) to decompose predicted risk scores into individual feature contributions.',
-    category: 'explainability',
-    implementation: 'Interactive SHAP waterfall charts showing how each clinical factor (mobility, medications, vitals) contributes to the final risk score.',
-    componentPath: 'src/components/quality/ShapExplainability.tsx',
-    status: 'implemented',
-    demoSection: 'shap'
-  },
-  {
-    number: 3,
-    title: 'Waterfall Visualization',
-    description: 'The system of claim 2, further comprising a waterfall visualization component that displays cumulative risk attribution from baseline through each contributing factor.',
-    category: 'explainability',
-    implementation: 'Animated waterfall bars with cumulative risk tracking, color-coded risk/protective factors, and interactive tooltips explaining each contribution.',
-    componentPath: 'src/components/quality/ShapExplainability.tsx',
-    status: 'implemented',
-    demoSection: 'shap'
-  },
-  {
-    number: 4,
-    title: 'Confidence Scoring',
-    description: 'The system of claim 1, wherein each risk prediction includes a confidence interval based on model uncertainty quantification.',
-    category: 'system',
-    implementation: 'Confidence indicators displayed on each risk score, with visual representation of prediction certainty.',
-    componentPath: 'src/components/quality/ConfidenceIndicator.tsx',
-    status: 'implemented',
-    demoSection: 'patients'
-  },
-  // Temporal Forecasting Claims (5)
-  {
-    number: 5,
-    title: 'Multi-Horizon Temporal Forecasting',
-    description: 'A method for temporal risk forecasting comprising: generating risk predictions at multiple time horizons including 4-hour, 12-hour, 24-hour, and 48-hour intervals; calculating trajectory classifications for each horizon.',
-    category: 'forecasting',
-    implementation: 'Interactive forecast charts showing risk trajectories at 4h, 12h, 24h, 48h horizons with confidence bands and trajectory classification (improving/stable/deteriorating).',
-    componentPath: 'src/components/quality/TemporalForecasting.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  // Adaptive Thresholds Claims (6)
-  {
-    number: 6,
-    title: 'Patient-Adaptive Alert Thresholds',
-    description: 'A system for adaptive alert threshold management comprising: calculating patient-specific baseline risk patterns; adjusting alert thresholds based on individual patient variability.',
-    category: 'thresholds',
-    implementation: 'Dynamic threshold visualization showing patient-specific adaptations, alert prevention counts, and personalized sensitivity adjustments.',
-    componentPath: 'src/components/quality/AdaptiveThresholds.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  // Closed-Loop Feedback Claims (7)
-  {
-    number: 7,
-    title: 'Closed-Loop Intervention Feedback',
-    description: 'A closed-loop feedback system comprising: automatic detection of clinical interventions from data streams; application of intervention-specific effect delays; recalculation of risk scores post-intervention.',
-    category: 'feedback',
-    implementation: 'Animated feedback loop demonstration showing intervention detection → baseline capture → effect delay → risk recalculation → effectiveness quantification.',
-    componentPath: 'src/components/quality/ClosedLoopFeedback.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  // Priority & Workflow Claims (8-10)
-  {
-    number: 8,
-    title: 'Priority Scoring Algorithm',
-    description: 'The system of claim 1, further comprising a priority scoring module that ranks patients based on composite risk across multiple nurse-sensitive outcomes.',
-    category: 'workflow',
-    implementation: 'Priority queue with composite scoring, dynamic reordering based on risk changes, and visual priority badges.',
-    componentPath: 'src/components/dashboard/PriorityQueue.tsx',
-    status: 'implemented',
-    demoSection: 'patients'
-  },
-  {
-    number: 9,
-    title: 'Suggested Actions Generation',
-    description: 'The system of claim 8, further comprising an intervention recommendation engine that generates suggested actions based on identified risk factors.',
-    category: 'workflow',
-    implementation: 'Context-aware suggested actions panel with evidence-based intervention recommendations tied to specific risk factors.',
-    componentPath: 'src/components/dashboard/SuggestedActions.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  {
-    number: 10,
-    title: 'Intervention Timer',
-    description: 'The system of claim 9, including intervention timing tracking to monitor time since last assessment and intervention windows.',
-    category: 'workflow',
-    implementation: 'Visual intervention timers showing time since last action, upcoming assessment windows, and overdue alerts.',
-    componentPath: 'src/components/dashboard/InterventionTimer.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  // Dependent Claims (11-20)
-  {
-    number: 11,
-    title: 'Risk Trend Visualization',
-    description: 'The system of claim 5, further comprising sparkline visualizations showing risk trends over configurable time windows.',
-    category: 'forecasting',
-    implementation: 'Compact sparkline charts embedded in patient cards showing 24-hour risk trends with trend direction indicators.',
-    componentPath: 'src/components/quality/RiskSparkline.tsx',
-    status: 'implemented',
-    demoSection: 'patients'
-  },
-  {
-    number: 12,
-    title: 'Multi-Outcome Comparison',
-    description: 'The system of claim 1, further comprising a comparison view for analyzing risk patterns across multiple nurse-sensitive outcomes simultaneously.',
-    category: 'system',
-    implementation: 'Side-by-side outcome comparison panel showing Falls, HAPI, CAUTI, and device complication risks with comparative analysis.',
-    componentPath: 'src/components/dashboard/MultiOutcomeComparison.tsx',
-    status: 'implemented',
-    demoSection: 'dashboard'
-  },
-  {
-    number: 13,
-    title: 'Clinical Workflow Integration',
-    description: 'The system of claim 9, wherein suggested actions are integrated into clinical workflow stages.',
-    category: 'workflow',
-    implementation: 'Workflow sequence visualization showing progression from risk identification through intervention to outcome tracking.',
-    componentPath: 'src/components/quality/ClinicalWorkflowView.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  {
-    number: 14,
-    title: 'Efficacy Badge System',
-    description: 'The system of claim 7, further comprising efficacy badges indicating intervention effectiveness categories.',
-    category: 'feedback',
-    implementation: 'Visual efficacy indicators (High/Moderate/Low) based on historical intervention success rates.',
-    componentPath: 'src/components/dashboard/EfficacyBadge.tsx',
-    status: 'implemented',
-    demoSection: 'workflow'
-  },
-  {
-    number: 15,
-    title: 'Unit-Level Dashboard Overview',
-    description: 'The system of claim 1, further comprising an aggregate dashboard view showing unit-level risk distributions and metrics.',
-    category: 'system',
-    implementation: 'Dashboard overview with unit-wide statistics, risk category distributions, and aggregate performance metrics.',
-    componentPath: 'src/components/quality/DashboardOverview.tsx',
-    status: 'implemented',
-    demoSection: 'dashboard'
-  },
-  {
-    number: 16,
-    title: 'Patient List View with Filtering',
-    description: 'The system of claim 8, further comprising a filterable patient list with risk-based sorting and categorization.',
-    category: 'workflow',
-    implementation: 'Interactive patient list with risk level filters, outcome type filters, and dynamic sorting by priority score.',
-    componentPath: 'src/components/quality/PatientListView.tsx',
-    status: 'implemented',
-    demoSection: 'patients'
-  },
-  {
-    number: 17,
-    title: 'Clinical Tooltip System',
-    description: 'The system of claim 2, further comprising contextual tooltips providing clinical definitions and metric explanations.',
-    category: 'explainability',
-    implementation: 'Hover-activated tooltips explaining clinical terms (SHAP, MRN, LOS, AUROC) with plain-language descriptions.',
-    componentPath: 'src/components/quality/ClinicalTooltip.tsx',
-    status: 'implemented',
-    demoSection: 'shap'
-  },
-  {
-    number: 18,
-    title: 'Grouped SHAP Analysis',
-    description: 'The system of claim 2, further comprising grouped SHAP visualizations organizing factors by clinical category.',
-    category: 'explainability',
-    implementation: 'SHAP charts with categorical grouping (vitals, mobility, medications, history) for clearer clinical interpretation.',
-    componentPath: 'src/components/dashboard/GroupedShapChart.tsx',
-    status: 'implemented',
-    demoSection: 'shap'
-  },
-  {
-    number: 19,
-    title: 'Live Simulation Mode',
-    description: 'The system of claim 1, further comprising a demonstration mode with simulated real-time data updates.',
-    category: 'system',
-    implementation: 'Live simulation engine generating realistic risk fluctuations for demonstration and training purposes.',
-    componentPath: 'src/hooks/useLiveSimulation.ts',
-    status: 'implemented',
-    demoSection: 'dashboard'
-  },
-  {
-    number: 20,
-    title: 'Research Disclaimer System',
-    description: 'The system of claim 1, further comprising integrated research disclaimers and patent notices throughout the interface.',
-    category: 'system',
-    implementation: 'Persistent research banners, patent notices, and synthetic data disclaimers ensuring appropriate use context.',
-    componentPath: 'src/components/ResearchDisclaimer.tsx',
-    status: 'implemented',
-    demoSection: 'intro'
-  },
-];
-
-const categoryConfig = {
-  system: { label: 'System Architecture', icon: Brain, color: 'text-primary bg-primary/10 border-primary/30' },
-  explainability: { label: 'SHAP Explainability', icon: BarChart3, color: 'text-blue-500 bg-blue-500/10 border-blue-500/30' },
-  forecasting: { label: 'Temporal Forecasting', icon: Clock, color: 'text-purple-500 bg-purple-500/10 border-purple-500/30' },
-  thresholds: { label: 'Adaptive Thresholds', icon: Sliders, color: 'text-accent bg-accent/10 border-accent/30' },
-  feedback: { label: 'Closed-Loop Feedback', icon: RefreshCw, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/30' },
-  workflow: { label: 'Clinical Workflow', icon: Activity, color: 'text-orange-500 bg-orange-500/10 border-orange-500/30' },
-};
-
-// Demo section labels for cross-referencing
-const DEMO_SECTION_LABELS: Record<string, string> = {
-  intro: 'Introduction',
-  dashboard: 'Real-Time Overview',
-  patients: 'Patient Worklist',
-  shap: 'Risk Attribution',
-  workflow: 'Clinical Workflow',
-  outro: 'Conclusion'
-};
 
 export const PatentEvidence = () => {
   const navigate = useNavigate();
@@ -328,8 +63,8 @@ export const PatentEvidence = () => {
   });
   
   const accessKey = searchParams.get('key');
-  const isExpired = new Date() > EXPIRATION_DATE;
-  const hasAccess = accessKey === ACCESS_KEY && !isExpired;
+  const isExpired = new Date() > PATENT_EXPIRATION_DATE;
+  const hasAccess = accessKey === PATENT_ACCESS_KEY && !isExpired;
 
   // Calculate document hash for integrity verification
   const documentHash = useMemo(() => {
@@ -398,6 +133,7 @@ export const PatentEvidence = () => {
 
     loadData();
   }, [hasAccess, documentHash]);
+
 
   
   const handleAttestation = async () => {
@@ -570,7 +306,7 @@ export const PatentEvidence = () => {
     ? PATENT_CLAIMS.filter(c => c.category === selectedCategory)
     : PATENT_CLAIMS;
 
-  const categories = Object.entries(categoryConfig);
+  const categories = Object.entries(CATEGORY_CONFIG) as [ClaimCategory, CategoryConfig][];
 
   return (
     <div className="min-h-screen bg-background">
@@ -1072,7 +808,7 @@ export const PatentEvidence = () => {
         {/* Claims Grid */}
         <div className="grid gap-4">
           {filteredClaims.map((claim, index) => {
-            const config = categoryConfig[claim.category];
+            const config = CATEGORY_CONFIG[claim.category];
             const Icon = config.icon;
             // Find which video section this claim belongs to
             const videoSection = Object.entries(VIDEO_SECTIONS).find(([_, section]) => 
