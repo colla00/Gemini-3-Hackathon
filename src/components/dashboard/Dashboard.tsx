@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FilterBar } from './FilterBar';
@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
-import { formatRelativeTime } from '@/utils/timeFormatters';
+import { useTimeOffset } from '@/hooks/useTimeOffset';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -31,7 +31,6 @@ const skipLinkTargets = [
 ];
 
 export const Dashboard = () => {
-  const [timeOffset, setTimeOffset] = useState(0);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
 
   // Use the patients hook for data and filtering
@@ -58,6 +57,9 @@ export const Dashboard = () => {
     onResetFilters: actions.resetFilters,
   });
 
+  // Use the time offset hook for timestamp updates
+  const { getDisplayTime } = useTimeOffset();
+
   // Generate demo scenarios using the hook
   const demoScenarios = useDemoScenarios({
     setSelectedPatient,
@@ -66,19 +68,6 @@ export const Dashboard = () => {
     setRiskLevelFilter: actions.setRiskLevelFilter,
     setRiskTypeFilter: actions.setRiskTypeFilter,
   });
-
-  // Update timestamps every 30 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeOffset(prev => prev + 1);
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getDisplayTime = useCallback((baseMinutes: number) => {
-    return formatRelativeTime(baseMinutes + timeOffset);
-  }, [timeOffset]);
 
   return (
     <div className={cn(
