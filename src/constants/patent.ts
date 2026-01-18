@@ -1,0 +1,35 @@
+// Patent-related constants - centralized for consistency
+
+export const PATENT_ACCESS_KEY = 'patent2025';
+export const PATENT_EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
+export const DOCUMENT_VERSION = '1.1.0';
+export const DOCUMENT_CREATED = '2025-12-30T00:00:00Z';
+
+// Generate cryptographic document hash for evidence integrity
+export const generateDocumentHash = (content: string): string => {
+  let hash = 0;
+  for (let i = 0; i < content.length; i++) {
+    const char = content.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+};
+
+// Video recording sections mapped to claims
+export const VIDEO_SECTIONS: Record<string, { title: string; duration: string; claims: number[] }> = {
+  dashboard: { title: 'Dashboard Overview Recording', duration: '2-3 min', claims: [1, 12, 15, 19] },
+  patients: { title: 'Patient Worklist Recording', duration: '3-4 min', claims: [4, 8, 11, 16] },
+  shap: { title: 'SHAP Explainability Recording', duration: '4-5 min', claims: [2, 3, 17, 18] },
+  workflow: { title: 'Clinical Workflow Recording', duration: '5-6 min', claims: [5, 6, 7, 9, 10, 13, 14] },
+};
+
+// Demo section labels for cross-referencing
+export const DEMO_SECTION_LABELS: Record<string, string> = {
+  intro: 'Introduction',
+  dashboard: 'Real-Time Overview',
+  patients: 'Patient Worklist',
+  shap: 'Risk Attribution',
+  workflow: 'Clinical Workflow',
+  outro: 'Conclusion'
+};

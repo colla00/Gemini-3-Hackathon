@@ -4,25 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import jsPDF from 'jspdf';
-
-interface PatentClaim {
-  number: number;
-  title: string;
-  description: string;
-  category: string;
-  implementation: string;
-  componentPath: string;
-  status: string;
-}
-
-interface AttestationData {
-  id?: string;
-  witnessName: string;
-  witnessTitle: string;
-  organization: string;
-  attestedAt: string | null;
-  signature: string;
-}
+import type { PatentClaim, AttestationData } from '@/types/patent';
 
 interface FullPDFExportProps {
   claims: PatentClaim[];
