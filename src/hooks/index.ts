@@ -84,6 +84,15 @@ export type {
   UseLighthouseMonitoringOptions,
   UseLighthouseMonitoringReturn
 } from './useLighthouseMonitoring';
+export { useProductionLighthouse } from './useProductionLighthouse';
+export type {
+  ProductionLighthouseScores,
+  ProductionLighthouseMetrics,
+  ProductionLighthouseAudit,
+  ProductionLighthouseReport,
+  UseProductionLighthouseOptions,
+  UseProductionLighthouseReturn
+} from './useProductionLighthouse';
 
 // Presentation
 export { usePresentationSession } from './usePresentationSession';
