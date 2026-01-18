@@ -16,11 +16,9 @@ import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
 import { SkipLink } from '@/components/SkipLink';
 import { cn } from '@/lib/utils';
-import { usePerformanceTracking } from '@/hooks/usePerformance';
 import { usePatients } from '@/hooks/usePatients';
-import { performanceMonitor } from '@/lib/performanceMonitor';
+import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { formatRelativeTime } from '@/utils/timeFormatters';
-import type { Patient } from '@/types/patient';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -32,9 +30,7 @@ const skipLinkTargets = [
 ];
 
 export const Dashboard = () => {
-  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [timeOffset, setTimeOffset] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
 
   // Use the patients hook for data and filtering
@@ -49,8 +45,17 @@ export const Dashboard = () => {
     findPatientByRiskType,
   } = usePatients();
 
-  // Performance tracking
-  const { trackInteraction } = usePerformanceTracking('Dashboard');
+  // Use the patient selection hook for selection, transitions, and keyboard shortcuts
+  const {
+    selectedPatient,
+    isTransitioning,
+    selectPatient,
+    goBack,
+    setSelectedPatient,
+  } = usePatientSelection({
+    findPatientById,
+    onResetFilters: actions.resetFilters,
+  });
 
   // Update timestamps every 30 seconds
   useEffect(() => {
@@ -61,69 +66,9 @@ export const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Keyboard shortcuts for demo control
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedPatient) {
-        handleBack();
-      }
-      if (e.key === 'f' && !selectedPatient) {
-        e.preventDefault();
-        document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
-      }
-      if (e.key === '1' && !selectedPatient) {
-        const demoPatient = findPatientById('PT-2847');
-        if (demoPatient) handleSelectPatient(demoPatient);
-      }
-      if (e.key === '2' && !selectedPatient) {
-        const demoPatient = findPatientById('PT-1923');
-        if (demoPatient) handleSelectPatient(demoPatient);
-      }
-      if (e.key === '3' && !selectedPatient) {
-        const demoPatient = findPatientById('PT-5612');
-        if (demoPatient) handleSelectPatient(demoPatient);
-      }
-      if (e.key === 'r' && !selectedPatient) {
-        actions.resetFilters();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPatient, findPatientById, actions]);
-
   const getDisplayTime = useCallback((baseMinutes: number) => {
     return formatRelativeTime(baseMinutes + timeOffset);
   }, [timeOffset]);
-
-  // Tracked patient selection
-  const handleSelectPatient = useCallback((patient: Patient) => {
-    const endTracking = trackInteraction('patient-selection');
-    performanceMonitor.addMetric({
-      name: 'patient-selected',
-      value: 1,
-      unit: 'count',
-      timestamp: Date.now(),
-      category: 'interaction',
-    });
-    
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedPatient(patient);
-      setIsTransitioning(false);
-      endTracking();
-    }, 200);
-  }, [trackInteraction]);
-
-  const handleBack = useCallback(() => {
-    const endTracking = trackInteraction('patient-deselection');
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedPatient(null);
-      setIsTransitioning(false);
-      endTracking();
-    }, 200);
-  }, [trackInteraction]);
 
   // Demo scenarios for auto-advance mode (aligned to ~5min presentation)
   const demoScenarios: DemoScenario[] = [
@@ -228,7 +173,7 @@ export const Dashboard = () => {
         {selectedPatient ? (
           <PatientDetail
             patient={selectedPatient}
-            onBack={handleBack}
+            onBack={goBack}
           />
         ) : (
           <div className="animate-fade-in space-y-6">
@@ -287,7 +232,7 @@ export const Dashboard = () => {
                 <section aria-label="Priority patients requiring immediate attention">
                   <PriorityQueue
                     patients={priorityPatients}
-                    onSelect={handleSelectPatient}
+                    onSelect={selectPatient}
                     displayTime={getDisplayTime}
                   />
                 </section>
@@ -296,7 +241,7 @@ export const Dashboard = () => {
                 <section aria-label="Additional patients for monitoring">
                   <MonitoringList
                     patients={monitoringPatients}
-                    onSelect={handleSelectPatient}
+                    onSelect={selectPatient}
                     displayTime={getDisplayTime}
                   />
                 </section>
