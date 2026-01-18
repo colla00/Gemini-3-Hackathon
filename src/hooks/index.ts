@@ -66,6 +66,15 @@ export type {
   UsePerformanceRegressionOptions,
   UsePerformanceRegressionReturn
 } from './usePerformanceRegression';
+export { useMetricHistory } from './useMetricHistory';
+export type {
+  MetricDataPoint,
+  MetricHistory,
+  UseMetricHistoryOptions,
+  UseMetricHistoryReturn
+} from './useMetricHistory';
+export { usePerformanceShortcuts, getShortcutText } from './usePerformanceShortcuts';
+export type { PerformanceShortcutActions, UsePerformanceShortcutsOptions } from './usePerformanceShortcuts';
 
 // Presentation
 export { usePresentationSession } from './usePresentationSession';
