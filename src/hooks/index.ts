@@ -48,8 +48,16 @@ export type {
 } from './usePatientSelection';
 
 // Performance monitoring
-export { usePerformanceTracking } from './usePerformance';
+export { usePerformanceTracking, useFetchPerformance, useScrollPerformance, useInputPerformance } from './usePerformance';
 export { usePerformanceBudget } from './usePerformanceBudget';
+export { usePerformanceDashboard } from './usePerformanceDashboard';
+export type { 
+  UsePerformanceDashboardOptions, 
+  UsePerformanceDashboardReturn,
+  HookMetrics,
+  WebVitals,
+  PerformanceSummary 
+} from './usePerformanceDashboard';
 
 // Presentation
 export { usePresentationSession } from './usePresentationSession';
