@@ -10,7 +10,7 @@ import { MonitoringList } from './MonitoringList';
 import { QuickStats } from './QuickStats';
 import { WorkflowSequence } from './WorkflowSequence';
 import { DemoSummary } from './DemoSummary';
-import { DemoModeController, type DemoScenario } from './DemoModeController';
+import { DemoModeController } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
 import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
@@ -18,6 +18,7 @@ import { SkipLink } from '@/components/SkipLink';
 import { cn } from '@/lib/utils';
 import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
+import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { formatRelativeTime } from '@/utils/timeFormatters';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
@@ -57,6 +58,15 @@ export const Dashboard = () => {
     onResetFilters: actions.resetFilters,
   });
 
+  // Generate demo scenarios using the hook
+  const demoScenarios = useDemoScenarios({
+    setSelectedPatient,
+    findPatientById,
+    findPatientByRiskType,
+    setRiskLevelFilter: actions.setRiskLevelFilter,
+    setRiskTypeFilter: actions.setRiskTypeFilter,
+  });
+
   // Update timestamps every 30 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -69,84 +79,6 @@ export const Dashboard = () => {
   const getDisplayTime = useCallback((baseMinutes: number) => {
     return formatRelativeTime(baseMinutes + timeOffset);
   }, [timeOffset]);
-
-  // Demo scenarios for auto-advance mode (aligned to ~5min presentation)
-  const demoScenarios: DemoScenario[] = [
-    {
-      id: 'intro',
-      label: 'Dashboard Overview',
-      description: 'Unit-level view of nurse-sensitive outcomes monitoring',
-      duration: 10,
-      action: () => {
-        setSelectedPatient(null);
-        actions.setRiskTypeFilter('ALL');
-        actions.setRiskLevelFilter('ALL');
-      },
-    },
-    {
-      id: 'high-risk-falls',
-      label: 'Falls Risk - SHAP Analysis',
-      description: 'Patient A01: Post-op sedation + mobility → interpretable risk factors',
-      duration: 12,
-      action: () => {
-        const fallsPatient = findPatientById('Patient A01');
-        if (fallsPatient) setSelectedPatient(fallsPatient);
-      },
-    },
-    {
-      id: 'cauti-scenario',
-      label: 'CAUTI Risk Escalation',
-      description: 'Patient C00: Foley Day 8 + fever → catheter removal workflow',
-      duration: 12,
-      action: () => {
-        const cautiPatient = findPatientByRiskType('CAUTI');
-        if (cautiPatient) setSelectedPatient(cautiPatient);
-      },
-    },
-    {
-      id: 'pressure-injury',
-      label: 'Pressure Injury Prevention',
-      description: 'HAPI risk with Braden subscale + repositioning protocol',
-      duration: 10,
-      action: () => {
-        const hapiPatient = findPatientByRiskType('Pressure Injury');
-        if (hapiPatient) setSelectedPatient(hapiPatient);
-      },
-    },
-    {
-      id: 'filter-demo',
-      label: 'Priority Filtering',
-      description: 'Filter to high-risk patients for focused nursing rounds',
-      duration: 8,
-      action: () => {
-        setSelectedPatient(null);
-        actions.setRiskLevelFilter('HIGH');
-        actions.setRiskTypeFilter('ALL');
-      },
-    },
-    {
-      id: 'handoff-context',
-      label: 'Shift Handoff',
-      description: 'Click Handoff phase above → generate CAUTI report',
-      duration: 10,
-      action: () => {
-        setSelectedPatient(null);
-        actions.setRiskLevelFilter('ALL');
-        actions.setRiskTypeFilter('ALL');
-      },
-    },
-    {
-      id: 'summary',
-      label: 'Q&A Discussion',
-      description: 'EHR-driven, interpretable AI for nurse-sensitive outcomes',
-      duration: 10,
-      action: () => {
-        setSelectedPatient(null);
-        actions.setRiskLevelFilter('ALL');
-        actions.setRiskTypeFilter('ALL');
-      },
-    },
-  ];
 
   return (
     <div className={cn(
