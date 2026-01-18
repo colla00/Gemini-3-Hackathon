@@ -75,6 +75,15 @@ export type {
 } from './useMetricHistory';
 export { usePerformanceShortcuts, getShortcutText } from './usePerformanceShortcuts';
 export type { PerformanceShortcutActions, UsePerformanceShortcutsOptions } from './usePerformanceShortcuts';
+export { useLighthouseMonitoring } from './useLighthouseMonitoring';
+export type {
+  LighthouseMetrics,
+  LighthouseScores,
+  LighthouseAudit,
+  LighthouseReport,
+  UseLighthouseMonitoringOptions,
+  UseLighthouseMonitoringReturn
+} from './useLighthouseMonitoring';
 
 // Presentation
 export { usePresentationSession } from './usePresentationSession';

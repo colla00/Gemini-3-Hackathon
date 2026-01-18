@@ -31,6 +31,7 @@ import { useMetricHistory } from '@/hooks/useMetricHistory';
 import { usePerformanceShortcuts } from '@/hooks/usePerformanceShortcuts';
 import { RegressionAlertPanel } from './RegressionAlertPanel';
 import { MetricSparkline } from './MetricSparkline';
+import { LighthousePanel } from './LighthousePanel';
 
 interface PerformanceDashboardProps {
   className?: string;
@@ -156,8 +157,7 @@ export const PerformanceMonitoringDashboard = ({
 }: PerformanceDashboardProps) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [showViolations, setShowViolations] = useState(false);
-  const [activeTab, setActiveTab] = useState<'metrics' | 'regression'>('metrics');
-  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [activeTab, setActiveTab] = useState<'metrics' | 'regression' | 'lighthouse'>('metrics');
   
   const {
     summary,
@@ -327,7 +327,7 @@ export const PerformanceMonitoringDashboard = ({
       </div>
 
       {/* Tabs for Metrics vs Regression */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'metrics' | 'regression')} className="flex-1 flex flex-col overflow-hidden">
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'metrics' | 'regression' | 'lighthouse')} className="flex-1 flex flex-col overflow-hidden">
         <TabsList className="w-full rounded-none border-b border-border/50 bg-transparent h-9">
           <TabsTrigger value="metrics" className="flex-1 text-xs data-[state=active]:bg-muted/50">
             <BarChart3 className="w-3 h-3 mr-1" />
@@ -335,12 +335,16 @@ export const PerformanceMonitoringDashboard = ({
           </TabsTrigger>
           <TabsTrigger value="regression" className="flex-1 text-xs data-[state=active]:bg-muted/50">
             <Shield className="w-3 h-3 mr-1" />
-            Regression
+            Alerts
             {regression.hasRegression && (
               <Badge variant="destructive" className="h-3 text-[8px] px-1 ml-1">
                 !
               </Badge>
             )}
+          </TabsTrigger>
+          <TabsTrigger value="lighthouse" className="flex-1 text-xs data-[state=active]:bg-muted/50">
+            <Gauge className="w-3 h-3 mr-1" />
+            Score
           </TabsTrigger>
         </TabsList>
 
@@ -475,6 +479,10 @@ export const PerformanceMonitoringDashboard = ({
             onAcknowledgeAll={regression.acknowledgeAllAlerts}
             onClearAlerts={regression.clearAlerts}
           />
+        </TabsContent>
+
+        <TabsContent value="lighthouse" className="flex-1 overflow-auto m-0 p-3">
+          <LighthousePanel />
         </TabsContent>
       </Tabs>
 
