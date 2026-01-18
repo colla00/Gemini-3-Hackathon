@@ -16,14 +16,18 @@ import {
   Cpu,
   Zap,
   Timer,
-  BarChart3
+  BarChart3,
+  Shield
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { usePerformanceDashboard, type HookMetrics } from '@/hooks/usePerformanceDashboard';
+import { usePerformanceRegression } from '@/hooks/usePerformanceRegression';
+import { RegressionAlertPanel } from './RegressionAlertPanel';
 
 interface PerformanceDashboardProps {
   className?: string;
@@ -149,6 +153,7 @@ export const PerformanceMonitoringDashboard = ({
 }: PerformanceDashboardProps) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [showViolations, setShowViolations] = useState(false);
+  const [activeTab, setActiveTab] = useState<'metrics' | 'regression'>('metrics');
   
   const {
     summary,
@@ -158,6 +163,11 @@ export const PerformanceMonitoringDashboard = ({
     clearMetrics,
     exportReport,
   } = usePerformanceDashboard({ refreshInterval: 1000 });
+
+  const regression = usePerformanceRegression({
+    checkInterval: 5000,
+    enableNotifications: true,
+  });
 
   const handleExport = () => {
     const report = exportReport();
@@ -180,6 +190,9 @@ export const PerformanceMonitoringDashboard = ({
     THRESHOLDS.interaction
   );
 
+  const regressionStatus = regression.getStatus();
+  const totalAlerts = summary.budgetViolations.length + regression.alerts.filter(a => !a.acknowledged).length;
+
   if (!isExpanded) {
     return (
       <Button
@@ -188,14 +201,22 @@ export const PerformanceMonitoringDashboard = ({
         onClick={() => setIsExpanded(true)}
         className={cn(
           "fixed bottom-4 left-4 z-50 gap-2 bg-card/95 backdrop-blur-sm shadow-lg",
+          regressionStatus === 'critical' && "border-destructive",
+          regressionStatus === 'warning' && "border-amber-500",
           className
         )}
       >
-        <BarChart3 className="w-4 h-4 text-primary" />
+        {regressionStatus === 'critical' ? (
+          <AlertTriangle className="w-4 h-4 text-destructive" />
+        ) : regressionStatus === 'warning' ? (
+          <AlertTriangle className="w-4 h-4 text-amber-500" />
+        ) : (
+          <BarChart3 className="w-4 h-4 text-primary" />
+        )}
         <span>Performance</span>
-        {summary.budgetViolations.length > 0 && (
+        {totalAlerts > 0 && (
           <Badge variant="destructive" className="h-4 text-[10px] px-1 ml-1">
-            {summary.budgetViolations.length}
+            {totalAlerts}
           </Badge>
         )}
       </Button>
@@ -260,127 +281,175 @@ export const PerformanceMonitoringDashboard = ({
         </div>
       </div>
 
-      {/* Web Vitals */}
-      <div className="p-3 border-b border-border/50">
-        <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
-          Web Vitals
-        </div>
-        <div className="grid grid-cols-3 gap-2">
-          <MetricCard
-            label="Page Load"
-            value={summary.webVitals.pageLoad}
-            unit="ms"
-            status={getPerformanceStatus(summary.webVitals.pageLoad, { good: 1000, warning: 2500 })}
-            icon={Clock}
-          />
-          <MetricCard
-            label="FCP"
-            value={summary.webVitals.fcp}
-            unit="ms"
-            status={getPerformanceStatus(summary.webVitals.fcp, { good: 1800, warning: 3000 })}
-            icon={Zap}
-          />
-          <MetricCard
-            label="TTI"
-            value={summary.webVitals.tti}
-            unit="ms"
-            status={getPerformanceStatus(summary.webVitals.tti, { good: 3800, warning: 7300 })}
-            icon={Activity}
-          />
-        </div>
-      </div>
+      {/* Tabs for Metrics vs Regression */}
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'metrics' | 'regression')} className="flex-1 flex flex-col overflow-hidden">
+        <TabsList className="w-full rounded-none border-b border-border/50 bg-transparent h-9">
+          <TabsTrigger value="metrics" className="flex-1 text-xs data-[state=active]:bg-muted/50">
+            <BarChart3 className="w-3 h-3 mr-1" />
+            Metrics
+          </TabsTrigger>
+          <TabsTrigger value="regression" className="flex-1 text-xs data-[state=active]:bg-muted/50">
+            <Shield className="w-3 h-3 mr-1" />
+            Regression
+            {regression.hasRegression && (
+              <Badge variant="destructive" className="h-3 text-[8px] px-1 ml-1">
+                !
+              </Badge>
+            )}
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Runtime Metrics */}
-      <div className="p-3 border-b border-border/50">
-        <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
-          Runtime Metrics
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <MetricCard
-            label="Avg Interaction"
-            value={summary.avgInteractionTime}
-            unit="ms"
-            status={interactionStatus}
-            icon={Timer}
-            subValue={`${summary.totalMetrics} total metrics`}
-          />
-          {summary.memoryUsage && (
-            <MetricCard
-              label="Memory"
-              value={memoryMB}
-              unit="MB"
-              status={memoryStatus}
-              icon={Cpu}
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Hook Metrics */}
-      <Collapsible>
-        <CollapsibleTrigger asChild>
-          <button className="w-full p-3 flex items-center justify-between hover:bg-secondary/50 transition-colors">
-            <div className="flex items-center gap-2">
-              <Gauge className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs font-medium">Hook Performance</span>
+        <TabsContent value="metrics" className="flex-1 overflow-auto m-0">
+          {/* Web Vitals */}
+          <div className="p-3 border-b border-border/50">
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+              Web Vitals
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
-          </button>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <div className="px-3 pb-3">
-            {summary.hookMetrics.map((metric) => (
-              <HookMetricRow key={metric.name} metric={metric} />
-            ))}
+            <div className="grid grid-cols-3 gap-2">
+              <MetricCard
+                label="Page Load"
+                value={summary.webVitals.pageLoad}
+                unit="ms"
+                status={getPerformanceStatus(summary.webVitals.pageLoad, { good: 1000, warning: 2500 })}
+                icon={Clock}
+              />
+              <MetricCard
+                label="FCP"
+                value={summary.webVitals.fcp}
+                unit="ms"
+                status={getPerformanceStatus(summary.webVitals.fcp, { good: 1800, warning: 3000 })}
+                icon={Zap}
+              />
+              <MetricCard
+                label="TTI"
+                value={summary.webVitals.tti}
+                unit="ms"
+                status={getPerformanceStatus(summary.webVitals.tti, { good: 3800, warning: 7300 })}
+                icon={Activity}
+              />
+            </div>
           </div>
-        </CollapsibleContent>
-      </Collapsible>
 
-      {/* Budget Violations */}
-      {summary.budgetViolations.length > 0 && (
-        <Collapsible open={showViolations} onOpenChange={setShowViolations}>
-          <CollapsibleTrigger asChild>
-            <button className="w-full p-3 flex items-center justify-between hover:bg-secondary/50 transition-colors border-t border-border/50">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5 text-yellow-500" />
-                <span className="text-xs font-medium">Budget Violations</span>
-                <Badge variant="destructive" className="h-4 text-[10px] px-1">
-                  {summary.budgetViolations.length}
-                </Badge>
-              </div>
-              {showViolations ? (
-                <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
-              )}
-            </button>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <div className="px-3 pb-3 max-h-40 overflow-y-auto">
-              {summary.budgetViolations.slice(-10).reverse().map((violation, i) => (
-                <div key={i} className="flex items-center justify-between py-1.5 border-b border-border/30 last:border-0">
-                  <span className="text-[10px] text-muted-foreground truncate max-w-[180px]">
-                    {violation.metric.name}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-red-500 font-mono">
-                      +{violation.exceeded.toFixed(1)}ms
-                    </span>
-                    <span className="text-[10px] text-muted-foreground">
-                      / {violation.budget}ms
-                    </span>
-                  </div>
-                </div>
-              ))}
+          {/* Runtime Metrics */}
+          <div className="p-3 border-b border-border/50">
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+              Runtime Metrics
             </div>
-          </CollapsibleContent>
-        </Collapsible>
-      )}
+            <div className="grid grid-cols-2 gap-2">
+              <MetricCard
+                label="Avg Interaction"
+                value={summary.avgInteractionTime}
+                unit="ms"
+                status={interactionStatus}
+                icon={Timer}
+                subValue={`${summary.totalMetrics} total metrics`}
+              />
+              {summary.memoryUsage && (
+                <MetricCard
+                  label="Memory"
+                  value={memoryMB}
+                  unit="MB"
+                  status={memoryStatus}
+                  icon={Cpu}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Hook Metrics */}
+          <Collapsible>
+            <CollapsibleTrigger asChild>
+              <button className="w-full p-3 flex items-center justify-between hover:bg-secondary/50 transition-colors">
+                <div className="flex items-center gap-2">
+                  <Gauge className="w-3.5 h-3.5 text-muted-foreground" />
+                  <span className="text-xs font-medium">Hook Performance</span>
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+              </button>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="px-3 pb-3">
+                {summary.hookMetrics.map((metric) => (
+                  <HookMetricRow key={metric.name} metric={metric} />
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Budget Violations */}
+          {summary.budgetViolations.length > 0 && (
+            <Collapsible open={showViolations} onOpenChange={setShowViolations}>
+              <CollapsibleTrigger asChild>
+                <button className="w-full p-3 flex items-center justify-between hover:bg-secondary/50 transition-colors border-t border-border/50">
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className="w-3.5 h-3.5 text-yellow-500" />
+                    <span className="text-xs font-medium">Budget Violations</span>
+                    <Badge variant="destructive" className="h-4 text-[10px] px-1">
+                      {summary.budgetViolations.length}
+                    </Badge>
+                  </div>
+                  {showViolations ? (
+                    <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                  )}
+                </button>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="px-3 pb-3 max-h-40 overflow-y-auto">
+                  {summary.budgetViolations.slice(-10).reverse().map((violation, i) => (
+                    <div key={i} className="flex items-center justify-between py-1.5 border-b border-border/30 last:border-0">
+                      <span className="text-[10px] text-muted-foreground truncate max-w-[180px]">
+                        {violation.metric.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-red-500 font-mono">
+                          +{violation.exceeded.toFixed(1)}ms
+                        </span>
+                        <span className="text-[10px] text-muted-foreground">
+                          / {violation.budget}ms
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          )}
+        </TabsContent>
+
+        <TabsContent value="regression" className="flex-1 overflow-auto m-0 p-3">
+          <RegressionAlertPanel
+            baseline={regression.baseline}
+            alerts={regression.alerts}
+            isMonitoring={regression.isMonitoring}
+            status={regressionStatus}
+            onCaptureBaseline={regression.captureBaseline}
+            onClearBaseline={regression.clearBaseline}
+            onAcknowledgeAlert={regression.acknowledgeAlert}
+            onAcknowledgeAll={regression.acknowledgeAllAlerts}
+            onClearAlerts={regression.clearAlerts}
+          />
+        </TabsContent>
+      </Tabs>
 
       {/* Footer */}
-      <div className="px-3 py-2 bg-muted/30 text-[10px] text-muted-foreground flex items-center justify-between">
+      <div className="px-3 py-2 bg-muted/30 text-[10px] text-muted-foreground flex items-center justify-between border-t border-border/50">
         <span>Updated {new Date(summary.lastUpdated).toLocaleTimeString()}</span>
-        <span>{isMonitoring ? 'Monitoring active' : 'Paused'}</span>
+        <div className="flex items-center gap-2">
+          {regression.baseline && (
+            <span className={cn(
+              "flex items-center gap-1",
+              regressionStatus === 'critical' && "text-destructive",
+              regressionStatus === 'warning' && "text-amber-500",
+              regressionStatus === 'healthy' && "text-emerald-500"
+            )}>
+              <Shield className="w-3 h-3" />
+              {regressionStatus}
+            </span>
+          )}
+          <span>{isMonitoring ? 'Active' : 'Paused'}</span>
+        </div>
       </div>
     </div>
   );

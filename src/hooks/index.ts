@@ -58,6 +58,14 @@ export type {
   WebVitals,
   PerformanceSummary 
 } from './usePerformanceDashboard';
+export { usePerformanceRegression } from './usePerformanceRegression';
+export type {
+  BaselineMetrics,
+  RegressionAlert,
+  RegressionThresholds,
+  UsePerformanceRegressionOptions,
+  UsePerformanceRegressionReturn
+} from './usePerformanceRegression';
 
 // Presentation
 export { usePresentationSession } from './usePresentationSession';
