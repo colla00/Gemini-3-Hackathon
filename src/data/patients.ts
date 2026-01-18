@@ -677,43 +677,11 @@ export const patients: Patient[] = [
   },
 ];
 
-export const getRiskLevelColor = (level: RiskLevel): string => {
-  switch (level) {
-    case 'HIGH':
-      return 'risk-high';
-    case 'MEDIUM':
-      return 'risk-medium';
-    case 'LOW':
-      return 'risk-low';
-  }
-};
+// Re-export utility functions from centralized location for backward compatibility
+export { 
+  getRiskLevelColor, 
+  getRiskLevelTextColor, 
+  getRiskLevelLabel 
+} from '@/utils/riskFormatters';
 
-export const getRiskLevelTextColor = (level: RiskLevel): string => {
-  switch (level) {
-    case 'HIGH':
-      return 'text-risk-high';
-    case 'MEDIUM':
-      return 'text-risk-medium';
-    case 'LOW':
-      return 'text-risk-low';
-  }
-};
-
-export const getRiskLevelLabel = (level: RiskLevel, riskType: RiskType): string => {
-  switch (level) {
-    case 'HIGH':
-      return `Elevated ${riskType} Risk`;
-    case 'MEDIUM':
-      return 'Moderate Risk - Monitor Closely';
-    case 'LOW':
-      return 'Low Risk - Standard Monitoring';
-  }
-};
-
-export const formatRelativeTime = (minutes: number): string => {
-  if (minutes < 1) return 'Just now';
-  if (minutes === 1) return '~1h';
-  if (minutes < 60) return `~${minutes}h`;
-  if (minutes < 120) return '~1h';
-  return `~${Math.floor(minutes / 60)}h`;
-};
+export { formatRelativeTime } from '@/utils/timeFormatters';
