@@ -17,6 +17,7 @@ import { LiveMetricsBar } from './LiveMetricsBar';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { ResearchCharts } from './ResearchCharts';
 import { CalculatorPreview } from './CalculatorPreview';
+import { FloatingCalculatorWidget } from './FloatingCalculatorWidget';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -233,6 +234,11 @@ export const Dashboard = () => {
         isFullscreen={isPresentationMode}
         onFullscreenChange={setIsPresentationMode}
       />
+
+      {/* Floating Calculator Widget */}
+      {!selectedPatient && activeTab === 'dashboard' && (
+        <FloatingCalculatorWidget onOpenFullCalculators={() => setActiveTab('calculators')} />
+      )}
 
       {/* Performance Monitoring Panel */}
       <PerformancePanel />
