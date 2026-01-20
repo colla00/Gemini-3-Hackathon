@@ -69,16 +69,16 @@ export const ClinicalWorkflowBar = () => {
 
   return (
     <TooltipProvider>
-      <div className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl px-5 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="bg-card/60 backdrop-blur-md border border-border/40 rounded-2xl px-5 py-3.5 shadow-sm">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
-                Workflow Context
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                Workflow
               </span>
             </div>
-            <div className="h-4 w-px bg-border/40" />
-            <span className="text-xs font-medium text-foreground">{shiftInfo.label} · {shiftInfo.time}</span>
+            <div className="h-4 w-px bg-border/50" />
+            <span className="text-xs font-semibold text-foreground bg-secondary/50 px-2 py-1 rounded-md">{shiftInfo.label} · {shiftInfo.time}</span>
           </div>
           
           <div className="flex items-center gap-1">
@@ -89,14 +89,14 @@ export const ClinicalWorkflowBar = () => {
                     <button
                       onClick={() => setActivePhase(phase.id)}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs transition-all duration-300",
+                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs transition-all duration-300",
                         activePhase === phase.id
-                          ? "bg-primary/15 text-primary border border-primary/30"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                          ? "bg-primary text-primary-foreground shadow-md"
+                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
                       )}
                     >
                       {phase.icon}
-                      <span className="hidden sm:inline font-medium">{phase.label}</span>
+                      <span className="hidden sm:inline font-semibold">{phase.label}</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" className="text-xs max-w-[180px]">
@@ -150,9 +150,9 @@ export const ClinicalWorkflowBar = () => {
               </div>
             )}
             
-            <div className="flex items-center gap-2 text-xs">
-              <span className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
-              <span className="font-medium text-muted-foreground">System Active</span>
+            <div className="flex items-center gap-2 text-xs bg-primary/10 px-2.5 py-1.5 rounded-lg">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="font-semibold text-primary">System Active</span>
             </div>
           </div>
         </div>

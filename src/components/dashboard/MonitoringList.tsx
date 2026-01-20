@@ -54,15 +54,15 @@ export const MonitoringList = ({ patients, onSelect, displayTime }: MonitoringLi
         </CollapsibleTrigger>
 
         <CollapsibleContent>
-          <div className="bg-card/30 rounded-xl border border-border/20 overflow-hidden">
-            <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-4 py-2 border-b border-border/20 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+          <div className="bg-card/50 rounded-2xl border border-border/40 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-5 py-3 border-b border-border/30 text-[10px] font-bold text-muted-foreground uppercase tracking-wider bg-secondary/30">
               <span>Patient</span>
               <span className="text-center">Signal</span>
               <span className="text-center">Trajectory</span>
               <span className="text-right">Updated</span>
             </div>
             
-            <div className="divide-y divide-border/10">
+            <div className="divide-y divide-border/20">
               {patients.map((patient) => (
                 <MonitoringRow
                   key={patient.id}
@@ -97,7 +97,7 @@ const MonitoringRow = ({ patient, onClick, displayTime }: MonitoringRowProps) =>
   return (
     <button
       onClick={onClick}
-      className="w-full grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center px-4 py-3 hover:bg-secondary/20 transition-colors text-left group"
+      className="w-full grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center px-5 py-4 hover:bg-secondary/30 transition-colors text-left group"
     >
       <div className="flex items-center gap-3 min-w-0">
         <div className="min-w-0">

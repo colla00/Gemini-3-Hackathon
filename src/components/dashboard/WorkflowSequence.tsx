@@ -42,47 +42,61 @@ interface WorkflowSequenceProps {
 
 export const WorkflowSequence = ({ activeStep = 'output', className }: WorkflowSequenceProps) => {
   return (
-    <div className={cn("bg-card/60 rounded-xl border border-border/30 p-4", className)}>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+    <div className={cn("bg-card/70 rounded-2xl border border-border/40 p-5 shadow-sm", className)}>
+      <div className="flex items-center gap-2 mb-5">
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
           System Workflow
         </span>
+        <div className="h-px flex-1 bg-border/30" />
       </div>
 
       <div className="flex items-center justify-between">
         {workflowSteps.map((step, index) => (
-          <div key={step.id} className="flex items-center">
+          <div key={step.id} className="flex items-center flex-1">
             <div
               className={cn(
-                "flex flex-col items-center text-center transition-all duration-300",
+                "flex flex-col items-center text-center transition-all duration-300 flex-1",
                 activeStep === step.id
                   ? "scale-105"
-                  : "opacity-70"
+                  : "opacity-60 hover:opacity-80"
               )}
             >
               <div
                 className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center mb-2 transition-all duration-300",
+                  "w-12 h-12 rounded-xl flex items-center justify-center mb-2.5 transition-all duration-300 shadow-sm",
                   activeStep === step.id
-                    ? "bg-primary/20 text-primary border border-primary/30"
-                    : "bg-secondary/50 text-muted-foreground"
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "bg-secondary/60 text-muted-foreground"
                 )}
               >
                 {step.icon}
               </div>
               <span className={cn(
-                "text-[11px] font-semibold",
+                "text-xs font-bold tracking-tight",
                 activeStep === step.id ? "text-primary" : "text-foreground"
               )}>
                 {step.label}
               </span>
-              <span className="text-[9px] text-muted-foreground max-w-[80px] leading-tight mt-0.5">
+              <span className="text-[10px] text-muted-foreground max-w-[90px] leading-tight mt-1">
                 {step.description}
               </span>
             </div>
 
             {index < workflowSteps.length - 1 && (
-              <ArrowRight className="w-4 h-4 text-border mx-2 flex-shrink-0" />
+              <div className="flex items-center px-2">
+                <div className={cn(
+                  "w-8 h-0.5 rounded-full transition-colors",
+                  workflowSteps.findIndex(s => s.id === activeStep) > index
+                    ? "bg-primary"
+                    : "bg-border"
+                )} />
+                <ArrowRight className={cn(
+                  "w-4 h-4 -ml-1",
+                  workflowSteps.findIndex(s => s.id === activeStep) > index
+                    ? "text-primary"
+                    : "text-border"
+                )} />
+              </div>
             )}
           </div>
         ))}

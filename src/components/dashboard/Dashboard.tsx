@@ -105,24 +105,24 @@ export const Dashboard = () => {
           />
         ) : (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-            <TabsList className="mb-6 bg-card/50 border border-border/30 flex-wrap h-auto gap-1 p-1">
-              <TabsTrigger value="dashboard" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsList className="mb-6 bg-card/60 border border-border/40 flex-wrap h-auto gap-1.5 p-1.5 rounded-2xl shadow-sm">
+              <TabsTrigger value="dashboard" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <Activity className="h-4 w-4" />
                 Dashboard
               </TabsTrigger>
-              <TabsTrigger value="dbs" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <TabsTrigger value="dbs" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <FileText className="h-4 w-4" />
                 DBS Score
               </TabsTrigger>
-              <TabsTrigger value="roi" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <TabsTrigger value="roi" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <DollarSign className="h-4 w-4" />
                 ROI Calculator
               </TabsTrigger>
-              <TabsTrigger value="linked" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <TabsTrigger value="linked" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <Link2 className="h-4 w-4" />
                 Linked View
               </TabsTrigger>
-              <TabsTrigger value="charts" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <TabsTrigger value="charts" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <BarChart3 className="h-4 w-4" />
                 Research Charts
               </TabsTrigger>
