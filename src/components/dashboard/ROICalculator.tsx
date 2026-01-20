@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { DollarSign, Building2, Clock, TrendingUp, Users, Activity, Save, Trash2, BarChart3 } from 'lucide-react';
+import { DollarSign, Building2, Clock, TrendingUp, Users, Activity, Save, Trash2, BarChart3, Sparkles } from 'lucide-react';
 import { calculateROI, formatCurrency, formatCompactNumber } from '@/utils/dbsCalculations';
 import { RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,6 +25,64 @@ interface SavedScenario {
   hourlyRate: number;
   roi: ReturnType<typeof calculateROI>;
 }
+
+// Preset hospital configurations
+const HOSPITAL_PRESETS = [
+  {
+    id: 'small-community',
+    name: 'Small Community',
+    description: '25-bed rural hospital',
+    bedCount: 25,
+    occupancy: 70,
+    hourlyRate: 38,
+    color: 'bg-emerald-500/20 text-emerald-600 border-emerald-500/30',
+  },
+  {
+    id: 'rural-critical',
+    name: 'Rural Critical Access',
+    description: '15-bed CAH facility',
+    bedCount: 15,
+    occupancy: 60,
+    hourlyRate: 35,
+    color: 'bg-amber-500/20 text-amber-600 border-amber-500/30',
+  },
+  {
+    id: 'mid-size-regional',
+    name: 'Mid-Size Regional',
+    description: '75-bed regional center',
+    bedCount: 75,
+    occupancy: 80,
+    hourlyRate: 45,
+    color: 'bg-blue-500/20 text-blue-600 border-blue-500/30',
+  },
+  {
+    id: 'large-academic',
+    name: 'Large Academic Center',
+    description: '150-bed teaching hospital',
+    bedCount: 150,
+    occupancy: 90,
+    hourlyRate: 55,
+    color: 'bg-purple-500/20 text-purple-600 border-purple-500/30',
+  },
+  {
+    id: 'urban-tertiary',
+    name: 'Urban Tertiary',
+    description: '200-bed metro hospital',
+    bedCount: 200,
+    occupancy: 95,
+    hourlyRate: 60,
+    color: 'bg-rose-500/20 text-rose-600 border-rose-500/30',
+  },
+  {
+    id: 'specialty-cardiac',
+    name: 'Specialty Cardiac',
+    description: '40-bed cardiac center',
+    bedCount: 40,
+    occupancy: 85,
+    hourlyRate: 52,
+    color: 'bg-red-500/20 text-red-600 border-red-500/30',
+  },
+];
 
 export function ROICalculator({ className, compact = false }: ROICalculatorProps) {
   const [bedCount, setBedCount] = useState(50);
@@ -65,6 +123,12 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
     setBedCount(scenario.bedCount);
     setOccupancy(scenario.occupancy);
     setHourlyRate(scenario.hourlyRate);
+  };
+
+  const loadPreset = (preset: typeof HOSPITAL_PRESETS[0]) => {
+    setBedCount(preset.bedCount);
+    setOccupancy(preset.occupancy);
+    setHourlyRate(preset.hourlyRate);
   };
 
   if (compact) {
@@ -147,6 +211,49 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Hospital Presets */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="font-semibold text-sm flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              Quick Load Presets
+            </h4>
+            <span className="text-xs text-muted-foreground">Click to apply</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {HOSPITAL_PRESETS.map((preset) => {
+              const presetRoi = calculateROI({
+                bedCount: preset.bedCount,
+                avgOccupancy: preset.occupancy,
+                avgNurseHourlyRate: preset.hourlyRate,
+              });
+              return (
+                <motion.button
+                  key={preset.id}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => loadPreset(preset)}
+                  className={cn(
+                    "p-3 rounded-lg border text-left transition-all hover:shadow-md",
+                    preset.color,
+                    bedCount === preset.bedCount && 
+                    occupancy === preset.occupancy && 
+                    hourlyRate === preset.hourlyRate
+                      ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                      : ""
+                  )}
+                >
+                  <p className="font-medium text-sm">{preset.name}</p>
+                  <p className="text-xs opacity-80">{preset.description}</p>
+                  <Badge variant="secondary" className="mt-2 text-[10px] text-risk-low">
+                    ${formatCompactNumber(presetRoi.annualSavings)}/yr
+                  </Badge>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Input Sliders */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-3">
