@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { motion, AnimatePresence } from 'framer-motion';
 interface DashboardOverviewProps {
   liveSimulation?: {
     isActive: boolean;
@@ -255,7 +255,7 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
   );
 };
 
-// Expandable Calculator Wrapper
+// Expandable Calculator Wrapper with framer-motion animations
 const ExpandableCalculator = ({ 
   title, 
   defaultExpanded = false, 
@@ -268,31 +268,51 @@ const ExpandableCalculator = ({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
-    <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-      <div className="glass-card rounded-lg overflow-hidden">
-        <CollapsibleTrigger asChild>
-          <Button 
-            variant="ghost" 
-            className="w-full flex items-center justify-between p-3 h-auto hover:bg-secondary/30"
-          >
-            <span className="text-sm font-semibold text-foreground">{title}</span>
-            {isExpanded ? (
-              <ChevronUp className="w-4 h-4 text-muted-foreground" />
-            ) : (
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
-            )}
-          </Button>
-        </CollapsibleTrigger>
-        <CollapsibleContent className="px-3 pb-3">
+    <motion.div 
+      className="glass-card rounded-lg overflow-hidden"
+      layout
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+    >
+      <Button 
+        variant="ghost" 
+        className="w-full flex items-center justify-between p-3 h-auto hover:bg-secondary/30"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <span className="text-sm font-semibold text-foreground">{title}</span>
+        <motion.div
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+        </motion.div>
+      </Button>
+      
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isExpanded ? 'expanded' : 'compact'}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ 
+            opacity: 1, 
+            height: 'auto',
+            transition: { 
+              height: { duration: 0.3, ease: 'easeInOut' },
+              opacity: { duration: 0.2, delay: 0.1 }
+            }
+          }}
+          exit={{ 
+            opacity: 0, 
+            height: 0,
+            transition: { 
+              height: { duration: 0.2, ease: 'easeInOut' },
+              opacity: { duration: 0.1 }
+            }
+          }}
+          className="px-3 pb-3 overflow-hidden"
+        >
           {children(isExpanded)}
-        </CollapsibleContent>
-        {!isExpanded && (
-          <div className="px-3 pb-3">
-            {children(false)}
-          </div>
-        )}
-      </div>
-    </Collapsible>
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
