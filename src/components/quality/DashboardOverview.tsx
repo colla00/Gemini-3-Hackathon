@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskCategoryData } from '@/data/nursingOutcomes';
 import { ConfidenceIndicator } from './ConfidenceIndicator';
@@ -9,6 +9,8 @@ import { AdaptiveThresholds } from './AdaptiveThresholds';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 interface DashboardOverviewProps {
   liveSimulation?: {
     isActive: boolean;
@@ -253,6 +255,47 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
   );
 };
 
+// Expandable Calculator Wrapper
+const ExpandableCalculator = ({ 
+  title, 
+  defaultExpanded = false, 
+  children 
+}: { 
+  title: string; 
+  defaultExpanded?: boolean; 
+  children: (isExpanded: boolean) => React.ReactNode;
+}) => {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+  return (
+    <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+      <div className="glass-card rounded-lg overflow-hidden">
+        <CollapsibleTrigger asChild>
+          <Button 
+            variant="ghost" 
+            className="w-full flex items-center justify-between p-3 h-auto hover:bg-secondary/30"
+          >
+            <span className="text-sm font-semibold text-foreground">{title}</span>
+            {isExpanded ? (
+              <ChevronUp className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            )}
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="px-3 pb-3">
+          {children(isExpanded)}
+        </CollapsibleContent>
+        {!isExpanded && (
+          <div className="px-3 pb-3">
+            {children(false)}
+          </div>
+        )}
+      </div>
+    </Collapsible>
+  );
+};
+
 export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) => {
   const getQualitativeCount = (count: number) => {
     if (count === 0) return 'None';
@@ -366,11 +409,21 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
           {/* Interventions Summary */}
           <InterventionsSummary patients={patients} />
 
-          {/* DBS Calculator - Compact */}
-          <DBSCalculator compact />
+          {/* Expandable DBS Calculator */}
+          <ExpandableCalculator 
+            title="Documentation Burden Score" 
+            defaultExpanded={false}
+          >
+            {(isExpanded) => <DBSCalculator compact={!isExpanded} />}
+          </ExpandableCalculator>
 
-          {/* ROI Calculator - Compact */}
-          <ROICalculator compact />
+          {/* Expandable ROI Calculator */}
+          <ExpandableCalculator 
+            title="ROI Calculator" 
+            defaultExpanded={false}
+          >
+            {(isExpanded) => <ROICalculator compact={!isExpanded} />}
+          </ExpandableCalculator>
         </div>
       </div>
 
