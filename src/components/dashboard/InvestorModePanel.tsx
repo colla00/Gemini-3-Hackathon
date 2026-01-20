@@ -96,34 +96,62 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
     }
   }, [isActive]);
 
+  // Define color styles for each metric to ensure proper Tailwind compilation
+  const metricStyles = {
+    savings: {
+      border: 'border-emerald-500/30',
+      bg: 'bg-emerald-500/15',
+      icon: 'text-emerald-500',
+      value: 'text-emerald-500',
+    },
+    time: {
+      border: 'border-blue-500/30',
+      bg: 'bg-blue-500/15',
+      icon: 'text-blue-500',
+      value: 'text-blue-500',
+    },
+    reduction: {
+      border: 'border-purple-500/30',
+      bg: 'bg-purple-500/15',
+      icon: 'text-purple-500',
+      value: 'text-purple-500',
+    },
+    payback: {
+      border: 'border-amber-500/30',
+      bg: 'bg-amber-500/15',
+      icon: 'text-amber-500',
+      value: 'text-amber-500',
+    },
+  };
+
   const keyMetrics = [
     {
       label: 'Projected Annual Savings',
       value: formatCurrency(roi.annualSavings),
       trend: `${inputs.bedCount} beds`,
       icon: DollarSign,
-      color: 'chart-1',
+      styles: metricStyles.savings,
     },
     {
       label: 'Nurse Time Saved',
       value: `${nurseTimeSaved.toFixed(1)} hrs/shift`,
       trend: `${inputs.occupancy}% occupancy`,
       icon: Clock,
-      color: 'chart-2',
+      styles: metricStyles.time,
     },
     {
       label: 'HAI Reduction',
       value: `${haiReduction}%`,
       trend: 'vs baseline',
       icon: TrendingUp,
-      color: 'chart-3',
+      styles: metricStyles.reduction,
     },
     {
       label: 'Payback Period',
       value: `${roi.paybackMonths.toFixed(1)} mo`,
       trend: 'to ROI',
       icon: Users,
-      color: 'chart-4',
+      styles: metricStyles.payback,
     },
   ];
 
@@ -135,15 +163,15 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="border-b border-chart-1/30 bg-gradient-to-r from-chart-1/5 via-chart-2/5 to-chart-1/5 overflow-hidden"
+          className="border-b border-primary/20 bg-gradient-to-r from-primary/5 via-primary/3 to-primary/5 overflow-hidden"
         >
-          <div className="px-4 py-3">
+          <div className="px-4 py-4">
             {/* Header */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-chart-1/20 border border-chart-1/30">
-                  <Zap className="w-3.5 h-3.5 text-chart-1" />
-                  <span className="text-xs font-bold text-chart-1 uppercase tracking-wide">Investor Mode</span>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-primary/15 border border-primary/25 shadow-sm">
+                  <Zap className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-xs font-bold text-primary uppercase tracking-wide">Investor Mode</span>
                 </div>
                 
                 {/* Quick Demo Controls */}
@@ -186,7 +214,7 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => onNavigateToCalculator('dbs')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-chart-1/10 text-chart-1 hover:bg-chart-1/20 transition-colors border border-chart-1/30"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 transition-all border border-purple-500/25 shadow-sm"
                 >
                   <Award className="w-3.5 h-3.5" />
                   DBS Calculator
@@ -194,7 +222,7 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
                 </button>
                 <button
                   onClick={() => onNavigateToCalculator('roi')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-chart-2/10 text-chart-2 hover:bg-chart-2/20 transition-colors border border-chart-2/30"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 transition-all border border-emerald-500/25 shadow-sm"
                 >
                   <DollarSign className="w-3.5 h-3.5" />
                   ROI Calculator
@@ -239,8 +267,8 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
                         key={preset.id}
                         className={cn(
                           "h-1.5 rounded-full transition-all",
-                          index === currentPresetIndex 
-                            ? "w-6 bg-chart-1" 
+                        index === currentPresetIndex 
+                            ? "w-6 bg-primary"
                             : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50"
                         )}
                         onClick={() => {
@@ -269,32 +297,33 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
                   key={metric.label}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
                   className={cn(
-                    "flex items-center gap-3 p-3 rounded-lg border bg-background/80 backdrop-blur-sm",
-                    `border-${metric.color}/30`
+                    "flex items-center gap-3 p-3 rounded-xl border bg-background/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow",
+                    metric.styles.border
                   )}
                 >
                   <div className={cn(
-                    "w-10 h-10 rounded-lg flex items-center justify-center",
-                    `bg-${metric.color}/15`
+                    "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
+                    metric.styles.bg
                   )}>
-                    <metric.icon className={cn("w-5 h-5", `text-${metric.color}`)} />
+                    <metric.icon className={cn("w-5 h-5", metric.styles.icon)} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate font-medium">
                       {metric.label}
                     </p>
                     <motion.div 
                       key={metric.value}
-                      initial={{ opacity: 0.5, scale: 0.95 }}
+                      initial={{ opacity: 0.5, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2 }}
                       className="flex items-baseline gap-2"
                     >
-                      <span className={cn("text-lg font-bold", `text-${metric.color}`)}>
+                      <span className={cn("text-lg font-bold tracking-tight", metric.styles.value)}>
                         {metric.value}
                       </span>
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-[10px] text-muted-foreground font-medium">
                         {metric.trend}
                       </span>
                     </motion.div>
@@ -304,13 +333,13 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
             </div>
 
             {/* Bottom highlight with live indicator */}
-            <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground bg-muted/30 rounded-lg py-2 px-3">
               <motion.span 
-                className="w-1.5 h-1.5 rounded-full bg-chart-1"
+                className="w-1.5 h-1.5 rounded-full bg-primary"
                 animate={{ opacity: [1, 0.4, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span>
+              <span className="font-medium">
                 {isDemoRunning ? (
                   <>Auto-cycling through hospital scenarios</>
                 ) : (
