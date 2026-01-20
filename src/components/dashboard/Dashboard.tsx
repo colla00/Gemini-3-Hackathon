@@ -14,10 +14,10 @@ import { DemoModeController } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
 import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
+import { DBSCalculator } from './DBSCalculator';
+import { ROICalculator } from './ROICalculator';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { ResearchCharts } from './ResearchCharts';
-import { CalculatorPreview } from './CalculatorPreview';
-import { FloatingCalculatorWidget } from './FloatingCalculatorWidget';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -25,7 +25,7 @@ import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { useTimeOffset } from '@/hooks/useTimeOffset';
-import { Activity, Calculator, BarChart3 } from 'lucide-react';
+import { Activity, FileText, DollarSign, Link2, BarChart3 } from 'lucide-react';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -105,14 +105,22 @@ export const Dashboard = () => {
           />
         ) : (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-            <TabsList className="mb-6 bg-card/50 border border-border/30">
+            <TabsList className="mb-6 bg-card/50 border border-border/30 flex-wrap h-auto gap-1 p-1">
               <TabsTrigger value="dashboard" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Activity className="h-4 w-4" />
                 Dashboard
               </TabsTrigger>
-              <TabsTrigger value="calculators" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Calculator className="h-4 w-4" />
-                Calculators
+              <TabsTrigger value="dbs" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <FileText className="h-4 w-4" />
+                DBS Score
+              </TabsTrigger>
+              <TabsTrigger value="roi" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <DollarSign className="h-4 w-4" />
+                ROI Calculator
+              </TabsTrigger>
+              <TabsTrigger value="linked" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Link2 className="h-4 w-4" />
+                Linked View
               </TabsTrigger>
               <TabsTrigger value="charts" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <BarChart3 className="h-4 w-4" />
@@ -136,15 +144,7 @@ export const Dashboard = () => {
                 <InvestorKPIs />
               </section>
 
-              {/* Calculator Preview - Prominent placement */}
-              <section aria-label="Research calculators preview">
-                <CalculatorPreview onOpenCalculators={() => setActiveTab('calculators')} />
-              </section>
-
               {/* Clinical Workflow Context */}
-              <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
-                <ClinicalWorkflowBar />
-              </nav>
               <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
                 <ClinicalWorkflowBar />
               </nav>
@@ -211,7 +211,15 @@ export const Dashboard = () => {
               )}
             </TabsContent>
 
-            <TabsContent value="calculators" className="mt-0">
+            <TabsContent value="dbs" className="mt-0">
+              <DBSCalculator />
+            </TabsContent>
+
+            <TabsContent value="roi" className="mt-0">
+              <ROICalculator />
+            </TabsContent>
+
+            <TabsContent value="linked" className="mt-0">
               <LinkedCalculatorView />
             </TabsContent>
 
@@ -234,11 +242,6 @@ export const Dashboard = () => {
         isFullscreen={isPresentationMode}
         onFullscreenChange={setIsPresentationMode}
       />
-
-      {/* Floating Calculator Widget */}
-      {!selectedPatient && activeTab === 'dashboard' && (
-        <FloatingCalculatorWidget onOpenFullCalculators={() => setActiveTab('calculators')} />
-      )}
 
       {/* Performance Monitoring Panel */}
       <PerformancePanel />
