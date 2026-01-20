@@ -254,7 +254,7 @@ export const Dashboard = () => {
       {/* Navigation Tabs */}
       <nav className="px-2 py-1.5 border-b border-border/30 bg-background/50 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-0.5 flex-wrap" role="tablist" aria-label="View options">
+          <div className="flex items-center gap-1" role="tablist" aria-label="View options">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -263,15 +263,14 @@ export const Dashboard = () => {
                 aria-selected={activeView === item.id}
                 aria-controls={`${item.id}-panel`}
                 className={cn(
-                  "flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all whitespace-nowrap",
+                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
                   activeView === item.id
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 )}
               >
                 {item.icon}
-                <span className="hidden xl:inline">{item.label}</span>
-                <span className="xl:hidden">{item.shortLabel}</span>
+                <span>{item.label}</span>
               </button>
             ))}
           </div>
