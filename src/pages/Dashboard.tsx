@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, MoreHorizontal, Sparkles
+  Monitor, FileText, DollarSign, MoreHorizontal, Sparkles, Briefcase
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -18,6 +18,7 @@ import { MethodologyChat } from '@/components/quality/MethodologyChat';
 import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAccessButton';
 import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
+import { InvestorModePanel } from '@/components/dashboard/InvestorModePanel';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -64,6 +65,7 @@ export const Dashboard = () => {
   const [activeView, setActiveView] = useState<ViewType>('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [showSettings, setShowSettings] = useState(false);
+  const [investorMode, setInvestorMode] = useState(false);
   const { logFeatureUse, logInteraction } = useSessionTracking();
   
   // Session timeout for HIPAA compliance (30 min timeout, 5 min warning)
@@ -96,6 +98,21 @@ export const Dashboard = () => {
     liveSimulation.toggle();
     logInteraction(liveSimulation.isActive ? 'Paused live updates' : 'Enabled live updates');
   }, [liveSimulation, logInteraction]);
+
+  // Handle investor mode toggle
+  const handleInvestorModeToggle = useCallback(() => {
+    setInvestorMode(prev => {
+      const newValue = !prev;
+      logInteraction(newValue ? 'Enabled investor mode' : 'Disabled investor mode');
+      return newValue;
+    });
+  }, [logInteraction]);
+
+  // Navigate to calculator from investor panel
+  const handleNavigateToCalculator = useCallback((calc: 'dbs' | 'roi') => {
+    setActiveView(calc);
+    logFeatureUse(`Investor Mode: Navigate to ${calc.toUpperCase()} Calculator`);
+  }, [logFeatureUse]);
 
   const renderView = () => {
     switch (activeView) {
@@ -214,7 +231,27 @@ export const Dashboard = () => {
               )}
             </button>
 
-            {/* Time & Shift - Dynamic based on time of day */}
+            {/* Investor Mode Toggle */}
+            <button 
+              className={cn(
+                "hidden sm:flex items-center gap-2 px-2.5 py-1 rounded border transition-all",
+                investorMode 
+                  ? "bg-chart-1/15 border-chart-1/40 shadow-sm" 
+                  : "bg-secondary border-border/50 hover:border-chart-1/30"
+              )}
+              onClick={handleInvestorModeToggle}
+              aria-pressed={investorMode}
+              aria-label={investorMode ? "Investor mode enabled. Click to disable." : "Enable investor mode for financial metrics."}
+            >
+              <Briefcase className={cn("w-3.5 h-3.5", investorMode ? "text-chart-1" : "text-muted-foreground")} aria-hidden="true" />
+              <span className={cn("text-[10px] font-medium uppercase", investorMode ? "text-chart-1" : "text-muted-foreground")}>
+                Investor
+              </span>
+              {investorMode && (
+                <span className="w-1.5 h-1.5 rounded-full bg-chart-1 animate-pulse" aria-hidden="true" />
+              )}
+            </button>
+
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground" aria-label={`Current time: ${currentTime}, ${new Date().getHours() >= 7 && new Date().getHours() < 19 ? 'Day Shift' : 'Night Shift'}`}>
               <Clock className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{currentTime}</span>
@@ -266,6 +303,12 @@ export const Dashboard = () => {
           </div>
         </div>
       </header>
+
+      {/* Investor Mode Panel */}
+      <InvestorModePanel 
+        isActive={investorMode} 
+        onNavigateToCalculator={handleNavigateToCalculator} 
+      />
 
       {/* Navigation Tabs */}
       <nav className="px-2 py-1.5 border-b border-border/30 bg-background/50 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
