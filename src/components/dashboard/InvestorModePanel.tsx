@@ -13,7 +13,7 @@ interface InvestorModePanelProps {
   onNavigateToCalculator: (calc: 'dbs' | 'roi') => void;
 }
 
-const DEMO_INTERVAL_MS = 4000; // 4 seconds per preset
+const DEMO_INTERVAL_MS = 6000; // 6 seconds per preset
 
 export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: InvestorModePanelProps) => {
   const { roi, nurseTimeSaved, haiReduction, inputs, setInputs } = useInvestorMetrics();
