@@ -22,23 +22,23 @@ export const PriorityQueue = ({ patients, onSelect, displayTime }: PriorityQueue
   return (
     <TooltipProvider>
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="p-1.5 rounded-md bg-risk-high/10">
+            <div className="p-2 rounded-xl bg-risk-high/15 shadow-sm">
               <Activity className="w-4 h-4 text-risk-high" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+              <h2 className="text-sm font-bold text-foreground uppercase tracking-wide">
                 Priority Queue
               </h2>
-              <p className="text-[10px] text-muted-foreground mt-0.5">
+              <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">
                 Risk trajectory requiring clinician review
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {topPatients.map((patient, index) => (
             <PriorityCard
               key={patient.id}
@@ -102,13 +102,13 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
         <button
           onClick={onClick}
           className={cn(
-            "relative w-full text-left rounded-xl bg-card border border-border/30",
-            "border-l-[3px]",
+            "relative w-full text-left rounded-2xl bg-card border border-border/40",
+            "border-l-4",
             riskStyles.border,
-            "hover:border-primary/40 hover:shadow-glow transition-all duration-300",
+            "hover:border-primary/50 hover:shadow-lg transition-all duration-300",
             "hover:-translate-y-1",
             "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background",
-            "group"
+            "group shadow-sm"
           )}
         >
           <div className="p-5">
@@ -145,7 +145,7 @@ const PriorityCard = ({ patient, rank, onClick, displayTime }: PriorityCardProps
             />
 
             {/* Human-readable explanation */}
-            <div className="p-3 rounded-lg bg-secondary/40 border border-border/20">
+            <div className="p-3 rounded-xl bg-secondary/50 border border-border/30">
               <p className="text-[11px] text-muted-foreground leading-relaxed">
                 {patient.riskSummary}
               </p>

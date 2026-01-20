@@ -28,14 +28,14 @@ const getQualitativeLabel = (count: number, type: 'patients' | 'elevated' | 'ris
 export const QuickStats = ({ total, high, medium, trending }: QuickStatsProps) => {
   return (
     <TooltipProvider>
-      <div className="flex flex-wrap items-center gap-2 mb-6">
+      <div className="flex flex-wrap items-center gap-2.5 mb-6">
         <StatPill
           icon={<Users className="w-3.5 h-3.5" />}
           label="Patients"
           qualitative={getQualitativeLabel(total, 'patients')}
           tooltip="Patients currently monitored"
         />
-        <div className="w-px h-5 bg-border/40 hidden sm:block" />
+        <div className="w-px h-6 bg-border/40 hidden sm:block" />
         <StatPill
           icon={<AlertTriangle className="w-3.5 h-3.5" />}
           label="Elevated"
@@ -80,26 +80,26 @@ const StatPill = ({ icon, label, qualitative, color, pulse, tooltip }: StatPillP
   };
 
   const bgStyles = {
-    high: 'bg-risk-high/5 border-risk-high/20',
-    medium: 'bg-risk-medium/5 border-risk-medium/20',
-    warning: 'bg-warning/5 border-warning/20',
+    high: 'bg-risk-high/10 border-risk-high/25',
+    medium: 'bg-risk-medium/10 border-risk-medium/25',
+    warning: 'bg-warning/10 border-warning/25',
   };
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <div className={cn(
-          "flex items-center gap-2 px-3 py-2 rounded-lg border transition-all duration-300 cursor-default",
-          color ? bgStyles[color] : "bg-card/50 border-border/20",
+          "flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border transition-all duration-300 cursor-default shadow-sm hover:shadow-md",
+          color ? bgStyles[color] : "bg-card/60 border-border/30",
           pulse && "animate-pulse-subtle"
         )}>
           <span className={cn("text-muted-foreground", color && colorStyles[color])}>
             {icon}
           </span>
-          <span className={cn("text-sm font-semibold", color ? colorStyles[color] : "text-foreground")}>
+          <span className={cn("text-sm font-bold", color ? colorStyles[color] : "text-foreground")}>
             {qualitative}
           </span>
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
             {label}
           </span>
         </div>

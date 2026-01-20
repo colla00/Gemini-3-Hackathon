@@ -41,29 +41,29 @@ interface DemoSummaryProps {
 
 export const DemoSummary = ({ className }: DemoSummaryProps) => {
   return (
-    <div className={cn("bg-card rounded-xl border border-border/50 p-6 shadow-card", className)}>
+    <div className={cn("bg-card rounded-2xl border border-border/40 p-6 shadow-lg", className)}>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-foreground mb-2">
+        <h2 className="text-xl font-bold text-foreground mb-2 tracking-tight">
           EHR-Driven Quality Dashboard
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground font-medium">
           Clinician-facing interface for nurse-sensitive outcome prediction
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
         {summaryPoints.map((point, index) => (
           <div
             key={point.title}
-            className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30 border border-border/20 animate-fade-in"
-            style={{ animationDelay: `${index * 100}ms` }}
+            className="flex items-start gap-3 p-4 rounded-xl bg-secondary/40 border border-border/30 animate-fade-in hover:bg-secondary/60 transition-colors"
+            style={{ animationDelay: `${index * 80}ms` }}
           >
-            <div className="p-2 rounded-md bg-primary/10 text-primary flex-shrink-0">
+            <div className="p-2.5 rounded-xl bg-primary/10 text-primary flex-shrink-0 shadow-sm">
               {point.icon}
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">{point.description}</p>
+              <h3 className="text-sm font-semibold text-foreground tracking-tight">{point.title}</h3>
+              <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{point.description}</p>
             </div>
           </div>
         ))}
@@ -73,19 +73,19 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
       <div className="flex flex-wrap items-center justify-center gap-4 py-3 border-t border-b border-border/30 mb-4">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Database className="w-3.5 h-3.5" />
-          <span className="font-medium">Planned data sources:</span>
+          <span className="font-semibold">Planned data sources:</span>
         </div>
         {dataSources.map((source) => (
-          <div key={source.name} className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary/50 border border-border/30">
-            <span className="text-xs font-semibold text-foreground">{source.name}</span>
+          <div key={source.name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/60 border border-border/40 shadow-sm">
+            <span className="text-xs font-bold text-foreground">{source.name}</span>
             <span className="text-[10px] text-muted-foreground hidden sm:inline">· {source.desc}</span>
           </div>
         ))}
       </div>
 
       <div className="flex items-center justify-center gap-2">
-        <CheckCircle className="w-4 h-4 text-risk-low" />
-        <span className="text-xs text-muted-foreground">
+        <CheckCircle className="w-4 h-4 text-primary" />
+        <span className="text-xs text-muted-foreground font-medium">
           Research prototype · Synthetic demonstration data
         </span>
       </div>

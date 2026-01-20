@@ -30,17 +30,17 @@ export const Header = () => {
   };
 
   return (
-    <header className="w-full py-4 px-4 md:px-8 border-b border-border/30 bg-card/30 backdrop-blur-sm">
+    <header className="w-full py-4 px-4 md:px-8 border-b border-border/40 bg-card/50 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+        <div className="flex items-center gap-4">
+          <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20 shadow-sm">
             <Activity className="w-5 h-5 text-primary" />
           </div>
           <div>
             <h1 className="text-base md:text-lg font-bold tracking-tight text-foreground">
               EHR-Driven Quality Dashboard
             </h1>
-            <p className="text-[10px] text-muted-foreground font-medium tracking-wide">
+            <p className="text-[10px] text-muted-foreground font-semibold tracking-wide">
               Nurse-Sensitive Outcome Prediction · Research Prototype
             </p>
           </div>
