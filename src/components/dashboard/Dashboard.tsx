@@ -15,6 +15,7 @@ import { PerformancePanel } from './PerformancePanel';
 import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
+import { ResearchCharts } from './ResearchCharts';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -22,7 +23,7 @@ import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { useTimeOffset } from '@/hooks/useTimeOffset';
-import { Activity, Calculator } from 'lucide-react';
+import { Activity, Calculator, BarChart3 } from 'lucide-react';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -111,6 +112,10 @@ export const Dashboard = () => {
                 <Calculator className="h-4 w-4" />
                 Calculators
               </TabsTrigger>
+              <TabsTrigger value="charts" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <BarChart3 className="h-4 w-4" />
+                Research Charts
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard" className="space-y-6 mt-0">
@@ -198,6 +203,10 @@ export const Dashboard = () => {
 
             <TabsContent value="calculators" className="mt-0">
               <LinkedCalculatorView />
+            </TabsContent>
+
+            <TabsContent value="charts" className="mt-0">
+              <ResearchCharts />
             </TabsContent>
           </Tabs>
         )}
