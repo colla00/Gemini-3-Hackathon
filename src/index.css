@@ -525,6 +525,208 @@
   }
 }
 
+/* ======================================
+   CHART.JS-STYLE AESTHETICS
+   Enhanced chart styling for demo aesthetics
+   ====================================== */
+
+/* Chart container base styling */
+.recharts-wrapper {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+/* Smooth curve interpolation styling */
+.recharts-curve {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Chart.js-style grid lines */
+.recharts-cartesian-grid line {
+  stroke: hsl(var(--border) / 0.3) !important;
+  stroke-dasharray: 4 4 !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: hsl(var(--border) / 0.15) !important;
+}
+
+/* Enhanced axis styling */
+.recharts-xAxis .recharts-cartesian-axis-line,
+.recharts-yAxis .recharts-cartesian-axis-line {
+  stroke: hsl(var(--border) / 0.4) !important;
+}
+
+.recharts-xAxis .recharts-cartesian-axis-tick-line,
+.recharts-yAxis .recharts-cartesian-axis-tick-line {
+  stroke: hsl(var(--border) / 0.3) !important;
+}
+
+/* Chart.js-style tick labels */
+.recharts-text.recharts-cartesian-axis-tick-value {
+  fill: hsl(var(--muted-foreground)) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+/* Y-axis label styling */
+.recharts-label {
+  fill: hsl(var(--muted-foreground)) !important;
+  font-weight: 500 !important;
+}
+
+/* Data point styling - Chart.js aesthetic */
+.recharts-dot {
+  filter: drop-shadow(0 0 4px currentColor);
+  transition: all 0.2s ease-out;
+}
+
+.recharts-dot:hover {
+  filter: drop-shadow(0 0 8px currentColor);
+  transform: scale(1.2);
+}
+
+/* Active dot glow effect */
+.recharts-active-dot {
+  filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor);
+}
+
+/* Legend styling - Chart.js style */
+.recharts-legend-wrapper {
+  padding-top: 12px !important;
+}
+
+.recharts-legend-item {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.recharts-legend-item:hover {
+  opacity: 0.8;
+}
+
+.recharts-legend-item-text {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+/* Reference line styling */
+.recharts-reference-line line {
+  stroke-linecap: round !important;
+}
+
+.recharts-reference-line-label {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+}
+
+/* Bar chart styling - rounded with shadows */
+.recharts-bar-rectangle {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  opacity: 0.9;
+}
+
+/* Area chart gradient enhancement */
+.recharts-area-area {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.05));
+}
+
+.recharts-area-curve {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Line chart styling */
+.recharts-line-curve {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.15));
+}
+
+/* Tooltip container - Chart.js style */
+.recharts-tooltip-wrapper {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  transition: all 0.15s ease-out;
+}
+
+/* Chart animation keyframes */
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chartPulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px currentColor);
+  }
+}
+
+@keyframes chartLineGrow {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Chart entry animation class */
+.chart-animate-in {
+  animation: chartFadeIn 0.6s ease-out forwards;
+}
+
+/* Glowing data point class */
+.chart-point-glow {
+  animation: chartPulseGlow 2s ease-in-out infinite;
+}
+
+/* Line drawing animation */
+.chart-line-draw {
+  stroke-dasharray: 1000;
+  animation: chartLineGrow 1.5s ease-out forwards;
+}
+
+/* Chart.js-style responsive container */
+.chart-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* Compact chart adjustments */
+.chart-compact .recharts-text {
+  font-size: 9px !important;
+}
+
+.chart-compact .recharts-legend-item-text {
+  font-size: 9px !important;
+}
+
+/* High contrast mode for charts */
+.chart-high-contrast .recharts-cartesian-grid line {
+  stroke: hsl(var(--border) / 0.5) !important;
+}
+
+.chart-high-contrast .recharts-curve {
+  stroke-width: 3px !important;
+}
+
+.chart-high-contrast .recharts-dot {
+  r: 6 !important;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;

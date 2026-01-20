@@ -92,15 +92,27 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
-          <p className="text-xs font-semibold text-foreground mb-1">{label}</p>
-          {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-xs text-muted-foreground">
-              {entry.name}: <span className="font-medium text-foreground">{entry.value}</span>
-              {entry.dataKey === 'percentage' && '%'}
-              {entry.dataKey === 'auc' && '%'}
-            </p>
-          ))}
+        <div className="bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200">
+          <p className="text-sm font-semibold text-foreground mb-2 pb-2 border-b border-border/30">{label}</p>
+          <div className="space-y-1.5">
+            {payload.map((entry: any, index: number) => (
+              <div key={index} className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full shadow-sm" 
+                    style={{ backgroundColor: entry.fill || entry.color }}
+                  />
+                  <span className="text-xs text-muted-foreground">{entry.name}:</span>
+                </div>
+                <span className="text-sm font-bold text-foreground tabular-nums">
+                  {typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value}
+                  {entry.dataKey === 'percentage' && '%'}
+                  {entry.dataKey === 'auc' && '%'}
+                  {entry.dataKey === 'weight' && '%'}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       );
     }
@@ -212,29 +224,46 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-64 chart-animate-in">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={quartileData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <BarChart data={quartileData} barCategoryGap="20%">
+                  <defs>
+                    {quartileData.map((entry, index) => (
+                      <linearGradient key={`grad-${index}`} id={`quartileGrad${index}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={entry.fill} stopOpacity={1} />
+                        <stop offset="100%" stopColor={entry.fill} stopOpacity={0.7} />
+                      </linearGradient>
+                    ))}
+                  </defs>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.3} />
                   <XAxis 
                     dataKey="name" 
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={{ stroke: 'hsl(var(--border))', strokeWidth: 1 }}
+                    tickLine={false}
                   />
                   <YAxis 
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
                     label={{ 
                       value: 'Patients', 
                       angle: -90, 
                       position: 'insideLeft',
-                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))' }
+                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }
                     }}
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="patients" radius={[4, 4, 0, 0]} name="Patients">
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted))', opacity: 0.2 }} />
+                  <Bar 
+                    dataKey="patients" 
+                    radius={[6, 6, 0, 0]} 
+                    name="Patients"
+                    animationBegin={0}
+                    animationDuration={1200}
+                    animationEasing="ease-out"
+                  >
                     {quartileData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                      <Cell key={`cell-${index}`} fill={`url(#quartileGrad${index})`} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -266,27 +295,58 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-64 chart-animate-in">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={alertData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <BarChart data={alertData} barCategoryGap="30%">
+                  <defs>
+                    <linearGradient id="alertBeforeGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity={0.6} />
+                    </linearGradient>
+                    <linearGradient id="alertAfterGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#22c55e" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#22c55e" stopOpacity={0.6} />
+                    </linearGradient>
+                    <filter id="alertGlow">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.3} />
                   <XAxis 
                     dataKey="name" 
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }}
+                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tickLine={false}
                   />
                   <YAxis 
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
                     label={{ 
                       value: 'Alerts/Shift', 
                       angle: -90, 
                       position: 'insideLeft',
-                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))' }
+                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }
                     }}
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="alerts" radius={[4, 4, 0, 0]} name="Alerts">
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted))', opacity: 0.2 }} />
+                  <Bar 
+                    dataKey="alerts" 
+                    radius={[8, 8, 0, 0]} 
+                    name="Alerts"
+                    animationBegin={200}
+                    animationDuration={1000}
+                    animationEasing="ease-out"
+                  >
                     {alertData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={index === 0 ? 'url(#alertBeforeGrad)' : 'url(#alertAfterGrad)'} 
+                      />
                     ))}
                   </Bar>
                 </BarChart>
@@ -321,43 +381,72 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-64 chart-animate-in">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={aucData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <BarChart data={aucData} layout="vertical" barCategoryGap="25%">
+                  <defs>
+                    <linearGradient id="aucGrad1" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8} />
+                      <stop offset="100%" stopColor="#3b82f6" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient id="aucGrad2" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.8} />
+                      <stop offset="100%" stopColor="#8b5cf6" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient id="aucGrad3" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#22c55e" stopOpacity={0.8} />
+                      <stop offset="100%" stopColor="#22c55e" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient id="aucGrad4" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.8} />
+                      <stop offset="100%" stopColor="#06b6d4" stopOpacity={1} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="4 4" horizontal={false} stroke="hsl(var(--border))" strokeOpacity={0.3} />
                   <XAxis 
                     type="number" 
                     domain={[50, 100]}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
                     tickFormatter={(v) => `${v}%`}
+                    axisLine={false}
+                    tickLine={false}
                   />
                   <YAxis 
                     type="category" 
                     dataKey="name" 
-                    width={70}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    width={75}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="auc" radius={[0, 4, 4, 0]} name="AUC">
-                    {aucData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted))', opacity: 0.2 }} />
+                  <Bar 
+                    dataKey="auc" 
+                    radius={[0, 6, 6, 0]} 
+                    name="AUC"
+                    animationBegin={300}
+                    animationDuration={1000}
+                    animationEasing="ease-out"
+                  >
+                    {aucData.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={`url(#aucGrad${index + 1})`} />
                     ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded bg-blue-500" />
-                Internal
+            <div className="mt-4 flex items-center justify-center gap-6 text-xs text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-sm" />
+                <span className="font-medium">Internal</span>
               </span>
-              <span className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded bg-purple-500" />
-                External
+              <span className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 shadow-sm" />
+                <span className="font-medium">External</span>
               </span>
-              <span className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded bg-green-500" />
-                Risk Models
+              <span className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-400 to-green-600 shadow-sm" />
+                <span className="font-medium">Risk Models</span>
               </span>
             </div>
           </CardContent>
@@ -375,33 +464,54 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-64 chart-animate-in">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={featureData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <BarChart data={featureData} layout="vertical" barCategoryGap="20%">
+                  <defs>
+                    <linearGradient id="featureGrad1" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.7} />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient id="featureGrad2" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.7} />
+                      <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={1} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="4 4" horizontal={false} stroke="hsl(var(--border))" strokeOpacity={0.3} />
                   <XAxis 
                     type="number" 
                     domain={[0, 30]}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
                     tickFormatter={(v) => `${v}%`}
+                    axisLine={false}
+                    tickLine={false}
                   />
                   <YAxis 
                     type="category" 
                     dataKey="name" 
                     width={100}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="weight" radius={[0, 4, 4, 0]} name="Weight">
-                    {featureData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted))', opacity: 0.2 }} />
+                  <Bar 
+                    dataKey="weight" 
+                    radius={[0, 6, 6, 0]} 
+                    name="Weight"
+                    animationBegin={400}
+                    animationDuration={1200}
+                    animationEasing="ease-out"
+                  >
+                    {featureData.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={index < 3 ? 'url(#featureGrad1)' : 'url(#featureGrad2)'} />
                     ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
             <div className="mt-4 text-center">
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="outline" className="text-xs px-3 py-1 font-medium">
                 Validated: Cohen's d = {RESEARCH_DATA.validation.cohensD}
               </Badge>
             </div>
