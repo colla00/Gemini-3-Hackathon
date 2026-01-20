@@ -20,6 +20,7 @@ import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { InvestorModePanel } from '@/components/dashboard/InvestorModePanel';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
+import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { useSessionTimeout } from '@/hooks/useSessionTimeout';
@@ -140,6 +141,7 @@ export const Dashboard = () => {
   };
 
   return (
+    <InvestorMetricsProvider>
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
       {/* Skip Link for Keyboard Navigation - WCAG 2.1 AA */}
       <SkipLink targets={[{ id: 'dashboard-main', label: 'Skip to main content' }]} />
@@ -463,5 +465,6 @@ export const Dashboard = () => {
       {/* Performance Monitoring Dashboard */}
       <PerformanceMonitoringDashboard />
     </div>
+    </InvestorMetricsProvider>
   );
 };

@@ -1,7 +1,7 @@
 // ROI Calculator Component
 // Copyright © Dr. Alexis Collier - Patent Pending
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,7 @@ import { calculateROI, formatCurrency, formatCompactNumber } from '@/utils/dbsCa
 import { RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useInvestorMetrics } from '@/hooks/useInvestorMetrics';
 
 interface ROICalculatorProps {
   className?: string;
@@ -85,11 +86,20 @@ const HOSPITAL_PRESETS = [
 ];
 
 export function ROICalculator({ className, compact = false }: ROICalculatorProps) {
-  const [bedCount, setBedCount] = useState(50);
-  const [occupancy, setOccupancy] = useState(85);
-  const [hourlyRate, setHourlyRate] = useState(45);
+  // Get shared investor metrics context
+  const investorMetrics = useInvestorMetrics();
+  
+  // Local state initialized from context
+  const [bedCount, setBedCount] = useState(investorMetrics.inputs.bedCount);
+  const [occupancy, setOccupancy] = useState(investorMetrics.inputs.occupancy);
+  const [hourlyRate, setHourlyRate] = useState(investorMetrics.inputs.hourlyRate);
   const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([]);
   const [showComparison, setShowComparison] = useState(false);
+
+  // Sync local state changes to investor metrics context
+  useEffect(() => {
+    investorMetrics.updateInputs({ bedCount, occupancy, hourlyRate });
+  }, [bedCount, occupancy, hourlyRate, investorMetrics]);
 
   const roi = useMemo(() => 
     calculateROI({

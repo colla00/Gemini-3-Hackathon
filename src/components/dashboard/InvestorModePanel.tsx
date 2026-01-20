@@ -1,44 +1,48 @@
 import { TrendingUp, DollarSign, Clock, Users, Zap, Award, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useInvestorMetrics } from '@/hooks/useInvestorMetrics';
+import { formatCurrency, formatCompactNumber } from '@/utils/dbsCalculations';
 
 interface InvestorModePanelProps {
   isActive: boolean;
   onNavigateToCalculator: (calc: 'dbs' | 'roi') => void;
 }
 
-const keyMetrics = [
-  {
-    label: 'Projected Annual Savings',
-    value: '$2.4M',
-    trend: '+18%',
-    icon: DollarSign,
-    color: 'chart-1',
-  },
-  {
-    label: 'Nurse Time Saved',
-    value: '4.2 hrs/shift',
-    trend: '+32%',
-    icon: Clock,
-    color: 'chart-2',
-  },
-  {
-    label: 'HAI Reduction',
-    value: '47%',
-    trend: 'vs baseline',
-    icon: TrendingUp,
-    color: 'chart-3',
-  },
-  {
-    label: 'Patient Outcomes',
-    value: 'Improved',
-    trend: 'Significant',
-    icon: Users,
-    color: 'chart-4',
-  },
-];
-
 export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: InvestorModePanelProps) => {
+  const { roi, nurseTimeSaved, haiReduction, inputs } = useInvestorMetrics();
+
+  const keyMetrics = [
+    {
+      label: 'Projected Annual Savings',
+      value: formatCurrency(roi.annualSavings),
+      trend: `${inputs.bedCount} beds`,
+      icon: DollarSign,
+      color: 'chart-1',
+    },
+    {
+      label: 'Nurse Time Saved',
+      value: `${nurseTimeSaved.toFixed(1)} hrs/shift`,
+      trend: `${inputs.occupancy}% occupancy`,
+      icon: Clock,
+      color: 'chart-2',
+    },
+    {
+      label: 'HAI Reduction',
+      value: `${haiReduction}%`,
+      trend: 'vs baseline',
+      icon: TrendingUp,
+      color: 'chart-3',
+    },
+    {
+      label: 'Payback Period',
+      value: `${roi.paybackMonths.toFixed(1)} mo`,
+      trend: 'to ROI',
+      icon: Users,
+      color: 'chart-4',
+    },
+  ];
+
   return (
     <AnimatePresence>
       {isActive && (
@@ -57,7 +61,9 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
                   <Zap className="w-3.5 h-3.5 text-chart-1" />
                   <span className="text-xs font-bold text-chart-1 uppercase tracking-wide">Investor Mode</span>
                 </div>
-                <span className="text-xs text-muted-foreground">Key financial metrics at a glance</span>
+                <span className="text-xs text-muted-foreground">
+                  Real-time projections • Adjust in ROI Calculator
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -102,23 +108,34 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate">
                       {metric.label}
                     </p>
-                    <div className="flex items-baseline gap-2">
+                    <motion.div 
+                      key={metric.value}
+                      initial={{ opacity: 0.5, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex items-baseline gap-2"
+                    >
                       <span className={cn("text-lg font-bold", `text-${metric.color}`)}>
                         {metric.value}
                       </span>
                       <span className="text-[10px] text-muted-foreground">
                         {metric.trend}
                       </span>
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Bottom highlight */}
+            {/* Bottom highlight with live indicator */}
             <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-              <span className="w-1.5 h-1.5 rounded-full bg-chart-1 animate-pulse" />
-              <span>Based on 500-bed hospital model with typical ICU/Med-Surg mix</span>
+              <motion.span 
+                className="w-1.5 h-1.5 rounded-full bg-chart-1"
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span>
+                Based on {inputs.bedCount}-bed hospital at {inputs.occupancy}% occupancy, ${inputs.hourlyRate}/hr nurse rate
+              </span>
             </div>
           </div>
         </motion.div>
