@@ -7,7 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { FileText, Activity, Heart, Pill, User, Users, Save, Trash2, BarChart3 } from 'lucide-react';
+import { FileText, Activity, Heart, Pill, User, Users, Save, Trash2, BarChart3, Sparkles } from 'lucide-react';
 import { calculateDBS, getDBSQuartile } from '@/utils/dbsCalculations';
 import { DBS_CALCULATION_FACTORS, RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,6 +30,76 @@ interface SavedProfile {
   score: number;
   quartile: ReturnType<typeof getDBSQuartile>;
 }
+
+// Preset patient profiles for quick loading
+const PRESET_PROFILES = [
+  {
+    id: 'typical-icu',
+    name: 'Typical ICU',
+    description: 'Average ICU patient',
+    apache: 18,
+    sofa: 8,
+    comorbidities: 4,
+    medications: 12,
+    age: 62,
+    color: 'bg-blue-500/20 text-blue-600 border-blue-500/30',
+  },
+  {
+    id: 'post-surgical',
+    name: 'Post-Surgical',
+    description: 'Routine post-op recovery',
+    apache: 10,
+    sofa: 4,
+    comorbidities: 2,
+    medications: 8,
+    age: 55,
+    color: 'bg-green-500/20 text-green-600 border-green-500/30',
+  },
+  {
+    id: 'geriatric-complex',
+    name: 'Geriatric Complex',
+    description: 'Elderly with multiple conditions',
+    apache: 28,
+    sofa: 12,
+    comorbidities: 7,
+    medications: 18,
+    age: 82,
+    color: 'bg-orange-500/20 text-orange-600 border-orange-500/30',
+  },
+  {
+    id: 'trauma-acute',
+    name: 'Trauma Acute',
+    description: 'Severe trauma admission',
+    apache: 32,
+    sofa: 14,
+    comorbidities: 1,
+    medications: 15,
+    age: 38,
+    color: 'bg-red-500/20 text-red-600 border-red-500/30',
+  },
+  {
+    id: 'cardiac-icu',
+    name: 'Cardiac ICU',
+    description: 'Post-MI or cardiac surgery',
+    apache: 22,
+    sofa: 10,
+    comorbidities: 5,
+    medications: 14,
+    age: 68,
+    color: 'bg-purple-500/20 text-purple-600 border-purple-500/30',
+  },
+  {
+    id: 'sepsis-severe',
+    name: 'Sepsis Severe',
+    description: 'Septic shock patient',
+    apache: 35,
+    sofa: 16,
+    comorbidities: 4,
+    medications: 20,
+    age: 70,
+    color: 'bg-rose-500/20 text-rose-600 border-rose-500/30',
+  },
+];
 
 export function DBSCalculator({ className, compact = false, onScoreChange }: DBSCalculatorProps) {
   const [apache, setApache] = useState(DBS_CALCULATION_FACTORS[0].default);
@@ -77,6 +147,14 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
     setComorbidities(profile.comorbidities);
     setMedications(profile.medications);
     setAge(profile.age);
+  };
+
+  const loadPreset = (preset: typeof PRESET_PROFILES[0]) => {
+    setApache(preset.apache);
+    setSofa(preset.sofa);
+    setComorbidities(preset.comorbidities);
+    setMedications(preset.medications);
+    setAge(preset.age);
   };
 
   const getScoreColor = (score: number) => {
@@ -174,6 +252,56 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Preset Profiles */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="font-semibold text-sm flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              Quick Load Presets
+            </h4>
+            <span className="text-xs text-muted-foreground">Click to apply</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {PRESET_PROFILES.map((preset) => {
+              const presetScore = calculateDBS({
+                apache: preset.apache,
+                sofa: preset.sofa,
+                comorbidities: preset.comorbidities,
+                medications: preset.medications,
+                age: preset.age,
+              });
+              return (
+                <motion.button
+                  key={preset.id}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => loadPreset(preset)}
+                  className={cn(
+                    "p-3 rounded-lg border text-left transition-all hover:shadow-md",
+                    preset.color,
+                    apache === preset.apache && 
+                    sofa === preset.sofa && 
+                    comorbidities === preset.comorbidities &&
+                    medications === preset.medications &&
+                    age === preset.age
+                      ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                      : ""
+                  )}
+                >
+                  <p className="font-medium text-sm">{preset.name}</p>
+                  <p className="text-xs opacity-80">{preset.description}</p>
+                  <Badge 
+                    variant="secondary" 
+                    className={cn("mt-2 text-[10px]", getScoreColor(presetScore))}
+                  >
+                    {getComplexityLabel(presetScore)}
+                  </Badge>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Score Display */}
         <motion.div 
           className="bg-gradient-to-r from-risk-low/10 via-warning/10 via-risk-medium/10 to-risk-high/10 rounded-lg p-6"
