@@ -64,6 +64,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '45-Minute Walkthrough Video',
     citation: 'Conference Presentation',
   },
+  'research-validation': {
+    title: 'Clinical Validation at Scale',
+    subtitle: '10,000 Patients • 201 Hospitals',
+    citation: 'AIM-AHEAD CLINAQ Fellowship Research',
+  },
 };
 
 interface AcademicHeaderProps {

@@ -26,6 +26,7 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { ResearchValidationSlide } from '@/components/quality/ResearchValidationSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
 
@@ -75,6 +76,7 @@ const slideToView: Record<string, ViewType | null> = {
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
+  'research-validation': 'research-validation',
   'roi': 'roi',
   'future': null,
   'conclusion': null,
@@ -361,6 +363,8 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         return <MLFeaturesSlide />;
       case 'video-demo':
         return <VideoDemoSlide />;
+      case 'research-validation':
+        return <ResearchValidationSlide />;
       default:
         return null;
     }

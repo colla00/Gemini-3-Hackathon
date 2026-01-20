@@ -22,6 +22,7 @@ export type SlideType =
   | 'shap' 
   | 'workflow' 
   | 'validation'
+  | 'research-validation'
   | 'roi' 
   | 'future'
   | 'conclusion';
@@ -524,6 +525,39 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'I share this because there is too much hype in healthcare AI. I prefer to under-promise and over-deliver.',
       'The methodology is sound. The prototype functions. Proof in real clinical settings is still ahead.',
       'One area where I have conducted verification: accessibility compliance. The interface has been audited against WCAG 2.1 AA standards using automated testing with axe-core. This ensures the dashboard is usable by clinical staff with disabilities — an often-overlooked requirement in healthcare software.',
+    ],
+    transitionCue: '→ "Let me show the research validation data..."',
+  },
+  {
+    id: 'research-validation',
+    title: 'Research Validation at Scale',
+    subtitle: '10,000 Patients • 201 Hospitals',
+    duration: 4,
+    icon: <Award className="w-8 h-8" />,
+    notes: [
+      'Multi-site validation across 201 hospitals',
+      '10,000 patients analyzed',
+      'Cohen\'s d = 3.2 (very large effect)',
+      'DBS System: AUC 0.78 internal, 0.74 external',
+      '87% alert reduction with 100% sensitivity',
+    ],
+    keyPoints: [
+      '10,000 patients in internal validation cohort',
+      '201 hospitals in external validation',
+      'Cohen\'s d = 3.2 (very large effect size)',
+      'DBS AUC: 0.78 (internal), 0.74 (external)',
+      'Alert reduction: 87% with 100% sensitivity maintained',
+      'Equity disparity: <0.5% across demographics',
+    ],
+    talkingPoints: [
+      'Now let me share the actual research validation data from my doctoral research.',
+      'The Documentation Burden Score system was validated on 10,000 patients internally, then externally validated across 201 hospitals.',
+      'The effect size is remarkable: Cohen\'s d of 3.2, which is considered a very large effect in clinical research.',
+      'Internal AUC reached 0.78 with a 95% confidence interval of 0.76 to 0.80. External validation achieved 0.74 AUC.',
+      'The Trust-Based Alert System achieved an 87% reduction in non-actionable alerts while maintaining 100% sensitivity.',
+      'This means nurses see 87% fewer distracting alerts, but we never miss a critical event.',
+      'Critically, equity monitoring shows less than 0.5% disparity across demographic groups — the system performs equally for all patients.',
+      'These results form the foundation for the ANIA 2026 presentation and the pending patent applications.',
     ],
     transitionCue: '→ "Let me show the potential return on investment..."',
   },
