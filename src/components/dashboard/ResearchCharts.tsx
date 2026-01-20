@@ -10,10 +10,12 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, AreaChart, Area
 } from 'recharts';
-import { BarChart3, TrendingDown, DollarSign, Users, Activity, FileText, GitCompare } from 'lucide-react';
+import { BarChart3, TrendingDown, DollarSign, Users, Activity, FileText, GitCompare, Clock, Layers } from 'lucide-react';
 import { RESEARCH_DATA } from '@/data/researchData';
 import { cn } from '@/lib/utils';
 import { InterventionTrendChart } from './InterventionTrendChart';
+import { InterventionCascadeTimeline } from './InterventionCascadeTimeline';
+import { PopulationTrendAggregation } from './PopulationTrendAggregation';
 
 interface ResearchChartsProps {
   className?: string;
@@ -177,14 +179,22 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
 
       {/* Tabs for different chart views */}
       <Tabs defaultValue="validation" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:inline-grid">
+        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
           <TabsTrigger value="validation" className="text-xs">
             <BarChart3 className="h-3.5 w-3.5 mr-1.5" />
-            Validation Metrics
+            Validation
           </TabsTrigger>
           <TabsTrigger value="intervention" className="text-xs">
             <GitCompare className="h-3.5 w-3.5 mr-1.5" />
-            Intervention Trends
+            Trends
+          </TabsTrigger>
+          <TabsTrigger value="cascade" className="text-xs">
+            <Clock className="h-3.5 w-3.5 mr-1.5" />
+            Cascade
+          </TabsTrigger>
+          <TabsTrigger value="population" className="text-xs">
+            <Layers className="h-3.5 w-3.5 mr-1.5" />
+            Population
           </TabsTrigger>
         </TabsList>
 
@@ -453,6 +463,14 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
 
         <TabsContent value="intervention" className="mt-4">
           <InterventionTrendChart />
+        </TabsContent>
+
+        <TabsContent value="cascade" className="mt-4">
+          <InterventionCascadeTimeline autoPlay={false} speed={400} />
+        </TabsContent>
+
+        <TabsContent value="population" className="mt-4">
+          <PopulationTrendAggregation />
         </TabsContent>
       </Tabs>
     </div>
