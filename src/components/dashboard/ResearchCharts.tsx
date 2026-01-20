@@ -2,7 +2,7 @@
 // Based on DRALEXIS package specification: 10,000 patients, 201 hospitals
 // Copyright © Dr. Alexis Collier - Patent Pending
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { InterventionTrendChart } from './InterventionTrendChart';
 import { InterventionCascadeTimeline } from './InterventionCascadeTimeline';
 import { PopulationTrendAggregation } from './PopulationTrendAggregation';
+import { InteractiveLegend, ChartZoomPan, type LegendItem } from './ChartInteractions';
 
 interface ResearchChartsProps {
   className?: string;
@@ -35,6 +36,28 @@ const COLORS = {
 const QUARTILE_COLORS = ['#22c55e', '#eab308', '#f97316', '#ef4444'];
 
 export function ResearchCharts({ className, compact = false }: ResearchChartsProps) {
+  // State for legend highlighting
+  const [highlightedSeries, setHighlightedSeries] = useState<string | null>(null);
+  const [hiddenSeries, setHiddenSeries] = useState<Set<string>>(new Set());
+
+  // Handle legend hover
+  const handleLegendHover = useCallback((id: string | null) => {
+    setHighlightedSeries(id);
+  }, []);
+
+  // Handle legend toggle
+  const handleLegendToggle = useCallback((id: string, visible: boolean) => {
+    setHiddenSeries(prev => {
+      const next = new Set(prev);
+      if (visible) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
   // DBS Quartile Distribution Data
   const quartileData = useMemo(() => 
     RESEARCH_DATA.dbs.quartiles.map((q, i) => ({
@@ -44,6 +67,7 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
       percentage: q.percentage,
       staffingRatio: q.staffingRatio,
       fill: QUARTILE_COLORS[i],
+      id: `q${i + 1}`,
     })),
     []
   );
@@ -51,12 +75,14 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
   // Alert Reduction Data (Before vs After)
   const alertData = useMemo(() => [
     { 
+      id: 'before',
       name: 'Before', 
       alerts: RESEARCH_DATA.alerts.beforeAlerts, 
       fill: '#ef4444',
       label: 'Non-optimized'
     },
     { 
+      id: 'after',
       name: 'After', 
       alerts: RESEARCH_DATA.alerts.afterAlerts, 
       fill: '#22c55e',
@@ -73,20 +99,46 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
 
   // Validation AUC Comparison
   const aucData = useMemo(() => [
-    { name: 'Internal\n(10K pts)', auc: RESEARCH_DATA.validation.internalAUC * 100, fill: '#3b82f6' },
-    { name: 'External\n(201 hosp)', auc: RESEARCH_DATA.validation.externalAUC * 100, fill: '#8b5cf6' },
-    { name: 'Sepsis\nPrediction', auc: RESEARCH_DATA.risk.sepsisAUC * 100, fill: '#22c55e' },
-    { name: 'Respiratory\nPrediction', auc: RESEARCH_DATA.risk.respiratoryAUC * 100, fill: '#06b6d4' },
+    { id: 'internal', name: 'Internal\n(10K pts)', auc: RESEARCH_DATA.validation.internalAUC * 100, fill: '#3b82f6' },
+    { id: 'external', name: 'External\n(201 hosp)', auc: RESEARCH_DATA.validation.externalAUC * 100, fill: '#8b5cf6' },
+    { id: 'sepsis', name: 'Sepsis\nPrediction', auc: RESEARCH_DATA.risk.sepsisAUC * 100, fill: '#22c55e' },
+    { id: 'respiratory', name: 'Respiratory\nPrediction', auc: RESEARCH_DATA.risk.respiratoryAUC * 100, fill: '#06b6d4' },
   ], []);
 
   // DBS Feature Weights
   const featureData = useMemo(() => 
     RESEARCH_DATA.dbs.features.slice(0, 6).map((f, i) => ({
+      id: `feature-${i}`,
       name: f.name.replace(' Score', '').replace('Number of ', ''),
       weight: f.weight * 100,
       fill: i < 2 ? '#3b82f6' : i < 4 ? '#8b5cf6' : '#06b6d4',
     })),
     []
+  );
+
+  // Legend items for AUC chart
+  const aucLegendItems: LegendItem[] = useMemo(() => 
+    aucData.map(item => ({
+      id: item.id,
+      label: item.name.replace('\n', ' '),
+      color: item.fill,
+      value: item.auc.toFixed(1),
+      unit: '%',
+      description: `AUC score for ${item.name.replace('\n', ' ')}`,
+    })),
+    [aucData]
+  );
+
+  // Legend items for quartile chart  
+  const quartileLegendItems: LegendItem[] = useMemo(() =>
+    quartileData.map(item => ({
+      id: item.id,
+      label: item.name,
+      color: item.fill,
+      value: item.patients.toLocaleString(),
+      description: item.label,
+    })),
+    [quartileData]
   );
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -224,9 +276,9 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64 chart-animate-in">
+            <ChartZoomPan className="h-64 chart-animate-in" minZoom={1} maxZoom={3}>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={quartileData} barCategoryGap="20%">
+                <BarChart data={quartileData.filter(d => !hiddenSeries.has(d.id))} barCategoryGap="20%">
                   <defs>
                     {quartileData.map((entry, index) => (
                       <linearGradient key={`grad-${index}`} id={`quartileGrad${index}`} x1="0" y1="0" x2="0" y2="1">
@@ -262,23 +314,33 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
                     animationDuration={1200}
                     animationEasing="ease-out"
                   >
-                    {quartileData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={`url(#quartileGrad${index})`} />
-                    ))}
+                    {quartileData.filter(d => !hiddenSeries.has(d.id)).map((entry, index) => {
+                      const originalIndex = quartileData.findIndex(d => d.id === entry.id);
+                      const isHighlighted = highlightedSeries === entry.id;
+                      const isDimmed = highlightedSeries !== null && highlightedSeries !== entry.id;
+                      return (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={`url(#quartileGrad${originalIndex})`}
+                          opacity={isDimmed ? 0.3 : isHighlighted ? 1 : 0.85}
+                          style={{ 
+                            filter: isHighlighted ? 'drop-shadow(0 0 8px currentColor)' : 'none',
+                            transition: 'opacity 0.2s ease, filter 0.2s ease'
+                          }}
+                        />
+                      );
+                    })}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-            </div>
-            <div className="mt-4 grid grid-cols-4 gap-2 text-center">
-              {quartileData.map((q, i) => (
-                <div key={i} className="p-2 rounded-lg bg-muted/30">
-                  <div className="text-xs font-semibold" style={{ color: q.fill }}>
-                    {q.percentage}%
-                  </div>
-                  <div className="text-[10px] text-muted-foreground">{q.label}</div>
-                  <div className="text-[10px] text-muted-foreground/60">{q.staffingRatio}</div>
-                </div>
-              ))}
+            </ChartZoomPan>
+            <div className="mt-4">
+              <InteractiveLegend
+                items={quartileLegendItems}
+                onHover={handleLegendHover}
+                onToggle={handleLegendToggle}
+                showValues
+              />
             </div>
           </CardContent>
         </Card>
@@ -381,9 +443,9 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </p>
           </CardHeader>
           <CardContent>
-            <div className="h-64 chart-animate-in">
+            <ChartZoomPan className="h-64 chart-animate-in" minZoom={1} maxZoom={3}>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={aucData} layout="vertical" barCategoryGap="25%">
+                <BarChart data={aucData.filter(d => !hiddenSeries.has(d.id))} layout="vertical" barCategoryGap="25%">
                   <defs>
                     <linearGradient id="aucGrad1" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8} />
@@ -428,26 +490,33 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
                     animationDuration={1000}
                     animationEasing="ease-out"
                   >
-                    {aucData.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={`url(#aucGrad${index + 1})`} />
-                    ))}
+                    {aucData.filter(d => !hiddenSeries.has(d.id)).map((item, index) => {
+                      const originalIndex = aucData.findIndex(d => d.id === item.id);
+                      const isHighlighted = highlightedSeries === item.id;
+                      const isDimmed = highlightedSeries !== null && highlightedSeries !== item.id;
+                      return (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={`url(#aucGrad${originalIndex + 1})`}
+                          opacity={isDimmed ? 0.3 : isHighlighted ? 1 : 0.85}
+                          style={{ 
+                            filter: isHighlighted ? 'drop-shadow(0 0 8px currentColor)' : 'none',
+                            transition: 'opacity 0.2s ease, filter 0.2s ease'
+                          }}
+                        />
+                      );
+                    })}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-            </div>
-            <div className="mt-4 flex items-center justify-center gap-6 text-xs text-muted-foreground">
-              <span className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-sm" />
-                <span className="font-medium">Internal</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 shadow-sm" />
-                <span className="font-medium">External</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-400 to-green-600 shadow-sm" />
-                <span className="font-medium">Risk Models</span>
-              </span>
+            </ChartZoomPan>
+            <div className="mt-4">
+              <InteractiveLegend
+                items={aucLegendItems}
+                onHover={handleLegendHover}
+                onToggle={handleLegendToggle}
+                showValues
+              />
             </div>
           </CardContent>
         </Card>
