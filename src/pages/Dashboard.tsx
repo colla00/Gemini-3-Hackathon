@@ -252,9 +252,9 @@ export const Dashboard = () => {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="px-4 py-2 border-b border-border/30 bg-background/50 overflow-x-auto" aria-label="Dashboard views">
-        <div className="flex items-center justify-between min-w-max">
-          <div className="flex items-center gap-1" role="tablist" aria-label="View options">
+      <nav className="px-2 py-1.5 border-b border-border/30 bg-background/50 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-0.5 flex-wrap" role="tablist" aria-label="View options">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -263,31 +263,31 @@ export const Dashboard = () => {
                 aria-selected={activeView === item.id}
                 aria-controls={`${item.id}-panel`}
                 className={cn(
-                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
+                  "flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium transition-all whitespace-nowrap",
                   activeView === item.id
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 )}
               >
                 {item.icon}
-                <span className="hidden lg:inline">{item.label}</span>
-                <span className="lg:hidden">{item.shortLabel}</span>
+                <span className="hidden xl:inline">{item.label}</span>
+                <span className="xl:hidden">{item.shortLabel}</span>
               </button>
             ))}
           </div>
 
           {/* Quick Filters */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2 ml-2 shrink-0">
             <button 
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              className="flex items-center gap-1 px-2 py-1 rounded text-[11px] text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
               aria-label="Open filters"
             >
-              <Filter className="w-3.5 h-3.5" aria-hidden="true" />
+              <Filter className="w-3 h-3" aria-hidden="true" />
               <span>Filters</span>
             </button>
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-risk-high/10 border border-risk-high/30" role="status" aria-live="polite">
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-risk-high/10 border border-risk-high/30" role="status" aria-live="polite">
               <span className="w-1.5 h-1.5 rounded-full bg-risk-high" aria-hidden="true" />
-              <span className="text-[10px] font-medium text-risk-high">3 High Risk</span>
+              <span className="text-[9px] font-medium text-risk-high">3</span>
             </div>
           </div>
         </div>
