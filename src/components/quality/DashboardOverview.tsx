@@ -7,7 +7,8 @@ import { InterventionsSummary } from './InterventionsPanel';
 import { ClinicalTooltip, MetricTooltip } from './ClinicalTooltip';
 import { AdaptiveThresholds } from './AdaptiveThresholds';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
+import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
+import { ROICalculator } from '@/components/dashboard/ROICalculator';
 interface DashboardOverviewProps {
   liveSimulation?: {
     isActive: boolean;
@@ -364,6 +365,12 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
 
           {/* Interventions Summary */}
           <InterventionsSummary patients={patients} />
+
+          {/* DBS Calculator - Compact */}
+          <DBSCalculator compact />
+
+          {/* ROI Calculator - Compact */}
+          <ROICalculator compact />
         </div>
       </div>
 
