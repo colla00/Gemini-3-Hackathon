@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe, ChevronDown, ChevronUp } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskCategoryData } from '@/data/nursingOutcomes';
 import { ConfidenceIndicator } from './ConfidenceIndicator';
@@ -7,10 +7,6 @@ import { InterventionsSummary } from './InterventionsPanel';
 import { ClinicalTooltip, MetricTooltip } from './ClinicalTooltip';
 import { AdaptiveThresholds } from './AdaptiveThresholds';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
-import { ROICalculator } from '@/components/dashboard/ROICalculator';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
 interface DashboardOverviewProps {
   liveSimulation?: {
     isActive: boolean;
@@ -255,67 +251,6 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
   );
 };
 
-// Expandable Calculator Wrapper with framer-motion animations
-const ExpandableCalculator = ({ 
-  title, 
-  defaultExpanded = false, 
-  children 
-}: { 
-  title: string; 
-  defaultExpanded?: boolean; 
-  children: (isExpanded: boolean) => React.ReactNode;
-}) => {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-
-  return (
-    <motion.div 
-      className="glass-card rounded-lg overflow-hidden"
-      layout
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-    >
-      <Button 
-        variant="ghost" 
-        className="w-full flex items-center justify-between p-3 h-auto hover:bg-secondary/30"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        <span className="text-sm font-semibold text-foreground">{title}</span>
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <ChevronDown className="w-4 h-4 text-muted-foreground" />
-        </motion.div>
-      </Button>
-      
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={isExpanded ? 'expanded' : 'compact'}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ 
-            opacity: 1, 
-            height: 'auto',
-            transition: { 
-              height: { duration: 0.3, ease: 'easeInOut' },
-              opacity: { duration: 0.2, delay: 0.1 }
-            }
-          }}
-          exit={{ 
-            opacity: 0, 
-            height: 0,
-            transition: { 
-              height: { duration: 0.2, ease: 'easeInOut' },
-              opacity: { duration: 0.1 }
-            }
-          }}
-          className="px-3 pb-3 overflow-hidden"
-        >
-          {children(isExpanded)}
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
-  );
-};
-
 export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) => {
   const getQualitativeCount = (count: number) => {
     if (count === 0) return 'None';
@@ -428,22 +363,6 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
 
           {/* Interventions Summary */}
           <InterventionsSummary patients={patients} />
-
-          {/* Expandable DBS Calculator */}
-          <ExpandableCalculator 
-            title="Documentation Burden Score" 
-            defaultExpanded={false}
-          >
-            {(isExpanded) => <DBSCalculator compact={!isExpanded} />}
-          </ExpandableCalculator>
-
-          {/* Expandable ROI Calculator */}
-          <ExpandableCalculator 
-            title="ROI Calculator" 
-            defaultExpanded={false}
-          >
-            {(isExpanded) => <ROICalculator compact={!isExpanded} />}
-          </ExpandableCalculator>
         </div>
       </div>
 
