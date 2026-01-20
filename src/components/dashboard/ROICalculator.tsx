@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { DollarSign, Building2, Clock, TrendingUp, Users, Activity, Save, Trash2, BarChart3, Sparkles } from 'lucide-react';
 import { calculateROI, formatCurrency, formatCompactNumber } from '@/utils/dbsCalculations';
 import { RESEARCH_DATA } from '@/data/researchData';
+import { HOSPITAL_PRESETS, PRESET_COLORS } from '@/data/hospitalPresets';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useInvestorMetrics } from '@/hooks/useInvestorMetrics';
@@ -26,64 +27,11 @@ interface SavedScenario {
   hourlyRate: number;
   roi: ReturnType<typeof calculateROI>;
 }
-
-// Preset hospital configurations
-const HOSPITAL_PRESETS = [
-  {
-    id: 'small-community',
-    name: 'Small Community',
-    description: '25-bed rural hospital',
-    bedCount: 25,
-    occupancy: 70,
-    hourlyRate: 38,
-    color: 'bg-emerald-500/20 text-emerald-600 border-emerald-500/30',
-  },
-  {
-    id: 'rural-critical',
-    name: 'Rural Critical Access',
-    description: '15-bed CAH facility',
-    bedCount: 15,
-    occupancy: 60,
-    hourlyRate: 35,
-    color: 'bg-amber-500/20 text-amber-600 border-amber-500/30',
-  },
-  {
-    id: 'mid-size-regional',
-    name: 'Mid-Size Regional',
-    description: '75-bed regional center',
-    bedCount: 75,
-    occupancy: 80,
-    hourlyRate: 45,
-    color: 'bg-blue-500/20 text-blue-600 border-blue-500/30',
-  },
-  {
-    id: 'large-academic',
-    name: 'Large Academic Center',
-    description: '150-bed teaching hospital',
-    bedCount: 150,
-    occupancy: 90,
-    hourlyRate: 55,
-    color: 'bg-purple-500/20 text-purple-600 border-purple-500/30',
-  },
-  {
-    id: 'urban-tertiary',
-    name: 'Urban Tertiary',
-    description: '200-bed metro hospital',
-    bedCount: 200,
-    occupancy: 95,
-    hourlyRate: 60,
-    color: 'bg-rose-500/20 text-rose-600 border-rose-500/30',
-  },
-  {
-    id: 'specialty-cardiac',
-    name: 'Specialty Cardiac',
-    description: '40-bed cardiac center',
-    bedCount: 40,
-    occupancy: 85,
-    hourlyRate: 52,
-    color: 'bg-red-500/20 text-red-600 border-red-500/30',
-  },
-];
+// Use shared presets with color mapping
+const getPresetWithColor = (preset: typeof HOSPITAL_PRESETS[0]) => ({
+  ...preset,
+  color: PRESET_COLORS[preset.id] || 'bg-gray-500/20 text-gray-600 border-gray-500/30',
+});
 
 export function ROICalculator({ className, compact = false }: ROICalculatorProps) {
   // Get shared investor metrics context
@@ -232,6 +180,7 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {HOSPITAL_PRESETS.map((preset) => {
+              const presetWithColor = getPresetWithColor(preset);
               const presetRoi = calculateROI({
                 bedCount: preset.bedCount,
                 avgOccupancy: preset.occupancy,
@@ -245,7 +194,7 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
                   onClick={() => loadPreset(preset)}
                   className={cn(
                     "p-3 rounded-lg border text-left transition-all hover:shadow-md",
-                    preset.color,
+                    presetWithColor.color,
                     bedCount === preset.bedCount && 
                     occupancy === preset.occupancy && 
                     hourlyRate === preset.hourlyRate
