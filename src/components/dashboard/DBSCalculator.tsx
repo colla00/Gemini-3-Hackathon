@@ -7,7 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { FileText, Activity, Heart, Pill, User, Users, Save, Trash2, BarChart3, Sparkles } from 'lucide-react';
+import { FileText, Activity, Heart, Pill, User, Users, Save, Trash2, BarChart3, Sparkles, Shuffle } from 'lucide-react';
 import { calculateDBS, getDBSQuartile } from '@/utils/dbsCalculations';
 import { DBS_CALCULATION_FACTORS, RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -157,6 +157,15 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
     setAge(preset.age);
   };
 
+  const randomizeProfile = () => {
+    // Generate random values within realistic clinical ranges
+    setApache(Math.floor(Math.random() * 40) + 5); // 5-44
+    setSofa(Math.floor(Math.random() * 18) + 2); // 2-19
+    setComorbidities(Math.floor(Math.random() * 8) + 1); // 1-8
+    setMedications(Math.floor(Math.random() * 20) + 5); // 5-24
+    setAge(Math.floor(Math.random() * 60) + 25); // 25-84
+  };
+
   const getScoreColor = (score: number) => {
     if (score < 25) return 'text-risk-low';
     if (score < 50) return 'text-warning';
@@ -233,6 +242,15 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             >
               <Save className="h-3 w-3 mr-1" />
               Save
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={randomizeProfile}
+              className="h-7 text-xs"
+            >
+              <Shuffle className="h-3 w-3 mr-1" />
+              Random
             </Button>
             {savedProfiles.length > 0 && (
               <Button
