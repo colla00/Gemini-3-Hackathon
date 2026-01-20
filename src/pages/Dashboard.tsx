@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign
+  Monitor, FileText, DollarSign, MoreHorizontal, Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -29,20 +29,35 @@ import { SessionTimeoutWarning } from '@/components/SessionTimeoutWarning';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi';
 
-const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
-  { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'patients', label: 'Patient Worklist', shortLabel: 'Worklist', icon: <Users className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'shap', label: 'Risk Attribution', shortLabel: 'SHAP', icon: <BarChart3 className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'workflow', label: 'Workflow Demo', shortLabel: 'Workflow', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'validation', label: 'Model Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'integration', label: 'EHR Integration', shortLabel: 'EHR', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'outcomes', label: 'Clinical Outcomes', shortLabel: 'Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'dbs', label: 'DBS Calculator', shortLabel: 'DBS', icon: <FileText className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'roi', label: 'ROI Calculator', shortLabel: 'ROI', icon: <DollarSign className="w-4 h-4" aria-hidden="true" /> },
+// Primary tabs always visible
+const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator?: boolean }[] = [
+  { id: 'dashboard', label: 'Overview', icon: <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'patients', label: 'Patient Worklist', icon: <Users className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'shap', label: 'Risk Attribution', icon: <BarChart3 className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'workflow', label: 'Workflow Demo', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'outcomes', label: 'Clinical Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
+];
+
+// Calculator tabs with special styling
+const calculatorNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator: boolean }[] = [
+  { id: 'dbs', label: 'DBS Calculator', icon: <FileText className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
+  { id: 'roi', label: 'ROI Calculator', icon: <DollarSign className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
+];
+
+// Secondary tabs in dropdown
+const secondaryNavItems: { id: ViewType; label: string; icon: React.ReactNode }[] = [
+  { id: 'validation', label: 'Model Validation', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'integration', label: 'EHR Integration', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
 ];
 
 export const Dashboard = () => {
@@ -72,7 +87,8 @@ export const Dashboard = () => {
   // Handle view change with logging
   const handleViewChange = useCallback((view: ViewType) => {
     setActiveView(view);
-    logFeatureUse(`View: ${navItems.find(n => n.id === view)?.label || view}`);
+    const allItems = [...primaryNavItems, ...calculatorNavItems, ...secondaryNavItems];
+    logFeatureUse(`View: ${allItems.find(n => n.id === view)?.label || view}`);
   }, [logFeatureUse]);
 
   // Handle live toggle with logging
@@ -255,7 +271,8 @@ export const Dashboard = () => {
       <nav className="px-2 py-1.5 border-b border-border/30 bg-background/50 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1" role="tablist" aria-label="View options">
-            {navItems.map((item) => (
+            {/* Primary Navigation Tabs */}
+            {primaryNavItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleViewChange(item.id)}
@@ -273,6 +290,71 @@ export const Dashboard = () => {
                 <span>{item.label}</span>
               </button>
             ))}
+
+            {/* Separator */}
+            <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
+
+            {/* Calculator Tabs - Highlighted for investors */}
+            {calculatorNavItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleViewChange(item.id)}
+                role="tab"
+                aria-selected={activeView === item.id}
+                aria-controls={`${item.id}-panel`}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap relative",
+                  activeView === item.id
+                    ? "bg-gradient-to-r from-chart-1 to-chart-2 text-primary-foreground shadow-md"
+                    : "bg-chart-1/10 text-chart-1 hover:bg-chart-1/20 border border-chart-1/30"
+                )}
+              >
+                <Sparkles className="w-3 h-3" aria-hidden="true" />
+                {item.icon}
+                <span>{item.label}</span>
+                {!activeView.includes(item.id) && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-chart-2 animate-pulse" aria-hidden="true" />
+                )}
+              </button>
+            ))}
+
+            {/* Separator */}
+            <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
+
+            {/* More Dropdown for Secondary Tabs */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={cn(
+                    "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
+                    secondaryNavItems.some(item => item.id === activeView)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  )}
+                  aria-label="More views"
+                  aria-haspopup="menu"
+                >
+                  <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
+                  <span>More</span>
+                  <ChevronDown className="w-3 h-3" aria-hidden="true" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="z-50 bg-popover border border-border shadow-lg">
+                {secondaryNavItems.map((item) => (
+                  <DropdownMenuItem
+                    key={item.id}
+                    onClick={() => handleViewChange(item.id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeView === item.id && "bg-accent text-accent-foreground"
+                    )}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Quick Filters */}
@@ -293,7 +375,7 @@ export const Dashboard = () => {
       </nav>
 
       {/* Main Content */}
-      <main id="dashboard-main" className="flex-1 p-4 overflow-auto pb-16" role="tabpanel" aria-label={`${navItems.find(n => n.id === activeView)?.label || 'Dashboard'} view`}>
+      <main id="dashboard-main" className="flex-1 p-4 overflow-auto pb-16" role="tabpanel" aria-label={`${[...primaryNavItems, ...calculatorNavItems, ...secondaryNavItems].find(n => n.id === activeView)?.label || 'Dashboard'} view`}>
         <div className="max-w-7xl mx-auto animate-fade-in">
           {renderView()}
         </div>
