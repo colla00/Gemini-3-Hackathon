@@ -2,16 +2,18 @@
 // Based on DRALEXIS package specification: 10,000 patients, 201 hospitals
 // Copyright © Dr. Alexis Collier - Patent Pending
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, AreaChart, Area
 } from 'recharts';
-import { BarChart3, TrendingDown, DollarSign, Users, Activity, FileText } from 'lucide-react';
+import { BarChart3, TrendingDown, DollarSign, Users, Activity, FileText, GitCompare } from 'lucide-react';
 import { RESEARCH_DATA } from '@/data/researchData';
 import { cn } from '@/lib/utils';
+import { InterventionTrendChart } from './InterventionTrendChart';
 
 interface ResearchChartsProps {
   className?: string;
@@ -173,7 +175,21 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
         </Badge>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Tabs for different chart views */}
+      <Tabs defaultValue="validation" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:inline-grid">
+          <TabsTrigger value="validation" className="text-xs">
+            <BarChart3 className="h-3.5 w-3.5 mr-1.5" />
+            Validation Metrics
+          </TabsTrigger>
+          <TabsTrigger value="intervention" className="text-xs">
+            <GitCompare className="h-3.5 w-3.5 mr-1.5" />
+            Intervention Trends
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="validation" className="mt-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* DBS Quartile Distribution */}
         <Card>
           <CardHeader>
@@ -433,6 +449,12 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
           </div>
         </CardContent>
       </Card>
+        </TabsContent>
+
+        <TabsContent value="intervention" className="mt-4">
+          <InterventionTrendChart />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
