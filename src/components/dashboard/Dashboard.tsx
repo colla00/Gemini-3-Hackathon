@@ -14,12 +14,15 @@ import { DemoModeController } from './DemoModeController';
 import { PerformancePanel } from './PerformancePanel';
 import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
+import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { SkipLink } from '@/components/SkipLink';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { useTimeOffset } from '@/hooks/useTimeOffset';
+import { Activity, Calculator } from 'lucide-react';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -32,6 +35,7 @@ const skipLinkTargets = [
 
 export const Dashboard = () => {
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   // Use the patients hook for data and filtering
   const {
@@ -97,88 +101,105 @@ export const Dashboard = () => {
             onBack={goBack}
           />
         ) : (
-          <div className="animate-fade-in space-y-6">
-            {/* Demo Summary */}
-            <section aria-label="Demo overview">
-              <DemoSummary className="mb-2" />
-            </section>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
+            <TabsList className="mb-6 bg-card/50 border border-border/30">
+              <TabsTrigger value="dashboard" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Activity className="h-4 w-4" />
+                Dashboard
+              </TabsTrigger>
+              <TabsTrigger value="calculators" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Calculator className="h-4 w-4" />
+                Calculators
+              </TabsTrigger>
+            </TabsList>
 
-            {/* Live System Metrics Bar */}
-            <section aria-label="Live system metrics">
-              <LiveMetricsBar />
-            </section>
+            <TabsContent value="dashboard" className="space-y-6 mt-0">
+              {/* Demo Summary */}
+              <section aria-label="Demo overview">
+                <DemoSummary className="mb-2" />
+              </section>
 
-            {/* Investor-Focused KPIs */}
-            <section aria-label="Impact metrics for investors">
-              <InvestorKPIs />
-            </section>
+              {/* Live System Metrics Bar */}
+              <section aria-label="Live system metrics">
+                <LiveMetricsBar />
+              </section>
 
-            {/* Clinical Workflow Context */}
-            <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
-              <ClinicalWorkflowBar />
-            </nav>
+              {/* Investor-Focused KPIs */}
+              <section aria-label="Impact metrics for investors">
+                <InvestorKPIs />
+              </section>
 
-            {/* System Workflow Sequence */}
-            <section aria-label="System workflow">
-              <WorkflowSequence activeStep="output" />
-            </section>
+              {/* Clinical Workflow Context */}
+              <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
+                <ClinicalWorkflowBar />
+              </nav>
 
-            {/* Quick Stats Overview */}
-            <section id="quick-stats" aria-label="Patient statistics summary" tabIndex={-1}>
-              <QuickStats
-                total={stats.total}
-                high={stats.high}
-                medium={stats.medium}
-                trending={stats.trending}
-              />
-            </section>
+              {/* System Workflow Sequence */}
+              <section aria-label="System workflow">
+                <WorkflowSequence activeStep="output" />
+              </section>
 
-            {/* Filters */}
-            <section id="filters" aria-label="Patient filters" tabIndex={-1}>
-              <FilterBar
-                searchQuery={filters.searchQuery}
-                onSearchChange={actions.setSearchQuery}
-                riskLevelFilter={filters.riskLevelFilter}
-                onRiskLevelChange={actions.setRiskLevelFilter}
-                riskTypeFilter={filters.riskTypeFilter}
-                onRiskTypeChange={actions.setRiskTypeFilter}
-                sortBy={filters.sortBy}
-                onSortChange={actions.setSortBy}
-              />
-            </section>
+              {/* Quick Stats Overview */}
+              <section id="quick-stats" aria-label="Patient statistics summary" tabIndex={-1}>
+                <QuickStats
+                  total={stats.total}
+                  high={stats.high}
+                  medium={stats.medium}
+                  trending={stats.trending}
+                />
+              </section>
 
-            {filteredPatients.length > 0 ? (
-              <div id="patient-list" tabIndex={-1} aria-label="Patient monitoring list">
-                {/* Priority Queue */}
-                <section aria-label="Priority patients requiring immediate attention">
-                  <PriorityQueue
-                    patients={priorityPatients}
-                    onSelect={selectPatient}
-                    displayTime={getDisplayTime}
-                  />
-                </section>
+              {/* Filters */}
+              <section id="filters" aria-label="Patient filters" tabIndex={-1}>
+                <FilterBar
+                  searchQuery={filters.searchQuery}
+                  onSearchChange={actions.setSearchQuery}
+                  riskLevelFilter={filters.riskLevelFilter}
+                  onRiskLevelChange={actions.setRiskLevelFilter}
+                  riskTypeFilter={filters.riskTypeFilter}
+                  onRiskTypeChange={actions.setRiskTypeFilter}
+                  sortBy={filters.sortBy}
+                  onSortChange={actions.setSortBy}
+                />
+              </section>
 
-                {/* Monitoring List */}
-                <section aria-label="Additional patients for monitoring">
-                  <MonitoringList
-                    patients={monitoringPatients}
-                    onSelect={selectPatient}
-                    displayTime={getDisplayTime}
-                  />
-                </section>
-              </div>
-            ) : (
-              <div 
-                className="text-center py-20 bg-card/30 rounded-2xl border border-border/20"
-                role="status"
-                aria-live="polite"
-              >
-                <p className="text-muted-foreground text-base">
-                  No patients match the current filters.
-                </p>
-              </div>
-            )}
-          </div>
+              {filteredPatients.length > 0 ? (
+                <div id="patient-list" tabIndex={-1} aria-label="Patient monitoring list">
+                  {/* Priority Queue */}
+                  <section aria-label="Priority patients requiring immediate attention">
+                    <PriorityQueue
+                      patients={priorityPatients}
+                      onSelect={selectPatient}
+                      displayTime={getDisplayTime}
+                    />
+                  </section>
+
+                  {/* Monitoring List */}
+                  <section aria-label="Additional patients for monitoring">
+                    <MonitoringList
+                      patients={monitoringPatients}
+                      onSelect={selectPatient}
+                      displayTime={getDisplayTime}
+                    />
+                  </section>
+                </div>
+              ) : (
+                <div 
+                  className="text-center py-20 bg-card/30 rounded-2xl border border-border/20"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <p className="text-muted-foreground text-base">
+                    No patients match the current filters.
+                  </p>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="calculators" className="mt-0">
+              <LinkedCalculatorView />
+            </TabsContent>
+          </Tabs>
         )}
       </main>
 
