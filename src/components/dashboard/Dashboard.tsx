@@ -16,6 +16,7 @@ import { InvestorKPIs } from './InvestorKPIs';
 import { LiveMetricsBar } from './LiveMetricsBar';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { ResearchCharts } from './ResearchCharts';
+import { CalculatorPreview } from './CalculatorPreview';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -134,7 +135,15 @@ export const Dashboard = () => {
                 <InvestorKPIs />
               </section>
 
+              {/* Calculator Preview - Prominent placement */}
+              <section aria-label="Research calculators preview">
+                <CalculatorPreview onOpenCalculators={() => setActiveTab('calculators')} />
+              </section>
+
               {/* Clinical Workflow Context */}
+              <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
+                <ClinicalWorkflowBar />
+              </nav>
               <nav id="workflow-nav" aria-label="Clinical workflow phases" tabIndex={-1}>
                 <ClinicalWorkflowBar />
               </nav>
