@@ -55,10 +55,27 @@
     --gradient-healthcare: linear-gradient(180deg, hsl(210 30% 98%) 0%, hsl(210 30% 95%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(174 65% 32%) 0%, hsl(199 80% 32%) 100%);
+    
+    /* Chart-specific colors - light mode */
+    --chart-1: 174 65% 38%;
+    --chart-2: 199 80% 40%;
+    --chart-3: 152 60% 35%;
+    --chart-4: 280 60% 50%;
+    --chart-5: 30 85% 42%;
+    --chart-grid: 215 20% 85%;
+    --chart-crosshair: 174 65% 32%;
+    --chart-highlight: 174 65% 28%;
+    
+    /* Chart gradients - light mode */
+    --gradient-chart-primary: linear-gradient(180deg, hsl(174 65% 38% / 0.25) 0%, hsl(174 65% 38% / 0.02) 100%);
+    --gradient-chart-success: linear-gradient(180deg, hsl(152 60% 35% / 0.25) 0%, hsl(152 60% 35% / 0.02) 100%);
+    --gradient-chart-danger: linear-gradient(180deg, hsl(0 72% 42% / 0.25) 0%, hsl(0 72% 42% / 0.02) 100%);
+    --gradient-chart-warning: linear-gradient(180deg, hsl(30 85% 42% / 0.25) 0%, hsl(30 85% 42% / 0.02) 100%);
 
     /* Shadows - subtle for light mode */
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
     --shadow-glow: 0 0 16px rgba(20, 130, 120, 0.12);
+    --shadow-chart-glow: 0 0 12px rgba(20, 130, 120, 0.2);
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 215 25% 17%;
@@ -101,7 +118,7 @@
     --ring: 174 72% 46%;
     --warning: 45 93% 47%;
 
-    /* Risk level colors - clinical indicators */
+    /* Risk level colors - clinical indicators (high contrast for dark mode) */
     --risk-high: 0 84% 60%;
     --risk-medium: 38 92% 50%;
     --risk-low: 152 69% 40%;
@@ -110,14 +127,31 @@
     --shap-positive: 0 91% 71%;
     --shap-negative: 152 69% 50%;
 
+    /* Chart-specific colors - optimized for dark mode visibility */
+    --chart-1: 174 72% 55%;
+    --chart-2: 199 89% 58%;
+    --chart-3: 152 69% 50%;
+    --chart-4: 280 70% 65%;
+    --chart-5: 38 92% 55%;
+    --chart-grid: 210 25% 30%;
+    --chart-crosshair: 174 72% 46%;
+    --chart-highlight: 174 72% 60%;
+
     /* Custom gradients */
     --gradient-healthcare: linear-gradient(180deg, hsl(210 40% 14%) 0%, hsl(210 40% 8%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(210 35% 15%) 0%, hsl(210 35% 12%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(174 72% 46%) 0%, hsl(199 89% 48%) 100%);
+    
+    /* Chart gradients - enhanced for dark mode */
+    --gradient-chart-primary: linear-gradient(180deg, hsl(174 72% 55% / 0.4) 0%, hsl(174 72% 55% / 0.05) 100%);
+    --gradient-chart-success: linear-gradient(180deg, hsl(152 69% 50% / 0.4) 0%, hsl(152 69% 50% / 0.05) 100%);
+    --gradient-chart-danger: linear-gradient(180deg, hsl(0 84% 60% / 0.4) 0%, hsl(0 84% 60% / 0.05) 100%);
+    --gradient-chart-warning: linear-gradient(180deg, hsl(38 92% 55% / 0.4) 0%, hsl(38 92% 55% / 0.05) 100%);
 
     /* Shadows */
     --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-glow: 0 0 20px rgba(45, 212, 191, 0.25);
+    --shadow-chart-glow: 0 0 16px rgba(45, 212, 191, 0.4);
 
     --sidebar-background: 210 35% 12%;
     --sidebar-foreground: 210 20% 98%;
@@ -725,6 +759,217 @@
 
 .chart-high-contrast .recharts-dot {
   r: 6 !important;
+}
+
+/* ======================================
+   CROSSHAIR & HOVER INTERACTIONS
+   Precise value reading with crosshair guides
+   ====================================== */
+
+/* Crosshair cursor styling */
+.recharts-tooltip-cursor {
+  stroke: hsl(var(--chart-crosshair)) !important;
+  stroke-width: 1.5px !important;
+  stroke-dasharray: 4 3 !important;
+  opacity: 0.7 !important;
+}
+
+/* Active cursor area highlight */
+.recharts-rectangle.recharts-tooltip-cursor {
+  fill: hsl(var(--chart-highlight) / 0.08) !important;
+  stroke: hsl(var(--chart-crosshair) / 0.4) !important;
+  rx: 4 !important;
+  ry: 4 !important;
+}
+
+/* Enhanced data point hover - active dot styling */
+.recharts-active-dot circle {
+  filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor);
+  transition: all 0.2s ease-out;
+}
+
+/* Data point highlight animation */
+@keyframes dataPointPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  50% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px currentColor);
+  }
+}
+
+.recharts-dot.active,
+.recharts-active-dot {
+  animation: dataPointPulse 1.5s ease-in-out infinite;
+}
+
+/* Crosshair vertical line */
+.chart-crosshair-vertical {
+  stroke: hsl(var(--chart-crosshair));
+  stroke-width: 1px;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+}
+
+/* Crosshair horizontal line */
+.chart-crosshair-horizontal {
+  stroke: hsl(var(--chart-crosshair));
+  stroke-width: 1px;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+}
+
+/* Value label on crosshair */
+.chart-crosshair-label {
+  fill: hsl(var(--foreground));
+  font-size: 10px;
+  font-weight: 600;
+  background: hsl(var(--popover));
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Enhanced bar hover - glow effect */
+.recharts-bar-rectangle {
+  transition: filter 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+  transform-origin: bottom center;
+}
+
+.recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 0 8px currentColor) brightness(1.1);
+  transform: scaleY(1.02);
+}
+
+/* Area hover enhancement */
+.recharts-area:hover .recharts-area-curve {
+  filter: drop-shadow(0 0 6px currentColor);
+  stroke-width: 3px;
+}
+
+.recharts-area:hover .recharts-area-area {
+  opacity: 0.85;
+}
+
+/* Line hover enhancement */
+.recharts-line:hover .recharts-line-curve {
+  filter: drop-shadow(0 0 8px currentColor);
+  stroke-width: 3.5px;
+  transition: all 0.2s ease;
+}
+
+/* Reference line hover */
+.recharts-reference-line:hover line {
+  stroke-width: 2.5px;
+  opacity: 1 !important;
+}
+
+/* ======================================
+   DARK MODE CHART OPTIMIZATIONS
+   Higher contrast gradients for visibility
+   ====================================== */
+
+.dark .recharts-cartesian-grid line {
+  stroke: hsl(var(--chart-grid)) !important;
+  stroke-opacity: 0.4 !important;
+}
+
+.dark .recharts-cartesian-axis-line {
+  stroke: hsl(var(--border) / 0.5) !important;
+}
+
+.dark .recharts-text {
+  fill: hsl(var(--muted-foreground)) !important;
+}
+
+/* Dark mode enhanced gradients */
+.dark .recharts-area-area {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.dark .recharts-area-curve {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.dark .recharts-line-curve {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.dark .recharts-bar-rectangle {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.dark .recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)) brightness(1.15);
+}
+
+/* Dark mode dots with glow */
+.dark .recharts-dot {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.dark .recharts-active-dot circle {
+  filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 24px currentColor);
+}
+
+/* Dark mode tooltip cursor */
+.dark .recharts-tooltip-cursor {
+  stroke: hsl(var(--chart-crosshair)) !important;
+  stroke-opacity: 0.9 !important;
+}
+
+.dark .recharts-rectangle.recharts-tooltip-cursor {
+  fill: hsl(var(--chart-highlight) / 0.12) !important;
+}
+
+/* Dark mode reference lines */
+.dark .recharts-reference-line line {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* Enhanced legend for dark mode */
+.dark .recharts-legend-item-text {
+  color: hsl(var(--foreground) / 0.9) !important;
+}
+
+/* Chart wrapper with interaction feedback */
+.chart-interactive {
+  position: relative;
+}
+
+.chart-interactive::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: box-shadow 0.3s ease;
+}
+
+.chart-interactive:hover::after {
+  box-shadow: inset 0 0 0 1px hsl(var(--chart-crosshair) / 0.2);
+}
+
+/* Value indicator badge */
+.chart-value-indicator {
+  position: absolute;
+  background: hsl(var(--popover));
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 50;
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+}
+
+.dark .chart-value-indicator {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Scrollbar styling */
