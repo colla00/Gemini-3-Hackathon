@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor
+  Monitor, FileText, DollarSign
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -16,6 +16,8 @@ import { EHRIntegrationDiagram } from '@/components/quality/EHRIntegrationDiagra
 import { OutcomeComparisonPanel } from '@/components/quality/OutcomeComparisonPanel';
 import { MethodologyChat } from '@/components/quality/MethodologyChat';
 import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAccessButton';
+import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
+import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -29,7 +31,7 @@ import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
 import { toast } from 'sonner';
 
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes';
+type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel: string }[] = [
   { id: 'dashboard', label: 'Overview', shortLabel: 'Overview', icon: <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> },
@@ -39,6 +41,8 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; shortLabel
   { id: 'validation', label: 'Model Validation', shortLabel: 'Metrics', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
   { id: 'integration', label: 'EHR Integration', shortLabel: 'EHR', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
   { id: 'outcomes', label: 'Clinical Outcomes', shortLabel: 'Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'dbs', label: 'DBS Calculator', shortLabel: 'DBS', icon: <FileText className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'roi', label: 'ROI Calculator', shortLabel: 'ROI', icon: <DollarSign className="w-4 h-4" aria-hidden="true" /> },
 ];
 
 export const Dashboard = () => {
@@ -93,6 +97,10 @@ export const Dashboard = () => {
         return <EHRIntegrationDiagram />;
       case 'outcomes':
         return <OutcomeComparisonPanel />;
+      case 'dbs':
+        return <DBSCalculator />;
+      case 'roi':
+        return <ROICalculator />;
       default:
         return <DashboardOverview liveSimulation={liveSimulation} />;
     }
