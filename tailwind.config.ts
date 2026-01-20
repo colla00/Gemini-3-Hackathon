@@ -64,6 +64,16 @@ export default {
           positive: "hsl(var(--shap-positive))",
           negative: "hsl(var(--shap-negative))",
         },
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
+          grid: "hsl(var(--chart-grid))",
+          crosshair: "hsl(var(--chart-crosshair))",
+          highlight: "hsl(var(--chart-highlight))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

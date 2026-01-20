@@ -172,7 +172,7 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn("space-y-6 chart-interactive", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

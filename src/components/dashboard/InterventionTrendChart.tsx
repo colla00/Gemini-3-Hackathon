@@ -211,7 +211,7 @@ export function InterventionTrendChart({ className, compact = false }: Intervent
   }
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-4 chart-interactive", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
