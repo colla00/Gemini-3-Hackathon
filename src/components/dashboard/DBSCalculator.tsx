@@ -6,14 +6,29 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { FileText, Activity, Heart, Pill, User, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FileText, Activity, Heart, Pill, User, Users, Save, Trash2, BarChart3 } from 'lucide-react';
 import { calculateDBS, getDBSQuartile } from '@/utils/dbsCalculations';
 import { DBS_CALCULATION_FACTORS, RESEARCH_DATA } from '@/data/researchData';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface DBSCalculatorProps {
   className?: string;
   compact?: boolean;
   onScoreChange?: (score: number, quartile: string) => void;
+}
+
+interface SavedProfile {
+  id: string;
+  name: string;
+  apache: number;
+  sofa: number;
+  comorbidities: number;
+  medications: number;
+  age: number;
+  score: number;
+  quartile: ReturnType<typeof getDBSQuartile>;
 }
 
 export function DBSCalculator({ className, compact = false, onScoreChange }: DBSCalculatorProps) {
@@ -22,6 +37,8 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
   const [comorbidities, setComorbidities] = useState(DBS_CALCULATION_FACTORS[2].default);
   const [medications, setMedications] = useState(DBS_CALCULATION_FACTORS[3].default);
   const [age, setAge] = useState(DBS_CALCULATION_FACTORS[4].default);
+  const [savedProfiles, setSavedProfiles] = useState<SavedProfile[]>([]);
+  const [showComparison, setShowComparison] = useState(false);
 
   const dbsScore = useMemo(() => {
     const score = calculateDBS({ apache, sofa, comorbidities, medications, age });
@@ -32,18 +49,55 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
 
   const quartileInfo = useMemo(() => getDBSQuartile(dbsScore), [dbsScore]);
 
-  const getScoreColor = (score: number) => {
-    if (score < 25) return 'text-green-600';
-    if (score < 50) return 'text-yellow-600';
-    if (score < 75) return 'text-orange-600';
-    return 'text-red-600';
+  const saveProfile = () => {
+    if (savedProfiles.length >= 4) return;
+    const newProfile: SavedProfile = {
+      id: crypto.randomUUID(),
+      name: `Profile ${savedProfiles.length + 1}`,
+      apache,
+      sofa,
+      comorbidities,
+      medications,
+      age,
+      score: dbsScore,
+      quartile: quartileInfo,
+    };
+    setSavedProfiles([...savedProfiles, newProfile]);
+    setShowComparison(true);
   };
 
-  const getProgressColor = (score: number) => {
-    if (score < 25) return 'bg-green-500';
-    if (score < 50) return 'bg-yellow-500';
-    if (score < 75) return 'bg-orange-500';
-    return 'bg-red-500';
+  const removeProfile = (id: string) => {
+    setSavedProfiles(savedProfiles.filter(p => p.id !== id));
+    if (savedProfiles.length <= 1) setShowComparison(false);
+  };
+
+  const loadProfile = (profile: SavedProfile) => {
+    setApache(profile.apache);
+    setSofa(profile.sofa);
+    setComorbidities(profile.comorbidities);
+    setMedications(profile.medications);
+    setAge(profile.age);
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score < 25) return 'text-risk-low';
+    if (score < 50) return 'text-warning';
+    if (score < 75) return 'text-risk-medium';
+    return 'text-risk-high';
+  };
+
+  const getScoreBgColor = (score: number) => {
+    if (score < 25) return 'bg-risk-low/20';
+    if (score < 50) return 'bg-warning/20';
+    if (score < 75) return 'bg-risk-medium/20';
+    return 'bg-risk-high/20';
+  };
+
+  const getComplexityLabel = (score: number) => {
+    if (score < 25) return 'Low';
+    if (score < 50) return 'Moderate';
+    if (score < 75) return 'High';
+    return 'Very High';
   };
 
   if (compact) {
@@ -58,7 +112,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
         <CardContent>
           <div className="text-center">
             <p className={`text-3xl font-bold ${getScoreColor(dbsScore)}`}>
-              {dbsScore}
+              {getComplexityLabel(dbsScore)}
             </p>
             <p className="text-xs text-muted-foreground mt-1">
               {quartileInfo.quartile}: {quartileInfo.label}
@@ -69,6 +123,11 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
                 className="h-2" 
               />
             </div>
+            {savedProfiles.length > 0 && (
+              <p className="text-xs text-muted-foreground mt-2">
+                {savedProfiles.length} profile{savedProfiles.length > 1 ? 's' : ''} saved
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -83,9 +142,32 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <FileText className="h-5 w-5 text-primary" />
             Documentation Burden Score
           </CardTitle>
-          <Badge variant="outline" className="text-xs">
-            ANIA 2026 Research
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="text-xs">
+              ANIA 2026 Research
+            </Badge>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={saveProfile}
+              disabled={savedProfiles.length >= 4}
+              className="h-7 text-xs"
+            >
+              <Save className="h-3 w-3 mr-1" />
+              Save
+            </Button>
+            {savedProfiles.length > 0 && (
+              <Button
+                size="sm"
+                variant={showComparison ? "default" : "outline"}
+                onClick={() => setShowComparison(!showComparison)}
+                className="h-7 text-xs"
+              >
+                <BarChart3 className="h-3 w-3 mr-1" />
+                Compare
+              </Button>
+            )}
+          </div>
         </div>
         <p className="text-sm text-muted-foreground">
           {RESEARCH_DATA.validation.internalPatients.toLocaleString()} patients validated
@@ -93,10 +175,16 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Score Display */}
-        <div className="bg-gradient-to-r from-green-50 via-yellow-50 via-orange-50 to-red-50 dark:from-green-950/20 dark:via-yellow-950/20 dark:via-orange-950/20 dark:to-red-950/20 rounded-lg p-6">
+        <motion.div 
+          className="bg-gradient-to-r from-risk-low/10 via-warning/10 via-risk-medium/10 to-risk-high/10 rounded-lg p-6"
+          key={dbsScore}
+          initial={{ opacity: 0.8, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="text-center mb-4">
-            <p className={`text-5xl font-bold ${getScoreColor(dbsScore)}`}>
-              {dbsScore}
+            <p className={`text-4xl font-bold ${getScoreColor(dbsScore)}`}>
+              {getComplexityLabel(dbsScore)}
             </p>
             <p className="text-sm text-muted-foreground mt-2">
               {quartileInfo.quartile}: {quartileInfo.label}
@@ -105,10 +193,11 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               Staffing: {quartileInfo.staffingRatio}
             </Badge>
           </div>
-          <div className="relative h-3 bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 to-red-500 rounded-full">
-            <div 
-              className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full shadow-lg transition-all duration-300"
-              style={{ left: `calc(${dbsScore}% - 8px)` }}
+          <div className="relative h-3 bg-gradient-to-r from-risk-low via-warning via-risk-medium to-risk-high rounded-full">
+            <motion.div 
+              className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-background border-2 border-foreground rounded-full shadow-lg"
+              animate={{ left: `calc(${dbsScore}% - 8px)` }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
             />
           </div>
           <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -117,7 +206,149 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <span>Q3: High</span>
             <span>Q4: Very High</span>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Scenario Comparison Panel */}
+        <AnimatePresence>
+          {showComparison && savedProfiles.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden"
+            >
+              <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="font-semibold text-sm flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-primary" />
+                    Compare Patient Profiles
+                  </h4>
+                  <span className="text-xs text-muted-foreground">
+                    {savedProfiles.length}/4 saved
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <AnimatePresence>
+                    {savedProfiles.map((profile, index) => (
+                      <motion.div
+                        key={profile.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ delay: index * 0.1 }}
+                        className={cn(
+                          "relative p-3 rounded-lg border-2 cursor-pointer transition-all",
+                          "bg-background hover:border-primary/50",
+                          profile.apache === apache && 
+                          profile.sofa === sofa && 
+                          profile.comorbidities === comorbidities &&
+                          profile.medications === medications &&
+                          profile.age === age
+                            ? "border-primary"
+                            : "border-border/50"
+                        )}
+                        onClick={() => loadProfile(profile)}
+                      >
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="absolute top-1 right-1 h-6 w-6 p-0 hover:bg-destructive/10 hover:text-destructive"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeProfile(profile.id);
+                          }}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                        
+                        <p className="font-medium text-sm mb-2 pr-6">{profile.name}</p>
+                        
+                        <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                          <div className="flex justify-between">
+                            <span>APACHE:</span>
+                            <span className="font-medium text-foreground">{profile.apache}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>SOFA:</span>
+                            <span className="font-medium text-foreground">{profile.sofa}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Comorbidities:</span>
+                            <span className="font-medium text-foreground">{profile.comorbidities}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Medications:</span>
+                            <span className="font-medium text-foreground">{profile.medications}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Age:</span>
+                            <span className="font-medium text-foreground">{profile.age}</span>
+                          </div>
+                        </div>
+                        
+                        <div className={cn(
+                          "pt-2 border-t border-border/30 text-center rounded",
+                          getScoreBgColor(profile.score)
+                        )}>
+                          <span className={cn("text-sm font-bold", getScoreColor(profile.score))}>
+                            {getComplexityLabel(profile.score)}
+                          </span>
+                          <p className="text-xs text-muted-foreground">
+                            {profile.quartile.quartile}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+
+                {/* Comparison Summary */}
+                {savedProfiles.length >= 2 && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-4 pt-4 border-t border-border/30"
+                  >
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Highest Complexity</p>
+                        <p className={cn(
+                          "text-lg font-bold",
+                          getScoreColor(Math.max(...savedProfiles.map(p => p.score)))
+                        )}>
+                          {getComplexityLabel(Math.max(...savedProfiles.map(p => p.score)))}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Lowest Complexity</p>
+                        <p className={cn(
+                          "text-lg font-bold",
+                          getScoreColor(Math.min(...savedProfiles.map(p => p.score)))
+                        )}>
+                          {getComplexityLabel(Math.min(...savedProfiles.map(p => p.score)))}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Avg Age</p>
+                        <p className="text-lg font-bold text-foreground">
+                          {Math.round(savedProfiles.reduce((sum, p) => sum + p.age, 0) / savedProfiles.length)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Profiles</p>
+                        <p className="text-lg font-bold text-foreground">
+                          {savedProfiles.length}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Factor Sliders */}
         <div className="space-y-5">
@@ -126,7 +357,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <label className="text-sm font-medium flex items-center gap-2">
                 <Activity className="h-4 w-4 text-muted-foreground" />
                 APACHE II Score
-                <span className="text-xs text-muted-foreground">(25%)</span>
+                <span className="text-xs text-muted-foreground">(Strong influence)</span>
               </label>
               <span className="text-sm font-bold">{apache}</span>
             </div>
@@ -145,7 +376,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <label className="text-sm font-medium flex items-center gap-2">
                 <Heart className="h-4 w-4 text-muted-foreground" />
                 SOFA Score
-                <span className="text-xs text-muted-foreground">(20%)</span>
+                <span className="text-xs text-muted-foreground">(Strong influence)</span>
               </label>
               <span className="text-sm font-bold">{sofa}</span>
             </div>
@@ -164,7 +395,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <label className="text-sm font-medium flex items-center gap-2">
                 <Users className="h-4 w-4 text-muted-foreground" />
                 Comorbidities
-                <span className="text-xs text-muted-foreground">(18%)</span>
+                <span className="text-xs text-muted-foreground">(Moderate influence)</span>
               </label>
               <span className="text-sm font-bold">{comorbidities}</span>
             </div>
@@ -183,7 +414,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <label className="text-sm font-medium flex items-center gap-2">
                 <Pill className="h-4 w-4 text-muted-foreground" />
                 Active Medications
-                <span className="text-xs text-muted-foreground">(15%)</span>
+                <span className="text-xs text-muted-foreground">(Moderate influence)</span>
               </label>
               <span className="text-sm font-bold">{medications}</span>
             </div>
@@ -202,7 +433,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <label className="text-sm font-medium flex items-center gap-2">
                 <User className="h-4 w-4 text-muted-foreground" />
                 Age
-                <span className="text-xs text-muted-foreground">(12%)</span>
+                <span className="text-xs text-muted-foreground">(Mild influence)</span>
               </label>
               <span className="text-sm font-bold">{age}</span>
             </div>
@@ -225,7 +456,6 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
               <div key={q.name} className="flex justify-between items-center text-sm">
                 <span className="text-muted-foreground">{q.name}</span>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold">{q.percentage.toFixed(1)}%</span>
                   <Badge variant="outline" className="text-xs">
                     {q.staffingRatio}
                   </Badge>
@@ -237,9 +467,9 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
 
         {/* Key Findings */}
         <div className="text-xs text-muted-foreground space-y-1">
-          <p>✅ AUC {RESEARCH_DATA.validation.internalAUC} (internal), {RESEARCH_DATA.validation.externalAUC} (external)</p>
-          <p>✅ Cohen's d = {RESEARCH_DATA.validation.cohensD} (very large effect)</p>
-          <p>✅ {RESEARCH_DATA.dbs.overtimeReduction[0]}-{RESEARCH_DATA.dbs.overtimeReduction[1]}% overtime reduction potential</p>
+          <p>✅ Strong validation (internal), Strong validation (external)</p>
+          <p>✅ Very large effect size observed</p>
+          <p>✅ Significant overtime reduction potential</p>
         </div>
       </CardContent>
     </Card>
