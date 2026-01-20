@@ -64,24 +64,24 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-xl">
-        <p className="text-xs font-semibold text-foreground mb-2">{label}</p>
-        <div className="space-y-1.5 text-xs">
-          <div className="flex justify-between gap-4">
+      <div className="bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200">
+        <p className="text-sm font-semibold text-foreground mb-3 pb-2 border-b border-border/30">{label}</p>
+        <div className="space-y-2 text-xs">
+          <div className="flex justify-between gap-6 items-center">
             <span className="text-muted-foreground">Avg Risk:</span>
-            <span className="font-medium text-foreground">{data.avgRisk}%</span>
+            <span className="font-bold text-foreground tabular-nums">{data.avgRisk}%</span>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-6 items-center">
             <span className="text-muted-foreground">High Risk:</span>
-            <span className="font-medium text-risk-high">{data.highRiskCount}</span>
+            <span className="font-bold text-risk-high tabular-nums">{data.highRiskCount}</span>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-6 items-center">
             <span className="text-muted-foreground">Interventions:</span>
-            <span className="font-medium text-primary">{data.interventionCount}</span>
+            <span className="font-bold text-primary tabular-nums">{data.interventionCount}</span>
           </div>
-          <div className="flex justify-between gap-4 pt-1 border-t border-border/50">
+          <div className="flex justify-between gap-6 items-center pt-2 mt-2 border-t border-border/30">
             <span className="text-muted-foreground">Cumulative ↓:</span>
-            <span className="font-medium text-risk-low">{data.cumulativeReduction}%</span>
+            <span className="font-bold text-risk-low tabular-nums">{data.cumulativeReduction}%</span>
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@ export function PopulationTrendAggregation({ className, compact = false }: Popul
           </div>
         </CardHeader>
         <CardContent>
-          <div className="h-80">
+          <div className="h-80 chart-animate-in">
             <ResponsiveContainer width="100%" height="100%">
               {selectedView === 'trend' ? (
                 <ComposedChart data={populationData}>
@@ -229,35 +229,45 @@ export function PopulationTrendAggregation({ className, compact = false }: Popul
                     </linearGradient>
                   </defs>
                   
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                  <CartesianGrid 
+                    strokeDasharray="4 4" 
+                    stroke="hsl(var(--border))" 
+                    strokeOpacity={0.3} 
+                    vertical={false}
+                  />
                   <XAxis 
                     dataKey="time" 
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={{ stroke: 'hsl(var(--border))', strokeWidth: 1 }}
+                    tickLine={false}
                   />
                   <YAxis 
                     yAxisId="left"
                     domain={[0, 80]}
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(v) => `${v}%`}
                     label={{ 
                       value: 'Avg Risk %', 
                       angle: -90, 
                       position: 'insideLeft',
-                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))' }
+                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }
                     }}
                   />
                   <YAxis 
                     yAxisId="right"
                     orientation="right"
                     domain={[0, 50]}
-                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                    axisLine={{ stroke: 'hsl(var(--border))' }}
+                    tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(v) => `${v}%`}
                     label={{ 
                       value: 'Reduction %', 
                       angle: 90, 
                       position: 'insideRight',
-                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))' }
+                      style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }
                     }}
                   />
 

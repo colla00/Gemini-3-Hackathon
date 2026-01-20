@@ -139,22 +139,23 @@ export function InterventionTrendChart({ className, compact = false }: Intervent
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-xl">
-          <p className="text-xs font-semibold text-foreground mb-2">{label}</p>
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-0.5 bg-risk-high" />
-              <span className="text-xs text-muted-foreground">Without intervention:</span>
-              <span className="text-xs font-semibold text-risk-high">{data.riskBefore}%</span>
+        <div className="bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200">
+          <p className="text-sm font-semibold text-foreground mb-3 pb-2 border-b border-border/30">{label}</p>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="w-4 h-1 rounded-full bg-risk-high" />
+              <span className="text-xs text-muted-foreground flex-1">Without intervention:</span>
+              <span className="text-sm font-bold text-risk-high tabular-nums">{data.riskBefore}%</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-0.5 bg-risk-low" />
-              <span className="text-xs text-muted-foreground">With intervention:</span>
-              <span className="text-xs font-semibold text-risk-low">{data.riskAfter}%</span>
+            <div className="flex items-center gap-3">
+              <div className="w-4 h-1 rounded-full bg-risk-low" />
+              <span className="text-xs text-muted-foreground flex-1">With intervention:</span>
+              <span className="text-sm font-bold text-risk-low tabular-nums">{data.riskAfter}%</span>
             </div>
-            <div className="pt-1 border-t border-border/50">
-              <span className="text-[10px] text-primary font-medium">
-                Risk reduction: {data.riskBefore - data.riskAfter}%
+            <div className="pt-2 mt-2 border-t border-border/30 flex items-center justify-between">
+              <span className="text-xs text-muted-foreground">Risk reduction:</span>
+              <span className="text-sm font-bold text-primary tabular-nums">
+                -{data.riskBefore - data.riskAfter}%
               </span>
             </div>
           </div>
@@ -284,7 +285,7 @@ export function InterventionTrendChart({ className, compact = false }: Intervent
           </div>
         </CardHeader>
         <CardContent>
-          <div className="h-72">
+          <div className="h-72 chart-animate-in">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={activeScenario.dataPoints}>
                 <defs>
@@ -302,22 +303,30 @@ export function InterventionTrendChart({ className, compact = false }: Intervent
                   </linearGradient>
                 </defs>
                 
-                <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <CartesianGrid 
+                  strokeDasharray="4 4" 
+                  stroke="hsl(var(--border))" 
+                  strokeOpacity={0.3}
+                  vertical={false}
+                />
                 
                 <XAxis 
                   dataKey="time" 
-                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                  axisLine={{ stroke: 'hsl(var(--border))', strokeWidth: 1 }}
+                  tickLine={false}
                 />
                 <YAxis 
                   domain={[0, 100]}
-                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
-                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 500 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v) => `${v}%`}
                   label={{ 
                     value: 'Risk Level', 
                     angle: -90, 
                     position: 'insideLeft',
-                    style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))' }
+                    style: { fontSize: 11, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 }
                   }}
                 />
 
