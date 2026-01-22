@@ -384,5 +384,303 @@ When building in Figma, export these key screens:
 
 ---
 
+## 🖥️ Screen-by-Screen Specifications
+
+### 1. Dashboard Overview
+
+| Section | Dimensions | Layout |
+|---------|------------|--------|
+| **Header** | 1440 × 64px | Flex row, space-between, items-center |
+| **Tab Bar** | 1400 × 48px | Centered, gap-8px between tabs |
+| **Quick Stats Row** | 1400 × 120px | 4-col grid, 24px gap |
+| **Workflow Bar** | 1400 × 80px | Flex row, items-center, steps connected |
+| **Main Content** | 1400 × auto | 2-col grid (3fr / 1fr), 32px gap |
+| **Patient Grid** | ~960px wide | 2-col grid, 16px gap |
+| **Side Panel** | ~400px wide | Stack, 16px gap |
+
+**Frame Setup:**
+```
+Frame: Dashboard
+├── Header (Auto layout → horizontal, padding 32px)
+│   ├── Logo + Title (gap 12px)
+│   ├── Spacer (fill)
+│   └── Actions (theme toggle, avatar)
+├── Content (Auto layout → vertical, gap 24px)
+│   ├── TabBar (pills, gap 8px)
+│   ├── QuickStats (4 cards, auto layout)
+│   ├── WorkflowBar (steps + connectors)
+│   └── MainGrid (2 columns)
+│       ├── PatientList (scrollable)
+│       └── SidePanel (priority queue)
+```
+
+### 2. Patient Card Component
+
+| Property | Value |
+|----------|-------|
+| **Size** | 380 × 140px (min) |
+| **Padding** | 20px |
+| **Border Radius** | 16px |
+| **Left Border** | 4px × risk color |
+| **Background** | Card |
+
+**Internal Layout:**
+```
+PatientCard
+├── LeftAccent (4px width, fill height, risk color)
+└── Content (padding 20px, auto layout vertical)
+    ├── TopRow (space-between)
+    │   ├── PatientID (Title style, font-semibold)
+    │   └── RiskBadge (pill, risk bg + text)
+    ├── RiskType (Caption, muted-foreground)
+    ├── Sparkline (60 × 24px, optional)
+    └── BottomRow (space-between)
+        ├── TrendIndicator (icon + text)
+        └── TimeAgo (Caption, muted)
+```
+
+### 3. Quick Stats Card
+
+| Property | Value |
+|----------|-------|
+| **Size** | 320 × 100px |
+| **Padding** | 20px |
+| **Border Radius** | 16px |
+| **Background** | Card with subtle gradient overlay |
+
+**Internal Layout:**
+```
+StatCard
+├── IconContainer (40 × 40px, rounded-full, chart color bg/15%)
+│   └── Icon (20px, chart color)
+├── Content (flex-1)
+│   ├── Value (Display small, 28px, font-bold)
+│   └── Label (Caption, muted-foreground)
+└── Trend (optional)
+    ├── Arrow (16px, green/red)
+    └── Percentage (Caption)
+```
+
+### 4. Workflow Step
+
+| Property | Value |
+|----------|-------|
+| **Circle Size** | 40 × 40px |
+| **Connector Line** | 48px × 2px |
+| **Active Glow** | 0 0 12px primary/40% |
+
+**States:**
+```
+Completed: Primary bg, white check icon
+Active: Primary bg with glow ring, pulse animation
+Upcoming: Muted bg, muted-foreground icon, dashed connector
+```
+
+### 5. Live Badge
+
+| Property | Value |
+|----------|-------|
+| **Size** | auto × 28px |
+| **Padding** | 6px 12px |
+| **Border Radius** | 9999px |
+| **Background** | Primary gradient |
+| **Dot Size** | 8 × 8px with pulse animation |
+
+### 6. Priority Queue Item
+
+| Property | Value |
+|----------|-------|
+| **Height** | 72px |
+| **Padding** | 16px |
+| **Border Radius** | 12px |
+| **Left Border** | 3px × risk color |
+
+**Internal Layout:**
+```
+QueueItem
+├── LeftBorder (3px)
+├── Content (flex row, gap 12px)
+│   ├── PatientInfo (flex-1)
+│   │   ├── Name (Body Medium)
+│   │   └── Risk Type (Caption, muted)
+│   ├── Timer (Badge style, countdown)
+│   └── RiskScore (large number, risk color)
+```
+
+### 7. SHAP Chart Bar
+
+| Property | Value |
+|----------|-------|
+| **Bar Height** | 24px |
+| **Border Radius** | 4px (right side only) |
+| **Positive Color** | shap-positive |
+| **Negative Color** | shap-negative |
+| **Label Width** | 140px (fixed left column) |
+| **Value Width** | 48px (fixed right column) |
+
+---
+
+## 🎨 Gradient Definitions
+
+### Primary Button Gradient
+```
+Type: Linear
+Angle: 135°
+Stops:
+  0%   → hsl(174 65% 38%)
+  100% → hsl(174 65% 32%)
+```
+
+### Investor Mode Purple Gradient
+```
+Type: Linear
+Angle: 135°
+Stops:
+  0%   → hsl(262 83% 58%)
+  100% → hsl(280 85% 50%)
+```
+
+### Card Shine Gradient (hover)
+```
+Type: Linear
+Angle: 135°
+Stops:
+  0%   → white/5%
+  50%  → white/10%
+  100% → white/5%
+```
+
+### Risk High Gradient
+```
+Type: Linear
+Angle: 180°
+Stops:
+  0%   → hsl(0 72% 42% / 20%)
+  100% → hsl(0 72% 42% / 5%)
+```
+
+---
+
+## 🔧 Figma Variables Setup
+
+Create these variable collections:
+
+### Colors Collection
+```
+primitives/
+├── teal-600: #1C7A72
+├── teal-500: #2DD4BF
+├── slate-900: #111827
+├── slate-50: #F9FAFB
+├── red-600: #B72828
+├── red-400: #EF4444
+├── amber-600: #B45309
+├── amber-400: #F59E0B
+├── green-600: #166534
+├── green-400: #22C55E
+
+semantic/light/
+├── background: slate-50
+├── foreground: slate-900
+├── primary: teal-600
+├── risk-high: red-600
+├── risk-medium: amber-600
+├── risk-low: green-600
+
+semantic/dark/
+├── background: slate-900
+├── foreground: slate-50
+├── primary: teal-500
+├── risk-high: red-400
+├── risk-medium: amber-400
+├── risk-low: green-400
+```
+
+### Spacing Collection
+```
+space-1: 4
+space-2: 8
+space-3: 12
+space-4: 16
+space-6: 24
+space-8: 32
+space-12: 48
+```
+
+### Radius Collection
+```
+radius-sm: 6
+radius-md: 10
+radius-lg: 16
+radius-xl: 20
+radius-full: 9999
+```
+
+---
+
+## 🎯 Demo Flow Prototype
+
+For interactive prototyping, set up these flows:
+
+### Flow 1: Dashboard Navigation
+```
+1. Dashboard Overview → Click Tab → Patient List
+2. Patient List → Click Card → Patient Detail
+3. Patient Detail → Click Back → Patient List
+```
+
+### Flow 2: Investor Demo
+```
+1. Overview → Toggle Investor Mode → Show KPIs
+2. KPIs Panel → Click Play → Auto-cycle presets
+3. Click Calculator Tab → Show ROI/DBS
+```
+
+### Flow 3: Workflow Steps
+```
+1. Step 1 Active → Wait 3s → Step 2 Active
+2. Each step: Glow animation on transition
+3. Final step: Success state + celebration
+```
+
+### Smart Animate Settings
+```
+Transition: Smart Animate
+Duration: 400ms
+Easing: Ease Out (0.16, 1, 0.3, 1)
+```
+
+---
+
+## 📋 Copy-Paste Component Library
+
+### Quick Add: Risk Badge
+```
+Frame: RiskBadge-High
+Size: Hug × 28px
+Padding: 4 12
+Radius: 9999
+Fill: risk-high/15%
+Text: "High Risk" | 12px | 600 | risk-high
+```
+
+### Quick Add: Live Dot
+```
+Ellipse: 8 × 8px
+Fill: #2DD4BF (primary)
+Effects: 
+  - Inner Shadow: 0 0 2px white/50%
+  - Drop Shadow: 0 0 8px primary/40% (for glow)
+```
+
+### Quick Add: Metric Value
+```
+Text: "2,847"
+Style: 28px | 700 | foreground
+Variant: Number (tabular figures if available)
+```
+
+---
+
 *Last updated: January 2026*
-*Design System Version: 2.0*
+*Design System Version: 2.1*
