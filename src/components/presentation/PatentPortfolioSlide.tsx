@@ -2,7 +2,7 @@ import { Award, Brain, Shield, Activity, TrendingUp, Users, Clock, Target, Check
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { PATENT_NUMBER, PATENT_PORTFOLIO, PATENT_4_NUMBER } from '@/constants/patent';
+import { PATENT_NUMBER, PATENT_PORTFOLIO, PATENT_4_NUMBER, PATENT_2_NUMBER } from '@/constants/patent';
 
 interface PatentInfo {
   id: string;
@@ -48,6 +48,7 @@ const patents: PatentInfo[] = [
     icon: <Cpu className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Dec 2025',
+    applicationNumber: PATENT_2_NUMBER,
     keyInnovations: [
       'Multi-horizon temporal forecasting (4-48h)',
       'Patient-adaptive alert thresholds',
