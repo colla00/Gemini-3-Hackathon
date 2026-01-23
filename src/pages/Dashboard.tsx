@@ -4,8 +4,14 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical
+  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical, MoreHorizontal
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
 import { PatentFeaturesView } from '@/components/quality/PatentFeaturesView';
@@ -364,25 +370,39 @@ export const Dashboard = () => {
             {/* Separator */}
             <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
 
-            {/* Secondary Navigation Tabs - Inline */}
-            {secondaryNavItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleViewChange(item.id)}
-                role="tab"
-                aria-selected={activeView === item.id}
-                aria-controls={`${item.id}-panel`}
-                className={cn(
-                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
-                  activeView === item.id
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                )}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {/* More Dropdown for Secondary Navigation */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={cn(
+                    "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
+                    secondaryNavItems.some(item => item.id === activeView)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  )}
+                  aria-label="More navigation options"
+                >
+                  <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
+                  <span>More</span>
+                  <ChevronDown className="w-3 h-3" aria-hidden="true" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 bg-popover border border-border shadow-lg z-50">
+                {secondaryNavItems.map((item) => (
+                  <DropdownMenuItem
+                    key={item.id}
+                    onClick={() => handleViewChange(item.id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeView === item.id && "bg-primary/10 text-primary font-medium"
+                    )}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Quick Filters */}
