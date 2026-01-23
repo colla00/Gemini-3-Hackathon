@@ -180,8 +180,8 @@ export const Landing = () => {
 
             {/* Tagline */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-              Clinical Risk
-              <span className="text-primary"> Intelligence System</span>
+              NSO
+              <span className="text-primary"> Quality Dashboard</span>
             </h2>
 
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-3">
