@@ -364,7 +364,7 @@ function About() {
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
           <p>© {new Date().getFullYear()} Dr. Alexis Collier. All Rights Reserved.</p>
-          <p>Clinical Risk Intelligence System • 4 U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
+          <p>NSO Quality Dashboard • 4 U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
         </div>
       </footer>
     </div>

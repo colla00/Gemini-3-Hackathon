@@ -142,7 +142,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
       {/* Footer */}
       <div className="mt-8 pt-4 border-t-2 border-black text-xs text-gray-600">
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">

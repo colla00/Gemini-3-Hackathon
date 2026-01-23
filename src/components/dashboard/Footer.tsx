@@ -10,7 +10,7 @@ export const Footer = () => {
         <div className="flex items-center gap-2">
           <Shield className="w-3.5 h-3.5 text-primary/60" />
           <span className="font-semibold text-foreground/80">
-            Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard
+            Copyright © Dr. Alexis Collier | NSO Quality Dashboard
           </span>
         </div>
         <div className="flex items-center gap-3 text-[10px] flex-wrap justify-center opacity-60">

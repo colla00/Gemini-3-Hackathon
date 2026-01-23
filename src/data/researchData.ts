@@ -149,9 +149,9 @@ export const TIMELINE: TimelineItem[] = [
     icon: '🎓',
   },
   {
-    year: '2023',
-    title: 'Patent Filing #1',
-    description: 'Clinical Risk Intelligence System (Patent #63/932,953)',
+    year: 'Dec 2025',
+    title: 'Patent Filings #1 & #2',
+    description: 'Trust-Based Alert System (63/946,187) & Clinical Risk Intelligence (63/932,953)',
     icon: '⚖️',
   },
   {
@@ -234,24 +234,31 @@ export const DBS_CALCULATION_FACTORS: DBSCalculationFactor[] = [
 
 export const PATENTS: PatentInfo[] = [
   {
+    number: '63/946,187',
+    title: 'Trust-Based Alert Prioritization',
+    filed: 'December 21, 2025',
+    status: 'Filed',
+    description: 'Clinical decision support with trust-based alert prioritization and equity monitoring',
+  },
+  {
     number: '63/932,953',
-    title: 'Clinical Risk Intelligence System',
-    filed: '2023',
+    title: 'Clinical Risk Intelligence',
+    filed: 'December 2025',
     status: 'Filed',
     description: 'ML-based system for predicting clinical deterioration with SHAP explainability',
   },
   {
-    number: 'Pending',
+    number: '63/966,117',
     title: 'Unified Nursing Intelligence Platform',
-    filed: 'Jan 2026',
-    status: 'Pending',
+    filed: 'January 2026',
+    status: 'Filed',
     description: 'Three-module integration: DBS, Risk Intelligence, Trust-Based Alerts with Equity Monitoring',
   },
   {
-    number: 'Pending',
-    title: 'DBS System for Staffing Optimization',
-    filed: 'Feb 2026',
-    status: 'Pending',
+    number: '63/966,099',
+    title: 'DBS System',
+    filed: 'January 22, 2026',
+    status: 'Filed',
     description: 'ML-based documentation burden prediction with quartile staffing recommendations',
   },
 ];
