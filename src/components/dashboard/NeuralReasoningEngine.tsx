@@ -17,6 +17,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface ReasoningStep {
   id: number;
@@ -87,9 +88,7 @@ export const NeuralReasoningEngine = () => {
               </div>
               <div>
                 <CardTitle className="text-base">Neural Reasoning Engine</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Patent Pending · Full explainability with 12-layer transformer
-                </p>
+                <PatentBadge contextPatent="unified" className="mt-1" />
               </div>
             </div>
             <Badge variant="outline" className="text-[10px] bg-chart-2/10 border-chart-2/30 text-chart-2">
