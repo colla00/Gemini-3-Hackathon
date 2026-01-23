@@ -468,6 +468,11 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'alert-timeline' && <AlertTimelineSlide />}
                       {slideToView[currentSlide] === 'patient-journey' && <PatientJourneySlide />}
                       {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
+                      {/* ChartMinder Patent Components */}
+                      {slideToView[currentSlide] === 'patent-neural-reasoning' && <NeuralReasoningEngine />}
+                      {slideToView[currentSlide] === 'patent-cognitive-load' && <CognitiveLoadOptimizer />}
+                      {slideToView[currentSlide] === 'patent-trust-score' && <TrustScoreAlgorithm />}
+                      {slideToView[currentSlide] === 'patent-performance' && <PerformanceComparisonTable />}
                     </div>
                   ) : currentSlideConfig ? (
                     <PresentationSlideView slide={currentSlideConfig} isActive={true} />
