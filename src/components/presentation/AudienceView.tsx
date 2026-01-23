@@ -12,6 +12,7 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { ResearchValidationSlide } from '@/components/quality/ResearchValidationSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEngine';
@@ -49,6 +50,7 @@ const slideToView: Record<string, string | null> = {
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
+  'research-validation': 'research-validation',
   'roi': 'roi',
   'future': null,
   'conclusion': null,
@@ -118,6 +120,8 @@ export const AudienceView = () => {
         return <PatientJourneySlide />;
       case 'roi':
         return <ROICalculatorSlide />;
+      case 'research-validation':
+        return <ResearchValidationSlide />;
       // Patent portfolio slide
       case 'patent-portfolio':
         return <PatentPortfolioSlide />;
