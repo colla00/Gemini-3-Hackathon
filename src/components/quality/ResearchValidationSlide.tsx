@@ -280,7 +280,7 @@ export const ResearchValidationSlide = () => {
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          AIM-AHEAD CLINAQ Fellowship • Dr. Alexis Collier • Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed
+          AIM-AHEAD CLINAQ Fellowship • Dr. Alexis Collier • NSO Quality Dashboard – 4 U.S. Patents Filed
         </p>
       </div>
     </div>
