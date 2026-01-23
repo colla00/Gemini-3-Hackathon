@@ -88,7 +88,120 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const { broadcast, openAudienceWindow, closeAudienceWindow, isAudienceWindowOpen, forceSync } = usePresenterSync(true);
   const { session, createSession } = usePresentationSession();
 
-  // Admin-only access check
+  // Computed values
+  const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
+  const currentSlideConfig = PRESENTATION_SLIDES[currentIndex];
+  const nextSlideConfig = PRESENTATION_SLIDES[currentIndex + 1];
+  
+  const totalDurationSeconds = TOTAL_PRESENTATION_TIME * 60;
+  const slideDurationSeconds = (currentSlideConfig?.duration || 5) * 60;
+  const slideProgress = (slideElapsed / slideDurationSeconds) * 100;
+  const overallProgress = (elapsedSeconds / totalDurationSeconds) * 100;
+  const isOverTime = slideElapsed > slideDurationSeconds;
+  const overallOverTimeSeconds = elapsedSeconds - totalDurationSeconds;
+  const isEmergencyMode = overallOverTimeSeconds >= 300; // 5 minutes over
+  const conclusionSlide = PRESENTATION_SLIDES.find(s => s.id === 'conclusion');
+
+  // All hooks must be called before any conditional returns
+  const skipToConclusion = useCallback(() => {
+    if (conclusionSlide) {
+      setCurrentSlide('conclusion');
+      setSlideElapsed(0);
+      toast.warning('Skipped to conclusion slide', { duration: 3000 });
+    }
+  }, [conclusionSlide]);
+
+  const navigateSlide = useCallback((direction: 'prev' | 'next') => {
+    const newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+    if (newIndex >= 0 && newIndex < PRESENTATION_SLIDES.length) {
+      setCurrentSlide(PRESENTATION_SLIDES[newIndex].id);
+      setSlideElapsed(0);
+    }
+  }, [currentIndex]);
+
+  const goToSlide = useCallback((slideId: SlideType) => {
+    setCurrentSlide(slideId);
+    setSlideElapsed(0);
+  }, []);
+
+  const handleOpenAudienceWindow = useCallback(() => {
+    openAudienceWindow();
+    setAudienceWindowOpen(true);
+    toast.success('Audience window opened - share this window on Zoom!');
+  }, [openAudienceWindow]);
+
+  const handleCloseAudienceWindow = useCallback(() => {
+    closeAudienceWindow();
+    setAudienceWindowOpen(false);
+  }, [closeAudienceWindow]);
+
+  const formatTime = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }, []);
+
+  // Timer logic
+  useEffect(() => {
+    if (!isAdmin) return; // Don't run timer if not admin
+    let interval: NodeJS.Timeout;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setElapsedSeconds(prev => prev + 1);
+        setSlideElapsed(prev => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning, isAdmin]);
+
+  // Pacing alerts
+  useEffect(() => {
+    if (!isAdmin || !isRunning || !soundEnabled) return;
+    
+    const timeRemaining = slideDurationSeconds - slideElapsed;
+    
+    if (timeRemaining === 60) {
+      toast.warning('1 minute remaining on this slide', { duration: 3000 });
+    }
+    if (timeRemaining === 0) {
+      toast.error('Time is up for this slide!', { duration: 5000 });
+    }
+  }, [slideElapsed, slideDurationSeconds, isRunning, soundEnabled, isAdmin]);
+
+  // Sync slide changes to audience window
+  useEffect(() => {
+    if (!isAdmin) return;
+    broadcast({ 
+      currentSlide, 
+      elapsedMinutes: Math.floor(elapsedSeconds / 60),
+      isLive: true 
+    });
+  }, [currentSlide, elapsedSeconds, broadcast, isAdmin]);
+
+  // Create session on mount (requires admin role via RLS)
+  useEffect(() => {
+    if (!isAdmin) return;
+    const initSession = async () => {
+      if (!session) {
+        const newSession = await createSession('Presenter');
+        if (!newSession) {
+          toast.error('Failed to create session. Admin role required.');
+        }
+      }
+    };
+    initSession();
+  }, [session, createSession, isAdmin]);
+
+  // Check audience window status periodically
+  useEffect(() => {
+    if (!isAdmin) return;
+    const interval = setInterval(() => {
+      setAudienceWindowOpen(isAudienceWindowOpen());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isAudienceWindowOpen, isAdmin]);
+
+  // Admin-only access check - now AFTER all hooks
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -115,113 +228,6 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
       </div>
     );
   }
-
-  const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
-  const currentSlideConfig = PRESENTATION_SLIDES[currentIndex];
-  const nextSlideConfig = PRESENTATION_SLIDES[currentIndex + 1];
-  
-  const totalDurationSeconds = TOTAL_PRESENTATION_TIME * 60;
-  const slideDurationSeconds = (currentSlideConfig?.duration || 5) * 60;
-  const slideProgress = (slideElapsed / slideDurationSeconds) * 100;
-  const overallProgress = (elapsedSeconds / totalDurationSeconds) * 100;
-  const isOverTime = slideElapsed > slideDurationSeconds;
-  const overallOverTimeSeconds = elapsedSeconds - totalDurationSeconds;
-  const isEmergencyMode = overallOverTimeSeconds >= 300; // 5 minutes over
-  const conclusionSlide = PRESENTATION_SLIDES.find(s => s.id === 'conclusion');
-
-  const skipToConclusion = useCallback(() => {
-    if (conclusionSlide) {
-      setCurrentSlide('conclusion');
-      setSlideElapsed(0);
-      toast.warning('Skipped to conclusion slide', { duration: 3000 });
-    }
-  }, [conclusionSlide]);
-
-  // Timer logic
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setElapsedSeconds(prev => prev + 1);
-        setSlideElapsed(prev => prev + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning]);
-
-  // Pacing alerts
-  useEffect(() => {
-    if (!isRunning || !soundEnabled) return;
-    
-    const timeRemaining = slideDurationSeconds - slideElapsed;
-    
-    if (timeRemaining === 60) {
-      toast.warning('1 minute remaining on this slide', { duration: 3000 });
-    }
-    if (timeRemaining === 0) {
-      toast.error('Time is up for this slide!', { duration: 5000 });
-    }
-  }, [slideElapsed, slideDurationSeconds, isRunning, soundEnabled]);
-
-  // Sync slide changes to audience window
-  useEffect(() => {
-    broadcast({ 
-      currentSlide, 
-      elapsedMinutes: Math.floor(elapsedSeconds / 60),
-      isLive: true 
-    });
-  }, [currentSlide, elapsedSeconds, broadcast]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const navigateSlide = useCallback((direction: 'prev' | 'next') => {
-    const newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-    if (newIndex >= 0 && newIndex < PRESENTATION_SLIDES.length) {
-      setCurrentSlide(PRESENTATION_SLIDES[newIndex].id);
-      setSlideElapsed(0);
-    }
-  }, [currentIndex]);
-
-  const goToSlide = useCallback((slideId: SlideType) => {
-    setCurrentSlide(slideId);
-    setSlideElapsed(0);
-  }, []);
-
-  const handleOpenAudienceWindow = useCallback(() => {
-    openAudienceWindow();
-    setAudienceWindowOpen(true);
-    toast.success('Audience window opened - share this window on Zoom!');
-  }, [openAudienceWindow]);
-
-  const handleCloseAudienceWindow = useCallback(() => {
-    closeAudienceWindow();
-    setAudienceWindowOpen(false);
-  }, [closeAudienceWindow]);
-
-  // Create session on mount (requires admin role via RLS)
-  useEffect(() => {
-    const initSession = async () => {
-      if (!session) {
-        const newSession = await createSession('Presenter');
-        if (!newSession) {
-          toast.error('Failed to create session. Admin role required.');
-        }
-      }
-    };
-    initSession();
-  }, [session, createSession]);
-
-  // Check audience window status periodically
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAudienceWindowOpen(isAudienceWindowOpen());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isAudienceWindowOpen]);
 
   return (
     <div className="min-h-screen bg-background">
