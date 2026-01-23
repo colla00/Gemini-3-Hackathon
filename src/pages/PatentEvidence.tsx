@@ -311,7 +311,7 @@ export const PatentEvidence = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Patent Evidence Documentation | Clinical Risk Intelligence System</title>
+        <title>Patent Evidence Documentation | NSO Quality Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
@@ -364,27 +364,27 @@ export const PatentEvidence = () => {
             </div>
             <div className="flex-1">
               <h1 className="text-2xl font-bold text-foreground mb-2">
-                Clinical Risk Intelligence System
+                NSO Quality Dashboard
               </h1>
               <p className="text-sm text-muted-foreground mb-3">
-                With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+                4 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
               </p>
               <div className="flex flex-wrap gap-4 text-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Inventor:</span>
-                  <span className="text-foreground font-medium">Alexis Collier, PhD, RN</span>
+                  <span className="text-foreground font-medium">Dr. Alexis Collier</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Filing:</span>
-                  <span className="text-foreground font-medium">U.S. Provisional Application</span>
+                  <span className="text-foreground font-medium">4 U.S. Provisional Applications</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Date:</span>
-                  <span className="text-foreground font-medium">December 2025</span>
+                  <span className="text-foreground font-medium">December 2025 – January 2026</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Claims:</span>
-                  <span className="text-foreground font-medium">20 Total</span>
+                  <span className="text-foreground font-medium">80+ Total</span>
                 </div>
               </div>
             </div>
@@ -527,7 +527,7 @@ export const PatentEvidence = () => {
                       </div>
                       <p className="mt-3 text-xs text-muted-foreground italic border-t border-border/50 pt-3">
                         "I hereby attest that I have reviewed the above patent claims and their corresponding 
-                        implementations in the Clinical Risk Intelligence System software. The implementations 
+                        implementations in the NSO Quality Dashboard software. The implementations 
                         described accurately reflect the working functionality of the system as of the date of this attestation."
                       </p>
                     </div>

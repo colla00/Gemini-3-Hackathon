@@ -150,10 +150,9 @@ export const PrintLegalView = ({
           {/* Header */}
           <div className="header">
             <h1>PATENT EVIDENCE DOCUMENTATION</h1>
-            <h2>Clinical Risk Intelligence System</h2>
+            <h2>NSO Quality Dashboard</h2>
             <p style={{ fontStyle: 'italic', margin: '10px 0' }}>
-              With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, 
-              and Closed-Loop Intervention Feedback
+              4 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
             </p>
             <div className="meta-info">
               <div>
@@ -233,7 +232,7 @@ export const PrintLegalView = ({
                   <p><strong>Date of Attestation:</strong> {att.attestedAt ? new Date(att.attestedAt).toLocaleString() : 'N/A'}</p>
                   <p style={{ marginTop: '15px', fontStyle: 'italic' }}>
                     "I hereby attest that I have reviewed the above patent claims and their corresponding 
-                    implementations in the Clinical Risk Intelligence System software. The implementations 
+                    implementations in the NSO Quality Dashboard software. The implementations 
                     described accurately reflect the working functionality of the system as of the date of this attestation."
                   </p>
                   <div className="signature-line">
@@ -249,8 +248,8 @@ export const PrintLegalView = ({
             <div className="section-title">CERTIFICATION</div>
             <p>
               I, the undersigned, do hereby certify that this document is a true and accurate 
-              representation of the patent evidence documentation for the Clinical Risk Intelligence 
-              System as of the date indicated above.
+              representation of the patent evidence documentation for the NSO Quality Dashboard 
+              as of the date indicated above.
             </p>
             <div style={{ marginTop: '50px' }}>
               <div className="signature-line">
