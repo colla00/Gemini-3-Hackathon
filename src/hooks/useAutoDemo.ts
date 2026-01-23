@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'ehr-flow' | 'alert-timeline' | 'comparison' | 'patient-journey' | 'roi' | 'ml-features' | 'video-demo' | 'research-validation' | 'patent-trust-alerts' | 'patent-equity' | 'patent-dbs-breakdown' | 'patent-validation-charts';
+export type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'ehr-flow' | 'alert-timeline' | 'comparison' | 'patient-journey' | 'roi' | 'ml-features' | 'video-demo' | 'research-validation' | 'patent-trust-alerts' | 'patent-equity' | 'patent-dbs-breakdown' | 'patent-neural-reasoning' | 'patent-cognitive-load' | 'patent-trust-score' | 'patent-performance' | 'patent-validation-charts';
 
 interface AutoDemoConfig {
   views: ViewType[];

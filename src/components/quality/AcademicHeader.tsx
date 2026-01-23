@@ -89,6 +89,26 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: 'Patent Figures 2-8 · Comprehensive Analytics',
     citation: 'AUC 0.78, r=0.40 correlation, Cohen\'s d=3.2',
   },
+  'patent-neural-reasoning': {
+    title: 'Neural Reasoning Engine',
+    subtitle: 'Patent Pending · Chain-of-Thought Clinical AI',
+    citation: '94% expert agreement rate',
+  },
+  'patent-cognitive-load': {
+    title: 'Cognitive Load Optimizer',
+    subtitle: 'Patent Pending · Workload-Adaptive Thresholds',
+    citation: '2.3 minutes saved per decision',
+  },
+  'patent-trust-score': {
+    title: 'Trust Score Algorithm',
+    subtitle: 'Patent Pending · Composite Reliability Scoring',
+    citation: 'Weighted reliability composite',
+  },
+  'patent-performance': {
+    title: 'Performance Comparison',
+    subtitle: 'Patent Pending · Validated Results',
+    citation: '87% alert reduction, 12 hospital sites',
+  },
 };
 
 interface AcademicHeaderProps {

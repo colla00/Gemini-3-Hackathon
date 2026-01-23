@@ -124,6 +124,34 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
     },
   };
 
+  // ChartMinder patent metrics
+  const chartMinderMetrics = {
+    alertReduction: {
+      border: 'border-primary/30',
+      bg: 'bg-primary/15',
+      icon: 'text-primary',
+      value: 'text-primary',
+    },
+    expertAgreement: {
+      border: 'border-chart-2/30',
+      bg: 'bg-chart-2/15',
+      icon: 'text-chart-2',
+      value: 'text-chart-2',
+    },
+    cognitiveLoad: {
+      border: 'border-risk-low/30',
+      bg: 'bg-risk-low/15',
+      icon: 'text-risk-low',
+      value: 'text-risk-low',
+    },
+    trustScore: {
+      border: 'border-chart-1/30',
+      bg: 'bg-chart-1/15',
+      icon: 'text-chart-1',
+      value: 'text-chart-1',
+    },
+  };
+
   const keyMetrics = [
     {
       label: 'Projected Annual Savings',
@@ -152,6 +180,37 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
       trend: 'to ROI',
       icon: Users,
       styles: metricStyles.payback,
+    },
+  ];
+
+  const patentMetrics = [
+    {
+      label: 'Alert Fatigue Reduction',
+      value: '87%',
+      trend: 'ChartMinder',
+      icon: Zap,
+      styles: chartMinderMetrics.alertReduction,
+    },
+    {
+      label: 'Expert Agreement',
+      value: '94%',
+      trend: 'Neural Reasoning',
+      icon: Award,
+      styles: chartMinderMetrics.expertAgreement,
+    },
+    {
+      label: 'Cognitive Load Saved',
+      value: '2.3 min',
+      trend: 'per decision',
+      icon: Clock,
+      styles: chartMinderMetrics.cognitiveLoad,
+    },
+    {
+      label: 'Trust Score',
+      value: '0.89',
+      trend: 'composite',
+      icon: TrendingUp,
+      styles: chartMinderMetrics.trustScore,
     },
   ];
 
@@ -290,46 +349,100 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
               )}
             </AnimatePresence>
 
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {keyMetrics.map((metric, index) => (
-                <motion.div
-                  key={metric.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.3 }}
-                  className={cn(
-                    "flex items-center gap-3 p-3 rounded-xl border bg-background/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow",
-                    metric.styles.border
-                  )}
-                >
-                  <div className={cn(
-                    "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                    metric.styles.bg
-                  )}>
-                    <metric.icon className={cn("w-5 h-5", metric.styles.icon)} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate font-medium">
-                      {metric.label}
-                    </p>
-                    <motion.div 
-                      key={metric.value}
-                      initial={{ opacity: 0.5, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-baseline gap-2"
-                    >
-                      <span className={cn("text-lg font-bold tracking-tight", metric.styles.value)}>
-                        {metric.value}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground font-medium">
-                        {metric.trend}
-                      </span>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
+            {/* Financial Metrics Grid */}
+            <div className="mb-3">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-2 font-semibold flex items-center gap-1.5">
+                <DollarSign className="w-3 h-3" />
+                Financial Projections
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {keyMetrics.map((metric, index) => (
+                  <motion.div
+                    key={metric.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                    className={cn(
+                      "flex items-center gap-3 p-3 rounded-xl border bg-background/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow",
+                      metric.styles.border
+                    )}
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
+                      metric.styles.bg
+                    )}>
+                      <metric.icon className={cn("w-5 h-5", metric.styles.icon)} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate font-medium">
+                        {metric.label}
+                      </p>
+                      <motion.div 
+                        key={metric.value}
+                        initial={{ opacity: 0.5, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-baseline gap-2"
+                      >
+                        <span className={cn("text-lg font-bold tracking-tight", metric.styles.value)}>
+                          {metric.value}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground font-medium">
+                          {metric.trend}
+                        </span>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* ChartMinder Patent Metrics Grid */}
+            <div>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-2 font-semibold flex items-center gap-1.5">
+                <Award className="w-3 h-3" />
+                ChartMinder Patent Innovations
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {patentMetrics.map((metric, index) => (
+                  <motion.div
+                    key={metric.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 + 0.2, duration: 0.3 }}
+                    className={cn(
+                      "flex items-center gap-3 p-3 rounded-xl border bg-background/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow",
+                      metric.styles.border
+                    )}
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
+                      metric.styles.bg
+                    )}>
+                      <metric.icon className={cn("w-5 h-5", metric.styles.icon)} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide truncate font-medium">
+                        {metric.label}
+                      </p>
+                      <motion.div 
+                        key={metric.value}
+                        initial={{ opacity: 0.5, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-baseline gap-2"
+                      >
+                        <span className={cn("text-lg font-bold tracking-tight", metric.styles.value)}>
+                          {metric.value}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground font-medium">
+                          {metric.trend}
+                        </span>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Bottom highlight with live indicator */}
