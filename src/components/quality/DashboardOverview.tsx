@@ -355,8 +355,9 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
               ))}
             </div>
             <div className="mt-3 pt-3 border-t border-border/30">
-              <button className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors">
-                View All {patients.length} Patients →
+              <button className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors flex items-center justify-center gap-1.5">
+                Open Full Worklist
+                <span className="text-[10px] text-muted-foreground">({patients.length})</span>
               </button>
             </div>
           </div>

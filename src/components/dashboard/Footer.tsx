@@ -13,27 +13,14 @@ export const Footer = () => {
             Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard
           </span>
         </div>
-        <div className="flex items-center gap-3 text-[11px] flex-wrap justify-center">
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-            <Award className="w-3 h-3" />
-            <span>{filedCount} U.S. Patents Filed</span>
+        <div className="flex items-center gap-3 text-[10px] flex-wrap justify-center opacity-60">
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <Award className="w-2.5 h-2.5" />
+            <span>{filedCount} Patents Filed</span>
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground/80">
-            <span>{PATENT_NUMBER}</span>
-            <span>•</span>
-            <span>{PATENT_2_NUMBER}</span>
-            <span>•</span>
-            <span>{PATENT_3_NUMBER}</span>
-            <span>•</span>
-            <span>{PATENT_4_NUMBER}</span>
-          </div>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-          <span className="opacity-70">
-            Protected Design – Do Not Copy
-          </span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/30 hidden sm:block" />
-          <span className="opacity-60 hidden sm:block">
-            Research prototype using mock, de-identified data
+          <span className="w-0.5 h-0.5 rounded-full bg-muted-foreground/40" />
+          <span className="text-muted-foreground/80">
+            Protected Design
           </span>
         </div>
       </div>
