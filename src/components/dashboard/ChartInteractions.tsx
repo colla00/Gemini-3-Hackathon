@@ -1,6 +1,6 @@
 // Chart Interaction Components - Animated Legends & Zoom/Pan
 // Provides interactive chart features for detailed data exploration
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 import { useState, useCallback, useRef, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

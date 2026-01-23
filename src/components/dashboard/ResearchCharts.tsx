@@ -1,6 +1,6 @@
 // Research Data Visualizations
 // Based on DRALEXIS package specification: 10,000 patients, 201 hospitals
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 import { useMemo, useState, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

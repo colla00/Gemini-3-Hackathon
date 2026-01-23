@@ -180,7 +180,7 @@ export const ClosedLoopFeedback = () => {
       </div>
 
       <p className="mt-2 text-[9px] text-center text-accent">
-        Patent Pending
+        U.S. Patent Filed
       </p>
     </div>
   );

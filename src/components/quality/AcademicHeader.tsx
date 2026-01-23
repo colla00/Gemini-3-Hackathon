@@ -71,17 +71,17 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'patent-trust-alerts': {
     title: 'Trust-Based Alert System',
-    subtitle: 'Patent Pending · Dynamic Precision Thresholds',
+    subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',
     citation: '87% alert reduction with 100% sensitivity',
   },
   'patent-equity': {
     title: 'Real-Time Equity Monitoring Engine',
-    subtitle: 'Patent Pending · Demographic Bias Auditing',
+    subtitle: 'U.S. Patent Filed · Demographic Bias Auditing',
     citation: '<0.5% disparity threshold maintained',
   },
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
-    subtitle: 'Patent Pending · Weighted Feature Analysis',
+    subtitle: 'U.S. Patent Filed · Weighted Feature Analysis',
     citation: 'Validated on 10,000 patients, 201 hospitals',
   },
   'patent-validation-charts': {
@@ -91,22 +91,22 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'patent-neural-reasoning': {
     title: 'Neural Reasoning Engine',
-    subtitle: 'Patent Pending · Chain-of-Thought Clinical AI',
+    subtitle: 'U.S. Patent Filed · Chain-of-Thought Clinical AI',
     citation: '94% expert agreement rate',
   },
   'patent-cognitive-load': {
     title: 'Cognitive Load Optimizer',
-    subtitle: 'Patent Pending · Workload-Adaptive Thresholds',
+    subtitle: 'U.S. Patent Filed · Workload-Adaptive Thresholds',
     citation: '2.3 minutes saved per decision',
   },
   'patent-trust-score': {
     title: 'Trust Score Algorithm',
-    subtitle: 'Patent Pending · Composite Reliability Scoring',
+    subtitle: 'U.S. Patent Filed · Composite Reliability Scoring',
     citation: 'Weighted reliability composite',
   },
   'patent-performance': {
     title: 'Performance Comparison',
-    subtitle: 'Patent Pending · Validated Results',
+    subtitle: 'U.S. Patent Filed · Validated Results',
     citation: '87% alert reduction, 12 hospital sites',
   },
 };

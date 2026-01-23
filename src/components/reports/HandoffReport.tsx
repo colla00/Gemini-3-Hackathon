@@ -295,7 +295,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. All clinical decisions require human verification.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending
+              Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed
             </p>
           </div>
         </div>

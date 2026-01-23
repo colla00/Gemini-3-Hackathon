@@ -443,7 +443,7 @@ export const Dashboard = () => {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-primary">
               <Lock className="w-3 h-3" aria-hidden="true" />
-              <span className="font-medium">Patent Pending</span>
+              <span className="font-medium">4 Patents Filed</span>
             </div>
             <span className="text-border" aria-hidden="true">|</span>
             <span>v0.1.0</span>
