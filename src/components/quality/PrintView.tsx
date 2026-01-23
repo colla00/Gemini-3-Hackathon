@@ -142,7 +142,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
       {/* Footer */}
       <div className="mt-8 pt-4 border-t-2 border-black text-xs text-gray-600">
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -159,7 +159,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           All predictions require human clinical verification. Not intended for diagnostic or treatment decisions.
         </p>
         <p className="mt-2 text-[9px] text-center">
-          Created by Dr. Alexis Collier • Patent Pending
+          Created by Dr. Alexis Collier • U.S. Patents: 63/946,187 | 63/932,953 | 63/966,117 | 63/966,099
         </p>
       </div>
     </div>
