@@ -4,7 +4,8 @@
 export const PATENT_NUMBER = '63/946,187';
 export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 
-// Patent #2: Clinical Risk Intelligence System (Filed Dec 2025)
+// Patent #2: Clinical Risk Intelligence System (FILED Dec 2025)
+export const PATENT_2_NUMBER = '63/932,953';
 export const PATENT_2_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED EXPLAINABILITY, TEMPORAL FORECASTING, ADAPTIVE THRESHOLDS, AND CLOSED-LOOP INTERVENTION FEEDBACK';
 
 // Patent #3: Unified Nursing Intelligence Platform
@@ -37,6 +38,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'risk-intelligence',
+    number: '63/932,953',
     title: PATENT_2_TITLE,
     shortName: 'Clinical Risk Intelligence',
     status: 'filed',
