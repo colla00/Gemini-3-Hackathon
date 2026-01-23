@@ -34,7 +34,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     title: PATENT_TITLE,
     shortName: 'Trust-Based Alert System',
     status: 'filed',
-    filingDate: 'December 21, 2025',
+    filingDate: 'December 2025',
     inventor: 'Dr. Alexis Collier'
   },
   {
@@ -61,7 +61,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     title: PATENT_4_TITLE,
     shortName: 'DBS System',
     status: 'filed',
-    filingDate: 'January 22, 2026',
+    filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier'
   }
 ];
