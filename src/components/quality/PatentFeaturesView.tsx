@@ -28,8 +28,8 @@ export const PatentFeaturesView = () => {
             </p>
           </div>
           <div className="flex gap-2">
-            <Badge variant="outline" className="bg-chart-1/10 border-chart-1/30 text-chart-1">
-              Patent Pending
+            <Badge variant="outline" className="bg-risk-low/10 border-risk-low/30 text-risk-low">
+              4 U.S. Patents Filed
             </Badge>
             <Badge variant="outline" className="bg-chart-2/10 border-chart-2/30 text-chart-2">
               3,247 Providers Validated

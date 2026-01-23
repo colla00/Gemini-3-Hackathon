@@ -1,8 +1,9 @@
 import { Shield } from 'lucide-react';
-import { PATENT_NUMBER } from '@/constants/patent';
+import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 export const WatermarkOverlay = () => {
-  const watermarkText = `© Dr. Alexis Collier – U.S. Patent ${PATENT_NUMBER} Pending | info@alexiscollier.com`;
+  const filedCount = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;
+  const watermarkText = `© Dr. Alexis Collier – ${filedCount} U.S. Patents Filed | info@alexiscollier.com`;
   
   // Create a grid of watermarks
   const rows = 8;
