@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail
+  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail,
+  Clock, Target, RefreshCw, Scale, Zap
 } from 'lucide-react';
 import {
   Tooltip,
@@ -19,25 +20,63 @@ import { useAuth } from '@/hooks/useAuth';
 import { SkipLink } from '@/components/SkipLink';
 
 const features = [
+  // Patent #2: Clinical Risk Intelligence
   {
     icon: Brain,
-    title: 'Multi-Horizon Forecasting',
-    description: 'Temporal risk trajectories at 4h, 12h, 24h, and 48h horizons with confidence intervals.',
+    title: 'Risk Prediction',
+    description: 'ML models identify early warning signs of patient complications.',
+    patent: 'Clinical Risk Intelligence',
   },
   {
     icon: BarChart3,
     title: 'SHAP Explainability',
     description: 'Transparent AI with interpretable risk factor attribution.',
+    patent: 'Clinical Risk Intelligence',
   },
   {
-    icon: Activity,
-    title: 'Adaptive Thresholds',
-    description: 'Patient-specific alert thresholds reduce false positives by 40-70%.',
+    icon: Clock,
+    title: 'Temporal Forecasting',
+    description: 'Multi-horizon risk trajectories at 4h, 12h, 24h, and 48h.',
+    patent: 'Clinical Risk Intelligence',
+  },
+  // Patent #1: Trust-Based Alert System
+  {
+    icon: Target,
+    title: 'Adaptive Alerts',
+    description: 'Patient-specific thresholds reduce false positives by 40-70%.',
+    patent: 'Trust-Based Alerts',
   },
   {
-    icon: Users,
-    title: 'Closed-Loop Feedback',
-    description: 'Automated intervention effectiveness tracking with before/after quantification.',
+    icon: Shield,
+    title: 'Trust-Based Prioritization',
+    description: 'Prioritizes alerts based on provider trust scores.',
+    patent: 'Trust-Based Alerts',
+  },
+  // Patent #3: Unified Nursing Intelligence
+  {
+    icon: RefreshCw,
+    title: 'Intervention Tracking',
+    description: 'Closed-loop feedback with before/after quantification.',
+    patent: 'Unified Platform',
+  },
+  {
+    icon: Scale,
+    title: 'Equity Monitoring',
+    description: 'Monitors for disparities in risk scores and interventions.',
+    patent: 'Unified Platform',
+  },
+  {
+    icon: Zap,
+    title: 'Workload Optimization',
+    description: 'Unified prediction integrating risk and staffing needs.',
+    patent: 'Unified Platform',
+  },
+  // Patent #4: DBS System
+  {
+    icon: FileText,
+    title: 'Documentation Burden Scoring',
+    description: 'ML-based DBS prediction with quartile recommendations.',
+    patent: 'DBS System',
   },
 ];
 
@@ -406,25 +445,30 @@ export const Landing = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features - All 4 Patents */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold text-foreground text-center mb-4">
             Key Capabilities
           </h3>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Combining clinical expertise with machine learning for proactive patient safety
+            9 integrated capabilities across 4 U.S. patent filings
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div
                 key={feature.title}
                 className="p-6 rounded-xl bg-card border border-border/50 hover:border-primary/20 transition-all"
-                style={{ animationDelay: `${index * 100}ms` }}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-5 h-5 text-primary" aria-hidden="true" />
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 font-medium">
+                    {feature.patent}
+                  </span>
                 </div>
                 <h4 className="font-semibold text-foreground mb-2">{feature.title}</h4>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
