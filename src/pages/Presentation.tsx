@@ -29,6 +29,11 @@ import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
 import { ResearchValidationSlide } from '@/components/quality/ResearchValidationSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { DemoControls } from '@/components/quality/DemoControls';
+import { PatentFeaturesView } from '@/components/quality/PatentFeaturesView';
+import { TrustBasedAlertSystem } from '@/components/dashboard/TrustBasedAlertSystem';
+import { EquityMonitoringEngine } from '@/components/dashboard/EquityMonitoringEngine';
+import { DBSCalculationBreakdown } from '@/components/dashboard/DBSCalculationBreakdown';
+import { PatentValidationCharts } from '@/components/dashboard/PatentValidationCharts';
 
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
@@ -77,6 +82,10 @@ const slideToView: Record<string, ViewType | null> = {
   'workflow': 'workflow',
   'validation': null,
   'research-validation': 'research-validation',
+  'patent-trust-alerts': 'patent-trust-alerts',
+  'patent-equity': 'patent-equity',
+  'patent-dbs-breakdown': 'patent-dbs-breakdown',
+  'patent-validation-charts': 'patent-validation-charts',
   'roi': 'roi',
   'future': null,
   'conclusion': null,
@@ -365,6 +374,30 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         return <VideoDemoSlide />;
       case 'research-validation':
         return <ResearchValidationSlide />;
+      case 'patent-trust-alerts':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <TrustBasedAlertSystem />
+          </div>
+        );
+      case 'patent-equity':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <EquityMonitoringEngine />
+          </div>
+        );
+      case 'patent-dbs-breakdown':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <DBSCalculationBreakdown />
+          </div>
+        );
+      case 'patent-validation-charts':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <PatentValidationCharts />
+          </div>
+        );
       default:
         return null;
     }

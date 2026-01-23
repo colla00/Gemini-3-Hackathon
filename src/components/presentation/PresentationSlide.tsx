@@ -2,7 +2,8 @@ import { cn } from '@/lib/utils';
 import { 
   BarChart3, Target, Brain, Users, GitBranch, Sparkles, 
   GraduationCap, CheckCircle, AlertTriangle, TrendingUp,
-  Clock, Award, BookOpen, Microscope, Lightbulb, MessageSquare
+  Clock, Award, BookOpen, Microscope, Lightbulb, MessageSquare,
+  Shield, Scale, Calculator, FlaskConical
 } from 'lucide-react';
 
 export type SlideType = 
@@ -23,6 +24,10 @@ export type SlideType =
   | 'workflow' 
   | 'validation'
   | 'research-validation'
+  | 'patent-trust-alerts'
+  | 'patent-equity'
+  | 'patent-dbs-breakdown'
+  | 'patent-validation-charts'
   | 'roi' 
   | 'future'
   | 'conclusion';
@@ -559,7 +564,131 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Critically, equity monitoring shows less than 0.5% disparity across demographic groups — the system performs equally for all patients.',
       'These results form the foundation for the ANIA 2026 presentation and the pending patent applications.',
     ],
-    transitionCue: '→ "Let me show the potential return on investment..."',
+    transitionCue: '→ "Now let me dive into the patent innovations that make this system unique..."',
+  },
+  {
+    id: 'patent-trust-alerts',
+    title: 'Trust-Based Alert System',
+    subtitle: 'Patent Pending · Dynamic Precision Thresholds',
+    duration: 4,
+    icon: <Shield className="w-8 h-8" />,
+    notes: [
+      'KEY PATENT INNOVATION',
+      'Addresses alert fatigue - 87% reduction',
+      'Dynamic thresholds based on nurse workload',
+      'Maintains 100% sensitivity for critical alerts',
+    ],
+    keyPoints: [
+      '87% reduction in non-actionable alerts',
+      '100% sensitivity for critical events maintained',
+      'Dynamic thresholds adjust to nurse workload',
+      'Trust Score based on historical precision',
+      '2.3 minutes saved per decision',
+    ],
+    talkingPoints: [
+      'Now I want to highlight the patent innovations that differentiate this platform.',
+      'The Trust-Based Alert System solves the critical problem of alert fatigue.',
+      'Studies show up to 99% of clinical alarms are false or non-actionable. Nurses become desensitized.',
+      'My approach uses dynamic precision thresholds. The key insight: when a nurse is already overwhelmed with high-burden patients, we filter more aggressively.',
+      'The threshold inversely correlates with cognitive capacity. High workload means only the most critical, high-confidence alerts get through.',
+      'The result: 87% reduction in alert volume while maintaining 100% sensitivity for true critical events.',
+      'This saves an average of 2.3 minutes per clinical decision - time that goes back to patient care.',
+      'This is not just filtering - it is intelligent prioritization based on context.',
+    ],
+    transitionCue: '→ "Equally important is ensuring this system works fairly for all patients..."',
+  },
+  {
+    id: 'patent-equity',
+    title: 'Real-Time Equity Monitoring Engine',
+    subtitle: 'Patent Pending · <0.5% Demographic Disparity',
+    duration: 3,
+    icon: <Scale className="w-8 h-8" />,
+    notes: [
+      'Addresses AI bias concerns',
+      'Continuous real-time monitoring',
+      'Automatic recalibration triggers',
+      'Transparency builds trust',
+    ],
+    keyPoints: [
+      'Continuous demographic disparity auditing',
+      '<0.5% threshold for FPR/FNR differences',
+      'Real-time stratification across protected classes',
+      'Automatic bias alerts and recalibration triggers',
+      'Ensures equitable care across all patient groups',
+    ],
+    talkingPoints: [
+      'AI bias in healthcare is a serious concern. I built equity monitoring directly into the platform.',
+      'The Equity Monitoring Engine continuously audits model performance across demographic groups.',
+      'It calculates False Positive and False Negative rates for each group: age brackets, gender, race, ethnicity.',
+      'If the disparity between any two groups exceeds 0.5%, the system triggers an immediate alert.',
+      'This is not a post-hoc audit. It runs in real-time with every prediction.',
+      'The engine can trigger automatic model recalibration when bias is detected.',
+      'This addresses a fundamental question investors and hospital leadership ask: Does this AI treat all patients fairly?',
+      'Our answer is transparent and verifiable: less than 0.5% disparity maintained across all demographics.',
+    ],
+    transitionCue: '→ "Let me show how the DBS calculation works under the hood..."',
+  },
+  {
+    id: 'patent-dbs-breakdown',
+    title: 'DBS Calculation Breakdown',
+    subtitle: 'Patent Pending · Weighted Feature Analysis',
+    duration: 3,
+    icon: <Calculator className="w-8 h-8" />,
+    notes: [
+      'Show the math behind predictions',
+      'Transparency builds clinical trust',
+      'Interactive sliders for exploration',
+      'Quartile-based staffing recommendations',
+    ],
+    keyPoints: [
+      'Weighted feature contributions visible',
+      'APACHE II (25%), SOFA (20%), Comorbidities (18%)',
+      'Active Medications (15%), Age (12%)',
+      'Quartile classification: Q1-Q4',
+      'Direct staffing ratio recommendations',
+    ],
+    talkingPoints: [
+      'Unlike black-box AI, we show exactly how the DBS score is calculated.',
+      'Each clinical factor has a validated weight derived from 10,000 patient outcomes.',
+      'APACHE II Score contributes 25% of the prediction. SOFA Score contributes 20%.',
+      'Number of comorbidities: 18%. Active medications: 15%. Patient age: 12%.',
+      'The interface shows how each factor contributes to the final score in real-time.',
+      'A 72-year-old patient with septic shock, 5 comorbidities, and 15 active medications calculates to a DBS of approximately 85 - placing them in Quartile 4.',
+      'Q4 patients get a 1:1 staffing ratio with Senior RN recommendation.',
+      'This transparency means nurses understand AND trust the system.',
+    ],
+    transitionCue: '→ "Now let me show the research validation visualizations..."',
+  },
+  {
+    id: 'patent-validation-charts',
+    title: 'Research Validation Visualizations',
+    subtitle: '10K Patients · 201 Hospitals · Patent Figures 2-8',
+    duration: 4,
+    icon: <FlaskConical className="w-8 h-8" />,
+    notes: [
+      'Visual proof of validation claims',
+      'ROC curve demonstrates discrimination',
+      'DBS vs LOS correlation proves clinical utility',
+      'Staffing impact shows real-world value',
+    ],
+    keyPoints: [
+      'Feature Importance: Top 10 predictors visualized',
+      'ROC Curve: AUC 0.78 (95% CI: 0.76-0.80)',
+      'DBS vs LOS: r=0.40 correlation (p<0.001)',
+      'Quartile Distribution: Balanced Q1-Q4',
+      'Staffing Impact: 15-20% overtime reduction, $180K-$360K ROI',
+    ],
+    talkingPoints: [
+      'These visualizations come directly from the patent documentation.',
+      'The Feature Importance chart shows APACHE II and SOFA as top predictors - this aligns with clinical intuition.',
+      'The ROC curve demonstrates strong discriminative ability: AUC of 0.78 significantly outperforms random classification.',
+      'The DBS vs Length of Stay scatter plot is particularly compelling: a Pearson correlation of 0.40 with Cohen\'s d of 3.2.',
+      'This proves documentation burden is a clinically meaningful proxy for patient complexity.',
+      'The quartile distribution shows balanced patient stratification - not skewed toward any single category.',
+      'Finally, the Staffing Impact Analysis: 15-20% overtime reduction across quartiles, with cost savings ranging from $15K to $78K weekly depending on burden level.',
+      'Annual ROI: $180,000 to $360,000 per hospital. This is the business case for implementation.',
+    ],
+    transitionCue: '→ "Let me show the potential return on investment in detail..."',
   },
   {
     id: 'roi',
