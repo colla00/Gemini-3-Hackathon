@@ -609,6 +609,60 @@ export type Database = {
         }
         Relationships: []
       }
+      slide_analytics: {
+        Row: {
+          created_at: string
+          first_viewed_at: string
+          id: string
+          is_patent_slide: boolean | null
+          last_viewed_at: string
+          session_id: string | null
+          slide_id: string
+          slide_title: string | null
+          time_spent_seconds: number
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          first_viewed_at?: string
+          id?: string
+          is_patent_slide?: boolean | null
+          last_viewed_at?: string
+          session_id?: string | null
+          slide_id: string
+          slide_title?: string | null
+          time_spent_seconds?: number
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          first_viewed_at?: string
+          id?: string
+          is_patent_slide?: boolean | null
+          last_viewed_at?: string
+          session_id?: string | null
+          slide_id?: string
+          slide_title?: string | null
+          time_spent_seconds?: number
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "slide_analytics_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "presentation_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "slide_analytics_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "public_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string

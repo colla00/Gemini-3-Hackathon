@@ -18,6 +18,10 @@ import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEng
 import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
 import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
+import { TrustBasedAlertSystem } from '@/components/dashboard/TrustBasedAlertSystem';
+import { EquityMonitoringEngine } from '@/components/dashboard/EquityMonitoringEngine';
+import { DBSCalculationBreakdown } from '@/components/dashboard/DBSCalculationBreakdown';
+import { PatentValidationCharts } from '@/components/dashboard/PatentValidationCharts';
 import { PatentPortfolioSlide } from '@/components/presentation/PatentPortfolioSlide';
 import { 
   PresentationSlideView, 
@@ -50,6 +54,11 @@ const slideToView: Record<string, string | null> = {
   'conclusion': null,
   // Patent portfolio slide
   'patent-portfolio': 'patent-portfolio',
+  // Core patent slides
+  'patent-trust-alerts': 'patent-trust-alerts',
+  'patent-equity': 'patent-equity',
+  'patent-dbs-breakdown': 'patent-dbs-breakdown',
+  'patent-validation-charts': 'patent-validation-charts',
   // ChartMinder patent slides
   'patent-neural-reasoning': 'patent-neural-reasoning',
   'patent-cognitive-load': 'patent-cognitive-load',
@@ -112,6 +121,15 @@ export const AudienceView = () => {
       // Patent portfolio slide
       case 'patent-portfolio':
         return <PatentPortfolioSlide />;
+      // Core patent slides
+      case 'patent-trust-alerts':
+        return <TrustBasedAlertSystem />;
+      case 'patent-equity':
+        return <EquityMonitoringEngine />;
+      case 'patent-dbs-breakdown':
+        return <DBSCalculationBreakdown />;
+      case 'patent-validation-charts':
+        return <PatentValidationCharts />;
       // ChartMinder patent slides
       case 'patent-neural-reasoning':
         return <NeuralReasoningEngine />;
