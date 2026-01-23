@@ -1,7 +1,8 @@
 import { Shield } from 'lucide-react';
+import { PATENT_NUMBER } from '@/constants/patent';
 
 export const WatermarkOverlay = () => {
-  const watermarkText = "© Dr. Alexis Collier – Patent Pending | info@alexiscollier.com";
+  const watermarkText = `© Dr. Alexis Collier – U.S. Patent ${PATENT_NUMBER} Pending | info@alexiscollier.com`;
   
   // Create a grid of watermarks
   const rows = 8;
