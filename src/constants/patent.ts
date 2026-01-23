@@ -8,8 +8,9 @@ export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED A
 export const PATENT_2_NUMBER = '63/932,953';
 export const PATENT_2_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED EXPLAINABILITY, TEMPORAL FORECASTING, ADAPTIVE THRESHOLDS, AND CLOSED-LOOP INTERVENTION FEEDBACK';
 
-// Patent #3: Unified Nursing Intelligence Platform
-export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM';
+// Patent #3: Unified Nursing Intelligence Platform (FILED Jan 2026)
+export const PATENT_3_NUMBER = '63/966,117';
+export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
 
 // Patent #4: DBS System (FILED Jan 22, 2026)
 export const PATENT_4_NUMBER = '63/966,099';
@@ -47,10 +48,11 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'unified-platform',
+    number: '63/966,117',
     title: PATENT_3_TITLE,
     shortName: 'Unified Nursing Intelligence',
-    status: 'pending',
-    filingDate: 'Q1 2026',
+    status: 'filed',
+    filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier'
   },
   {
