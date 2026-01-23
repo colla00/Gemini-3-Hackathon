@@ -30,6 +30,10 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEngine';
+import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
+import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
+import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
@@ -60,6 +64,11 @@ const slideToView: Record<string, string | null> = {
   'roi': 'roi',
   'future': null,
   'conclusion': null,
+  // ChartMinder patent slides
+  'patent-neural-reasoning': 'patent-neural-reasoning',
+  'patent-cognitive-load': 'patent-cognitive-load',
+  'patent-trust-score': 'patent-trust-score',
+  'patent-performance': 'patent-performance',
 };
 
 interface PresenterDashboardProps {

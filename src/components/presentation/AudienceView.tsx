@@ -14,6 +14,10 @@ import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
 import { ResearchBanner } from '@/components/quality/ResearchBanner';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEngine';
+import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
+import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
+import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -43,6 +47,11 @@ const slideToView: Record<string, string | null> = {
   'roi': 'roi',
   'future': null,
   'conclusion': null,
+  // ChartMinder patent slides
+  'patent-neural-reasoning': 'patent-neural-reasoning',
+  'patent-cognitive-load': 'patent-cognitive-load',
+  'patent-trust-score': 'patent-trust-score',
+  'patent-performance': 'patent-performance',
 };
 
 export const AudienceView = () => {
@@ -97,6 +106,15 @@ export const AudienceView = () => {
         return <PatientJourneySlide />;
       case 'roi':
         return <ROICalculatorSlide />;
+      // ChartMinder patent slides
+      case 'patent-neural-reasoning':
+        return <NeuralReasoningEngine />;
+      case 'patent-cognitive-load':
+        return <CognitiveLoadOptimizer />;
+      case 'patent-trust-score':
+        return <TrustScoreAlgorithm />;
+      case 'patent-performance':
+        return <PerformanceComparisonTable />;
       default:
         return null;
     }
