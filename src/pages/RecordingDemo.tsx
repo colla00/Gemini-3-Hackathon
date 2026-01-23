@@ -34,8 +34,8 @@ const DEMO_SECTIONS: DemoSection[] = [
     duration: 15, 
     icon: <Brain className="w-8 h-8" />,
     component: 'intro',
-    patentClaims: 'Claims 1-20',
-    patentDescription: 'Clinical Risk Intelligence System'
+    patentClaims: '80+ Claims',
+    patentDescription: '4 U.S. Patents: Trust-Based Alerts • Risk Intelligence • Unified Platform • DBS'
   },
   { 
     id: 'dashboard', 

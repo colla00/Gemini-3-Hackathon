@@ -24,7 +24,7 @@ export const PatentFeaturesView = () => {
               Patent Innovation Features
             </h2>
             <p className="text-sm text-muted-foreground mt-2">
-              ChartMinder CDSS · Trust-Based Prioritization · Equity Monitoring
+              Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
             </p>
           </div>
           <div className="flex gap-2">
