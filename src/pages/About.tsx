@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
   Shield, Database, Users, Zap, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap
+  GraduationCap, Scale, Cpu, Hash, Calendar, CheckCircle2
 } from 'lucide-react';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuditLog } from '@/hooks/useAuditLog';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { PATENT_PORTFOLIO } from '@/constants/patent';
 import alexisPhoto from '@/assets/alexis-collier.png';
 
 const faqs = [
@@ -37,11 +38,10 @@ const faqs = [
   }
 ];
 
-
-
 function About() {
   const { logAction } = useAuditLog();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const filedPatents = PATENT_PORTFOLIO.filter(p => p.status === 'filed');
 
   useEffect(() => {
     logAction({
@@ -75,7 +75,7 @@ function About() {
               </div>
               <div>
                 <h1 className="text-sm font-bold text-foreground">About This Research</h1>
-                <span className="text-[10px] text-muted-foreground">4 U.S. Patents Filed</span>
+                <span className="text-[10px] text-muted-foreground">{filedPatents.length} U.S. Patents Filed</span>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ function About() {
             </Badge>
             <Badge variant="secondary" className="gap-1">
               <Shield className="w-3 h-3" aria-hidden="true" />
-              4 U.S. Patents Filed
+              {filedPatents.length} U.S. Patents Filed
             </Badge>
             <Badge variant="secondary" className="gap-1 bg-accent/10 text-accent border-accent/30">
               <FileText className="w-3 h-3" aria-hidden="true" />
@@ -115,12 +115,94 @@ function About() {
           </p>
           <p className="text-sm text-muted-foreground max-w-2xl">
             A patent-protected AI-powered system designed to help nurses identify and respond to patient deterioration 
-            through predictive analytics and real-time monitoring. 4 U.S. patent applications filed under 35 U.S.C. § 111(b).
+            through predictive analytics and real-time monitoring. {filedPatents.length} U.S. patent applications filed under 35 U.S.C. § 111(b).
           </p>
         </div>
       </div>
 
       <main id="main-content" className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+        {/* Patent Portfolio */}
+        <Card className="border-accent/30 bg-accent/5">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-accent" aria-hidden="true" />
+                <CardTitle className="text-base">U.S. Patent Portfolio</CardTitle>
+              </div>
+              <Badge variant="outline" className="bg-risk-low/10 border-risk-low/30 text-risk-low">
+                {filedPatents.length} Patents Filed
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Patent List */}
+            <div className="grid gap-2">
+              {PATENT_PORTFOLIO.map((patent) => (
+                <div 
+                  key={patent.id} 
+                  className="p-3 rounded-lg bg-background/50 border border-border/30 flex items-start justify-between gap-3"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="text-sm font-semibold text-foreground">
+                        {patent.shortName}
+                      </h4>
+                      {patent.status === 'filed' && (
+                        <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                      {patent.number && (
+                        <span className="flex items-center gap-1">
+                          <Hash className="w-3 h-3" />
+                          {patent.number}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {patent.filingDate}
+                      </span>
+                    </div>
+                  </div>
+                  <Badge 
+                    variant="outline" 
+                    className={patent.status === 'filed' 
+                      ? 'bg-risk-low/10 border-risk-low/30 text-risk-low text-[10px]' 
+                      : 'bg-warning/10 border-warning/30 text-warning text-[10px]'
+                    }
+                  >
+                    {patent.status === 'filed' ? 'Filed' : 'Pending'}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
+                <Shield className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div>
+                  <span className="font-medium block text-foreground">IP Protected</span>
+                  <span className="text-muted-foreground">35 U.S.C. § 111(b)</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
+                <Cpu className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div>
+                  <span className="font-medium block text-foreground">80+ Claims</span>
+                  <span className="text-muted-foreground">4 integrated systems</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
+                <Users className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <div>
+                  <span className="font-medium block text-foreground">Inventor</span>
+                  <span className="text-muted-foreground">Dr. Alexis Collier</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Team Information */}
         <Card>
           <CardHeader>
@@ -137,11 +219,11 @@ function About() {
               <div className="flex flex-col sm:flex-row gap-6 items-start">
                 <img 
                   src={alexisPhoto} 
-                  alt="Alexis Collier" 
+                  alt="Dr. Alexis Collier" 
                   className="w-20 h-20 rounded-full object-cover object-top border-2 border-primary/40 shrink-0"
                 />
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold mb-1">Alexis Collier</h3>
+                  <h3 className="text-xl font-semibold mb-1">Dr. Alexis Collier</h3>
                   <p className="text-sm text-muted-foreground mb-3">
                     Principal Investigator • University of North Georgia
                   </p>
@@ -249,19 +331,18 @@ function About() {
 
             <div className="p-4 rounded-lg border border-border bg-secondary/30">
               <div className="flex items-start gap-3">
-                <Zap className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
+                <Scale className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
                 <div>
-                  <h3 className="font-semibold mb-2">Workload Prioritization</h3>
+                  <h3 className="font-semibold mb-2">Equity Monitoring</h3>
                   <p className="text-sm text-muted-foreground">
-                    Helps nurses focus on patients who need attention most urgently based on 
-                    multiple clinical factors.
+                    Ensures fair treatment across demographic groups by monitoring for 
+                    disparities in risk scores and interventions.
                   </p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
-
 
         {/* FAQ Section */}
         <Card>
@@ -326,34 +407,22 @@ function About() {
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Database className="w-5 h-5 text-warning" aria-hidden="true" />
-              <CardTitle>Research Status & Intellectual Property</CardTitle>
+              <CardTitle>Research Status</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="p-4 rounded-lg border border-accent/30 bg-accent/5">
-              <p className="text-sm font-semibold mb-2 text-accent">U.S. Provisional Patent Portfolio</p>
-              <p className="text-xs text-muted-foreground mb-3">
-                <strong>Focus:</strong> Clinical Risk Intelligence, Trust-Based Alerts, Unified Nursing Platform, 
-                and Documentation Burden Scoring (DBS) System
-              </p>
-              <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                <div><strong>Inventor:</strong> Dr. Alexis Collier</div>
-                <div><strong>Filed:</strong> December 2025 – January 2026</div>
-                <div><strong>Claims:</strong> 80+ patent claims</div>
-                <div><strong>Status:</strong> 4 Applications Filed</div>
-              </div>
-            </div>
             <div className="p-4 rounded-lg border border-warning/30 bg-warning/5">
               <p className="text-sm font-medium mb-2">This is a Research Prototype</p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Uses synthetic data for demonstration purposes</li>
                 <li>• Not validated for clinical use</li>
+                <li>• Not FDA cleared or approved</li>
                 <li>• Requires IRB approval and clinical trials before deployment</li>
                 <li>• All intellectual property rights reserved</li>
               </ul>
             </div>
             <p className="text-xs text-muted-foreground">
-              © 2025–2026 Dr. Alexis Collier. All rights reserved. 4 U.S. Patents Filed pursuant to 35 U.S.C. § 111(b). 
+              © 2025–2026 Dr. Alexis Collier. All rights reserved. {filedPatents.length} U.S. Patents Filed pursuant to 35 U.S.C. § 111(b). 
               For licensing inquiries or research collaboration, please contact info@alexiscollier.com.
             </p>
           </CardContent>
@@ -364,7 +433,7 @@ function About() {
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
           <p>© {new Date().getFullYear()} Dr. Alexis Collier. All Rights Reserved.</p>
-          <p>NSO Quality Dashboard • 4 U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
+          <p>NSO Quality Dashboard • {filedPatents.length} U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
         </div>
       </footer>
     </div>
