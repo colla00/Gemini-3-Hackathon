@@ -1,8 +1,78 @@
-import { Brain, BarChart3, Clock, Sliders, RefreshCw, Activity } from 'lucide-react';
+import { Brain, BarChart3, Clock, Sliders, RefreshCw, Activity, Shield, Heart, Users, FileText, Layers } from 'lucide-react';
 import type { PatentClaim, CategoryConfig, ClaimCategory } from '@/types/patent';
 
-export const PATENT_CLAIMS: PatentClaim[] = [
-  // System Claims (1-4)
+// ========== PATENT #1: TRUST-BASED ALERT SYSTEM (63/946,187) ==========
+const TRUST_ALERT_CLAIMS: PatentClaim[] = [
+  {
+    number: 1,
+    title: 'Trust-Based Alert Prioritization System',
+    description: 'A clinical decision support system implementing trust-based alert prioritization through composite reliability scoring that integrates historical accuracy, clinician feedback, temporal relevance, and data quality metrics.',
+    category: 'trust',
+    implementation: 'TrustScoreAlgorithm component with interactive sliders showing composite trust calculation and threshold-based alert filtering.',
+    componentPath: 'src/components/dashboard/TrustScoreAlgorithm.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+  {
+    number: 2,
+    title: 'Workload-Adaptive Threshold Adjustment',
+    description: 'The system of claim 1, wherein alert confidence thresholds dynamically adjust based on clinician cognitive load, with higher workload states triggering stricter filtering to reduce alert fatigue.',
+    category: 'trust',
+    implementation: 'TrustBasedAlertSystem with workload selector (low/moderate/high) adjusting confidence thresholds from 50% to 85%.',
+    componentPath: 'src/components/dashboard/TrustBasedAlertSystem.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+  {
+    number: 3,
+    title: 'Critical Alert Bypass Mechanism',
+    description: 'The system of claim 2, wherein alerts classified as critical bypass all filtering thresholds to ensure patient safety while non-critical alerts are subject to trust-based suppression.',
+    category: 'trust',
+    implementation: 'Critical alerts (e.g., septic shock protocols) always display regardless of trust score or workload settings.',
+    componentPath: 'src/components/dashboard/TrustBasedAlertSystem.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+  {
+    number: 4,
+    title: 'Demographic Equity Monitoring Engine',
+    description: 'A subsystem for monitoring alert system equity across demographic groups, calculating disparity indices and flagging potential algorithmic bias in real-time.',
+    category: 'equity',
+    implementation: 'EquityMonitoringEngine with demographic group analysis, disparity index calculation, and bias detection alerts.',
+    componentPath: 'src/components/dashboard/EquityMonitoringEngine.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+  {
+    number: 5,
+    title: 'Cognitive Load Index Calculation',
+    description: 'A method for calculating real-time cognitive load index comprising response time percentile, interruption frequency, documentation velocity, and patient load weighted factors.',
+    category: 'trust',
+    implementation: 'CognitiveLoadOptimizer with animated gauge, factor breakdown, and adaptive threshold visualization.',
+    componentPath: 'src/components/dashboard/CognitiveLoadOptimizer.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+  {
+    number: 6,
+    title: 'Alert Grouping and Deferral',
+    description: 'The system of claim 5, further comprising alert grouping for similar notifications and temporal deferral of non-urgent alerts during high cognitive load periods.',
+    category: 'trust',
+    implementation: 'Alert grouping consolidation (+N badges) and delay queuing for non-urgent alerts with countdown timers.',
+    componentPath: 'src/components/dashboard/CognitiveLoadOptimizer.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'trust-alerts'
+  },
+];
+
+// ========== PATENT #2: CLINICAL RISK INTELLIGENCE (63/932,953) ==========
+const RISK_INTELLIGENCE_CLAIMS: PatentClaim[] = [
   {
     number: 1,
     title: 'Clinical Risk Intelligence System',
@@ -11,7 +81,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Full dashboard system with real-time EHR data integration, multi-outcome risk scoring for Falls, HAPI, CAUTI, and device complications.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
     status: 'demonstrated',
-    demoSection: 'dashboard'
+    demoSection: 'dashboard',
+    patentId: 'risk-intelligence'
   },
   {
     number: 2,
@@ -21,7 +92,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Interactive SHAP waterfall charts showing how each clinical factor (mobility, medications, vitals) contributes to the final risk score.',
     componentPath: 'src/components/quality/ShapExplainability.tsx',
     status: 'implemented',
-    demoSection: 'shap'
+    demoSection: 'shap',
+    patentId: 'risk-intelligence'
   },
   {
     number: 3,
@@ -31,7 +103,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Animated waterfall bars with cumulative risk tracking, color-coded risk/protective factors, and interactive tooltips explaining each contribution.',
     componentPath: 'src/components/quality/ShapExplainability.tsx',
     status: 'implemented',
-    demoSection: 'shap'
+    demoSection: 'shap',
+    patentId: 'risk-intelligence'
   },
   {
     number: 4,
@@ -41,9 +114,9 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Confidence indicators displayed on each risk score, with visual representation of prediction certainty.',
     componentPath: 'src/components/quality/ConfidenceIndicator.tsx',
     status: 'implemented',
-    demoSection: 'patients'
+    demoSection: 'patients',
+    patentId: 'risk-intelligence'
   },
-  // Temporal Forecasting Claims (5)
   {
     number: 5,
     title: 'Multi-Horizon Temporal Forecasting',
@@ -52,9 +125,9 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Interactive forecast charts showing risk trajectories at 4h, 12h, 24h, 48h horizons with confidence bands and trajectory classification (improving/stable/deteriorating).',
     componentPath: 'src/components/quality/TemporalForecasting.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
-  // Adaptive Thresholds Claims (6)
   {
     number: 6,
     title: 'Patient-Adaptive Alert Thresholds',
@@ -63,9 +136,9 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Dynamic threshold visualization showing patient-specific adaptations, alert prevention counts, and personalized sensitivity adjustments.',
     componentPath: 'src/components/quality/AdaptiveThresholds.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
-  // Closed-Loop Feedback Claims (7)
   {
     number: 7,
     title: 'Closed-Loop Intervention Feedback',
@@ -74,9 +147,9 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Animated feedback loop demonstration showing intervention detection → baseline capture → effect delay → risk recalculation → effectiveness quantification.',
     componentPath: 'src/components/quality/ClosedLoopFeedback.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
-  // Priority & Workflow Claims (8-10)
   {
     number: 8,
     title: 'Priority Scoring Algorithm',
@@ -85,7 +158,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Priority queue with composite scoring, dynamic reordering based on risk changes, and visual priority badges.',
     componentPath: 'src/components/dashboard/PriorityQueue.tsx',
     status: 'implemented',
-    demoSection: 'patients'
+    demoSection: 'patients',
+    patentId: 'risk-intelligence'
   },
   {
     number: 9,
@@ -95,7 +169,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Context-aware suggested actions panel with evidence-based intervention recommendations tied to specific risk factors.',
     componentPath: 'src/components/dashboard/SuggestedActions.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
   {
     number: 10,
@@ -105,9 +180,9 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Visual intervention timers showing time since last action, upcoming assessment windows, and overdue alerts.',
     componentPath: 'src/components/dashboard/InterventionTimer.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
-  // Dependent Claims (11-20)
   {
     number: 11,
     title: 'Risk Trend Visualization',
@@ -116,7 +191,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Compact sparkline charts embedded in patient cards showing 24-hour risk trends with trend direction indicators.',
     componentPath: 'src/components/quality/RiskSparkline.tsx',
     status: 'implemented',
-    demoSection: 'patients'
+    demoSection: 'patients',
+    patentId: 'risk-intelligence'
   },
   {
     number: 12,
@@ -126,7 +202,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Side-by-side outcome comparison panel showing Falls, HAPI, CAUTI, and device complication risks with comparative analysis.',
     componentPath: 'src/components/dashboard/MultiOutcomeComparison.tsx',
     status: 'implemented',
-    demoSection: 'dashboard'
+    demoSection: 'dashboard',
+    patentId: 'risk-intelligence'
   },
   {
     number: 13,
@@ -136,7 +213,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Workflow sequence visualization showing progression from risk identification through intervention to outcome tracking.',
     componentPath: 'src/components/quality/ClinicalWorkflowView.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
   {
     number: 14,
@@ -146,7 +224,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Visual efficacy indicators (High/Moderate/Low) based on historical intervention success rates.',
     componentPath: 'src/components/dashboard/EfficacyBadge.tsx',
     status: 'implemented',
-    demoSection: 'workflow'
+    demoSection: 'workflow',
+    patentId: 'risk-intelligence'
   },
   {
     number: 15,
@@ -156,7 +235,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Dashboard overview with unit-wide statistics, risk category distributions, and aggregate performance metrics.',
     componentPath: 'src/components/quality/DashboardOverview.tsx',
     status: 'implemented',
-    demoSection: 'dashboard'
+    demoSection: 'dashboard',
+    patentId: 'risk-intelligence'
   },
   {
     number: 16,
@@ -166,7 +246,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Interactive patient list with risk level filters, outcome type filters, and dynamic sorting by priority score.',
     componentPath: 'src/components/quality/PatientListView.tsx',
     status: 'implemented',
-    demoSection: 'patients'
+    demoSection: 'patients',
+    patentId: 'risk-intelligence'
   },
   {
     number: 17,
@@ -176,7 +257,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Hover-activated tooltips explaining clinical terms (SHAP, MRN, LOS, AUROC) with plain-language descriptions.',
     componentPath: 'src/components/quality/ClinicalTooltip.tsx',
     status: 'implemented',
-    demoSection: 'shap'
+    demoSection: 'shap',
+    patentId: 'risk-intelligence'
   },
   {
     number: 18,
@@ -186,7 +268,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'SHAP charts with categorical grouping (vitals, mobility, medications, history) for clearer clinical interpretation.',
     componentPath: 'src/components/dashboard/GroupedShapChart.tsx',
     status: 'implemented',
-    demoSection: 'shap'
+    demoSection: 'shap',
+    patentId: 'risk-intelligence'
   },
   {
     number: 19,
@@ -196,7 +279,8 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Live simulation engine generating realistic risk fluctuations for demonstration and training purposes.',
     componentPath: 'src/hooks/useLiveSimulation.ts',
     status: 'implemented',
-    demoSection: 'dashboard'
+    demoSection: 'dashboard',
+    patentId: 'risk-intelligence'
   },
   {
     number: 20,
@@ -206,10 +290,186 @@ export const PATENT_CLAIMS: PatentClaim[] = [
     implementation: 'Persistent research banners, patent notices, and synthetic data disclaimers ensuring appropriate use context.',
     componentPath: 'src/components/ResearchDisclaimer.tsx',
     status: 'implemented',
-    demoSection: 'intro'
+    demoSection: 'intro',
+    patentId: 'risk-intelligence'
   },
 ];
 
+// ========== PATENT #3: UNIFIED NURSING INTELLIGENCE (63/966,117) ==========
+const UNIFIED_PLATFORM_CLAIMS: PatentClaim[] = [
+  {
+    number: 1,
+    title: 'Unified Nursing Intelligence Platform',
+    description: 'An integrated platform combining workload prediction, clinical risk intelligence, and trust-based alert systems into a cohesive nursing decision support environment.',
+    category: 'integration',
+    implementation: 'Dashboard integrating DBS, risk scoring, and trust-based alerts with synchronized patient views.',
+    componentPath: 'src/pages/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'dashboard',
+    patentId: 'unified-platform'
+  },
+  {
+    number: 2,
+    title: 'Cross-System Data Fusion',
+    description: 'The platform of claim 1, wherein patient data from multiple clinical systems is fused to provide comprehensive nursing workload and risk assessments.',
+    category: 'integration',
+    implementation: 'EHR data integration diagram showing data flow from vitals, labs, medications, and documentation systems.',
+    componentPath: 'src/components/quality/EHRIntegrationDiagram.tsx',
+    status: 'implemented',
+    demoSection: 'workflow',
+    patentId: 'unified-platform'
+  },
+  {
+    number: 3,
+    title: 'Workload-Risk Correlation Analysis',
+    description: 'The platform of claim 1, further comprising analytical tools correlating nursing workload metrics with patient risk outcomes.',
+    category: 'workload',
+    implementation: 'LinkedCalculatorView showing DBS and ROI metrics side-by-side with correlation indicators.',
+    componentPath: 'src/components/dashboard/LinkedCalculatorView.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'unified-platform'
+  },
+  {
+    number: 4,
+    title: 'Shift Handoff Report Generation',
+    description: 'A method for generating comprehensive shift handoff reports incorporating risk scores, workload metrics, and pending interventions.',
+    category: 'workflow',
+    implementation: 'Automated handoff report generator with risk summaries, intervention tracking, and priority patient lists.',
+    componentPath: 'src/components/reports/HandoffReport.tsx',
+    status: 'implemented',
+    demoSection: 'workflow',
+    patentId: 'unified-platform'
+  },
+  {
+    number: 5,
+    title: 'Neural Reasoning Engine',
+    description: 'The platform of claim 1, incorporating a neural reasoning engine that provides clinical chain-of-thought explanations for risk predictions.',
+    category: 'integration',
+    implementation: 'NeuralReasoningEngine with attention visualization, confidence intervals, and reasoning chain display.',
+    componentPath: 'src/components/dashboard/NeuralReasoningEngine.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'unified-platform'
+  },
+  {
+    number: 6,
+    title: 'Population Trend Aggregation',
+    description: 'The platform of claim 1, further comprising population-level trend aggregation for unit-wide risk monitoring.',
+    category: 'system',
+    implementation: 'PopulationTrendAggregation showing unit-wide risk distributions and temporal trends.',
+    componentPath: 'src/components/dashboard/PopulationTrendAggregation.tsx',
+    status: 'implemented',
+    demoSection: 'dashboard',
+    patentId: 'unified-platform'
+  },
+];
+
+// ========== PATENT #4: DBS SYSTEM (63/966,099) ==========
+const DBS_SYSTEM_CLAIMS: PatentClaim[] = [
+  {
+    number: 1,
+    title: 'Documentation Burden Score System',
+    description: 'A system and method for predicting documentation burden using machine learning, comprising weighted factors including APACHE II, SOFA, comorbidities, active medications, and patient age.',
+    category: 'dbs',
+    implementation: 'DBSCalculator with interactive sliders for each factor, real-time score calculation, and quartile classification.',
+    componentPath: 'src/components/dashboard/DBSCalculator.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 2,
+    title: 'DBS Quartile Classification',
+    description: 'The system of claim 1, wherein calculated DBS scores are classified into quartiles (Q1-Q4) with associated staffing ratio recommendations.',
+    category: 'dbs',
+    implementation: 'Quartile visualization with color-coded complexity levels (Low/Moderate/High/Very High) and staffing ratios.',
+    componentPath: 'src/components/dashboard/DBSCalculator.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 3,
+    title: 'Weighted Factor Calculation Method',
+    description: 'The system of claim 1, implementing a weighted factor calculation: DBS = (APACHE×0.30 + SOFA×0.25 + Comorbidities×0.20 + Medications×0.15 + Age×0.10) normalized to 0-100 scale.',
+    category: 'dbs',
+    implementation: 'DBSCalculationBreakdown showing per-factor contributions with interactive weight visualization.',
+    componentPath: 'src/components/dashboard/DBSCalculationBreakdown.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 4,
+    title: 'Patient Profile Comparison',
+    description: 'The system of claim 2, further comprising patient profile saving and comparison functionality for scenario analysis.',
+    category: 'dbs',
+    implementation: 'Save/compare patient profiles with up to 4 scenarios, including preset clinical profiles (Typical ICU, Post-Surgical, etc.).',
+    componentPath: 'src/components/dashboard/DBSCalculator.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 5,
+    title: 'ROI Calculation Integration',
+    description: 'The system of claim 1, integrated with return-on-investment calculations showing projected savings from optimized staffing based on DBS predictions.',
+    category: 'dbs',
+    implementation: 'ROICalculator linked to DBS scores with annual savings projections and payback period calculations.',
+    componentPath: 'src/components/dashboard/ROICalculator.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 6,
+    title: 'Linked Calculator View',
+    description: 'A unified interface presenting DBS calculation alongside hospital operational metrics for burden-adjusted impact analysis.',
+    category: 'dbs',
+    implementation: 'LinkedCalculatorView with side-by-side DBS and ROI calculators, linked presets, and scenario comparison.',
+    componentPath: 'src/components/dashboard/LinkedCalculatorView.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 7,
+    title: 'Clinical Preset Profiles',
+    description: 'The system of claim 4, including predefined clinical preset profiles representing common patient populations (ICU, Post-Surgical, Geriatric, Trauma, Cardiac, Sepsis).',
+    category: 'dbs',
+    implementation: 'Six preset patient profiles with one-click loading and visual complexity indicators.',
+    componentPath: 'src/components/dashboard/DBSCalculator.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+  {
+    number: 8,
+    title: 'Research Validation Display',
+    description: 'The system of claim 1, further comprising integrated research validation metrics including patient cohort size, outcome correlations, and statistical significance.',
+    category: 'dbs',
+    implementation: 'Research validation section showing 12,847 patient validation cohort, AUROC, and outcome correlations.',
+    componentPath: 'src/components/dashboard/DBSCalculator.tsx',
+    status: 'implemented',
+    demoSection: 'patents',
+    patentId: 'dbs-system'
+  },
+];
+
+// Combined patent claims array
+export const PATENT_CLAIMS: PatentClaim[] = [
+  ...TRUST_ALERT_CLAIMS,
+  ...RISK_INTELLIGENCE_CLAIMS,
+  ...UNIFIED_PLATFORM_CLAIMS,
+  ...DBS_SYSTEM_CLAIMS,
+];
+
+// Helper to get claims by patent ID
+export const getClaimsByPatent = (patentId: PatentClaim['patentId']) => 
+  PATENT_CLAIMS.filter(claim => claim.patentId === patentId);
+
+// Category configuration with icons and colors
 export const CATEGORY_CONFIG: Record<ClaimCategory, CategoryConfig> = {
   system: { label: 'System Architecture', icon: Brain, color: 'text-primary bg-primary/10 border-primary/30' },
   explainability: { label: 'SHAP Explainability', icon: BarChart3, color: 'text-blue-500 bg-blue-500/10 border-blue-500/30' },
@@ -217,4 +477,33 @@ export const CATEGORY_CONFIG: Record<ClaimCategory, CategoryConfig> = {
   thresholds: { label: 'Adaptive Thresholds', icon: Sliders, color: 'text-accent bg-accent/10 border-accent/30' },
   feedback: { label: 'Closed-Loop Feedback', icon: RefreshCw, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/30' },
   workflow: { label: 'Clinical Workflow', icon: Activity, color: 'text-orange-500 bg-orange-500/10 border-orange-500/30' },
+  trust: { label: 'Trust-Based Alerts', icon: Shield, color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/30' },
+  equity: { label: 'Equity Monitoring', icon: Heart, color: 'text-pink-500 bg-pink-500/10 border-pink-500/30' },
+  dbs: { label: 'Documentation Burden', icon: FileText, color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/30' },
+  workload: { label: 'Workload Prediction', icon: Users, color: 'text-amber-500 bg-amber-500/10 border-amber-500/30' },
+  integration: { label: 'Platform Integration', icon: Layers, color: 'text-violet-500 bg-violet-500/10 border-violet-500/30' },
+};
+
+// Patent metadata for display
+export const PATENT_METADATA = {
+  'trust-alerts': {
+    number: '63/946,187',
+    shortName: 'Trust-Based Alert System',
+    claimCount: TRUST_ALERT_CLAIMS.length,
+  },
+  'risk-intelligence': {
+    number: '63/932,953',
+    shortName: 'Clinical Risk Intelligence',
+    claimCount: RISK_INTELLIGENCE_CLAIMS.length,
+  },
+  'unified-platform': {
+    number: '63/966,117',
+    shortName: 'Unified Nursing Intelligence',
+    claimCount: UNIFIED_PLATFORM_CLAIMS.length,
+  },
+  'dbs-system': {
+    number: '63/966,099',
+    shortName: 'DBS System',
+    claimCount: DBS_SYSTEM_CLAIMS.length,
+  },
 };

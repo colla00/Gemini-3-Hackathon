@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/tooltip';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RESEARCH_DATA } from '@/data/researchData';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface Alert {
   id: string;
@@ -81,9 +82,7 @@ export const TrustBasedAlertSystem = () => {
               </div>
               <div>
                 <CardTitle className="text-base">Trust-Based Alert System</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Patent Pending · Dynamic precision thresholds
-                </p>
+                <PatentBadge contextPatent="trust" className="mt-1" />
               </div>
             </div>
             <div className="flex items-center gap-3">

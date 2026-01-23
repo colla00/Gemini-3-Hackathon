@@ -1,5 +1,5 @@
 // DBS (Documentation Burden Score) Calculator Component
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Application 63/966,099
 
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { calculateDBS, getDBSQuartile } from '@/utils/dbsCalculations';
 import { DBS_CALCULATION_FACTORS, RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface DBSCalculatorProps {
   className?: string;
@@ -224,11 +225,14 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-primary" />
-            Documentation Burden Score
-          </CardTitle>
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              Documentation Burden Score
+            </CardTitle>
+            <PatentBadge contextPatent="dbs" className="mt-1" />
+          </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-xs">
               ANIA 2026 Research
