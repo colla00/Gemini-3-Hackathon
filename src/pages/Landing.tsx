@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
   BarChart3, Shield, Activity, Users, ArrowRight, 
-  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail,
-  Clock, Target, RefreshCw, Scale, Zap
+  Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail
 } from 'lucide-react';
 import {
   Tooltip,
@@ -18,67 +17,7 @@ import { WalkthroughRequestModal } from '@/components/WalkthroughRequestModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { SkipLink } from '@/components/SkipLink';
-
-const features = [
-  // Patent #2: Clinical Risk Intelligence
-  {
-    icon: Brain,
-    title: 'Risk Prediction',
-    description: 'ML models identify early warning signs of patient complications.',
-    patent: 'Clinical Risk Intelligence',
-  },
-  {
-    icon: BarChart3,
-    title: 'SHAP Explainability',
-    description: 'Transparent AI with interpretable risk factor attribution.',
-    patent: 'Clinical Risk Intelligence',
-  },
-  {
-    icon: Clock,
-    title: 'Temporal Forecasting',
-    description: 'Multi-horizon risk trajectories at 4h, 12h, 24h, and 48h.',
-    patent: 'Clinical Risk Intelligence',
-  },
-  // Patent #1: Trust-Based Alert System
-  {
-    icon: Target,
-    title: 'Adaptive Alerts',
-    description: 'Patient-specific thresholds reduce false positives by 40-70%.',
-    patent: 'Trust-Based Alerts',
-  },
-  {
-    icon: Shield,
-    title: 'Trust-Based Prioritization',
-    description: 'Prioritizes alerts based on provider trust scores.',
-    patent: 'Trust-Based Alerts',
-  },
-  // Patent #3: Unified Nursing Intelligence
-  {
-    icon: RefreshCw,
-    title: 'Intervention Tracking',
-    description: 'Closed-loop feedback with before/after quantification.',
-    patent: 'Unified Platform',
-  },
-  {
-    icon: Scale,
-    title: 'Equity Monitoring',
-    description: 'Monitors for disparities in risk scores and interventions.',
-    patent: 'Unified Platform',
-  },
-  {
-    icon: Zap,
-    title: 'Workload Optimization',
-    description: 'Unified prediction integrating risk and staffing needs.',
-    patent: 'Unified Platform',
-  },
-  // Patent #4: DBS System
-  {
-    icon: FileText,
-    title: 'Documentation Burden Scoring',
-    description: 'ML-based DBS prediction with quartile recommendations.',
-    patent: 'DBS System',
-  },
-];
+import { CAPABILITIES, PATENT_FAMILIES, getPatentFamily } from '@/constants/capabilities';
 
 const pages = [
   {
@@ -445,35 +384,61 @@ export const Landing = () => {
         </div>
       </section>
 
-      {/* Features - All 4 Patents */}
+      {/* Features - All 4 Patents with Color Coding */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold text-foreground text-center mb-4">
             Key Capabilities
           </h3>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-center mb-6 max-w-2xl mx-auto">
             9 integrated capabilities across 4 U.S. patent filings
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="p-6 rounded-xl bg-card border border-border/50 hover:border-primary/20 transition-all"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <feature.icon className="w-5 h-5 text-primary" aria-hidden="true" />
-                  </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 font-medium">
-                    {feature.patent}
-                  </span>
-                </div>
-                <h4 className="font-semibold text-foreground mb-2">{feature.title}</h4>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+          {/* Patent Family Legend */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {Object.values(PATENT_FAMILIES).map((family) => (
+              <div key={family.id} className="flex items-center gap-2 text-xs">
+                <span className={cn("w-2.5 h-2.5 rounded-full", family.dotClass)} />
+                <span className="text-muted-foreground">{family.shortName}</span>
               </div>
             ))}
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CAPABILITIES.map((capability, index) => {
+              const family = getPatentFamily(capability.patentFamilyId);
+              const IconComponent = capability.icon;
+              
+              return (
+                <div
+                  key={capability.id}
+                  className={cn(
+                    "p-6 rounded-xl bg-card border transition-all hover:shadow-lg hover:-translate-y-0.5",
+                    family?.borderClass || "border-border/50"
+                  )}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={cn(
+                      "w-10 h-10 rounded-lg flex items-center justify-center",
+                      family?.bgClass || "bg-primary/10"
+                    )}>
+                      <IconComponent className={cn("w-5 h-5", family?.colorClass || "text-primary")} aria-hidden="true" />
+                    </div>
+                    <span className={cn(
+                      "text-[10px] px-2 py-0.5 rounded-full border font-medium",
+                      family?.bgClass,
+                      family?.borderClass,
+                      family?.colorClass
+                    )}>
+                      {family?.shortName}
+                    </span>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">{capability.title}</h4>
+                  <p className="text-sm text-muted-foreground">{capability.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
