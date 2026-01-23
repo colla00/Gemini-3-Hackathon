@@ -34,6 +34,10 @@ import { TrustBasedAlertSystem } from '@/components/dashboard/TrustBasedAlertSys
 import { EquityMonitoringEngine } from '@/components/dashboard/EquityMonitoringEngine';
 import { DBSCalculationBreakdown } from '@/components/dashboard/DBSCalculationBreakdown';
 import { PatentValidationCharts } from '@/components/dashboard/PatentValidationCharts';
+import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEngine';
+import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
+import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
+import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
 
 import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
@@ -85,6 +89,10 @@ const slideToView: Record<string, ViewType | null> = {
   'patent-trust-alerts': 'patent-trust-alerts',
   'patent-equity': 'patent-equity',
   'patent-dbs-breakdown': 'patent-dbs-breakdown',
+  'patent-neural-reasoning': 'patent-neural-reasoning',
+  'patent-cognitive-load': 'patent-cognitive-load',
+  'patent-trust-score': 'patent-trust-score',
+  'patent-performance': 'patent-performance',
   'patent-validation-charts': 'patent-validation-charts',
   'roi': 'roi',
   'future': null,
@@ -396,6 +404,30 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         return (
           <div className="max-w-4xl mx-auto p-6">
             <PatentValidationCharts />
+          </div>
+        );
+      case 'patent-neural-reasoning':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <NeuralReasoningEngine />
+          </div>
+        );
+      case 'patent-cognitive-load':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <CognitiveLoadOptimizer />
+          </div>
+        );
+      case 'patent-trust-score':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <TrustScoreAlgorithm />
+          </div>
+        );
+      case 'patent-performance':
+        return (
+          <div className="max-w-4xl mx-auto p-6">
+            <PerformanceComparisonTable />
           </div>
         );
       default:

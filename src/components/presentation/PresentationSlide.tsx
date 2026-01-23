@@ -3,7 +3,7 @@ import {
   BarChart3, Target, Brain, Users, GitBranch, Sparkles, 
   GraduationCap, CheckCircle, AlertTriangle, TrendingUp,
   Clock, Award, BookOpen, Microscope, Lightbulb, MessageSquare,
-  Shield, Scale, Calculator, FlaskConical
+  Shield, Scale, Calculator, FlaskConical, Cpu
 } from 'lucide-react';
 
 export type SlideType = 
@@ -27,6 +27,10 @@ export type SlideType =
   | 'patent-trust-alerts'
   | 'patent-equity'
   | 'patent-dbs-breakdown'
+  | 'patent-neural-reasoning'
+  | 'patent-cognitive-load'
+  | 'patent-trust-score'
+  | 'patent-performance'
   | 'patent-validation-charts'
   | 'roi' 
   | 'future'
@@ -656,6 +660,122 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'A 72-year-old patient with septic shock, 5 comorbidities, and 15 active medications calculates to a DBS of approximately 85 - placing them in Quartile 4.',
       'Q4 patients get a 1:1 staffing ratio with Senior RN recommendation.',
       'This transparency means nurses understand AND trust the system.',
+    ],
+    transitionCue: '→ "Now let me show the research validation visualizations..."',
+  },
+  {
+    id: 'patent-neural-reasoning',
+    title: 'Neural Reasoning Engine',
+    subtitle: 'Patent Pending · Chain-of-Thought Clinical AI',
+    duration: 3,
+    icon: <Brain className="w-8 h-8" />,
+    notes: [
+      'ChartMinder innovation',
+      '6-stage clinical reasoning chain',
+      '94% expert agreement rate',
+      'Transparent decision path',
+    ],
+    keyPoints: [
+      'Chain-of-thought reasoning visualization',
+      'BioBERT literature correlation',
+      'Counterfactual what-if analysis',
+      '94% agreement with clinical experts',
+      'Transformer attention weight display',
+    ],
+    talkingPoints: [
+      'The Neural Reasoning Engine is a key ChartMinder patent innovation.',
+      'Unlike black-box AI, this system shows its complete reasoning chain.',
+      'It progresses through 6 stages: data collection, pattern recognition, risk assessment, literature correlation, recommendation generation, and confidence scoring.',
+      'BioBERT integration connects predictions to peer-reviewed clinical literature.',
+      'The what-if analysis lets clinicians explore how changing interventions would affect outcomes.',
+      'In validation, this achieved 94% agreement with expert clinical reviewers.',
+    ],
+    transitionCue: '→ "This reasoning integrates with cognitive load management..."',
+  },
+  {
+    id: 'patent-cognitive-load',
+    title: 'Cognitive Load Optimizer',
+    subtitle: 'Patent Pending · Workload-Adaptive Thresholds',
+    duration: 3,
+    icon: <Cpu className="w-8 h-8" />,
+    notes: [
+      'Real-time clinician workload monitoring',
+      'Dynamic alert grouping',
+      'Adaptive precision thresholds',
+      '2.3 minutes saved per decision',
+    ],
+    keyPoints: [
+      'Cognitive Load Index (0-100 scale)',
+      'Real-time patient acuity tracking',
+      'Dynamic alert grouping by priority',
+      'Adaptive threshold formula',
+      '2.3 minutes saved per clinical decision',
+    ],
+    talkingPoints: [
+      'The Cognitive Load Optimizer addresses a critical problem: alert fatigue correlates with nurse workload.',
+      'We continuously calculate a Cognitive Load Index from 0 to 100.',
+      'When workload is high, we group non-urgent alerts and increase confidence thresholds.',
+      'The adaptive formula adjusts in real-time: T = base × (1 + k × (load-50)/50).',
+      'This saves an average of 2.3 minutes per clinical decision.',
+      'Nurses see fewer distracting alerts precisely when they can least afford interruptions.',
+    ],
+    transitionCue: '→ "All of this feeds into the Trust Score Algorithm..."',
+  },
+  {
+    id: 'patent-trust-score',
+    title: 'Trust Score Algorithm',
+    subtitle: 'Patent Pending · Composite Reliability Scoring',
+    duration: 3,
+    icon: <Target className="w-8 h-8" />,
+    notes: [
+      'Weighted reliability composite',
+      'Builds clinician confidence over time',
+      'Transparent confidence intervals',
+      'Self-improving system',
+    ],
+    keyPoints: [
+      'Historical Accuracy: 35% weight',
+      'Clinician Feedback: 30% weight',
+      'Temporal Relevance: 20% weight',
+      'Data Quality: 15% weight',
+      'Confidence interval adjustments',
+    ],
+    talkingPoints: [
+      'The Trust Score Algorithm quantifies system reliability for each prediction.',
+      'It combines four weighted factors: historical accuracy at 35%, clinician feedback at 30%, temporal relevance at 20%, and data quality at 15%.',
+      'This creates a composite score that tells nurses how much to trust each specific alert.',
+      'Low data quality automatically widens confidence intervals.',
+      'The system improves over time as it learns from clinician feedback.',
+      'Transparency about uncertainty is essential for clinical adoption.',
+    ],
+    transitionCue: '→ "Let me show the performance validation data..."',
+  },
+  {
+    id: 'patent-performance',
+    title: 'Performance Comparison',
+    subtitle: 'Patent Pending · 87% Alert Reduction Validated',
+    duration: 3,
+    icon: <TrendingUp className="w-8 h-8" />,
+    notes: [
+      '12 hospital validation sites',
+      '87% alert reduction',
+      '75% FPR reduction',
+      '175% satisfaction improvement',
+    ],
+    keyPoints: [
+      'Baseline EHR vs ChartMinder comparison',
+      '87% reduction in non-actionable alerts',
+      '75% reduction in false positive rate',
+      '175% improvement in clinician satisfaction',
+      'Validated across 12 hospital sites',
+    ],
+    talkingPoints: [
+      'This performance comparison shows ChartMinder validated against baseline EHR systems.',
+      'Alert fatigue reduction: 87% fewer non-actionable alerts.',
+      'False positive rate dropped by 75%.',
+      'Most importantly, clinician satisfaction improved by 175%.',
+      'These results were validated across 12 hospital sites with 3,247 providers.',
+      'The cognitive load reduction was independently verified at 2.3 minutes saved per decision.',
     ],
     transitionCue: '→ "Now let me show the research validation visualizations..."',
   },
