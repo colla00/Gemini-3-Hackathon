@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
-  Shield, Database, Users, Zap, ChevronDown, ChevronUp, Mail, Linkedin,
+  Shield, Database, Users, ChevronDown, ChevronUp, Mail, Linkedin,
   GraduationCap, Scale, Cpu, Hash, Calendar, CheckCircle2
 } from 'lucide-react';
+import { CAPABILITIES, PATENT_FAMILIES, getPatentFamily } from '@/constants/capabilities';
+import { cn } from '@/lib/utils';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuditLog } from '@/hooks/useAuditLog';
@@ -252,7 +254,7 @@ function About() {
           </CardContent>
         </Card>
 
-        {/* Core Capabilities */}
+        {/* Core Capabilities - Using Centralized Config */}
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
@@ -262,124 +264,51 @@ function About() {
             <p className="text-sm text-muted-foreground">
               Key features designed to support clinical decision-making
             </p>
+            {/* Patent Family Legend */}
+            <div className="flex flex-wrap gap-3 mt-3">
+              {Object.values(PATENT_FAMILIES).map((family) => (
+                <div key={family.id} className="flex items-center gap-1.5 text-xs">
+                  <span className={cn("w-2 h-2 rounded-full", family.dotClass)} />
+                  <span className="text-muted-foreground">{family.shortName}</span>
+                </div>
+              ))}
+            </div>
           </CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <TrendingUp className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Risk Prediction</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Machine learning models that analyze patient data to identify early warning signs 
-                    of potential complications.
-                  </p>
+            {CAPABILITIES.map((capability) => {
+              const family = getPatentFamily(capability.patentFamilyId);
+              const IconComponent = capability.icon;
+              
+              return (
+                <div 
+                  key={capability.id}
+                  className={cn(
+                    "p-4 rounded-lg border bg-secondary/30",
+                    family?.borderClass || "border-border"
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <IconComponent className={cn("w-5 h-5 mt-1", family?.colorClass || "text-primary")} aria-hidden="true" />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold">{capability.title}</h3>
+                        <span className={cn(
+                          "text-[9px] px-1.5 py-0.5 rounded border",
+                          family?.bgClass,
+                          family?.borderClass,
+                          family?.colorClass
+                        )}>
+                          {family?.shortName}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {capability.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Brain className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Explainable AI</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Clear explanations of why the system flags certain patients, helping clinicians 
-                    understand and trust the recommendations.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Temporal Forecasting</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Projections of how patient risk may evolve over time, enabling proactive 
-                    rather than reactive care.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Target className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Adaptive Alerts</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Personalized alert thresholds that reduce alarm fatigue while maintaining 
-                    sensitivity to true clinical changes.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <RefreshCw className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Intervention Tracking</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Monitors the effectiveness of clinical interventions by tracking patient 
-                    response over time.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Scale className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Equity Monitoring</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Ensures fair treatment across demographic groups by monitoring for 
-                    disparities in risk scores and interventions.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Trust-Based Prioritization</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Prioritizes alerts based on provider trust scores and historical response patterns 
-                    to reduce alert fatigue.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30">
-              <div className="flex items-start gap-3">
-                <Zap className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Workload Optimization</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Unified workload prediction integrating risk intelligence, documentation burden, 
-                    and staffing recommendations.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg border border-border bg-secondary/30 md:col-span-2">
-              <div className="flex items-start gap-3">
-                <FileText className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
-                <div>
-                  <h3 className="font-semibold mb-2">Documentation Burden Scoring (DBS)</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Predicts documentation workload using machine learning to optimize nurse staffing 
-                    and reduce administrative burden through quartile-based recommendations.
-                  </p>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </CardContent>
         </Card>
 
