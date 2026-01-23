@@ -91,14 +91,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Welcome and introduce yourself',
       'Thank the organizers',
       'State this is a research prototype',
-      'Mention patent pending status',
+      'Mention 4 patent applications filed',
     ],
     talkingPoints: [
       'Good morning, everyone. Thank you for being here today.',
-      'My name is Alexis Collier, and I am excited to share my research with you.',
+      'My name is Dr. Alexis Collier, and I am excited to share my research with you.',
       'I have built a prototype dashboard that uses AI to help nurses predict and prevent adverse patient outcomes — specifically falls, pressure injuries, and catheter-associated infections.',
       'This represents about a year of development work.',
-      'Before I begin, I want to note that this is a research prototype with a provisional patent pending. I am happy to discuss the methodology, though some technical details remain proprietary.',
+      'Before I begin, I want to note that this is a research prototype with four U.S. provisional patent applications filed. I am happy to discuss the methodology, though some technical details remain proprietary.',
       'I am a solo researcher on this project, so any limitations are my own.',
     ],
     transitionCue: '→ "Let me walk you through what we will cover today..."',
@@ -607,7 +607,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-trust-alerts',
     title: 'Trust-Based Alert System',
-    subtitle: 'Patent Pending · Dynamic Precision Thresholds',
+    subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',
     duration: 4,
     icon: <Shield className="w-8 h-8" />,
     notes: [
@@ -638,7 +638,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-equity',
     title: 'Real-Time Equity Monitoring Engine',
-    subtitle: 'Patent Pending · <0.5% Demographic Disparity',
+    subtitle: 'U.S. Patent Filed · <0.5% Demographic Disparity',
     duration: 3,
     icon: <Scale className="w-8 h-8" />,
     notes: [
@@ -669,7 +669,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-dbs-breakdown',
     title: 'DBS Calculation Breakdown',
-    subtitle: 'Patent Pending · Weighted Feature Analysis',
+    subtitle: 'U.S. Patent Filed · Weighted Feature Analysis',
     duration: 3,
     icon: <Calculator className="w-8 h-8" />,
     notes: [
@@ -700,7 +700,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-neural-reasoning',
     title: 'Neural Reasoning Engine',
-    subtitle: 'Patent Pending · Chain-of-Thought Clinical AI',
+    subtitle: 'U.S. Patent Filed · Chain-of-Thought Clinical AI',
     duration: 3,
     icon: <Brain className="w-8 h-8" />,
     notes: [
@@ -729,7 +729,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-cognitive-load',
     title: 'Cognitive Load Optimizer',
-    subtitle: 'Patent Pending · Workload-Adaptive Thresholds',
+    subtitle: 'U.S. Patent Filed · Workload-Adaptive Thresholds',
     duration: 3,
     icon: <Cpu className="w-8 h-8" />,
     notes: [
@@ -758,7 +758,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-trust-score',
     title: 'Trust Score Algorithm',
-    subtitle: 'Patent Pending · Composite Reliability Scoring',
+    subtitle: 'U.S. Patent Filed · Composite Reliability Scoring',
     duration: 3,
     icon: <Target className="w-8 h-8" />,
     notes: [
@@ -787,7 +787,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-performance',
     title: 'Performance Comparison',
-    subtitle: 'Patent Pending · 87% Alert Reduction Validated',
+    subtitle: 'U.S. Patent Filed · 87% Alert Reduction Validated',
     duration: 3,
     icon: <TrendingUp className="w-8 h-8" />,
     notes: [
@@ -922,18 +922,18 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'AI-augmented nursing quality monitoring',
       'Real-time, explainable risk prediction',
       'Human-in-the-loop design philosophy',
-      'Contact: alexis.collier@ung.edu',
+      'Contact: info@alexiscollier.com',
     ],
     talkingPoints: [
       'To summarize: I built a prototype AI system that predicts nursing-sensitive outcomes in real-time.',
       'The system is explainable — nurses can see exactly why a patient is flagged as high-risk using SHAP visualizations.',
       'It is designed to integrate into clinical workflow rather than disrupting it.',
       'The core philosophy is human-in-the-loop: augmenting nursing judgment, not replacing it.',
-      'I want to be clear about where this stands: it is a research prototype with a provisional patent. Clinical validation remains ahead.',
+      'I want to be clear about where this stands: it is a research prototype with four U.S. provisional patent applications filed. Clinical validation remains ahead.',
       'I believe the approach is sound, and I am motivated by the potential to prevent patient harm.',
       'Thank you for your time and attention today. I genuinely appreciate your presence here.',
       'I welcome your questions, concerns, and potential collaboration discussions.',
-      'My email is on the screen: alexis.collier@ung.edu. Please do not hesitate to reach out.',
+      'My email is on the screen: info@alexiscollier.com. Please do not hesitate to reach out.',
       '',
       '(See Q&A Prep tab for anticipated questions and suggested responses)',
     ],

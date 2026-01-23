@@ -21,7 +21,7 @@ const talkingPoints: TalkingPoint[] = [
     keyPoints: [
       'Welcome, introduce yourself',
       'Thank organizers',
-      'Research prototype, patent pending',
+      'Research prototype, 4 patents filed',
       'Solo researcher, limitations are mine',
     ],
   },
@@ -440,7 +440,7 @@ export const PresenterCheatSheet = () => {
         <div className="flex items-start gap-2">
           <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
           <div className="text-[10px] text-warning">
-            <strong>Remember:</strong> This is SYNTHETIC DATA. State "research prototype" and "patent pending" at the beginning. Be transparent about validation status.
+            <strong>Remember:</strong> This is SYNTHETIC DATA. State "research prototype" and "4 patents filed" at the beginning. Be transparent about validation status.
           </div>
         </div>
       </div>

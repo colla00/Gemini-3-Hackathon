@@ -169,7 +169,7 @@ const DemoModeWatermark = () => (
     <div className="absolute bottom-0 left-0 right-0 bg-amber-500/90 text-amber-950 text-center py-2 px-4 font-semibold text-sm pointer-events-auto">
       <span className="flex items-center justify-center gap-2">
         <FlaskConical className="w-4 h-4" />
-        Public Demo — Synthetic Data Only — Not FDA Cleared — Patent Pending
+        Public Demo — Synthetic Data Only — Not FDA Cleared — 4 Patents Filed
         <FlaskConical className="w-4 h-4" />
       </span>
     </div>
@@ -716,7 +716,7 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-accent/10 border border-accent/20">
               <Award className="w-2.5 h-2.5 text-accent" />
-              <span className="font-medium text-accent">Patent Pending</span>
+              <span className="font-medium text-accent">4 Patents Filed</span>
             </div>
             <span className="text-border/50 hidden sm:inline">|</span>
             <span className="hidden sm:inline">Research Prototype</span>
