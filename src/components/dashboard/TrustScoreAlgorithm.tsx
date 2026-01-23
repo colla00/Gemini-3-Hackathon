@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface TrustComponent {
   id: string;
@@ -97,9 +98,7 @@ export const TrustScoreAlgorithm = () => {
               </div>
               <div>
                 <CardTitle className="text-base">Trust Score Algorithm</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Patent Pending · Composite reliability scoring
-                </p>
+                <PatentBadge contextPatent="trust" className="mt-1" />
               </div>
             </div>
             <Badge variant="outline" className="text-[10px] bg-primary/10 border-primary/30 text-primary">

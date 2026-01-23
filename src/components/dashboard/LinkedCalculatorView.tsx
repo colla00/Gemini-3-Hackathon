@@ -1,5 +1,5 @@
 // Linked DBS + ROI Calculator View
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Applications 63/966,099 & 63/966,117
 
 import { useState, useMemo, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +16,7 @@ import { calculateDBS, getDBSQuartile, calculateROI, formatCurrency, formatCompa
 import { DBS_CALCULATION_FACTORS, RESEARCH_DATA } from '@/data/researchData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface LinkedCalculatorViewProps {
   className?: string;
@@ -207,9 +208,10 @@ export function LinkedCalculatorView({ className }: LinkedCalculatorViewProps) {
             <Link2 className="h-6 w-6 text-primary" />
             Linked Calculator View
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-2">
             Compare patient complexity with hospital ROI in unified scenarios
           </p>
+          <PatentBadge contextPatent="unified" />
         </div>
         <div className="flex items-center gap-2">
           <Button

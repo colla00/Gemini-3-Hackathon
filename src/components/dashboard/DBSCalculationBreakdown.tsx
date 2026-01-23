@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { RESEARCH_DATA, DBS_CALCULATION_FACTORS } from '@/data/researchData';
 import { calculateDBS, getDBSQuartile } from '@/utils/dbsCalculations';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface FeatureValue {
   name: string;

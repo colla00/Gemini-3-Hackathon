@@ -1,5 +1,5 @@
 // ROI Calculator Component
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Application 63/966,099
 
 import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,6 +13,7 @@ import { HOSPITAL_PRESETS, PRESET_COLORS } from '@/data/hospitalPresets';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useInvestorMetrics } from '@/hooks/useInvestorMetrics';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface ROICalculatorProps {
   className?: string;
@@ -132,11 +133,14 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-primary" />
-            ROI Calculator
-          </CardTitle>
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-primary" />
+              ROI Calculator
+            </CardTitle>
+            <PatentBadge contextPatent="dbs" className="mt-1" />
+          </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-xs">
               Research Validated

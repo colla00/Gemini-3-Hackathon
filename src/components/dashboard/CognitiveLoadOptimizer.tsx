@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface QueuedAlert {
   id: string;
@@ -101,9 +102,7 @@ export const CognitiveLoadOptimizer = () => {
               </div>
               <div>
                 <CardTitle className="text-base">Cognitive Load Optimizer</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Patent Pending · Workload-aware alert delivery
-                </p>
+                <PatentBadge contextPatent="trust" className="mt-1" />
               </div>
             </div>
             <div className="flex items-center gap-2">
