@@ -1,5 +1,5 @@
 // DBS (Documentation Burden Score) and ROI Calculation Utilities
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 export interface DBSFactors {
   apache: number;

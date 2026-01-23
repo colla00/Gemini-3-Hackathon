@@ -1,6 +1,6 @@
 // Intervention Trend Charts - Before/After Risk Trajectory Comparison
 // Demonstrates temporal awareness with intervention impact visualization
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 import { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -515,7 +515,7 @@ export function InterventionTrendChart({ className, compact = false }: Intervent
               Counterfactual trajectory modeling with intervention timing optimization enables 
               evidence-based intervention decisions and outcome prediction.
             </span>
-            <p className="text-accent mt-1">Patent Pending</p>
+            <p className="text-accent mt-1">U.S. Patent Filed</p>
           </div>
         </div>
       </div>

@@ -75,7 +75,7 @@ function About() {
               </div>
               <div>
                 <h1 className="text-sm font-bold text-foreground">About This Research</h1>
-                <span className="text-[10px] text-muted-foreground">Patent Pending</span>
+                <span className="text-[10px] text-muted-foreground">4 U.S. Patents Filed</span>
               </div>
             </div>
           </div>

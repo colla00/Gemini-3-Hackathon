@@ -111,7 +111,7 @@ const NotFound = () => {
           <p className="text-xs text-muted-foreground">
             Think this is a bug?{' '}
             <a 
-              href={`mailto:alexis.collier@ung.edu?subject=Broken Link Report&body=I found a broken link:%0A%0APath: ${location.pathname}%0AReferrer: ${document.referrer || 'Direct'}`}
+              href={`mailto:info@alexiscollier.com?subject=Broken Link Report&body=I found a broken link:%0A%0APath: ${location.pathname}%0AReferrer: ${document.referrer || 'Direct'}`}
               className="text-primary hover:underline"
             >
               Report this issue
@@ -123,7 +123,7 @@ const NotFound = () => {
       {/* Footer */}
       <footer className="py-4 px-6 border-t border-border/30 bg-secondary/30 text-center">
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Dr. Alexis Collier • Clinical Risk Intelligence Dashboard • Patent Pending
+          © {new Date().getFullYear()} Dr. Alexis Collier • Clinical Risk Intelligence Dashboard • 4 U.S. Patents Filed
         </p>
       </footer>
     </div>

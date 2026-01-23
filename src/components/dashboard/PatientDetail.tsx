@@ -98,11 +98,11 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                 <TooltipTrigger asChild>
                   <div className="flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30">
                     <Award className="w-3 h-3 text-accent" />
-                    <span className="text-[10px] text-accent font-medium">Patent Pending</span>
+                    <span className="text-[10px] text-accent font-medium">U.S. Patent Filed</span>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-xs">Patent Pending</p>
+                  <p className="text-xs">4 U.S. Patents Filed</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -254,10 +254,10 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             <span className="text-sm font-semibold text-accent">Protected Innovation</span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Features on this page are patent pending
+            Features on this page are protected by U.S. patents
           </p>
           <p className="text-[10px] text-muted-foreground mt-1">
-            © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – Patent Pending
+            © Dr. Alexis Collier | Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed
           </p>
         </div>
       </div>

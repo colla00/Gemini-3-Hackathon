@@ -84,8 +84,8 @@ const DEMO_SECTIONS: DemoSection[] = [
     duration: 15, 
     icon: <GraduationCap className="w-8 h-8" />,
     component: 'outro',
-    patentClaims: 'Patent Pending',
-    patentDescription: 'U.S. Provisional Application, December 2025'
+    patentClaims: '4 U.S. Patents Filed',
+    patentDescription: 'U.S. Provisional Applications, December 2025 – January 2026'
   },
 ];
 
@@ -303,8 +303,8 @@ export const RecordingDemo = () => {
               <span>December 10, 2025 • 10:30 AM PST</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              <p>alexis.collier@ung.edu</p>
-              <p className="mt-2 text-primary font-medium">Patent Pending • Research Prototype</p>
+              <p>info@alexiscollier.com</p>
+              <p className="mt-2 text-primary font-medium">4 U.S. Patents Filed • Research Prototype</p>
             </div>
           </div>
         </div>

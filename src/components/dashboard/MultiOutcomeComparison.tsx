@@ -241,7 +241,7 @@ export const MultiOutcomeComparison = ({ patient, className }: MultiOutcomeCompa
         )}
 
         <p className="text-[9px] text-muted-foreground mt-4 text-center italic">
-          Simultaneous outcome monitoring · Patent Pending
+          Simultaneous outcome monitoring · U.S. Patent Filed
         </p>
       </div>
     </TooltipProvider>

@@ -1,5 +1,5 @@
 // Hospital preset configurations for ROI calculations
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 export interface HospitalPreset {
   id: string;

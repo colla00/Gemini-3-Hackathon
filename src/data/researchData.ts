@@ -1,6 +1,6 @@
 // Research data and constants for DRALEXIS Clinical Intelligence Platform
 // All data from actual research: 10,000 patients, 201 hospitals validation
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 export interface ValidationData {
   internalPatients: number;
@@ -175,7 +175,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: '2025 Dec',
     title: 'Patent Filing #2',
-    description: 'Trust-Based Alert System (Patent Pending)',
+    description: 'Trust-Based Alert System (U.S. Patent Filed)',
     icon: '⚖️',
   },
   {

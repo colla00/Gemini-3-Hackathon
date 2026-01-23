@@ -1,5 +1,5 @@
 // Research Validation Slide for Presentations
-// Copyright © Dr. Alexis Collier - Patent Pending
+// Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 import { 
   Award, Building2, Users, TrendingUp, Shield, 
@@ -139,7 +139,7 @@ export const ResearchValidationSlide = () => {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium">Trust-Based Alert System</span>
-                  <Badge variant="secondary" className="text-[10px]">Patent Pending</Badge>
+                  <Badge variant="secondary" className="text-[10px]">U.S. Patent Filed</Badge>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="p-2 rounded-lg bg-risk-low/10 text-center">
@@ -280,7 +280,7 @@ export const ResearchValidationSlide = () => {
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          AIM-AHEAD CLINAQ Fellowship • Dr. Alexis Collier • Clinical Risk Intelligence Dashboard – Patent Pending
+          AIM-AHEAD CLINAQ Fellowship • Dr. Alexis Collier • Clinical Risk Intelligence Dashboard – 4 U.S. Patents Filed
         </p>
       </div>
     </div>

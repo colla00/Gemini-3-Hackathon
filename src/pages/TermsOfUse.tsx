@@ -210,8 +210,8 @@ export const TermsOfUse = () => {
                   copyright law and international treaties.
                 </p>
                 <p>
-                  <strong>Patent Pending:</strong> This technology is the subject of a pending patent application. 
-                  Patent pending status provides notice of potential patent rights.
+                  <strong>Patents Filed:</strong> This technology is protected by 4 U.S. provisional patent applications. 
+                  Patent filing status provides notice of patent rights.
                 </p>
                 <p>
                   <strong>Restrictions:</strong> You may not, without prior written consent:

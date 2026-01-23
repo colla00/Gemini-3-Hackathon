@@ -97,7 +97,7 @@ export const VideoDemoSlide = () => {
       {/* Presenter Info */}
       <div className="mt-4 text-center">
         <p className="text-xs text-muted-foreground">
-          Presented by Alexis Collier • alexis.collier@ung.edu • Research Prototype • Patent Pending
+          Presented by Dr. Alexis Collier • info@alexiscollier.com • Research Prototype • 4 U.S. Patents Filed
         </p>
       </div>
     </div>
