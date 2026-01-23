@@ -418,25 +418,74 @@ function About() {
           </CardContent>
         </Card>
 
-        {/* Target Outcomes */}
+        {/* Target Outcomes - All Patents */}
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Users className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Nurse-Sensitive Outcomes</CardTitle>
+              <CardTitle>Target Outcomes & Applications</CardTitle>
             </div>
             <p className="text-sm text-muted-foreground">
-              Focused on outcomes where nursing interventions can make a measurable difference
+              Integrated capabilities across all 4 patent filings
             </p>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">Falls Prevention</Badge>
-              <Badge variant="secondary">Pressure Injury Prevention</Badge>
-              <Badge variant="secondary">CAUTI Prevention</Badge>
-              <Badge variant="secondary">CLABSI Prevention</Badge>
-              <Badge variant="secondary">Sepsis Early Detection</Badge>
-              <Badge variant="secondary">Respiratory Deterioration</Badge>
+          <CardContent className="space-y-4">
+            {/* Clinical Risk Intelligence - Patent #2 */}
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-risk-high" />
+                Clinical Risk Outcomes
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Falls Prevention</Badge>
+                <Badge variant="secondary">Pressure Injury Prevention</Badge>
+                <Badge variant="secondary">CAUTI Prevention</Badge>
+                <Badge variant="secondary">CLABSI Prevention</Badge>
+                <Badge variant="secondary">Sepsis Early Detection</Badge>
+                <Badge variant="secondary">Respiratory Deterioration</Badge>
+              </div>
+            </div>
+            
+            {/* Trust-Based Alert System - Patent #1 */}
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                Alert Optimization
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Trust Score Calibration</Badge>
+                <Badge variant="secondary">Alert Fatigue Reduction</Badge>
+                <Badge variant="secondary">Provider Response Patterns</Badge>
+                <Badge variant="secondary">Cognitive Load Management</Badge>
+              </div>
+            </div>
+            
+            {/* Unified Nursing Intelligence - Patent #3 */}
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-accent" />
+                Unified Intelligence
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Multi-Outcome Prediction</Badge>
+                <Badge variant="secondary">Workload Optimization</Badge>
+                <Badge variant="secondary">Staffing Recommendations</Badge>
+                <Badge variant="secondary">Equity Monitoring</Badge>
+              </div>
+            </div>
+            
+            {/* DBS System - Patent #4 */}
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-warning" />
+                Documentation Burden
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">DBS Prediction</Badge>
+                <Badge variant="secondary">Quartile Classification</Badge>
+                <Badge variant="secondary">Administrative Burden Reduction</Badge>
+                <Badge variant="secondary">Real-Time Workload Scoring</Badge>
+              </div>
             </div>
           </CardContent>
         </Card>
