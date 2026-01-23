@@ -179,15 +179,18 @@ export const Landing = () => {
             </div>
 
             {/* Tagline */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              AI-Assisted
-              <span className="text-primary"> Nursing Quality</span>
-              <br />Monitoring
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
+              Clinical Risk
+              <span className="text-primary"> Intelligence System</span>
             </h2>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6">
-              A research prototype demonstrating predictive analytics for Falls, Pressure Injuries, 
-              CAUTI, and Device Complications with explainable AI attribution.
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-3">
+              With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+            </p>
+            
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-6">
+              A patent-protected AI-powered system designed to help nurses identify and respond to patient deterioration 
+              through predictive analytics and real-time monitoring. 4 U.S. patent applications filed under 35 U.S.C. § 111(b).
             </p>
 
             {/* Patent Metrics Badge */}
