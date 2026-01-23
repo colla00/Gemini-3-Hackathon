@@ -4,10 +4,11 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, Sparkles, Briefcase
+  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
+import { PatentFeaturesView } from '@/components/quality/PatentFeaturesView';
 import { PatientListView } from '@/components/quality/PatientListView';
 import { ShapExplainability } from '@/components/quality/ShapExplainability';
 import { ClinicalWorkflowView } from '@/components/quality/ClinicalWorkflowView';
@@ -33,7 +34,7 @@ import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
 import { toast } from 'sonner';
 
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi';
+type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi' | 'patent';
 
 // Primary tabs always visible
 const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator?: boolean }[] = [
@@ -52,6 +53,7 @@ const calculatorNavItems: { id: ViewType; label: string; icon: React.ReactNode; 
 
 // Secondary tabs - now displayed inline
 const secondaryNavItems: { id: ViewType; label: string; icon: React.ReactNode }[] = [
+  { id: 'patent', label: 'Patent Features', icon: <FlaskConical className="w-4 h-4" aria-hidden="true" /> },
   { id: 'validation', label: 'Model Validation', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
   { id: 'integration', label: 'EHR Integration', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
 ];
@@ -129,6 +131,8 @@ export const Dashboard = () => {
         return <DBSCalculator />;
       case 'roi':
         return <ROICalculator />;
+      case 'patent':
+        return <PatentFeaturesView />;
       default:
         return <DashboardOverview liveSimulation={liveSimulation} />;
     }
