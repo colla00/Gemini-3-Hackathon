@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
 import { RESEARCH_DATA } from '@/data/researchData';
+import { PatentBadge } from '@/components/quality/PatentNotice';
 
 interface DemographicGroup {
   name: string;
@@ -78,9 +79,7 @@ export const EquityMonitoringEngine = () => {
               </div>
               <div>
                 <CardTitle className="text-base">Real-Time Equity Monitoring</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Patent Pending · Demographic disparity &lt;0.5% threshold
-                </p>
+                <PatentBadge contextPatent="trust" className="mt-1" />
               </div>
             </div>
             <Badge 
