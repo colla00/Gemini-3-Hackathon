@@ -24,6 +24,7 @@ export type SlideType =
   | 'workflow' 
   | 'validation'
   | 'research-validation'
+  | 'patent-portfolio'
   | 'patent-trust-alerts'
   | 'patent-equity'
   | 'patent-dbs-breakdown'
@@ -568,7 +569,40 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Critically, equity monitoring shows less than 0.5% disparity across demographic groups — the system performs equally for all patients.',
       'These results form the foundation for the ANIA 2026 presentation and the pending patent applications.',
     ],
-    transitionCue: '→ "Now let me dive into the patent innovations that make this system unique..."',
+    transitionCue: '→ "Now let me show the complete patent portfolio..."',
+  },
+  {
+    id: 'patent-portfolio',
+    title: 'Patent Portfolio Overview',
+    subtitle: 'Three Complementary Patents · 24+ Total Claims',
+    duration: 4,
+    icon: <Award className="w-8 h-8" />,
+    notes: [
+      'Three patents create defensible moat',
+      'Unified Platform: infrastructure',
+      'Collier DBS™: scoring methodology',
+      'ChartMinder AI: decision support',
+      '3x barrier to entry for competitors',
+    ],
+    keyPoints: [
+      'Unified Risk Platform: Multi-outcome monitoring infrastructure',
+      'Collier DBS™: Dynamic Baseline Scoring methodology',
+      'ChartMinder AI: Intelligent clinical decision support',
+      '24+ total patent claims filed',
+      '$4.2B addressable market',
+      '3x competitive barrier to entry',
+    ],
+    talkingPoints: [
+      'Before diving into individual innovations, let me present the complete patent portfolio.',
+      'We have filed three complementary patents that together create a defensible moat.',
+      'First: The Unified Risk Platform provides the foundational infrastructure for multi-outcome monitoring.',
+      'Second: The Collier DBS™ is a novel Dynamic Baseline Scoring methodology that adapts to individual patient trajectories.',
+      'Third: ChartMinder AI adds intelligent decision support with explainable reasoning.',
+      'Combined, these 24+ claims address the $4.2 billion clinical decision support market.',
+      'The key insight: competitors would need to replicate all three innovations to match our capabilities.',
+      'This creates a 3x barrier to entry and sustainable competitive advantage.',
+    ],
+    transitionCue: '→ "Let me dive into the Trust-Based Alert System..."',
   },
   {
     id: 'patent-trust-alerts',

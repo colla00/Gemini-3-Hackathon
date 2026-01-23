@@ -135,6 +135,57 @@ const talkingPoints: TalkingPoint[] = [
     ],
   },
   {
+    slide: 'Patent Portfolio',
+    duration: '4m',
+    keyPoints: [
+      'THREE complementary patents = defensible moat',
+      'Unified Platform: multi-outcome infrastructure',
+      'Collier DBS™: dynamic scoring methodology',
+      'ChartMinder AI: intelligent decision support',
+      'Combined = 3x barrier to entry for competitors',
+    ],
+    patentRef: '24+ Total Claims',
+  },
+  {
+    slide: 'Neural Reasoning',
+    duration: '3m',
+    keyPoints: [
+      'ChartMinder DIFFERENTIATOR #1',
+      'Chain-of-thought clinical reasoning',
+      'Literature-backed recommendations',
+      'Counterfactual "what-if" analysis',
+      'Attention weights show decision factors',
+    ],
+    demoAction: 'Show reasoning chain expanding',
+    patentRef: 'ChartMinder Claims 1-3',
+  },
+  {
+    slide: 'Cognitive Load',
+    duration: '3m',
+    keyPoints: [
+      'ChartMinder DIFFERENTIATOR #2',
+      'Workload-aware alert prioritization',
+      'Reduces alert fatigue by 87%',
+      'Adapts to nurse capacity in real-time',
+      'Smart batching during high-stress periods',
+    ],
+    demoAction: 'Show load gauge and batching',
+    patentRef: 'ChartMinder Claims 4-6',
+  },
+  {
+    slide: 'Trust Score',
+    duration: '3m',
+    keyPoints: [
+      'ChartMinder DIFFERENTIATOR #3',
+      'ML-based alert credibility scoring',
+      'Learns from nurse feedback',
+      'Suppresses low-trust alerts automatically',
+      'Builds clinician confidence over time',
+    ],
+    demoAction: 'Show trust algorithm visualization',
+    patentRef: 'ChartMinder Claims 7-9',
+  },
+  {
     slide: 'Future',
     duration: '3m',
     keyPoints: [
@@ -156,6 +207,55 @@ const talkingPoints: TalkingPoint[] = [
   },
 ];
 
+// ChartMinder Q&A Prep
+interface QAPrepItem {
+  question: string;
+  answer: string;
+  category: 'neural' | 'cognitive' | 'trust' | 'general';
+}
+
+const chartMinderQA: QAPrepItem[] = [
+  {
+    category: 'neural',
+    question: 'How is your Neural Reasoning different from ChatGPT?',
+    answer: 'Our reasoning engine is domain-specific, trained on clinical literature, and provides step-by-step explanations tied to specific patient data points. Unlike general LLMs, every recommendation cites the underlying evidence and shows the logical chain.',
+  },
+  {
+    category: 'neural',
+    question: 'What happens when the AI is wrong?',
+    answer: 'The system is advisory only—nurses make all final decisions. Wrong predictions feed back into the model via closed-loop learning, improving accuracy over time. Transparency in reasoning helps nurses identify when to override.',
+  },
+  {
+    category: 'cognitive',
+    question: 'How do you measure cognitive load?',
+    answer: 'We combine objective metrics (patient census, acuity scores, pending tasks) with interaction patterns (response times, dismissal rates). The algorithm adapts in real-time to nurse workload states.',
+  },
+  {
+    category: 'cognitive',
+    question: "Won't suppressing alerts miss critical events?",
+    answer: 'Critical alerts are NEVER suppressed. Cognitive load optimization only affects medium/low priority alerts through smart batching and timing. High-risk patients always get immediate attention.',
+  },
+  {
+    category: 'trust',
+    question: 'How does the Trust Score work?',
+    answer: 'Each alert gets a credibility score based on historical accuracy, nurse feedback, and contextual factors. Low-trust alerts (frequent false positives) are automatically deprioritized, reducing alert fatigue while maintaining safety.',
+  },
+  {
+    category: 'trust',
+    question: 'What if nurses game the feedback system?',
+    answer: 'The algorithm cross-validates feedback against outcomes. If a nurse consistently dismisses alerts that later result in adverse events, their feedback weight is adjusted. The system learns from patterns, not individual responses.',
+  },
+  {
+    category: 'general',
+    question: 'How does ChartMinder integrate with existing EHRs?',
+    answer: 'We use HL7 FHIR APIs for real-time data feeds. The system sits alongside Epic, Cerner, or Meditech without requiring workflow changes. Alerts appear in existing notification channels.',
+  },
+  {
+    category: 'general',
+    question: 'What about data privacy and HIPAA?',
+    answer: 'All patient data stays within the hospital infrastructure. We process data on-premises or in HIPAA-compliant cloud environments. No PHI ever leaves the secure perimeter.',
+  },
+];
 const keyboardShortcuts = [
   { key: '←/→', action: 'Previous/Next slide' },
   { key: '1-4', action: 'Jump to dashboard tabs' },
@@ -267,6 +367,29 @@ export const PresenterCheatSheet = () => {
               <span className="text-xs font-semibold text-primary">Demo Action</span>
             </div>
             <p className="text-sm text-foreground">{currentPoint.demoAction}</p>
+          </div>
+        )}
+
+        {/* ChartMinder Q&A Prep - show for relevant slides */}
+        {['Neural Reasoning', 'Cognitive Load', 'Trust Score', 'Patent Portfolio'].includes(currentPoint.slide) && (
+          <div className="space-y-2">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+              <Lightbulb className="w-3 h-3" />
+              Investor Q&A Prep
+            </span>
+            {chartMinderQA
+              .filter(qa => {
+                if (currentPoint.slide === 'Neural Reasoning') return qa.category === 'neural';
+                if (currentPoint.slide === 'Cognitive Load') return qa.category === 'cognitive';
+                if (currentPoint.slide === 'Trust Score') return qa.category === 'trust';
+                return qa.category === 'general';
+              })
+              .map((qa, index) => (
+                <div key={index} className="p-2 rounded bg-secondary/50 border border-border/50 space-y-1">
+                  <p className="text-xs font-medium text-foreground">Q: {qa.question}</p>
+                  <p className="text-[10px] text-muted-foreground">A: {qa.answer}</p>
+                </div>
+              ))}
           </div>
         )}
 
