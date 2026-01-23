@@ -10,7 +10,8 @@ export const PATENT_2_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED
 // Patent #3: Unified Nursing Intelligence Platform
 export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM';
 
-// Patent #4: DBS System (Target: Feb 2026)
+// Patent #4: DBS System (FILED Jan 22, 2026)
+export const PATENT_4_NUMBER = '63/966,099';
 export const PATENT_4_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
 // All patent applications
@@ -52,10 +53,11 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'dbs-system',
+    number: '63/966,099',
     title: PATENT_4_TITLE,
     shortName: 'DBS System',
-    status: 'preparation',
-    filingDate: 'February 15, 2026',
+    status: 'filed',
+    filingDate: 'January 22, 2026',
     inventor: 'Dr. Alexis Collier'
   }
 ];
