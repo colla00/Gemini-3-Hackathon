@@ -30,6 +30,7 @@ import { PatientJourneySlide } from '@/components/quality/PatientJourneySlide';
 import { ROICalculatorSlide } from '@/components/quality/ROICalculatorSlide';
 import { MLFeaturesSlide } from '@/components/quality/MLFeaturesSlide';
 import { VideoDemoSlide } from '@/components/quality/VideoDemoSlide';
+import { ResearchValidationSlide } from '@/components/quality/ResearchValidationSlide';
 import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEngine';
 import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
@@ -68,6 +69,7 @@ const slideToView: Record<string, string | null> = {
   'shap': 'shap',
   'workflow': 'workflow',
   'validation': null,
+  'research-validation': 'research-validation',
   'roi': 'roi',
   'future': null,
   'conclusion': null,
@@ -494,6 +496,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'alert-timeline' && <AlertTimelineSlide />}
                       {slideToView[currentSlide] === 'patient-journey' && <PatientJourneySlide />}
                       {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
+                      {slideToView[currentSlide] === 'research-validation' && <ResearchValidationSlide />}
                       {/* Patent Portfolio */}
                       {slideToView[currentSlide] === 'patent-portfolio' && <PatentPortfolioSlide />}
                       {/* Core Patent Components */}
