@@ -34,13 +34,19 @@ import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEng
 import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
 import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
+import { TrustBasedAlertSystem } from '@/components/dashboard/TrustBasedAlertSystem';
+import { EquityMonitoringEngine } from '@/components/dashboard/EquityMonitoringEngine';
+import { DBSCalculationBreakdown } from '@/components/dashboard/DBSCalculationBreakdown';
+import { PatentValidationCharts } from '@/components/dashboard/PatentValidationCharts';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
 import { PatentPortfolioSlide } from '@/components/presentation/PatentPortfolioSlide';
 import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { LivePolls } from '@/components/engagement/LivePolls';
+import { PatentAnalyticsPanel } from '@/components/presentation/PatentAnalyticsPanel';
 import { usePresenterSync } from '@/hooks/usePresenterSync';
 import { usePresentationSession } from '@/hooks/usePresentationSession';
+import { useSlideAnalytics } from '@/hooks/useSlideAnalytics';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
@@ -67,6 +73,11 @@ const slideToView: Record<string, string | null> = {
   'conclusion': null,
   // Patent portfolio slide
   'patent-portfolio': 'patent-portfolio',
+  // Core patent slides
+  'patent-trust-alerts': 'patent-trust-alerts',
+  'patent-equity': 'patent-equity',
+  'patent-dbs-breakdown': 'patent-dbs-breakdown',
+  'patent-validation-charts': 'patent-validation-charts',
   // ChartMinder patent slides
   'patent-neural-reasoning': 'patent-neural-reasoning',
   'patent-cognitive-load': 'patent-cognitive-load',
@@ -90,6 +101,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   
   const { broadcast, openAudienceWindow, closeAudienceWindow, isAudienceWindowOpen, forceSync } = usePresenterSync(true);
   const { session, createSession } = usePresentationSession();
+  const { trackSlideView, currentSlideTime } = useSlideAnalytics(session?.id || null);
 
   // Computed values
   const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
@@ -125,7 +137,12 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
   const goToSlide = useCallback((slideId: SlideType) => {
     setCurrentSlide(slideId);
     setSlideElapsed(0);
-  }, []);
+    // Track slide view for analytics
+    const slideConfig = PRESENTATION_SLIDES.find(s => s.id === slideId);
+    if (slideConfig) {
+      trackSlideView(slideId, slideConfig.title);
+    }
+  }, [trackSlideView]);
 
   const handleOpenAudienceWindow = useCallback(() => {
     openAudienceWindow();
@@ -479,6 +496,11 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
                       {/* Patent Portfolio */}
                       {slideToView[currentSlide] === 'patent-portfolio' && <PatentPortfolioSlide />}
+                      {/* Core Patent Components */}
+                      {slideToView[currentSlide] === 'patent-trust-alerts' && <TrustBasedAlertSystem />}
+                      {slideToView[currentSlide] === 'patent-equity' && <EquityMonitoringEngine />}
+                      {slideToView[currentSlide] === 'patent-dbs-breakdown' && <DBSCalculationBreakdown />}
+                      {slideToView[currentSlide] === 'patent-validation-charts' && <PatentValidationCharts />}
                       {/* ChartMinder Patent Components */}
                       {slideToView[currentSlide] === 'patent-neural-reasoning' && <NeuralReasoningEngine />}
                       {slideToView[currentSlide] === 'patent-cognitive-load' && <CognitiveLoadOptimizer />}
@@ -638,10 +660,16 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
             </CardContent>
           </Card>
 
+          {/* Patent Analytics */}
+          <PatentAnalyticsPanel 
+            sessionId={session?.id || null} 
+            currentSlideTime={currentSlideTime} 
+          />
+
           {/* Quick Instructions */}
-          <Card className="bg-amber-500/5 border-amber-500/30">
+          <Card className="bg-warning/5 border-warning/30">
             <CardContent className="pt-4">
-              <p className="text-xs font-semibold text-amber-600 mb-2">📋 Quick Guide</p>
+              <p className="text-xs font-semibold text-warning mb-2">📋 Quick Guide</p>
               <ul className="text-xs text-muted-foreground space-y-1">
                 <li>• Click "Open Audience View" to get shareable window</li>
                 <li>• Share THAT window on Zoom, not this one</li>
