@@ -293,7 +293,7 @@ export const ScreenProtection = ({
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          © 2025
+          © 2026
         </div>
       </div>
 

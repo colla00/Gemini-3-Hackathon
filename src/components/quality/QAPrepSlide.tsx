@@ -126,7 +126,7 @@ const anticipatedQuestions: QAItem[] = [
       'Seeking validation partners',
       'Pilot implementation opportunities',
       'Research collaboration possible',
-      'Contact: alexis.collier@ung.edu',
+      'Contact: info@alexiscollier.com',
     ],
     difficulty: 'easy',
   },
@@ -249,7 +249,7 @@ export const QAPrepSlide = () => {
           <div>• This is a research prototype</div>
           <div>• Metrics are targets, not results</div>
           <div>• Validation studies planned</div>
-          <div>• Contact: alexis.collier@ung.edu</div>
+          <div>• Contact: info@alexiscollier.com</div>
         </div>
       </div>
     </div>
