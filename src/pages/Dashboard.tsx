@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, MoreHorizontal, Sparkles, Briefcase
+  Monitor, FileText, DollarSign, Sparkles, Briefcase
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DashboardOverview } from '@/components/quality/DashboardOverview';
@@ -31,12 +31,6 @@ import { SessionTimeoutWarning } from '@/components/SessionTimeoutWarning';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 
 type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi';
@@ -56,7 +50,7 @@ const calculatorNavItems: { id: ViewType; label: string; icon: React.ReactNode; 
   { id: 'roi', label: 'ROI Calculator', icon: <DollarSign className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
 ];
 
-// Secondary tabs in dropdown
+// Secondary tabs - now displayed inline
 const secondaryNavItems: { id: ViewType; label: string; icon: React.ReactNode }[] = [
   { id: 'validation', label: 'Model Validation', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
   { id: 'integration', label: 'EHR Integration', icon: <Database className="w-4 h-4" aria-hidden="true" /> },
@@ -366,40 +360,25 @@ export const Dashboard = () => {
             {/* Separator */}
             <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
 
-            {/* More Dropdown for Secondary Tabs */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className={cn(
-                    "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
-                    secondaryNavItems.some(item => item.id === activeView)
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  )}
-                  aria-label="More views"
-                  aria-haspopup="menu"
-                >
-                  <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
-                  <span>More</span>
-                  <ChevronDown className="w-3 h-3" aria-hidden="true" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="z-50 bg-popover border border-border shadow-lg">
-                {secondaryNavItems.map((item) => (
-                  <DropdownMenuItem
-                    key={item.id}
-                    onClick={() => handleViewChange(item.id)}
-                    className={cn(
-                      "flex items-center gap-2 cursor-pointer",
-                      activeView === item.id && "bg-accent text-accent-foreground"
-                    )}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Secondary Navigation Tabs - Inline */}
+            {secondaryNavItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleViewChange(item.id)}
+                role="tab"
+                aria-selected={activeView === item.id}
+                aria-controls={`${item.id}-panel`}
+                className={cn(
+                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
+                  activeView === item.id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                )}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Quick Filters */}
