@@ -341,6 +341,45 @@ function About() {
                 </div>
               </div>
             </div>
+
+            <div className="p-4 rounded-lg border border-border bg-secondary/30">
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
+                <div>
+                  <h3 className="font-semibold mb-2">Trust-Based Prioritization</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Prioritizes alerts based on provider trust scores and historical response patterns 
+                    to reduce alert fatigue.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-lg border border-border bg-secondary/30">
+              <div className="flex items-start gap-3">
+                <Zap className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
+                <div>
+                  <h3 className="font-semibold mb-2">Workload Optimization</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Unified workload prediction integrating risk intelligence, documentation burden, 
+                    and staffing recommendations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-lg border border-border bg-secondary/30 md:col-span-2">
+              <div className="flex items-start gap-3">
+                <FileText className="w-5 h-5 text-primary mt-1" aria-hidden="true" />
+                <div>
+                  <h3 className="font-semibold mb-2">Documentation Burden Scoring (DBS)</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Predicts documentation workload using machine learning to optimize nurse staffing 
+                    and reduce administrative burden through quartile-based recommendations.
+                  </p>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
