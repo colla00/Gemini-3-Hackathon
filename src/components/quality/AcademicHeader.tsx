@@ -69,6 +69,26 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '10,000 Patients • 201 Hospitals',
     citation: 'AIM-AHEAD CLINAQ Fellowship Research',
   },
+  'patent-trust-alerts': {
+    title: 'Trust-Based Alert System',
+    subtitle: 'Patent Pending · Dynamic Precision Thresholds',
+    citation: '87% alert reduction with 100% sensitivity',
+  },
+  'patent-equity': {
+    title: 'Real-Time Equity Monitoring Engine',
+    subtitle: 'Patent Pending · Demographic Bias Auditing',
+    citation: '<0.5% disparity threshold maintained',
+  },
+  'patent-dbs-breakdown': {
+    title: 'DBS Calculation Breakdown',
+    subtitle: 'Patent Pending · Weighted Feature Analysis',
+    citation: 'Validated on 10,000 patients, 201 hospitals',
+  },
+  'patent-validation-charts': {
+    title: 'Research Validation Visualizations',
+    subtitle: 'Patent Figures 2-8 · Comprehensive Analytics',
+    citation: 'AUC 0.78, r=0.40 correlation, Cohen\'s d=3.2',
+  },
 };
 
 interface AcademicHeaderProps {
