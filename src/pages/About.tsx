@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     question: "Can I use this for my research?",
-    answer: "For research collaboration or licensing inquiries, please contact Alexis Collier at alexis.collier@ung.edu. Note that this technology is patent pending."
+    answer: "For research collaboration or licensing inquiries, please contact Dr. Alexis Collier at info@alexiscollier.com. Note that this technology is protected by 4 U.S. patent applications."
   }
 ];
 
@@ -102,11 +102,11 @@ function About() {
             </Badge>
             <Badge variant="secondary" className="gap-1">
               <Shield className="w-3 h-3" aria-hidden="true" />
-              U.S. Patent Pending
+              4 U.S. Patents Filed
             </Badge>
             <Badge variant="secondary" className="gap-1 bg-accent/10 text-accent border-accent/30">
               <FileText className="w-3 h-3" aria-hidden="true" />
-              20 Claims · Dec 2025
+              80+ Claims · Dec 2025 – Jan 2026
             </Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Clinical Risk Intelligence System</h1>
@@ -114,8 +114,8 @@ function About() {
             With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
           </p>
           <p className="text-sm text-muted-foreground max-w-2xl">
-            A patent-pending AI-powered system designed to help nurses identify and respond to patient deterioration 
-            through predictive analytics and real-time monitoring. Filed under 35 U.S.C. § 111(b).
+            A patent-protected AI-powered system designed to help nurses identify and respond to patient deterioration 
+            through predictive analytics and real-time monitoring. 4 U.S. patent applications filed under 35 U.S.C. § 111(b).
           </p>
         </div>
       </div>
@@ -152,7 +152,7 @@ function About() {
                   </p>
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" asChild>
-                      <a href="mailto:alexis.collier@ung.edu">
+                      <a href="mailto:info@alexiscollier.com">
                         <Mail className="w-4 h-4 mr-2" />
                         Contact
                       </a>
@@ -331,16 +331,16 @@ function About() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="p-4 rounded-lg border border-accent/30 bg-accent/5">
-              <p className="text-sm font-semibold mb-2 text-accent">U.S. Provisional Patent Application</p>
+              <p className="text-sm font-semibold mb-2 text-accent">U.S. Provisional Patent Portfolio</p>
               <p className="text-xs text-muted-foreground mb-3">
-                <strong>Title:</strong> Clinical Risk Intelligence System with Integrated Explainability, 
-                Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+                <strong>Focus:</strong> Clinical Risk Intelligence, Trust-Based Alerts, Unified Nursing Platform, 
+                and Documentation Burden Scoring (DBS) System
               </p>
               <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                <div><strong>Inventor:</strong> Alexis Collier</div>
-                <div><strong>Filed:</strong> December 2025</div>
-                <div><strong>Claims:</strong> 20 patent claims</div>
-                <div><strong>Status:</strong> Patent Pending</div>
+                <div><strong>Inventor:</strong> Dr. Alexis Collier</div>
+                <div><strong>Filed:</strong> December 2025 – January 2026</div>
+                <div><strong>Claims:</strong> 80+ patent claims</div>
+                <div><strong>Status:</strong> 4 Applications Filed</div>
               </div>
             </div>
             <div className="p-4 rounded-lg border border-warning/30 bg-warning/5">
@@ -353,8 +353,8 @@ function About() {
               </ul>
             </div>
             <p className="text-xs text-muted-foreground">
-              © 2025 Alexis Collier. All rights reserved. Patent pending pursuant to 35 U.S.C. § 111(b). 
-              For licensing inquiries or research collaboration, please contact alexis.collier@ung.edu.
+              © 2025–2026 Dr. Alexis Collier. All rights reserved. 4 U.S. Patents Filed pursuant to 35 U.S.C. § 111(b). 
+              For licensing inquiries or research collaboration, please contact info@alexiscollier.com.
             </p>
           </CardContent>
         </Card>
@@ -363,8 +363,8 @@ function About() {
       {/* Footer */}
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
-          <p>© {new Date().getFullYear()} Alexis Collier. All Rights Reserved.</p>
-          <p>Clinical Risk Intelligence System • U.S. Patent Pending · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
+          <p>© {new Date().getFullYear()} Dr. Alexis Collier. All Rights Reserved.</p>
+          <p>Clinical Risk Intelligence System • 4 U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
         </div>
       </footer>
     </div>

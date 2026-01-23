@@ -95,10 +95,10 @@ export const Landing = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-primary">
             <Lock className="w-3 h-3" aria-hidden="true" />
-            <span className="font-medium">Patent Pending</span>
+            <span className="font-medium">4 Patents Filed</span>
             <span className="text-primary/60" aria-hidden="true">•</span>
             <a 
-              href="mailto:alexis.collier@ung.edu?subject=Licensing%20Inquiry&body=I%20am%20interested%20in%20discussing%20licensing%20opportunities%20for%20the%20NSO%20Quality%20Dashboard%20technology.%0A%0AOrganization:%0AIntended%20Use:%0A"
+              href="mailto:info@alexiscollier.com?subject=Licensing%20Inquiry&body=I%20am%20interested%20in%20discussing%20licensing%20opportunities%20for%20the%20NSO%20Quality%20Dashboard%20technology.%0A%0AOrganization:%0AIntended%20Use:%0A"
               className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-accent/20 border border-accent/30 text-accent hover:bg-accent/30 transition-colors font-medium"
             >
               <Mail className="w-3 h-3" aria-hidden="true" />
@@ -219,14 +219,14 @@ export const Landing = () => {
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 hover:bg-accent/20 hover:scale-105 transition-all cursor-pointer"
                     >
                       <FileText className="w-4 h-4 text-accent" aria-hidden="true" />
-                      <span className="text-sm font-semibold text-accent">20 Patent Claims</span>
+                      <span className="text-sm font-semibold text-accent">80+ Patent Claims</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/20 text-accent font-medium">
-                        Pending
+                        4 Apps Filed
                       </span>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
-                    <p className="text-xs"><strong>U.S. Provisional Patent:</strong> Clinical Risk Intelligence System with Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback. Filed December 2025.</p>
+                    <p className="text-xs"><strong>U.S. Patent Portfolio:</strong> 4 provisional applications covering Clinical Risk Intelligence, Trust-Based Alerts, Unified Nursing Platform, and DBS System. Filed December 2025 – January 2026.</p>
                   </TooltipContent>
                 </Tooltip>
                 
@@ -451,9 +451,9 @@ export const Landing = () => {
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30" role="contentinfo">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>© 2025 Alexis Collier. All Rights Reserved.</span>
+            <span>© 2025–2026 Dr. Alexis Collier. All Rights Reserved.</span>
             <span className="text-border">|</span>
-            <span className="text-primary font-medium">U.S. Patent Pending · 35 U.S.C. § 111(b)</span>
+            <span className="text-primary font-medium">4 U.S. Patents Filed · 35 U.S.C. § 111(b)</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <Link 
@@ -471,10 +471,10 @@ export const Landing = () => {
             </Link>
             <span className="text-border">|</span>
             <a 
-              href="mailto:alexis.collier@ung.edu" 
+              href="mailto:info@alexiscollier.com" 
               className="text-muted-foreground hover:text-primary transition-colors"
             >
-              alexis.collier@ung.edu
+              info@alexiscollier.com
             </a>
             <span className="text-border">|</span>
             <span className="text-muted-foreground">Research Prototype v0.1.0</span>

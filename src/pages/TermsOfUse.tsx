@@ -205,7 +205,7 @@ export const TermsOfUse = () => {
               </h2>
               <div className="space-y-3 text-muted-foreground">
                 <p>
-                  <strong>Copyright:</strong> © 2024–2025 Alexis Collier. All rights reserved. The Software, including 
+                  <strong>Copyright:</strong> © 2024–2026 Dr. Alexis Collier. All rights reserved. The Software, including 
                   its design, code, methodologies, algorithms, user interfaces, and documentation, is protected by 
                   copyright law and international treaties.
                 </p>
@@ -371,8 +371,8 @@ export const TermsOfUse = () => {
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30 mt-12">
         <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
-          <p>© 2024–2025 Alexis Collier. All Rights Reserved.</p>
-          <p className="mt-1">Patent Pending</p>
+          <p>© 2024–2026 Dr. Alexis Collier. All Rights Reserved.</p>
+          <p className="mt-1">4 U.S. Patents Filed</p>
         </div>
       </footer>
     </div>
