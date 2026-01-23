@@ -1,4 +1,4 @@
-import { FileText, Award, Shield, Lightbulb, Calendar, User, Hash, CheckCircle2 } from 'lucide-react';
+import { FileText, Award, Shield, Lightbulb, User, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { PATENT_PORTFOLIO, PATENT_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER, PATENT_4_NUMBER } from '@/constants/patent';
@@ -20,34 +20,20 @@ export const PatentNotice = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Patent List */}
+        {/* Patent List - Simplified for IP Protection */}
         <div className="space-y-2">
           {PATENT_PORTFOLIO.map((patent) => (
             <div 
               key={patent.id} 
-              className="p-3 rounded bg-background/50 border border-border/30 flex items-start justify-between gap-3"
+              className="p-3 rounded bg-background/50 border border-border/30 flex items-center justify-between gap-3"
             >
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-sm font-semibold text-foreground truncate">
-                    {patent.shortName}
-                  </h4>
-                  {patent.status === 'filed' && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
-                  )}
-                </div>
-                <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
-                  {patent.number && (
-                    <span className="flex items-center gap-1">
-                      <Hash className="w-3 h-3" />
-                      {patent.number}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
-                    {patent.filingDate}
-                  </span>
-                </div>
+              <div className="flex items-center gap-2">
+                <h4 className="text-sm font-semibold text-foreground">
+                  {patent.shortName}
+                </h4>
+                {patent.status === 'filed' && (
+                  <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
+                )}
               </div>
               <Badge 
                 variant="outline" 

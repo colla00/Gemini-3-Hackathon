@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { 
   Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
   Shield, Database, Users, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap, Scale, Cpu, Hash, Calendar, CheckCircle2
+  GraduationCap, Scale, Cpu, CheckCircle2
 } from 'lucide-react';
 import { CAPABILITIES, PATENT_FAMILIES, getPatentFamily } from '@/constants/capabilities';
 import { cn } from '@/lib/utils';
@@ -108,7 +108,7 @@ function About() {
             </Badge>
             <Badge variant="secondary" className="gap-1 bg-accent/10 text-accent border-accent/30">
               <FileText className="w-3 h-3" aria-hidden="true" />
-              80+ Claims · Dec 2025 – Jan 2026
+              80+ Claims
             </Badge>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">NSO Quality Dashboard</h1>
@@ -137,34 +137,20 @@ function About() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* Patent List */}
+            {/* Patent List - Simplified for IP Protection */}
             <div className="grid gap-2">
               {PATENT_PORTFOLIO.map((patent) => (
                 <div 
                   key={patent.id} 
-                  className="p-3 rounded-lg bg-background/50 border border-border/30 flex items-start justify-between gap-3"
+                  className="p-3 rounded-lg bg-background/50 border border-border/30 flex items-center justify-between gap-3"
                 >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="text-sm font-semibold text-foreground">
-                        {patent.shortName}
-                      </h4>
-                      {patent.status === 'filed' && (
-                        <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
-                      )}
-                    </div>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
-                      {patent.number && (
-                        <span className="flex items-center gap-1">
-                          <Hash className="w-3 h-3" />
-                          {patent.number}
-                        </span>
-                      )}
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {patent.filingDate}
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <h4 className="text-sm font-semibold text-foreground">
+                      {patent.shortName}
+                    </h4>
+                    {patent.status === 'filed' && (
+                      <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
+                    )}
                   </div>
                   <Badge 
                     variant="outline" 

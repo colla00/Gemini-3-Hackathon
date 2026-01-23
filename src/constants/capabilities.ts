@@ -8,7 +8,6 @@ export interface PatentFamily {
   id: string;
   name: string;
   shortName: string;
-  patentNumber: string;
   colorClass: string;
   bgClass: string;
   borderClass: string;
@@ -20,7 +19,6 @@ export const PATENT_FAMILIES: Record<string, PatentFamily> = {
     id: 'trust-alerts',
     name: 'Trust-Based Alert System',
     shortName: 'Trust-Based Alerts',
-    patentNumber: '63/946,187',
     colorClass: 'text-primary',
     bgClass: 'bg-primary/10',
     borderClass: 'border-primary/30',
@@ -29,8 +27,7 @@ export const PATENT_FAMILIES: Record<string, PatentFamily> = {
   'risk-intelligence': {
     id: 'risk-intelligence',
     name: 'Clinical Risk Intelligence',
-    shortName: 'Clinical Risk Intelligence',
-    patentNumber: '63/932,953',
+    shortName: 'Risk Intelligence',
     colorClass: 'text-risk-high',
     bgClass: 'bg-risk-high/10',
     borderClass: 'border-risk-high/30',
@@ -40,7 +37,6 @@ export const PATENT_FAMILIES: Record<string, PatentFamily> = {
     id: 'unified-platform',
     name: 'Unified Nursing Intelligence',
     shortName: 'Unified Platform',
-    patentNumber: '63/966,117',
     colorClass: 'text-accent',
     bgClass: 'bg-accent/10',
     borderClass: 'border-accent/30',
@@ -50,7 +46,6 @@ export const PATENT_FAMILIES: Record<string, PatentFamily> = {
     id: 'dbs-system',
     name: 'Documentation Burden Scoring',
     shortName: 'DBS System',
-    patentNumber: '63/966,099',
     colorClass: 'text-warning',
     bgClass: 'bg-warning/10',
     borderClass: 'border-warning/30',
