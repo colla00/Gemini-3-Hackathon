@@ -1,5 +1,7 @@
 // Patent-related constants - centralized for consistency
 
+export const PATENT_NUMBER = '63/946,187';
+export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 export const PATENT_ACCESS_KEY = 'patent2025';
 export const PATENT_EXPIRATION_DATE = new Date('2026-12-31T23:59:59');
 export const DOCUMENT_VERSION = '1.1.0';

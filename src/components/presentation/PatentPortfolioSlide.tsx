@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { motion } from 'framer-motion';
+import { PATENT_NUMBER, PATENT_TITLE } from '@/constants/patent';
 
 interface PatentInfo {
   id: string;
@@ -11,6 +12,7 @@ interface PatentInfo {
   icon: React.ReactNode;
   status: 'pending' | 'filed' | 'granted';
   filingDate: string;
+  applicationNumber?: string;
   keyInnovations: string[];
   metrics: { label: string; value: string; improvement?: string }[];
   differentiator: string;
@@ -67,6 +69,7 @@ const patents: PatentInfo[] = [
     icon: <Brain className="w-6 h-6" />,
     status: 'pending',
     filingDate: 'Q1 2025',
+    applicationNumber: PATENT_NUMBER,
     keyInnovations: [
       'Neural reasoning engine with explainability',
       'Cognitive load optimization',
@@ -102,6 +105,11 @@ export const PatentPortfolioSlide = () => {
         <p className="text-muted-foreground">
           Three complementary patents creating a defensible moat in clinical AI
         </p>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
+          <span className="text-xs font-semibold text-primary">U.S. Provisional Patent {PATENT_NUMBER}</span>
+          <span className="text-[10px] text-muted-foreground">|</span>
+          <span className="text-[10px] text-muted-foreground max-w-md truncate">{PATENT_TITLE}</span>
+        </div>
       </div>
 
       {/* Portfolio Metrics */}
@@ -141,12 +149,19 @@ export const PatentPortfolioSlide = () => {
                   <div className={`p-2 rounded-lg bg-${patent.color}/10`}>
                     <div className={`text-${patent.color}`}>{patent.icon}</div>
                   </div>
-                  <Badge 
-                    variant="outline" 
-                    className="text-[10px] capitalize border-warning/50 text-warning"
-                  >
-                    {patent.status}
-                  </Badge>
+                  <div className="flex flex-col items-end gap-1">
+                    <Badge 
+                      variant="outline" 
+                      className="text-[10px] capitalize border-warning/50 text-warning"
+                    >
+                      {patent.status}
+                    </Badge>
+                    {patent.applicationNumber && (
+                      <span className="text-[9px] text-muted-foreground font-mono">
+                        {patent.applicationNumber}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <CardTitle className="text-base">{patent.name}</CardTitle>
                 <p className="text-xs text-muted-foreground">{patent.tagline}</p>

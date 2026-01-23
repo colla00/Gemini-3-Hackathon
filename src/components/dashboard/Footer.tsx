@@ -1,4 +1,5 @@
 import { Shield } from 'lucide-react';
+import { PATENT_NUMBER } from '@/constants/patent';
 
 export const Footer = () => {
   return (
@@ -12,7 +13,7 @@ export const Footer = () => {
         </div>
         <div className="flex items-center gap-3 text-[11px]">
           <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-            Patent Pending
+            U.S. Provisional Patent {PATENT_NUMBER}
           </span>
           <span className="opacity-70">
             Protected Design – Do Not Copy

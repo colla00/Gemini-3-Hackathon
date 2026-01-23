@@ -1,5 +1,6 @@
-import { FileText, Award, Shield, Lightbulb, Calendar, User } from 'lucide-react';
+import { FileText, Award, Shield, Lightbulb, Calendar, User, Hash } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PATENT_NUMBER, PATENT_TITLE } from '@/constants/patent';
 
 export const PatentNotice = () => {
   return (
@@ -11,16 +12,20 @@ export const PatentNotice = () => {
             <CardTitle className="text-base">U.S. Provisional Patent Application</CardTitle>
           </div>
           <span className="text-xs text-accent font-medium px-2 py-0.5 rounded bg-accent/20 border border-accent/30">
-            Patent Pending
+            {PATENT_NUMBER}
           </span>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="p-3 rounded bg-background/50 border border-border/30">
           <h4 className="text-sm font-semibold text-foreground mb-2">
-            Clinical Risk Intelligence System with Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
+            {PATENT_TITLE}
           </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Hash className="w-3 h-3" aria-hidden="true" />
+              <span>App. No. {PATENT_NUMBER}</span>
+            </div>
             <div className="flex items-center gap-2">
               <User className="w-3 h-3" aria-hidden="true" />
               <span>Inventor: Alexis Collier</span>
@@ -68,7 +73,7 @@ export const PatentBadge = ({ className = '' }: { className?: string }) => (
   <div className={`flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30 ${className}`}>
     <Award className="w-3 h-3 text-accent" aria-hidden="true" />
     <span className="text-[10px] text-accent font-medium">
-      Patent Pending · Alexis Collier · Dec 2025
+      U.S. Patent {PATENT_NUMBER} · Alexis Collier
     </span>
   </div>
 );
