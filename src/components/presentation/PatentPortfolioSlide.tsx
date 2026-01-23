@@ -2,7 +2,7 @@ import { Award, Brain, Shield, Activity, TrendingUp, Users, Clock, Target, Check
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { PATENT_NUMBER, PATENT_PORTFOLIO } from '@/constants/patent';
+import { PATENT_NUMBER, PATENT_PORTFOLIO, PATENT_4_NUMBER } from '@/constants/patent';
 
 interface PatentInfo {
   id: string;
@@ -88,8 +88,9 @@ const patents: PatentInfo[] = [
     name: 'DBS System',
     tagline: 'Documentation burden prediction & staffing optimization',
     icon: <Activity className="w-6 h-6" />,
-    status: 'preparation',
-    filingDate: 'Feb 15, 2026',
+    status: 'filed',
+    filingDate: 'Jan 22, 2026',
+    applicationNumber: PATENT_4_NUMBER,
     keyInnovations: [
       'Prospective burden scoring at admission',
       'Quartile-based staffing recommendations',
