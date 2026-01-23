@@ -242,10 +242,17 @@ export const PATENTS: PatentInfo[] = [
   },
   {
     number: 'Pending',
-    title: 'Trust-Based Alert System',
-    filed: 'Dec 2025',
+    title: 'Unified Nursing Intelligence Platform',
+    filed: 'Jan 2026',
     status: 'Pending',
-    description: '87% reduction in non-actionable alerts while maintaining 100% sensitivity',
+    description: 'Three-module integration: DBS, Risk Intelligence, Trust-Based Alerts with Equity Monitoring',
+  },
+  {
+    number: 'Pending',
+    title: 'DBS System for Staffing Optimization',
+    filed: 'Feb 2026',
+    status: 'Pending',
+    description: 'ML-based documentation burden prediction with quartile staffing recommendations',
   },
 ];
 
