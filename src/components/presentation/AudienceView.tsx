@@ -18,6 +18,7 @@ import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEng
 import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
 import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
+import { PatentPortfolioSlide } from '@/components/presentation/PatentPortfolioSlide';
 import { 
   PresentationSlideView, 
   PRESENTATION_SLIDES, 
@@ -47,6 +48,8 @@ const slideToView: Record<string, string | null> = {
   'roi': 'roi',
   'future': null,
   'conclusion': null,
+  // Patent portfolio slide
+  'patent-portfolio': 'patent-portfolio',
   // ChartMinder patent slides
   'patent-neural-reasoning': 'patent-neural-reasoning',
   'patent-cognitive-load': 'patent-cognitive-load',
@@ -106,6 +109,9 @@ export const AudienceView = () => {
         return <PatientJourneySlide />;
       case 'roi':
         return <ROICalculatorSlide />;
+      // Patent portfolio slide
+      case 'patent-portfolio':
+        return <PatentPortfolioSlide />;
       // ChartMinder patent slides
       case 'patent-neural-reasoning':
         return <NeuralReasoningEngine />;

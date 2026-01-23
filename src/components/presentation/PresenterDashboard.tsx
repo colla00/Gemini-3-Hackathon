@@ -35,6 +35,7 @@ import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOpti
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
 import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
 import { PresenterCheatSheet } from '@/components/presentation/PresenterCheatSheet';
+import { PatentPortfolioSlide } from '@/components/presentation/PatentPortfolioSlide';
 import { SlideCountdownOverlay } from '@/components/presentation/SlideCountdownOverlay';
 import { AudienceQuestions } from '@/components/engagement/AudienceQuestions';
 import { LivePolls } from '@/components/engagement/LivePolls';
@@ -64,6 +65,8 @@ const slideToView: Record<string, string | null> = {
   'roi': 'roi',
   'future': null,
   'conclusion': null,
+  // Patent portfolio slide
+  'patent-portfolio': 'patent-portfolio',
   // ChartMinder patent slides
   'patent-neural-reasoning': 'patent-neural-reasoning',
   'patent-cognitive-load': 'patent-cognitive-load',
@@ -474,6 +477,8 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'alert-timeline' && <AlertTimelineSlide />}
                       {slideToView[currentSlide] === 'patient-journey' && <PatientJourneySlide />}
                       {slideToView[currentSlide] === 'roi' && <ROICalculatorSlide />}
+                      {/* Patent Portfolio */}
+                      {slideToView[currentSlide] === 'patent-portfolio' && <PatentPortfolioSlide />}
                       {/* ChartMinder Patent Components */}
                       {slideToView[currentSlide] === 'patent-neural-reasoning' && <NeuralReasoningEngine />}
                       {slideToView[currentSlide] === 'patent-cognitive-load' && <CognitiveLoadOptimizer />}
