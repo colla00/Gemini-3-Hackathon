@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
-  Award, FileText, Home, Brain, TrendingUp, Clock, Target, RefreshCw,
+  Award, FileText, Home, Brain,
   Shield, Database, Users, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap, Scale, Cpu, CheckCircle2
+  GraduationCap, Cpu, CheckCircle2
 } from 'lucide-react';
 import { CAPABILITIES, PATENT_FAMILIES, getPatentFamily } from '@/constants/capabilities';
 import { cn } from '@/lib/utils';
@@ -16,6 +16,7 @@ import { useAuditLog } from '@/hooks/useAuditLog';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { PATENT_PORTFOLIO } from '@/constants/patent';
 import alexisPhoto from '@/assets/alexis-collier.png';
+import { InvestigatorResources } from '@/components/about/InvestigatorResources';
 
 const faqs = [
   {
@@ -332,6 +333,9 @@ function About() {
             ))}
           </CardContent>
         </Card>
+
+        {/* Investigator Resources */}
+        <InvestigatorResources />
 
         {/* Target Outcomes - All Patents */}
         <Card>
