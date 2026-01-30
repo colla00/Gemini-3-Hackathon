@@ -1,4 +1,4 @@
-import { Activity, LogOut, Settings } from 'lucide-react';
+import { Activity, LogOut, Settings, Presentation, Monitor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LiveBadge } from './LiveBadge';
 import { InfoModal } from './InfoModal';
@@ -15,6 +15,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { toast } from 'sonner';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export const Header = () => {
   const { user, signOut, isAdmin } = useAuth();
@@ -47,6 +53,40 @@ export const Header = () => {
         </div>
         
         <div className="flex items-center gap-2 md:gap-3">
+          {/* Self-Paced Walkthrough - Available to all users */}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+                  <Link to="/presentation">
+                    <Presentation className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Self-Paced Walkthrough</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          {/* Presenter Dashboard - Admin only */}
+          {isAdmin && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+                    <Link to="/presentation?mode=presenter">
+                      <Monitor className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Presenter Dashboard (Admin)</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+
           <ThemeToggle />
           
           <InfoModal />

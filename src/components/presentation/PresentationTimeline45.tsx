@@ -15,12 +15,15 @@ export const PresentationTimeline45 = ({
 }: PresentationTimeline45Props) => {
   const currentIndex = PRESENTATION_SLIDES.findIndex(s => s.id === currentSlide);
   
-  // Group slides by category
+  // Group slides by category - ALL slides from PRESENTATION_SLIDES
   const groups = [
-    { label: 'Introduction', slides: ['title', 'agenda', 'video-demo'] as SlideType[] },
+    { label: 'Opening', slides: ['disclaimer', 'title', 'agenda', 'video-demo'] as SlideType[] },
     { label: 'Background', slides: ['problem', 'comparison', 'methodology', 'ml-features', 'ehr-flow', 'alert-timeline'] as SlideType[] },
     { label: 'Demonstration', slides: ['dashboard', 'patients', 'patient-journey', 'shap', 'workflow'] as SlideType[] },
-    { label: 'Conclusion', slides: ['validation', 'roi', 'future', 'conclusion'] as SlideType[] },
+    { label: 'Validation', slides: ['validation', 'research-validation'] as SlideType[] },
+    { label: 'Patent Portfolio', slides: ['patent-portfolio', 'patent-trust-alerts', 'patent-equity', 'patent-dbs-breakdown', 'patent-validation-charts'] as SlideType[] },
+    { label: 'ChartMinder AI', slides: ['patent-neural-reasoning', 'patent-cognitive-load', 'patent-trust-score', 'patent-performance'] as SlideType[] },
+    { label: 'Conclusion', slides: ['roi', 'future', 'conclusion'] as SlideType[] },
   ];
 
   return (
