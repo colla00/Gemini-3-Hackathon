@@ -275,11 +275,12 @@ export const Dashboard = () => {
               {/* Self-Paced Walkthrough - Available to all users */}
               <Link
                 to="/presentation"
-                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-1.5 px-2 py-1 rounded border border-primary/30 bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
                 aria-label="Start self-paced walkthrough"
                 title="Self-Paced Walkthrough"
               >
-                <Play className="w-4 h-4" aria-hidden="true" />
+                <Play className="w-3.5 h-3.5" aria-hidden="true" />
+                <span className="text-[10px] font-medium hidden sm:inline">Walkthrough</span>
               </Link>
               
               {/* Presenter Dashboard - Admin only */}
