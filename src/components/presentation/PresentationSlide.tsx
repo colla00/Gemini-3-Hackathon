@@ -9,7 +9,6 @@ import {
 export type SlideType = 
   | 'disclaimer'
   | 'title' 
-  | 'agenda'
   | 'problem'
   | 'comparison' 
   | 'methodology'
@@ -84,35 +83,9 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     id: 'title',
     title: 'NSO Quality Dashboard',
     subtitle: 'AI-Assisted Nursing Quality Monitoring for Nurse-Sensitive Outcomes',
-    duration: 2,
+    duration: 3,
     icon: <BarChart3 className="w-12 h-12" />,
-    notes: [
-      'Welcome and introduce yourself',
-      'Thank the organizers',
-      'State this is a research prototype',
-      'Mention 4 patent applications filed',
-    ],
-    talkingPoints: [
-      'Good morning, everyone. Thank you for being here today.',
-      'My name is Dr. Alexis Collier, and I am excited to share my research with you.',
-      'I have built a prototype dashboard that uses AI to help nurses predict and prevent adverse patient outcomes — specifically falls, pressure injuries, and catheter-associated infections.',
-      'This represents about a year of development work.',
-      'Before I begin, I want to note that this is a research prototype with four U.S. provisional patent applications filed. I am happy to discuss the methodology, though some technical details remain proprietary.',
-      'I am a solo researcher on this project, so any limitations are my own.',
-    ],
-    transitionCue: '→ "Let me walk you through what we will cover today..."',
-  },
-  {
-    id: 'agenda',
-    title: 'Presentation Agenda',
-    subtitle: 'Self-Paced Walkthrough',
-    duration: 2,
-    icon: <BookOpen className="w-8 h-8" />,
-    notes: [
-      'Overview the structure',
-      'Encourage questions throughout',
-      'Highlight the live demo section',
-    ],
+    notes: [],
     keyPoints: [
       'Problem Statement & Clinical Need',
       'Methodology & System Architecture',
@@ -121,16 +94,8 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Patent Portfolio & Validation',
       'ROI Analysis & Future Directions',
     ],
-    talkingPoints: [
-      'Here is our roadmap for the walkthrough.',
-      'I will start by framing the clinical problem — why nurse-sensitive outcomes matter for patient safety.',
-      'Then I will explain the technical methodology at a high level, keeping it accessible.',
-      'The live demonstration is where you will see the actual dashboard in action.',
-      'I will spend time on explainability, because I believe nurses need to understand WHY a patient is flagged, not just that they are.',
-      'I will be transparent about validation status and future directions.',
-      'Feel free to navigate at your own pace using the sidebar.',
-    ],
-    transitionCue: '→ "Let me begin with the scope of the problem..."',
+    talkingPoints: [],
+    transitionCue: '',
   },
   {
     id: 'problem',
