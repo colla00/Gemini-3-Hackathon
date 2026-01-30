@@ -26,15 +26,6 @@ const talkingPoints: TalkingPoint[] = [
     ],
   },
   {
-    slide: 'Agenda',
-    duration: '2m',
-    keyPoints: [
-      '38-minute roadmap',
-      'Live demo is the highlight',
-      'Questions welcome anytime',
-    ],
-  },
-  {
     slide: 'Problem',
     duration: '5m',
     keyPoints: [

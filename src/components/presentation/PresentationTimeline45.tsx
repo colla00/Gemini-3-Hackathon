@@ -17,7 +17,7 @@ export const PresentationTimeline45 = ({
   
   // Group slides by category - ALL slides from PRESENTATION_SLIDES
   const groups = [
-    { label: 'Opening', slides: ['disclaimer', 'title', 'agenda'] as SlideType[] },
+    { label: 'Opening', slides: ['disclaimer', 'title'] as SlideType[] },
     { label: 'Background', slides: ['problem', 'comparison', 'methodology', 'ml-features', 'ehr-flow', 'alert-timeline'] as SlideType[] },
     { label: 'Demonstration', slides: ['dashboard', 'patients', 'patient-journey', 'shap', 'workflow'] as SlideType[] },
     { label: 'Validation', slides: ['validation', 'research-validation'] as SlideType[] },

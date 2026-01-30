@@ -36,7 +36,6 @@ import { usePresenterSync } from '@/hooks/usePresenterSync';
 const slideToView: Record<string, string | null> = {
   'disclaimer': null,
   'title': null,
-  'agenda': null,
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,

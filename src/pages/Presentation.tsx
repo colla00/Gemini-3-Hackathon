@@ -72,7 +72,6 @@ import { Button } from '@/components/ui/button';
 const slideToView: Record<string, ViewType | null> = {
   'disclaimer': null,
   'title': null,
-  'agenda': null,
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,
