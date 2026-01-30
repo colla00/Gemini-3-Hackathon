@@ -243,8 +243,8 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
             <p className="text-muted-foreground mb-4">
               Presenter mode is restricted to administrators only.
             </p>
-            <Link to="/presentation">
-              <Button>Return to Presentation</Button>
+            <Link to="/dashboard">
+              <Button>Return to Dashboard</Button>
             </Link>
           </CardContent>
         </Card>
