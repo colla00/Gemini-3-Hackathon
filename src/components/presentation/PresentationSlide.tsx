@@ -10,7 +10,6 @@ export type SlideType =
   | 'disclaimer'
   | 'title' 
   | 'agenda'
-  | 'video-demo' 
   | 'problem'
   | 'comparison' 
   | 'methodology'
@@ -106,7 +105,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'agenda',
     title: 'Presentation Agenda',
-    subtitle: '38-Minute Walkthrough',
+    subtitle: 'Self-Paced Walkthrough',
     duration: 2,
     icon: <BookOpen className="w-8 h-8" />,
     notes: [
@@ -115,46 +114,21 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Highlight the live demo section',
     ],
     keyPoints: [
-      'Problem Statement & Clinical Need (5 min)',
-      'Methodology & Architecture (8 min)',
-      'Live Dashboard Demonstration (5 min)',
-      'SHAP Explainability Deep-Dive (8 min)',
-      'Validation Results (5 min)',
-      'Future Directions & Q&A (7 min)',
+      'Problem Statement & Clinical Need',
+      'Methodology & System Architecture',
+      'Live Dashboard Demonstration',
+      'SHAP Explainability & Workflow',
+      'Patent Portfolio & Validation',
+      'ROI Analysis & Future Directions',
     ],
     talkingPoints: [
-      'Here is our roadmap for the next 38 minutes.',
+      'Here is our roadmap for the walkthrough.',
       'I will start by framing the clinical problem — why nurse-sensitive outcomes matter for patient safety.',
       'Then I will explain the technical methodology at a high level, keeping it accessible.',
       'The live demonstration is where you will see the actual dashboard in action.',
       'I will spend time on explainability, because I believe nurses need to understand WHY a patient is flagged, not just that they are.',
       'I will be transparent about validation status and future directions.',
-      'Please feel free to ask questions at any point. I find the discussions are often the most valuable part.',
-    ],
-    transitionCue: '→ "There is also a recorded version available..."',
-  },
-  {
-    id: 'video-demo',
-    title: 'Recorded Presentation',
-    subtitle: 'Platform Overview Video',
-    duration: 1,
-    icon: <BarChart3 className="w-8 h-8" />,
-    notes: [
-      'For remote or asynchronous viewing',
-      '5-minute platform overview',
-      'Contact information at the end',
-    ],
-    keyPoints: [
-      'Conference Presentation Recording',
-      '5-minute platform overview',
-      'Dashboard features demonstrated',
-      'Available for async viewing',
-    ],
-    talkingPoints: [
-      'If you are watching the recorded version, thank you for taking the time.',
-      'This video provides a 5-minute overview of the platform.',
-      'I recommend pausing at certain points to explore the dashboard yourself.',
-      'My contact information is available at the end for any follow-up questions.',
+      'Feel free to navigate at your own pace using the sidebar.',
     ],
     transitionCue: '→ "Let me begin with the scope of the problem..."',
   },
@@ -1000,30 +974,7 @@ export const PresentationSlideView = ({ slide, isActive, isAudience = false, chi
             </div>
           )}
 
-          {/* Presenter notes - hidden for audience */}
-          {!isAudience && slide.notes && (
-            <div className="mt-12 p-6 rounded-xl bg-secondary/30 border border-border text-left">
-              <h3 className="text-sm font-semibold text-muted-foreground mb-3 flex items-center gap-2">
-                <GraduationCap className="w-4 h-4" />
-                PRESENTER NOTES
-              </h3>
-              <ul className="space-y-2 text-muted-foreground">
-                {slide.notes.map((note, index) => (
-                  <li key={index} className="text-sm flex items-start gap-2">
-                    <span className="text-primary">•</span>
-                    {note}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Transition cue */}
-          {!isAudience && slide.transitionCue && (
-            <div className="mt-6 text-sm text-primary/70 italic">
-              {slide.transitionCue}
-            </div>
-          )}
+          {/* Presenter notes and transition cues are now only shown in the PresenterNotesPanel */}
         </div>
       </div>
     </div>

@@ -73,7 +73,6 @@ const slideToView: Record<string, ViewType | null> = {
   'disclaimer': null,
   'title': null,
   'agenda': null,
-  'video-demo': 'video-demo',
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,
@@ -380,8 +379,6 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         return <ROICalculatorSlide />;
       case 'ml-features':
         return <MLFeaturesSlide />;
-      case 'video-demo':
-        return <VideoDemoSlide />;
       case 'research-validation':
         return <ResearchValidationSlide />;
       case 'patent-portfolio':

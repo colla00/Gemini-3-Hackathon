@@ -37,7 +37,6 @@ const slideToView: Record<string, string | null> = {
   'disclaimer': null,
   'title': null,
   'agenda': null,
-  'video-demo': 'video-demo',
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,
@@ -106,8 +105,6 @@ export const AudienceView = () => {
         return <ShapExplainability />;
       case 'workflow':
         return <ClinicalWorkflowView />;
-      case 'video-demo':
-        return <VideoDemoSlide />;
       case 'comparison':
         return <ComparisonSlide />;
       case 'ml-features':

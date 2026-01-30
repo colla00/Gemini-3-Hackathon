@@ -56,7 +56,6 @@ const slideToView: Record<string, string | null> = {
   'disclaimer': null,
   'title': null,
   'agenda': null,
-  'video-demo': 'video-demo',
   'problem': null,
   'comparison': 'comparison',
   'methodology': null,
@@ -499,7 +498,6 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       {slideToView[currentSlide] === 'patients' && <PatientListView />}
                       {slideToView[currentSlide] === 'shap' && <ShapExplainability />}
                       {slideToView[currentSlide] === 'workflow' && <ClinicalWorkflowView />}
-                      {slideToView[currentSlide] === 'video-demo' && <VideoDemoSlide />}
                       {slideToView[currentSlide] === 'comparison' && <ComparisonSlide />}
                       {slideToView[currentSlide] === 'ml-features' && <MLFeaturesSlide />}
                       {slideToView[currentSlide] === 'ehr-flow' && <EHRDataFlowSlide />}
