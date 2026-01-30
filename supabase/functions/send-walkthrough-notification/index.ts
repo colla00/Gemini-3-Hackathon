@@ -178,7 +178,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle approval notification
     if (notificationType === 'approved') {
       const approvalEmailResponse = await resend.emails.send({
-        from: "NSO Quality Dashboard <info@alexiscollier.com>",
+        from: "NSO Quality Dashboard <cs@ezlearning.center>",
         to: [data.email],
         subject: "Your Walkthrough Access Has Been Approved! 🎉",
         html: `
@@ -216,7 +216,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial notification
     if (notificationType === 'denied') {
       const denialEmailResponse = await resend.emails.send({
-        from: "NSO Quality Dashboard <info@alexiscollier.com>",
+        from: "NSO Quality Dashboard <cs@ezlearning.center>",
         to: [data.email],
         subject: "Update on Your Walkthrough Access Request",
         html: `
@@ -241,7 +241,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <info@alexiscollier.com>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [adminEmail],
       subject: `New Walkthrough Access Request from ${safeName}`,
       html: `
@@ -284,7 +284,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin notification sent:", adminEmailResponse);
 
     const confirmationResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <info@alexiscollier.com>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [data.email],
       subject: "Your Walkthrough Request Has Been Received",
       html: `
