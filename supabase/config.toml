@@ -1,5 +1,8 @@
 project_id = "itgnlmhypwufwrgguvav"
 
+[functions.analyze-pressure-injury]
+verify_jwt = false
+
 [functions.assess-patient-risk]
 verify_jwt = false
 
