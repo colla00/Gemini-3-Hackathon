@@ -280,7 +280,7 @@ export const Dashboard = () => {
                 title="Self-Paced Walkthrough"
               >
                 <Play className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="text-[10px] font-medium hidden sm:inline">Walkthrough</span>
+                <span className="text-[10px] font-medium hidden sm:inline">Self-Paced</span>
               </Link>
               
               {/* Presenter Dashboard - Admin only */}
