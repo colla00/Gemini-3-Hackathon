@@ -1,4 +1,4 @@
-import { Activity, LogOut, Settings, Presentation, Monitor } from 'lucide-react';
+import { Activity, LogOut, Settings, Presentation, Monitor, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LiveBadge } from './LiveBadge';
 import { InfoModal } from './InfoModal';
@@ -57,9 +57,10 @@ export const Header = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+                <Button variant="outline" size="sm" className="h-8 gap-1.5" asChild>
                   <Link to="/presentation">
-                    <Presentation className="h-4 w-4" />
+                    <Play className="h-4 w-4 text-primary" />
+                    <span className="hidden md:inline text-xs">Walkthrough</span>
                   </Link>
                 </Button>
               </TooltipTrigger>
