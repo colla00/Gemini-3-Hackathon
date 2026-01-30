@@ -244,7 +244,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
               Presenter mode is restricted to administrators only.
             </p>
             <Link to="/dashboard">
-              <Button>Return to Dashboard</Button>
+              <Button className="w-full">Return to Dashboard</Button>
             </Link>
           </CardContent>
         </Card>
