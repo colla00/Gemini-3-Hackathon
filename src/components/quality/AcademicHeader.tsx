@@ -59,11 +59,6 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '47 Clinical Features Across 7 Categories',
     citation: 'Features from validated scales and EHR data',
   },
-  'video-demo': {
-    title: 'Recorded Presentation',
-    subtitle: '45-Minute Walkthrough Video',
-    citation: 'Conference Presentation',
-  },
   'research-validation': {
     title: 'Clinical Validation at Scale',
     subtitle: '10,000 Patients • 201 Hospitals',
