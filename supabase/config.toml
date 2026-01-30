@@ -1,1 +1,49 @@
 project_id = "itgnlmhypwufwrgguvav"
+
+[functions.analyze-clinical-notes]
+verify_jwt = false
+
+[functions.generate-risk-narrative]
+verify_jwt = false
+
+[functions.suggest-interventions]
+verify_jwt = false
+
+[functions.analyze-health-equity]
+verify_jwt = false
+
+[functions.check-abuse-alerts]
+verify_jwt = false
+
+[functions.check-attestation-rate-limit]
+verify_jwt = false
+
+[functions.log-audit]
+verify_jwt = false
+
+[functions.methodology-chat]
+verify_jwt = false
+
+[functions.pagespeed-audit]
+verify_jwt = false
+
+[functions.send-attestation-notification]
+verify_jwt = false
+
+[functions.send-attorney-notification]
+verify_jwt = false
+
+[functions.send-regression-notification]
+verify_jwt = false
+
+[functions.send-walkthrough-notification]
+verify_jwt = false
+
+[functions.send-witness-confirmation]
+verify_jwt = false
+
+[functions.send-witness-invitation]
+verify_jwt = false
+
+[functions.text-to-speech]
+verify_jwt = false

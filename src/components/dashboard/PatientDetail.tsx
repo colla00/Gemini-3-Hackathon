@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb, BarChart3, Award } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Activity, FileText, AlertTriangle, Lightbulb, BarChart3, Award, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiskBadge } from './RiskBadge';
 import { ShapChart } from './ShapChart';
@@ -12,8 +12,10 @@ import { MultiOutcomeComparison } from './MultiOutcomeComparison';
 import { AdaptiveThresholdVisualization } from './AdaptiveThresholdVisualization';
 import { ClosedLoopAnimation } from './ClosedLoopAnimation';
 import { AIWorkflowPipeline } from './AIWorkflowPipeline';
+import { RiskNarrative, InterventionRecommender } from '@/components/ai';
 import type { Patient } from '@/data/patients';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Tooltip,
   TooltipContent,
@@ -175,6 +177,24 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                 </div>
               ))}
             </div>
+
+            {/* AI Risk Narrative - Gemini 3 */}
+            <div className="mt-4">
+              <RiskNarrative
+                riskScore={patient.riskScore}
+                topFeatures={patient.riskFactors.map(f => ({
+                  name: f.name,
+                  importance: Math.abs(f.contribution) / 100,
+                  value: f.contribution > 0 ? 'elevated' : 'normal'
+                }))}
+                patientInfo={{
+                  name: patient.id,
+                  age: parseInt(patient.ageRange.split('-')[0]),
+                  diagnosis: patient.riskType
+                }}
+                autoGenerate={patient.riskLevel === 'HIGH'}
+              />
+            </div>
           </div>
 
           {/* Grouped SHAP Explainability Chart (Patent: Real-time SHAP integration) */}
@@ -221,8 +241,33 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
           {/* Adaptive Threshold Visualization (Patent: Confidence-based risk stratification) */}
           <AdaptiveThresholdVisualization patient={patient} />
 
+          {/* AI Intervention Recommender - Gemini 3 (for high-risk patients) */}
+          {patient.riskScore >= 0.7 && (
+            <div className="lg:col-span-2">
+              <InterventionRecommender
+                riskProfile={{
+                  riskType: patient.riskType,
+                  riskScore: patient.riskScore,
+                  riskLevel: patient.riskLevel,
+                  primaryConcerns: patient.riskFactors
+                    .filter(f => f.contribution > 0)
+                    .map(f => f.name)
+                }}
+                patientInfo={{
+                  name: patient.id,
+                  age: parseInt(patient.ageRange.split('-')[0]),
+                  diagnosis: patient.riskType
+                }}
+                autoTrigger={true}
+                onInterventionComplete={(id) => {
+                  console.log('[Gemini 3] Intervention completed:', id);
+                }}
+              />
+            </div>
+          )}
+
           {/* AI Workflow Pipeline (Patent: Clinical workflow integration) */}
-          <div className="lg:col-span-3">
+          <div className={patient.riskScore >= 0.7 ? "lg:col-span-1" : "lg:col-span-3"}>
             <AIWorkflowPipeline />
           </div>
 

@@ -18,6 +18,7 @@ import { DBSCalculator } from './DBSCalculator';
 import { ROICalculator } from './ROICalculator';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { ResearchCharts } from './ResearchCharts';
+import { AIToolsPanel } from './AIToolsPanel';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -25,7 +26,7 @@ import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { useTimeOffset } from '@/hooks/useTimeOffset';
-import { Activity, FileText, DollarSign, Link2, BarChart3 } from 'lucide-react';
+import { Activity, FileText, DollarSign, Link2, BarChart3, Sparkles } from 'lucide-react';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -126,6 +127,10 @@ export const Dashboard = () => {
                 <BarChart3 className="h-4 w-4" />
                 Research Charts
               </TabsTrigger>
+              <TabsTrigger value="ai-tools" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-md font-semibold">
+                <Sparkles className="h-4 w-4" />
+                AI Tools
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard" className="space-y-6 mt-0">
@@ -225,6 +230,10 @@ export const Dashboard = () => {
 
             <TabsContent value="charts" className="mt-0">
               <ResearchCharts />
+            </TabsContent>
+
+            <TabsContent value="ai-tools" className="mt-0">
+              <AIToolsPanel />
             </TabsContent>
           </Tabs>
         )}
