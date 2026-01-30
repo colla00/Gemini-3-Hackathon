@@ -45,6 +45,7 @@ import { InteractiveHotspots } from '@/components/quality/InteractiveHotspots';
 import { PatentNotice, PatentBadge } from '@/components/quality/PatentNotice';
 import { ZoomModeProvider, ZoomModeToggle, ZoomScaleControl, ZoomableContent, FullscreenToggle, useZoomMode } from '@/components/quality/ZoomModeToggle';
 import { PresentationTimeline45 } from '@/components/presentation/PresentationTimeline45';
+import { PatentPortfolioSlide } from '@/components/presentation/PatentPortfolioSlide';
 import { PresenterDashboard } from '@/components/presentation/PresenterDashboard';
 import { AudienceView } from '@/components/presentation/AudienceView';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
@@ -86,6 +87,7 @@ const slideToView: Record<string, ViewType | null> = {
   'workflow': 'workflow',
   'validation': null,
   'research-validation': 'research-validation',
+  'patent-portfolio': 'patent-portfolio',
   'patent-trust-alerts': 'patent-trust-alerts',
   'patent-equity': 'patent-equity',
   'patent-dbs-breakdown': 'patent-dbs-breakdown',
@@ -382,6 +384,12 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
         return <VideoDemoSlide />;
       case 'research-validation':
         return <ResearchValidationSlide />;
+      case 'patent-portfolio':
+        return (
+          <div className="max-w-5xl mx-auto p-4">
+            <PatentPortfolioSlide />
+          </div>
+        );
       case 'patent-trust-alerts':
         return (
           <div className="max-w-4xl mx-auto p-6">
@@ -438,8 +446,8 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
   return (
     <ZoomModeProvider>
     <div className="min-h-screen flex flex-col bg-background" data-protected="true">
-      {/* Screen Protection - Always enabled */}
-      <ScreenProtection enabled={true} />
+      {/* Screen Protection - Disable blur during auto-walkthrough */}
+      <ScreenProtection enabled={true} disableBlurProtection={autoWalkthrough.isRunning} />
 
       {/* Research Prototype Disclaimer */}
       <ResearchDisclaimer />
