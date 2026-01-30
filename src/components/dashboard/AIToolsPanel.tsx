@@ -3,7 +3,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   ClinicalNotesAnalyzer, 
-  HealthEquityAnalyzer 
+  HealthEquityAnalyzer,
+  GeminiAIEngine
 } from '@/components/ai';
 import { 
   Sparkles, 
@@ -11,49 +12,23 @@ import {
   Scale,
   Brain,
   FileText,
-  ExternalLink
+  ExternalLink,
+  Cpu
 } from 'lucide-react';
 
 export const AIToolsPanel = () => {
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header Banner */}
-      <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-primary/20">
-        <CardContent className="py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-xl bg-primary/20 border border-primary/30">
-                <Sparkles className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold flex items-center gap-2">
-                  AI-Powered Clinical Tools
-                  <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-                    Gemini 3
-                  </Badge>
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Google Gemini 3 integration for clinical decision support
-                </p>
-              </div>
-            </div>
-            <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
-              <Badge variant="outline" className="gap-1">
-                <Brain className="h-3 w-3" />
-                Gemini 3 Flash + Pro
-              </Badge>
-              <Badge variant="outline" className="gap-1">
-                <FileText className="h-3 w-3" />
-                Hackathon 2026
-              </Badge>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* AI Tools Tabs */}
-      <Tabs defaultValue="notes" className="w-full">
+      <Tabs defaultValue="engine" className="w-full">
         <TabsList className="mb-4 bg-card/60 border border-border/40 flex-wrap h-auto gap-1.5 p-1.5 rounded-2xl">
+          <TabsTrigger 
+            value="engine" 
+            className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary/80 data-[state=active]:text-primary-foreground"
+          >
+            <Cpu className="h-4 w-4" />
+            AI Engine Demo
+          </TabsTrigger>
           <TabsTrigger 
             value="notes" 
             className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
@@ -69,6 +44,11 @@ export const AIToolsPanel = () => {
             Health Equity
           </TabsTrigger>
         </TabsList>
+
+        {/* Gemini 3 AI Engine - Main Showcase */}
+        <TabsContent value="engine" className="mt-0">
+          <GeminiAIEngine />
+        </TabsContent>
 
         <TabsContent value="notes" className="mt-0">
           <div className="grid gap-6">
@@ -102,10 +82,10 @@ export const AIToolsPanel = () => {
             <HealthEquityAnalyzer />
             
             {/* AIM-AHEAD Context */}
-            <Card className="bg-blue-50/50 border-blue-200">
+            <Card className="bg-blue-50/50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <Scale className="h-4 w-4 text-blue-600" />
+                  <Scale className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                   AIM-AHEAD Fellowship Initiative
                 </CardTitle>
               </CardHeader>
@@ -121,7 +101,7 @@ export const AIToolsPanel = () => {
                     href="https://aim-ahead.net/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-600 hover:underline dark:text-blue-400"
                   >
                     Learn more about AIM-AHEAD
                   </a>
@@ -134,19 +114,6 @@ export const AIToolsPanel = () => {
           </div>
         </TabsContent>
       </Tabs>
-
-      {/* Disclaimer */}
-      <Card className="bg-amber-50/50 border-amber-200">
-        <CardContent className="py-3">
-          <p className="text-xs text-amber-800">
-            <strong>Clinical Decision Support Disclaimer:</strong> AI-generated 
-            suggestions are for informational purposes only and do not constitute 
-            medical advice. All clinical decisions must be made by qualified 
-            healthcare professionals. This tool is part of an investigational 
-            research study.
-          </p>
-        </CardContent>
-      </Card>
     </div>
   );
 };
