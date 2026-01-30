@@ -158,7 +158,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send alert email
     const emailResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <info@alexiscollier.com>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [ADMIN_EMAIL],
       subject: `🚨 ${alertLevel}: Rate Limit Abuse Detected - ${violationStats.total_violations} violations`,
       html: emailHtml,
