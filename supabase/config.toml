@@ -1,5 +1,8 @@
 project_id = "itgnlmhypwufwrgguvav"
 
+[functions.generate-smart-alert]
+verify_jwt = false
+
 [functions.analyze-pressure-injury]
 verify_jwt = false
 
