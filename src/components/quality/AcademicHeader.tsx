@@ -69,6 +69,11 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
     subtitle: '10,000 Patients • 201 Hospitals',
     citation: 'AIM-AHEAD CLINAQ Fellowship Research',
   },
+  'patent-portfolio': {
+    title: 'Patent Portfolio Overview',
+    subtitle: 'Four Complementary Patents · Defensible IP Moat',
+    citation: '4 U.S. Provisional Applications Filed',
+  },
   'patent-trust-alerts': {
     title: 'Trust-Based Alert System',
     subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',

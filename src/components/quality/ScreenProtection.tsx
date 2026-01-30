@@ -8,12 +8,15 @@ interface ScreenProtectionProps {
   enabled?: boolean;
   watermarkText?: string;
   showDynamicInfo?: boolean;
+  /** Disable blur on window blur - useful during auto-walkthrough */
+  disableBlurProtection?: boolean;
 }
 
 export const ScreenProtection = ({ 
   enabled = true, 
   watermarkText = '4 PATENTS FILED',
-  showDynamicInfo = true 
+  showDynamicInfo = true,
+  disableBlurProtection = false 
 }: ScreenProtectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
   const [showPrintWarning, setShowPrintWarning] = useState(false);
@@ -35,13 +38,17 @@ export const ScreenProtection = ({
     if (!enabled) return;
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
+      // Only blur on visibility change (tab hidden), not on simple blur
+      if (document.hidden && !disableBlurProtection) {
         setIsBlurred(true);
       }
     };
 
     const handleBlur = () => {
-      setIsBlurred(true);
+      // Skip blur protection during auto-walkthrough to prevent false triggers
+      if (!disableBlurProtection) {
+        setIsBlurred(true);
+      }
     };
 
     const handleFocus = () => {
