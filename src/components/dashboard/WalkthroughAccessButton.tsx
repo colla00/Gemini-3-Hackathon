@@ -209,7 +209,7 @@ export const WalkthroughAccessButton = () => {
         className="gap-1.5 text-xs"
       >
         <Send className="w-3.5 h-3.5" />
-        <span className="hidden md:inline">Request Walkthrough</span>
+        <span className="hidden md:inline">Request Zoom Walkthrough</span>
         <span className="md:hidden">Request</span>
       </Button>
 
