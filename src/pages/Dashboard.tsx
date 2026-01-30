@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical, MoreHorizontal
+  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical, MoreHorizontal, Play
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -272,10 +272,22 @@ export const Dashboard = () => {
               {/* Walkthrough Access Button - shows based on approval status */}
               <WalkthroughAccessButton />
               
+              {/* Self-Paced Walkthrough - Available to all users */}
+              <Link
+                to="/presentation"
+                className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Start self-paced walkthrough"
+                title="Self-Paced Walkthrough"
+              >
+                <Play className="w-4 h-4" aria-hidden="true" />
+              </Link>
+              
+              {/* Presenter Dashboard - Admin only */}
               <Link
                 to="/presentation?mode=presenter"
                 className="p-1.5 rounded hover:bg-secondary/80 text-muted-foreground hover:text-risk-low transition-colors"
                 aria-label="Open Presenter Dashboard for dual-screen Zoom presentation"
+                title="Presenter Dashboard (Admin)"
               >
                 <Monitor className="w-4 h-4" aria-hidden="true" />
               </Link>
