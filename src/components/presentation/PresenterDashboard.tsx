@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Monitor, ExternalLink, Play, Pause, Clock, ChevronLeft, ChevronRight,
   MessageCircle, BarChart, BookOpen, FileText, Volume2, VolumeX,
@@ -92,6 +92,7 @@ interface PresenterDashboardProps {
 }
 
 export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
+  const navigate = useNavigate();
   const { isAdmin, loading } = useAuth();
   const [currentSlide, setCurrentSlide] = useState<SlideType>('disclaimer');
   const [isRunning, setIsRunning] = useState(false);
@@ -334,11 +335,20 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
             <Button variant="ghost" size="icon" onClick={() => setSoundEnabled(!soundEnabled)}>
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </Button>
-            {onClose && (
-              <Button variant="ghost" size="sm" onClick={onClose}>
-                Exit
-              </Button>
-            )}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => {
+                if (onClose) {
+                  onClose();
+                } else {
+                  navigate('/dashboard');
+                }
+              }}
+            >
+              <X className="w-4 h-4 mr-1" />
+              Exit
+            </Button>
           </div>
         </div>
       </header>
