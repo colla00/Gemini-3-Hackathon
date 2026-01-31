@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { generateAIToolsPowerPoint } from '@/lib/aiToolsPptExport';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -777,8 +776,6 @@ export const EnhancedAIToolsPanel = () => {
   const demoPausedRef = React.useRef(false);
   const [currentDemoModule, setCurrentDemoModule] = useState<string | null>(null);
   const [currentDemoIndex, setCurrentDemoIndex] = useState(0);
-  const [pptxExporting, setPptxExporting] = useState(false);
-  const [pptxProgress, setPptxProgress] = useState<{ phase: string; current: number; total: number; detail?: string } | null>(null);
 
   // Module states
   const [clinicalNotes, setClinicalNotes] = useState('');
@@ -1088,82 +1085,6 @@ export const EnhancedAIToolsPanel = () => {
 
             {/* Run All Demos Button */}
             <div className="flex items-center gap-2 flex-wrap">
-              {/* PowerPoint Export Button with Screenshot Capture */}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      onClick={async () => {
-                        setPptxExporting(true);
-                        setPptxProgress({ phase: 'Starting...', current: 0, total: 12 });
-                        try {
-                          const fileName = await generateAIToolsPowerPoint({ 
-                            includeVoiceover: true, 
-                            includeNotes: true,
-                            includeScreenshots: true,
-                            includeCharts: true,
-                            onProgress: (progress) => setPptxProgress(progress)
-                          });
-                          toast({ 
-                            title: '✅ PowerPoint Generated', 
-                            description: `Downloaded with live screenshots: ${fileName}` 
-                          });
-                        } catch (err) {
-                          console.error('PPTX export failed:', err);
-                          toast({ title: '❌ Export Failed', description: 'Please try again', variant: 'destructive' });
-                        } finally {
-                          setPptxExporting(false);
-                          setPptxProgress(null);
-                        }
-                      }}
-                      size="sm"
-                      variant="secondary"
-                      disabled={pptxExporting}
-                      className="bg-white/20 hover:bg-white/30 text-white border-white/20 min-w-[130px]"
-                    >
-                      {pptxExporting ? (
-                        <>
-                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          {pptxProgress?.phase === 'Capturing screenshots' ? 'Capturing...' : 'Building...'}
-                        </>
-                      ) : (
-                        <>
-                          <Presentation className="h-4 w-4 mr-2" />
-                          Export PPTX
-                        </>
-                      )}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-xs">
-                    <p>Download PowerPoint with live screenshots, voiceover scripts, and speaker notes for all 8 AI modules.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-
-              {/* Export Progress Indicator */}
-              <AnimatePresence>
-                {pptxExporting && pptxProgress && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    className="flex items-center gap-2"
-                  >
-                    <Badge className="bg-white/20 text-white text-xs font-bold border border-white/30">
-                      {pptxProgress.current}/{pptxProgress.total}
-                    </Badge>
-                    {pptxProgress.detail && (
-                      <Badge className="bg-accent/80 text-white text-[10px] font-medium truncate max-w-[120px]">
-                        {pptxProgress.detail}
-                      </Badge>
-                    )}
-                    <Progress 
-                      value={(pptxProgress.current / pptxProgress.total) * 100} 
-                      className="w-16 h-1.5 bg-white/20 [&>div]:bg-white"
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
