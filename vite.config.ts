@@ -15,6 +15,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
     // Prevent duplicate React instances
-    dedupe: ["react", "react-dom", "react/jsx-runtime"],
+    dedupe: [
+      "react", 
+      "react-dom", 
+      "react/jsx-runtime",
+      "@tanstack/react-query",
+      "framer-motion"
+    ],
+  },
+  optimizeDeps: {
+    // Force rebuild of pre-bundled dependencies
+    force: true,
   },
 }));
