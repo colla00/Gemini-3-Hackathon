@@ -514,9 +514,26 @@ interface IntegrationResult {
 
 export const GeminiAIEngine = () => {
   const [results, setResults] = useState<Record<string, IntegrationResult>>({});
-  const [selectedIntegration, setSelectedIntegration] = useState<string | null>(null);
+  const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
   const [isRunningAll, setIsRunningAll] = useState(false);
   const { toast } = useToast();
+
+  // Auto-expand card when result arrives
+  const autoExpandCard = useCallback((integrationId: string) => {
+    setExpandedCards(prev => new Set([...prev, integrationId]));
+  }, []);
+
+  const toggleCardExpanded = useCallback((integrationId: string) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(integrationId)) {
+        newSet.delete(integrationId);
+      } else {
+        newSet.add(integrationId);
+      }
+      return newSet;
+    });
+  }, []);
 
   const runIntegration = useCallback(async (integration: IntegrationConfig) => {
     const startTime = performance.now();
@@ -557,6 +574,9 @@ export const GeminiAIEngine = () => {
           latency 
         }
       }));
+      
+      // Auto-expand the card to show results
+      autoExpandCard(integration.id);
 
       console.log(`[Gemini 3] ${integration.name} completed in ${latency}ms`);
     } catch (error) {
@@ -573,7 +593,7 @@ export const GeminiAIEngine = () => {
         }
       }));
     }
-  }, []);
+  }, [autoExpandCard]);
 
   const runAllIntegrations = async () => {
     setIsRunningAll(true);
@@ -683,7 +703,7 @@ export const GeminiAIEngine = () => {
         {INTEGRATIONS.map((integration, index) => {
           const result = results[integration.id];
           const Icon = integration.icon;
-          const isSelected = selectedIntegration === integration.id;
+          const isExpanded = expandedCards.has(integration.id);
 
           return (
             <motion.div
@@ -698,9 +718,9 @@ export const GeminiAIEngine = () => {
               key={integration.id}
               className={cn(
                 "cursor-pointer transition-all hover:shadow-lg hover:border-primary/30",
-                isSelected && "ring-2 ring-primary border-primary"
+                isExpanded && "ring-2 ring-primary border-primary"
               )}
-              onClick={() => setSelectedIntegration(isSelected ? null : integration.id)}
+              onClick={() => toggleCardExpanded(integration.id)}
             >
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
@@ -764,14 +784,14 @@ export const GeminiAIEngine = () => {
                     )}
                   </Button>
                   <ChevronRight className={cn(
-                    "h-4 w-4 text-muted-foreground transition-transform",
-                    isSelected && "rotate-90"
+                    "h-4 w-4 text-muted-foreground transition-transform duration-300",
+                    isExpanded && "rotate-90"
                   )} />
                 </div>
 
                 {/* Expanded Result View with Animations */}
                 <AnimatePresence mode="wait">
-                  {isSelected && result?.status === 'success' && (
+                  {isExpanded && result?.status === 'success' && (
                     <motion.div
                       key={`success-${integration.id}`}
                       variants={expandVariants}
@@ -820,7 +840,7 @@ export const GeminiAIEngine = () => {
                     </motion.div>
                   )}
 
-                  {isSelected && result?.status === 'error' && (
+                  {isExpanded && result?.status === 'error' && (
                     <motion.div
                       key={`error-${integration.id}`}
                       variants={expandVariants}
