@@ -27,6 +27,264 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
+// Helper component to render formatted AI responses
+const FormattedResponse = ({ integrationId, response }: { integrationId: string; response: unknown }) => {
+  const data = response as Record<string, unknown>;
+  
+  // Clinical Notes Analysis
+  if (integrationId === 'clinical-notes' && data.analysis) {
+    const analysis = data.analysis as Record<string, unknown>;
+    const warningSigns = analysis.warningSigns as Array<{ sign: string; severity: string }> || [];
+    const recommendations = analysis.recommendations as Array<{ action: string; priority: string }> || [];
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge variant={analysis.riskLevel === 'critical' ? 'destructive' : 'default'} className="uppercase">
+            {String(analysis.riskLevel || 'Unknown')} Risk
+          </Badge>
+          <span className="text-sm text-muted-foreground">
+            Score: {Math.round(Number(analysis.riskScore || 0) * 100)}%
+          </span>
+        </div>
+        
+        <p className="text-sm">{String(analysis.summary || '')}</p>
+        
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground mb-1">Warning Signs:</p>
+          <div className="flex flex-wrap gap-1">
+            {warningSigns.slice(0, 4).map((sign, i) => (
+              <Badge key={i} variant="outline" className={cn(
+                "text-xs",
+                sign.severity === 'high' && "border-destructive text-destructive"
+              )}>
+                {sign.sign}
+              </Badge>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground mb-1">Top Recommendations:</p>
+          <ul className="text-xs space-y-1">
+            {recommendations.slice(0, 2).map((rec, i) => (
+              <li key={i} className="flex items-start gap-1">
+                <span className={cn(
+                  "px-1 rounded text-[10px] font-bold",
+                  rec.priority === 'urgent' && "bg-destructive/20 text-destructive",
+                  rec.priority === 'high' && "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+                )}>
+                  {rec.priority?.toUpperCase()}
+                </span>
+                <span>{rec.action}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  
+  // Risk Narrative
+  if (integrationId === 'risk-narrative' && data.narrative) {
+    return (
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Badge className="bg-primary/20 text-primary">Risk Score: {Math.round(Number(data.riskScore || 0) * 100)}%</Badge>
+        </div>
+        <p className="text-sm leading-relaxed whitespace-pre-line">{String(data.narrative)}</p>
+      </div>
+    );
+  }
+  
+  // Interventions
+  if (integrationId === 'interventions' && data.suggestions) {
+    const suggestions = data.suggestions as Record<string, unknown>;
+    const interventions = suggestions.interventions as Array<{ intervention: string; priority: string; rationale: string }> || [];
+    
+    return (
+      <div className="space-y-3">
+        <p className="text-sm font-medium">{String(suggestions.riskSummary || '')}</p>
+        
+        <div className="space-y-2">
+          {interventions.slice(0, 3).map((item, i) => (
+            <div key={i} className="p-2 rounded-lg bg-muted/50 border border-border/50">
+              <div className="flex items-center gap-2 mb-1">
+                <Badge variant="outline" className={cn(
+                  "text-[10px]",
+                  item.priority === 'urgent' && "border-destructive text-destructive",
+                  item.priority === 'high' && "border-orange-500 text-orange-600"
+                )}>
+                  {item.priority?.toUpperCase()}
+                </Badge>
+              </div>
+              <p className="text-xs">{item.intervention}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  
+  // Health Equity
+  if (integrationId === 'health-equity' && data.report) {
+    const report = data.report as Record<string, unknown>;
+    const disparities = report.disparitiesIdentified as Array<{ disparity: string; affectedGroup: string; magnitude: string }> || [];
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+            Equity Score: {Math.round(Number(report.overallEquityScore || 0) * 100)}%
+          </Badge>
+        </div>
+        
+        <p className="text-sm">{String(report.executiveSummary || '')}</p>
+        
+        {disparities.length > 0 && (
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground mb-1">Disparities Identified:</p>
+            {disparities.map((d, i) => (
+              <div key={i} className="p-2 rounded bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-xs">
+                <span className="font-medium">{d.affectedGroup}:</span> {d.disparity} ({d.magnitude})
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+  
+  // Pressure Injury
+  if (integrationId === 'pressure-injury' && data.analysis) {
+    const analysis = data.analysis as Record<string, unknown>;
+    const stage = analysis.stage as Record<string, unknown> || {};
+    const severity = analysis.severity as Record<string, unknown> || {};
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge variant="destructive">{String(stage.classification || 'Unknown Stage')}</Badge>
+          <Badge variant="outline">{String(severity.level || 'Unknown')} Severity</Badge>
+        </div>
+        
+        <p className="text-sm">{String(stage.rationale || '')}</p>
+        
+        {analysis.escalationNeeded && (
+          <div className="p-2 rounded bg-destructive/10 border border-destructive/30 text-xs text-destructive">
+            ⚠️ Escalation Needed: {String(analysis.escalationReason || '')}
+          </div>
+        )}
+      </div>
+    );
+  }
+  
+  // Smart Alert
+  if (integrationId === 'smart-alert' && data.alert) {
+    const alert = data.alert as Record<string, unknown>;
+    const action = alert.action as Record<string, unknown> || {};
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge className={cn(
+            alert.priorityColor === 'red' && "bg-destructive text-destructive-foreground",
+            alert.priorityColor === 'orange' && "bg-orange-500 text-white",
+            alert.priorityColor === 'yellow' && "bg-yellow-500 text-black"
+          )}>
+            {String(alert.priority)} PRIORITY
+          </Badge>
+        </div>
+        
+        <div className="font-semibold text-sm">{String(alert.headline || '')}</div>
+        <p className="text-sm">{String(alert.situation || '')}</p>
+        
+        <div className="p-2 rounded bg-primary/10 border border-primary/30">
+          <p className="text-xs font-semibold">Primary Action:</p>
+          <p className="text-sm">{String(action.primary || '')}</p>
+          <p className="text-xs text-muted-foreground mt-1">Timeframe: {String(action.timeframe || '')}</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Unit Trends
+  if (integrationId === 'unit-trends' && data.analysis) {
+    const analysis = data.analysis as Record<string, unknown>;
+    const snapshot = analysis.unitSnapshot as Record<string, unknown> || {};
+    const shiftHandoff = analysis.shiftHandoff as Record<string, unknown> || {};
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge variant="outline">Trend: {String(snapshot.overallTrend || 'Unknown')}</Badge>
+          <Badge variant="outline">Acuity: {String(snapshot.averageAcuity || 'Unknown')}</Badge>
+        </div>
+        
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground mb-1">Shift Handoff - Critical Actions:</p>
+          <ul className="text-xs space-y-1">
+            {((shiftHandoff.criticalActions as string[]) || []).slice(0, 3).map((action, i) => (
+              <li key={i} className="flex items-start gap-1">
+                <span className="text-primary">•</span> {action}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  
+  // Risk Assessment
+  if (integrationId === 'risk-assessment' && data.assessment) {
+    const assessment = data.assessment as Record<string, unknown>;
+    const assessments = assessment.assessments as Record<string, Record<string, unknown>> || {};
+    
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge className={cn(
+            assessment.overallRisk === 'HIGH' && "bg-destructive",
+            assessment.overallRisk === 'MODERATE' && "bg-orange-500",
+            assessment.overallRisk === 'LOW' && "bg-emerald-500"
+          )}>
+            Overall: {String(assessment.overallRisk)} Risk
+          </Badge>
+        </div>
+        
+        <div className="grid grid-cols-3 gap-2">
+          {Object.entries(assessments).map(([key, value]) => (
+            <div key={key} className="p-2 rounded bg-muted/50 text-center">
+              <p className="text-[10px] text-muted-foreground uppercase">{key}</p>
+              <p className={cn(
+                "text-xs font-bold",
+                value.riskLevel === 'HIGH' && "text-destructive",
+                value.riskLevel === 'MODERATE' && "text-orange-600",
+                value.riskLevel === 'LOW' && "text-emerald-600"
+              )}>
+                {String(value.riskLevel)}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  
+  // Fallback for unknown formats
+  return (
+    <div className="text-xs text-muted-foreground">
+      <p className="mb-2">✅ AI analysis completed successfully</p>
+      <details className="cursor-pointer">
+        <summary className="text-xs text-primary hover:underline">View raw response</summary>
+        <pre className="mt-2 text-[10px] whitespace-pre-wrap bg-muted/50 p-2 rounded overflow-auto max-h-32">
+          {JSON.stringify(response, null, 2)}
+        </pre>
+      </details>
+    </div>
+  );
+};
+
 // Demo sample data for each integration
 const SAMPLE_DATA = {
   clinicalNotes: {
@@ -451,13 +709,15 @@ export const GeminiAIEngine = () => {
                 {/* Expanded Result View */}
                 {isSelected && result?.status === 'success' && (
                   <div className="mt-4 pt-4 border-t">
-                    <p className="text-xs font-medium text-muted-foreground mb-2">
-                      AI Response:
-                    </p>
-                    <ScrollArea className="h-40 rounded-lg bg-muted/50 p-3">
-                      <pre className="text-xs whitespace-pre-wrap">
-                        {JSON.stringify(result.response, null, 2)}
-                      </pre>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                        <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                        AI Analysis Complete
+                      </p>
+                      <span className="text-[10px] text-muted-foreground">{result.latency}ms</span>
+                    </div>
+                    <ScrollArea className="max-h-64">
+                      <FormattedResponse integrationId={integration.id} response={result.response} />
                     </ScrollArea>
                   </div>
                 )}
