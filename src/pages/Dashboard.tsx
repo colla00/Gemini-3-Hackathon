@@ -26,6 +26,7 @@ import { WalkthroughAccessButton } from '@/components/dashboard/WalkthroughAcces
 import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { InvestorModePanel } from '@/components/dashboard/InvestorModePanel';
+import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
@@ -40,7 +41,7 @@ import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
 import { toast } from 'sonner';
 
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi' | 'patent';
+type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi' | 'patent' | 'ai-tools';
 
 // Primary tabs always visible
 const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator?: boolean }[] = [
@@ -55,6 +56,7 @@ const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isC
 const calculatorNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator: boolean }[] = [
   { id: 'dbs', label: 'DBS Calculator', icon: <FileText className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
   { id: 'roi', label: 'ROI Calculator', icon: <DollarSign className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
+  { id: 'ai-tools', label: 'AI Tools', icon: <Sparkles className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
 ];
 
 // Secondary tabs - now displayed inline
@@ -137,6 +139,8 @@ export const Dashboard = () => {
         return <DBSCalculator />;
       case 'roi':
         return <ROICalculator />;
+      case 'ai-tools':
+        return <AIToolsPanel />;
       case 'patent':
         return <PatentFeaturesView />;
       default:
