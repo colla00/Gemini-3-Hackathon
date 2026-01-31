@@ -124,14 +124,70 @@ const AI_MODULES = [
   }
 ];
 
+// Demo result data for charts
+const DEMO_RESULTS = {
+  clinicalNotes: {
+    warningSigns: [
+      { sign: 'Nocturnal confusion', severity: 95 },
+      { sign: 'Unsafe mobility', severity: 90 },
+      { sign: 'Sedative admin', severity: 70 },
+      { sign: 'Fall risk indicators', severity: 85 }
+    ],
+    confidence: 94
+  },
+  shapFactors: [
+    { name: 'Medication Score', value: 0.31 },
+    { name: 'Age Factor', value: 0.24 },
+    { name: 'Mobility Index', value: 0.18 }
+  ],
+  interventions: [
+    { category: 'Environmental', count: 3, priority: 'Immediate' },
+    { category: 'Clinical', count: 3, priority: 'Urgent' },
+    { category: 'Monitoring', count: 3, priority: 'Ongoing' }
+  ],
+  equityHeatmap: [
+    { outcome: 'Pressure Injury', ageOver75: 2.3, medicaid: 1.4, nonEnglish: 1.0 },
+    { outcome: 'Falls', ageOver75: 1.6, medicaid: 1.1, nonEnglish: 1.5 },
+    { outcome: 'CAUTI', ageOver75: 0.9, medicaid: 2.2, nonEnglish: 1.0 },
+    { outcome: 'Response Time', ageOver75: 1.4, medicaid: 1.5, nonEnglish: 2.0 }
+  ],
+  unitTrends: [
+    { hour: '00:00', falls: 0.4, pressure: 0.3 },
+    { hour: '02:00', falls: 0.6, pressure: 0.3 },
+    { hour: '04:00', falls: 0.7, pressure: 0.3 },
+    { hour: '06:00', falls: 0.5, pressure: 0.4 },
+    { hour: '08:00', falls: 0.4, pressure: 0.4 },
+    { hour: '10:00', falls: 0.3, pressure: 0.5 },
+    { hour: '12:00', falls: 0.3, pressure: 0.5 },
+    { hour: '14:00', falls: 0.4, pressure: 0.5 },
+    { hour: '16:00', falls: 0.4, pressure: 0.6 },
+    { hour: '18:00', falls: 0.5, pressure: 0.7 },
+    { hour: '20:00', falls: 0.5, pressure: 0.6 },
+    { hour: '22:00', falls: 0.5, pressure: 0.4 }
+  ],
+  multiRisk: {
+    falls: { score: 8.2, level: 'HIGH' },
+    pressure: { score: 5.5, level: 'MODERATE' },
+    cauti: { score: 2.0, level: 'LOW' }
+  }
+};
+
 export interface AIToolsPptExportOptions {
   includeVoiceover?: boolean;
   includeNotes?: boolean;
+  includeCharts?: boolean;
   theme?: 'light' | 'dark';
 }
 
+// Helper to get color for disparity ratio
+const getDisparityColor = (value: number): string => {
+  if (value >= 1.8) return 'DC2626'; // red
+  if (value >= 1.3) return 'F59E0B'; // amber
+  return '22C55E'; // green
+};
+
 export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions = {}) => {
-  const { includeVoiceover = true, includeNotes = true, theme = 'light' } = options;
+  const { includeVoiceover = true, includeNotes = true, includeCharts = true, theme = 'light' } = options;
   
   const pptx = new PptxGenJS();
   
@@ -149,7 +205,9 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
     text: '1F2937',
     muted: '6B7280',
     cardBg: 'F8FAFC',
-    warning: 'F59E0B'
+    warning: 'F59E0B',
+    success: '22C55E',
+    danger: 'DC2626'
   } : {
     background: '0F172A',
     primary: '60A5FA',
@@ -157,7 +215,9 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
     text: 'F8FAFC',
     muted: '9CA3AF',
     cardBg: '1E293B',
-    warning: 'FBBF24'
+    warning: 'FBBF24',
+    success: '34D399',
+    danger: 'F87171'
   };
   
   // ===== TITLE SLIDE =====
@@ -241,91 +301,351 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
     overviewSlide.addNotes('OVERVIEW SLIDE\n\nThis slide shows all 8 AI modules at a glance. Each module addresses a specific clinical decision support need:\n\n1. Clinical Notes Analysis - NLP for unstructured documentation\n2. SHAP Explainability - Transparent AI reasoning\n3. Intervention Recommender - Evidence-based actions\n4. Health Equity - Disparity detection\n5. Pressure Injury - Multimodal image analysis\n6. Smart Alerts - Context-aware notifications\n7. Unit Trends - Temporal pattern recognition\n8. Multi-Risk Assessment - Unified risk view');
   }
   
-  // ===== INDIVIDUAL MODULE SLIDES =====
+  // ===== INDIVIDUAL MODULE SLIDES WITH CHARTS =====
   AI_MODULES.forEach((module, idx) => {
     const slide = pptx.addSlide();
     slide.bkgd = colors.background;
     
     // Header with icon
     slide.addShape(pptx.ShapeType.rect, {
-      x: 0, y: 0, w: '100%', h: 1.2,
+      x: 0, y: 0, w: '100%', h: 1.0,
       fill: { color: colors.primary }
     });
     
     slide.addText(`${module.icon} ${module.title}`, {
-      x: 0.5, y: 0.35, w: 8, h: 0.5,
-      fontSize: 24, bold: true, color: 'FFFFFF'
+      x: 0.5, y: 0.3, w: 8, h: 0.5,
+      fontSize: 22, bold: true, color: 'FFFFFF'
     });
     
     slide.addText(`Module ${idx + 1} of 8`, {
-      x: 8.5, y: 0.4, w: 1, h: 0.4,
-      fontSize: 11, color: 'FFFFFF', align: 'right'
+      x: 8.5, y: 0.35, w: 1, h: 0.3,
+      fontSize: 10, color: 'FFFFFF', align: 'right'
     });
     
-    // Description
-    slide.addText(module.description, {
-      x: 0.5, y: 1.4, w: 9, h: 0.6,
-      fontSize: 14, color: colors.text, italic: true
-    });
-    
-    // Key Features section
+    // Left column: Key Features
     slide.addText('Key Features', {
-      x: 0.5, y: 2.2, w: 4, h: 0.4,
-      fontSize: 16, bold: true, color: colors.primary
+      x: 0.5, y: 1.2, w: 4, h: 0.35,
+      fontSize: 14, bold: true, color: colors.primary
     });
     
     module.keyFeatures.forEach((feature, fi) => {
       slide.addText(`✓ ${feature}`, {
-        x: 0.7, y: 2.6 + fi * 0.35, w: 4.5, h: 0.35,
-        fontSize: 11, color: colors.text
+        x: 0.6, y: 1.55 + fi * 0.32, w: 4.3, h: 0.32,
+        fontSize: 10, color: colors.text
       });
     });
     
-    // Demo Scenario section
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: 5.3, y: 2.2, w: 4.2, h: 2.5,
-      fill: { color: colors.cardBg },
-      line: { color: colors.accent, width: 1 },
-      rectRadius: 0.1
-    });
+    // Add module-specific charts
+    if (includeCharts) {
+      switch (module.id) {
+        case 'clinical-notes':
+          // Warning signs bar chart
+          slide.addText('Warning Signs Detected', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          slide.addChart(pptx.ChartType.bar, [
+            {
+              name: 'Severity',
+              labels: DEMO_RESULTS.clinicalNotes.warningSigns.map(w => w.sign),
+              values: DEMO_RESULTS.clinicalNotes.warningSigns.map(w => w.severity)
+            }
+          ], {
+            x: 5, y: 1.55, w: 4.5, h: 2.0,
+            barDir: 'bar',
+            showValue: true,
+            dataLabelPosition: 'outEnd',
+            dataLabelFontSize: 8,
+            chartColors: ['DC2626', 'F59E0B', 'F59E0B', 'DC2626'],
+            valAxisMaxVal: 100,
+            catAxisTitle: '',
+            valAxisTitle: 'Severity %',
+            showLegend: false
+          });
+          // Confidence gauge
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 5, y: 3.7, w: 4.5, h: 0.6,
+            fill: { color: colors.cardBg },
+            line: { color: colors.success, width: 2 }
+          });
+          slide.addText(`Confidence: ${DEMO_RESULTS.clinicalNotes.confidence}%`, {
+            x: 5.2, y: 3.85, w: 4.1, h: 0.3,
+            fontSize: 14, bold: true, color: colors.success, align: 'center'
+          });
+          break;
+          
+        case 'risk-narrative':
+          // SHAP factor contribution chart
+          slide.addText('SHAP Factor Contributions', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          slide.addChart(pptx.ChartType.bar, [
+            {
+              name: 'Weight',
+              labels: DEMO_RESULTS.shapFactors.map(f => f.name),
+              values: DEMO_RESULTS.shapFactors.map(f => f.value * 100)
+            }
+          ], {
+            x: 5, y: 1.55, w: 4.5, h: 1.8,
+            barDir: 'bar',
+            showValue: true,
+            dataLabelPosition: 'outEnd',
+            dataLabelFontSize: 9,
+            chartColors: [colors.primary],
+            valAxisMaxVal: 40,
+            showLegend: false
+          });
+          // Risk score display
+          slide.addShape(pptx.ShapeType.ellipse, {
+            x: 6.25, y: 3.5, w: 1.5, h: 1.5,
+            fill: { color: colors.danger },
+          });
+          slide.addText('73%', {
+            x: 6.25, y: 3.9, w: 1.5, h: 0.5,
+            fontSize: 24, bold: true, color: 'FFFFFF', align: 'center'
+          });
+          slide.addText('HIGH RISK', {
+            x: 6.25, y: 4.35, w: 1.5, h: 0.3,
+            fontSize: 8, bold: true, color: 'FFFFFF', align: 'center'
+          });
+          break;
+          
+        case 'interventions':
+          // Intervention categories
+          slide.addText('Intervention Categories', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          slide.addChart(pptx.ChartType.pie, [
+            {
+              name: 'Interventions',
+              labels: DEMO_RESULTS.interventions.map(i => i.category),
+              values: DEMO_RESULTS.interventions.map(i => i.count)
+            }
+          ], {
+            x: 5.2, y: 1.5, w: 2.2, h: 2.2,
+            showValue: true,
+            showPercent: false,
+            chartColors: [colors.danger, colors.warning, colors.primary],
+            showLegend: true,
+            legendPos: 'r'
+          });
+          // Projected reduction
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 5, y: 3.8, w: 4.5, h: 0.5,
+            fill: { color: colors.success },
+          });
+          slide.addText('65% Projected Risk Reduction', {
+            x: 5, y: 3.9, w: 4.5, h: 0.3,
+            fontSize: 14, bold: true, color: 'FFFFFF', align: 'center'
+          });
+          break;
+          
+        case 'health-equity':
+          // Disparity heatmap as table
+          slide.addText('Disparity Heatmap (Ratio)', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          // Table header
+          const heatmapRows: PptxGenJS.TableRow[] = [
+            [
+              { text: 'Outcome', options: { bold: true, fill: { color: colors.cardBg } } },
+              { text: 'Age>75', options: { bold: true, fill: { color: colors.cardBg } } },
+              { text: 'Medicaid', options: { bold: true, fill: { color: colors.cardBg } } },
+              { text: 'Non-Eng', options: { bold: true, fill: { color: colors.cardBg } } }
+            ],
+            ...DEMO_RESULTS.equityHeatmap.map(row => [
+              { text: row.outcome, options: { fontSize: 9 } },
+              { text: `${row.ageOver75}x`, options: { fontSize: 9, fill: { color: getDisparityColor(row.ageOver75) }, color: 'FFFFFF' } },
+              { text: `${row.medicaid}x`, options: { fontSize: 9, fill: { color: getDisparityColor(row.medicaid) }, color: 'FFFFFF' } },
+              { text: `${row.nonEnglish}x`, options: { fontSize: 9, fill: { color: getDisparityColor(row.nonEnglish) }, color: 'FFFFFF' } }
+            ])
+          ];
+          slide.addTable(heatmapRows, {
+            x: 5, y: 1.55, w: 4.5, h: 2.3,
+            fontSize: 9,
+            border: { pt: 0.5, color: colors.muted },
+            align: 'center',
+            valign: 'middle'
+          });
+          // Legend
+          slide.addText('🟢 <1.3x   🟡 1.3-1.8x   🔴 >1.8x', {
+            x: 5, y: 3.9, w: 4.5, h: 0.3,
+            fontSize: 9, color: colors.muted, align: 'center'
+          });
+          break;
+          
+        case 'unit-trends':
+          // 24-hour trend line chart
+          slide.addText('24-Hour Risk Trends', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          slide.addChart(pptx.ChartType.line, [
+            {
+              name: 'Falls Risk',
+              labels: DEMO_RESULTS.unitTrends.map(t => t.hour),
+              values: DEMO_RESULTS.unitTrends.map(t => t.falls * 100)
+            },
+            {
+              name: 'Pressure Risk',
+              labels: DEMO_RESULTS.unitTrends.map(t => t.hour),
+              values: DEMO_RESULTS.unitTrends.map(t => t.pressure * 100)
+            }
+          ], {
+            x: 5, y: 1.5, w: 4.5, h: 2.3,
+            showValue: false,
+            chartColors: [colors.danger, colors.warning],
+            lineSmooth: true,
+            lineSize: 2,
+            showLegend: true,
+            legendPos: 'b',
+            catAxisTitle: 'Hour',
+            valAxisTitle: 'Risk %',
+            valAxisMaxVal: 80
+          });
+          // Peak annotation
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 5, y: 3.9, w: 4.5, h: 0.4,
+            fill: { color: 'FEE2E2' },
+            line: { color: colors.danger, width: 1 }
+          });
+          slide.addText('⚠ Falls peak: 2-6 AM (Night shift)', {
+            x: 5.1, y: 3.98, w: 4.3, h: 0.25,
+            fontSize: 9, color: colors.danger
+          });
+          break;
+          
+        case 'multi-risk':
+          // Multi-risk bars
+          slide.addText('Unified Risk Assessment', {
+            x: 5, y: 1.2, w: 4.5, h: 0.35,
+            fontSize: 12, bold: true, color: colors.accent
+          });
+          
+          const risks = [
+            { name: 'Falls', ...DEMO_RESULTS.multiRisk.falls, color: colors.danger },
+            { name: 'Pressure', ...DEMO_RESULTS.multiRisk.pressure, color: colors.warning },
+            { name: 'CAUTI', ...DEMO_RESULTS.multiRisk.cauti, color: colors.success }
+          ];
+          
+          risks.forEach((risk, ri) => {
+            const yPos = 1.6 + ri * 0.85;
+            // Label
+            slide.addText(`${risk.name}: ${risk.level}`, {
+              x: 5, y: yPos, w: 2, h: 0.3,
+              fontSize: 11, bold: true, color: colors.text
+            });
+            // Score bar background
+            slide.addShape(pptx.ShapeType.roundRect, {
+              x: 5, y: yPos + 0.3, w: 4.5, h: 0.35,
+              fill: { color: colors.cardBg },
+              line: { color: colors.muted, width: 0.5 }
+            });
+            // Score bar fill
+            slide.addShape(pptx.ShapeType.roundRect, {
+              x: 5, y: yPos + 0.3, w: 4.5 * (risk.score / 10), h: 0.35,
+              fill: { color: risk.color },
+            });
+            // Score value
+            slide.addText(`${risk.score}/10`, {
+              x: 8.6, y: yPos, w: 0.9, h: 0.3,
+              fontSize: 11, bold: true, color: risk.color, align: 'right'
+            });
+          });
+          break;
+          
+        case 'pressure-injury':
+          // Wound assessment card
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 5, y: 1.2, w: 4.5, h: 3.0,
+            fill: { color: colors.cardBg },
+            line: { color: colors.warning, width: 2 }
+          });
+          slide.addText('Wound Assessment Result', {
+            x: 5.2, y: 1.35, w: 4.1, h: 0.35,
+            fontSize: 12, bold: true, color: colors.warning
+          });
+          const assessmentItems = [
+            ['Stage:', 'II (Partial Thickness)'],
+            ['Size:', '~3cm x 2cm'],
+            ['Location:', 'Sacral region'],
+            ['Wound Bed:', 'Pink/red, moist'],
+            ['Healing:', 'Appropriate progression'],
+            ['Confidence:', '94%']
+          ];
+          assessmentItems.forEach((item, ai) => {
+            slide.addText(item[0], {
+              x: 5.3, y: 1.75 + ai * 0.35, w: 1.3, h: 0.3,
+              fontSize: 10, bold: true, color: colors.muted
+            });
+            slide.addText(item[1], {
+              x: 6.6, y: 1.75 + ai * 0.35, w: 2.8, h: 0.3,
+              fontSize: 10, color: colors.text
+            });
+          });
+          break;
+          
+        case 'smart-alert':
+          // Alert card
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 5, y: 1.2, w: 4.5, h: 3.1,
+            fill: { color: 'FEE2E2' },
+            line: { color: colors.danger, width: 2 }
+          });
+          slide.addText('🔔 IMMEDIATE PRIORITY', {
+            x: 5.2, y: 1.35, w: 4.1, h: 0.35,
+            fontSize: 12, bold: true, color: colors.danger
+          });
+          slide.addText('Falls Risk: ELEVATED → HIGH', {
+            x: 5.2, y: 1.7, w: 4.1, h: 0.3,
+            fontSize: 11, bold: true, color: colors.text
+          });
+          slide.addText('Patient 847261, Room 19A', {
+            x: 5.2, y: 2.0, w: 4.1, h: 0.25,
+            fontSize: 9, color: colors.muted
+          });
+          
+          const alertActions = [
+            '☐ Activate bed alarm NOW',
+            '☐ Safety rounds q1h until 18:30',
+            '☐ Reassess risk score',
+            '☐ Brief evening shift'
+          ];
+          alertActions.forEach((action, ai) => {
+            slide.addText(action, {
+              x: 5.3, y: 2.4 + ai * 0.35, w: 4, h: 0.3,
+              fontSize: 10, color: colors.text
+            });
+          });
+          
+          slide.addText('Reassess at: 18:30', {
+            x: 5.2, y: 3.9, w: 4.1, h: 0.25,
+            fontSize: 9, bold: true, color: colors.danger
+          });
+          break;
+      }
+    }
     
-    slide.addText('Demo Scenario', {
-      x: 5.5, y: 2.35, w: 3.8, h: 0.35,
-      fontSize: 12, bold: true, color: colors.accent
-    });
-    
-    slide.addText(`"${module.demoScenario}"`, {
-      x: 5.5, y: 2.75, w: 3.8, h: 0.9,
-      fontSize: 10, color: colors.muted, italic: true, valign: 'top'
-    });
-    
-    slide.addText('Expected Output:', {
-      x: 5.5, y: 3.7, w: 3.8, h: 0.3,
-      fontSize: 10, bold: true, color: colors.text
-    });
-    
-    slide.addText(module.expectedOutput, {
-      x: 5.5, y: 4, w: 3.8, h: 0.65,
-      fontSize: 9, color: colors.text, valign: 'top'
-    });
-    
-    // Voiceover script box
+    // Voiceover script box at bottom
     if (includeVoiceover) {
       slide.addShape(pptx.ShapeType.roundRect, {
-        x: 0.5, y: 4.2, w: 9, h: 0.9,
+        x: 0.5, y: 4.5, w: 9, h: 0.7,
         fill: { color: 'FEF3C7' },
         line: { color: colors.warning, width: 1 },
         rectRadius: 0.08
       });
       
-      slide.addText('🎤 Voiceover Script:', {
-        x: 0.65, y: 4.3, w: 8.7, h: 0.25,
-        fontSize: 9, bold: true, color: 'B45309'
+      slide.addText('🎤 Voiceover:', {
+        x: 0.65, y: 4.55, w: 8.7, h: 0.2,
+        fontSize: 8, bold: true, color: 'B45309'
       });
       
-      slide.addText(module.voiceoverScript.substring(0, 200) + '...', {
-        x: 0.65, y: 4.55, w: 8.7, h: 0.5,
-        fontSize: 8, color: '92400E', valign: 'top'
+      slide.addText(module.voiceoverScript.substring(0, 180) + '...', {
+        x: 0.65, y: 4.75, w: 8.7, h: 0.4,
+        fontSize: 7, color: '92400E', valign: 'top'
       });
     }
     
