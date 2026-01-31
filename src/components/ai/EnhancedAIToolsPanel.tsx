@@ -983,8 +983,8 @@ export const EnhancedAIToolsPanel = () => {
           break;
       }
       
-      // 2-second delay between modules
-      await delay(2000);
+      // 5-second delay between modules for readability
+      await delay(5000);
     }
     
     setCurrentDemoModule(null);
