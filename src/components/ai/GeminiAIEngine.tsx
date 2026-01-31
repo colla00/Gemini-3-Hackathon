@@ -87,24 +87,24 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const recommendations = analysis.recommendations as Array<{ action: string; priority: string }> || [];
     
     return (
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge variant={analysis.riskLevel === 'critical' ? 'destructive' : 'default'} className="uppercase">
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Badge variant={analysis.riskLevel === 'critical' ? 'destructive' : 'default'} className="uppercase text-[10px]">
             {String(analysis.riskLevel || 'Unknown')} Risk
           </Badge>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-[11px] text-muted-foreground">
             Score: {Math.round(Number(analysis.riskScore || 0) * 100)}%
           </span>
         </div>
         
-        <p className="text-sm">{String(analysis.summary || '')}</p>
+        <p className="text-[11px] leading-relaxed">{String(analysis.summary || '')}</p>
         
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1">Warning Signs:</p>
+          <p className="text-[10px] font-semibold text-muted-foreground mb-1">Warning Signs:</p>
           <div className="flex flex-wrap gap-1">
             {warningSigns.slice(0, 4).map((sign, i) => (
               <Badge key={i} variant="outline" className={cn(
-                "text-xs",
+                "text-[9px] px-1.5 py-0",
                 sign.severity === 'high' && "border-destructive text-destructive"
               )}>
                 {sign.sign}
@@ -114,18 +114,18 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
         </div>
         
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1">Top Recommendations:</p>
-          <ul className="text-xs space-y-1">
+          <p className="text-[10px] font-semibold text-muted-foreground mb-1">Top Recommendations:</p>
+          <ul className="text-[10px] space-y-0.5">
             {recommendations.slice(0, 2).map((rec, i) => (
               <li key={i} className="flex items-start gap-1">
                 <span className={cn(
-                  "px-1 rounded text-[10px] font-bold",
+                  "px-1 rounded text-[9px] font-bold shrink-0",
                   rec.priority === 'urgent' && "bg-destructive/20 text-destructive",
                   rec.priority === 'high' && "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
                 )}>
                   {rec.priority?.toUpperCase()}
                 </span>
-                <span>{rec.action}</span>
+                <span className="leading-tight">{rec.action}</span>
               </li>
             ))}
           </ul>
@@ -139,9 +139,9 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Badge className="bg-primary/20 text-primary">Risk Score: {Math.round(Number(data.riskScore || 0) * 100)}%</Badge>
+          <Badge className="bg-primary/20 text-primary text-[10px]">Risk Score: {Math.round(Number(data.riskScore || 0) * 100)}%</Badge>
         </div>
-        <p className="text-sm leading-relaxed whitespace-pre-line">{String(data.narrative)}</p>
+        <p className="text-[11px] leading-relaxed whitespace-pre-line">{String(data.narrative)}</p>
       </div>
     );
   }
@@ -152,22 +152,22 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const interventions = suggestions.interventions as Array<{ intervention: string; priority: string; rationale: string }> || [];
     
     return (
-      <div className="space-y-3">
-        <p className="text-sm font-medium">{String(suggestions.riskSummary || '')}</p>
+      <div className="space-y-2">
+        <p className="text-[11px] font-medium leading-relaxed">{String(suggestions.riskSummary || '')}</p>
         
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {interventions.slice(0, 3).map((item, i) => (
-            <div key={i} className="p-2 rounded-lg bg-muted/50 border border-border/50">
-              <div className="flex items-center gap-2 mb-1">
+            <div key={i} className="p-1.5 rounded-lg bg-muted/50 border border-border/50">
+              <div className="flex items-center gap-1.5 mb-0.5">
                 <Badge variant="outline" className={cn(
-                  "text-[10px]",
+                  "text-[9px] px-1.5 py-0",
                   item.priority === 'urgent' && "border-destructive text-destructive",
                   item.priority === 'high' && "border-orange-500 text-orange-600"
                 )}>
                   {item.priority?.toUpperCase()}
                 </Badge>
               </div>
-              <p className="text-xs">{item.intervention}</p>
+              <p className="text-[10px] leading-tight">{item.intervention}</p>
             </div>
           ))}
         </div>
@@ -181,20 +181,20 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const disparities = report.disparitiesIdentified as Array<{ disparity: string; affectedGroup: string; magnitude: string }> || [];
     
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+          <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-[10px]">
             Equity Score: {Math.round(Number(report.overallEquityScore || 0) * 100)}%
           </Badge>
         </div>
         
-        <p className="text-sm">{String(report.executiveSummary || '')}</p>
+        <p className="text-[11px] leading-relaxed">{String(report.executiveSummary || '')}</p>
         
         {disparities.length > 0 && (
           <div>
-            <p className="text-xs font-semibold text-muted-foreground mb-1">Disparities Identified:</p>
+            <p className="text-[10px] font-semibold text-muted-foreground mb-1">Disparities Identified:</p>
             {disparities.map((d, i) => (
-              <div key={i} className="p-2 rounded bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-xs">
+              <div key={i} className="p-1.5 rounded bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-[10px] leading-tight">
                 <span className="font-medium">{d.affectedGroup}:</span> {d.disparity} ({d.magnitude})
               </div>
             ))}
@@ -211,16 +211,16 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const severity = analysis.severity as Record<string, unknown> || {};
     
     return (
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge variant="destructive">{String(stage.classification || 'Unknown Stage')}</Badge>
-          <Badge variant="outline">{String(severity.level || 'Unknown')} Severity</Badge>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Badge variant="destructive" className="text-[10px]">{String(stage.classification || 'Unknown Stage')}</Badge>
+          <Badge variant="outline" className="text-[10px]">{String(severity.level || 'Unknown')} Severity</Badge>
         </div>
         
-        <p className="text-sm">{String(stage.rationale || '')}</p>
+        <p className="text-[11px] leading-relaxed">{String(stage.rationale || '')}</p>
         
         {analysis.escalationNeeded && (
-          <div className="p-2 rounded bg-destructive/10 border border-destructive/30 text-xs text-destructive">
+          <div className="p-1.5 rounded bg-destructive/10 border border-destructive/30 text-[10px] text-destructive leading-tight">
             ⚠️ Escalation Needed: {String(analysis.escalationReason || '')}
           </div>
         )}
@@ -234,9 +234,10 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const action = alert.action as Record<string, unknown> || {};
     
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Badge className={cn(
+            "text-[10px]",
             alert.priorityColor === 'red' && "bg-destructive text-destructive-foreground",
             alert.priorityColor === 'orange' && "bg-orange-500 text-white",
             alert.priorityColor === 'yellow' && "bg-yellow-500 text-black"
@@ -245,13 +246,13 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
           </Badge>
         </div>
         
-        <div className="font-semibold text-sm">{String(alert.headline || '')}</div>
-        <p className="text-sm">{String(alert.situation || '')}</p>
+        <div className="font-semibold text-[11px]">{String(alert.headline || '')}</div>
+        <p className="text-[11px] leading-relaxed">{String(alert.situation || '')}</p>
         
-        <div className="p-2 rounded bg-primary/10 border border-primary/30">
-          <p className="text-xs font-semibold">Primary Action:</p>
-          <p className="text-sm">{String(action.primary || '')}</p>
-          <p className="text-xs text-muted-foreground mt-1">Timeframe: {String(action.timeframe || '')}</p>
+        <div className="p-1.5 rounded bg-primary/10 border border-primary/30">
+          <p className="text-[10px] font-semibold">Primary Action:</p>
+          <p className="text-[11px] leading-tight">{String(action.primary || '')}</p>
+          <p className="text-[9px] text-muted-foreground mt-0.5">Timeframe: {String(action.timeframe || '')}</p>
         </div>
       </div>
     );
@@ -264,17 +265,17 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const shiftHandoff = analysis.shiftHandoff as Record<string, unknown> || {};
     
     return (
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline">Trend: {String(snapshot.overallTrend || 'Unknown')}</Badge>
-          <Badge variant="outline">Acuity: {String(snapshot.averageAcuity || 'Unknown')}</Badge>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Badge variant="outline" className="text-[10px]">Trend: {String(snapshot.overallTrend || 'Unknown')}</Badge>
+          <Badge variant="outline" className="text-[10px]">Acuity: {String(snapshot.averageAcuity || 'Unknown')}</Badge>
         </div>
         
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1">Shift Handoff - Critical Actions:</p>
-          <ul className="text-xs space-y-1">
+          <p className="text-[10px] font-semibold text-muted-foreground mb-1">Shift Handoff - Critical Actions:</p>
+          <ul className="text-[10px] space-y-0.5">
             {((shiftHandoff.criticalActions as string[]) || []).slice(0, 3).map((action, i) => (
-              <li key={i} className="flex items-start gap-1">
+              <li key={i} className="flex items-start gap-1 leading-tight">
                 <span className="text-primary">•</span> {action}
               </li>
             ))}
@@ -290,9 +291,10 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
     const assessments = assessment.assessments as Record<string, Record<string, unknown>> || {};
     
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Badge className={cn(
+            "text-[10px]",
             assessment.overallRisk === 'HIGH' && "bg-destructive",
             assessment.overallRisk === 'MODERATE' && "bg-orange-500",
             assessment.overallRisk === 'LOW' && "bg-emerald-500"
@@ -301,12 +303,12 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
           </Badge>
         </div>
         
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-1.5">
           {Object.entries(assessments).map(([key, value]) => (
-            <div key={key} className="p-2 rounded bg-muted/50 text-center">
-              <p className="text-[10px] text-muted-foreground uppercase">{key}</p>
+            <div key={key} className="p-1.5 rounded bg-muted/50 text-center">
+              <p className="text-[9px] text-muted-foreground uppercase">{key}</p>
               <p className={cn(
-                "text-xs font-bold",
+                "text-[10px] font-bold",
                 value.riskLevel === 'HIGH' && "text-destructive",
                 value.riskLevel === 'MODERATE' && "text-orange-600",
                 value.riskLevel === 'LOW' && "text-emerald-600"
@@ -322,11 +324,11 @@ const FormattedResponse = ({ integrationId, response }: { integrationId: string;
   
   // Fallback for unknown formats
   return (
-    <div className="text-xs text-muted-foreground">
-      <p className="mb-2">✅ AI analysis completed successfully</p>
+    <div className="text-[10px] text-muted-foreground">
+      <p className="mb-1.5">✅ AI analysis completed successfully</p>
       <details className="cursor-pointer">
-        <summary className="text-xs text-primary hover:underline">View raw response</summary>
-        <pre className="mt-2 text-[10px] whitespace-pre-wrap bg-muted/50 p-2 rounded overflow-auto max-h-32">
+        <summary className="text-[10px] text-primary hover:underline">View raw response</summary>
+        <pre className="mt-1.5 text-[9px] whitespace-pre-wrap bg-muted/50 p-1.5 rounded overflow-auto max-h-28">
           {JSON.stringify(response, null, 2)}
         </pre>
       </details>
