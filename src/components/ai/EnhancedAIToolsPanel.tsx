@@ -337,7 +337,7 @@ const ModuleCard = ({
 };
 
 // ============================================================================
-// LOADING INDICATOR
+// PREMIUM LOADING INDICATOR
 // ============================================================================
 
 interface LoadingIndicatorProps {
@@ -347,82 +347,178 @@ interface LoadingIndicatorProps {
 
 const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps) => {
   const [progress, setProgress] = useState(0);
+  const [dots, setDots] = useState('');
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => Math.min(prev + 10, 90));
-    }, estimatedTime * 100);
-    return () => clearInterval(interval);
+    const progressInterval = setInterval(() => {
+      setProgress(prev => Math.min(prev + 8, 95));
+    }, estimatedTime * 80);
+    
+    const dotsInterval = setInterval(() => {
+      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+    }, 400);
+    
+    return () => {
+      clearInterval(progressInterval);
+      clearInterval(dotsInterval);
+    };
   }, [estimatedTime]);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="space-y-3 p-4 bg-muted/30 rounded-lg"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="relative overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 p-5"
     >
-      <div className="flex items-center gap-3">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        >
-          <Sparkles className="h-5 w-5 text-primary" />
-        </motion.div>
-        <span className="text-sm font-medium">
-          Processing with Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
-          <motion.span
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+      {/* Animated background shimmer */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2s_infinite] -translate-x-full" 
+        style={{ animation: 'shimmer 2s infinite' }}
+      />
+      
+      <div className="relative space-y-4">
+        {/* Header with pulsing icon */}
+        <div className="flex items-center gap-4">
+          <motion.div
+            animate={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: 'easeInOut'
+            }}
+            className="p-3 rounded-xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30"
           >
-            ...
-          </motion.span>
-        </span>
+            <Sparkles className="h-6 w-6 text-white" />
+          </motion.div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <span className="text-base font-semibold text-foreground">
+                Processing with Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
+              </span>
+              <span className="text-primary font-mono text-sm w-6">{dots}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Analyzing clinical patterns and generating insights
+            </p>
+          </div>
+        </div>
+
+        {/* Progress bar with glow effect */}
+        <div className="space-y-2">
+          <div className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
+            <motion.div
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full"
+              style={{ width: `${progress}%` }}
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3 }}
+            />
+            <div 
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary/50 to-accent/50 rounded-full blur-sm"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              Est. {estimatedTime}s remaining
+            </span>
+            <span className="font-mono">{progress.toFixed(0)}%</span>
+          </div>
+        </div>
       </div>
-      <Progress value={progress} className="h-1.5" />
-      <p className="text-xs text-muted-foreground">
-        Estimated time: ~{estimatedTime}s
-      </p>
     </motion.div>
   );
 };
 
 // ============================================================================
-// RESULT ACTIONS
+// RESULT ACTIONS (Visual only - no actual functionality)
 // ============================================================================
 
 interface ResultActionsProps {
-  onCopy: () => void;
-  onDownload: () => void;
-  onShare: () => void;
   processingTime: number;
 }
 
-const ResultActions = ({ onCopy, onDownload, onShare, processingTime }: ResultActionsProps) => {
+const ResultActions = ({ processingTime }: ResultActionsProps) => {
   const { toast } = useToast();
 
   const handleCopy = () => {
-    onCopy();
-    toast({ title: "Copied to clipboard", description: "Results copied successfully" });
+    toast({ 
+      title: "📋 Copy to Clipboard", 
+      description: "This feature is for demo purposes only",
+    });
+  };
+
+  const handleDownload = () => {
+    toast({ 
+      title: "📥 Download PDF", 
+      description: "This feature is for demo purposes only",
+    });
+  };
+
+  const handleShare = () => {
+    toast({ 
+      title: "🔗 Share Results", 
+      description: "This feature is for demo purposes only",
+    });
   };
 
   return (
-    <div className="flex items-center justify-between mt-4 pt-3 border-t">
-      <span className="text-xs text-muted-foreground flex items-center gap-1">
-        <CheckCircle2 className="h-3 w-3 text-green-500" />
-        Analyzed in {processingTime.toFixed(1)}s
-      </span>
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="flex items-center justify-between mt-4 pt-3 border-t border-border/50"
+    >
+      <div className="flex items-center gap-2">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', delay: 0.4 }}
+        >
+          <CheckCircle2 className="h-4 w-4 text-green-500" />
+        </motion.div>
+        <span className="text-xs text-muted-foreground">
+          Analyzed in <span className="font-semibold text-foreground">{processingTime.toFixed(1)}s</span>
+        </span>
+        <Badge variant="outline" className="text-[10px] gap-1 border-primary/30">
+          <Sparkles className="h-2.5 w-2.5" />
+          Gemini 3
+        </Badge>
+      </div>
       <div className="flex gap-1">
-        <Button size="sm" variant="ghost" onClick={handleCopy} className="h-7 px-2">
-          <Copy className="h-3 w-3" />
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          onClick={handleCopy} 
+          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+          title="Copy Results"
+        >
+          <Copy className="h-3.5 w-3.5" />
         </Button>
-        <Button size="sm" variant="ghost" onClick={onDownload} className="h-7 px-2">
-          <Download className="h-3 w-3" />
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          onClick={handleDownload} 
+          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+          title="Download PDF"
+        >
+          <Download className="h-3.5 w-3.5" />
         </Button>
-        <Button size="sm" variant="ghost" onClick={onShare} className="h-7 px-2">
-          <Share2 className="h-3 w-3" />
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          onClick={handleShare} 
+          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+          title="Share"
+        >
+          <Share2 className="h-3.5 w-3.5" />
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -618,20 +714,40 @@ export const EnhancedAIToolsPanel = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2">
+              <motion.div 
+                className={cn(
+                  "flex items-center gap-3 rounded-xl px-4 py-2.5 border transition-all duration-300",
+                  demoMode 
+                    ? "bg-green-500/20 border-green-400/50 shadow-lg shadow-green-500/20" 
+                    : "bg-white/10 border-white/20"
+                )}
+                animate={demoMode ? { scale: [1, 1.02, 1] } : {}}
+                transition={{ duration: 0.3 }}
+              >
                 <Switch
                   id="demo-mode"
                   checked={demoMode}
                   onCheckedChange={setDemoMode}
                   aria-label="Toggle demo mode"
+                  className="data-[state=checked]:bg-green-500"
                 />
-                <Label htmlFor="demo-mode" className="text-sm font-medium cursor-pointer">
+                <Label htmlFor="demo-mode" className="text-sm font-semibold cursor-pointer select-none">
                   Demo Mode
                 </Label>
-                {demoMode && (
-                  <Badge className="bg-yellow-500 text-black text-[10px]">ACTIVE</Badge>
-                )}
-              </div>
+                <AnimatePresence>
+                  {demoMode && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                    >
+                      <Badge className="bg-green-500 text-white text-[10px] font-bold uppercase animate-pulse shadow-lg">
+                        DEMO MODE ACTIVE
+                      </Badge>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
           </div>
 
@@ -672,42 +788,50 @@ export const EnhancedAIToolsPanel = () => {
           onToggle={() => toggleModule('clinical-notes')}
         >
           <div className="space-y-4">
-            <Textarea
-              placeholder="Enter nurse observation notes..."
-              value={clinicalNotes}
-              onChange={(e) => setClinicalNotes(e.target.value)}
-              className="min-h-[100px] resize-none"
-              aria-label="Clinical notes input"
-            />
-
+            {/* Example buttons above textarea */}
             <div className="flex flex-wrap gap-2">
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.restless)}
+                className="text-xs"
               >
-                Example 1: Restless Patient
+                📋 Example 1: Restless Patient
               </Button>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.confusion)}
+                className="text-xs"
               >
-                Example 2: Confusion
+                📋 Example 2: Confusion
               </Button>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.pain)}
+                className="text-xs"
               >
-                Example 3: Pain
+                📋 Example 3: Pain
               </Button>
             </div>
 
+            {/* Large textarea */}
+            <Textarea
+              placeholder="Enter nurse observation notes here...
+
+Example: Patient restless overnight. Found attempting to climb out of bed at 0230hrs. Reoriented x3. States need to 'go home to feed cats.' Lorazepam 2mg PO given at 0300hrs per protocol. Patient now resting quietly. Bed alarm activated."
+              value={clinicalNotes}
+              onChange={(e) => setClinicalNotes(e.target.value)}
+              className="min-h-[140px] resize-none text-sm"
+              aria-label="Clinical notes input"
+            />
+
+            {/* Blue analyze button */}
             <Button
               onClick={handleClinicalNotesAnalysis}
               disabled={clinicalNotesLoading || !clinicalNotes.trim()}
-              className="w-full gap-2"
+              className="w-full gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-base shadow-lg shadow-blue-600/25"
             >
               {clinicalNotesLoading ? (
                 <>
@@ -726,48 +850,100 @@ export const EnhancedAIToolsPanel = () => {
 
             {clinicalNotesResult && !clinicalNotesLoading && (
               <motion.div
-                variants={resultVariants}
-                initial="hidden"
-                animate="visible"
-                className="space-y-3 p-4 bg-muted/30 rounded-lg border"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="space-y-4"
               >
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-orange-500" />
-                  <span className="font-semibold text-sm">Warning Signs Detected:</span>
-                </div>
-                <ul className="text-sm space-y-1">
-                  {clinicalNotesResult.warningSigns.map((sign, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-orange-500">•</span>
-                      <span>{sign.sign}</span>
-                      <Badge variant={sign.severity === 'high' ? 'destructive' : 'secondary'} className="text-[10px] ml-auto">
-                        {sign.severity}
-                      </Badge>
-                    </li>
-                  ))}
-                </ul>
+                {/* Results Header */}
+                <motion.div 
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-lg border border-primary/20"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-primary/20">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold">AI Analysis Complete</p>
+                      <p className="text-xs text-muted-foreground">Gemini 3 Flash</p>
+                    </div>
+                  </div>
+                  <Badge className={cn(
+                    "text-xs uppercase font-bold",
+                    clinicalNotesResult.riskLevel === 'HIGH' ? "bg-destructive" : 
+                    clinicalNotesResult.riskLevel === 'MODERATE' ? "bg-orange-500" : "bg-green-500"
+                  )}>
+                    {clinicalNotesResult.riskLevel} Risk
+                  </Badge>
+                </motion.div>
 
-                <Separator />
+                {/* Warning Signs Card */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="p-4 bg-gradient-to-br from-orange-50 to-amber-50/50 dark:from-orange-950/30 dark:to-amber-950/20 rounded-xl border border-orange-200 dark:border-orange-800 shadow-sm"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertTriangle className="h-5 w-5 text-orange-600" />
+                    <span className="font-bold text-sm text-orange-800 dark:text-orange-300">Warning Signs Detected:</span>
+                  </div>
+                  <div className="space-y-2">
+                    {clinicalNotesResult.warningSigns.map((sign, i) => (
+                      <motion.div 
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.25 + i * 0.05 }}
+                        className="flex items-center gap-3 p-2 bg-white/60 dark:bg-black/20 rounded-lg"
+                      >
+                        <span className="text-orange-500 text-lg">•</span>
+                        <span className="flex-1 text-sm">{sign.sign}</span>
+                        <Badge 
+                          variant={sign.severity === 'high' ? 'destructive' : 'secondary'} 
+                          className={cn(
+                            "text-[10px] font-bold uppercase",
+                            sign.severity === 'high' && "bg-red-600 text-white"
+                          )}
+                        >
+                          {sign.severity}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
 
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <span className="font-semibold text-sm">Recommended Actions:</span>
-                </div>
-                <ul className="text-sm space-y-1">
-                  {clinicalNotesResult.recommendedActions.map((action, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>{action}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Recommended Actions Card */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="p-4 bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/20 rounded-xl border border-green-200 dark:border-green-800 shadow-sm"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    <span className="font-bold text-sm text-green-800 dark:text-green-300">Recommended Actions:</span>
+                  </div>
+                  <div className="space-y-2">
+                    {clinicalNotesResult.recommendedActions.map((action, i) => (
+                      <motion.div 
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4 + i * 0.05 }}
+                        className="flex items-center gap-3 p-2 bg-white/60 dark:bg-black/20 rounded-lg"
+                      >
+                        <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                        <span className="text-sm">{action}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(clinicalNotesResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={1.4}
-                />
+                <ResultActions processingTime={1.4} />
               </motion.div>
             )}
           </div>
@@ -847,12 +1023,7 @@ export const EnhancedAIToolsPanel = () => {
                   <span className="font-semibold text-sm">After:</span>
                 </div>
                 <p className="text-sm leading-relaxed">{narrativeResult.narrative}</p>
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(narrativeResult.narrative)}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={1.1}
-                />
+                <ResultActions processingTime={1.1} />
               </motion.div>
             )}
           </div>
@@ -968,12 +1139,7 @@ export const EnhancedAIToolsPanel = () => {
                   </div>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(interventionResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={1.6}
-                />
+                <ResultActions processingTime={1.6} />
               </motion.div>
             )}
           </div>
@@ -1067,12 +1233,7 @@ export const EnhancedAIToolsPanel = () => {
                   </ul>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(equityResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={2.8}
-                />
+                <ResultActions processingTime={2.8} />
               </motion.div>
             )}
           </div>
@@ -1166,12 +1327,7 @@ export const EnhancedAIToolsPanel = () => {
                   </ul>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(pressureResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={1.8}
-                />
+                <ResultActions processingTime={1.8} />
               </motion.div>
             )}
           </div>
@@ -1270,12 +1426,7 @@ export const EnhancedAIToolsPanel = () => {
                   </ul>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(alertResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={0.9}
-                />
+                <ResultActions processingTime={0.9} />
               </motion.div>
             )}
           </div>
@@ -1411,12 +1562,7 @@ export const EnhancedAIToolsPanel = () => {
                   </ul>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(trendResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={2.3}
-                />
+                <ResultActions processingTime={2.3} />
               </motion.div>
             )}
           </div>
@@ -1632,12 +1778,7 @@ export const EnhancedAIToolsPanel = () => {
                   </div>
                 </div>
 
-                <ResultActions
-                  onCopy={() => navigator.clipboard.writeText(JSON.stringify(multiRiskResult))}
-                  onDownload={() => {}}
-                  onShare={() => {}}
-                  processingTime={1.5}
-                />
+                <ResultActions processingTime={1.5} />
               </motion.div>
             )}
           </div>
