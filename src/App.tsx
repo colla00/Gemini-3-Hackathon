@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -36,27 +36,6 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
-
-// External redirect component for routes that should navigate to external URLs
-const ExternalRedirect = ({ url }: { url: string }) => {
-  useEffect(() => {
-    window.location.href = url;
-  }, [url]);
-  
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative">
-          <div className="w-16 h-16 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center animate-pulse">
-            <BarChart3 className="w-8 h-8 text-primary" />
-          </div>
-          <div className="absolute -inset-2 rounded-2xl border-2 border-primary/20 border-t-primary animate-spin" />
-        </div>
-        <span className="text-sm text-muted-foreground font-medium">Redirecting to AI Tools...</span>
-      </div>
-    </div>
-  );
-};
 
 const queryClient = new QueryClient();
 
@@ -158,8 +137,6 @@ const App = () => {
                       <PrivacyPolicy />
                     </Suspense>
                   } />
-                  {/* External redirect for AI Tools */}
-                  <Route path="/ai-tools" element={<ExternalRedirect url="https://www.dralexis.ceo/ai-tools" />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
