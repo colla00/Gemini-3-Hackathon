@@ -460,6 +460,7 @@ const ModuleCard = ({
       animate="visible"
       whileHover="hover"
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      data-module-id={id}
     >
       <Card className={cn(
         "transition-all duration-300 overflow-hidden",
@@ -518,7 +519,7 @@ const ModuleCard = ({
               animate="visible"
               exit="exit"
             >
-              <CardContent className="pt-0 pb-4">
+              <CardContent className="pt-0 pb-4" data-result-area>
                 <Separator className="mb-4" />
                 {children}
               </CardContent>
@@ -776,6 +777,8 @@ export const EnhancedAIToolsPanel = () => {
   const demoPausedRef = React.useRef(false);
   const [currentDemoModule, setCurrentDemoModule] = useState<string | null>(null);
   const [currentDemoIndex, setCurrentDemoIndex] = useState(0);
+  const [pptxExporting, setPptxExporting] = useState(false);
+  const [pptxProgress, setPptxProgress] = useState<{ phase: string; current: number; total: number; detail?: string } | null>(null);
 
   // Module states
   const [clinicalNotes, setClinicalNotes] = useState('');
@@ -1059,7 +1062,7 @@ export const EnhancedAIToolsPanel = () => {
     : '0.0';
 
   return (
-    <div className="space-y-6 animate-fade-in relative">
+    <div className="space-y-6 animate-fade-in relative" data-ai-tools-panel>
       {/* Header Banner */}
       <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-primary via-primary/95 to-accent text-primary-foreground shadow-xl">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_50%)]" />
@@ -1085,33 +1088,82 @@ export const EnhancedAIToolsPanel = () => {
 
             {/* Run All Demos Button */}
             <div className="flex items-center gap-2 flex-wrap">
-              {/* PowerPoint Export Button */}
+              {/* PowerPoint Export Button with Screenshot Capture */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       onClick={async () => {
-                        toast({ title: '📊 Generating PowerPoint...', description: 'Creating demo voiceover slides' });
+                        setPptxExporting(true);
+                        setPptxProgress({ phase: 'Starting...', current: 0, total: 12 });
                         try {
-                          const fileName = await generateAIToolsPowerPoint({ includeVoiceover: true, includeNotes: true });
-                          toast({ title: '✅ PowerPoint Generated', description: `Downloaded: ${fileName}` });
+                          const fileName = await generateAIToolsPowerPoint({ 
+                            includeVoiceover: true, 
+                            includeNotes: true,
+                            includeScreenshots: true,
+                            includeCharts: true,
+                            onProgress: (progress) => setPptxProgress(progress)
+                          });
+                          toast({ 
+                            title: '✅ PowerPoint Generated', 
+                            description: `Downloaded with live screenshots: ${fileName}` 
+                          });
                         } catch (err) {
+                          console.error('PPTX export failed:', err);
                           toast({ title: '❌ Export Failed', description: 'Please try again', variant: 'destructive' });
+                        } finally {
+                          setPptxExporting(false);
+                          setPptxProgress(null);
                         }
                       }}
                       size="sm"
                       variant="secondary"
-                      className="bg-white/20 hover:bg-white/30 text-white border-white/20"
+                      disabled={pptxExporting}
+                      className="bg-white/20 hover:bg-white/30 text-white border-white/20 min-w-[130px]"
                     >
-                      <Presentation className="h-4 w-4 mr-2" />
-                      Export PPTX
+                      {pptxExporting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          {pptxProgress?.phase === 'Capturing screenshots' ? 'Capturing...' : 'Building...'}
+                        </>
+                      ) : (
+                        <>
+                          <Presentation className="h-4 w-4 mr-2" />
+                          Export PPTX
+                        </>
+                      )}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
-                    <p>Download PowerPoint with voiceover scripts and speaker notes for all 8 AI modules.</p>
+                    <p>Download PowerPoint with live screenshots, voiceover scripts, and speaker notes for all 8 AI modules.</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+
+              {/* Export Progress Indicator */}
+              <AnimatePresence>
+                {pptxExporting && pptxProgress && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Badge className="bg-white/20 text-white text-xs font-bold border border-white/30">
+                      {pptxProgress.current}/{pptxProgress.total}
+                    </Badge>
+                    {pptxProgress.detail && (
+                      <Badge className="bg-accent/80 text-white text-[10px] font-medium truncate max-w-[120px]">
+                        {pptxProgress.detail}
+                      </Badge>
+                    )}
+                    <Progress 
+                      value={(pptxProgress.current / pptxProgress.total) * 100} 
+                      className="w-16 h-1.5 bg-white/20 [&>div]:bg-white"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
