@@ -110,23 +110,23 @@ export const TrustBasedAlertSystem = () => {
             <div className="bg-secondary/50 rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <TrendingDown className="w-3.5 h-3.5 text-risk-low" />
-                <span className="text-lg font-bold text-risk-low">{RESEARCH_DATA.alerts.reductionRate * 100}%</span>
+                <span className="text-lg font-bold text-risk-low">{RESEARCH_DATA.alerts.projectedReductionRate * 100}%</span>
               </div>
-              <span className="text-[10px] text-muted-foreground">Alert Reduction</span>
+              <span className="text-[10px] text-muted-foreground">Alert Reduction (Projected)</span>
             </div>
             <div className="bg-secondary/50 rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <Shield className="w-3.5 h-3.5 text-primary" />
-                <span className="text-lg font-bold text-foreground">{RESEARCH_DATA.alerts.sensitivity * 100}%</span>
+                <span className="text-lg font-bold text-foreground">{RESEARCH_DATA.alerts.targetSensitivity * 100}%</span>
               </div>
-              <span className="text-[10px] text-muted-foreground">Sensitivity</span>
+              <span className="text-[10px] text-muted-foreground">Target Sensitivity</span>
             </div>
             <div className="bg-secondary/50 rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <Zap className="w-3.5 h-3.5 text-chart-1" />
-                <span className="text-lg font-bold text-foreground">{RESEARCH_DATA.alerts.timeSaved}m</span>
+                <span className="text-lg font-bold text-foreground">{RESEARCH_DATA.alerts.projectedTimeSaved}m</span>
               </div>
-              <span className="text-[10px] text-muted-foreground">Time Saved/Decision</span>
+              <span className="text-[10px] text-muted-foreground">Time Saved (Projected)</span>
             </div>
           </div>
           
@@ -169,8 +169,8 @@ export const TrustBasedAlertSystem = () => {
                 <Volume2 className="w-4 h-4 text-risk-high" />
                 <span className="text-xs font-semibold text-risk-high">Without Filter</span>
               </div>
-              <div className="text-2xl font-bold text-foreground">{RESEARCH_DATA.alerts.beforeAlerts}</div>
-              <span className="text-[10px] text-muted-foreground">alerts/hour</span>
+              <div className="text-2xl font-bold text-foreground">{RESEARCH_DATA.alerts.illustrativeBeforeAlerts}</div>
+              <span className="text-[10px] text-muted-foreground">alerts/hour (illustrative)</span>
             </div>
             
             {/* After */}
@@ -179,8 +179,8 @@ export const TrustBasedAlertSystem = () => {
                 <VolumeX className="w-4 h-4 text-risk-low" />
                 <span className="text-xs font-semibold text-risk-low">With Filter</span>
               </div>
-              <div className="text-2xl font-bold text-foreground">{RESEARCH_DATA.alerts.afterAlerts}</div>
-              <span className="text-[10px] text-muted-foreground">alerts/hour</span>
+              <div className="text-2xl font-bold text-foreground">{RESEARCH_DATA.alerts.illustrativeAfterAlerts}</div>
+              <span className="text-[10px] text-muted-foreground">alerts/hour (projected)</span>
             </div>
           </div>
           

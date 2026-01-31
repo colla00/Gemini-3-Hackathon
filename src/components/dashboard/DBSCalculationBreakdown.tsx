@@ -186,11 +186,11 @@ export const DBSCalculationBreakdown = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p>Weights derived from Random Forest feature importance analysis validated on 10,000 patients across 201 hospitals.</p>
-                </TooltipContent>
-              </Tooltip>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p><strong>Illustrative:</strong> Weights are design targets based on literature review. No clinical validation has been conducted yet.</p>
+              </TooltipContent>
+            </Tooltip>
             </div>
             
             {DBS_CALCULATION_FACTORS.map((factor, idx) => {

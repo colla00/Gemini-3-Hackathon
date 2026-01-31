@@ -270,7 +270,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
           </div>
         </div>
         <p className="text-sm text-muted-foreground">
-          {RESEARCH_DATA.validation.internalPatients.toLocaleString()} patients validated
+          Design targets (illustrative) • No clinical validation conducted
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
