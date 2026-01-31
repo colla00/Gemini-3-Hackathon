@@ -1,4 +1,5 @@
 import PptxGenJS from 'pptxgenjs';
+import { captureAllModuleScreenshots, dataUrlToBase64, type ModuleScreenshot, type ScreenshotProgress } from './screenshotCapture';
 
 // AI module definitions for slides
 const AI_MODULES = [
@@ -124,7 +125,7 @@ const AI_MODULES = [
   }
 ];
 
-// Demo result data for charts
+// Demo result data for charts (fallback when screenshots aren't available)
 const DEMO_RESULTS = {
   clinicalNotes: {
     warningSigns: [
@@ -176,7 +177,9 @@ export interface AIToolsPptExportOptions {
   includeVoiceover?: boolean;
   includeNotes?: boolean;
   includeCharts?: boolean;
+  includeScreenshots?: boolean;
   theme?: 'light' | 'dark';
+  onProgress?: (progress: { phase: string; current: number; total: number; detail?: string }) => void;
 }
 
 // Helper to get color for disparity ratio
@@ -187,7 +190,31 @@ const getDisparityColor = (value: number): string => {
 };
 
 export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions = {}) => {
-  const { includeVoiceover = true, includeNotes = true, includeCharts = true, theme = 'light' } = options;
+  const { 
+    includeVoiceover = true, 
+    includeNotes = true, 
+    includeCharts = true, 
+    includeScreenshots = true,
+    theme = 'light',
+    onProgress 
+  } = options;
+  
+  // Phase 1: Capture screenshots if enabled
+  let screenshots = new Map<string, ModuleScreenshot>();
+  if (includeScreenshots) {
+    onProgress?.({ phase: 'Capturing screenshots', current: 0, total: 8 });
+    
+    screenshots = await captureAllModuleScreenshots((progress: ScreenshotProgress) => {
+      onProgress?.({ 
+        phase: 'Capturing screenshots', 
+        current: progress.current, 
+        total: progress.total,
+        detail: progress.moduleName
+      });
+    });
+  }
+  
+  onProgress?.({ phase: 'Building presentation', current: 0, total: 10 });
   
   const pptx = new PptxGenJS();
   
@@ -301,8 +328,10 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
     overviewSlide.addNotes('OVERVIEW SLIDE\n\nThis slide shows all 8 AI modules at a glance. Each module addresses a specific clinical decision support need:\n\n1. Clinical Notes Analysis - NLP for unstructured documentation\n2. SHAP Explainability - Transparent AI reasoning\n3. Intervention Recommender - Evidence-based actions\n4. Health Equity - Disparity detection\n5. Pressure Injury - Multimodal image analysis\n6. Smart Alerts - Context-aware notifications\n7. Unit Trends - Temporal pattern recognition\n8. Multi-Risk Assessment - Unified risk view');
   }
   
-  // ===== INDIVIDUAL MODULE SLIDES WITH CHARTS =====
+  // ===== INDIVIDUAL MODULE SLIDES WITH CHARTS OR SCREENSHOTS =====
   AI_MODULES.forEach((module, idx) => {
+    onProgress?.({ phase: 'Building presentation', current: idx + 3, total: 12, detail: module.title });
+    
     const slide = pptx.addSlide();
     slide.bkgd = colors.background;
     
@@ -322,21 +351,68 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
       fontSize: 10, color: 'FFFFFF', align: 'right'
     });
     
-    // Left column: Key Features
-    slide.addText('Key Features', {
-      x: 0.5, y: 1.2, w: 4, h: 0.35,
-      fontSize: 14, bold: true, color: colors.primary
-    });
+    // Check if we have a screenshot for this module
+    const screenshot = screenshots.get(module.id);
     
-    module.keyFeatures.forEach((feature, fi) => {
-      slide.addText(`✓ ${feature}`, {
-        x: 0.6, y: 1.55 + fi * 0.32, w: 4.3, h: 0.32,
-        fontSize: 10, color: colors.text
+    if (screenshot && includeScreenshots) {
+      // Use the live screenshot
+      slide.addText('📸 Live Demo Screenshot', {
+        x: 0.5, y: 1.15, w: 9, h: 0.3,
+        fontSize: 11, bold: true, color: colors.accent
       });
-    });
+      
+      // Add screenshot image - calculate aspect ratio
+      const aspectRatio = screenshot.width / screenshot.height;
+      const maxWidth = 9;
+      const maxHeight = 3.0;
+      let imgWidth = maxWidth;
+      let imgHeight = maxWidth / aspectRatio;
+      
+      if (imgHeight > maxHeight) {
+        imgHeight = maxHeight;
+        imgWidth = maxHeight * aspectRatio;
+      }
+      
+      // Center the image
+      const imgX = 0.5 + (maxWidth - imgWidth) / 2;
+      
+      slide.addImage({
+        data: screenshot.dataUrl,
+        x: imgX, 
+        y: 1.45, 
+        w: imgWidth, 
+        h: imgHeight,
+        rounding: true
+      });
+      
+      // Add border around screenshot
+      slide.addShape(pptx.ShapeType.roundRect, {
+        x: imgX - 0.05, 
+        y: 1.4, 
+        w: imgWidth + 0.1, 
+        h: imgHeight + 0.1,
+        fill: { type: 'none' },
+        line: { color: colors.muted, width: 1 },
+        rectRadius: 0.05
+      });
+      
+    } else {
+      // Fall back to key features + charts
+      // Left column: Key Features
+      slide.addText('Key Features', {
+        x: 0.5, y: 1.2, w: 4, h: 0.35,
+        fontSize: 14, bold: true, color: colors.primary
+      });
+      
+      module.keyFeatures.forEach((feature, fi) => {
+        slide.addText(`✓ ${feature}`, {
+          x: 0.6, y: 1.55 + fi * 0.32, w: 4.3, h: 0.32,
+          fontSize: 10, color: colors.text
+        });
+      });
     
-    // Add module-specific charts
-    if (includeCharts) {
+    // Add module-specific charts (when no screenshot available)
+    if (includeCharts && !screenshot) {
       switch (module.id) {
         case 'clinical-notes':
           // Warning signs bar chart
@@ -628,6 +704,7 @@ export const generateAIToolsPowerPoint = async (options: AIToolsPptExportOptions
           break;
       }
     }
+    } // Close the else block for screenshots
     
     // Voiceover script box at bottom
     if (includeVoiceover) {
