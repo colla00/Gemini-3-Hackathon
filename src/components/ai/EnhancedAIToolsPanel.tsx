@@ -8,12 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import {
@@ -29,9 +29,7 @@ import {
   Clock,
   CheckCircle2,
   Zap,
-  Play,
   ChevronDown,
-  ChevronUp,
   Cpu,
   Upload,
   Copy,
@@ -42,8 +40,19 @@ import {
   BarChart3,
   Shield,
   Users,
-  Calendar,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Info,
+  Target,
+  AlertCircle,
+  Ruler,
+  MapPin,
+  Bandage,
+  Heart,
+  Volume2,
+  VolumeX,
+  Printer,
+  Eye,
+  HelpCircle
 } from 'lucide-react';
 
 // ============================================================================
@@ -63,152 +72,319 @@ const PATIENT_SCENARIOS = {
 };
 
 const ALERT_SCENARIOS = [
-  { id: '1', label: 'High Fall Risk - Night Shift', patientId: '847261', room: '19', riskType: 'Falls', trigger: 'Sedative administered' },
-  { id: '2', label: 'CAUTI Alert - Extended Catheter', patientId: '892134', room: '12', riskType: 'CAUTI', trigger: 'Catheter day 6' },
-  { id: '3', label: 'Pressure Injury Risk', patientId: '783421', room: '8', riskType: 'Pressure Injury', trigger: 'Braden score declined' },
-  { id: '4', label: 'Post-Op Fall Risk', patientId: '654123', room: '22', riskType: 'Falls', trigger: 'First ambulation post-surgery' },
-  { id: '5', label: 'Multi-Risk Patient', patientId: '912345', room: '15', riskType: 'Multiple', trigger: 'ICU transfer' }
+  { id: '1', label: 'Sedation + Mobility Risk', patientId: '847261', room: '19', bed: 'A', riskType: 'Falls', trigger: 'Lorazepam 2mg administered at 14:30', details: 'Patient ambulates with walker. Recent near-fall incident (3 days ago). Age 82 with balance issues.' },
+  { id: '2', label: 'Catheter Duration Alert', patientId: '892134', room: '12', bed: 'B', riskType: 'CAUTI', trigger: 'Catheter day 6 - exceeds 5-day guideline', details: 'No documented catheter necessity review in 48 hours.' },
+  { id: '3', label: 'Wound Assessment Overdue', patientId: '783421', room: '8', bed: 'A', riskType: 'Pressure Injury', trigger: 'Sacral wound reassessment overdue by 4 hours', details: 'Stage II pressure injury documented. Last assessment at 0600.' },
+  { id: '4', label: 'Vital Sign Deterioration', patientId: '654123', room: '22', bed: 'C', riskType: 'Clinical', trigger: 'MAP decreased 15% in last 2 hours', details: 'Post-op day 1, history of hypotension.' },
+  { id: '5', label: 'Medication Interaction', patientId: '912345', room: '15', bed: 'A', riskType: 'Falls', trigger: 'New sedative + existing CNS depressant', details: 'Cumulative sedation score elevated.' }
+];
+
+const PATIENT_CONTEXT_FACTORS = [
+  { id: 'age', label: 'Advanced age (>75)', checked: true },
+  { id: 'sedation', label: 'Recent sedative medication', checked: true },
+  { id: 'mobility', label: 'Mobility limitations', checked: true },
+  { id: 'cognitive', label: 'Cognitive impairment', checked: false },
+  { id: 'fallHistory', label: 'Previous fall history', checked: false },
+  { id: 'sensory', label: 'Visual/hearing impairment', checked: false }
 ];
 
 // ============================================================================
-// MOCK RESULT GENERATORS (for demo mode or simulated API)
+// MOCK RESULT GENERATORS
 // ============================================================================
 
 const generateClinicalNotesResult = (notes: string) => ({
   warningSigns: [
-    { sign: 'Nocturnal confusion/delirium', severity: 'high' },
-    { sign: 'Unsafe mobility attempt', severity: 'high' },
-    { sign: 'Sedative administration', severity: 'medium' },
-    { sign: 'Fall risk indicators', severity: 'high' }
+    { sign: 'Nocturnal confusion/delirium', severity: 'high', icon: 'brain' },
+    { sign: 'Unsafe mobility attempt', severity: 'high', icon: 'alert' },
+    { sign: 'Sedative administration', severity: 'medium', icon: 'pill' },
+    { sign: 'Fall risk indicators', severity: 'high', icon: 'fall' }
   ],
   recommendedActions: [
-    'Activate bed alarm',
-    'Increase safety rounds to q1h',
-    'Reassess fall risk score',
-    'Consider bedside sitter'
+    { action: 'Activate bed alarm', priority: 'immediate' },
+    { action: 'Increase safety rounds to q1h', priority: 'immediate' },
+    { action: 'Reassess fall risk score', priority: 'high' },
+    { action: 'Consider bedside sitter', priority: 'routine' }
   ],
   riskLevel: 'HIGH',
   confidence: 0.94
 });
 
-const generateRiskNarrativeResult = (shapValue: number, context: string) => ({
-  narrative: `High fall risk due to recent sedation (Lorazepam 2mg) combined with mobility limitations and advanced age (82 years). The sedative effect reduces balance awareness while existing mobility challenges increase fall likelihood. The SHAP value of ${shapValue.toFixed(2)} indicates this patient is in the top 15% for fall risk on the unit.`,
-  shapValue,
-  context,
-  confidence: 0.91
-});
+const generateRiskNarrativeResult = (shapValue: number, factors: string[]) => {
+  const factorDescriptions: Record<string, string> = {
+    age: 'At 82 years old, this patient has age-related changes in balance, muscle strength, and bone density that increase both fall likelihood and injury severity.',
+    sedation: 'The Lorazepam 2mg administered reduces balance awareness and reaction time. This medication effect will peak over the next 2-4 hours.',
+    mobility: 'Walker dependence indicates existing balance and strength challenges. Combining this with sedative effects creates compounding risk.',
+    cognitive: 'Cognitive impairment affects the patient\'s ability to recognize hazards and follow safety instructions.',
+    fallHistory: 'A documented history of falls significantly increases the probability of future fall events.',
+    sensory: 'Visual and/or hearing limitations reduce environmental awareness and hazard detection.'
+  };
+
+  const activeFactors = factors.map(f => factorDescriptions[f] || '').filter(Boolean);
+  
+  return {
+    technicalOutput: {
+      shapScore: shapValue,
+      features: [
+        { name: 'age_factor', weight: 0.24 },
+        { name: 'medication_score', weight: 0.31 },
+        { name: 'mobility_index', weight: 0.18 }
+      ]
+    },
+    narrative: `This patient has a **${shapValue >= 0.6 ? 'HIGH' : shapValue >= 0.3 ? 'MODERATE' : 'LOW'} fall risk** (${(shapValue * 100).toFixed(0)}% probability).`,
+    primaryFactors: activeFactors.slice(0, 3),
+    clinicalInterpretation: 'The combination of these factors creates a temporary high-risk window. While the patient\'s baseline risk is moderate (mobility + age), the acute sedative administration elevates immediate fall risk significantly.',
+    recommendedTimeframe: 'Heightened precautions needed for next 4-6 hours until medication effects diminish.',
+    confidence: 0.91
+  };
+};
 
 const generateInterventionsResult = (riskType: string, riskLevel: string) => ({
   riskType,
   riskLevel,
-  interventions: {
-    environmental: [
-      { action: 'Bed alarm activation', recommendation: 'Class I' },
-      { action: 'Remove clutter from pathways', recommendation: 'Immediate' },
-      { action: 'Ensure adequate lighting', recommendation: 'Immediate' }
-    ],
-    clinical: [
-      { action: 'Reassess medications causing sedation', recommendation: 'High priority' },
-      { action: 'Physical therapy consultation', recommendation: 'Within 24h' },
-      { action: 'Consider hip protectors', recommendation: 'For high-risk patients' }
-    ],
-    monitoring: [
-      { action: 'Increase rounding frequency to q1h', recommendation: 'Immediate' },
-      { action: 'Document fall risk reassessment', recommendation: 'Each shift' }
-    ]
-  }
+  header: `Evidence-Based Interventions for ${riskLevel} ${riskType} Risk`,
+  categories: [
+    {
+      name: 'Environmental Modifications',
+      priority: 'IMMEDIATE',
+      interventions: [
+        { action: 'Bed alarm activation', evidenceLevel: 'Class I (AHA/ACC)', rationale: '73% reduction in unwitnessed falls', timeline: 'NOW' },
+        { action: 'Remove clutter from pathways', evidenceLevel: 'Best Practice', rationale: 'Reduces trip hazards', timeline: 'NOW' },
+        { action: 'Adequate lighting (especially nighttime)', evidenceLevel: 'Class II', rationale: 'Improves spatial awareness', timeline: 'NOW' }
+      ]
+    },
+    {
+      name: 'Clinical Interventions',
+      priority: 'URGENT',
+      interventions: [
+        { action: 'Medication review for fall risk drugs', evidenceLevel: 'Class I', rationale: 'Identifies modifiable risk factors', timeline: 'Within 24 hours' },
+        { action: 'Physical therapy consultation', evidenceLevel: 'Class II', rationale: 'Improved balance/strength', timeline: 'Within 24 hours' },
+        { action: 'Hip protector consideration', evidenceLevel: 'Class IIa', rationale: 'For high-risk patients with osteoporosis', timeline: 'As appropriate' }
+      ]
+    },
+    {
+      name: 'Monitoring & Documentation',
+      priority: 'ONGOING',
+      interventions: [
+        { action: 'Increase rounding frequency to q1h', evidenceLevel: 'Best Practice', rationale: 'Duration: First 24-48 hours', timeline: 'Ongoing' },
+        { action: 'Reassess fall risk score daily', evidenceLevel: 'Required (TJC standard)', rationale: 'Regulatory compliance', timeline: 'Each shift' },
+        { action: 'Document interventions in EHR', evidenceLevel: 'Regulatory requirement', rationale: 'Legal documentation', timeline: 'Real-time' }
+      ]
+    }
+  ],
+  projectedReduction: 65,
+  implementationTimeline: [
+    { phase: 'Immediate (0-1 hour)', items: ['Bed alarm', 'Environment'] },
+    { phase: 'Urgent (1-4 hours)', items: ['Medication review'] },
+    { phase: 'Routine (24-48 hours)', items: ['PT consult', 'Ongoing monitoring'] }
+  ]
 });
 
 const generateEquityResult = (dateRange: string) => ({
   dateRange,
   unit: '4C',
-  disparities: [
-    { finding: 'Pressure injury rate 2.3x higher in patients >75', significance: 'high', pValue: 0.02 },
-    { finding: 'CAUTI rate elevated in Medicaid patients', significance: 'medium', pValue: 0.048 },
-    { finding: 'Longer response times during night shift', significance: 'medium', pValue: 0.03 }
+  census: 24,
+  heatmapData: [
+    { outcome: 'Pressure Injury', ageOver75: 2.3, medicaid: 1.4, nonEnglish: 1.0, genderDiff: 1.1 },
+    { outcome: 'Falls', ageOver75: 1.6, medicaid: 1.1, nonEnglish: 1.5, genderDiff: 2.1 },
+    { outcome: 'CAUTI', ageOver75: 0.9, medicaid: 2.2, nonEnglish: 1.0, genderDiff: 1.3 },
+    { outcome: 'Response Time', ageOver75: 1.4, medicaid: 1.5, nonEnglish: 2.0, genderDiff: 1.0 }
   ],
-  recommendations: [
-    'Review repositioning protocols for elderly patients',
-    'Audit catheter necessity assessments',
-    'Consider staffing adjustments 2-6 AM'
+  findings: [
+    {
+      title: 'Age-Related Pressure Injury Gap',
+      rate: '2.3x higher in patients >75 years old',
+      significance: 'p < 0.05',
+      affected: '6 of 26 total',
+      rootCauses: [
+        'Repositioning protocol not age-adjusted',
+        'Skin assessment frequency identical across ages',
+        'No age-specific Braden score thresholds',
+        'Staff education gap on geriatric skin fragility'
+      ]
+    },
+    {
+      title: 'Language Barrier Impact',
+      rate: '2.0x longer response time for non-English speakers',
+      significance: 'p < 0.03',
+      affected: '4 of 24 total',
+      rootCauses: [
+        'Interpreter delays averaging 12 minutes',
+        'Limited multilingual staff on night shift',
+        'Call light instructions not translated',
+        'Pain assessment tools English-only'
+      ]
+    },
+    {
+      title: 'Medicaid CAUTI Elevation',
+      rate: '2.2x higher CAUTI rate in Medicaid patients',
+      significance: 'p < 0.048',
+      affected: 'Extended catheter use',
+      rootCauses: [
+        'Delayed discharge planning',
+        'Limited home care resources',
+        'Extended catheter use pre-discharge',
+        'Insurance pre-authorization delays'
+      ]
+    }
   ],
-  overallScore: 0.72
+  recommendations: {
+    immediate: [
+      'Implement age-stratified Braden protocols',
+      'Increase repositioning frequency for >75 age group',
+      'Deploy video interpreter tablets (24/7 access)',
+      'Expedite catheter removal reviews for Medicaid patients'
+    ],
+    systemChanges: [
+      'Hire multilingual staff or contract interpreters',
+      'Translate all patient education materials',
+      'Create equity dashboard for monthly review',
+      'Partner with social work for discharge planning'
+    ]
+  },
+  metrics: [
+    { target: 'Pressure injury rate parity by age', goal: '<1.2x' },
+    { target: 'Response time equity', goal: '<1.3x across languages' },
+    { target: 'CAUTI rate standardization', goal: '<1.3x by payer' }
+  ],
+  projectedImpact: 65,
+  regulatory: ['CMS Health Equity Mandate', 'TJC Patient-Centered Standards', 'State health equity requirements']
 });
 
-const generatePressureInjuryResult = () => ({
-  stage: 'II (Partial Thickness)',
-  confidence: 0.94,
+const generatePressureInjuryResult = (sampleId: number) => ({
+  stage: sampleId === 1 ? 'II (Partial Thickness)' : 'III (Full Thickness)',
+  confidence: sampleId === 1 ? 0.94 : 0.89,
   assessment: {
-    size: '~3cm x 2cm',
-    location: 'Sacral region',
-    woundBed: 'Pink/red, moist',
-    healing: 'Appropriate progression'
+    size: sampleId === 1 ? '~3cm x 2cm' : '~4cm x 3.5cm',
+    location: sampleId === 1 ? 'Sacral region' : 'Left heel',
+    woundBed: sampleId === 1 ? 'Pink/red, moist' : 'Granulating, some slough',
+    healing: sampleId === 1 ? 'Appropriate progression' : 'Slow progression - monitor closely'
   },
-  recommendations: [
+  recommendations: sampleId === 1 ? [
     'Continue current treatment plan',
     'Maintain q2h repositioning',
-    'Reassess in 48 hours'
-  ]
+    'Reassess in 48 hours',
+    'Monitor for signs of infection'
+  ] : [
+    'Wound care consult recommended',
+    'Consider enzymatic debridement',
+    'Offload heel with positioning device',
+    'Reassess in 24 hours',
+    'Nutritional assessment for healing'
+  ],
+  stageColor: sampleId === 1 ? 'orange' : 'red'
 });
 
 const generateSmartAlertResult = (scenario: typeof ALERT_SCENARIOS[0]) => ({
-  priority: 'IMMEDIATE',
-  priorityColor: 'red',
-  headline: `Patient ${scenario.patientId}, Room ${scenario.room}`,
-  riskTransition: `${scenario.riskType} Risk: ELEVATED → HIGH`,
-  reason: `${scenario.trigger}. Patient ambulates with walker. Recent near-fall (3 days ago).`,
+  priority: scenario.riskType === 'Clinical' ? 'CRITICAL' : 'IMMEDIATE',
+  priorityColor: scenario.riskType === 'Clinical' ? 'red' : scenario.riskType === 'Falls' ? 'red' : 'amber',
+  patient: `${scenario.patientId}, Room ${scenario.room}, Bed ${scenario.bed}`,
+  headline: `${scenario.riskType} Risk: ELEVATED → HIGH`,
+  timestamp: new Date().toLocaleTimeString(),
+  trigger: scenario.trigger,
+  clinicalContext: scenario.details,
   actions: [
-    { action: 'Activate bed alarm NOW', urgency: 'immediate' },
-    { action: 'Safety rounds q1h until 18:30', urgency: 'high' },
-    { action: 'Reassess risk score before evening shift', urgency: 'routine' }
-  ]
+    { action: 'Activate bed alarm NOW', urgency: 'immediate', checked: false },
+    { action: `Safety rounds q1h until ${new Date(Date.now() + 4 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`, urgency: 'immediate', checked: false },
+    { action: 'Reassess risk score (current: 8.2/10)', urgency: 'high', checked: false },
+    { action: 'Brief evening shift during handoff', urgency: 'routine', checked: false }
+  ],
+  rationale: 'Sedative medication temporarily impairs balance and judgment in elderly patients. Peak effect window: next 4 hours. Existing mobility limitations compound risk.',
+  reassessAt: new Date(Date.now() + 4 * 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  alertId: `ALT-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(4, '0')}`
 });
 
-const generateUnitTrendsResult = (timeRange: string, riskTypes: string[]) => ({
+const generateUnitTrendsResult = (timeRange: string, riskTypes: { falls: boolean; pressure: boolean; cauti: boolean }) => ({
   timeRange,
   unit: '4C',
-  peakPeriods: [
-    { riskType: 'Falls', period: '2:00 AM - 6:00 AM', context: 'night shift' },
-    { riskType: 'Pressure injuries', period: '6:00 PM - 8:00 PM', context: 'shift change' },
-    { riskType: 'CAUTI', period: 'Elevated consistently', context: 'catheter duration >5 days' }
-  ],
-  patterns: [
-    'Correlation between staffing ratio and falls risk',
-    'Repositioning compliance drops during meal times',
-    'Alert response time slower on weekends'
-  ],
+  census: 24,
   trendData: [
     { hour: '00:00', falls: 0.4, pressure: 0.3, cauti: 0.5 },
+    { hour: '02:00', falls: 0.6, pressure: 0.3, cauti: 0.5 },
     { hour: '04:00', falls: 0.7, pressure: 0.3, cauti: 0.5 },
-    { hour: '08:00', falls: 0.5, pressure: 0.4, cauti: 0.5 },
+    { hour: '06:00', falls: 0.5, pressure: 0.4, cauti: 0.5 },
+    { hour: '08:00', falls: 0.4, pressure: 0.4, cauti: 0.5 },
+    { hour: '10:00', falls: 0.3, pressure: 0.5, cauti: 0.5 },
     { hour: '12:00', falls: 0.3, pressure: 0.5, cauti: 0.5 },
+    { hour: '14:00', falls: 0.4, pressure: 0.5, cauti: 0.5 },
     { hour: '16:00', falls: 0.4, pressure: 0.6, cauti: 0.5 },
-    { hour: '20:00', falls: 0.5, pressure: 0.7, cauti: 0.5 }
-  ]
+    { hour: '18:00', falls: 0.5, pressure: 0.7, cauti: 0.5 },
+    { hour: '20:00', falls: 0.5, pressure: 0.6, cauti: 0.5 },
+    { hour: '22:00', falls: 0.5, pressure: 0.4, cauti: 0.5 }
+  ],
+  peakPeriods: [
+    { riskType: 'Falls', period: '2:00 AM - 6:00 AM', context: 'night shift', factors: 'Reduced staffing ratio (1:8), patient confusion peaks, bathroom visits' },
+    { riskType: 'Pressure Injuries', period: '6:00 PM - 8:00 PM', context: 'shift change', factors: 'Delayed repositioning during handoff, meal service interruptions' },
+    { riskType: 'CAUTI', period: 'Elevated consistently', context: 'no diurnal pattern', factors: '4 patients with catheters >5 days, average duration: 6.3 days' }
+  ],
+  patterns: [
+    { pattern: 'Strong correlation between staffing ratio and falls risk', correlation: 'r=0.78' },
+    { pattern: 'Repositioning compliance drops 34% during meal times', correlation: '11:30-13:00' },
+    { pattern: 'Alert response time 2.4x slower on weekends vs weekdays', correlation: '' },
+    { pattern: 'Catheter duration exceeds clinical guidelines in 60% of cases', correlation: '' }
+  ],
+  recommendations: {
+    immediate: [
+      'Add safety rounds 2-6 AM (peak falls window)',
+      'Designate handoff coordinator for continuity',
+      'Catheter necessity review for 4 patients'
+    ],
+    systemChanges: [
+      'Consider staffing adjustment for night shift',
+      'Implement "meal coverage" protocol',
+      'Weekend alert escalation pathway'
+    ],
+    qualityMetrics: [
+      { metric: 'Reduce night falls by 40%', status: 'Target' },
+      { metric: '100% catheter justification documentation', status: 'Goal' },
+      { metric: 'Repositioning compliance >90%', status: 'Monitor' }
+    ]
+  },
+  projectedImpact: 28
 });
 
 const generateMultiRiskResult = (patientData: typeof PATIENT_SCENARIOS.elderly) => ({
   patientSummary: `${patientData.age}yo ${patientData.gender}, ${patientData.mobility}`,
   assessments: {
     falls: {
-      score: 8.2,
-      level: 'HIGH',
-      factors: ['Age 82', 'Recent sedation', 'Walker dependent'],
-      interventions: ['Bed alarm', 'q1h rounds']
+      score: patientData.mobility === 'Bedbound' ? 6.0 : patientData.mobility === 'Walker' ? 8.2 : patientData.mobility === 'Wheelchair' ? 5.5 : 3.0,
+      level: patientData.mobility === 'Walker' || patientData.meds.includes('Lorazepam') ? 'HIGH' : patientData.mobility === 'Wheelchair' ? 'MODERATE' : 'LOW',
+      factors: [
+        `Age ${patientData.age}${patientData.age >= 75 ? ' (high risk)' : ''}`,
+        patientData.meds !== 'None significant' ? `Recent sedation (${patientData.meds})` : 'No sedating medications',
+        `${patientData.mobility} dependent`,
+        patientData.mobility === 'Walker' ? 'History of near-fall' : ''
+      ].filter(Boolean),
+      interventions: patientData.mobility === 'Walker' || patientData.meds.includes('Lorazepam') ? 
+        ['Bed alarm activation', 'q1h safety rounds', 'Physical therapy consult'] :
+        ['Standard precautions', 'Monitor mobility']
     },
     pressure: {
-      score: 5.4,
-      level: 'MODERATE',
-      factors: ['Braden: 14', 'Limited mobility'],
-      interventions: ['Continue protocol', 'Monitor skin']
+      score: patientData.braden <= 12 ? 7.5 : patientData.braden <= 14 ? 5.4 : 3.0,
+      level: patientData.braden <= 12 ? 'HIGH' : patientData.braden <= 14 ? 'MODERATE' : 'LOW',
+      factors: [
+        `Braden score: ${patientData.braden}`,
+        patientData.mobility === 'Bedbound' ? 'Bedbound - high risk' : 'Limited mobility',
+        patientData.age >= 75 ? 'Age-related skin fragility' : ''
+      ].filter(Boolean),
+      interventions: patientData.braden <= 14 ? 
+        ['Continue q2h repositioning', 'Pressure relief devices', 'Monitor bony prominences'] :
+        ['Standard repositioning protocol']
     },
     cauti: {
-      score: patientData.catheterDays > 0 ? 6.1 : 2.1,
-      level: patientData.catheterDays > 0 ? 'MODERATE' : 'LOW',
-      factors: patientData.catheterDays > 0 ? [`Catheter: ${patientData.catheterDays} days`] : ['No catheter'],
-      interventions: patientData.catheterDays > 0 ? ['Consider removal', 'Reassess need'] : ['No action needed']
+      score: patientData.catheterDays >= 5 ? 7.8 : patientData.catheterDays > 0 ? 4.5 : 2.1,
+      level: patientData.catheterDays >= 5 ? 'HIGH' : patientData.catheterDays > 0 ? 'MODERATE' : 'LOW',
+      factors: patientData.catheterDays > 0 ? 
+        [`Catheter: ${patientData.catheterDays} days`, patientData.catheterDays >= 5 ? 'Exceeds 5-day guideline' : '', 'No UTI symptoms'] :
+        ['No catheter in place', 'No urinary symptoms'],
+      interventions: patientData.catheterDays >= 5 ? 
+        ['URGENT: Catheter necessity review', 'Consider removal TODAY', 'Document justification'] :
+        patientData.catheterDays > 0 ? ['Daily catheter review', 'Consider removal', 'Monitor for symptoms'] :
+        ['No catheter indicated', 'Monitor for symptoms']
     }
-  }
+  },
+  overallPriority: patientData.mobility === 'Walker' || patientData.meds.includes('Lorazepam') ? 'HIGH - Falls Prevention' : 
+    patientData.braden <= 12 ? 'HIGH - Skin Integrity' : 
+    patientData.catheterDays >= 5 ? 'HIGH - Catheter Review' : 'MODERATE - Standard Care'
 });
 
 // ============================================================================
@@ -223,13 +399,23 @@ const moduleVariants = {
 
 const contentVariants = {
   hidden: { opacity: 0, height: 0 },
-  visible: { opacity: 1, height: 'auto', transition: { duration: 0.3, ease: 'easeOut' as const } },
+  visible: { opacity: 1, height: 'auto', transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] as const } },
   exit: { opacity: 0, height: 0, transition: { duration: 0.2 } }
 };
 
 const resultVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.3, delay: 0.1 } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const } }
+};
+
+const staggerContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
+
+const staggerItemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0 }
 };
 
 // ============================================================================
@@ -271,7 +457,7 @@ const ModuleCard = ({
     >
       <Card className={cn(
         "transition-all duration-300 overflow-hidden",
-        isExpanded && "ring-2 ring-primary/50",
+        isExpanded && "ring-2 ring-primary/50 shadow-lg",
         isActive && "border-primary/50 shadow-lg shadow-primary/10"
       )}>
         <CardHeader
@@ -280,22 +466,12 @@ const ModuleCard = ({
         >
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className={cn("p-2.5 rounded-xl bg-gradient-to-br", color)}>
+              <div className={cn("p-2.5 rounded-xl bg-gradient-to-br shadow-lg", color)}>
                 <Icon className="h-5 w-5 text-white" />
               </div>
               <div>
                 <CardTitle className="text-base flex items-center gap-2 flex-wrap">
                   {title}
-                  <Badge
-                    variant="outline"
-                    className={cn(
-                      "text-xs font-medium",
-                      model === 'pro' ? "border-purple-500 text-purple-600 dark:text-purple-400" : "border-blue-500 text-blue-600 dark:text-blue-400"
-                    )}
-                  >
-                    <Sparkles className="h-3 w-3 mr-1" />
-                    Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
-                  </Badge>
                   {isActive && (
                     <Badge className="bg-green-500 text-white text-[10px] animate-pulse">
                       Demo Active
@@ -307,12 +483,24 @@ const ModuleCard = ({
                 </CardDescription>
               </div>
             </div>
-            <motion.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronDown className="h-5 w-5 text-muted-foreground" />
-            </motion.div>
+            <div className="flex items-center gap-2">
+              <Badge
+                variant="outline"
+                className={cn(
+                  "text-xs font-medium",
+                  model === 'pro' ? "border-purple-500 text-purple-600 dark:text-purple-400 bg-purple-500/10" : "border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-500/10"
+                )}
+              >
+                <Sparkles className="h-3 w-3 mr-1" />
+                Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
+              </Badge>
+              <motion.div
+                animate={{ rotate: isExpanded ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronDown className="h-5 w-5 text-muted-foreground" />
+              </motion.div>
+            </div>
           </div>
         </CardHeader>
 
@@ -343,9 +531,10 @@ const ModuleCard = ({
 interface LoadingIndicatorProps {
   model: 'flash' | 'pro';
   estimatedTime?: number;
+  message?: string;
 }
 
-const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps) => {
+const LoadingIndicator = ({ model, estimatedTime = 1.5, message }: LoadingIndicatorProps) => {
   const [progress, setProgress] = useState(0);
   const [dots, setDots] = useState('');
 
@@ -371,13 +560,9 @@ const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps)
       exit={{ opacity: 0, y: -10 }}
       className="relative overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 p-5"
     >
-      {/* Animated background shimmer */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2s_infinite] -translate-x-full" 
-        style={{ animation: 'shimmer 2s infinite' }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2s_infinite]" />
       
       <div className="relative space-y-4">
-        {/* Header with pulsing icon */}
         <div className="flex items-center gap-4">
           <motion.div
             animate={{ 
@@ -396,7 +581,7 @@ const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps)
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <span className="text-base font-semibold text-foreground">
-                Processing with Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
+                {message || `Processing with Gemini 3 ${model === 'pro' ? 'Pro' : 'Flash'}`}
               </span>
               <span className="text-primary font-mono text-sm w-6">{dots}</span>
             </div>
@@ -406,15 +591,11 @@ const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps)
           </div>
         </div>
 
-        {/* Progress bar with glow effect */}
         <div className="space-y-2">
           <div className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
             <motion.div
               className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full"
               style={{ width: `${progress}%` }}
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.3 }}
             />
             <div 
               className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary/50 to-accent/50 rounded-full blur-sm"
@@ -435,33 +616,20 @@ const LoadingIndicator = ({ model, estimatedTime = 1.5 }: LoadingIndicatorProps)
 };
 
 // ============================================================================
-// RESULT ACTIONS (Visual only - no actual functionality)
+// RESULT ACTIONS (Demo only - no actual functionality)
 // ============================================================================
 
 interface ResultActionsProps {
   processingTime: number;
+  model?: 'flash' | 'pro';
 }
 
-const ResultActions = ({ processingTime }: ResultActionsProps) => {
+const ResultActions = ({ processingTime, model = 'flash' }: ResultActionsProps) => {
   const { toast } = useToast();
 
-  const handleCopy = () => {
+  const handleAction = (action: string) => {
     toast({ 
-      title: "📋 Copy to Clipboard", 
-      description: "This feature is for demo purposes only",
-    });
-  };
-
-  const handleDownload = () => {
-    toast({ 
-      title: "📥 Download PDF", 
-      description: "This feature is for demo purposes only",
-    });
-  };
-
-  const handleShare = () => {
-    toast({ 
-      title: "🔗 Share Results", 
+      title: `📋 ${action}`, 
       description: "This feature is for demo purposes only",
     });
   };
@@ -486,39 +654,81 @@ const ResultActions = ({ processingTime }: ResultActionsProps) => {
         </span>
         <Badge variant="outline" className="text-[10px] gap-1 border-primary/30">
           <Sparkles className="h-2.5 w-2.5" />
-          Gemini 3
+          Gemini 3 {model === 'pro' ? 'Pro' : 'Flash'}
         </Badge>
       </div>
       <div className="flex gap-1">
-        <Button 
-          size="sm" 
-          variant="ghost" 
-          onClick={handleCopy} 
-          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
-          title="Copy Results"
-        >
-          <Copy className="h-3.5 w-3.5" />
-        </Button>
-        <Button 
-          size="sm" 
-          variant="ghost" 
-          onClick={handleDownload} 
-          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
-          title="Download PDF"
-        >
-          <Download className="h-3.5 w-3.5" />
-        </Button>
-        <Button 
-          size="sm" 
-          variant="ghost" 
-          onClick={handleShare} 
-          className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
-          title="Share"
-        >
-          <Share2 className="h-3.5 w-3.5" />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                onClick={() => handleAction('Copy to Clipboard')} 
+                className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+              >
+                <Copy className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent><p>Copy Results</p></TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                onClick={() => handleAction('Download PDF')} 
+                className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+              >
+                <Download className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent><p>Download PDF</p></TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                onClick={() => handleAction('Share Results')} 
+                className="h-7 px-2 hover:bg-primary/10 hover:text-primary"
+              >
+                <Share2 className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent><p>Share</p></TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </motion.div>
+  );
+};
+
+// ============================================================================
+// EQUITY HEATMAP CELL
+// ============================================================================
+
+const HeatmapCell = ({ value }: { value: number }) => {
+  const getColor = (v: number) => {
+    if (v >= 1.8) return 'bg-red-500 text-white';
+    if (v >= 1.3) return 'bg-yellow-500 text-black';
+    return 'bg-green-500 text-white';
+  };
+
+  const getEmoji = (v: number) => {
+    if (v >= 1.8) return '🔴';
+    if (v >= 1.3) return '🟡';
+    return '🟢';
+  };
+
+  return (
+    <span className={cn("px-2 py-1 rounded text-xs font-medium", getColor(value))}>
+      {getEmoji(value)} {value.toFixed(1)}x
+    </span>
   );
 };
 
@@ -540,12 +750,17 @@ export const EnhancedAIToolsPanel = () => {
   const [clinicalNotesLoading, setClinicalNotesLoading] = useState(false);
 
   const [shapValue, setShapValue] = useState([0.73]);
-  const [patientContext, setPatientContext] = useState('age');
+  const [contextFactors, setContextFactors] = useState<Record<string, boolean>>({
+    age: true, sedation: true, mobility: true, cognitive: false, fallHistory: false, sensory: false
+  });
   const [narrativeResult, setNarrativeResult] = useState<ReturnType<typeof generateRiskNarrativeResult> | null>(null);
   const [narrativeLoading, setNarrativeLoading] = useState(false);
 
   const [interventionRiskType, setInterventionRiskType] = useState('Falls');
   const [interventionRiskLevel, setInterventionRiskLevel] = useState('HIGH');
+  const [interventionConstraints, setInterventionConstraints] = useState<Record<string, boolean>>({
+    limitedMobility: false, cognitive: false, language: false, sensory: false
+  });
   const [interventionResult, setInterventionResult] = useState<ReturnType<typeof generateInterventionsResult> | null>(null);
   const [interventionLoading, setInterventionLoading] = useState(false);
 
@@ -553,12 +768,15 @@ export const EnhancedAIToolsPanel = () => {
   const [equityResult, setEquityResult] = useState<ReturnType<typeof generateEquityResult> | null>(null);
   const [equityLoading, setEquityLoading] = useState(false);
 
+  const [pressureSampleId, setPressureSampleId] = useState(1);
   const [pressureResult, setPressureResult] = useState<ReturnType<typeof generatePressureInjuryResult> | null>(null);
   const [pressureLoading, setPressureLoading] = useState(false);
+  const [pressureNotes, setPressureNotes] = useState('');
 
   const [alertScenario, setAlertScenario] = useState(ALERT_SCENARIOS[0]);
   const [alertResult, setAlertResult] = useState<ReturnType<typeof generateSmartAlertResult> | null>(null);
   const [alertLoading, setAlertLoading] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   const [trendTimeRange, setTrendTimeRange] = useState('24h');
   const [trendRiskTypes, setTrendRiskTypes] = useState({ falls: true, pressure: true, cauti: true });
@@ -567,6 +785,7 @@ export const EnhancedAIToolsPanel = () => {
 
   const [multiRiskPatient, setMultiRiskPatient] = useState(PATIENT_SCENARIOS.elderly);
   const [multiRiskAge, setMultiRiskAge] = useState(82);
+  const [multiRiskGender, setMultiRiskGender] = useState('M');
   const [multiRiskMobility, setMultiRiskMobility] = useState('Walker');
   const [multiRiskMeds, setMultiRiskMeds] = useState('Lorazepam 2mg');
   const [multiRiskBraden, setMultiRiskBraden] = useState(14);
@@ -606,51 +825,52 @@ export const EnhancedAIToolsPanel = () => {
       return;
     }
     setClinicalNotesLoading(true);
-    const time = await simulateProcessing(1.4, 'clinical-notes');
+    await simulateProcessing(1.4, 'clinical-notes');
     setClinicalNotesResult(generateClinicalNotesResult(clinicalNotes));
     setClinicalNotesLoading(false);
   };
 
   const handleNarrativeGeneration = async () => {
     setNarrativeLoading(true);
-    const time = await simulateProcessing(1.1, 'risk-narrative');
-    setNarrativeResult(generateRiskNarrativeResult(shapValue[0], patientContext));
+    const activeFactors = Object.entries(contextFactors).filter(([_, v]) => v).map(([k]) => k);
+    await simulateProcessing(1.1, 'risk-narrative');
+    setNarrativeResult(generateRiskNarrativeResult(shapValue[0], activeFactors));
     setNarrativeLoading(false);
   };
 
   const handleInterventionSuggestions = async () => {
     setInterventionLoading(true);
-    const time = await simulateProcessing(1.6, 'interventions');
+    await simulateProcessing(1.6, 'interventions');
     setInterventionResult(generateInterventionsResult(interventionRiskType, interventionRiskLevel));
     setInterventionLoading(false);
   };
 
   const handleEquityAnalysis = async () => {
     setEquityLoading(true);
-    const time = await simulateProcessing(2.8, 'health-equity');
+    await simulateProcessing(2.8, 'health-equity');
     setEquityResult(generateEquityResult(equityDateRange));
     setEquityLoading(false);
   };
 
-  const handlePressureAnalysis = async () => {
+  const handlePressureAnalysis = async (sampleId: number) => {
+    setPressureSampleId(sampleId);
     setPressureLoading(true);
-    const time = await simulateProcessing(1.8, 'pressure-injury');
-    setPressureResult(generatePressureInjuryResult());
+    await simulateProcessing(1.8, 'pressure-injury');
+    setPressureResult(generatePressureInjuryResult(sampleId));
     setPressureLoading(false);
   };
 
   const handleAlertGeneration = async () => {
     setAlertLoading(true);
-    const time = await simulateProcessing(0.9, 'smart-alert');
+    await simulateProcessing(0.9, 'smart-alert');
     setAlertResult(generateSmartAlertResult(alertScenario));
     setAlertLoading(false);
   };
 
   const handleTrendAnalysis = async () => {
     setTrendLoading(true);
-    const riskTypes = Object.entries(trendRiskTypes).filter(([_, v]) => v).map(([k]) => k);
-    const time = await simulateProcessing(2.3, 'unit-trends');
-    setTrendResult(generateUnitTrendsResult(trendTimeRange, riskTypes));
+    await simulateProcessing(2.3, 'unit-trends');
+    setTrendResult(generateUnitTrendsResult(trendTimeRange, trendRiskTypes));
     setTrendLoading(false);
   };
 
@@ -659,12 +879,13 @@ export const EnhancedAIToolsPanel = () => {
     const patientData = {
       ...multiRiskPatient,
       age: multiRiskAge,
+      gender: multiRiskGender,
       mobility: multiRiskMobility,
       meds: multiRiskMeds,
       braden: multiRiskBraden,
       catheterDays: multiRiskCatheter
     };
-    const time = await simulateProcessing(1.5, 'multi-risk');
+    await simulateProcessing(1.5, 'multi-risk');
     setMultiRiskResult(generateMultiRiskResult(patientData));
     setMultiRiskLoading(false);
   };
@@ -672,6 +893,7 @@ export const EnhancedAIToolsPanel = () => {
   const loadPatientScenario = (scenario: typeof PATIENT_SCENARIOS.elderly) => {
     setMultiRiskPatient(scenario);
     setMultiRiskAge(scenario.age);
+    setMultiRiskGender(scenario.gender);
     setMultiRiskMobility(scenario.mobility);
     setMultiRiskMeds(scenario.meds);
     setMultiRiskBraden(scenario.braden);
@@ -713,6 +935,7 @@ export const EnhancedAIToolsPanel = () => {
               </div>
             </div>
 
+            {/* Demo Mode Toggle */}
             <div className="flex items-center gap-4">
               <motion.div 
                 className={cn(
@@ -731,8 +954,18 @@ export const EnhancedAIToolsPanel = () => {
                   aria-label="Toggle demo mode"
                   className="data-[state=checked]:bg-green-500"
                 />
-                <Label htmlFor="demo-mode" className="text-sm font-semibold cursor-pointer select-none">
+                <Label htmlFor="demo-mode" className="text-sm font-semibold cursor-pointer select-none flex items-center gap-1.5">
                   Demo Mode
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-3.5 w-3.5 opacity-70" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>Instantly populate all modules with sample data and results. Perfect for screen recording.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </Label>
                 <AnimatePresence>
                   {demoMode && (
@@ -742,7 +975,7 @@ export const EnhancedAIToolsPanel = () => {
                       exit={{ opacity: 0, scale: 0.8 }}
                     >
                       <Badge className="bg-green-500 text-white text-[10px] font-bold uppercase animate-pulse shadow-lg">
-                        DEMO MODE ACTIVE
+                        🎥 DEMO MODE ACTIVE
                       </Badge>
                     </motion.div>
                   )}
@@ -780,7 +1013,7 @@ export const EnhancedAIToolsPanel = () => {
           id="clinical-notes"
           title="Clinical Notes Analysis"
           description="Extract warning signs from nurse observations"
-          icon={Stethoscope}
+          icon={FileText}
           model="flash"
           color="from-blue-500 to-cyan-500"
           isExpanded={expandedModules.has('clinical-notes')}
@@ -788,55 +1021,56 @@ export const EnhancedAIToolsPanel = () => {
           onToggle={() => toggleModule('clinical-notes')}
         >
           <div className="space-y-4">
-            {/* Example buttons above textarea */}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.restless)}
-                className="text-xs"
-              >
-                📋 Example 1: Restless Patient
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.confusion)}
-                className="text-xs"
-              >
-                📋 Example 2: Confusion
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.pain)}
-                className="text-xs"
-              >
-                📋 Example 3: Pain
-              </Button>
+            {/* Quick Examples */}
+            <div>
+              <p className="text-xs text-muted-foreground mb-2 font-medium">Quick Examples:</p>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.restless)}
+                  className="text-xs h-8 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                >
+                  Load Example 1: Restless Patient
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.confusion)}
+                  className="text-xs h-8 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                >
+                  Load Example 2: Confusion
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setClinicalNotes(CLINICAL_NOTE_EXAMPLES.pain)}
+                  className="text-xs h-8 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                >
+                  Load Example 3: Pain Assessment
+                </Button>
+              </div>
             </div>
 
-            {/* Large textarea */}
+            {/* Textarea */}
             <Textarea
-              placeholder="Enter nurse observation notes here...
-
-Example: Patient restless overnight. Found attempting to climb out of bed at 0230hrs. Reoriented x3. States need to 'go home to feed cats.' Lorazepam 2mg PO given at 0300hrs per protocol. Patient now resting quietly. Bed alarm activated."
+              placeholder="Enter nurse observation notes..."
               value={clinicalNotes}
               onChange={(e) => setClinicalNotes(e.target.value)}
-              className="min-h-[140px] resize-none text-sm"
+              className="min-h-[120px] resize-none text-sm focus:ring-2 focus:ring-blue-500"
               aria-label="Clinical notes input"
             />
 
-            {/* Blue analyze button */}
+            {/* Analyze Button */}
             <Button
               onClick={handleClinicalNotesAnalysis}
               disabled={clinicalNotesLoading || !clinicalNotes.trim()}
-              className="w-full gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-base shadow-lg shadow-blue-600/25"
+              className="w-full gap-2 bg-[#0066CC] hover:bg-[#0055AA] text-white font-semibold py-3 text-base shadow-lg disabled:opacity-50"
             >
               {clinicalNotesLoading ? (
                 <>
                   <RefreshCw className="h-4 w-4 animate-spin" />
-                  Analyzing...
+                  Processing with Gemini 3 Flash...
                 </>
               ) : (
                 <>
@@ -850,97 +1084,67 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
 
             {clinicalNotesResult && !clinicalNotesLoading && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
+                variants={staggerContainerVariants}
+                initial="hidden"
+                animate="visible"
                 className="space-y-4"
               >
-                {/* Results Header */}
+                {/* Warning Signs Card - Amber */}
                 <motion.div 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-lg border border-primary/20"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-primary/20">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold">AI Analysis Complete</p>
-                      <p className="text-xs text-muted-foreground">Gemini 3 Flash</p>
-                    </div>
-                  </div>
-                  <Badge className={cn(
-                    "text-xs uppercase font-bold",
-                    clinicalNotesResult.riskLevel === 'HIGH' ? "bg-destructive" : 
-                    clinicalNotesResult.riskLevel === 'MODERATE' ? "bg-orange-500" : "bg-green-500"
-                  )}>
-                    {clinicalNotesResult.riskLevel} Risk
-                  </Badge>
-                </motion.div>
-
-                {/* Warning Signs Card */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="p-4 bg-gradient-to-br from-orange-50 to-amber-50/50 dark:from-orange-950/30 dark:to-amber-950/20 rounded-xl border border-orange-200 dark:border-orange-800 shadow-sm"
+                  variants={staggerItemVariants}
+                  className="p-4 rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border border-amber-200 dark:border-amber-800 shadow-sm"
                 >
                   <div className="flex items-center gap-2 mb-3">
-                    <AlertTriangle className="h-5 w-5 text-orange-600" />
-                    <span className="font-bold text-sm text-orange-800 dark:text-orange-300">Warning Signs Detected:</span>
+                    <AlertTriangle className="h-5 w-5 text-amber-600" />
+                    <h4 className="font-semibold text-amber-800 dark:text-amber-200">Warning Signs Detected:</h4>
                   </div>
-                  <div className="space-y-2">
-                    {clinicalNotesResult.warningSigns.map((sign, i) => (
-                      <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.25 + i * 0.05 }}
-                        className="flex items-center gap-3 p-2 bg-white/60 dark:bg-black/20 rounded-lg"
+                  <ul className="space-y-2">
+                    {clinicalNotesResult.warningSigns.map((item, i) => (
+                      <motion.li 
+                        key={i} 
+                        variants={staggerItemVariants}
+                        className="flex items-center gap-2 text-sm"
                       >
-                        <span className="text-orange-500 text-lg">•</span>
-                        <span className="flex-1 text-sm">{sign.sign}</span>
-                        <Badge 
-                          variant={sign.severity === 'high' ? 'destructive' : 'secondary'} 
-                          className={cn(
-                            "text-[10px] font-bold uppercase",
-                            sign.severity === 'high' && "bg-red-600 text-white"
-                          )}
-                        >
-                          {sign.severity}
+                        <span className={cn(
+                          "w-2 h-2 rounded-full",
+                          item.severity === 'high' ? 'bg-red-500' : 'bg-yellow-500'
+                        )} />
+                        <span>{item.sign}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* Recommended Actions Card - Blue */}
+                <motion.div 
+                  variants={staggerItemVariants}
+                  className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/40 dark:to-cyan-950/40 border border-blue-200 dark:border-blue-800 shadow-sm"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <Target className="h-5 w-5 text-blue-600" />
+                    <h4 className="font-semibold text-blue-800 dark:text-blue-200">Recommended Actions:</h4>
+                  </div>
+                  <ol className="space-y-2">
+                    {clinicalNotesResult.recommendedActions.map((item, i) => (
+                      <motion.li 
+                        key={i} 
+                        variants={staggerItemVariants}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold">
+                          {i + 1}
+                        </span>
+                        <span>{item.action}</span>
+                        <Badge variant="outline" className={cn(
+                          "text-[10px] ml-auto",
+                          item.priority === 'immediate' ? 'border-red-500 text-red-600' : 
+                          item.priority === 'high' ? 'border-orange-500 text-orange-600' : 'border-gray-400'
+                        )}>
+                          {item.priority}
                         </Badge>
-                      </motion.div>
+                      </motion.li>
                     ))}
-                  </div>
-                </motion.div>
-
-                {/* Recommended Actions Card */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                  className="p-4 bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/20 rounded-xl border border-green-200 dark:border-green-800 shadow-sm"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    <span className="font-bold text-sm text-green-800 dark:text-green-300">Recommended Actions:</span>
-                  </div>
-                  <div className="space-y-2">
-                    {clinicalNotesResult.recommendedActions.map((action, i) => (
-                      <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 + i * 0.05 }}
-                        className="flex items-center gap-3 p-2 bg-white/60 dark:bg-black/20 rounded-lg"
-                      >
-                        <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
-                        <span className="text-sm">{action}</span>
-                      </motion.div>
-                    ))}
-                  </div>
+                  </ol>
                 </motion.div>
 
                 <ResultActions processingTime={1.4} />
@@ -962,67 +1166,103 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('risk-narrative')}
         >
           <div className="space-y-4">
+            {/* SHAP Score Slider */}
             <div>
-              <Label className="text-sm font-medium mb-2 block">
-                SHAP Value: {shapValue[0].toFixed(2)}
-              </Label>
-              <Slider
-                value={shapValue}
-                onValueChange={setShapValue}
-                min={0}
-                max={1}
-                step={0.01}
-                className="py-2"
-                aria-label="SHAP value slider"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                <span>Low Risk (0.0)</span>
-                <span>High Risk (1.0)</span>
+              <Label className="text-sm font-medium mb-2 block">SHAP Risk Score</Label>
+              <div className="flex items-center gap-4">
+                <div className="flex-1">
+                  <Slider
+                    value={shapValue}
+                    onValueChange={setShapValue}
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    className="py-2"
+                  />
+                </div>
+                <div className={cn(
+                  "px-3 py-1.5 rounded-lg font-mono text-lg font-bold",
+                  shapValue[0] >= 0.6 ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400' :
+                  shapValue[0] >= 0.3 ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950 dark:text-yellow-400' :
+                  'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400'
+                )}>
+                  {shapValue[0].toFixed(2)}
+                </div>
               </div>
             </div>
 
+            {/* Patient Context Checkboxes */}
             <div>
-              <Label className="text-sm font-medium mb-2 block">Patient Context</Label>
-              <Select value={patientContext} onValueChange={setPatientContext}>
-                <SelectTrigger aria-label="Select patient context">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="age">Age (82 years)</SelectItem>
-                  <SelectItem value="mobility">Mobility Limitations</SelectItem>
-                  <SelectItem value="meds">Recent Medications</SelectItem>
-                  <SelectItem value="history">Fall History</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="p-3 bg-muted/50 rounded-lg text-sm">
-              <p className="font-medium mb-1">Before:</p>
-              <p className="text-muted-foreground">SHAP value: {shapValue[0].toFixed(2)}</p>
+              <Label className="text-sm font-medium mb-2 block">Patient Context Factors:</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {PATIENT_CONTEXT_FACTORS.map(factor => (
+                  <div key={factor.id} className="flex items-center gap-2">
+                    <Checkbox
+                      id={factor.id}
+                      checked={contextFactors[factor.id]}
+                      onCheckedChange={(checked) => setContextFactors(prev => ({ ...prev, [factor.id]: !!checked }))}
+                    />
+                    <Label htmlFor={factor.id} className="text-xs cursor-pointer">{factor.label}</Label>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <Button onClick={handleNarrativeGeneration} disabled={narrativeLoading} className="w-full gap-2">
               {narrativeLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Generating...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Translating AI output...</>
               ) : (
-                <><Brain className="h-4 w-4" />Generate Explanation</>
+                <><Brain className="h-4 w-4" />Generate Plain-Language Explanation</>
               )}
             </Button>
 
-            {narrativeLoading && <LoadingIndicator model="flash" estimatedTime={1.1} />}
+            {narrativeLoading && <LoadingIndicator model="flash" estimatedTime={1.1} message="Translating AI output..." />}
 
             {narrativeResult && !narrativeLoading && (
               <motion.div
                 variants={resultVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-3 p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-lg border border-purple-200 dark:border-purple-800"
+                className="space-y-4"
               >
-                <div className="flex items-center gap-2">
-                  <Brain className="h-4 w-4 text-purple-600" />
-                  <span className="font-semibold text-sm">After:</span>
+                {/* Before/After Comparison */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  {/* Technical Output */}
+                  <div className="p-4 bg-muted/50 rounded-lg border">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Cpu className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-semibold text-sm text-muted-foreground">Technical Output:</span>
+                    </div>
+                    <pre className="text-xs font-mono text-muted-foreground bg-background/50 p-2 rounded">
+{`SHAP Risk Score: ${narrativeResult.technicalOutput.shapScore.toFixed(2)}
+Feature Weights:
+${narrativeResult.technicalOutput.features.map(f => `  ${f.name}: ${f.weight.toFixed(2)}`).join('\n')}`}
+                    </pre>
+                  </div>
+
+                  {/* Human Explanation */}
+                  <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Brain className="h-4 w-4 text-purple-600" />
+                      <span className="font-semibold text-sm">Plain-Language Narrative:</span>
+                    </div>
+                    <p className="text-sm font-medium mb-3" dangerouslySetInnerHTML={{ __html: narrativeResult.narrative.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                    
+                    <div className="space-y-2 text-xs">
+                      <p className="font-semibold text-purple-700 dark:text-purple-300">Primary Factors:</p>
+                      {narrativeResult.primaryFactors.map((factor, i) => (
+                        <p key={i} className="text-muted-foreground pl-2 border-l-2 border-purple-300">{factor}</p>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm leading-relaxed">{narrativeResult.narrative}</p>
+
+                <div className="p-3 bg-muted/30 rounded-lg text-xs">
+                  <p className="font-semibold mb-1">Clinical Interpretation:</p>
+                  <p className="text-muted-foreground">{narrativeResult.clinicalInterpretation}</p>
+                  <p className="mt-2 text-primary font-medium">⏱ {narrativeResult.recommendedTimeframe}</p>
+                </div>
+
                 <ResultActions processingTime={1.1} />
               </motion.div>
             )}
@@ -1042,6 +1282,7 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('interventions')}
         >
           <div className="space-y-4">
+            {/* Risk Type */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Risk Type</Label>
               <Select value={interventionRiskType} onValueChange={setInterventionRiskType}>
@@ -1049,94 +1290,129 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Falls">Falls</SelectItem>
-                  <SelectItem value="Pressure Injury">Pressure Injury</SelectItem>
-                  <SelectItem value="CAUTI">CAUTI</SelectItem>
+                  <SelectItem value="Falls">Falls Risk</SelectItem>
+                  <SelectItem value="Pressure Injury">Pressure Injury Risk</SelectItem>
+                  <SelectItem value="CAUTI">CAUTI Risk</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
+            {/* Risk Level */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Patient Risk Level</Label>
               <RadioGroup value={interventionRiskLevel} onValueChange={setInterventionRiskLevel} className="flex gap-4">
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="LOW" id="low" />
-                  <Label htmlFor="low" className="text-sm cursor-pointer">LOW</Label>
+                  <RadioGroupItem value="LOW" id="int-low" />
+                  <Label htmlFor="int-low" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-green-500" /> LOW
+                  </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="MODERATE" id="moderate" />
-                  <Label htmlFor="moderate" className="text-sm cursor-pointer">MODERATE</Label>
+                  <RadioGroupItem value="MODERATE" id="int-moderate" />
+                  <Label htmlFor="int-moderate" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-yellow-500" /> MODERATE
+                  </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="HIGH" id="high" />
-                  <Label htmlFor="high" className="text-sm cursor-pointer">HIGH</Label>
+                  <RadioGroupItem value="HIGH" id="int-high" />
+                  <Label htmlFor="int-high" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-red-500" /> HIGH
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
 
+            {/* Optional Constraints */}
+            <div>
+              <Label className="text-sm font-medium mb-2 block text-muted-foreground">Patient Constraints (optional):</Label>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { id: 'limitedMobility', label: 'Limited mobility' },
+                  { id: 'cognitive', label: 'Cognitive impairment' },
+                  { id: 'language', label: 'Language barrier' },
+                  { id: 'sensory', label: 'Sensory limitations' }
+                ].map(c => (
+                  <div key={c.id} className="flex items-center gap-1.5">
+                    <Checkbox
+                      id={`constraint-${c.id}`}
+                      checked={interventionConstraints[c.id]}
+                      onCheckedChange={(checked) => setInterventionConstraints(prev => ({ ...prev, [c.id]: !!checked }))}
+                    />
+                    <Label htmlFor={`constraint-${c.id}`} className="text-xs cursor-pointer">{c.label}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <Button onClick={handleInterventionSuggestions} disabled={interventionLoading} className="w-full gap-2">
               {interventionLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Generating...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Retrieving best practices...</>
               ) : (
                 <><Lightbulb className="h-4 w-4" />Get Evidence-Based Interventions</>
               )}
             </Button>
 
-            {interventionLoading && <LoadingIndicator model="flash" estimatedTime={1.6} />}
+            {interventionLoading && <LoadingIndicator model="flash" estimatedTime={1.6} message="Retrieving best practices..." />}
 
             {interventionResult && !interventionLoading && (
               <motion.div
-                variants={resultVariants}
+                variants={staggerContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-4 p-4 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 rounded-lg border border-orange-200 dark:border-orange-800"
+                className="space-y-4"
               >
-                <div className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-orange-600" />
-                  <span className="font-semibold text-sm">
-                    Evidence-Based Interventions for {interventionResult.riskLevel} {interventionResult.riskType} Risk:
-                  </span>
+                <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-950/50 dark:to-amber-950/50 rounded-lg">
+                  <FileText className="h-5 w-5 text-orange-600" />
+                  <span className="font-semibold text-sm">{interventionResult.header}</span>
                 </div>
 
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Environmental Modifications</p>
-                    <ul className="text-sm space-y-1">
-                      {interventionResult.interventions.environmental.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-orange-500">•</span>
-                          <span>{item.action}</span>
-                          <Badge variant="outline" className="text-[10px] ml-auto">{item.recommendation}</Badge>
-                        </li>
+                {interventionResult.categories.map((cat, catIdx) => (
+                  <motion.div 
+                    key={catIdx}
+                    variants={staggerItemVariants}
+                    className="border rounded-lg overflow-hidden"
+                  >
+                    <div className={cn(
+                      "px-3 py-2 flex items-center justify-between",
+                      cat.priority === 'IMMEDIATE' ? 'bg-red-100 dark:bg-red-950/50' :
+                      cat.priority === 'URGENT' ? 'bg-orange-100 dark:bg-orange-950/50' :
+                      'bg-blue-100 dark:bg-blue-950/50'
+                    )}>
+                      <span className="font-semibold text-sm">{cat.name}</span>
+                      <Badge variant="outline" className={cn(
+                        "text-[10px]",
+                        cat.priority === 'IMMEDIATE' ? 'border-red-500 text-red-600' :
+                        cat.priority === 'URGENT' ? 'border-orange-500 text-orange-600' :
+                        'border-blue-500 text-blue-600'
+                      )}>
+                        {cat.priority}
+                      </Badge>
+                    </div>
+                    <div className="p-3 space-y-2">
+                      {cat.interventions.map((item, i) => (
+                        <div key={i} className="flex items-start gap-2 text-sm p-2 bg-muted/30 rounded">
+                          <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                          <div className="flex-1">
+                            <p className="font-medium">{item.action}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              <span className="font-medium">Evidence:</span> {item.evidenceLevel}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              <span className="font-medium">Rationale:</span> {item.rationale}
+                            </p>
+                          </div>
+                          <Badge variant="secondary" className="text-[10px] shrink-0">{item.timeline}</Badge>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
+                    </div>
+                  </motion.div>
+                ))}
 
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Clinical Interventions</p>
-                    <ul className="text-sm space-y-1">
-                      {interventionResult.interventions.clinical.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-orange-500">•</span>
-                          <span>{item.action}</span>
-                          <Badge variant="outline" className="text-[10px] ml-auto">{item.recommendation}</Badge>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Monitoring</p>
-                    <ul className="text-sm space-y-1">
-                      {interventionResult.interventions.monitoring.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-orange-500">•</span>
-                          <span>{item.action}</span>
-                          <Badge variant="outline" className="text-[10px] ml-auto">{item.recommendation}</Badge>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800">
+                  <p className="text-sm">
+                    📊 <span className="font-semibold">Projected Risk Reduction:</span>{' '}
+                    <span className="text-green-600 font-bold">{interventionResult.projectedReduction}%</span> with full implementation
+                  </p>
                 </div>
 
                 <ResultActions processingTime={1.6} />
@@ -1168,72 +1444,131 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
                   <SelectItem value="24h">Last 24 hours</SelectItem>
                   <SelectItem value="7d">Last 7 days</SelectItem>
                   <SelectItem value="30d">Last 30 days</SelectItem>
+                  <SelectItem value="custom">Custom range</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <Button onClick={handleEquityAnalysis} disabled={equityLoading} className="w-full gap-2">
               {equityLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing equity patterns...</>
               ) : (
-                <><Scale className="h-4 w-4" />Analyze Unit Demographics</>
+                <><Scale className="h-4 w-4" />Analyze Demographics & Outcomes</>
               )}
             </Button>
 
-            {equityLoading && <LoadingIndicator model="pro" estimatedTime={2.8} />}
+            {equityLoading && <LoadingIndicator model="pro" estimatedTime={2.8} message="Analyzing equity patterns with Gemini 3 Pro..." />}
 
             {equityResult && !equityLoading && (
               <motion.div
-                variants={resultVariants}
+                variants={staggerContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-4 p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border border-green-200 dark:border-green-800"
+                className="space-y-4"
               >
-                <div className="flex items-center justify-between">
+                {/* Header */}
+                <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-950/50 dark:to-emerald-950/50 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-green-600" />
+                    <Users className="h-5 w-5 text-green-600" />
                     <span className="font-semibold text-sm">
-                      Equity Analysis - Unit {equityResult.unit} ({equityResult.dateRange === '7d' ? 'Last 7 Days' : equityResult.dateRange === '24h' ? 'Last 24h' : 'Last 30 Days'})
+                      Health Equity Assessment - Unit {equityResult.unit}
                     </span>
                   </div>
-                  <Badge className={cn(
-                    "text-xs",
-                    equityResult.overallScore >= 0.8 ? "bg-green-500" : equityResult.overallScore >= 0.6 ? "bg-yellow-500" : "bg-red-500"
-                  )}>
-                    Score: {(equityResult.overallScore * 100).toFixed(0)}%
-                  </Badge>
+                  <Badge variant="secondary" className="text-xs">N={equityResult.census} patients</Badge>
                 </div>
 
-                <div>
-                  <p className="text-xs font-semibold text-orange-600 uppercase mb-2 flex items-center gap-1">
-                    <AlertTriangle className="h-3 w-3" /> Disparities Detected:
+                {/* Heatmap */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border rounded-lg overflow-hidden">
+                    <thead className="bg-muted">
+                      <tr>
+                        <th className="text-left p-2 font-medium">Outcome Type</th>
+                        <th className="text-center p-2 font-medium">Age &gt;75</th>
+                        <th className="text-center p-2 font-medium">Medicaid</th>
+                        <th className="text-center p-2 font-medium">Non-English</th>
+                        <th className="text-center p-2 font-medium">Gender Diff</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {equityResult.heatmapData.map((row, i) => (
+                        <tr key={i} className="border-t">
+                          <td className="p-2 font-medium">{row.outcome}</td>
+                          <td className="text-center p-2"><HeatmapCell value={row.ageOver75} /></td>
+                          <td className="text-center p-2"><HeatmapCell value={row.medicaid} /></td>
+                          <td className="text-center p-2"><HeatmapCell value={row.nonEnglish} /></td>
+                          <td className="text-center p-2"><HeatmapCell value={row.genderDiff} /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="text-[10px] text-muted-foreground mt-1 text-center">
+                    Legend: 🟢 &lt;1.3x | 🟡 1.3-1.8x | 🔴 &gt;1.8x (compared to baseline)
                   </p>
-                  <ul className="text-sm space-y-2">
-                    {equityResult.disparities.map((d, i) => (
-                      <li key={i} className="p-2 bg-white/50 dark:bg-black/20 rounded flex items-start gap-2">
-                        <span className="text-orange-500">•</span>
-                        <span>{d.finding}</span>
-                        <Badge variant="outline" className="text-[10px] ml-auto shrink-0">p&lt;{d.pValue}</Badge>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
-                <div>
-                  <p className="text-xs font-semibold text-green-600 uppercase mb-2 flex items-center gap-1">
-                    <Lightbulb className="h-3 w-3" /> Recommendations:
+                {/* Findings */}
+                <div className="space-y-3">
+                  <p className="text-sm font-semibold flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-orange-500" />
+                    Significant Disparities Detected:
                   </p>
-                  <ul className="text-sm space-y-1">
-                    {equityResult.recommendations.map((rec, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-green-500">•</span>
-                        <span>{rec}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {equityResult.findings.map((finding, i) => (
+                    <motion.div
+                      key={i}
+                      variants={staggerItemVariants}
+                      className="p-3 border rounded-lg bg-muted/30"
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <span className="font-semibold text-sm">{finding.title}</span>
+                        <Badge variant="outline" className="text-[10px]">{finding.significance}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        <span className="font-medium text-foreground">Rate:</span> {finding.rate}
+                      </p>
+                      <details className="text-xs">
+                        <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                          View Root Cause Analysis
+                        </summary>
+                        <ul className="mt-2 space-y-1 pl-4">
+                          {finding.rootCauses.map((cause, j) => (
+                            <li key={j} className="text-muted-foreground">• {cause}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    </motion.div>
+                  ))}
                 </div>
 
-                <ResultActions processingTime={2.8} />
+                {/* Recommendations */}
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="p-3 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800">
+                    <p className="font-semibold text-xs text-red-700 dark:text-red-400 mb-2">Immediate Actions (0-7 days):</p>
+                    <ul className="text-xs space-y-1">
+                      {equityResult.recommendations.immediate.map((rec, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-red-500">→</span> {rec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <p className="font-semibold text-xs text-blue-700 dark:text-blue-400 mb-2">System Changes (30-90 days):</p>
+                    <ul className="text-xs space-y-1">
+                      {equityResult.recommendations.systemChanges.map((rec, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-blue-500">→</span> {rec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800 text-sm">
+                  📈 <span className="font-semibold">Expected Impact:</span> Full implementation projected to reduce disparities by{' '}
+                  <span className="font-bold text-green-600">{equityResult.projectedImpact}%</span> within 6 months.
+                </div>
+
+                <ResultActions processingTime={2.8} model="pro" />
               </motion.div>
             )}
           </div>
@@ -1252,79 +1587,132 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('pressure-injury')}
         >
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-muted-foreground/30 rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer">
-              <ImageIcon className="h-10 w-10 mx-auto text-muted-foreground/50 mb-2" />
-              <p className="text-sm text-muted-foreground">Drop wound image here or click to upload</p>
-              <p className="text-xs text-muted-foreground/70 mt-1">(Demo mode: sample images available)</p>
+            {/* Upload Area */}
+            <div className="border-2 border-dashed border-muted-foreground/30 rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer bg-muted/20">
+              <Upload className="h-10 w-10 mx-auto text-muted-foreground/50 mb-2" />
+              <p className="text-sm text-muted-foreground font-medium">Drop wound image here or click to upload</p>
+              <p className="text-xs text-muted-foreground/70 mt-1">Accepts .jpg, .jpeg, .png</p>
             </div>
 
+            {/* Sample Buttons */}
             <div className="flex gap-2">
-              <Button size="sm" variant="outline" onClick={handlePressureAnalysis} className="flex-1">
-                <Upload className="h-3 w-3 mr-1" />
-                Load Sample Wound 1
+              <Button size="sm" variant="outline" onClick={() => handlePressureAnalysis(1)} className="flex-1">
+                <ImageIcon className="h-3 w-3 mr-1" />
+                Load Sample Wound 1 (Stage II sacral)
               </Button>
-              <Button size="sm" variant="outline" onClick={handlePressureAnalysis} className="flex-1">
-                <Upload className="h-3 w-3 mr-1" />
-                Load Sample Wound 2
+              <Button size="sm" variant="outline" onClick={() => handlePressureAnalysis(2)} className="flex-1">
+                <ImageIcon className="h-3 w-3 mr-1" />
+                Load Sample Wound 2 (Stage III heel)
               </Button>
             </div>
 
+            {/* Clinical Notes */}
             <Textarea
-              placeholder="Clinical notes (optional)"
-              className="min-h-[60px] resize-none"
+              placeholder="Optional: Add clinical context..."
+              value={pressureNotes}
+              onChange={(e) => setPressureNotes(e.target.value)}
+              className="min-h-[60px] resize-none text-sm"
               aria-label="Clinical notes for wound assessment"
             />
 
-            <Button onClick={handlePressureAnalysis} disabled={pressureLoading} className="w-full gap-2">
+            <Button onClick={() => handlePressureAnalysis(pressureSampleId)} disabled={pressureLoading} className="w-full gap-2">
               {pressureLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing image and notes...</>
               ) : (
-                <><Activity className="h-4 w-4" />Analyze Wound</>
+                <><Activity className="h-4 w-4" />Analyze Wound with Gemini 3</>
               )}
             </Button>
 
-            {pressureLoading && <LoadingIndicator model="flash" estimatedTime={1.8} />}
+            {pressureLoading && <LoadingIndicator model="flash" estimatedTime={1.8} message="🔄 Analyzing image and notes..." />}
 
             {pressureResult && !pressureLoading && (
               <motion.div
-                variants={resultVariants}
+                variants={staggerContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-3 p-4 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 rounded-lg border border-red-200 dark:border-red-800"
+                className="space-y-4"
               >
-                <div className="flex items-center gap-2">
-                  <ImageIcon className="h-4 w-4 text-red-600" />
-                  <span className="font-semibold text-sm">Multimodal Analysis Results:</span>
-                </div>
-
-                <div className="flex items-center gap-3 p-3 bg-white/50 dark:bg-black/20 rounded-lg">
-                  <div>
-                    <p className="text-sm font-medium">Stage: {pressureResult.stage}</p>
-                    <p className="text-xs text-muted-foreground">Confidence: {(pressureResult.confidence * 100).toFixed(0)}%</p>
+                {/* Stage Classification */}
+                <motion.div 
+                  variants={staggerItemVariants}
+                  className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border"
+                >
+                  <div className="flex items-center gap-3">
+                    <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
+                    <div>
+                      <p className="text-lg font-bold">Stage: {pressureResult.stage}</p>
+                      <p className="text-sm text-muted-foreground">Confidence: {(pressureResult.confidence * 100).toFixed(0)}%</p>
+                    </div>
                   </div>
-                  <Badge className="ml-auto bg-orange-500">Stage II</Badge>
-                </div>
+                  <Badge className={cn(
+                    "text-sm px-3 py-1",
+                    pressureResult.stageColor === 'orange' ? 'bg-orange-500' : 'bg-red-500'
+                  )}>
+                    Stage {pressureSampleId === 1 ? 'II' : 'III'}
+                  </Badge>
+                </motion.div>
 
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Assessment:</p>
-                  <ul className="text-sm space-y-1">
-                    <li><span className="text-muted-foreground">Size:</span> {pressureResult.assessment.size}</li>
-                    <li><span className="text-muted-foreground">Location:</span> {pressureResult.assessment.location}</li>
-                    <li><span className="text-muted-foreground">Wound bed:</span> {pressureResult.assessment.woundBed}</li>
-                    <li><span className="text-muted-foreground">Healing:</span> {pressureResult.assessment.healing}</li>
-                  </ul>
-                </div>
+                {/* Assessment Details */}
+                <motion.div 
+                  variants={staggerItemVariants}
+                  className="p-4 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 rounded-lg border border-red-200 dark:border-red-800"
+                >
+                  <p className="font-semibold text-sm mb-3 flex items-center gap-2">
+                    <Eye className="h-4 w-4" /> Assessment Details:
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Ruler className="h-4 w-4 text-muted-foreground" />
+                      <span><strong>Size:</strong> {pressureResult.assessment.size}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-muted-foreground" />
+                      <span><strong>Location:</strong> {pressureResult.assessment.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Bandage className="h-4 w-4 text-muted-foreground" />
+                      <span><strong>Wound Bed:</strong> {pressureResult.assessment.woundBed}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Heart className="h-4 w-4 text-muted-foreground" />
+                      <span><strong>Healing:</strong> {pressureResult.assessment.healing}</span>
+                    </div>
+                  </div>
+                </motion.div>
 
-                <div>
-                  <p className="text-xs font-semibold text-green-600 uppercase mb-1">Recommendations:</p>
-                  <ul className="text-sm space-y-1">
+                {/* Recommendations */}
+                <motion.div 
+                  variants={staggerItemVariants}
+                  className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800"
+                >
+                  <p className="font-semibold text-sm mb-2 text-green-700 dark:text-green-400 flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4" /> Recommendations:
+                  </p>
+                  <ul className="space-y-2">
                     {pressureResult.recommendations.map((rec, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <CheckCircle2 className="h-3 w-3 text-green-500" />
+                      <li key={i} className="flex items-center gap-2 text-sm">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
                         <span>{rec}</span>
                       </li>
                     ))}
                   </ul>
+                </motion.div>
+
+                {/* Action buttons */}
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" className="flex-1" onClick={() => toast({ title: "Copy Report", description: "Demo mode only" })}>
+                    <Copy className="h-3 w-3 mr-1" /> Copy Report
+                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="sm" className="flex-1 opacity-50" disabled>
+                          <Eye className="h-3 w-3 mr-1" /> Compare to Previous
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>No previous assessment available</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
 
                 <ResultActions processingTime={1.8} />
@@ -1346,6 +1734,7 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('smart-alert')}
         >
           <div className="space-y-4">
+            {/* Scenario Selector */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Patient Scenario</Label>
               <Select
@@ -1365,66 +1754,127 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
               </Select>
             </div>
 
+            {/* Scenario Preview */}
             <div className="p-3 bg-muted/50 rounded-lg text-sm">
-              <p className="text-xs text-muted-foreground uppercase mb-1">Selected Scenario:</p>
+              <p className="text-xs text-muted-foreground uppercase mb-1 font-medium">Selected Scenario:</p>
               <p><span className="font-medium">Patient:</span> {alertScenario.patientId} | Room {alertScenario.room}</p>
-              <p><span className="font-medium">Risk Type:</span> {alertScenario.riskType}</p>
               <p><span className="font-medium">Trigger:</span> {alertScenario.trigger}</p>
+            </div>
+
+            {/* Sound Toggle */}
+            <div className="flex items-center justify-between p-2 bg-muted/30 rounded">
+              <span className="text-sm flex items-center gap-2">
+                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                Alert Sound
+              </span>
+              <Switch checked={soundEnabled} onCheckedChange={setSoundEnabled} />
             </div>
 
             <Button onClick={handleAlertGeneration} disabled={alertLoading} className="w-full gap-2">
               {alertLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Generating...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Crafting actionable alert...</>
               ) : (
                 <><Bell className="h-4 w-4" />Generate Smart Alert</>
               )}
             </Button>
 
-            {alertLoading && <LoadingIndicator model="flash" estimatedTime={0.9} />}
+            {alertLoading && <LoadingIndicator model="flash" estimatedTime={0.9} message="Crafting actionable alert..." />}
 
             {alertResult && !alertLoading && (
               <motion.div
                 variants={resultVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-3 p-4 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-950/50 dark:to-orange-950/50 rounded-lg border-2 border-red-300 dark:border-red-700"
               >
-                <div className="flex items-center gap-2">
-                  <Bell className="h-5 w-5 text-red-600 animate-pulse" />
-                  <Badge className="bg-red-600 text-white uppercase">
-                    {alertResult.priority} PRIORITY
-                  </Badge>
-                </div>
+                {/* Alert Card */}
+                <motion.div 
+                  className={cn(
+                    "rounded-lg border-2 overflow-hidden",
+                    alertResult.priority === 'CRITICAL' ? 'border-red-500 shadow-lg shadow-red-500/20' :
+                    alertResult.priority === 'IMMEDIATE' ? 'border-red-400' : 'border-orange-400'
+                  )}
+                  animate={alertResult.priority === 'CRITICAL' || alertResult.priority === 'IMMEDIATE' ? {
+                    boxShadow: ['0 0 0 0 rgba(239, 68, 68, 0)', '0 0 0 8px rgba(239, 68, 68, 0.1)', '0 0 0 0 rgba(239, 68, 68, 0)']
+                  } : {}}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  {/* Header */}
+                  <div className={cn(
+                    "p-3 flex items-center justify-between",
+                    alertResult.priority === 'CRITICAL' ? 'bg-red-600 text-white' :
+                    alertResult.priority === 'IMMEDIATE' ? 'bg-red-500 text-white' : 'bg-orange-500 text-white'
+                  )}>
+                    <div className="flex items-center gap-2">
+                      <Bell className="h-5 w-5 animate-pulse" />
+                      <span className="font-bold">🔔 PRIORITY ALERT - {alertResult.priority} ACTION</span>
+                    </div>
+                    <Badge className="bg-white/20 text-white border-white/30">
+                      🔴 {alertResult.priority}
+                    </Badge>
+                  </div>
 
-                <div className="space-y-2">
-                  <p className="font-bold text-lg">{alertResult.headline}</p>
-                  <p className="text-sm font-medium text-orange-700 dark:text-orange-400">
-                    {alertResult.riskTransition}
-                  </p>
-                  <p className="text-sm">{alertResult.reason}</p>
-                </div>
+                  {/* Content */}
+                  <div className="p-4 space-y-4 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30">
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase font-medium">Patient</p>
+                        <p className="font-semibold">{alertResult.patient}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase font-medium">Timestamp</p>
+                        <p className="font-semibold">{alertResult.timestamp}</p>
+                      </div>
+                    </div>
 
-                <div className="p-3 bg-white/70 dark:bg-black/30 rounded-lg">
-                  <p className="text-xs font-semibold text-red-600 uppercase mb-2">ACTION REQUIRED:</p>
-                  <ul className="text-sm space-y-1">
-                    {alertResult.actions.map((action, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <Badge
-                          variant="outline"
-                          className={cn(
-                            "text-[9px] shrink-0",
-                            action.urgency === 'immediate' && "border-red-500 text-red-600",
-                            action.urgency === 'high' && "border-orange-500 text-orange-600",
-                            action.urgency === 'routine' && "border-blue-500 text-blue-600"
-                          )}
-                        >
-                          {action.urgency}
-                        </Badge>
-                        <span>{action.action}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase font-medium">Risk Transition</p>
+                      <p className="font-bold text-lg text-red-600">{alertResult.headline}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase font-medium mb-1">Clinical Context</p>
+                      <p className="text-sm">{alertResult.clinicalContext}</p>
+                    </div>
+
+                    {/* Required Actions */}
+                    <div className="p-3 bg-white/50 dark:bg-black/20 rounded-lg">
+                      <p className="font-bold text-sm mb-2 text-red-700 dark:text-red-400">REQUIRED ACTIONS:</p>
+                      <div className="space-y-2">
+                        {alertResult.actions.map((item, i) => (
+                          <div key={i} className="flex items-center gap-2">
+                            <Checkbox id={`action-${i}`} />
+                            <Label htmlFor={`action-${i}`} className="text-sm cursor-pointer flex-1">
+                              {i + 1}. {item.action}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="text-sm">
+                      <p className="font-medium mb-1">Rationale:</p>
+                      <p className="text-muted-foreground">{alertResult.rationale}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm">
+                      <span><strong>Reassess At:</strong> {alertResult.reassessAt}</span>
+                      <span className="text-xs text-muted-foreground">Alert ID: {alertResult.alertId}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="p-3 bg-muted/50 flex flex-wrap gap-2">
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={() => toast({ title: "Acknowledge Alert", description: "Demo mode only" })}>
+                      <CheckCircle2 className="h-3 w-3 mr-1" /> Acknowledge
+                    </Button>
+                    <Button size="sm" variant="outline" className="border-orange-500 text-orange-600" onClick={() => toast({ title: "Escalate", description: "Demo mode only" })}>
+                      <AlertCircle className="h-3 w-3 mr-1" /> Escalate to Charge Nurse
+                    </Button>
+                    <Button size="sm" variant="ghost" onClick={() => toast({ title: "Print Alert", description: "Demo mode only" })}>
+                      <Printer className="h-3 w-3 mr-1" /> Print
+                    </Button>
+                  </div>
+                </motion.div>
 
                 <ResultActions processingTime={0.9} />
               </motion.div>
@@ -1437,7 +1887,7 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           id="unit-trends"
           title="Unit Trend Analysis"
           description="24-hour aggregate pattern detection"
-          icon={TrendingUp}
+          icon={BarChart3}
           model="pro"
           color="from-indigo-500 to-violet-500"
           isExpanded={expandedModules.has('unit-trends')}
@@ -1445,124 +1895,190 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('unit-trends')}
         >
           <div className="space-y-4">
+            {/* Time Range */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Time Range</Label>
               <RadioGroup value={trendTimeRange} onValueChange={setTrendTimeRange} className="flex gap-4">
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="8h" id="8h" />
-                  <Label htmlFor="8h" className="text-sm cursor-pointer">Last 8h</Label>
+                  <RadioGroupItem value="8h" id="trend-8h" />
+                  <Label htmlFor="trend-8h" className="text-sm cursor-pointer">Last 8 hours</Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="24h" id="24h" />
-                  <Label htmlFor="24h" className="text-sm cursor-pointer">24h</Label>
+                  <RadioGroupItem value="24h" id="trend-24h" />
+                  <Label htmlFor="trend-24h" className="text-sm cursor-pointer">Last 24 hours</Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem value="7d" id="7d-trend" />
-                  <Label htmlFor="7d-trend" className="text-sm cursor-pointer">7 days</Label>
+                  <RadioGroupItem value="7d" id="trend-7d" />
+                  <Label htmlFor="trend-7d" className="text-sm cursor-pointer">Last 7 days</Label>
                 </div>
               </RadioGroup>
             </div>
 
+            {/* Risk Types */}
             <div>
-              <Label className="text-sm font-medium mb-2 block">Risk Types</Label>
+              <Label className="text-sm font-medium mb-2 block">Risk Types to Analyze</Label>
               <div className="flex gap-4">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="trend-falls"
                     checked={trendRiskTypes.falls}
-                    onChange={(e) => setTrendRiskTypes(prev => ({ ...prev, falls: e.target.checked }))}
-                    className="rounded"
+                    onCheckedChange={(checked) => setTrendRiskTypes(prev => ({ ...prev, falls: !!checked }))}
                   />
-                  <span className="text-sm">Falls</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
+                  <Label htmlFor="trend-falls" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-3 h-3 rounded bg-blue-500" /> Falls Risk
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="trend-pressure"
                     checked={trendRiskTypes.pressure}
-                    onChange={(e) => setTrendRiskTypes(prev => ({ ...prev, pressure: e.target.checked }))}
-                    className="rounded"
+                    onCheckedChange={(checked) => setTrendRiskTypes(prev => ({ ...prev, pressure: !!checked }))}
                   />
-                  <span className="text-sm">Pressure Injury</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
+                  <Label htmlFor="trend-pressure" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-3 h-3 rounded bg-orange-500" /> Pressure Injury
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="trend-cauti"
                     checked={trendRiskTypes.cauti}
-                    onChange={(e) => setTrendRiskTypes(prev => ({ ...prev, cauti: e.target.checked }))}
-                    className="rounded"
+                    onCheckedChange={(checked) => setTrendRiskTypes(prev => ({ ...prev, cauti: !!checked }))}
                   />
-                  <span className="text-sm">CAUTI</span>
-                </label>
+                  <Label htmlFor="trend-cauti" className="text-sm cursor-pointer flex items-center gap-1">
+                    <span className="w-3 h-3 rounded bg-red-500" /> CAUTI Risk
+                  </Label>
+                </div>
               </div>
             </div>
 
             <Button onClick={handleTrendAnalysis} disabled={trendLoading} className="w-full gap-2">
               {trendLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Processing with Gemini 3 Pro...</>
               ) : (
-                <><BarChart3 className="h-4 w-4" />Analyze Trends</>
+                <><BarChart3 className="h-4 w-4" />Analyze Unit Trends</>
               )}
             </Button>
 
-            {trendLoading && <LoadingIndicator model="pro" estimatedTime={2.3} />}
+            {trendLoading && <LoadingIndicator model="pro" estimatedTime={2.3} message="Processing 24h data with Gemini 3 Pro..." />}
 
             {trendResult && !trendLoading && (
               <motion.div
-                variants={resultVariants}
+                variants={staggerContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-4 p-4 bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/30 dark:to-violet-950/30 rounded-lg border border-indigo-200 dark:border-indigo-800"
+                className="space-y-4"
               >
-                <div className="flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-indigo-600" />
-                  <span className="font-semibold text-sm">
-                    {trendResult.timeRange === '24h' ? '24-Hour' : trendResult.timeRange === '8h' ? '8-Hour' : '7-Day'} Trend Analysis - Unit {trendResult.unit}
-                  </span>
+                {/* Header */}
+                <div className="flex items-center justify-between p-3 bg-gradient-to-r from-indigo-100 to-violet-100 dark:from-indigo-950/50 dark:to-violet-950/50 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-indigo-600" />
+                    <span className="font-semibold text-sm">
+                      {trendResult.timeRange === '24h' ? '24-Hour' : trendResult.timeRange === '8h' ? '8-Hour' : '7-Day'} Pattern Analysis - Unit {trendResult.unit}
+                    </span>
+                  </div>
+                  <Badge variant="secondary" className="text-xs">Census: {trendResult.census}</Badge>
                 </div>
 
-                {/* Simple trend visualization */}
-                <div className="h-24 flex items-end gap-1 p-2 bg-white/50 dark:bg-black/20 rounded">
-                  {trendResult.trendData.map((point, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
-                      <div
-                        className="w-full bg-blue-500 rounded-t"
-                        style={{ height: `${point.falls * 60}px` }}
-                        title={`Falls: ${(point.falls * 100).toFixed(0)}%`}
-                      />
-                      <span className="text-[8px] text-muted-foreground">{point.hour.slice(0, 2)}</span>
+                {/* Simple Chart */}
+                <div className="p-4 bg-muted/30 rounded-lg border">
+                  <p className="text-xs text-muted-foreground mb-3 font-medium">Risk Levels Over Time</p>
+                  <div className="h-32 flex items-end gap-1">
+                    {trendResult.trendData.map((point, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                        <div className="flex flex-col gap-0.5 w-full">
+                          {trendRiskTypes.falls && (
+                            <div
+                              className="w-full bg-blue-500 rounded-t transition-all"
+                              style={{ height: `${point.falls * 80}px` }}
+                              title={`Falls: ${(point.falls * 10).toFixed(1)}`}
+                            />
+                          )}
+                          {trendRiskTypes.pressure && (
+                            <div
+                              className="w-full bg-orange-500 rounded-t transition-all"
+                              style={{ height: `${point.pressure * 60}px` }}
+                              title={`Pressure: ${(point.pressure * 10).toFixed(1)}`}
+                            />
+                          )}
+                          {trendRiskTypes.cauti && (
+                            <div
+                              className="w-full bg-red-500 rounded-t transition-all"
+                              style={{ height: `${point.cauti * 50}px` }}
+                              title={`CAUTI: ${(point.cauti * 10).toFixed(1)}`}
+                            />
+                          )}
+                        </div>
+                        <span className="text-[8px] text-muted-foreground">{point.hour.slice(0, 2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex justify-center gap-4 mt-2">
+                    {trendRiskTypes.falls && <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-blue-500 rounded" /> Falls</span>}
+                    {trendRiskTypes.pressure && <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-orange-500 rounded" /> Pressure</span>}
+                    {trendRiskTypes.cauti && <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-red-500 rounded" /> CAUTI</span>}
+                  </div>
+                </div>
+
+                {/* Peak Periods */}
+                <motion.div variants={staggerItemVariants} className="space-y-2">
+                  <p className="font-semibold text-sm flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-red-500" />
+                    Peak Risk Periods Detected:
+                  </p>
+                  {trendResult.peakPeriods.map((peak, i) => (
+                    <div key={i} className="p-2 bg-muted/30 rounded text-sm">
+                      <span className="font-medium">{peak.riskType}:</span> {peak.period} <span className="text-muted-foreground">({peak.context})</span>
+                      <p className="text-xs text-muted-foreground mt-0.5">{peak.factors}</p>
                     </div>
                   ))}
-                </div>
+                </motion.div>
 
-                <div>
-                  <p className="text-xs font-semibold text-red-600 uppercase mb-2 flex items-center gap-1">
-                    <TrendingUp className="h-3 w-3" /> Peak Risk Periods:
+                {/* Patterns */}
+                <motion.div variants={staggerItemVariants} className="space-y-2">
+                  <p className="font-semibold text-sm flex items-center gap-2">
+                    <Lightbulb className="h-4 w-4 text-indigo-500" />
+                    Patterns & Correlations:
                   </p>
-                  <ul className="text-sm space-y-1">
-                    {trendResult.peakPeriods.map((peak, i) => (
-                      <li key={i} className="flex items-start gap-2">
+                  <ul className="space-y-1">
+                    {trendResult.patterns.map((p, i) => (
+                      <li key={i} className="text-sm flex items-start gap-2">
                         <span className="text-indigo-500">•</span>
-                        <span><strong>{peak.riskType}:</strong> {peak.period} ({peak.context})</span>
+                        <span>{p.pattern}</span>
+                        {p.correlation && <Badge variant="outline" className="text-[10px]">{p.correlation}</Badge>}
                       </li>
                     ))}
                   </ul>
+                </motion.div>
+
+                {/* Recommendations */}
+                <motion.div variants={staggerItemVariants} className="p-3 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                  <p className="font-semibold text-sm mb-2 text-indigo-700 dark:text-indigo-400">🎯 Gemini 3 Pro Recommendations:</p>
+                  <div className="grid md:grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <p className="font-medium mb-1">Immediate Actions:</p>
+                      <ul className="space-y-0.5">
+                        {trendResult.recommendations.immediate.map((rec, i) => (
+                          <li key={i}>→ {rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">System Changes:</p>
+                      <ul className="space-y-0.5">
+                        {trendResult.recommendations.systemChanges.map((rec, i) => (
+                          <li key={i}>→ {rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800 text-sm">
+                  📈 <span className="font-semibold">Predicted Impact:</span> If implemented, projected{' '}
+                  <span className="font-bold text-green-600">{trendResult.projectedImpact}% reduction</span> in adverse events over next 30 days.
                 </div>
 
-                <div>
-                  <p className="text-xs font-semibold text-indigo-600 uppercase mb-2 flex items-center gap-1">
-                    <Lightbulb className="h-3 w-3" /> Patterns Detected:
-                  </p>
-                  <ul className="text-sm space-y-1">
-                    {trendResult.patterns.map((pattern, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-indigo-500">•</span>
-                        <span>{pattern}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <ResultActions processingTime={2.3} />
+                <ResultActions processingTime={2.3} model="pro" />
               </motion.div>
             )}
           </div>
@@ -1581,30 +2097,35 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
           onToggle={() => toggleModule('multi-risk')}
         >
           <div className="space-y-4">
-            <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant={multiRiskPatient.name === 'High Risk Elderly' ? 'default' : 'outline'}
-                onClick={() => loadPatientScenario(PATIENT_SCENARIOS.elderly)}
-              >
-                High Risk Elderly
-              </Button>
-              <Button
-                size="sm"
-                variant={multiRiskPatient.name === 'Post-Surgical' ? 'default' : 'outline'}
-                onClick={() => loadPatientScenario(PATIENT_SCENARIOS.postSurgical)}
-              >
-                Post-Surgical
-              </Button>
-              <Button
-                size="sm"
-                variant={multiRiskPatient.name === 'Long-Term Care' ? 'default' : 'outline'}
-                onClick={() => loadPatientScenario(PATIENT_SCENARIOS.longTerm)}
-              >
-                Long-Term Care
-              </Button>
+            {/* Quick Load Scenarios */}
+            <div>
+              <p className="text-xs text-muted-foreground mb-2 font-medium">Quick Load Scenarios:</p>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant={multiRiskPatient.name === 'High Risk Elderly' ? 'default' : 'outline'}
+                  onClick={() => loadPatientScenario(PATIENT_SCENARIOS.elderly)}
+                >
+                  Load Scenario 1: High-Risk Elderly
+                </Button>
+                <Button
+                  size="sm"
+                  variant={multiRiskPatient.name === 'Post-Surgical' ? 'default' : 'outline'}
+                  onClick={() => loadPatientScenario(PATIENT_SCENARIOS.postSurgical)}
+                >
+                  Load Scenario 2: Post-Surgical
+                </Button>
+                <Button
+                  size="sm"
+                  variant={multiRiskPatient.name === 'Long-Term Care' ? 'default' : 'outline'}
+                  onClick={() => loadPatientScenario(PATIENT_SCENARIOS.longTerm)}
+                >
+                  Load Scenario 3: Long-Term Care
+                </Button>
+              </div>
             </div>
 
+            {/* Patient Data Form - 2 Column Grid */}
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Label className="text-xs mb-1 block">Age</Label>
@@ -1612,14 +2133,28 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
                   type="number"
                   value={multiRiskAge}
                   onChange={(e) => setMultiRiskAge(Number(e.target.value))}
-                  className="h-8"
+                  className="h-9"
+                  placeholder="82"
                   aria-label="Patient age"
                 />
               </div>
               <div>
+                <Label className="text-xs mb-1 block">Gender</Label>
+                <Select value={multiRiskGender} onValueChange={setMultiRiskGender}>
+                  <SelectTrigger className="h-9" aria-label="Gender">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="M">Male</SelectItem>
+                    <SelectItem value="F">Female</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
                 <Label className="text-xs mb-1 block">Mobility Status</Label>
                 <Select value={multiRiskMobility} onValueChange={setMultiRiskMobility}>
-                  <SelectTrigger className="h-8" aria-label="Mobility status">
+                  <SelectTrigger className="h-9" aria-label="Mobility status">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -1636,9 +2171,10 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
                   type="number"
                   value={multiRiskBraden}
                   onChange={(e) => setMultiRiskBraden(Number(e.target.value))}
-                  className="h-8"
+                  className="h-9"
                   min={6}
                   max={23}
+                  placeholder="14"
                   aria-label="Braden score"
                 />
               </div>
@@ -1648,133 +2184,173 @@ Example: Patient restless overnight. Found attempting to climb out of bed at 023
                   type="number"
                   value={multiRiskCatheter}
                   onChange={(e) => setMultiRiskCatheter(Number(e.target.value))}
-                  className="h-8"
+                  className="h-9"
                   min={0}
+                  placeholder="0"
                   aria-label="Catheter days"
+                />
+              </div>
+              <div>
+                <Label className="text-xs mb-1 block">Recent Medications</Label>
+                <Input
+                  value={multiRiskMeds}
+                  onChange={(e) => setMultiRiskMeds(e.target.value)}
+                  placeholder="Lorazepam 2mg"
+                  className="h-9"
+                  aria-label="Recent medications"
                 />
               </div>
             </div>
 
-            <div>
-              <Label className="text-xs mb-1 block">Recent Medications</Label>
-              <Input
-                value={multiRiskMeds}
-                onChange={(e) => setMultiRiskMeds(e.target.value)}
-                placeholder="e.g., Lorazepam 2mg, Ambien"
-                className="h-8"
-                aria-label="Recent medications"
-              />
-            </div>
-
             <Button onClick={handleMultiRiskAssessment} disabled={multiRiskLoading} className="w-full gap-2">
               {multiRiskLoading ? (
-                <><RefreshCw className="h-4 w-4 animate-spin" />Calculating...</>
+                <><RefreshCw className="h-4 w-4 animate-spin" />Analyzing multiple risk factors...</>
               ) : (
-                <><Shield className="h-4 w-4" />Calculate All Risks</>
+                <><Shield className="h-4 w-4" />Calculate All Risks with Gemini 3</>
               )}
             </Button>
 
-            {multiRiskLoading && <LoadingIndicator model="flash" estimatedTime={1.5} />}
+            {multiRiskLoading && <LoadingIndicator model="flash" estimatedTime={1.5} message="Analyzing multiple risk factors..." />}
 
             {multiRiskResult && !multiRiskLoading && (
               <motion.div
-                variants={resultVariants}
+                variants={staggerContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-3"
+                className="space-y-4"
               >
-                <div className="grid grid-cols-3 gap-2">
-                  {/* Falls */}
-                  <div className={cn(
-                    "p-3 rounded-lg border-2 text-center",
-                    multiRiskResult.assessments.falls.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
-                    multiRiskResult.assessments.falls.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
-                    multiRiskResult.assessments.falls.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
-                  )}>
-                    <p className="text-[10px] uppercase font-bold text-muted-foreground">Falls Risk</p>
-                    <p className={cn(
-                      "text-lg font-bold",
-                      multiRiskResult.assessments.falls.level === 'HIGH' && "text-red-600",
-                      multiRiskResult.assessments.falls.level === 'MODERATE' && "text-orange-600",
-                      multiRiskResult.assessments.falls.level === 'LOW' && "text-green-600"
+                {/* 3 Risk Cards Side by Side */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Falls Risk */}
+                  <motion.div
+                    variants={staggerItemVariants}
+                    className={cn(
+                      "p-4 rounded-lg border-2 text-center",
+                      multiRiskResult.assessments.falls.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
+                      multiRiskResult.assessments.falls.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
+                      multiRiskResult.assessments.falls.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
+                    )}
+                  >
+                    <p className="text-xs uppercase font-bold text-muted-foreground mb-1">Falls Risk</p>
+                    <Badge className={cn(
+                      "text-lg px-4 py-1 mb-2",
+                      multiRiskResult.assessments.falls.level === 'HIGH' ? 'bg-red-500' :
+                      multiRiskResult.assessments.falls.level === 'MODERATE' ? 'bg-orange-500' : 'bg-green-500'
                     )}>
                       {multiRiskResult.assessments.falls.level}
-                    </p>
-                    <p className="text-xs">Score: {multiRiskResult.assessments.falls.score}/10</p>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5">Key Factors:</p>
-                      {multiRiskResult.assessments.falls.factors.map((f, i) => (
-                        <p key={i}>• {f}</p>
-                      ))}
+                    </Badge>
+                    <p className="text-sm mb-2">Score: {multiRiskResult.assessments.falls.score}/10</p>
+                    <Progress value={multiRiskResult.assessments.falls.score * 10} className="h-2 mb-3" />
+                    
+                    <div className="text-left text-xs space-y-2">
+                      <div>
+                        <p className="font-semibold mb-1">Key Factors:</p>
+                        {multiRiskResult.assessments.falls.factors.map((f, i) => (
+                          <p key={i} className="text-muted-foreground">• {f}</p>
+                        ))}
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1 text-green-600">Interventions:</p>
+                        {multiRiskResult.assessments.falls.interventions.map((int, i) => (
+                          <p key={i} className="text-green-700 dark:text-green-400">→ {int}</p>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5 text-green-600">Interventions:</p>
-                      {multiRiskResult.assessments.falls.interventions.map((int, i) => (
-                        <p key={i}>→ {int}</p>
-                      ))}
-                    </div>
-                  </div>
+                  </motion.div>
 
                   {/* Pressure Injury */}
-                  <div className={cn(
-                    "p-3 rounded-lg border-2 text-center",
-                    multiRiskResult.assessments.pressure.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
-                    multiRiskResult.assessments.pressure.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
-                    multiRiskResult.assessments.pressure.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
-                  )}>
-                    <p className="text-[10px] uppercase font-bold text-muted-foreground">Pressure Injury</p>
-                    <p className={cn(
-                      "text-lg font-bold",
-                      multiRiskResult.assessments.pressure.level === 'HIGH' && "text-red-600",
-                      multiRiskResult.assessments.pressure.level === 'MODERATE' && "text-orange-600",
-                      multiRiskResult.assessments.pressure.level === 'LOW' && "text-green-600"
+                  <motion.div
+                    variants={staggerItemVariants}
+                    className={cn(
+                      "p-4 rounded-lg border-2 text-center",
+                      multiRiskResult.assessments.pressure.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
+                      multiRiskResult.assessments.pressure.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
+                      multiRiskResult.assessments.pressure.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
+                    )}
+                  >
+                    <p className="text-xs uppercase font-bold text-muted-foreground mb-1">Pressure Injury</p>
+                    <Badge className={cn(
+                      "text-lg px-4 py-1 mb-2",
+                      multiRiskResult.assessments.pressure.level === 'HIGH' ? 'bg-red-500' :
+                      multiRiskResult.assessments.pressure.level === 'MODERATE' ? 'bg-orange-500' : 'bg-green-500'
                     )}>
                       {multiRiskResult.assessments.pressure.level}
-                    </p>
-                    <p className="text-xs">Score: {multiRiskResult.assessments.pressure.score}/10</p>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5">Key Factors:</p>
-                      {multiRiskResult.assessments.pressure.factors.map((f, i) => (
-                        <p key={i}>• {f}</p>
-                      ))}
+                    </Badge>
+                    <p className="text-sm mb-2">Score: {multiRiskResult.assessments.pressure.score}/10</p>
+                    <Progress value={multiRiskResult.assessments.pressure.score * 10} className="h-2 mb-3" />
+                    
+                    <div className="text-left text-xs space-y-2">
+                      <div>
+                        <p className="font-semibold mb-1">Key Factors:</p>
+                        {multiRiskResult.assessments.pressure.factors.map((f, i) => (
+                          <p key={i} className="text-muted-foreground">• {f}</p>
+                        ))}
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1 text-green-600">Interventions:</p>
+                        {multiRiskResult.assessments.pressure.interventions.map((int, i) => (
+                          <p key={i} className="text-green-700 dark:text-green-400">→ {int}</p>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5 text-green-600">Interventions:</p>
-                      {multiRiskResult.assessments.pressure.interventions.map((int, i) => (
-                        <p key={i}>→ {int}</p>
-                      ))}
-                    </div>
-                  </div>
+                  </motion.div>
 
-                  {/* CAUTI */}
-                  <div className={cn(
-                    "p-3 rounded-lg border-2 text-center",
-                    multiRiskResult.assessments.cauti.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
-                    multiRiskResult.assessments.cauti.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
-                    multiRiskResult.assessments.cauti.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
-                  )}>
-                    <p className="text-[10px] uppercase font-bold text-muted-foreground">CAUTI Risk</p>
-                    <p className={cn(
-                      "text-lg font-bold",
-                      multiRiskResult.assessments.cauti.level === 'HIGH' && "text-red-600",
-                      multiRiskResult.assessments.cauti.level === 'MODERATE' && "text-orange-600",
-                      multiRiskResult.assessments.cauti.level === 'LOW' && "text-green-600"
+                  {/* CAUTI Risk */}
+                  <motion.div
+                    variants={staggerItemVariants}
+                    className={cn(
+                      "p-4 rounded-lg border-2 text-center",
+                      multiRiskResult.assessments.cauti.level === 'HIGH' && "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700",
+                      multiRiskResult.assessments.cauti.level === 'MODERATE' && "bg-orange-50 border-orange-300 dark:bg-orange-950/30 dark:border-orange-700",
+                      multiRiskResult.assessments.cauti.level === 'LOW' && "bg-green-50 border-green-300 dark:bg-green-950/30 dark:border-green-700"
+                    )}
+                  >
+                    <p className="text-xs uppercase font-bold text-muted-foreground mb-1">CAUTI Risk</p>
+                    <Badge className={cn(
+                      "text-lg px-4 py-1 mb-2",
+                      multiRiskResult.assessments.cauti.level === 'HIGH' ? 'bg-red-500' :
+                      multiRiskResult.assessments.cauti.level === 'MODERATE' ? 'bg-orange-500' : 'bg-green-500'
                     )}>
                       {multiRiskResult.assessments.cauti.level}
-                    </p>
-                    <p className="text-xs">Score: {multiRiskResult.assessments.cauti.score}/10</p>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5">Key Factors:</p>
-                      {multiRiskResult.assessments.cauti.factors.map((f, i) => (
-                        <p key={i}>• {f}</p>
-                      ))}
+                    </Badge>
+                    <p className="text-sm mb-2">Score: {multiRiskResult.assessments.cauti.score}/10</p>
+                    <Progress value={multiRiskResult.assessments.cauti.score * 10} className="h-2 mb-3" />
+                    
+                    <div className="text-left text-xs space-y-2">
+                      <div>
+                        <p className="font-semibold mb-1">Key Factors:</p>
+                        {multiRiskResult.assessments.cauti.factors.map((f, i) => (
+                          <p key={i} className="text-muted-foreground">• {f}</p>
+                        ))}
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1 text-green-600">Interventions:</p>
+                        {multiRiskResult.assessments.cauti.interventions.map((int, i) => (
+                          <p key={i} className="text-green-700 dark:text-green-400">→ {int}</p>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-2 text-[10px] text-left">
-                      <p className="font-semibold mb-0.5 text-green-600">Interventions:</p>
-                      {multiRiskResult.assessments.cauti.interventions.map((int, i) => (
-                        <p key={i}>→ {int}</p>
-                      ))}
-                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Summary Footer */}
+                <div className="p-3 bg-muted/50 rounded-lg border flex items-center justify-between">
+                  <div className="text-sm">
+                    <span className="font-medium">Overall Priority:</span>{' '}
+                    <span className={cn(
+                      "font-bold",
+                      multiRiskResult.overallPriority.includes('HIGH') ? 'text-red-600' : 'text-orange-600'
+                    )}>
+                      {multiRiskResult.overallPriority}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" onClick={() => toast({ title: "Download Risk Report", description: "Demo mode only" })}>
+                      <Download className="h-3 w-3 mr-1" /> Download
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => toast({ title: "Add to Care Plan", description: "Demo mode only" })}>
+                      <FileText className="h-3 w-3 mr-1" /> Care Plan
+                    </Button>
                   </div>
                 </div>
 
