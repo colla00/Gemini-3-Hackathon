@@ -1,8 +1,8 @@
 // Service Worker for NSO Quality Dashboard
 // Enables offline caching for presentation reliability
 
-const CACHE_NAME = 'nso-dashboard-v1';
-const STATIC_CACHE = 'nso-static-v1';
+const CACHE_NAME = 'nso-dashboard-v2';
+const STATIC_CACHE = 'nso-static-v2';
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [
