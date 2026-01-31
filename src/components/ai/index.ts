@@ -4,3 +4,4 @@ export { RiskNarrative } from './RiskNarrative';
 export { InterventionRecommender } from './InterventionRecommender';
 export { HealthEquityAnalyzer } from './HealthEquityAnalyzer';
 export { GeminiAIEngine } from './GeminiAIEngine';
+export { EnhancedAIToolsPanel } from './EnhancedAIToolsPanel';
