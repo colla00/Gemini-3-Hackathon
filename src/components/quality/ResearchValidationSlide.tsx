@@ -20,11 +20,11 @@ export const ResearchValidationSlide = () => {
         <div className="flex items-center justify-center gap-2 mb-2">
           <FlaskConical className="w-6 h-6 text-primary" />
           <h1 className="text-2xl font-bold text-foreground">
-            Clinical Validation at Scale
+            Design Targets & Projections
           </h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Multi-site validation across {validation.externalHospitals} hospitals with {validation.internalPatients.toLocaleString()} patients
+          Illustrative targets • No clinical validation has been conducted yet
         </p>
       </div>
 
@@ -34,10 +34,10 @@ export const ResearchValidationSlide = () => {
           <CardContent className="p-4 text-center">
             <Users className="w-8 h-8 mx-auto mb-2 text-primary" />
             <div className="text-3xl font-bold text-primary">
-              {validation.internalPatients.toLocaleString()}
+              {validation.targetPatients.toLocaleString()}
             </div>
-            <div className="text-xs text-muted-foreground">Patients Analyzed</div>
-            <Badge variant="outline" className="mt-2 text-[10px]">Internal Cohort</Badge>
+            <div className="text-xs text-muted-foreground">Target Cohort Size</div>
+            <Badge variant="outline" className="mt-2 text-[10px] bg-amber-500/10 border-amber-500/30 text-amber-600">Planned</Badge>
           </CardContent>
         </Card>
 
@@ -45,10 +45,10 @@ export const ResearchValidationSlide = () => {
           <CardContent className="p-4 text-center">
             <Building2 className="w-8 h-8 mx-auto mb-2 text-emerald-500" />
             <div className="text-3xl font-bold text-emerald-500">
-              {validation.externalHospitals}
+              {validation.targetHospitals}
             </div>
-            <div className="text-xs text-muted-foreground">Hospitals Validated</div>
-            <Badge variant="outline" className="mt-2 text-[10px] border-emerald-500/50 text-emerald-600">External Validation</Badge>
+            <div className="text-xs text-muted-foreground">Target Hospital Sites</div>
+            <Badge variant="outline" className="mt-2 text-[10px] border-emerald-500/50 text-emerald-600 bg-amber-500/10">Planned</Badge>
           </CardContent>
         </Card>
 
@@ -56,10 +56,10 @@ export const ResearchValidationSlide = () => {
           <CardContent className="p-4 text-center">
             <Award className="w-8 h-8 mx-auto mb-2 text-amber-500" />
             <div className="text-3xl font-bold text-amber-500">
-              {validation.cohensD}
+              {validation.targetCohensD}
             </div>
-            <div className="text-xs text-muted-foreground">Cohen's d Effect Size</div>
-            <Badge variant="outline" className="mt-2 text-[10px] border-amber-500/50 text-amber-600">Very Large Effect</Badge>
+            <div className="text-xs text-muted-foreground">Target Cohen's d</div>
+            <Badge variant="outline" className="mt-2 text-[10px] border-amber-500/50 text-amber-600">Design Goal</Badge>
           </CardContent>
         </Card>
 
@@ -67,10 +67,10 @@ export const ResearchValidationSlide = () => {
           <CardContent className="p-4 text-center">
             <Shield className="w-8 h-8 mx-auto mb-2 text-purple-500" />
             <div className="text-3xl font-bold text-purple-500">
-              {(alerts.equityDisparity * 100).toFixed(1)}%
+              {(alerts.targetEquityDisparity * 100).toFixed(1)}%
             </div>
-            <div className="text-xs text-muted-foreground">Equity Disparity</div>
-            <Badge variant="outline" className="mt-2 text-[10px] border-purple-500/50 text-purple-600">Below 0.5% Target</Badge>
+            <div className="text-xs text-muted-foreground">Target Equity Disparity</div>
+            <Badge variant="outline" className="mt-2 text-[10px] border-purple-500/50 text-purple-600">Below 0.5% Goal</Badge>
           </CardContent>
         </Card>
       </div>
@@ -90,22 +90,22 @@ export const ResearchValidationSlide = () => {
               {/* DBS Performance */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium">Documentation Burden Score (DBS)</span>
-                  <Badge variant="secondary" className="text-[10px]">ANIA 2026</Badge>
+                  <span className="text-xs font-medium">Documentation Burden Score (DBS) Targets</span>
+                  <Badge variant="secondary" className="text-[10px] bg-amber-500/10 text-amber-600">Design Goals</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
-                    <div className="text-lg font-bold text-primary">{validation.internalAUC}</div>
-                    <div className="text-[10px] text-muted-foreground">Internal AUC</div>
+                    <div className="text-lg font-bold text-primary">{validation.targetInternalAUC}</div>
+                    <div className="text-[10px] text-muted-foreground">Target Internal AUC</div>
                     <div className="text-[9px] text-muted-foreground mt-1">
-                      95% CI: {validation.confidenceInterval[0]} - {validation.confidenceInterval[1]}
+                      Target CI: {validation.targetConfidenceInterval[0]} - {validation.targetConfidenceInterval[1]}
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                    <div className="text-lg font-bold text-emerald-500">{validation.externalAUC}</div>
-                    <div className="text-[10px] text-muted-foreground">External AUC</div>
+                    <div className="text-lg font-bold text-emerald-500">{validation.targetExternalAUC}</div>
+                    <div className="text-[10px] text-muted-foreground">Target External AUC</div>
                     <div className="text-[9px] text-muted-foreground mt-1">
-                      r = {validation.correlation} (p &lt; 0.001)
+                      Target r = {validation.targetCorrelation}
                     </div>
                   </div>
                 </div>
@@ -114,23 +114,23 @@ export const ResearchValidationSlide = () => {
               {/* Risk Prediction */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium">Clinical Risk Intelligence</span>
+                  <span className="text-xs font-medium">Clinical Risk Intelligence Targets</span>
                   <Badge variant="secondary" className="text-[10px]">Patent #63/932,953</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-lg bg-secondary/50">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-muted-foreground">Sepsis AUC</span>
-                      <span className="text-sm font-bold text-foreground">{risk.sepsisAUC}</span>
+                      <span className="text-[10px] text-muted-foreground">Target Sepsis AUC</span>
+                      <span className="text-sm font-bold text-foreground">{risk.targetSepsisAUC}</span>
                     </div>
-                    <Progress value={risk.sepsisAUC * 100} className="h-1.5 mt-2" />
+                    <Progress value={risk.targetSepsisAUC * 100} className="h-1.5 mt-2" />
                   </div>
                   <div className="p-3 rounded-lg bg-secondary/50">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-muted-foreground">Respiratory AUC</span>
-                      <span className="text-sm font-bold text-foreground">{risk.respiratoryAUC}</span>
+                      <span className="text-[10px] text-muted-foreground">Target Respiratory AUC</span>
+                      <span className="text-sm font-bold text-foreground">{risk.targetRespiratoryAUC}</span>
                     </div>
-                    <Progress value={risk.respiratoryAUC * 100} className="h-1.5 mt-2" />
+                    <Progress value={risk.targetRespiratoryAUC * 100} className="h-1.5 mt-2" />
                   </div>
                 </div>
               </div>
@@ -138,21 +138,21 @@ export const ResearchValidationSlide = () => {
               {/* Alert System */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium">Trust-Based Alert System</span>
+                  <span className="text-xs font-medium">Trust-Based Alert System Targets</span>
                   <Badge variant="secondary" className="text-[10px]">U.S. Patent Filed</Badge>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="p-2 rounded-lg bg-risk-low/10 text-center">
-                    <div className="text-lg font-bold text-risk-low">{(alerts.reductionRate * 100).toFixed(0)}%</div>
-                    <div className="text-[9px] text-muted-foreground">Alert Reduction</div>
+                    <div className="text-lg font-bold text-risk-low">{(alerts.projectedReductionRate * 100).toFixed(0)}%</div>
+                    <div className="text-[9px] text-muted-foreground">Projected Reduction</div>
                   </div>
                   <div className="p-2 rounded-lg bg-primary/10 text-center">
-                    <div className="text-lg font-bold text-primary">{(alerts.sensitivity * 100).toFixed(0)}%</div>
-                    <div className="text-[9px] text-muted-foreground">Sensitivity</div>
+                    <div className="text-lg font-bold text-primary">{(alerts.targetSensitivity * 100).toFixed(0)}%</div>
+                    <div className="text-[9px] text-muted-foreground">Target Sensitivity</div>
                   </div>
                   <div className="p-2 rounded-lg bg-amber-500/10 text-center">
-                    <div className="text-lg font-bold text-amber-500">{(alerts.trustScore * 100).toFixed(0)}%</div>
-                    <div className="text-[9px] text-muted-foreground">Trust Score</div>
+                    <div className="text-lg font-bold text-amber-500">{(alerts.targetTrustScore * 100).toFixed(0)}%</div>
+                    <div className="text-[9px] text-muted-foreground">Target Trust Score</div>
                   </div>
                 </div>
               </div>

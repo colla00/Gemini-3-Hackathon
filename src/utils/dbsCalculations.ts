@@ -26,7 +26,8 @@ export interface ROIResult {
 
 /**
  * Calculate Documentation Burden Score based on weighted factors
- * Research validated across 10,000 patients, 201 hospitals
+ * ILLUSTRATIVE: Design targets based on literature review
+ * No clinical validation has been conducted yet
  */
 export function calculateDBS(factors: DBSFactors): number {
   const { apache, sofa, comorbidities, medications, age } = factors;

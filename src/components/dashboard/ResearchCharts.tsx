@@ -77,14 +77,14 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
     { 
       id: 'before',
       name: 'Before', 
-      alerts: RESEARCH_DATA.alerts.beforeAlerts, 
+      alerts: RESEARCH_DATA.alerts.illustrativeBeforeAlerts, 
       fill: '#ef4444',
       label: 'Non-optimized'
     },
     { 
       id: 'after',
       name: 'After', 
-      alerts: RESEARCH_DATA.alerts.afterAlerts, 
+      alerts: RESEARCH_DATA.alerts.illustrativeAfterAlerts, 
       fill: '#22c55e',
       label: 'With DRALEXIS'
     },
@@ -97,12 +97,12 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
     { name: 'Mortality\nReduction', value: 40, fullName: 'Mortality Reduction (10-18%)' },
   ], []);
 
-  // Validation AUC Comparison
+  // Validation AUC Comparison (ILLUSTRATIVE TARGETS)
   const aucData = useMemo(() => [
-    { id: 'internal', name: 'Internal\n(10K pts)', auc: RESEARCH_DATA.validation.internalAUC * 100, fill: '#3b82f6' },
-    { id: 'external', name: 'External\n(201 hosp)', auc: RESEARCH_DATA.validation.externalAUC * 100, fill: '#8b5cf6' },
-    { id: 'sepsis', name: 'Sepsis\nPrediction', auc: RESEARCH_DATA.risk.sepsisAUC * 100, fill: '#22c55e' },
-    { id: 'respiratory', name: 'Respiratory\nPrediction', auc: RESEARCH_DATA.risk.respiratoryAUC * 100, fill: '#06b6d4' },
+    { id: 'internal', name: 'Internal\n(Target)', auc: RESEARCH_DATA.validation.targetInternalAUC * 100, fill: '#3b82f6' },
+    { id: 'external', name: 'External\n(Target)', auc: RESEARCH_DATA.validation.targetExternalAUC * 100, fill: '#8b5cf6' },
+    { id: 'sepsis', name: 'Sepsis\n(Target)', auc: RESEARCH_DATA.risk.targetSepsisAUC * 100, fill: '#22c55e' },
+    { id: 'respiratory', name: 'Respiratory\n(Target)', auc: RESEARCH_DATA.risk.targetRespiratoryAUC * 100, fill: '#06b6d4' },
   ], []);
 
   // DBS Feature Weights
@@ -233,11 +233,11 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             Research Validation Charts
           </h3>
           <p className="text-sm text-muted-foreground">
-            Data from {RESEARCH_DATA.validation.internalPatients.toLocaleString()} patients, {RESEARCH_DATA.validation.externalHospitals} hospitals
+            Illustrative targets • No validation conducted yet
           </p>
         </div>
-        <Badge variant="outline" className="text-xs">
-          ANIA 2026 Abstract #185
+        <Badge variant="outline" className="text-xs bg-amber-500/10 border-amber-500/30 text-amber-600">
+          Design Targets
         </Badge>
       </div>
 
@@ -350,10 +350,10 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
           <CardHeader>
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingDown className="h-4 w-4 text-primary" />
-              Smart Alert Reduction
+              Smart Alert Reduction (Projected)
             </CardTitle>
             <p className="text-xs text-muted-foreground">
-              {Math.round(RESEARCH_DATA.alerts.reductionRate * 100)}% reduction in non-actionable alerts
+              {Math.round(RESEARCH_DATA.alerts.projectedReductionRate * 100)}% projected reduction in non-actionable alerts
             </p>
           </CardHeader>
           <CardContent>
@@ -416,16 +416,16 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             </div>
             <div className="mt-4 flex items-center justify-center gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-destructive">{RESEARCH_DATA.alerts.beforeAlerts}</div>
-                <div className="text-xs text-muted-foreground">Before</div>
+                <div className="text-2xl font-bold text-destructive">{RESEARCH_DATA.alerts.illustrativeBeforeAlerts}</div>
+                <div className="text-xs text-muted-foreground">Before (Illustrative)</div>
               </div>
               <div className="text-2xl">→</div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-risk-low">{RESEARCH_DATA.alerts.afterAlerts}</div>
-                <div className="text-xs text-muted-foreground">After</div>
+                <div className="text-2xl font-bold text-risk-low">{RESEARCH_DATA.alerts.illustrativeAfterAlerts}</div>
+                <div className="text-xs text-muted-foreground">After (Projected)</div>
               </div>
-              <Badge className="bg-risk-low/20 text-risk-low border-risk-low/30">
-                {Math.round((1 - RESEARCH_DATA.alerts.afterAlerts / RESEARCH_DATA.alerts.beforeAlerts) * 100)}% Reduction
+              <Badge className="bg-amber-500/20 text-amber-600 border-amber-500/30">
+                {Math.round((1 - RESEARCH_DATA.alerts.illustrativeAfterAlerts / RESEARCH_DATA.alerts.illustrativeBeforeAlerts) * 100)}% Target
               </Badge>
             </div>
           </CardContent>
@@ -580,8 +580,8 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
               </ResponsiveContainer>
             </div>
             <div className="mt-4 text-center">
-              <Badge variant="outline" className="text-xs px-3 py-1 font-medium">
-                Validated: Cohen's d = {RESEARCH_DATA.validation.cohensD}
+              <Badge variant="outline" className="text-xs px-3 py-1 font-medium bg-amber-500/10 border-amber-500/30 text-amber-600">
+                Target: Cohen's d = {RESEARCH_DATA.validation.targetCohensD} (Illustrative)
               </Badge>
             </div>
           </CardContent>
@@ -593,10 +593,10 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
         <CardHeader>
           <CardTitle className="text-sm flex items-center gap-2">
             <DollarSign className="h-4 w-4 text-primary" />
-            ROI Contribution Breakdown
+            ROI Contribution Breakdown (Projected)
           </CardTitle>
           <p className="text-xs text-muted-foreground">
-            Sources of annual savings (${(RESEARCH_DATA.roi.baseROI[0] / 1000).toFixed(0)}K - ${(RESEARCH_DATA.roi.baseROI[1] / 1000).toFixed(0)}K range)
+            Projected annual savings (${(RESEARCH_DATA.roi.projectedROI[0] / 1000).toFixed(0)}K - ${(RESEARCH_DATA.roi.projectedROI[1] / 1000).toFixed(0)}K range)
           </p>
         </CardHeader>
         <CardContent>
@@ -630,9 +630,9 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
           </div>
           <div className="mt-6 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50">
-              <span className="text-sm text-muted-foreground">Payback Period:</span>
+              <span className="text-sm text-muted-foreground">Projected Payback:</span>
               <span className="text-lg font-bold text-primary">
-                {RESEARCH_DATA.roi.paybackMonths[0]}-{RESEARCH_DATA.roi.paybackMonths[1]} months
+                {RESEARCH_DATA.roi.projectedPaybackMonths[0]}-{RESEARCH_DATA.roi.projectedPaybackMonths[1]} months
               </span>
             </div>
           </div>

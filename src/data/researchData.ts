@@ -1,15 +1,18 @@
 // Research data and constants for DRALEXIS Clinical Intelligence Platform
-// All data from actual research: 10,000 patients, 201 hospitals validation
+// IMPORTANT: All metrics are DESIGN TARGETS or ILLUSTRATIVE values for demonstration purposes
+// No clinical validation has been conducted - this is a research prototype
 // Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 export interface ValidationData {
-  internalPatients: number;
-  externalHospitals: number;
-  internalAUC: number;
-  externalAUC: number;
-  correlation: number;
-  cohensD: number;
-  confidenceInterval: [number, number];
+  // ILLUSTRATIVE - These are design targets, not validated results
+  targetPatients: number;       // Planned validation cohort size
+  targetHospitals: number;      // Planned external validation sites
+  targetInternalAUC: number;    // Design goal for internal validation
+  targetExternalAUC: number;    // Design goal for external validation
+  targetCorrelation: number;    // Expected correlation target
+  targetCohensD: number;        // Expected effect size target
+  targetConfidenceInterval: [number, number]; // Expected CI range
+  isValidated: false;           // Flag indicating no validation conducted
 }
 
 export interface QuartileData {
@@ -54,17 +57,22 @@ export interface PublicationInfo {
   type: string;
 }
 
+// IMPORTANT: All values are DESIGN TARGETS or ILLUSTRATIVE for demonstration
+// No clinical validation has been conducted
 export const RESEARCH_DATA = {
+  // ILLUSTRATIVE TARGETS - Not validated results
   validation: {
-    internalPatients: 10000,
-    externalHospitals: 201,
-    internalAUC: 0.78,
-    externalAUC: 0.74,
-    correlation: 0.40,
-    cohensD: 3.2,
-    confidenceInterval: [0.76, 0.80] as [number, number],
+    targetPatients: 10000,        // Planned validation cohort size
+    targetHospitals: 201,         // Planned external validation sites
+    targetInternalAUC: 0.78,      // Design goal
+    targetExternalAUC: 0.74,      // Design goal
+    targetCorrelation: 0.40,      // Expected correlation
+    targetCohensD: 3.2,           // Expected effect size
+    targetConfidenceInterval: [0.76, 0.80] as [number, number],
+    isValidated: false,           // No validation conducted yet
   },
   
+  // ILLUSTRATIVE - Based on literature review, not empirical data
   dbs: {
     quartiles: [
       { name: 'Q1: Low', patients: 2847, percentage: 28.47, staffingRatio: '1:2' },
@@ -72,7 +80,7 @@ export const RESEARCH_DATA = {
       { name: 'Q3: High', patients: 2389, percentage: 23.89, staffingRatio: '1:1 Enhanced' },
       { name: 'Q4: Very High', patients: 2149, percentage: 21.49, staffingRatio: '1:1 + Senior RN' },
     ] as QuartileData[],
-    overtimeReduction: [15, 20],
+    overtimeReduction: [15, 20],  // Projected range (%)
     features: [
       { name: 'APACHE II Score', weight: 0.25 },
       { name: 'SOFA Score', weight: 0.20 },
@@ -85,29 +93,32 @@ export const RESEARCH_DATA = {
     ] as DBSFeature[],
   },
   
+  // DESIGN TARGETS - Based on literature review
   risk: {
-    sepsisAUC: 0.87,
-    respiratoryAUC: 0.84,
-    falsePositiveReduction: [40, 70],
-    advanceWarning: [6, 48],
+    targetSepsisAUC: 0.87,        // Design goal based on published benchmarks
+    targetRespiratoryAUC: 0.84,   // Design goal based on published benchmarks
+    projectedFalsePositiveReduction: [40, 70],  // Projected improvement range
+    projectedAdvanceWarning: [6, 48],           // Projected hours of advance warning
   },
   
+  // PROJECTED IMPROVEMENTS - Based on literature review
   alerts: {
-    reductionRate: 0.87,
-    beforeAlerts: 27,
-    afterAlerts: 7,
-    sensitivity: 1.00,
-    timeSaved: 2.3,
-    trustScore: 0.94,
-    equityDisparity: 0.005,
+    projectedReductionRate: 0.87, // Projected alert reduction
+    illustrativeBeforeAlerts: 27, // Illustrative scenario
+    illustrativeAfterAlerts: 7,   // Illustrative scenario
+    targetSensitivity: 1.00,      // Design target
+    projectedTimeSaved: 2.3,      // Projected minutes per decision
+    targetTrustScore: 0.94,       // Design target
+    targetEquityDisparity: 0.005, // Design target (<0.5%)
   },
   
+  // PROJECTED ROI - Based on industry estimates
   roi: {
-    baseROI: [180000, 360000],
-    paybackMonths: [4, 6],
-    overtimeReduction: 0.175,
-    transferReduction: 0.115,
-    mortalityReduction: 0.14,
+    projectedROI: [180000, 360000],  // Projected annual savings range
+    projectedPaybackMonths: [4, 6],  // Projected payback period
+    projectedOvertimeReduction: 0.175, // Projected reduction
+    projectedTransferReduction: 0.115, // Projected reduction
+    projectedMortalityReduction: 0.14, // Projected reduction based on literature
   },
   
   framework: {

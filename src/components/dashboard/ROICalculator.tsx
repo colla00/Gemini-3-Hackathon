@@ -459,12 +459,12 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
             </div>
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">
-                Mortality Reduction ({(RESEARCH_DATA.roi.mortalityReduction * 100).toFixed(0)}%)
+                Mortality Reduction ({(RESEARCH_DATA.roi.projectedMortalityReduction * 100).toFixed(0)}% projected)
               </span>
               <span className="font-semibold">{formatCurrency(roi.mortalitySavings)}</span>
             </div>
             <div className="border-t pt-3 mt-3 flex justify-between font-bold">
-              <span>Total Annual Savings</span>
+              <span>Total Annual Savings (Projected)</span>
               <span className="text-green-600">{formatCurrency(roi.annualSavings)}</span>
             </div>
           </div>
@@ -472,7 +472,7 @@ export function ROICalculator({ className, compact = false }: ROICalculatorProps
 
         {/* Research Note */}
         <p className="text-xs text-muted-foreground text-center">
-          Based on research data: {RESEARCH_DATA.validation.internalPatients.toLocaleString()} patients, {RESEARCH_DATA.validation.externalHospitals} hospitals
+          Illustrative projections based on literature review • No clinical validation conducted
         </p>
       </CardContent>
     </Card>

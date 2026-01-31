@@ -125,10 +125,10 @@ export const EquityMonitoringEngine = () => {
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <Users className="w-3.5 h-3.5 text-muted-foreground" />
                 <span className="text-lg font-bold text-foreground">
-                  {(RESEARCH_DATA.validation.internalPatients / 1000).toFixed(0)}K
+                  {(RESEARCH_DATA.validation.targetPatients / 1000).toFixed(0)}K
                 </span>
               </div>
-              <span className="text-[10px] text-muted-foreground">Patients Audited</span>
+              <span className="text-[10px] text-muted-foreground">Target Cohort Size</span>
             </div>
           </div>
           
