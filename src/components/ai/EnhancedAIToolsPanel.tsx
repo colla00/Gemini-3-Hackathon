@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { generateAIToolsPowerPoint } from '@/lib/aiToolsPptExport';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -35,6 +36,7 @@ import {
   Copy,
   Download,
   Share2,
+  Presentation,
   FileText,
   Bell,
   BarChart3,
@@ -1083,6 +1085,33 @@ export const EnhancedAIToolsPanel = () => {
 
             {/* Run All Demos Button */}
             <div className="flex items-center gap-2 flex-wrap">
+              {/* PowerPoint Export Button */}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={async () => {
+                        toast({ title: '📊 Generating PowerPoint...', description: 'Creating demo voiceover slides' });
+                        try {
+                          const fileName = await generateAIToolsPowerPoint({ includeVoiceover: true, includeNotes: true });
+                          toast({ title: '✅ PowerPoint Generated', description: `Downloaded: ${fileName}` });
+                        } catch (err) {
+                          toast({ title: '❌ Export Failed', description: 'Please try again', variant: 'destructive' });
+                        }
+                      }}
+                      size="sm"
+                      variant="secondary"
+                      className="bg-white/20 hover:bg-white/30 text-white border-white/20"
+                    >
+                      <Presentation className="h-4 w-4 mr-2" />
+                      Export PPTX
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p>Download PowerPoint with voiceover scripts and speaker notes for all 8 AI modules.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
