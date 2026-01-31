@@ -52,7 +52,9 @@ import {
   VolumeX,
   Printer,
   Eye,
-  HelpCircle
+  HelpCircle,
+  PlayCircle,
+  Loader2
 } from 'lucide-react';
 
 // ============================================================================
@@ -743,6 +745,8 @@ export const EnhancedAIToolsPanel = () => {
   const [activeModules, setActiveModules] = useState<Set<string>>(new Set());
   const [analysisCount, setAnalysisCount] = useState(0);
   const [performanceMetrics, setPerformanceMetrics] = useState<{ times: number[]; modules: string[] }>({ times: [], modules: [] });
+  const [runningAllDemos, setRunningAllDemos] = useState(false);
+  const [currentDemoModule, setCurrentDemoModule] = useState<string | null>(null);
 
   // Module states
   const [clinicalNotes, setClinicalNotes] = useState('');
@@ -900,6 +904,100 @@ export const EnhancedAIToolsPanel = () => {
     setMultiRiskCatheter(scenario.catheterDays);
   };
 
+  // ============================================================================
+  // RUN ALL DEMOS SEQUENTIALLY
+  // ============================================================================
+
+  const MODULE_ORDER = [
+    'clinical-notes',
+    'risk-narrative',
+    'interventions',
+    'pressure-injury',
+    'smart-alert',
+    'unit-trends',
+    'health-equity',
+    'multi-risk'
+  ] as const;
+
+  const runAllDemos = async () => {
+    if (runningAllDemos) return;
+    
+    setRunningAllDemos(true);
+    setDemoMode(true);
+    
+    // Reset all results first
+    setClinicalNotesResult(null);
+    setNarrativeResult(null);
+    setInterventionResult(null);
+    setPressureResult(null);
+    setAlertResult(null);
+    setTrendResult(null);
+    setEquityResult(null);
+    setMultiRiskResult(null);
+    
+    // Expand all modules
+    setExpandedModules(new Set(MODULE_ORDER));
+
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    for (const moduleId of MODULE_ORDER) {
+      setCurrentDemoModule(moduleId);
+      
+      switch (moduleId) {
+        case 'clinical-notes':
+          setClinicalNotes(CLINICAL_NOTE_EXAMPLES.restless);
+          await delay(500);
+          await handleClinicalNotesAnalysis();
+          break;
+        case 'risk-narrative':
+          await delay(500);
+          await handleNarrativeGeneration();
+          break;
+        case 'interventions':
+          await delay(500);
+          await handleInterventionSuggestions();
+          break;
+        case 'pressure-injury':
+          await delay(500);
+          await handlePressureAnalysis(1);
+          break;
+        case 'smart-alert':
+          await delay(500);
+          await handleAlertGeneration();
+          break;
+        case 'unit-trends':
+          await delay(500);
+          await handleTrendAnalysis();
+          break;
+        case 'health-equity':
+          await delay(500);
+          await handleEquityAnalysis();
+          break;
+        case 'multi-risk':
+          loadPatientScenario(PATIENT_SCENARIOS.elderly);
+          await delay(500);
+          await handleMultiRiskAssessment();
+          break;
+      }
+      
+      // 2-second delay between modules
+      await delay(2000);
+    }
+    
+    setCurrentDemoModule(null);
+    setRunningAllDemos(false);
+    
+    toast({
+      title: "🎬 All Demos Complete!",
+      description: `Successfully ran all 8 AI modules. Total analyses: ${analysisCount + MODULE_ORDER.length}`,
+    });
+  };
+
+  const stopAllDemos = () => {
+    setRunningAllDemos(false);
+    setCurrentDemoModule(null);
+  };
+
   const averageTime = performanceMetrics.times.length > 0
     ? (performanceMetrics.times.reduce((a, b) => a + b, 0) / performanceMetrics.times.length).toFixed(1)
     : '0.0';
@@ -935,8 +1033,55 @@ export const EnhancedAIToolsPanel = () => {
               </div>
             </div>
 
-            {/* Demo Mode Toggle */}
-            <div className="flex items-center gap-4">
+            {/* Demo Mode Toggle & Run All Button */}
+            <div className="flex items-center gap-3 flex-wrap">
+              {/* Run All Demos Button */}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={runningAllDemos ? stopAllDemos : runAllDemos}
+                      variant="outline"
+                      size="sm"
+                      className={cn(
+                        "border-white/30 text-white hover:bg-white/20 transition-all duration-300",
+                        runningAllDemos && "bg-red-500/20 border-red-400/50 hover:bg-red-500/30"
+                      )}
+                    >
+                      {runningAllDemos ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Stop Demo
+                        </>
+                      ) : (
+                        <>
+                          <PlayCircle className="h-4 w-4 mr-2" />
+                          Run All Demos
+                        </>
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p>Automatically trigger all 8 modules in sequence with 2-second delays. Perfect for hands-free demo video recording.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              {/* Current Demo Progress */}
+              <AnimatePresence>
+                {runningAllDemos && currentDemoModule && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                  >
+                    <Badge className="bg-accent/80 text-white text-[10px] font-medium animate-pulse">
+                      Running: {currentDemoModule.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    </Badge>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <motion.div 
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-4 py-2.5 border transition-all duration-300",
