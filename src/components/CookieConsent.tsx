@@ -84,7 +84,7 @@ export const CookieConsent = () => {
   return (
     <div 
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 p-4",
+        "fixed bottom-0 left-0 right-0 z-[100] p-4",
         "bg-card/95 backdrop-blur-lg border-t border-border shadow-lg"
       )}
       role="dialog"
