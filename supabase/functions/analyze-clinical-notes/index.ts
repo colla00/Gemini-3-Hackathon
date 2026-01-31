@@ -1,10 +1,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
+
+const MAX_NOTES_LENGTH = 50000; // 50KB limit for clinical notes
 
 serve(async (req) => {
   // Handle CORS preflight
@@ -13,11 +16,48 @@ serve(async (req) => {
   }
 
   try {
+    // Authentication validation
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - missing or invalid authorization header" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    
+    if (claimsError || !claimsData?.claims) {
+      console.error("[Auth] Token validation failed:", claimsError);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - invalid token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    console.log("[Auth] Authenticated user:", userId);
+
     const { notes, patientContext } = await req.json();
 
     if (!notes || notes.trim().length === 0) {
       return new Response(
         JSON.stringify({ error: "Clinical notes are required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Input length validation
+    if (notes.length > MAX_NOTES_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Clinical notes exceed maximum length of ${MAX_NOTES_LENGTH} characters` }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -31,7 +71,7 @@ serve(async (req) => {
       );
     }
 
-    console.log("[Gemini 3] Analyzing clinical notes...");
+    console.log("[Gemini 3] Analyzing clinical notes for user:", userId);
     console.log("[Gemini 3] Notes length:", notes.length, "characters");
 
     const systemPrompt = `You are a clinical AI assistant analyzing nurse observations to detect early warning signs of patient deterioration. Your role is to help nurses identify patterns that may indicate CAUTI (Catheter-Associated Urinary Tract Infection), sepsis, respiratory distress, or other deterioration.
