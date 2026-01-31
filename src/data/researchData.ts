@@ -135,7 +135,7 @@ export const RESEARCH_DATA = {
       {
         icon: '👩‍⚕️',
         title: 'Nurse-Led Design',
-        description: 'Co-designed with nurses through AIM-AHEAD CLINAQ Fellowship',
+        description: 'Co-designed with frontline nurses through clinical fellowship',
       },
     ],
   },
@@ -156,8 +156,8 @@ export const TIMELINE: TimelineItem[] = [
   },
   {
     year: '2024',
-    title: 'AIM-AHEAD Fellowship',
-    description: 'CLINAQ Cohort 2 - Focus on AI for nursing workload optimization',
+    title: 'Clinical AI Fellowship',
+    description: 'Focus on AI for nursing workload optimization',
     icon: '🏆',
   },
   {

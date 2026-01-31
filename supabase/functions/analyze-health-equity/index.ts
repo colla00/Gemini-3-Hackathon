@@ -39,7 +39,7 @@ serve(async (req) => {
 3. Suggest evidence-based interventions to reduce disparities
 4. Focus on actionable quality improvement recommendations
 
-CONTEXT: This analysis supports the AIM-AHEAD initiative to ensure AI-powered clinical tools promote health equity rather than perpetuate disparities.
+CONTEXT: This analysis ensures AI-powered clinical tools promote health equity rather than perpetuate disparities.
 
 Return a valid JSON object:
 {

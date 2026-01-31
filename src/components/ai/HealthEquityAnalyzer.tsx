@@ -168,7 +168,7 @@ export const HealthEquityAnalyzer = () => {
                 </Badge>
               </CardTitle>
               <CardDescription>
-                AI-powered demographic disparity detection • AIM-AHEAD Initiative
+                AI-powered demographic disparity detection
               </CardDescription>
             </div>
           </div>
