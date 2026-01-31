@@ -55,21 +55,29 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
       // ===== COVER PAGE =====
       setProgress(5);
       
+      // Research Prototype Warning Banner
+      pdf.setFillColor(255, 243, 205);
+      pdf.rect(0, 0, pageWidth, 20, 'F');
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setTextColor(180, 83, 9);
+      pdf.text('⚠ RESEARCH PROTOTYPE - NO CLINICAL VALIDATION CONDUCTED', pageWidth / 2, 13, { align: 'center' });
+      
       // Title
       pdf.setFillColor(30, 41, 59);
-      pdf.rect(0, 0, pageWidth, 80, 'F');
+      pdf.rect(0, 20, pageWidth, 60, 'F');
       
       pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(28);
       pdf.setFont('helvetica', 'bold');
-      pdf.text('PATENT EVIDENCE PACKAGE', pageWidth / 2, 35, { align: 'center' });
+      pdf.text('PATENT EVIDENCE PACKAGE', pageWidth / 2, 45, { align: 'center' });
       
       pdf.setFontSize(14);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('NSO Quality Dashboard - 4 U.S. Patents Filed', pageWidth / 2, 48, { align: 'center' });
+      pdf.text('NSO Quality Dashboard - 4 U.S. Patents Filed', pageWidth / 2, 58, { align: 'center' });
       
       pdf.setFontSize(10);
-      pdf.text('CONFIDENTIAL - ATTORNEY-CLIENT PRIVILEGED', pageWidth / 2, 65, { align: 'center' });
+      pdf.text('RESEARCH PROTOTYPE - NOT FOR CLINICAL USE', pageWidth / 2, 72, { align: 'center' });
 
       // Document Info Box
       yPosition = 100;
@@ -355,18 +363,29 @@ Each claim is documented with its patent language, working implementation detail
         });
       }
 
-      // ===== FOOTER =====
+      // ===== FOOTER WITH WATERMARK =====
       setProgress(95);
       
-      // Add page numbers
+      // Add page numbers and watermark
       const totalPages = pdf.getNumberOfPages();
       for (let i = 1; i <= totalPages; i++) {
         pdf.setPage(i);
+        
+        // Diagonal watermark on each page
+        pdf.setFontSize(45);
+        pdf.setTextColor(230, 230, 230);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('RESEARCH PROTOTYPE', pageWidth / 2, pageHeight / 2, { 
+          align: 'center', 
+          angle: 45 
+        });
+        
+        // Footer
         pdf.setFontSize(8);
         pdf.setTextColor(150, 150, 150);
         pdf.text(`Page ${i} of ${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
         pdf.text(`Document Hash: ${documentHash}`, margin, pageHeight - 10);
-        pdf.text('CONFIDENTIAL', pageWidth - margin, pageHeight - 10, { align: 'right' });
+        pdf.text('RESEARCH PROTOTYPE - NO CLINICAL VALIDATION', pageWidth - margin, pageHeight - 10, { align: 'right' });
       }
 
       // Save

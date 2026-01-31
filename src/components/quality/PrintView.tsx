@@ -24,16 +24,31 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
   const moderateRiskPatients = patients.filter(p => p.fallsLevel === 'MODERATE');
 
   return (
-    <div ref={ref} className="hidden print:block bg-white text-black p-8 min-h-screen">
+    <div ref={ref} className="hidden print:block bg-white text-black p-8 min-h-screen relative">
+      {/* Watermark */}
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none opacity-10 z-0">
+        <div className="text-6xl font-bold text-gray-500 transform -rotate-45 whitespace-nowrap">
+          RESEARCH PROTOTYPE
+        </div>
+      </div>
+      
+      {/* Research Warning Banner */}
+      <div className="bg-amber-100 border-2 border-amber-500 rounded-lg p-3 mb-4 flex items-center gap-2">
+        <AlertTriangle className="w-5 h-5 text-amber-600" />
+        <span className="text-amber-800 font-bold text-sm">
+          ⚠ RESEARCH PROTOTYPE — NO CLINICAL VALIDATION CONDUCTED — NOT FOR CLINICAL USE
+        </span>
+      </div>
+      
       {/* Header */}
-      <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-6">
+      <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-6 relative z-10">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded bg-gray-200 flex items-center justify-center">
             <BarChart3 className="w-6 h-6 text-gray-700" />
           </div>
           <div>
             <h1 className="text-xl font-bold">NSO Quality Dashboard Report</h1>
-            <p className="text-sm text-gray-600">Nurse-Sensitive Outcomes Monitoring</p>
+            <p className="text-sm text-gray-600">Nurse-Sensitive Outcomes Monitoring • Research Prototype</p>
           </div>
         </div>
         <div className="text-right text-sm">
@@ -140,7 +155,14 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
       </div>
 
       {/* Footer */}
-      <div className="mt-8 pt-4 border-t-2 border-black text-xs text-gray-600">
+      <div className="mt-8 pt-4 border-t-2 border-black text-xs text-gray-600 relative z-10">
+        {/* Prominent Warning */}
+        <div className="bg-amber-100 border-2 border-amber-500 rounded p-2 mb-3 text-center">
+          <span className="font-bold text-amber-800">
+            ⚠ RESEARCH PROTOTYPE — NO CLINICAL VALIDATION CONDUCTED — ALL METRICS ARE ILLUSTRATIVE DESIGN TARGETS
+          </span>
+        </div>
+        
         <div className="text-center mb-3 font-semibold">
           Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed | Protected Design – Do Not Copy
         </div>
@@ -156,7 +178,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         </div>
         <p className="mt-2 text-[10px]">
           This report contains AI-generated risk predictions and should be used as a clinical decision support tool only. 
-          All predictions require human clinical verification. Not intended for diagnostic or treatment decisions.
+          All predictions require human clinical verification. NOT CLINICALLY VALIDATED. Not intended for diagnostic or treatment decisions.
         </p>
         <p className="mt-2 text-[9px] text-center">
           Created by Dr. Alexis Collier • U.S. Patents: 63/946,187 | 63/932,953 | 63/966,117 | 63/966,099

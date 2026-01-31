@@ -36,6 +36,16 @@ export const generatePatentEvidencePDF = (
     }
   };
 
+  // Research Prototype Warning Banner
+  doc.setFillColor(255, 243, 205);
+  doc.rect(0, y, pageWidth, 15, 'F');
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(180, 83, 9);
+  doc.text('⚠ RESEARCH PROTOTYPE - NO CLINICAL VALIDATION CONDUCTED', pageWidth / 2, y + 9, { align: 'center' });
+  doc.setTextColor(0, 0, 0);
+  y += 20;
+
   // Header
   doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
@@ -164,14 +174,26 @@ export const generatePatentEvidencePDF = (
     });
   }
 
-  // Footer on last page
+  // Footer on each page with watermark
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
+    
+    // Research Prototype Watermark (diagonal)
+    doc.setFontSize(50);
+    doc.setTextColor(200, 200, 200);
+    doc.setFont('helvetica', 'bold');
+    doc.text('RESEARCH PROTOTYPE', pageWidth / 2, 150, { 
+      align: 'center', 
+      angle: 45 
+    });
+    doc.setTextColor(0, 0, 0);
+    
+    // Page footer
     doc.setFontSize(8);
     doc.setTextColor(128);
     doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2, 290, { align: 'center' });
-    doc.text('CONFIDENTIAL - Patent Evidence Documentation', pageWidth / 2, 285, { align: 'center' });
+    doc.text('RESEARCH PROTOTYPE - NO CLINICAL VALIDATION - CONFIDENTIAL', pageWidth / 2, 285, { align: 'center' });
     doc.setTextColor(0);
   }
 
