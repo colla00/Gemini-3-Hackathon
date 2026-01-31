@@ -41,9 +41,16 @@ const skipLinkTargets = [
 export const Dashboard = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isPresentationMode, setIsPresentationMode] = useState(false);
-  const [activeTab, setActiveTab] = useState('dashboard');
+  
+  // Initialize activeTab from URL param or default to 'dashboard'
+  const initialTab = searchParams.get('tab') || 'dashboard';
+  const [activeTab, setActiveTab] = useState(
+    ['dashboard', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(initialTab) 
+      ? initialTab 
+      : 'dashboard'
+  );
 
-  // Handle tab query parameter (e.g., /dashboard?tab=ai-tools)
+  // Handle tab query parameter changes after initial load
   useEffect(() => {
     const tabParam = searchParams.get('tab');
     if (tabParam && ['dashboard', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(tabParam)) {
