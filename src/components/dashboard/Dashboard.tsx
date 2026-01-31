@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FilterBar } from './FilterBar';
@@ -38,8 +39,19 @@ const skipLinkTargets = [
 ];
 
 export const Dashboard = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isPresentationMode, setIsPresentationMode] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  // Handle tab query parameter (e.g., /dashboard?tab=ai-tools)
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['dashboard', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(tabParam)) {
+      setActiveTab(tabParam);
+      // Clear the query param after setting the tab
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   // Use the patients hook for data and filtering
   const {

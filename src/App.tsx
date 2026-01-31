@@ -28,6 +28,7 @@ import NotFound from "./pages/NotFound";
 // Lazy loaded (heavy components)
 const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m.Dashboard })));
 const Presentation = lazy(() => import("./pages/Presentation").then(m => ({ default: m.Presentation })));
+const AIToolsRedirect = lazy(() => import("./pages/AIToolsRedirect").then(m => ({ default: m.AIToolsRedirect })));
 const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ default: m.RecordingDemo })));
 const PatentEvidence = lazy(() => import("./pages/PatentEvidence").then(m => ({ default: m.PatentEvidence })));
 const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
@@ -135,6 +136,12 @@ const App = () => {
                   <Route path="/privacy" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <PrivacyPolicy />
+                    </Suspense>
+                  } />
+                  {/* AI Tools redirect - opens dashboard with AI Tools tab selected */}
+                  <Route path="/ai-tools" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <AIToolsRedirect />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
