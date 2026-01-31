@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 // Rate limiting configuration
@@ -11,10 +11,8 @@ const RATE_LIMIT_REQUESTS = 20; // Max requests per window
 const RATE_LIMIT_WINDOW_SECONDS = 60; // 1 minute window
 const ENDPOINT_NAME = 'methodology-chat';
 
-function getRateLimitKey(req: Request): string {
-  const authHeader = req.headers.get('authorization') || '';
-  const forwarded = req.headers.get('x-forwarded-for') || 'unknown';
-  return `chat:${authHeader.slice(-20)}:${forwarded.split(',')[0]}`;
+function getRateLimitKey(userId: string): string {
+  return `chat:${userId}`;
 }
 
 function getClientIP(req: Request): string {
@@ -90,42 +88,71 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Initialize Supabase client with service role for rate limiting
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-  // Check rate limit
-  const rateLimitKey = getRateLimitKey(req);
-  const clientIP = getClientIP(req);
-  const rateLimit = await checkRateLimit(supabase, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
-  
-  if (!rateLimit.allowed) {
-    console.warn(`Rate limit exceeded for key: ${rateLimitKey}, IP: ${clientIP}`);
-    
-    // Log violation for monitoring
-    await logViolation(supabase, rateLimitKey, clientIP, ENDPOINT_NAME);
-    
-    const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
-    return new Response(
-      JSON.stringify({ 
-        error: 'Rate limit exceeded. Please try again later.',
-        retryAfter
-      }),
-      { 
-        status: 429, 
-        headers: { 
-          ...corsHeaders, 
-          'Content-Type': 'application/json',
-          'Retry-After': String(retryAfter),
-          'X-RateLimit-Remaining': '0',
-          'X-RateLimit-Reset': String(rateLimit.resetAt)
-        } 
-      }
-    );
-  }
-
   try {
+    // Authentication validation
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - missing or invalid authorization header" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Initialize Supabase client with user auth for validation
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    
+    if (claimsError || !claimsData?.claims) {
+      console.error("[Auth] Token validation failed:", claimsError);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - invalid token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub as string;
+    console.log("[Auth] Authenticated user:", userId);
+
+    // Use service role for rate limiting operations
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Check rate limit using user ID
+    const rateLimitKey = getRateLimitKey(userId);
+    const clientIP = getClientIP(req);
+    const rateLimit = await checkRateLimit(supabaseService, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
+    
+    if (!rateLimit.allowed) {
+      console.warn(`Rate limit exceeded for user: ${userId}, IP: ${clientIP}`);
+      
+      // Log violation for monitoring
+      await logViolation(supabaseService, rateLimitKey, clientIP, ENDPOINT_NAME);
+      
+      const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
+      return new Response(
+        JSON.stringify({ 
+          error: 'Rate limit exceeded. Please try again later.',
+          retryAfter
+        }),
+        { 
+          status: 429, 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'Retry-After': String(retryAfter),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(rateLimit.resetAt)
+          } 
+        }
+      );
+    }
+
     const { messages } = await req.json();
 
     // Validate message lengths and count
