@@ -29,7 +29,7 @@ type DemoSection = {
 const DEMO_SECTIONS: DemoSection[] = [
   { 
     id: 'intro', 
-    title: 'NSO Quality Dashboard', 
+    title: 'CareGuard Clinical Dashboard', 
     subtitle: 'AI-Assisted Nursing Quality Monitoring',
     duration: 15, 
     icon: <Brain className="w-8 h-8" />,
@@ -193,7 +193,7 @@ export const RecordingDemo = () => {
               <BarChart3 className="w-10 h-10 text-primary" />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-3">
-              NSO Quality Dashboard
+              CareGuard Clinical Dashboard
             </h1>
             <p className="text-xl text-muted-foreground mb-2">
               AI-Assisted Nursing Quality Monitoring
@@ -268,7 +268,7 @@ export const RecordingDemo = () => {
               <BarChart3 className="w-12 h-12 text-primary" />
             </div>
             <h1 className="text-5xl font-bold text-foreground mb-4">
-              NSO Quality Dashboard
+              CareGuard Clinical Dashboard
             </h1>
             <p className="text-2xl text-muted-foreground mb-4">
               AI-Assisted Nursing Quality Monitoring
@@ -334,7 +334,7 @@ export const RecordingDemo = () => {
                 <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
                   <BarChart3 className="w-4 h-4 text-primary" />
                 </div>
-                <span className="font-semibold text-foreground text-sm">NSO Dashboard</span>
+                <span className="font-semibold text-foreground text-sm">CareGuard</span>
               </div>
               
               {/* Current Section */}

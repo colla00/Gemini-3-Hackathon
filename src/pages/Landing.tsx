@@ -151,8 +151,8 @@ export const Landing = () => {
                 <BarChart3 className="w-7 h-7 text-primary" aria-hidden="true" />
               </div>
               <div className="text-left">
-                <h1 className="text-2xl font-bold text-foreground">NSO Quality Dashboard</h1>
-                <span className="text-sm text-muted-foreground">Nurse-Sensitive Outcomes</span>
+                <h1 className="text-2xl font-bold text-foreground">CareGuard Clinical Dashboard</h1>
+                <span className="text-sm text-muted-foreground">Clinical Decision Support</span>
               </div>
             </div>
 

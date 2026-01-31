@@ -210,7 +210,7 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
                     <FormLabel>Reason for Request</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="I'm interested in learning more about the NSO Quality Dashboard for our hospital's quality improvement initiative..."
+                        placeholder="I'm interested in learning more about the CareGuard Clinical Dashboard for our hospital's quality improvement initiative..."
                         className="resize-none"
                         rows={3}
                         {...field} 

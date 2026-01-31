@@ -66,7 +66,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
       
       pdf.setFontSize(14);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('NSO Quality Dashboard - 4 U.S. Patents Filed', pageWidth / 2, 48, { align: 'center' });
+      pdf.text('CareGuard Clinical Dashboard - 4 U.S. Patents Filed', pageWidth / 2, 48, { align: 'center' });
       
       pdf.setFontSize(10);
       pdf.text('CONFIDENTIAL - ATTORNEY-CLIENT PRIVILEGED', pageWidth / 2, 65, { align: 'center' });
@@ -142,7 +142,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
 
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      const summaryText = `This document provides comprehensive evidence of the working implementation of the NSO Quality Dashboard, covering 80+ patent claims across 4 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, and documentation burden scoring (DBS) for nurse-sensitive patient outcomes.
+      const summaryText = `This document provides comprehensive evidence of the working implementation of the CareGuard Clinical Dashboard, covering 80+ patent claims across 4 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, and documentation burden scoring (DBS) for nurse-sensitive patient outcomes.
 
 Each claim is documented with its patent language, working implementation details, and source code references. Witness attestations verify the functionality of all described features.`;
       

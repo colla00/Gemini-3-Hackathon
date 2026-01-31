@@ -20,7 +20,7 @@ import { InvestigatorResources } from '@/components/about/InvestigatorResources'
 
 const faqs = [
   {
-    question: "What is the NSO Quality Dashboard?",
+    question: "What is the CareGuard Clinical Dashboard?",
     answer: "It's a research prototype demonstrating how AI can help nurses identify patients at risk for nurse-sensitive outcomes like falls, pressure injuries, and hospital-acquired infections. All data shown is simulated for demonstration purposes."
   },
   {
@@ -112,7 +112,7 @@ function About() {
               80+ Claims
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">NSO Quality Dashboard</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">CareGuard Clinical Dashboard</h1>
           <p className="text-base text-muted-foreground max-w-2xl mb-4">
             With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
           </p>
@@ -440,7 +440,7 @@ function About() {
       <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
           <p>© {new Date().getFullYear()} Dr. Alexis Collier. All Rights Reserved.</p>
-          <p>NSO Quality Dashboard • {filedPatents.length} U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
+          <p>CareGuard Clinical Dashboard • {filedPatents.length} U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
         </div>
       </footer>
     </div>

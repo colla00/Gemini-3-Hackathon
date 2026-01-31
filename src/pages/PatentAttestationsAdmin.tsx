@@ -145,7 +145,7 @@ export const PatentAttestationsAdmin = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Patent Attestations Admin | NSO Quality Dashboard</title>
+        <title>Patent Attestations Admin | CareGuard Clinical Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
