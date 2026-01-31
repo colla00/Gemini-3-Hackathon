@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
@@ -67,11 +67,57 @@ const secondaryNavItems: { id: ViewType; label: string; icon: React.ReactNode }[
 ];
 
 export const Dashboard = () => {
-  const [activeView, setActiveView] = useState<ViewType>('dashboard');
+  const [searchParams] = useSearchParams();
+
+  const initialTabParam = searchParams.get('tab');
+  const initialView: ViewType = (
+    initialTabParam &&
+    ([
+      'dashboard',
+      'patients',
+      'shap',
+      'workflow',
+      'validation',
+      'integration',
+      'outcomes',
+      'dbs',
+      'roi',
+      'patent',
+      'ai-tools',
+    ] as const).includes(initialTabParam as ViewType)
+      ? (initialTabParam as ViewType)
+      : 'dashboard'
+  );
+
+  const [activeView, setActiveView] = useState<ViewType>(initialView);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
   const [showSettings, setShowSettings] = useState(false);
   const [investorMode, setInvestorMode] = useState(false);
   const { logFeatureUse, logInteraction } = useSessionTracking();
+
+  // Keep view in sync if someone navigates to a new ?tab= value while staying on /dashboard
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (!tabParam) return;
+
+    const validTabs: ViewType[] = [
+      'dashboard',
+      'patients',
+      'shap',
+      'workflow',
+      'validation',
+      'integration',
+      'outcomes',
+      'dbs',
+      'roi',
+      'patent',
+      'ai-tools',
+    ];
+
+    if (validTabs.includes(tabParam as ViewType) && tabParam !== activeView) {
+      setActiveView(tabParam as ViewType);
+    }
+  }, [activeView, searchParams]);
   
   // Session timeout for HIPAA compliance (30 min timeout, 5 min warning)
   const { showWarning, remainingTime, extendSession, formatTime } = useSessionTimeout({
