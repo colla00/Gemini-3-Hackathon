@@ -60,29 +60,41 @@ const SAMPLE_DATA = {
     dateRange: { start: "2026-01-01", end: "2026-01-30" }
   },
   pressureInjury: {
-    patientId: "P-12345",
-    riskFactors: {
-      mobility: 2,
-      moisture: 3,
-      nutrition: 2,
-      sensoryPerception: 3
-    },
-    imageUrl: null
+    // Using a small base64 placeholder image for demo (1x1 pixel red)
+    imageData: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg==",
+    mimeType: "image/png",
+    clinicalNotes: "Stage 2 pressure injury observed on sacrum. 2cm x 1.5cm. Partial thickness skin loss. Moderate exudate.",
+    patientInfo: { name: "Demo Patient", age: 78, diagnosis: "Hip fracture" }
   },
   smartAlert: {
-    patient: { id: "P-12345", name: "Demo Patient", riskScore: 0.85 },
-    riskType: "Pressure Injury",
-    triggerEvent: "Risk score increased 15% in 4 hours"
+    riskData: {
+      type: "Falls",
+      patientId: "P-12345",
+      room: "4C-12",
+      level: "HIGH",
+      score: 85,
+      factors: ["Recent fall history", "Medication effects", "Mobility impairment"],
+      vitals: { HR: 88, BP: "128/76", RR: 18, SpO2: 95 },
+      timeSinceAssessment: "4 hours",
+      shift: "Night"
+    }
   },
   unitTrends: {
-    unitId: "3-West ICU",
-    timeframe: "24h",
-    metrics: {
-      totalPatients: 18,
-      highRiskCount: 5,
-      alertsGenerated: 23,
-      interventionsCompleted: 19
-    }
+    unitData: {
+      patients: [
+        { id: "P-001", riskLevel: "HIGH", riskType: "Falls", room: "4C-01" },
+        { id: "P-002", riskLevel: "MODERATE", riskType: "Pressure Injury", room: "4C-02" },
+        { id: "P-003", riskLevel: "HIGH", riskType: "CAUTI", room: "4C-03" },
+        { id: "P-004", riskLevel: "LOW", riskType: "Falls", room: "4C-04" },
+        { id: "P-005", riskLevel: "MODERATE", riskType: "Falls", room: "4C-05" }
+      ],
+      alerts: { total: 23, acknowledged: 18, pending: 5 },
+      interventions: { completed: 19, pending: 4, effectiveness: 0.82 },
+      staffing: { nurses: 4, aides: 2, ratio: "1:4.5" }
+    },
+    unitName: "4C Med/Surg",
+    timeRange: "Last 24 hours",
+    shiftInfo: { current: "Night", changeover: "0700" }
   },
   riskAssessment: {
     patientId: "P-12345",
