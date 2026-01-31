@@ -19,6 +19,37 @@ import {
 export const AIToolsPanel = () => {
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* External AI Tools Link */}
+      <Card className="bg-gradient-to-r from-primary/10 to-purple-500/10 border-primary/20">
+        <CardContent className="py-4">
+          <a 
+            href="https://www.dralexis.ceo/ai-tools" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center justify-between group hover:opacity-80 transition-opacity"
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/20">
+                <Brain className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground flex items-center gap-2">
+                  Dr. Alexis AI Tools Platform
+                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Explore the full suite of AI-powered clinical decision support tools
+                </p>
+              </div>
+            </div>
+            <Badge variant="outline" className="bg-primary/10 border-primary/30 text-primary">
+              <Sparkles className="h-3 w-3 mr-1" />
+              Visit
+            </Badge>
+          </a>
+        </CardContent>
+      </Card>
+
       {/* AI Tools Tabs */}
       <Tabs defaultValue="engine" className="w-full">
         <TabsList className="mb-4 bg-card/60 border border-border/40 flex-wrap h-auto gap-1.5 p-1.5 rounded-2xl">
