@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +27,54 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+
+// Animation variants for staggered children
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 24
+    }
+  }
+};
+
+const expandVariants = {
+  hidden: { opacity: 0, height: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 400,
+      damping: 30,
+      staggerChildren: 0.05,
+      delayChildren: 0.1
+    }
+  },
+  exit: {
+    opacity: 0,
+    height: 0,
+    scale: 0.95,
+    transition: { duration: 0.2 }
+  }
+};
 
 // Helper component to render formatted AI responses
 const FormattedResponse = ({ integrationId, response }: { integrationId: string; response: unknown }) => {
@@ -624,14 +673,27 @@ export const GeminiAIEngine = () => {
       </Card>
 
       {/* Integration Grid */}
-      <div className="grid md:grid-cols-2 gap-4">
-        {INTEGRATIONS.map((integration) => {
+      <motion.div 
+        className="grid md:grid-cols-2 gap-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {INTEGRATIONS.map((integration, index) => {
           const result = results[integration.id];
           const Icon = integration.icon;
           const isSelected = selectedIntegration === integration.id;
 
           return (
-            <Card 
+            <motion.div
+              key={integration.id}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02, y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              animate={result?.status === 'success' ? 'glow' : 'initial'}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+            <Card
               key={integration.id}
               className={cn(
                 "cursor-pointer transition-all hover:shadow-lg hover:border-primary/30",
@@ -706,34 +768,83 @@ export const GeminiAIEngine = () => {
                   )} />
                 </div>
 
-                {/* Expanded Result View */}
-                {isSelected && result?.status === 'success' && (
-                  <div className="mt-4 pt-4 border-t">
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                        <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                        AI Analysis Complete
-                      </p>
-                      <span className="text-[10px] text-muted-foreground">{result.latency}ms</span>
-                    </div>
-                    <ScrollArea className="max-h-64">
-                      <FormattedResponse integrationId={integration.id} response={result.response} />
-                    </ScrollArea>
-                  </div>
-                )}
+                {/* Expanded Result View with Animations */}
+                <AnimatePresence mode="wait">
+                  {isSelected && result?.status === 'success' && (
+                    <motion.div
+                      key={`success-${integration.id}`}
+                      variants={expandVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="mt-4 pt-4 border-t overflow-hidden"
+                    >
+                      <motion.div 
+                        variants={itemVariants}
+                        className="flex items-center justify-between mb-2"
+                      >
+                        <motion.p 
+                          className="text-xs font-medium text-muted-foreground flex items-center gap-1"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          <motion.span
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                          >
+                            <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                          </motion.span>
+                          AI Analysis Complete
+                        </motion.p>
+                        <motion.span 
+                          className="text-[10px] text-muted-foreground bg-primary/10 px-2 py-0.5 rounded-full"
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3, type: "spring" }}
+                        >
+                          ⚡ {result.latency}ms
+                        </motion.span>
+                      </motion.div>
+                      <ScrollArea className="max-h-64">
+                        <motion.div
+                          variants={containerVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          <FormattedResponse integrationId={integration.id} response={result.response} />
+                        </motion.div>
+                      </ScrollArea>
+                    </motion.div>
+                  )}
 
-                {isSelected && result?.status === 'error' && (
-                  <div className="mt-4 pt-4 border-t">
-                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                      <p className="text-sm text-red-700">{result.error}</p>
-                    </div>
-                  </div>
-                )}
+                  {isSelected && result?.status === 'error' && (
+                    <motion.div
+                      key={`error-${integration.id}`}
+                      variants={expandVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="mt-4 pt-4 border-t overflow-hidden"
+                    >
+                      <motion.div 
+                        className="p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg"
+                        initial={{ x: -10, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <p className="text-sm text-red-700 dark:text-red-400">{result.error}</p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </CardContent>
             </Card>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Technical Details */}
       <Card className="bg-muted/30">
