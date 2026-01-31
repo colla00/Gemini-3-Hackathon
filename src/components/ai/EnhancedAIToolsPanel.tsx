@@ -747,6 +747,7 @@ export const EnhancedAIToolsPanel = () => {
   const [performanceMetrics, setPerformanceMetrics] = useState<{ times: number[]; modules: string[] }>({ times: [], modules: [] });
   const [runningAllDemos, setRunningAllDemos] = useState(false);
   const [currentDemoModule, setCurrentDemoModule] = useState<string | null>(null);
+  const [currentDemoIndex, setCurrentDemoIndex] = useState(0);
 
   // Module states
   const [clinicalNotes, setClinicalNotes] = useState('');
@@ -940,7 +941,9 @@ export const EnhancedAIToolsPanel = () => {
 
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    for (const moduleId of MODULE_ORDER) {
+    for (let i = 0; i < MODULE_ORDER.length; i++) {
+      const moduleId = MODULE_ORDER[i];
+      setCurrentDemoIndex(i + 1);
       setCurrentDemoModule(moduleId);
       
       switch (moduleId) {
@@ -1074,10 +1077,18 @@ export const EnhancedAIToolsPanel = () => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
+                    className="flex items-center gap-2"
                   >
-                    <Badge className="bg-accent/80 text-white text-[10px] font-medium animate-pulse">
-                      Running: {currentDemoModule.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    <Badge className="bg-white/20 text-white text-xs font-bold border border-white/30">
+                      {currentDemoIndex} of 8
                     </Badge>
+                    <Badge className="bg-accent/80 text-white text-[10px] font-medium animate-pulse">
+                      {currentDemoModule.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    </Badge>
+                    <Progress 
+                      value={(currentDemoIndex / 8) * 100} 
+                      className="w-20 h-1.5 bg-white/20 [&>div]:bg-white"
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
