@@ -1447,7 +1447,11 @@ ${narrativeResult.technicalOutput.features.map(f => `  ${f.name}: ${f.weight.toF
                       <Brain className="h-4 w-4 text-purple-600" />
                       <span className="font-semibold text-sm">Plain-Language Narrative:</span>
                     </div>
-                    <p className="text-sm font-medium mb-3" dangerouslySetInnerHTML={{ __html: narrativeResult.narrative.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                    <p className="text-sm font-medium mb-3">
+                      {narrativeResult.narrative.split(/\*\*(.*?)\*\*/g).map((part, i) => 
+                        i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                      )}
+                    </p>
                     
                     <div className="space-y-2 text-xs">
                       <p className="font-semibold text-purple-700 dark:text-purple-300">Primary Factors:</p>

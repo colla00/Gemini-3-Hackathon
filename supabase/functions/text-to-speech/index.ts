@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 // Rate limiting configuration
@@ -11,18 +11,8 @@ const RATE_LIMIT_REQUESTS = 10; // Max requests per window
 const RATE_LIMIT_WINDOW_SECONDS = 60; // 1 minute window
 const ENDPOINT_NAME = 'text-to-speech';
 
-function getRateLimitKey(req: Request): string {
-  const authHeader = req.headers.get('authorization') || '';
-  const forwarded = req.headers.get('x-forwarded-for') || 'unknown';
-  return `tts:${authHeader.slice(-20)}:${forwarded.split(',')[0]}`;
-}
-
-function getClientIP(req: Request): string {
-  const forwardedFor = req.headers.get('x-forwarded-for');
-  if (forwardedFor) {
-    return forwardedFor.split(',')[0].trim();
-  }
-  return req.headers.get('x-real-ip')?.trim() || 'unknown';
+function getRateLimitKey(userId: string): string {
+  return `tts:${userId}`;
 }
 
 async function checkRateLimit(supabase: any, key: string, maxRequests: number, windowSeconds: number) {
@@ -42,6 +32,14 @@ async function checkRateLimit(supabase: any, key: string, maxRequests: number, w
     remaining: data.remaining,
     resetAt: data.reset_at
   };
+}
+
+function getClientIP(req: Request): string {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0].trim();
+  }
+  return req.headers.get('x-real-ip')?.trim() || 'unknown';
 }
 
 async function logViolation(supabase: any, key: string, ip: string, endpoint: string) {
@@ -66,22 +64,51 @@ serve(async (req) => {
   const MAX_TEXT_LENGTH = 4096;
   const ALLOWED_VOICES = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'] as const;
 
-  // Initialize Supabase client with service role for rate limiting
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
   try {
-    // Check rate limit
-    const rateLimitKey = getRateLimitKey(req);
+    // Authentication validation
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - missing or invalid authorization header" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Initialize Supabase client with user auth for validation
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    
+    if (claimsError || !claimsData?.claims) {
+      console.error("[Auth] Token validation failed:", claimsError);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - invalid token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub as string;
+    console.log("[Auth] Authenticated user:", userId);
+
+    // Use service role for rate limiting operations
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Check rate limit using user ID instead of IP
+    const rateLimitKey = getRateLimitKey(userId);
     const clientIP = getClientIP(req);
-    const rateLimit = await checkRateLimit(supabase, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
+    const rateLimit = await checkRateLimit(supabaseService, rateLimitKey, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECONDS);
     
     if (!rateLimit.allowed) {
-      console.warn(`Rate limit exceeded for key: ${rateLimitKey}, IP: ${clientIP}`);
+      console.warn(`Rate limit exceeded for user: ${userId}, IP: ${clientIP}`);
       
       // Log violation for monitoring
-      await logViolation(supabase, rateLimitKey, clientIP, ENDPOINT_NAME);
+      await logViolation(supabaseService, rateLimitKey, clientIP, ENDPOINT_NAME);
       
       const retryAfter = Math.max(1, rateLimit.resetAt - Math.floor(Date.now() / 1000));
       return new Response(
