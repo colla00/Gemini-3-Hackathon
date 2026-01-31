@@ -828,14 +828,15 @@ export const EnhancedAIToolsPanel = () => {
   // MODULE HANDLERS
   // ============================================================================
 
-  const handleClinicalNotesAnalysis = async () => {
-    if (!clinicalNotes.trim()) {
+  const handleClinicalNotesAnalysis = async (notesOverride?: string) => {
+    const notes = notesOverride ?? clinicalNotes;
+    if (!notes.trim()) {
       toast({ title: "Notes required", description: "Please enter clinical observations", variant: "destructive" });
       return;
     }
     setClinicalNotesLoading(true);
     await simulateProcessing(1.4, 'clinical-notes');
-    setClinicalNotesResult(generateClinicalNotesResult(clinicalNotes));
+    setClinicalNotesResult(generateClinicalNotesResult(notes));
     setClinicalNotesLoading(false);
   };
 
@@ -961,7 +962,7 @@ export const EnhancedAIToolsPanel = () => {
         case 'clinical-notes':
           setClinicalNotes(CLINICAL_NOTE_EXAMPLES.restless);
           await delay(500);
-          await handleClinicalNotesAnalysis();
+          await handleClinicalNotesAnalysis(CLINICAL_NOTE_EXAMPLES.restless);
           break;
         case 'risk-narrative':
           await delay(500);
@@ -1238,7 +1239,7 @@ export const EnhancedAIToolsPanel = () => {
 
             {/* Analyze Button */}
             <Button
-              onClick={handleClinicalNotesAnalysis}
+              onClick={() => handleClinicalNotesAnalysis()}
               disabled={clinicalNotesLoading || !clinicalNotes.trim()}
               className="w-full gap-2 bg-[#0066CC] hover:bg-[#0055AA] text-white font-semibold py-3 text-base shadow-lg disabled:opacity-50"
             >
