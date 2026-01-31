@@ -1,5 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useAuditLog } from '@/hooks/useAuditLog';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,7 +41,8 @@ interface UserRole {
 const ITEMS_PER_PAGE = 10;
 
 const AdminPanel = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, user } = useAuth();
+  const { logAction } = useAuditLog();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [userRoles, setUserRoles] = useState<Record<string, UserRole[]>>({});
   const [loading, setLoading] = useState(true);
@@ -48,12 +50,22 @@ const AdminPanel = () => {
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
+  const hasLoggedAccess = useRef(false);
 
   useEffect(() => {
     if (isAdmin) {
       fetchUsers();
+      // Log admin panel access once per session
+      if (!hasLoggedAccess.current && user) {
+        logAction({
+          action: 'view',
+          resource_type: 'user_profile',
+          details: { admin_panel_access: true }
+        });
+        hasLoggedAccess.current = true;
+      }
     }
-  }, [isAdmin]);
+  }, [isAdmin, user]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -142,10 +154,22 @@ const AdminPanel = () => {
     setSelectedUsers(newSelected);
   };
 
-  const handleExportUsers = () => {
+  const handleExportUsers = async () => {
     const dataToExport = selectedUsers.size > 0 
       ? filteredUsers.filter(u => selectedUsers.has(u.id))
       : filteredUsers;
+    
+    // Audit log the export action
+    await logAction({
+      action: 'view',
+      resource_type: 'user_profile',
+      details: { 
+        export_action: true,
+        export_count: dataToExport.length,
+        selected_users: selectedUsers.size > 0,
+        filter_applied: searchQuery !== '' || roleFilter !== 'all'
+      }
+    });
     
     const csvContent = [
       ['Name', 'Email', 'Role', 'Joined'].join(','),
