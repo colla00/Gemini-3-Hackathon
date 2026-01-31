@@ -1036,19 +1036,19 @@ export const EnhancedAIToolsPanel = () => {
               </div>
             </div>
 
-            {/* Demo Mode Toggle & Run All Button */}
+            {/* Run All Demos Button */}
             <div className="flex items-center gap-3 flex-wrap">
-              {/* Run All Demos Button */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       onClick={runningAllDemos ? stopAllDemos : runAllDemos}
-                      variant="outline"
                       size="sm"
                       className={cn(
-                        "border-white/30 text-white hover:bg-white/20 transition-all duration-300",
-                        runningAllDemos && "bg-red-500/20 border-red-400/50 hover:bg-red-500/30"
+                        "transition-all duration-300 font-semibold",
+                        runningAllDemos 
+                          ? "bg-red-500 hover:bg-red-600 text-white" 
+                          : "bg-white text-primary hover:bg-white/90"
                       )}
                     >
                       {runningAllDemos ? (
@@ -1092,51 +1092,6 @@ export const EnhancedAIToolsPanel = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              <motion.div 
-                className={cn(
-                  "flex items-center gap-3 rounded-xl px-4 py-2.5 border transition-all duration-300",
-                  demoMode 
-                    ? "bg-green-500/20 border-green-400/50 shadow-lg shadow-green-500/20" 
-                    : "bg-white/10 border-white/20"
-                )}
-                animate={demoMode ? { scale: [1, 1.02, 1] } : {}}
-                transition={{ duration: 0.3 }}
-              >
-                <Switch
-                  id="demo-mode"
-                  checked={demoMode}
-                  onCheckedChange={setDemoMode}
-                  aria-label="Toggle demo mode"
-                  className="data-[state=checked]:bg-green-500"
-                />
-                <Label htmlFor="demo-mode" className="text-sm font-semibold cursor-pointer select-none flex items-center gap-1.5">
-                  Demo Mode
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-3.5 w-3.5 opacity-70" />
-                      </TooltipTrigger>
-                      <TooltipContent className="max-w-xs">
-                        <p>Instantly populate all modules with sample data and results. Perfect for screen recording.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Label>
-                <AnimatePresence>
-                  {demoMode && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                    >
-                      <Badge className="bg-green-500 text-white text-[10px] font-bold uppercase animate-pulse shadow-lg">
-                        🎥 DEMO MODE ACTIVE
-                      </Badge>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
             </div>
           </div>
 
