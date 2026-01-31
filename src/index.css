@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,161 +7,167 @@
 
 @layer base {
   :root {
-    /* Light mode - Professional healthcare with WCAG AA+ contrast */
-    --background: 210 30% 98%;
-    --foreground: 215 25% 17%;
+    /* Light mode - Enterprise Medical Professional with WCAG AA+ contrast */
+    /* Deep navy/slate for trustworthy medical feel */
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 17%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 17%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Teal primary - darkened for AA contrast on white */
-    --primary: 174 65% 32%;
+    /* Clinical teal primary - professional healthcare standard */
+    --primary: 173 58% 29%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 93%;
-    --secondary-foreground: 215 25% 17%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 20% 94%;
-    /* Darkened from 40% to 35% for WCAG AA compliance (4.5:1 ratio) */
-    --muted-foreground: 215 20% 35%;
+    --muted: 220 14% 96%;
+    /* Darkened for WCAG AA compliance */
+    --muted-foreground: 220 9% 40%;
 
-    --accent: 199 80% 32%;
+    /* Deep blue accent for enterprise feel */
+    --accent: 217 91% 35%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 42%;
+    --destructive: 0 84% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 82%;
-    --input: 210 25% 93%;
-    --ring: 174 65% 32%;
+    --border: 220 13% 88%;
+    --input: 220 14% 96%;
+    --ring: 173 58% 29%;
 
-    --radius: 0.625rem;
+    --radius: 0.5rem;
 
-    /* Risk level colors - WCAG AA compliant for light backgrounds */
-    --risk-high: 0 72% 42%;
-    --risk-medium: 30 85% 35%;
-    --risk-low: 152 60% 28%;
+    /* Risk level colors - WCAG AA compliant clinical indicators */
+    --risk-high: 0 84% 38%;
+    --risk-medium: 25 95% 38%;
+    --risk-low: 158 64% 28%;
 
-    /* SHAP chart colors - darker for light mode */
-    --shap-positive: 0 70% 45%;
-    --shap-negative: 152 55% 32%;
+    /* SHAP chart colors - clinical visualization */
+    --shap-positive: 0 72% 42%;
+    --shap-negative: 158 55% 30%;
 
-    /* Warning color - darkened for WCAG AA on light backgrounds */
-    --warning: 35 80% 32%;
+    /* Warning color - WCAG AA compliant */
+    --warning: 32 95% 38%;
 
-    /* Custom gradients */
-    --gradient-healthcare: linear-gradient(180deg, hsl(210 30% 98%) 0%, hsl(210 30% 95%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(174 65% 32%) 0%, hsl(199 80% 32%) 100%);
+    /* Enterprise gradients */
+    --gradient-healthcare: linear-gradient(180deg, hsl(220 20% 97%) 0%, hsl(220 20% 94%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(173 58% 29%) 0%, hsl(217 91% 35%) 100%);
+    --gradient-header: linear-gradient(90deg, hsl(222 47% 11%) 0%, hsl(217 33% 17%) 100%);
     
-    /* Chart-specific colors - light mode */
-    --chart-1: 174 65% 38%;
-    --chart-2: 199 80% 40%;
-    --chart-3: 152 60% 35%;
-    --chart-4: 280 60% 50%;
-    --chart-5: 30 85% 42%;
-    --chart-grid: 215 20% 85%;
-    --chart-crosshair: 174 65% 32%;
-    --chart-highlight: 174 65% 28%;
+    /* Chart-specific colors - professional palette */
+    --chart-1: 173 58% 35%;
+    --chart-2: 217 91% 42%;
+    --chart-3: 158 64% 32%;
+    --chart-4: 262 60% 48%;
+    --chart-5: 25 95% 45%;
+    --chart-grid: 220 13% 88%;
+    --chart-crosshair: 173 58% 29%;
+    --chart-highlight: 173 58% 25%;
     
-    /* Chart gradients - light mode */
-    --gradient-chart-primary: linear-gradient(180deg, hsl(174 65% 38% / 0.25) 0%, hsl(174 65% 38% / 0.02) 100%);
-    --gradient-chart-success: linear-gradient(180deg, hsl(152 60% 35% / 0.25) 0%, hsl(152 60% 35% / 0.02) 100%);
-    --gradient-chart-danger: linear-gradient(180deg, hsl(0 72% 42% / 0.25) 0%, hsl(0 72% 42% / 0.02) 100%);
-    --gradient-chart-warning: linear-gradient(180deg, hsl(30 85% 42% / 0.25) 0%, hsl(30 85% 42% / 0.02) 100%);
+    /* Chart gradients */
+    --gradient-chart-primary: linear-gradient(180deg, hsl(173 58% 35% / 0.25) 0%, hsl(173 58% 35% / 0.02) 100%);
+    --gradient-chart-success: linear-gradient(180deg, hsl(158 64% 32% / 0.25) 0%, hsl(158 64% 32% / 0.02) 100%);
+    --gradient-chart-danger: linear-gradient(180deg, hsl(0 84% 38% / 0.25) 0%, hsl(0 84% 38% / 0.02) 100%);
+    --gradient-chart-warning: linear-gradient(180deg, hsl(25 95% 45% / 0.25) 0%, hsl(25 95% 45% / 0.02) 100%);
 
-    /* Shadows - subtle for light mode */
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
-    --shadow-glow: 0 0 16px rgba(20, 130, 120, 0.12);
-    --shadow-chart-glow: 0 0 12px rgba(20, 130, 120, 0.2);
+    /* Shadows - enterprise professional */
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 16px rgba(22, 95, 88, 0.1);
+    --shadow-chart-glow: 0 0 12px rgba(22, 95, 88, 0.15);
+    --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.08);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 215 25% 17%;
-    --sidebar-primary: 174 65% 32%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 173 58% 29%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 25% 93%;
-    --sidebar-accent-foreground: 215 25% 17%;
-    --sidebar-border: 215 20% 82%;
-    --sidebar-ring: 174 65% 32%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 88%;
+    --sidebar-ring: 173 58% 29%;
   }
 
   .dark {
-    /* Dark mode - Professional healthcare navy/teal */
-    --background: 210 40% 11%;
+    /* Dark mode - Enterprise Medical Professional */
+    --background: 222 47% 8%;
     --foreground: 210 20% 98%;
 
-    --card: 210 35% 15%;
+    --card: 222 41% 12%;
     --card-foreground: 210 20% 98%;
 
-    --popover: 210 35% 13%;
+    --popover: 222 41% 10%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 174 72% 46%;
-    --primary-foreground: 210 40% 11%;
+    --primary: 173 65% 45%;
+    --primary-foreground: 222 47% 8%;
 
-    --secondary: 210 30% 20%;
+    --secondary: 222 33% 18%;
     --secondary-foreground: 210 20% 98%;
 
-    --muted: 210 25% 25%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 222 33% 18%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 199 89% 48%;
-    --accent-foreground: 210 40% 11%;
+    --accent: 217 91% 58%;
+    --accent-foreground: 222 47% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 25% 25%;
-    --input: 210 30% 18%;
-    --ring: 174 72% 46%;
-    --warning: 45 93% 47%;
+    --border: 222 33% 22%;
+    --input: 222 33% 18%;
+    --ring: 173 65% 45%;
+    --warning: 38 92% 50%;
 
-    /* Risk level colors - clinical indicators (high contrast for dark mode) */
+    /* Risk level colors - high contrast for dark mode */
     --risk-high: 0 84% 60%;
     --risk-medium: 38 92% 50%;
-    --risk-low: 152 69% 40%;
+    --risk-low: 158 69% 42%;
 
     /* SHAP chart colors */
     --shap-positive: 0 91% 71%;
-    --shap-negative: 152 69% 50%;
+    --shap-negative: 158 69% 50%;
 
     /* Chart-specific colors - optimized for dark mode visibility */
-    --chart-1: 174 72% 55%;
-    --chart-2: 199 89% 58%;
-    --chart-3: 152 69% 50%;
-    --chart-4: 280 70% 65%;
+    --chart-1: 173 65% 52%;
+    --chart-2: 217 91% 62%;
+    --chart-3: 158 69% 48%;
+    --chart-4: 262 70% 65%;
     --chart-5: 38 92% 55%;
-    --chart-grid: 210 25% 30%;
-    --chart-crosshair: 174 72% 46%;
-    --chart-highlight: 174 72% 60%;
+    --chart-grid: 222 33% 26%;
+    --chart-crosshair: 173 65% 45%;
+    --chart-highlight: 173 65% 58%;
 
     /* Custom gradients */
-    --gradient-healthcare: linear-gradient(180deg, hsl(210 40% 14%) 0%, hsl(210 40% 8%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(210 35% 15%) 0%, hsl(210 35% 12%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(174 72% 46%) 0%, hsl(199 89% 48%) 100%);
+    --gradient-healthcare: linear-gradient(180deg, hsl(222 47% 10%) 0%, hsl(222 47% 6%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(222 41% 12%) 0%, hsl(222 41% 9%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(173 65% 45%) 0%, hsl(217 91% 58%) 100%);
+    --gradient-header: linear-gradient(90deg, hsl(222 47% 11%) 0%, hsl(222 41% 14%) 100%);
     
     /* Chart gradients - enhanced for dark mode */
-    --gradient-chart-primary: linear-gradient(180deg, hsl(174 72% 55% / 0.4) 0%, hsl(174 72% 55% / 0.05) 100%);
-    --gradient-chart-success: linear-gradient(180deg, hsl(152 69% 50% / 0.4) 0%, hsl(152 69% 50% / 0.05) 100%);
+    --gradient-chart-primary: linear-gradient(180deg, hsl(173 65% 52% / 0.4) 0%, hsl(173 65% 52% / 0.05) 100%);
+    --gradient-chart-success: linear-gradient(180deg, hsl(158 69% 48% / 0.4) 0%, hsl(158 69% 48% / 0.05) 100%);
     --gradient-chart-danger: linear-gradient(180deg, hsl(0 84% 60% / 0.4) 0%, hsl(0 84% 60% / 0.05) 100%);
     --gradient-chart-warning: linear-gradient(180deg, hsl(38 92% 55% / 0.4) 0%, hsl(38 92% 55% / 0.05) 100%);
 
     /* Shadows */
-    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 20px rgba(45, 212, 191, 0.25);
-    --shadow-chart-glow: 0 0 16px rgba(45, 212, 191, 0.4);
+    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.35);
+    --shadow-glow: 0 0 20px rgba(45, 180, 167, 0.2);
+    --shadow-chart-glow: 0 0 16px rgba(45, 180, 167, 0.3);
+    --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.4);
 
-    --sidebar-background: 210 35% 12%;
+    --sidebar-background: 222 41% 10%;
     --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 174 72% 46%;
-    --sidebar-primary-foreground: 210 40% 11%;
-    --sidebar-accent: 210 30% 20%;
+    --sidebar-primary: 173 65% 45%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 222 33% 18%;
     --sidebar-accent-foreground: 210 20% 98%;
-    --sidebar-border: 210 25% 25%;
-    --sidebar-ring: 174 72% 46%;
+    --sidebar-border: 222 33% 22%;
+    --sidebar-ring: 173 65% 45%;
   }
 }
 
