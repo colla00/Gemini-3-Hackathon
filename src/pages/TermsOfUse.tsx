@@ -157,7 +157,7 @@ export const TermsOfUse = () => {
                 1. Acceptance of Terms
               </h2>
               <p className="text-muted-foreground">
-                By accessing or using the CareGuard Clinical Dashboard ("Software"), you agree to be bound by these Terms of Use. 
+                By accessing or using the NSO Quality Dashboard ("Software"), you agree to be bound by these Terms of Use. 
                 If you do not agree to these terms, you may not access or use the Software.
               </p>
             </section>

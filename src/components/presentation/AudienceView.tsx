@@ -157,8 +157,8 @@ export const AudienceView = () => {
               <BarChart3 className="w-4 h-4 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-sm font-bold text-primary-foreground">CareGuard Clinical Dashboard</h1>
-              <p className="text-[10px] text-primary-foreground/70">AI-Powered Clinical Decision Support</p>
+              <h1 className="text-sm font-bold text-primary-foreground">NSO Quality Dashboard</h1>
+              <p className="text-[10px] text-primary-foreground/70">AI-Powered Nurse-Sensitive Outcome Prediction</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

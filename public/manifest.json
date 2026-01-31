@@ -1,7 +1,7 @@
 {
-  "name": "CareGuard Clinical Dashboard",
-  "short_name": "CareGuard",
-  "description": "AI-Powered Clinical Decision Support",
+  "name": "NSO Quality Dashboard",
+  "short_name": "NSO Dashboard",
+  "description": "AI-Powered Nurse-Sensitive Outcome Prediction",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#0a0a0b",

@@ -178,14 +178,14 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle approval notification
     if (notificationType === 'approved') {
       const approvalEmailResponse = await resend.emails.send({
-        from: "CareGuard Clinical Dashboard <cs@ezlearning.center>",
+        from: "NSO Quality Dashboard <cs@ezlearning.center>",
         to: [data.email],
         subject: "Your Walkthrough Access Has Been Approved! 🎉",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #10b981;">Welcome to CareGuard Clinical Dashboard!</h2>
+            <h2 style="color: #10b981;">Welcome to the NSO Quality Dashboard!</h2>
             <p>Hi ${safeName},</p>
-            <p>Great news! Your request to access the 45-minute CareGuard Clinical Dashboard walkthrough has been <strong style="color: #10b981;">approved</strong>.</p>
+            <p>Great news! Your request to access the 45-minute NSO Quality Dashboard walkthrough has been <strong style="color: #10b981;">approved</strong>.</p>
             <p>You now have full access to:</p>
             <ul>
               <li>Complete 45-minute interactive walkthrough</li>
@@ -200,7 +200,7 @@ const handler = async (req: Request): Promise<Response> => {
               </a>
             </div>
             <p>If you have any questions, feel free to reply to this email.</p>
-            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>CareGuard Clinical Dashboard</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
           </div>
         `,
       });
@@ -216,17 +216,17 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial notification
     if (notificationType === 'denied') {
       const denialEmailResponse = await resend.emails.send({
-        from: "CareGuard Clinical Dashboard <cs@ezlearning.center>",
+        from: "NSO Quality Dashboard <cs@ezlearning.center>",
         to: [data.email],
         subject: "Update on Your Walkthrough Access Request",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2>CareGuard Clinical Dashboard</h2>
+            <h2>NSO Quality Dashboard</h2>
             <p>Hi ${safeName},</p>
-            <p>Thank you for your interest in the CareGuard Clinical Dashboard walkthrough.</p>
+            <p>Thank you for your interest in the NSO Quality Dashboard walkthrough.</p>
             <p>After reviewing your request, we're unable to grant access at this time. This may be due to limited availability or eligibility requirements for the current phase of the research prototype.</p>
             <p>If you believe this was in error or would like to provide additional information, please reply to this email and we'll be happy to reconsider your request.</p>
-            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>CareGuard Clinical Dashboard</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
           </div>
         `,
       });
@@ -241,7 +241,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
-      from: "CareGuard Clinical Dashboard <cs@ezlearning.center>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [adminEmail],
       subject: `New Walkthrough Access Request from ${safeName}`,
       html: `
@@ -284,16 +284,16 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin notification sent:", adminEmailResponse);
 
     const confirmationResponse = await resend.emails.send({
-      from: "CareGuard Clinical Dashboard <cs@ezlearning.center>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [data.email],
       subject: "Your Walkthrough Request Has Been Received",
       html: `
         <h2>Thank You for Your Interest!</h2>
         <p>Hi ${safeName},</p>
-        <p>We've received your request to access the 45-minute CareGuard Clinical Dashboard walkthrough.</p>
+        <p>We've received your request to access the 45-minute NSO Quality Dashboard walkthrough.</p>
         <p>Our team will review your request and get back to you shortly with access details.</p>
         <p>In the meantime, feel free to explore our landing page for more information about the dashboard.</p>
-        <p style="margin-top: 30px;">Best regards,<br>The CareGuard Clinical Dashboard Team</p>
+        <p style="margin-top: 30px;">Best regards,<br>The NSO Quality Dashboard Team</p>
       `,
     });
 

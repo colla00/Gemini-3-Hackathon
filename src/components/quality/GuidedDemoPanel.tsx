@@ -25,7 +25,7 @@ const demoSteps: DemoStep[] = [
     id: 'intro',
     title: 'Introduction & Problem Statement',
     duration: 45,
-    narration: 'Welcome to the CareGuard Clinical Dashboard demonstration. Today we present a patent-pending approach to predictive analytics in nursing care.',
+    narration: 'Welcome to the NSO Quality Dashboard demonstration. Today we present a patent-pending approach to predictive analytics in nursing care.',
     presenterNotes: 'Start with the problem: 7-15% of hospitalized patients experience adverse events. Traditional monitoring is reactive.',
     keyPoints: [
       'Hospital adverse events affect millions annually',
