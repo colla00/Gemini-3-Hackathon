@@ -95,7 +95,7 @@ const handler = async (req: Request): Promise<Response> => {
         
         <div style="background-color: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
           <p style="margin: 0 0 16px 0; color: #374151;">
-            Unusual rate limit activity has been detected on the CareGuard Clinical Dashboard.
+            Unusual rate limit activity has been detected on the NSO Quality Dashboard.
           </p>
           
           <div style="background-color: white; border-radius: 8px; padding: 16px; margin-bottom: 16px; border: 1px solid #e5e7eb;">
@@ -150,7 +150,7 @@ const handler = async (req: Request): Promise<Response> => {
 
           <p style="margin: 24px 0 0 0; font-size: 12px; color: #9ca3af; text-align: center;">
             Alert generated at ${timestamp}<br>
-            CareGuard Clinical Dashboard - Automated Security Monitoring
+            NSO Quality Dashboard - Automated Security Monitoring
           </p>
         </div>
       </div>
@@ -158,7 +158,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send alert email
     const emailResponse = await resend.emails.send({
-      from: "CareGuard Clinical Dashboard <cs@ezlearning.center>",
+      from: "NSO Quality Dashboard <cs@ezlearning.center>",
       to: [ADMIN_EMAIL],
       subject: `🚨 ${alertLevel}: Rate Limit Abuse Detected - ${violationStats.total_violations} violations`,
       html: emailHtml,

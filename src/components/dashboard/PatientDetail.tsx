@@ -302,7 +302,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             Features on this page are protected by U.S. patents
           </p>
           <p className="text-[10px] text-muted-foreground mt-1">
-            © Dr. Alexis Collier | CareGuard Clinical Dashboard – 4 U.S. Patents Filed
+            © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed
           </p>
         </div>
       </div>

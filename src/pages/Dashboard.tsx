@@ -183,7 +183,7 @@ export const Dashboard = () => {
               </div>
               <div>
                 <h1 className="text-base font-bold text-foreground leading-tight tracking-tight">
-                  CareGuard Clinical Dashboard
+                  NSO Quality Dashboard
                 </h1>
                 <p className="text-[11px] text-muted-foreground font-medium tracking-wide">
                   AI-Powered Nurse-Sensitive Outcome Prediction

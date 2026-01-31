@@ -57,7 +57,7 @@ const App = () => {
             </div>
             <div className="absolute -inset-2 rounded-2xl border-2 border-primary/20 border-t-primary animate-spin" />
           </div>
-          <span className="text-sm text-muted-foreground font-medium">Loading CareGuard...</span>
+          <span className="text-sm text-muted-foreground font-medium">Loading NSO Dashboard...</span>
         </div>
       </div>
     );

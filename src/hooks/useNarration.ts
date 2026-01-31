@@ -14,14 +14,14 @@ interface NarrationScript {
 const narrationScripts: NarrationScript[] = [
   {
     view: 'dashboard',
-    text: `Welcome to the CareGuard Clinical Dashboard. This is your command center for real-time patient risk monitoring. 
+    text: `Welcome to the NSO Quality Dashboard. This is your command center for real-time patient risk monitoring. 
     
     At the top, you'll see aggregate statistics across all nurse-sensitive outcomes: falls, pressure injuries, and catheter-associated infections. 
     
     The priority queue on the right highlights patients requiring immediate attention, automatically sorted by risk severity. 
     
     This dashboard updates in real-time as new patient data flows in from the electronic health record system.`,
-    academicText: `Welcome to our research demonstration of the CareGuard Clinical Dashboard, a novel clinical decision support system for nurse-sensitive outcome prediction.
+    academicText: `Welcome to our research demonstration of the NSO Quality Dashboard, a novel clinical decision support system for nurse-sensitive outcome prediction.
     
     This system addresses a critical gap in healthcare quality: the approximately 700,000 annual hospital falls, 2.5 million pressure injuries, and 75,000 catheter-associated urinary tract infections in U.S. hospitals.
     

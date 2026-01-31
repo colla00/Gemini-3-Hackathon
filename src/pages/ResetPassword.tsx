@@ -67,7 +67,7 @@ const ResetPassword = () => {
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Activity className="h-8 w-8 text-primary" aria-hidden="true" />
-            <h1 className="text-2xl font-bold text-foreground">CareGuard Clinical Dashboard</h1>
+            <h1 className="text-2xl font-bold text-foreground">NSO Quality Dashboard</h1>
           </div>
         </div>
 

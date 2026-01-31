@@ -311,7 +311,7 @@ export const PatentEvidence = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Patent Evidence Documentation | CareGuard Clinical Dashboard</title>
+        <title>Patent Evidence Documentation | NSO Quality Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
@@ -364,7 +364,7 @@ export const PatentEvidence = () => {
             </div>
             <div className="flex-1">
               <h1 className="text-2xl font-bold text-foreground mb-2">
-                CareGuard Clinical Dashboard
+                NSO Quality Dashboard
               </h1>
               <p className="text-sm text-muted-foreground mb-3">
                 4 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
@@ -527,7 +527,7 @@ export const PatentEvidence = () => {
                       </div>
                       <p className="mt-3 text-xs text-muted-foreground italic border-t border-border/50 pt-3">
                         "I hereby attest that I have reviewed the above patent claims and their corresponding 
-                        implementations in the CareGuard Clinical Dashboard software. The implementations 
+                        implementations in the NSO Quality Dashboard software. The implementations 
                         described accurately reflect the working functionality of the system as of the date of this attestation."
                       </p>
                     </div>

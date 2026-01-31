@@ -221,7 +221,7 @@ export const WalkthroughAccessButton = () => {
               Request Walkthrough Access
             </DialogTitle>
             <DialogDescription>
-              Submit a request to access the 45-minute guided walkthrough of the CareGuard Clinical Dashboard.
+              Submit a request to access the 45-minute guided walkthrough of the NSO Quality Dashboard.
             </DialogDescription>
           </DialogHeader>
 

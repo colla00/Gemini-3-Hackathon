@@ -123,7 +123,7 @@ const NotFound = () => {
       {/* Footer */}
       <footer className="py-4 px-6 border-t border-border/30 bg-secondary/30 text-center">
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Dr. Alexis Collier • CareGuard Clinical Dashboard • 4 U.S. Patents Filed
+          © {new Date().getFullYear()} Dr. Alexis Collier • NSO Quality Dashboard • 4 U.S. Patents Filed
         </p>
       </footer>
     </div>

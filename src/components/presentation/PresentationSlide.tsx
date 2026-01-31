@@ -81,7 +81,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   },
   {
     id: 'title',
-    title: 'CareGuard Clinical Dashboard',
+    title: 'NSO Quality Dashboard',
     subtitle: 'AI-Assisted Nursing Quality Monitoring for Nurse-Sensitive Outcomes',
     duration: 3,
     icon: <BarChart3 className="w-12 h-12" />,

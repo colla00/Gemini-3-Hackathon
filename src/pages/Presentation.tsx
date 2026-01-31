@@ -569,8 +569,8 @@ const DefaultPresentationView = ({ searchParams, isDemoMode = false }: { searchP
                   <BarChart3 className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-sm font-bold text-foreground leading-tight">CareGuard Clinical Dashboard</h1>
-                  <span className="text-[10px] text-muted-foreground">Clinical Decision Support</span>
+                  <h1 className="text-sm font-bold text-foreground leading-tight">NSO Quality Dashboard</h1>
+                  <span className="text-[10px] text-muted-foreground">Nurse-Sensitive Outcomes</span>
                 </div>
               </div>
               

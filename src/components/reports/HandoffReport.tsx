@@ -160,7 +160,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
           {/* Report Header */}
           <div className="mb-6 pb-4 border-b border-border print:mb-4">
             <div className="flex items-center justify-between mb-2">
-              <h1 className="text-xl font-bold text-foreground">CareGuard Clinical Handoff</h1>
+              <h1 className="text-xl font-bold text-foreground">NSO Quality Handoff</h1>
               <div className="text-right">
                 <p className="text-sm font-medium text-foreground">{shiftType}</p>
                 <p className="text-xs text-muted-foreground">
@@ -295,7 +295,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. All clinical decisions require human verification.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              Copyright © Dr. Alexis Collier | CareGuard Clinical Dashboard – 4 U.S. Patents Filed
+              Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed
             </p>
           </div>
         </div>
