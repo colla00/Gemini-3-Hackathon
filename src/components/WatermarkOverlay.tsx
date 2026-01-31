@@ -1,9 +1,9 @@
-import { Shield } from 'lucide-react';
+import { Shield, AlertTriangle } from 'lucide-react';
 import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 export const WatermarkOverlay = () => {
   const filedCount = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;
-  const watermarkText = `© Dr. Alexis Collier – ${filedCount} U.S. Patents Filed | info@alexiscollier.com`;
+  const watermarkText = `RESEARCH PROTOTYPE – NO CLINICAL VALIDATION – © Dr. Alexis Collier – ${filedCount} U.S. Patents Filed`;
   
   // Create a grid of watermarks
   const rows = 8;
@@ -11,7 +11,7 @@ export const WatermarkOverlay = () => {
   
   return (
     <div 
-      className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden select-none"
+      className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden select-none print:block"
       aria-hidden="true"
     >
       {/* Diagonal repeating watermark pattern */}
@@ -25,7 +25,7 @@ export const WatermarkOverlay = () => {
               paddingLeft: index % 2 === 0 ? '5%' : '15%',
             }}
           >
-            <Shield className="w-4 h-4 flex-shrink-0" />
+            <AlertTriangle className="w-4 h-4 flex-shrink-0" />
             <span className="text-sm font-semibold tracking-wide">
               {watermarkText}
             </span>
@@ -33,18 +33,27 @@ export const WatermarkOverlay = () => {
         ))}
       </div>
       
-      {/* Corner badges for additional protection */}
-      <div className="absolute top-4 right-4 flex items-center gap-1.5 text-foreground/[0.08] dark:text-foreground/[0.1]">
-        <Shield className="w-3 h-3" />
-        <span className="text-[10px] font-medium tracking-wider uppercase">
-          Protected Design
+      {/* Research Prototype badge - top right */}
+      <div className="absolute top-4 right-4 flex items-center gap-1.5 text-warning/30 dark:text-warning/40">
+        <AlertTriangle className="w-3 h-3" />
+        <span className="text-[10px] font-bold tracking-wider uppercase">
+          Research Prototype
         </span>
       </div>
       
-      <div className="absolute bottom-16 left-4 flex items-center gap-1.5 text-foreground/[0.08] dark:text-foreground/[0.1]">
+      {/* No Clinical Validation badge - bottom left */}
+      <div className="absolute bottom-16 left-4 flex items-center gap-1.5 text-warning/30 dark:text-warning/40">
+        <AlertTriangle className="w-3 h-3" />
+        <span className="text-[10px] font-bold tracking-wider uppercase">
+          No Clinical Validation
+        </span>
+      </div>
+      
+      {/* Patent protection badge - bottom right */}
+      <div className="absolute bottom-16 right-4 flex items-center gap-1.5 text-foreground/[0.08] dark:text-foreground/[0.1]">
         <Shield className="w-3 h-3" />
         <span className="text-[10px] font-medium tracking-wider uppercase">
-          Do Not Copy
+          Protected Design – Do Not Copy
         </span>
       </div>
 
