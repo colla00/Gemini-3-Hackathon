@@ -160,42 +160,46 @@ export const Dashboard = () => {
       {/* Research Prototype Disclaimer */}
       <ResearchDisclaimer />
 
-      {/* Cyan Header Stripe */}
-      <div className="h-1.5 bg-primary w-full" aria-hidden="true" />
+      {/* Enterprise Medical Header */}
+      <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary w-full" aria-hidden="true" />
 
-      {/* Main Header Bar */}
-      <header className="px-4 py-2 border-b border-border/40 bg-secondary/50">
-        <div className="flex items-center justify-between gap-4">
-          {/* Left: Navigation + App Title */}
-          <div className="flex items-center gap-4">
+      {/* Main Header Bar - Professional Enterprise */}
+      <header className="px-6 py-3 border-b border-border bg-card shadow-sm">
+        <div className="flex items-center justify-between gap-6 max-w-7xl mx-auto">
+          {/* Left: Logo + App Title */}
+          <div className="flex items-center gap-5">
             {/* Back to Home */}
             <Link 
               to="/"
-              className="p-2 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
+              className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Back to Home"
             >
-              <Home className="w-4 h-4" aria-hidden="true" />
+              <Home className="w-5 h-5" aria-hidden="true" />
             </Link>
 
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center" aria-hidden="true">
-                <BarChart3 className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm" aria-hidden="true">
+                <Activity className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-sm font-bold text-foreground leading-tight">NSO Quality Dashboard</h1>
-                <span className="text-[10px] text-muted-foreground">Nurse-Sensitive Outcomes</span>
+                <h1 className="text-base font-bold text-foreground leading-tight tracking-tight">
+                  CareGuard Clinical Dashboard
+                </h1>
+                <p className="text-[11px] text-muted-foreground font-medium tracking-wide">
+                  AI-Powered Nurse-Sensitive Outcome Prediction
+                </p>
               </div>
             </div>
             
             {/* Unit Selector */}
             <button 
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary border border-border/50 cursor-pointer hover:bg-secondary/80 transition-colors"
+              className="hidden md:flex items-center gap-2.5 px-4 py-2 rounded-lg bg-secondary border border-border hover:border-primary/30 transition-all"
               aria-label="Select unit: Unit 4C - Med/Surg"
               aria-haspopup="listbox"
             >
-              <Building2 className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
-              <span className="text-xs font-medium text-foreground">Unit 4C - Med/Surg</span>
-              <ChevronDown className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
+              <Building2 className="w-4 h-4 text-primary" aria-hidden="true" />
+              <span className="text-sm font-medium text-foreground">Unit 4C - Med/Surg</span>
+              <ChevronDown className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
             </button>
           </div>
 
@@ -333,10 +337,10 @@ export const Dashboard = () => {
         onNavigateToCalculator={handleNavigateToCalculator} 
       />
 
-      {/* Navigation Tabs */}
-      <nav className="px-2 py-1.5 border-b border-border/30 bg-background/50 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1" role="tablist" aria-label="View options">
+      {/* Navigation Tabs - Professional Enterprise */}
+      <nav className="px-6 py-2 border-b border-border bg-secondary/30 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center gap-1.5" role="tablist" aria-label="View options">
             {/* Primary Navigation Tabs */}
             {primaryNavItems.map((item) => (
               <button
@@ -346,10 +350,10 @@ export const Dashboard = () => {
                 aria-selected={activeView === item.id}
                 aria-controls={`${item.id}-panel`}
                 className={cn(
-                  "flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
                   activeView === item.id
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 )}
               >
                 {item.icon}
@@ -358,9 +362,9 @@ export const Dashboard = () => {
             ))}
 
             {/* Separator */}
-            <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
+            <div className="w-px h-6 bg-border mx-2" aria-hidden="true" />
 
-            {/* Calculator Tabs - Highlighted for investors */}
+            {/* Calculator Tabs - Enterprise Investment Focus */}
             {calculatorNavItems.map((item) => (
               <button
                 key={item.id}
@@ -369,23 +373,22 @@ export const Dashboard = () => {
                 aria-selected={activeView === item.id}
                 aria-controls={`${item.id}-panel`}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all whitespace-nowrap relative",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap relative",
                   activeView === item.id
-                    ? "bg-gradient-to-r from-chart-1 to-chart-2 text-primary-foreground shadow-md"
-                    : "bg-chart-1/10 text-chart-1 hover:bg-chart-1/20 border border-chart-1/30"
+                    ? "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"
+                    : "bg-primary/5 text-primary hover:bg-primary/10 border border-primary/20"
                 )}
               >
-                <Sparkles className="w-3 h-3" aria-hidden="true" />
                 {item.icon}
                 <span>{item.label}</span>
-                {!activeView.includes(item.id) && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-chart-2 animate-pulse" aria-hidden="true" />
+                {item.id === 'ai-tools' && !activeView.includes(item.id) && (
+                  <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-accent animate-pulse border-2 border-background" aria-hidden="true" />
                 )}
               </button>
             ))}
 
             {/* Separator */}
-            <div className="w-px h-5 bg-border/50 mx-1" aria-hidden="true" />
+            <div className="w-px h-6 bg-border mx-2" aria-hidden="true" />
 
             {/* More Dropdown for Secondary Navigation */}
             <DropdownMenu>
@@ -422,48 +425,51 @@ export const Dashboard = () => {
             </DropdownMenu>
           </div>
 
-          {/* Quick Filters */}
-          <div className="hidden lg:flex items-center gap-2 ml-2 shrink-0">
+          {/* Quick Filters - Professional styling */}
+          <div className="hidden lg:flex items-center gap-3 ml-4 shrink-0">
             <button 
-              className="flex items-center gap-1 px-2 py-1 rounded text-[11px] text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors border border-transparent hover:border-border"
               aria-label="Open filters"
             >
-              <Filter className="w-3 h-3" aria-hidden="true" />
+              <Filter className="w-4 h-4" aria-hidden="true" />
               <span>Filters</span>
             </button>
-            <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-risk-high/10 border border-risk-high/30" role="status" aria-live="polite">
-              <span className="w-1.5 h-1.5 rounded-full bg-risk-high" aria-hidden="true" />
-              <span className="text-[9px] font-medium text-risk-high">3</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-destructive/10 border border-destructive/20" role="status" aria-live="polite">
+              <span className="w-2 h-2 rounded-full bg-destructive animate-pulse" aria-hidden="true" />
+              <span className="text-xs font-semibold text-destructive">3 Critical</span>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main id="dashboard-main" className="flex-1 p-4 overflow-auto pb-16" role="tabpanel" aria-label={`${[...primaryNavItems, ...calculatorNavItems, ...secondaryNavItems].find(n => n.id === activeView)?.label || 'Dashboard'} view`}>
+      {/* Main Content - Professional spacing */}
+      <main id="dashboard-main" className="flex-1 p-6 overflow-auto pb-20" role="tabpanel" aria-label={`${[...primaryNavItems, ...calculatorNavItems, ...secondaryNavItems].find(n => n.id === activeView)?.label || 'Dashboard'} view`}>
         <div className="max-w-7xl mx-auto animate-fade-in">
           {renderView()}
         </div>
       </main>
 
-      {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2 px-4 bg-secondary/95 backdrop-blur-sm border-t border-border/30" role="contentinfo">
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline">Synthetic Data Only</span>
-            <span className="hidden md:inline text-border" aria-hidden="true">|</span>
-            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
-              <User className="w-3 h-3 text-amber-500" aria-hidden="true" />
-              <span className="text-amber-500 font-semibold uppercase tracking-wide">Human-in-the-Loop Required</span>
+      {/* Professional Footer Status Bar */}
+      <footer className="fixed bottom-0 left-0 right-0 z-50 py-2.5 px-6 bg-card/98 backdrop-blur-md border-t border-border shadow-sm" role="contentinfo">
+        <div className="flex items-center justify-between text-xs text-muted-foreground max-w-7xl mx-auto">
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline font-medium">Synthetic Demo Data</span>
+            <span className="hidden md:inline text-border/50" aria-hidden="true">|</span>
+            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-md bg-warning/10 border border-warning/20">
+              <User className="w-3.5 h-3.5 text-warning" aria-hidden="true" />
+              <span className="text-warning font-semibold text-[11px]">Human-in-the-Loop Required</span>
+            </div>
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20">
+              <span className="text-primary font-medium text-[11px]">FDA 21 CFR Part 11 Ready</span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-primary">
-              <Lock className="w-3 h-3" aria-hidden="true" />
-              <span className="font-medium">4 Patents Filed</span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-primary font-medium">
+              <Lock className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>4 Patents Filed</span>
             </div>
-            <span className="text-border" aria-hidden="true">|</span>
-            <span>v0.1.0</span>
+            <span className="text-border/50" aria-hidden="true">|</span>
+            <span className="text-muted-foreground/70">v1.0.0 Enterprise</span>
           </div>
         </div>
       </footer>
