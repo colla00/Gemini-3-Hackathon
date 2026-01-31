@@ -44,10 +44,10 @@ export const Header = () => {
           </div>
           <div>
             <h1 className="text-base md:text-lg font-bold tracking-tight text-foreground">
-              EHR-Driven Quality Dashboard
+              CareGuard Clinical Dashboard
             </h1>
             <p className="text-[10px] text-muted-foreground font-semibold tracking-wide">
-              Nurse-Sensitive Outcome Prediction · Research Prototype
+              Clinical Decision Support · Research Prototype
             </p>
           </div>
         </div>

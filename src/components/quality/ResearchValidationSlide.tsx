@@ -280,7 +280,7 @@ export const ResearchValidationSlide = () => {
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          Clinical AI Fellowship • Dr. Alexis Collier • NSO Quality Dashboard – 4 U.S. Patents Filed
+          Clinical AI Fellowship • Dr. Alexis Collier • CareGuard Clinical Dashboard – 4 U.S. Patents Filed
         </p>
       </div>
     </div>

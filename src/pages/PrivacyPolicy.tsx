@@ -132,7 +132,7 @@ export const PrivacyPolicy = () => {
                 1. Overview
               </h2>
               <p className="text-muted-foreground">
-                This Privacy Policy explains how the NSO Quality Dashboard ("we", "us", or "our") collects, 
+                This Privacy Policy explains how the CareGuard Clinical Dashboard ("we", "us", or "our") collects, 
                 uses, and protects your personal information when you use our research prototype software.
               </p>
               <p className="text-muted-foreground">
