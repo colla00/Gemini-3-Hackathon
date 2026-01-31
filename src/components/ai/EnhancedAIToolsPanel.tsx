@@ -54,7 +54,9 @@ import {
   Eye,
   HelpCircle,
   PlayCircle,
-  Loader2
+  Loader2,
+  Pause,
+  Play
 } from 'lucide-react';
 
 // ============================================================================
@@ -746,6 +748,8 @@ export const EnhancedAIToolsPanel = () => {
   const [analysisCount, setAnalysisCount] = useState(0);
   const [performanceMetrics, setPerformanceMetrics] = useState<{ times: number[]; modules: string[] }>({ times: [], modules: [] });
   const [runningAllDemos, setRunningAllDemos] = useState(false);
+  const [demoPaused, setDemoPaused] = useState(false);
+  const demoPausedRef = React.useRef(false);
   const [currentDemoModule, setCurrentDemoModule] = useState<string | null>(null);
   const [currentDemoIndex, setCurrentDemoIndex] = useState(0);
 
@@ -940,6 +944,13 @@ export const EnhancedAIToolsPanel = () => {
     setExpandedModules(new Set(MODULE_ORDER));
 
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    
+    // Wait while paused
+    const waitWhilePaused = async () => {
+      while (demoPausedRef.current) {
+        await delay(100);
+      }
+    };
 
     for (let i = 0; i < MODULE_ORDER.length; i++) {
       const moduleId = MODULE_ORDER[i];
@@ -985,6 +996,8 @@ export const EnhancedAIToolsPanel = () => {
       
       // 5-second delay between modules for readability
       await delay(5000);
+      // Check if paused before moving to next module
+      await waitWhilePaused();
     }
     
     setCurrentDemoModule(null);
@@ -998,7 +1011,15 @@ export const EnhancedAIToolsPanel = () => {
 
   const stopAllDemos = () => {
     setRunningAllDemos(false);
+    setDemoPaused(false);
+    demoPausedRef.current = false;
     setCurrentDemoModule(null);
+  };
+
+  const toggleDemoPause = () => {
+    const newPaused = !demoPaused;
+    setDemoPaused(newPaused);
+    demoPausedRef.current = newPaused;
   };
 
   const averageTime = performanceMetrics.times.length > 0
@@ -1037,7 +1058,7 @@ export const EnhancedAIToolsPanel = () => {
             </div>
 
             {/* Run All Demos Button */}
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -1054,7 +1075,7 @@ export const EnhancedAIToolsPanel = () => {
                       {runningAllDemos ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Stop Demo
+                          Stop
                         </>
                       ) : (
                         <>
@@ -1065,10 +1086,53 @@ export const EnhancedAIToolsPanel = () => {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
-                    <p>Automatically trigger all 8 modules in sequence with 2-second delays. Perfect for hands-free demo video recording.</p>
+                    <p>Automatically trigger all 8 modules in sequence with 5-second delays. Perfect for hands-free demo video recording.</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+
+              {/* Pause/Resume Button - only show when running */}
+              <AnimatePresence>
+                {runningAllDemos && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                  >
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            onClick={toggleDemoPause}
+                            size="sm"
+                            className={cn(
+                              "transition-all duration-300 font-semibold",
+                              demoPaused 
+                                ? "bg-green-500 hover:bg-green-600 text-white" 
+                                : "bg-amber-500 hover:bg-amber-600 text-white"
+                            )}
+                          >
+                            {demoPaused ? (
+                              <>
+                                <Play className="h-4 w-4 mr-1" />
+                                Resume
+                              </>
+                            ) : (
+                              <>
+                                <Pause className="h-4 w-4 mr-1" />
+                                Pause
+                              </>
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{demoPaused ? 'Resume the demo sequence' : 'Pause to read current module'}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Current Demo Progress */}
               <AnimatePresence>
