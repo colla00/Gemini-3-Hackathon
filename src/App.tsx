@@ -75,7 +75,7 @@ const App = () => {
               <Toaster />
               <Sonner />
               <WatermarkOverlay />
-              <BrowserRouter>
+              <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <CookieConsent />
                 <Routes>
                   <Route path="/" element={<Landing />} />
