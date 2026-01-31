@@ -81,30 +81,18 @@ export const AIToolsPanel = () => {
           <div className="grid gap-6">
             <HealthEquityAnalyzer />
             
-            {/* AIM-AHEAD Context */}
+            {/* Health Equity Context */}
             <Card className="bg-blue-50/50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Scale className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                  AIM-AHEAD Fellowship Initiative
+                  Health Equity Initiative
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground space-y-2">
                 <p>
-                  This health equity analysis tool supports the AIM-AHEAD initiative 
-                  to ensure AI-powered clinical tools promote health equity rather 
+                  This health equity analysis tool ensures AI-powered clinical tools promote health equity rather 
                   than perpetuate disparities.
-                </p>
-                <p className="flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" />
-                  <a 
-                    href="https://aim-ahead.net/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline dark:text-blue-400"
-                  >
-                    Learn more about AIM-AHEAD
-                  </a>
                 </p>
                 <p className="text-xs italic mt-4">
                   ✨ Powered by Google Gemini 3 Pro - Advanced reasoning for equity analysis

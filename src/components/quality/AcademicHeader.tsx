@@ -62,7 +62,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'research-validation': {
     title: 'Clinical Validation at Scale',
     subtitle: '10,000 Patients • 201 Hospitals',
-    citation: 'AIM-AHEAD CLINAQ Fellowship Research',
+    citation: 'Clinical AI Fellowship Research',
   },
   'patent-portfolio': {
     title: 'Patent Portfolio Overview',
