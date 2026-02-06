@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, BarChart3, GitBranch, Settings, 
   RefreshCw, Clock, Building2, User, ChevronDown, Search, Filter,
   Activity, Home, Presentation, Lock, Target, Database, TrendingDown,
-  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical, MoreHorizontal, Play
+  Monitor, FileText, DollarSign, Sparkles, Briefcase, FlaskConical, MoreHorizontal, Play, HeartPulse
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -27,6 +27,7 @@ import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { InvestorModePanel } from '@/components/dashboard/InvestorModePanel';
 import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
+import { ICUMortalityPrediction } from '@/components/dashboard/ICUMortalityPrediction';
 import { useLiveSimulation } from '@/hooks/useLiveSimulation';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import { ScreenProtection } from '@/components/quality/ScreenProtection';
@@ -41,11 +42,12 @@ import { SkipLink } from '@/components/SkipLink';
 import { PerformanceMonitoringDashboard } from '@/components/performance/PerformanceMonitoringDashboard';
 import { toast } from 'sonner';
 
-type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi' | 'patent' | 'ai-tools';
+type ViewType = 'dashboard' | 'patients' | 'shap' | 'workflow' | 'validation' | 'integration' | 'outcomes' | 'dbs' | 'roi' | 'patent' | 'ai-tools' | 'icu-mortality';
 
 // Primary tabs always visible
 const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator?: boolean }[] = [
   { id: 'dashboard', label: 'Overview', icon: <LayoutDashboard className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'icu-mortality', label: 'ICU Mortality', icon: <HeartPulse className="w-4 h-4" aria-hidden="true" /> },
   { id: 'patients', label: 'Patient Worklist', icon: <Users className="w-4 h-4" aria-hidden="true" /> },
   { id: 'shap', label: 'Risk Attribution', icon: <BarChart3 className="w-4 h-4" aria-hidden="true" /> },
   { id: 'workflow', label: 'Workflow Demo', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
@@ -74,6 +76,7 @@ export const Dashboard = () => {
     initialTabParam &&
     ([
       'dashboard',
+      'icu-mortality',
       'patients',
       'shap',
       'workflow',
@@ -102,6 +105,7 @@ export const Dashboard = () => {
 
     const validTabs: ViewType[] = [
       'dashboard',
+      'icu-mortality',
       'patients',
       'shap',
       'workflow',
@@ -187,6 +191,8 @@ export const Dashboard = () => {
         return <ROICalculator />;
       case 'ai-tools':
         return <AIToolsPanel />;
+      case 'icu-mortality':
+        return <ICUMortalityPrediction />;
       case 'patent':
         return <PatentFeaturesView />;
       default:

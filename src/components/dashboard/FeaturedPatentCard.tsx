@@ -1,5 +1,5 @@
-import { Award, TrendingUp, Users, Clock, Sparkles, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Award, TrendingUp, Users, Clock, Sparkles, ArrowRight, HeartPulse } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 const icuPatent = PATENT_PORTFOLIO.find(p => p.id === 'icu-mortality')!;
@@ -79,13 +79,20 @@ export const FeaturedPatentCard = () => {
       {/* CTA */}
       <div className="flex items-center gap-3">
         <Link
-          to="/patents"
+          to="/dashboard?tab=icu-mortality"
           className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
         >
-          View Patent Portfolio
+          <HeartPulse className="w-4 h-4" />
+          Explore ICU Mortality
           <ArrowRight className="w-4 h-4" />
         </Link>
-        <span className="text-[11px] text-muted-foreground">
+        <Link
+          to="/patents"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-foreground rounded-lg text-sm font-medium hover:bg-secondary/80 transition-colors border border-border"
+        >
+          Patent Portfolio
+        </Link>
+        <span className="text-[11px] text-muted-foreground hidden md:inline">
           {icuPatent.number !== 'Pending' ? `#${icuPatent.number}` : 'Filed'} · {icuPatent.filingDate}
         </span>
       </div>
