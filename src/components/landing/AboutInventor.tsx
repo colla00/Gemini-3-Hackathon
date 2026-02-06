@@ -8,7 +8,7 @@ export const AboutInventor = () => (
 
       <div className="p-8 rounded-2xl bg-card border border-border/50">
         <h4 className="text-xl font-bold text-foreground mb-4">
-          Dr. Alexis M. Collier, DHA, RN
+          Dr. Alexis M. Collier, DHA
         </h4>
 
         <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
