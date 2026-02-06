@@ -6,9 +6,10 @@ import { NeuralReasoningEngine } from '@/components/dashboard/NeuralReasoningEng
 import { CognitiveLoadOptimizer } from '@/components/dashboard/CognitiveLoadOptimizer';
 import { TrustScoreAlgorithm } from '@/components/dashboard/TrustScoreAlgorithm';
 import { PerformanceComparisonTable } from '@/components/dashboard/PerformanceComparisonTable';
+import { ICUMortalityPrediction } from '@/components/dashboard/ICUMortalityPrediction';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { FileText, Shield, Scale, BarChart3, Brain, Cpu, Target, TrendingUp } from 'lucide-react';
+import { FileText, Shield, Scale, BarChart3, Brain, Cpu, Target, TrendingUp, Dna } from 'lucide-react';
 
 export const PatentFeaturesView = () => {
   return (
@@ -76,7 +77,7 @@ export const PatentFeaturesView = () => {
 
       {/* Tabbed Content */}
       <Tabs defaultValue="core" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-4">
+        <TabsList className="grid w-full grid-cols-5 mb-4">
           <TabsTrigger value="core" className="flex items-center gap-1.5 text-xs">
             <Shield className="w-3.5 h-3.5" />
             Core Innovations
@@ -84,6 +85,10 @@ export const PatentFeaturesView = () => {
           <TabsTrigger value="intelligence" className="flex items-center gap-1.5 text-xs">
             <Brain className="w-3.5 h-3.5" />
             AI Intelligence
+          </TabsTrigger>
+          <TabsTrigger value="icu" className="flex items-center gap-1.5 text-xs">
+            <Dna className="w-3.5 h-3.5" />
+            ICU Mortality
           </TabsTrigger>
           <TabsTrigger value="validation" className="flex items-center gap-1.5 text-xs">
             <Target className="w-3.5 h-3.5" />
@@ -110,6 +115,12 @@ export const PatentFeaturesView = () => {
             <CognitiveLoadOptimizer />
           </div>
           <TrustScoreAlgorithm />
+        </TabsContent>
+
+
+        {/* ICU Mortality Tab */}
+        <TabsContent value="icu" className="space-y-6">
+          <ICUMortalityPrediction />
         </TabsContent>
 
         {/* Validation Data Tab */}
