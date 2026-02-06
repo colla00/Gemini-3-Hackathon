@@ -16,6 +16,10 @@ export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING
 export const PATENT_4_NUMBER = '63/966,099';
 export const PATENT_4_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
+// Patent #5: ICU Mortality Prediction (FILED Feb 5, 2026)
+export const PATENT_5_NUMBER = 'Pending';
+export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
+
 // All patent applications
 export interface PatentApplication {
   id: string;
@@ -25,6 +29,9 @@ export interface PatentApplication {
   status: 'filed' | 'pending' | 'preparation';
   filingDate: string;
   inventor: string;
+  claimsCount?: number;
+  nihFunded?: boolean;
+  abstract?: string;
 }
 
 export const PATENT_PORTFOLIO: PatentApplication[] = [
@@ -63,6 +70,18 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     status: 'filed',
     filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier'
+  },
+  {
+    id: 'icu-mortality',
+    number: PATENT_5_NUMBER,
+    title: PATENT_5_TITLE,
+    shortName: 'ICU Mortality Prediction',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    claimsCount: 99,
+    nihFunded: true,
+    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata. The invention eliminates the need for physiological monitoring equipment by analyzing the "human sensor" signal of nursing surveillance. The system extracts 15 temporal features to quantify documentation intensity and regularity. An unsupervised clustering module identifies four distinct clinical phenotypes with significant mortality stratification (3.2% to 24.1%). Achieves AUC of 0.741, providing a cost-effective, equipment-independent solution for real-time risk stratification.'
   }
 ];
 
