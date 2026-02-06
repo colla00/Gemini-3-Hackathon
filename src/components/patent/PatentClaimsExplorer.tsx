@@ -192,7 +192,7 @@ export const PatentClaimsExplorer = ({ className, compact = false }: PatentClaim
         <CardContent>
           <div className="text-center">
             <p className="text-3xl font-bold text-primary">{PATENT_CLAIMS.length}</p>
-            <p className="text-xs text-muted-foreground mt-1">Total Claims Across 4 Patents</p>
+            <p className="text-xs text-muted-foreground mt-1">Total Claims Across 5 Patents</p>
           </div>
         </CardContent>
       </Card>

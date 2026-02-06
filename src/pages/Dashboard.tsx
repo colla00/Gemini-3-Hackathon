@@ -512,7 +512,7 @@ export const Dashboard = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-primary font-medium">
               <Lock className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>4 Patents Filed</span>
+              <span>5 Patents Filed</span>
             </div>
             <span className="text-border/50" aria-hidden="true">|</span>
             <span className="text-muted-foreground/70">v1.0.0 Enterprise</span>

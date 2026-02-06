@@ -74,7 +74,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
       
       pdf.setFontSize(14);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('NSO Quality Dashboard - 4 U.S. Patents Filed', pageWidth / 2, 58, { align: 'center' });
+      pdf.text('NSO Quality Dashboard - 5 U.S. Patents Filed', pageWidth / 2, 58, { align: 'center' });
       
       pdf.setFontSize(10);
       pdf.text('RESEARCH PROTOTYPE - NOT FOR CLINICAL USE', pageWidth / 2, 72, { align: 'center' });
@@ -150,7 +150,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
 
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      const summaryText = `This document provides comprehensive evidence of the working implementation of the NSO Quality Dashboard, covering 80+ patent claims across 4 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, and documentation burden scoring (DBS) for nurse-sensitive patient outcomes.
+      const summaryText = `This document provides comprehensive evidence of the working implementation of the NSO Quality Dashboard, covering 175+ patent claims across 5 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, documentation burden scoring (DBS), and ICU mortality prediction from EHR documentation rhythm patterns.
 
 Each claim is documented with its patent language, working implementation details, and source code references. Witness attestations verify the functionality of all described features.`;
       

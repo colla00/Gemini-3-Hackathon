@@ -295,7 +295,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. All clinical decisions require human verification.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed
+              Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patents Filed
             </p>
           </div>
         </div>

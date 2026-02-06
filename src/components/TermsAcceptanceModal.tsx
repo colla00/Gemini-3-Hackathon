@@ -111,7 +111,7 @@ export const TermsAcceptanceModal = () => {
           {/* Copyright Notice */}
           <p className="text-[10px] text-center text-muted-foreground">
             © 2024–2026 Dr. Alexis Collier. All Rights Reserved.<br />
-            4 U.S. Patents Filed
+            5 U.S. Patents Filed
           </p>
         </div>
       </DialogContent>

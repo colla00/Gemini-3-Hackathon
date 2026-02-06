@@ -210,7 +210,7 @@ export const TermsOfUse = () => {
                   copyright law and international treaties.
                 </p>
                 <p>
-                  <strong>Patents Filed:</strong> This technology is protected by 4 U.S. provisional patent applications. 
+                  <strong>Patents Filed:</strong> This technology is protected by 5 U.S. provisional patent applications. 
                   Patent filing status provides notice of patent rights.
                 </p>
                 <p>
@@ -372,7 +372,7 @@ export const TermsOfUse = () => {
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30 mt-12">
         <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
           <p>© 2024–2026 Dr. Alexis Collier. All Rights Reserved.</p>
-          <p className="mt-1">4 U.S. Patents Filed</p>
+          <p className="mt-1">5 U.S. Patents Filed</p>
         </div>
       </footer>
     </div>

@@ -3,6 +3,7 @@ import {
   BarChart3, Shield, Activity, Users, ArrowRight, 
   Brain, Lock, FileText, Presentation, Play, FlaskConical, Award, Mail
 } from 'lucide-react';
+import { PATENTS_FILED_LABEL, PATENTS_FILED_COUNT, PATENTS_TOTAL_CLAIMS } from '@/constants/patent';
 import {
   Tooltip,
   TooltipContent,
@@ -73,7 +74,7 @@ export const Landing = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-primary">
             <Lock className="w-3 h-3" aria-hidden="true" />
-            <span className="font-medium">4 Patents Filed</span>
+            <span className="font-medium">{PATENTS_FILED_LABEL}</span>
             <span className="text-primary/60" aria-hidden="true">•</span>
             <a 
               href="mailto:info@alexiscollier.com?subject=Licensing%20Inquiry&body=I%20am%20interested%20in%20discussing%20licensing%20opportunities%20for%20the%20NSO%20Quality%20Dashboard%20technology.%0A%0AOrganization:%0AIntended%20Use:%0A"
@@ -168,7 +169,7 @@ export const Landing = () => {
             
             <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-6">
               A patent-protected AI-powered system designed to help nurses identify and respond to patient deterioration 
-              through predictive analytics and real-time monitoring. 4 U.S. patent applications filed under 35 U.S.C. § 111(b).
+              through predictive analytics and real-time monitoring. {PATENTS_FILED_COUNT} U.S. patent applications filed under 35 U.S.C. § 111(b).
             </p>
 
             {/* Patent Metrics Badge */}
@@ -384,14 +385,14 @@ export const Landing = () => {
         </div>
       </section>
 
-      {/* Features - All 4 Patents with Color Coding */}
+      {/* Features - All Patents with Color Coding */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold text-foreground text-center mb-4">
             Key Capabilities
           </h3>
           <p className="text-muted-foreground text-center mb-6 max-w-2xl mx-auto">
-            9 integrated capabilities across 4 U.S. patent filings
+            9 integrated capabilities across {PATENTS_FILED_COUNT} U.S. patent filings
           </p>
 
           {/* Patent Family Legend */}
@@ -465,7 +466,7 @@ export const Landing = () => {
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <span>© 2025–2026 Dr. Alexis Collier. All Rights Reserved.</span>
             <span className="text-border">|</span>
-            <span className="text-primary font-medium">4 U.S. Patents Filed · 35 U.S.C. § 111(b)</span>
+            <span className="text-primary font-medium">{PATENTS_FILED_LABEL} · 35 U.S.C. § 111(b)</span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <Link 

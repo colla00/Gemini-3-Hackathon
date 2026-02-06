@@ -136,7 +136,7 @@ export const InfoModal = ({ open, onOpenChange, showTrigger = true }: InfoModalP
                     Clinical judgment by qualified healthcare professionals is always required. 
                     The author(s) and affiliated institutions disclaim all liability for any use of this demonstration software.
                     <br /><br />
-                    <strong>Intellectual Property:</strong> 4 U.S. Patents Filed. 
+                    <strong>Intellectual Property:</strong> 5 U.S. Patents Filed. 
                     © 2024–2026 Dr. Alexis Collier. All rights reserved.
                   </p>
                 </div>

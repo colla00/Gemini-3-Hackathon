@@ -191,7 +191,7 @@ export const InterventionTracking = () => {
       </CardContent>
       <CardFooter className="pt-0">
         <p className="text-[9px] text-muted-foreground w-full text-center">
-          NSO Quality Dashboard – 4 U.S. Patents Filed
+          NSO Quality Dashboard – 5 U.S. Patents Filed
         </p>
       </CardFooter>
     </Card>

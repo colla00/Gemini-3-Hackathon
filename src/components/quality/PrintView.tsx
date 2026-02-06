@@ -164,7 +164,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         </div>
         
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 4 U.S. Patents Filed | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patents Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">

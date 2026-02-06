@@ -97,10 +97,10 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'closing',
     title: 'Questions?',
     view: 'dashboard',
-    narration: "Thank you for watching this demo. The methodology chatbot in the bottom right can answer technical questions. This technology is protected by 4 U.S. patent applications.",
+    narration: "Thank you for watching this demo. The methodology chatbot in the bottom right can answer technical questions. This technology is protected by 5 U.S. patent applications.",
     duration: 8,
     icon: <Presentation className="w-4 h-4" />,
-    highlights: ['4 patents filed', 'Research prototype', 'Human-in-the-loop']
+    highlights: ['5 patents filed', 'Research prototype', 'Human-in-the-loop']
   }
 ];
 

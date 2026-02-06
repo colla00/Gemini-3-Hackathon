@@ -152,7 +152,7 @@ export const PrintLegalView = ({
             <h1>PATENT EVIDENCE DOCUMENTATION</h1>
             <h2>NSO Quality Dashboard</h2>
             <p style={{ fontStyle: 'italic', margin: '10px 0' }}>
-              4 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
+              5 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System • ICU Mortality Prediction
             </p>
             <div className="meta-info">
               <div>
