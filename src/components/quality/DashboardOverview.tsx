@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, Shield, Activity, Users, Clock, AlertCircle, Heart, Thermometer, Droplets, RefreshCw, Syringe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { riskCategories, patients, getRiskLevelColor, getRiskLevelBg, type RiskCategoryData } from '@/data/nursingOutcomes';
@@ -253,14 +254,6 @@ const PriorityPatientRow = ({ patient, index }: { patient: typeof patients[0]; i
 };
 
 export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) => {
-  const getQualitativeCount = (count: number) => {
-    if (count === 0) return 'None';
-    if (count === 1) return 'One';
-    if (count <= 3) return 'Few';
-    if (count <= 6) return 'Several';
-    return 'Multiple';
-  };
-
   const highRiskCount = patients.filter(p => p.fallsLevel === 'HIGH').length;
   const moderateRiskCount = patients.filter(p => p.fallsLevel === 'MODERATE').length;
   const immediateActions = patients.flatMap(p => p.interventions).filter(i => i.priority === 'immediate').length;
@@ -270,12 +263,12 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
       {/* Featured Patent #1 - ICU Mortality Prediction */}
       <FeaturedPatentCard />
 
-      {/* Quick Stats Row - Qualitative */}
+      {/* Quick Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-tour="quick-stats">
         <QuickStatCard 
           index={0} 
           label="Total Patients" 
-          value={getQualitativeCount(patients.length)} 
+          value={patients.length} 
           icon={Users} 
           color="bg-primary/20 text-primary" 
           subtext="Unit 4C Census"
@@ -283,8 +276,8 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
         />
         <QuickStatCard 
           index={1} 
-          label="Elevated Risk" 
-          value={getQualitativeCount(highRiskCount)} 
+          label="High Risk" 
+          value={highRiskCount} 
           icon={AlertCircle} 
           color="bg-risk-high/20 text-risk-high" 
           subtext="Immediate attention"
@@ -293,16 +286,16 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
         <QuickStatCard 
           index={2} 
           label="Moderate Risk" 
-          value={getQualitativeCount(moderateRiskCount)} 
+          value={moderateRiskCount} 
           icon={AlertTriangle} 
           color="bg-risk-medium/20 text-risk-medium" 
-          subtext="Monitoring required"
+          subtext="Enhanced monitoring"
           tooltip="Patients with moderate risk signals requiring enhanced monitoring"
         />
         <QuickStatCard 
           index={3} 
           label="Pending Actions" 
-          value={getQualitativeCount(immediateActions)} 
+          value={immediateActions} 
           icon={Clock} 
           color="bg-warning/20 text-warning" 
           subtext="Immediate priority"
@@ -336,13 +329,10 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
             ))}
           </div>
           
-          {/* Disclaimer - Inline */}
-          <div className="p-2.5 rounded bg-warning/10 border border-warning/30 flex items-center gap-2">
-            <AlertTriangle className="w-3.5 h-3.5 text-warning shrink-0 animate-pulse" />
-            <p className="text-[11px] text-warning">
-              <strong>Synthetic Data:</strong> All values are simulated for demonstration. Risk signals are categorical, not numerical.
-            </p>
-          </div>
+          {/* Minimal disclaimer */}
+          <p className="text-[10px] text-muted-foreground text-center mt-2">
+            Simulated data for demonstration purposes
+          </p>
         </div>
 
         {/* Right column - Priority + Interventions */}
@@ -359,10 +349,13 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
               ))}
             </div>
             <div className="mt-3 pt-3 border-t border-border/30">
-              <button className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors flex items-center justify-center gap-1.5">
+              <a 
+                href="/dashboard?tab=patients"
+                className="w-full py-2 text-xs font-medium text-primary hover:bg-primary/10 rounded transition-colors flex items-center justify-center gap-1.5"
+              >
                 Open Full Worklist
                 <span className="text-[10px] text-muted-foreground">({patients.length})</span>
-              </button>
+              </a>
             </div>
           </div>
 
