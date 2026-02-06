@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     question: "Can I use this for my research?",
-    answer: "For research collaboration or licensing inquiries, please contact Dr. Alexis Collier at info@alexiscollier.com. Note that this technology is protected by 4 U.S. patent applications."
+    answer: "For research collaboration or licensing inquiries, please contact Dr. Alexis Collier at info@alexiscollier.com. Note that this technology is protected by 5 U.S. patent applications."
   }
 ];
 
@@ -345,7 +345,7 @@ function About() {
               <CardTitle>Target Outcomes & Applications</CardTitle>
             </div>
             <p className="text-sm text-muted-foreground">
-              Integrated capabilities across all 4 patent filings
+              Integrated capabilities across all 5 patent filings
             </p>
           </CardHeader>
           <CardContent className="space-y-4">

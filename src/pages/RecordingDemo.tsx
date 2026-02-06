@@ -34,8 +34,8 @@ const DEMO_SECTIONS: DemoSection[] = [
     duration: 15, 
     icon: <Brain className="w-8 h-8" />,
     component: 'intro',
-    patentClaims: '80+ Claims',
-    patentDescription: '4 U.S. Patents: Trust-Based Alerts • Risk Intelligence • Unified Platform • DBS'
+    patentClaims: '175+ Claims',
+    patentDescription: '5 U.S. Patents: Trust-Based Alerts • Risk Intelligence • Unified Platform • DBS • ICU Mortality'
   },
   { 
     id: 'dashboard', 
@@ -84,8 +84,8 @@ const DEMO_SECTIONS: DemoSection[] = [
     duration: 15, 
     icon: <GraduationCap className="w-8 h-8" />,
     component: 'outro',
-    patentClaims: '4 U.S. Patents Filed',
-    patentDescription: 'U.S. Provisional Applications, December 2025 – January 2026'
+    patentClaims: '5 U.S. Patents Filed',
+    patentDescription: 'U.S. Provisional Applications, December 2025 – February 2026'
   },
 ];
 
@@ -304,7 +304,7 @@ export const RecordingDemo = () => {
             </div>
             <div className="text-sm text-muted-foreground">
               <p>info@alexiscollier.com</p>
-              <p className="mt-2 text-primary font-medium">4 U.S. Patents Filed • Research Prototype</p>
+              <p className="mt-2 text-primary font-medium">5 U.S. Patents Filed • Research Prototype</p>
             </div>
           </div>
         </div>

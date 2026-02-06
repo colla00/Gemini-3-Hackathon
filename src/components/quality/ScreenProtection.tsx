@@ -14,7 +14,7 @@ interface ScreenProtectionProps {
 
 export const ScreenProtection = ({ 
   enabled = true, 
-  watermarkText = '4 PATENTS FILED',
+  watermarkText = '5 PATENTS FILED',
   showDynamicInfo = true,
   disableBlurProtection = false 
 }: ScreenProtectionProps) => {
@@ -134,7 +134,7 @@ export const ScreenProtection = ({
             <ShieldAlert className="w-16 h-16 text-primary mb-4" />
             <h2 className="text-2xl font-bold text-foreground mb-2">Content Protected</h2>
             <p className="text-muted-foreground text-center max-w-md">
-              This prototype is protected by 4 U.S. patent applications and proprietary intellectual property. 
+              This prototype is protected by 5 U.S. patent applications and proprietary intellectual property. 
               Content is protected when the window is not in focus.
             </p>
             <button
@@ -168,7 +168,7 @@ export const ScreenProtection = ({
               <p className="text-xs text-muted-foreground">
                 <span className="font-semibold text-foreground">© Dr. Alexis Collier</span>
                 <br />
-                4 U.S. Patents Filed • All Rights Reserved
+                5 U.S. Patents Filed • All Rights Reserved
               </p>
             </div>
             <button
@@ -295,7 +295,7 @@ export const ScreenProtection = ({
       {/* Corner watermarks */}
       <div className="fixed top-2 left-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          4 PATENTS FILED
+          5 PATENTS FILED
         </div>
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
@@ -322,7 +322,7 @@ export const ScreenProtection = ({
             visibility: hidden !important;
           }
           body::before {
-            content: "© Dr. Alexis Collier - 4 U.S. Patents Filed - Printing is disabled for this protected content.";
+            content: "© Dr. Alexis Collier - 5 U.S. Patents Filed - Printing is disabled for this protected content.";
             display: block !important;
             visibility: visible !important;
             text-align: center;

@@ -196,7 +196,7 @@ export function InvestigatorResources() {
         {/* Disclaimer */}
         <p className="text-[10px] text-muted-foreground text-center">
           All research collaborations require executed Data Use Agreements and IRB approval 
-          prior to data access. Technology protected by 4 U.S. patent applications.
+          prior to data access. Technology protected by 5 U.S. patent applications.
         </p>
       </CardContent>
     </Card>
