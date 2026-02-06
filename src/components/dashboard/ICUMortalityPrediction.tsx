@@ -115,7 +115,7 @@ const PIPELINE_STEPS = [
   { icon: <Timer className="w-4 h-4" />, label: 'EHR Timestamps', desc: 'Raw metadata' },
   { icon: <BarChart3 className="w-4 h-4" />, label: '15 Features', desc: 'Temporal extraction' },
   { icon: <Dna className="w-4 h-4" />, label: '4 Phenotypes', desc: 'K-means clustering' },
-  { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUC 0.741' },
+  { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUC 0.684' },
 ];
 
 // ── Main Component ──────────────────────────────────────────────────────────
@@ -312,9 +312,9 @@ export const ICUMortalityPrediction = () => {
             {/* Validation stats */}
             <div className="grid grid-cols-4 gap-2">
               {[
-                { label: 'Cohort', value: '35,782', sub: 'ICU admissions' },
+                { label: 'Cohort', value: '26,153', sub: 'ICU admissions' },
                 { label: 'Database', value: 'MIMIC-IV', sub: 'Validated' },
-                { label: 'AUC', value: '0.741', sub: 'XGBoost' },
+                { label: 'AUC', value: '0.684', sub: '95% CI: 0.653-0.715' },
                 { label: 'p-value', value: '<0.001', sub: 'Significant' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-muted/40 rounded-lg p-2.5 text-center border border-border/20">
