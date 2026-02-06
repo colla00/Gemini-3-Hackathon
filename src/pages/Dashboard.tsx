@@ -209,8 +209,8 @@ export const Dashboard = () => {
       {/* Enterprise Medical Header */}
       <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary w-full" aria-hidden="true" />
 
-      {/* Main Header Bar - Professional Enterprise */}
-      <header className="px-6 py-3 border-b border-border bg-card shadow-sm">
+      {/* Main Header Bar - VitaSignal Branded */}
+      <header className="px-6 py-3 border-b border-border bg-card/95 backdrop-blur-md shadow-sm">
         <div className="flex items-center justify-between gap-6 max-w-7xl mx-auto">
           {/* Left: Logo + App Title */}
           <div className="flex items-center gap-5">
@@ -224,15 +224,15 @@ export const Dashboard = () => {
             </Link>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm" aria-hidden="true">
-                <Activity className="w-5 h-5 text-primary-foreground" />
+              <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center shadow-sm" aria-hidden="true">
+                <Activity className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <h1 className="text-base font-bold text-foreground leading-tight tracking-tight">
-                  NSO Quality Dashboard
+                  VitaSignal
                 </h1>
                 <p className="text-[11px] text-muted-foreground font-medium tracking-wide">
-                  AI-Powered Nurse-Sensitive Outcome Prediction
+                  Clinical Intelligence Dashboard
                 </p>
               </div>
             </div>
@@ -383,8 +383,8 @@ export const Dashboard = () => {
         onNavigateToCalculator={handleNavigateToCalculator} 
       />
 
-      {/* Navigation Tabs - Professional Enterprise */}
-      <nav className="px-6 py-2 border-b border-border bg-secondary/30 overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
+      {/* Navigation Tabs - VitaSignal Enterprise */}
+      <nav className="px-6 py-2.5 border-b border-border bg-card/50 backdrop-blur-sm overflow-x-auto scrollbar-hide" aria-label="Dashboard views">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-1.5" role="tablist" aria-label="View options">
             {/* Primary Navigation Tabs */}
@@ -396,9 +396,9 @@ export const Dashboard = () => {
                 aria-selected={activeView === item.id}
                 aria-controls={`${item.id}-panel`}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap",
                   activeView === item.id
-                    ? "bg-primary text-primary-foreground shadow-sm"
+                    ? "bg-primary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 )}
               >
@@ -495,18 +495,16 @@ export const Dashboard = () => {
         </div>
       </main>
 
-      {/* Professional Footer Status Bar */}
+      {/* VitaSignal Footer Status Bar */}
       <footer className="fixed bottom-0 left-0 right-0 z-50 py-2.5 px-6 bg-card/98 backdrop-blur-md border-t border-border shadow-sm" role="contentinfo">
         <div className="flex items-center justify-between text-xs text-muted-foreground max-w-7xl mx-auto">
           <div className="flex items-center gap-4">
-            <span className="hidden sm:inline font-medium">Synthetic Demo Data</span>
+            <span className="hidden sm:inline font-medium text-foreground">VitaSignal</span>
+            <span className="hidden sm:inline text-muted-foreground">Synthetic Demo Data</span>
             <span className="hidden md:inline text-border/50" aria-hidden="true">|</span>
             <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-md bg-warning/10 border border-warning/20">
               <User className="w-3.5 h-3.5 text-warning" aria-hidden="true" />
               <span className="text-warning font-semibold text-[11px]">Human-in-the-Loop Required</span>
-            </div>
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20">
-              <span className="text-primary font-medium text-[11px]">FDA 21 CFR Part 11 Ready</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -515,7 +513,7 @@ export const Dashboard = () => {
               <span>5 Patents Filed</span>
             </div>
             <span className="text-border/50" aria-hidden="true">|</span>
-            <span className="text-muted-foreground/70">v1.0.0 Enterprise</span>
+            <Link to="/patents" className="text-primary hover:underline font-medium">Patent Portfolio</Link>
           </div>
         </div>
       </footer>
