@@ -367,7 +367,7 @@ export const PatentEvidence = () => {
                 NSO Quality Dashboard
               </h1>
               <p className="text-sm text-muted-foreground mb-3">
-                4 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
+                5 U.S. Patents Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System • ICU Mortality Prediction
               </p>
               <div className="flex flex-wrap gap-4 text-xs">
                 <div className="flex items-center gap-1.5">
@@ -376,18 +376,80 @@ export const PatentEvidence = () => {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Filing:</span>
-                  <span className="text-foreground font-medium">4 U.S. Provisional Applications</span>
+                  <span className="text-foreground font-medium">5 U.S. Provisional Applications</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Date:</span>
-                  <span className="text-foreground font-medium">December 2025 – January 2026</span>
+                  <span className="text-foreground font-medium">December 2025 – February 2026</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-muted-foreground">Claims:</span>
-                  <span className="text-foreground font-medium">80+ Total</span>
+                  <span className="text-foreground font-medium">175+ Total</span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* NEW: ICU Mortality Patent Highlight */}
+        <div className="bg-card rounded-xl border border-accent/30 p-6 mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="px-2 py-0.5 rounded bg-risk-low/20 text-risk-low text-[10px] font-bold uppercase tracking-wider">New Filing</div>
+            <span className="text-xs text-muted-foreground">February 5, 2026</span>
+            <span className="px-2 py-0.5 rounded bg-accent/10 text-accent text-[10px] font-medium">NIH-Funded Research (K12 HL138039-06)</span>
+          </div>
+          <h2 className="text-lg font-bold text-foreground mb-2">
+            ICU Mortality Prediction from EHR Documentation Rhythm Patterns
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata. The invention eliminates the need for physiological monitoring equipment by analyzing the "human sensor" signal of nursing surveillance.
+          </p>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">
+              <div className="text-2xl font-bold text-foreground">99</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Claims Filed</div>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">
+              <div className="text-2xl font-bold text-foreground">15</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Temporal Features</div>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">
+              <div className="text-2xl font-bold text-foreground">0.741</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">AUC Performance</div>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">
+              <div className="text-2xl font-bold text-foreground">$0</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Equipment Cost</div>
+            </div>
+          </div>
+
+          {/* Phenotype Table */}
+          <div className="rounded-lg border border-border/30 overflow-hidden mb-4">
+            <div className="bg-secondary/30 px-4 py-2 text-xs font-semibold text-foreground uppercase tracking-wider">
+              4 Clinical Documentation Phenotypes
+            </div>
+            <div className="divide-y divide-border/20">
+              {[
+                { name: 'Steady Surveillance', mortality: '3.2%', desc: 'Low CV, Moderate Frequency, Stable', color: 'text-risk-low' },
+                { name: 'Minimal Documentation', mortality: '12.3%', desc: 'Low Frequency, Large Gaps', color: 'text-warning' },
+                { name: 'Escalating Crisis', mortality: '18.7%', desc: 'High Frequency, High Acceleration', color: 'text-risk-high' },
+                { name: 'Chaotic Instability', mortality: '24.1%', desc: 'High Entropy, High CV, Irregular', color: 'text-destructive' },
+              ].map((p) => (
+                <div key={p.name} className="flex items-center justify-between px-4 py-3">
+                  <div>
+                    <span className="text-sm font-medium text-foreground">{p.name}</span>
+                    <span className="text-xs text-muted-foreground ml-2">{p.desc}</span>
+                  </div>
+                  <span className={`text-sm font-bold ${p.color}`}>{p.mortality}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+            <Shield className="w-3 h-3" />
+            <span>Validated on MIMIC-IV dataset (n=26,153) · 7.5-fold mortality stratification · 11-year temporal validation</span>
           </div>
         </div>
 

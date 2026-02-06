@@ -1,7 +1,7 @@
 import { FileText, Award, Shield, Lightbulb, User, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PATENT_PORTFOLIO, PATENT_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER, PATENT_4_NUMBER } from '@/constants/patent';
+import { PATENT_PORTFOLIO, PATENT_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER, PATENT_4_NUMBER, PATENT_5_NUMBER } from '@/constants/patent';
 
 export const PatentNotice = () => {
   const filedPatents = PATENT_PORTFOLIO.filter(p => p.status === 'filed');
@@ -59,8 +59,8 @@ export const PatentNotice = () => {
           <div className="flex items-start gap-2 p-3 rounded bg-background/50 border border-border/30">
             <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
             <div>
-              <span className="font-medium block text-foreground">80+ Claims</span>
-              <span className="text-muted-foreground">4 integrated systems</span>
+              <span className="font-medium block text-foreground">175+ Claims</span>
+              <span className="text-muted-foreground">5 integrated systems</span>
             </div>
           </div>
           <div className="flex items-start gap-2 p-3 rounded bg-background/50 border border-border/30">
@@ -80,7 +80,7 @@ export const PatentNotice = () => {
   );
 };
 
-export const PatentBadge = ({ className = '', contextPatent }: { className?: string; contextPatent?: 'trust' | 'risk' | 'unified' | 'dbs' }) => {
+export const PatentBadge = ({ className = '', contextPatent }: { className?: string; contextPatent?: 'trust' | 'risk' | 'unified' | 'dbs' | 'icu' }) => {
   // Context-specific patent display
   const getPatentInfo = () => {
     switch (contextPatent) {
@@ -92,6 +92,8 @@ export const PatentBadge = ({ className = '', contextPatent }: { className?: str
         return { number: PATENT_3_NUMBER, name: 'Unified Platform' };
       case 'dbs':
         return { number: PATENT_4_NUMBER, name: 'DBS System' };
+      case 'icu':
+        return { number: PATENT_5_NUMBER, name: 'ICU Mortality Prediction' };
       default:
         return null;
     }
