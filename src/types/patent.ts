@@ -1,8 +1,8 @@
 // Patent domain types - centralized for reuse across components
 
-export type ClaimCategory = 'system' | 'explainability' | 'forecasting' | 'thresholds' | 'feedback' | 'workflow' | 'trust' | 'equity' | 'dbs' | 'workload' | 'integration';
+export type ClaimCategory = 'system' | 'explainability' | 'forecasting' | 'thresholds' | 'feedback' | 'workflow' | 'trust' | 'equity' | 'dbs' | 'workload' | 'integration' | 'temporal' | 'phenotype';
 export type ClaimStatus = 'implemented' | 'demonstrated' | 'prototype';
-export type PatentId = 'trust-alerts' | 'risk-intelligence' | 'unified-platform' | 'dbs-system';
+export type PatentId = 'trust-alerts' | 'risk-intelligence' | 'unified-platform' | 'dbs-system' | 'icu-mortality';
 
 export interface PatentClaim {
   number: number;

@@ -1,4 +1,4 @@
-import { Brain, BarChart3, Clock, Sliders, RefreshCw, Activity, Shield, Heart, Users, FileText, Layers } from 'lucide-react';
+import { Brain, BarChart3, Clock, Sliders, RefreshCw, Activity, Shield, Heart, Users, FileText, Layers, Timer, Dna } from 'lucide-react';
 import type { PatentClaim, CategoryConfig, ClaimCategory } from '@/types/patent';
 
 // ========== PATENT #1: TRUST-BASED ALERT SYSTEM (63/946,187) ==========
@@ -457,12 +457,127 @@ const DBS_SYSTEM_CLAIMS: PatentClaim[] = [
   },
 ];
 
+// ========== PATENT #5: ICU MORTALITY PREDICTION (Filed Feb 2026) ==========
+const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
+  {
+    number: 1,
+    title: 'Documentation Rhythm Pattern Analysis System',
+    description: 'A system and method for predicting ICU mortality utilizing documentation rhythm patterns derived from EHR timestamp metadata, implementing a "human sensor" approach that treats nursing documentation patterns as a physiological signal.',
+    category: 'temporal',
+    implementation: 'Temporal feature extraction pipeline analyzing documentation timestamps to detect rhythm patterns indicative of clinical status.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'dashboard',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 2,
+    title: 'Temporal Feature Extraction Module',
+    description: 'The system of claim 1, comprising extraction of 15 temporal features organized into three domains: documentation intensity (notes per hour, burst frequency), regularity metrics (coefficient of variation, entropy), and pattern features (circadian alignment, gap duration).',
+    category: 'temporal',
+    implementation: 'Feature extraction engine computing 15 temporal metrics from EHR timestamp data across intensity, regularity, and pattern domains.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'prototype',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 3,
+    title: 'Clinical Documentation Phenotype Clustering',
+    description: 'An unsupervised clustering module identifying four distinct clinical documentation phenotypes: Steady Surveillance (3.2% mortality), Minimal Documentation (8.7% mortality), Escalating Crisis (15.3% mortality), and Chaotic Instability (24.1% mortality).',
+    category: 'phenotype',
+    implementation: 'K-means clustering visualization showing four phenotype clusters with mortality stratification and transition probabilities.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 4,
+    title: 'Equipment-Independent Risk Stratification',
+    description: 'The system of claim 1, achieving AUC of 0.741 for mortality prediction using only EHR timestamp metadata without requiring physiological monitoring equipment, enabling deployment in resource-limited settings.',
+    category: 'system',
+    implementation: 'Risk stratification module operating on timestamp-only data, validated against MIMIC-IV with 35,782 ICU admissions.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 5,
+    title: 'Documentation Entropy Calculator',
+    description: 'A method for calculating documentation entropy as a measure of documentation pattern disorder, wherein higher entropy values correlate with clinical instability and adverse outcomes.',
+    category: 'temporal',
+    implementation: 'Shannon entropy calculation from documentation interval distributions with real-time monitoring and trend alerts.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'prototype',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 6,
+    title: 'Phenotype Transition Detection',
+    description: 'The system of claim 3, further comprising real-time phenotype transition detection that identifies patients moving between documentation phenotypes, with transitions to Chaotic Instability triggering early warning alerts.',
+    category: 'phenotype',
+    implementation: 'Phenotype state machine tracking transitions between clusters with alert generation on deterioration trajectories.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'prototype',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 7,
+    title: 'Circadian Documentation Alignment',
+    description: 'The system of claim 2, wherein circadian alignment scores quantify deviation from expected documentation patterns across day/night cycles, with misalignment serving as an independent mortality predictor.',
+    category: 'temporal',
+    implementation: 'Circadian rhythm visualization showing documentation density across 24-hour periods with alignment scoring.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'prototype',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 8,
+    title: 'Zero-Cost Monitoring Deployment',
+    description: 'A deployment method for the system of claim 4, requiring zero additional hardware or equipment costs, utilizing only existing EHR infrastructure to provide mortality risk stratification.',
+    category: 'system',
+    implementation: 'Deployment architecture leveraging existing EHR data streams with no additional sensor requirements.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 9,
+    title: 'Multi-Model Ensemble Prediction',
+    description: 'The system of claim 1, employing an ensemble of gradient boosting, random forest, and logistic regression models with model-specific feature importance extraction.',
+    category: 'system',
+    implementation: 'Ensemble model comparison showing XGBoost (AUC 0.741), Random Forest (0.718), and Logistic Regression (0.695) with feature importance rankings.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+  {
+    number: 10,
+    title: 'MIMIC-IV Validated Cohort Analysis',
+    description: 'The system of claim 4, validated on a cohort of 35,782 ICU admissions from the MIMIC-IV database with 11.2% overall mortality rate, demonstrating statistically significant phenotype-mortality associations (p < 0.001).',
+    category: 'system',
+    implementation: 'Research validation dashboard showing cohort demographics, mortality outcomes, and statistical significance metrics.',
+    componentPath: 'src/components/dashboard/Dashboard.tsx',
+    status: 'demonstrated',
+    demoSection: 'patents',
+    patentId: 'icu-mortality'
+  },
+];
+
 // Combined patent claims array
 export const PATENT_CLAIMS: PatentClaim[] = [
   ...TRUST_ALERT_CLAIMS,
   ...RISK_INTELLIGENCE_CLAIMS,
   ...UNIFIED_PLATFORM_CLAIMS,
   ...DBS_SYSTEM_CLAIMS,
+  ...ICU_MORTALITY_CLAIMS,
 ];
 
 // Helper to get claims by patent ID
@@ -482,6 +597,8 @@ export const CATEGORY_CONFIG: Record<ClaimCategory, CategoryConfig> = {
   dbs: { label: 'Documentation Burden', icon: FileText, color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/30' },
   workload: { label: 'Workload Prediction', icon: Users, color: 'text-amber-500 bg-amber-500/10 border-amber-500/30' },
   integration: { label: 'Platform Integration', icon: Layers, color: 'text-violet-500 bg-violet-500/10 border-violet-500/30' },
+  temporal: { label: 'Temporal Patterns', icon: Timer, color: 'text-rose-500 bg-rose-500/10 border-rose-500/30' },
+  phenotype: { label: 'Clinical Phenotypes', icon: Dna, color: 'text-teal-500 bg-teal-500/10 border-teal-500/30' },
 };
 
 // Patent metadata for display
@@ -505,5 +622,10 @@ export const PATENT_METADATA = {
     number: '63/966,099',
     shortName: 'DBS System',
     claimCount: DBS_SYSTEM_CLAIMS.length,
+  },
+  'icu-mortality': {
+    number: 'Pending',
+    shortName: 'ICU Mortality Prediction',
+    claimCount: ICU_MORTALITY_CLAIMS.length,
   },
 };

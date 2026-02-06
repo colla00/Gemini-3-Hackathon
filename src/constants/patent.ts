@@ -113,6 +113,7 @@ export const VIDEO_SECTIONS: Record<string, { title: string; duration: string; c
   patients: { title: 'Patient Worklist Recording', duration: '3-4 min', claims: [4, 8, 11, 16] },
   shap: { title: 'SHAP Explainability Recording', duration: '4-5 min', claims: [2, 3, 17, 18] },
   workflow: { title: 'Clinical Workflow Recording', duration: '5-6 min', claims: [5, 6, 7, 9, 10, 13, 14] },
+  icu: { title: 'ICU Mortality Prediction Recording', duration: '3-4 min', claims: [1, 2, 3, 4] },
 };
 
 // Demo section labels for cross-referencing
