@@ -8,7 +8,7 @@ export const WhatIsVitaSignal = () => (
         <p className="text-base md:text-lg leading-relaxed">
           VitaSignal™ is a suite of patent-pending AI systems that analyze clinical
           documentation patterns to predict patient deterioration and optimize nursing
-          workflows—without requiring any additional monitoring equipment.
+          workflows without requiring any additional monitoring equipment.
         </p>
         <div className="p-6 rounded-xl bg-primary/5 border border-primary/20">
           <p className="font-semibold text-foreground mb-2">The Innovation:</p>
