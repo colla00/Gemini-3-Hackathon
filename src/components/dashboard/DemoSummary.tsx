@@ -1,4 +1,4 @@
-import { CheckCircle, Target, Brain, Users, Shield, TrendingUp, Database } from 'lucide-react';
+import { CheckCircle, Target, Brain, Users, Shield, TrendingUp, Database, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const summaryPoints = [
@@ -31,7 +31,7 @@ const summaryPoints = [
 
 const dataSources = [
   { name: 'HiRID', desc: 'Reference dataset' },
-  { name: 'MIMIC-IV', desc: 'Reference dataset' },
+  { name: 'MIMIC-IV', desc: 'Validated (AUC 0.741)' },
   { name: 'eICU-CRD', desc: 'Reference dataset' },
 ];
 
@@ -43,11 +43,16 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
   return (
     <div className={cn("bg-card rounded-2xl border border-border/40 p-6 shadow-lg", className)}>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-foreground mb-2 tracking-tight">
-          EHR-Driven Quality Dashboard
-        </h2>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+            <Activity className="w-4 h-4 text-primary" />
+          </div>
+          <h2 className="text-xl font-bold text-foreground tracking-tight">
+            VitaSignal Clinical Intelligence
+          </h2>
+        </div>
         <p className="text-sm text-muted-foreground font-medium">
-          Clinician-facing interface for nurse-sensitive outcome prediction
+          AI-powered nurse-sensitive outcome prediction · 5 U.S. patents filed
         </p>
       </div>
 
@@ -73,7 +78,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
       <div className="flex flex-wrap items-center justify-center gap-4 py-3 border-t border-b border-border/30 mb-4">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Database className="w-3.5 h-3.5" />
-          <span className="font-semibold">Planned data sources:</span>
+          <span className="font-semibold">Data sources:</span>
         </div>
         {dataSources.map((source) => (
           <div key={source.name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/60 border border-border/40 shadow-sm">
@@ -86,7 +91,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
       <div className="flex items-center justify-center gap-2">
         <CheckCircle className="w-4 h-4 text-primary" />
         <span className="text-xs text-muted-foreground font-medium">
-          Research prototype · Synthetic demonstration data
+          VitaSignal Research Prototype · Synthetic demonstration data
         </span>
       </div>
     </div>

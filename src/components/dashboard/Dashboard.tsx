@@ -20,6 +20,7 @@ import { ROICalculator } from './ROICalculator';
 import { LinkedCalculatorView } from './LinkedCalculatorView';
 import { ResearchCharts } from './ResearchCharts';
 import { AIToolsPanel } from './AIToolsPanel';
+import { ICUMortalityPrediction } from './ICUMortalityPrediction';
 import { SkipLink } from '@/components/SkipLink';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
@@ -27,7 +28,7 @@ import { usePatients } from '@/hooks/usePatients';
 import { usePatientSelection } from '@/hooks/usePatientSelection';
 import { useDemoScenarios } from '@/hooks/useDemoScenarios';
 import { useTimeOffset } from '@/hooks/useTimeOffset';
-import { Activity, FileText, DollarSign, Link2, BarChart3, Sparkles } from 'lucide-react';
+import { Activity, FileText, DollarSign, Link2, BarChart3, Sparkles, HeartPulse } from 'lucide-react';
 
 // Skip link targets for keyboard navigation (WCAG 2.1 AA)
 const skipLinkTargets = [
@@ -45,7 +46,7 @@ export const Dashboard = () => {
   // Initialize activeTab from URL param or default to 'dashboard'
   const initialTab = searchParams.get('tab') || 'dashboard';
   const [activeTab, setActiveTab] = useState(
-    ['dashboard', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(initialTab) 
+    ['dashboard', 'icu-mortality', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(initialTab) 
       ? initialTab 
       : 'dashboard'
   );
@@ -53,7 +54,7 @@ export const Dashboard = () => {
   // Handle tab query parameter changes after initial load
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam && ['dashboard', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(tabParam)) {
+    if (tabParam && ['dashboard', 'icu-mortality', 'dbs', 'roi', 'linked', 'charts', 'ai-tools'].includes(tabParam)) {
       setActiveTab(tabParam);
       // Clear the query param after setting the tab
       setSearchParams({}, { replace: true });
@@ -130,6 +131,10 @@ export const Dashboard = () => {
                 <Activity className="h-4 w-4" />
                 Dashboard
               </TabsTrigger>
+              <TabsTrigger value="icu-mortality" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+                <HeartPulse className="h-4 w-4" />
+                ICU Mortality
+              </TabsTrigger>
               <TabsTrigger value="dbs" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <FileText className="h-4 w-4" />
                 DBS Score
@@ -146,7 +151,7 @@ export const Dashboard = () => {
                 <BarChart3 className="h-4 w-4" />
                 Research Charts
               </TabsTrigger>
-              <TabsTrigger value="ai-tools" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="ai-tools" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <Sparkles className="h-4 w-4" />
                 AI Tools
               </TabsTrigger>
@@ -253,6 +258,10 @@ export const Dashboard = () => {
 
             <TabsContent value="ai-tools" className="mt-0">
               <AIToolsPanel />
+            </TabsContent>
+
+            <TabsContent value="icu-mortality" className="mt-0">
+              <ICUMortalityPrediction />
             </TabsContent>
           </Tabs>
         )}
