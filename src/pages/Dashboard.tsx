@@ -50,18 +50,18 @@ const primaryNavItems: { id: ViewType; label: string; icon: React.ReactNode; isC
   { id: 'icu-mortality', label: 'ICU Mortality', icon: <HeartPulse className="w-4 h-4" aria-hidden="true" /> },
   { id: 'patients', label: 'Patient Worklist', icon: <Users className="w-4 h-4" aria-hidden="true" /> },
   { id: 'shap', label: 'Risk Attribution', icon: <BarChart3 className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'workflow', label: 'Workflow Demo', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
-  { id: 'outcomes', label: 'Clinical Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'workflow', label: 'Clinical Workflow', icon: <GitBranch className="w-4 h-4" aria-hidden="true" /> },
+  { id: 'outcomes', label: 'Outcomes', icon: <TrendingDown className="w-4 h-4" aria-hidden="true" /> },
 ];
 
 // Calculator tabs with special styling
 const calculatorNavItems: { id: ViewType; label: string; icon: React.ReactNode; isCalculator: boolean }[] = [
-  { id: 'dbs', label: 'DBS Calculator', icon: <FileText className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
-  { id: 'roi', label: 'ROI Calculator', icon: <DollarSign className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
+  { id: 'dbs', label: 'DBS Score', icon: <FileText className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
+  { id: 'roi', label: 'ROI', icon: <DollarSign className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
   { id: 'ai-tools', label: 'AI Tools', icon: <Sparkles className="w-4 h-4" aria-hidden="true" />, isCalculator: true },
 ];
 
-// Secondary tabs - now displayed inline
+// Secondary tabs in More dropdown
 const secondaryNavItems: { id: ViewType; label: string; icon: React.ReactNode }[] = [
   { id: 'patent', label: 'Patent Features', icon: <FlaskConical className="w-4 h-4" aria-hidden="true" /> },
   { id: 'validation', label: 'Model Validation', icon: <Target className="w-4 h-4" aria-hidden="true" /> },
@@ -209,8 +209,8 @@ export const Dashboard = () => {
       {/* Screen Protection */}
       <ScreenProtection enabled={true} />
 
-      {/* Research Prototype Disclaimer */}
-      <ResearchDisclaimer />
+      {/* Research Prototype Disclaimer - subtle */}
+      <ResearchDisclaimer variant="watermark" />
 
       {/* Enterprise Medical Header */}
       <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary w-full" aria-hidden="true" />
@@ -369,16 +369,6 @@ export const Dashboard = () => {
                 <Settings className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
-
-            {/* User */}
-            <div className="flex items-center gap-2 pl-3 border-l border-border/50">
-              <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center" aria-hidden="true">
-                <User className="w-3.5 h-3.5 text-primary" />
-              </div>
-              <span className="hidden md:block text-xs font-medium text-foreground">
-                Demo User
-              </span>
-            </div>
           </div>
         </div>
       </header>
@@ -505,13 +495,9 @@ export const Dashboard = () => {
       <footer className="fixed bottom-0 left-0 right-0 z-50 py-2.5 px-6 bg-card/98 backdrop-blur-md border-t border-border shadow-sm" role="contentinfo">
         <div className="flex items-center justify-between text-xs text-muted-foreground max-w-7xl mx-auto">
           <div className="flex items-center gap-4">
-            <span className="hidden sm:inline font-medium text-foreground">VitaSignal</span>
-            <span className="hidden sm:inline text-muted-foreground">Synthetic Demo Data</span>
+            <span className="font-semibold text-foreground">VitaSignal</span>
             <span className="hidden md:inline text-border/50" aria-hidden="true">|</span>
-            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-md bg-warning/10 border border-warning/20">
-              <User className="w-3.5 h-3.5 text-warning" aria-hidden="true" />
-              <span className="text-warning font-semibold text-[11px]">Human-in-the-Loop Required</span>
-            </div>
+            <span className="hidden md:inline text-muted-foreground">Clinical Intelligence Platform</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-primary font-medium">
