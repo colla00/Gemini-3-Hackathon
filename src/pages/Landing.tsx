@@ -143,9 +143,9 @@ export const Landing = () => {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
-                  { label: "Validated AUC", value: "0.741", sub: "95% CI: 0.712-0.769" },
+                  { label: "Validated AUC", value: "0.684", sub: "95% CI: 0.653-0.715" },
                   { label: "Dataset Size", value: "26,153", sub: "ICU admissions" },
-                  { label: "Temporal Validation", value: "11 years", sub: "Mean AUC: 0.684" },
+                  { label: "Temporal Validation", value: "11 years", sub: "2008-2019" },
                   { label: "Equity Validated", value: "✓ Pass", sub: "AUC parity maintained" },
                 ].map((m) => (
                   <div key={m.label} className="bg-card p-3 rounded-lg border border-risk-low/20">

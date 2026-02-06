@@ -95,7 +95,7 @@ function Patents() {
                 <p className="font-semibold text-foreground mb-1">Validated Research Performance:</p>
                 <ul className="space-y-1">
                   <li>• Validated on large-scale ICU research datasets (n=26,153 admissions)</li>
-                  <li>• Strong predictive performance (AUC 0.741, 95% CI: 0.712-0.769)</li>
+                  <li>• Strong predictive performance (AUC 0.684, 95% CI: 0.653-0.715)</li>
                   <li>• 11-year temporal validation demonstrating consistency</li>
                   <li>• Equity validation across race/ethnicity (AUC parity maintained)</li>
                 </ul>

@@ -415,7 +415,7 @@ export const PatentEvidence = () => {
               <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Temporal Features</div>
             </div>
             <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">
-              <div className="text-2xl font-bold text-foreground">0.741</div>
+              <div className="text-2xl font-bold text-foreground">0.684</div>
               <div className="text-[10px] text-muted-foreground uppercase tracking-wider">AUC Performance</div>
             </div>
             <div className="p-3 rounded-lg bg-secondary/50 border border-border/30 text-center">

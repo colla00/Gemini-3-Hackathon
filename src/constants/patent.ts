@@ -81,7 +81,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     inventor: 'Dr. Alexis Collier',
     claimsCount: 99,
     nihFunded: true,
-    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata. The invention eliminates the need for physiological monitoring equipment by analyzing the "human sensor" signal of nursing surveillance. The system extracts 15 temporal features to quantify documentation intensity and regularity. An unsupervised clustering module identifies four distinct clinical phenotypes with significant mortality stratification (3.2% to 24.1%). Achieves AUC of 0.741, providing a cost-effective, equipment-independent solution for real-time risk stratification.'
+    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata. The invention eliminates the need for physiological monitoring equipment by analyzing the "human sensor" signal of nursing surveillance. The system extracts 9 temporal features to quantify documentation intensity and regularity. An unsupervised clustering module identifies four distinct clinical phenotypes with significant mortality stratification (3.2% to 24.1%). Achieves AUC of 0.684 (95% CI: 0.653-0.715), providing a cost-effective, equipment-independent solution for real-time risk stratification.'
   }
 ];
 
