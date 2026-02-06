@@ -24,7 +24,7 @@ export const PatentFeaturesView = () => {
               Patent Innovation Features
             </h2>
             <p className="text-sm text-muted-foreground mt-2">
-              Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System
+              Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System • ICU Mortality Prediction
             </p>
           </div>
           <div className="flex gap-2">
