@@ -6,6 +6,7 @@ import { ConfidenceIndicator } from './ConfidenceIndicator';
 import { InterventionsSummary } from './InterventionsPanel';
 import { ClinicalTooltip, MetricTooltip } from './ClinicalTooltip';
 import { AdaptiveThresholds } from './AdaptiveThresholds';
+import { FeaturedPatentCard } from '@/components/dashboard/FeaturedPatentCard';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 interface DashboardOverviewProps {
   liveSimulation?: {
@@ -266,6 +267,9 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
 
   return (
     <div className="space-y-4">
+      {/* Featured Patent #1 - ICU Mortality Prediction */}
+      <FeaturedPatentCard />
+
       {/* Quick Stats Row - Qualitative */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3" data-tour="quick-stats">
         <QuickStatCard 
@@ -370,7 +374,7 @@ export const DashboardOverview = ({ liveSimulation }: DashboardOverviewProps) =>
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          NSO Quality Dashboard – 5 U.S. Patents Filed
+          VitaSignal Clinical Intelligence – 5 U.S. Patents Filed
         </p>
       </div>
     </div>
