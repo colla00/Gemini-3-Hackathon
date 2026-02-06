@@ -35,6 +35,7 @@ const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdm
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Patents = lazy(() => import("./pages/Patents"));
+const Licensing = lazy(() => import("./pages/Licensing"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
@@ -126,6 +127,11 @@ const App = () => {
                   <Route path="/patents" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <Patents />
+                    </Suspense>
+                  } />
+                  <Route path="/licensing" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Licensing />
                     </Suspense>
                   } />
                   <Route path="/patent-evidence" element={
