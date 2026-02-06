@@ -1,446 +1,273 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  Award, FileText, Home, Brain,
-  Shield, Database, Users, ChevronDown, ChevronUp, Mail, Linkedin,
-  GraduationCap, Cpu, CheckCircle2
-} from 'lucide-react';
-import { CAPABILITIES, PATENT_FAMILIES, getPatentFamily } from '@/constants/capabilities';
-import { cn } from '@/lib/utils';
-import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { useAuditLog } from '@/hooks/useAuditLog';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { PATENT_PORTFOLIO } from '@/constants/patent';
-import alexisPhoto from '@/assets/alexis-collier.png';
-import { InvestigatorResources } from '@/components/about/InvestigatorResources';
-
-const faqs = [
-  {
-    question: "What is the NSO Quality Dashboard?",
-    answer: "It's a research prototype demonstrating how AI can help nurses identify patients at risk for nurse-sensitive outcomes like falls, pressure injuries, and hospital-acquired infections. All data shown is simulated for demonstration purposes."
-  },
-  {
-    question: "Is this system ready for clinical use?",
-    answer: "No. This is a research prototype intended for educational and demonstration purposes only. It has not been validated for clinical use and is not FDA cleared or approved."
-  },
-  {
-    question: "How does the risk prediction work?",
-    answer: "The system uses machine learning algorithms that analyze multiple patient factors to generate risk scores. SHAP (SHapley Additive exPlanations) values are used to explain which factors contribute most to each prediction."
-  },
-  {
-    question: "What outcomes does the system track?",
-    answer: "The prototype focuses on nurse-sensitive outcomes including falls, pressure injuries, CAUTI (catheter-associated urinary tract infections), CLABSI (central line-associated bloodstream infections), sepsis, and respiratory deterioration."
-  },
-  {
-    question: "Can I use this for my research?",
-    answer: "For research collaboration or licensing inquiries, please contact Dr. Alexis Collier at info@alexiscollier.com. Note that this technology is protected by 5 U.S. patent applications."
-  }
-];
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Activity, GraduationCap, Award, Building2, FileText, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function About() {
-  const { logAction } = useAuditLog();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const filedPatents = PATENT_PORTFOLIO.filter(p => p.status === 'filed');
-
-  useEffect(() => {
-    logAction({
-      action: 'view',
-      resource_type: 'about_page',
-      details: {
-        page: 'about',
-        timestamp: new Date().toISOString()
-      }
-    });
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
-      <ResearchDisclaimer />
-      
+
+      {/* Alert Banner */}
+      <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-2 text-center text-sm">
+        <span className="font-semibold text-destructive">⚠️ RESEARCH PROTOTYPE</span>
+        <span className="text-muted-foreground mx-2">•</span>
+        <span className="text-muted-foreground">Not FDA cleared or approved. Not a medical device. Not for clinical use. Simulated data only.</span>
+      </div>
+
       {/* Header */}
-      <header className="border-b border-border/40 bg-secondary/50">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link 
-              to="/"
-              className="p-2 rounded hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Back to Home"
-            >
-              <Home className="w-4 h-4" aria-hidden="true" />
-            </Link>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center">
-                <FileText className="w-4 h-4 text-primary" aria-hidden="true" />
+      <header className="border-b border-border/40 bg-card">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
+                <Activity className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h1 className="text-sm font-bold text-foreground">About This Research</h1>
-                <span className="text-[10px] text-muted-foreground">{filedPatents.length} U.S. Patents Filed</span>
+                <p className="text-lg font-bold text-foreground">VitaSignal</p>
+                <p className="text-xs text-muted-foreground">Clinical Intelligence</p>
               </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Link
-              to="/dashboard"
-              className="text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
-              View Dashboard →
             </Link>
+            <nav className="flex items-center gap-4">
+              <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Technology</Link>
+              <Link to="/about" className="text-sm text-primary font-medium">About</Link>
+              <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Contact</Link>
+              <ThemeToggle />
+              <Button variant="outline" size="sm" asChild>
+                <a href="mailto:licensing@dralexis.ceo">Licensing</a>
+              </Button>
+            </nav>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <div className="border-b border-border bg-gradient-to-r from-primary/10 via-accent/5 to-background">
-        <div className="max-w-4xl mx-auto px-6 py-12">
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <Badge variant="outline" className="gap-1">
-              <Award className="w-3 h-3" aria-hidden="true" />
-              Research Prototype
-            </Badge>
-            <Badge variant="secondary" className="gap-1">
-              <Shield className="w-3 h-3" aria-hidden="true" />
-              {filedPatents.length} U.S. Patents Filed
-            </Badge>
-            <Badge variant="secondary" className="gap-1 bg-accent/10 text-accent border-accent/30">
-              <FileText className="w-3 h-3" aria-hidden="true" />
-              80+ Claims
-            </Badge>
+      <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Dr. Alexis M. Collier</h1>
+          <p className="text-lg text-muted-foreground mb-6">
+            Inventor & Principal Investigator, VitaSignal Clinical Intelligence Platform
+          </p>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <Badge variant="secondary">NIH CLINAQ Fellow</Badge>
+            <Badge variant="secondary">AIM-AHEAD Researcher</Badge>
+            <Badge variant="secondary">Stanford AI+Health Presenter</Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">NSO Quality Dashboard</h1>
-          <p className="text-base text-muted-foreground max-w-2xl mb-4">
-            With Integrated Explainability, Temporal Forecasting, Adaptive Thresholds, and Closed-Loop Intervention Feedback
-          </p>
-          <p className="text-sm text-muted-foreground max-w-2xl">
-            A patent-protected AI-powered system designed to help nurses identify and respond to patient deterioration 
-            through predictive analytics and real-time monitoring. {filedPatents.length} U.S. patent applications filed under 35 U.S.C. § 111(b).
-          </p>
         </div>
-      </div>
+      </section>
 
-      <main id="main-content" className="max-w-4xl mx-auto px-6 py-12 space-y-8">
-        {/* Patent Portfolio */}
-        <Card className="border-accent/30 bg-accent/5">
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-accent" aria-hidden="true" />
-                <CardTitle className="text-base">U.S. Patent Portfolio</CardTitle>
-              </div>
-              <Badge variant="outline" className="bg-risk-low/10 border-risk-low/30 text-risk-low">
-                {filedPatents.length} Patents Filed
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Patent List - Simplified for IP Protection */}
-            <div className="grid gap-2">
-              {PATENT_PORTFOLIO.map((patent) => (
-                <div 
-                  key={patent.id} 
-                  className="p-3 rounded-lg bg-background/50 border border-border/30 flex items-center justify-between gap-3"
-                >
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-semibold text-foreground">
-                      {patent.shortName}
-                    </h4>
-                    {patent.status === 'filed' && (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-risk-low shrink-0" />
-                    )}
-                  </div>
-                  <Badge 
-                    variant="outline" 
-                    className={patent.status === 'filed' 
-                      ? 'bg-risk-low/10 border-risk-low/30 text-risk-low text-[10px]' 
-                      : 'bg-warning/10 border-warning/30 text-warning text-[10px]'
-                    }
-                  >
-                    {patent.status === 'filed' ? 'Filed' : 'Pending'}
-                  </Badge>
+      {/* Credentials */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Professional Credentials</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <CardTitle>Academic Credentials</CardTitle>
                 </div>
-              ))}
-            </div>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-1">
+                <p><strong className="text-foreground">DHA</strong> - Doctor of Health Administration</p>
+                <p>Specialized in clinical informatics, artificial intelligence, and healthcare systems optimization</p>
+              </CardContent>
+            </Card>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
-                <Shield className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <span className="font-medium block text-foreground">IP Protected</span>
-                  <span className="text-muted-foreground">35 U.S.C. § 111(b)</span>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-primary" />
+                  <CardTitle>Current Affiliation</CardTitle>
                 </div>
-              </div>
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
-                <Cpu className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <span className="font-medium block text-foreground">80+ Claims</span>
-                  <span className="text-muted-foreground">4 integrated systems</span>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50 border border-border/30">
-                <Users className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <span className="font-medium block text-foreground">Inventor</span>
-                  <span className="text-muted-foreground">Dr. Alexis Collier</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-1">
+                <p><strong className="text-foreground">University of North Georgia</strong></p>
+                <p>College of Health Sciences & Professions</p>
+                <p>Faculty researcher specializing in AI applications for nursing practice</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
-        {/* Team Information */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <GraduationCap className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Research Team</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Meet the team behind this research
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="p-6 rounded-lg border border-border bg-secondary/30">
-              <div className="flex flex-col sm:flex-row gap-6 items-start">
-                <img 
-                  src={alexisPhoto} 
-                  alt="Dr. Alexis Collier" 
-                  className="w-20 h-20 rounded-full object-cover object-top border-2 border-primary/40 shrink-0"
-                />
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold mb-1">Dr. Alexis Collier</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Principal Investigator • University of North Georgia
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    College of Health Sciences & Professions. Research focuses on the intersection 
-                    of artificial intelligence and nursing practice, with emphasis on improving 
-                    patient outcomes through predictive analytics.
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <Button variant="outline" size="sm" asChild>
-                      <a href="mailto:info@alexiscollier.com">
-                        <Mail className="w-4 h-4 mr-2" />
-                        Contact
-                      </a>
-                    </Button>
-                    <Button variant="ghost" size="sm" asChild>
-                      <a href="https://linkedin.com/in/alexiscollier" target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="w-4 h-4 mr-2" />
-                        LinkedIn
-                      </a>
-                    </Button>
-                  </div>
+      {/* Research Funding */}
+      <section className="py-16 px-6 bg-secondary/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Research Funding & Fellowships</h2>
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-primary" />
+                  <CardTitle>NIH CLINAQ Fellowship</CardTitle>
                 </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                <CardDescription>K12 HL138039-06</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Prestigious NIH training fellowship for clinical researchers advancing quality improvement
+                  in cardiovascular and pulmonary care through innovative analytical methods.
+                </p>
+              </CardContent>
+            </Card>
 
-        {/* Core Capabilities - Using Centralized Config */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <Brain className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Core Capabilities</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Key features designed to support clinical decision-making
-            </p>
-            {/* Patent Family Legend */}
-            <div className="flex flex-wrap gap-3 mt-3">
-              {Object.values(PATENT_FAMILIES).map((family) => (
-                <div key={family.id} className="flex items-center gap-1.5 text-xs">
-                  <span className={cn("w-2 h-2 rounded-full", family.dotClass)} />
-                  <span className="text-muted-foreground">{family.shortName}</span>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-primary" />
+                  <CardTitle>AIM-AHEAD Research Grant</CardTitle>
                 </div>
-              ))}
-            </div>
-          </CardHeader>
-          <CardContent className="grid md:grid-cols-2 gap-4">
-            {CAPABILITIES.map((capability) => {
-              const family = getPatentFamily(capability.patentFamilyId);
-              const IconComponent = capability.icon;
-              
-              return (
-                <div 
-                  key={capability.id}
-                  className={cn(
-                    "p-4 rounded-lg border bg-secondary/30",
-                    family?.borderClass || "border-border"
-                  )}
-                >
-                  <div className="flex items-start gap-3">
-                    <IconComponent className={cn("w-5 h-5 mt-1", family?.colorClass || "text-primary")} aria-hidden="true" />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold">{capability.title}</h3>
-                        <span className={cn(
-                          "text-[9px] px-1.5 py-0.5 rounded border",
-                          family?.bgClass,
-                          family?.borderClass,
-                          family?.colorClass
-                        )}>
-                          {family?.shortName}
-                        </span>
+                <CardDescription>1OT2OD032581 • $55,475 • Oct 2025 - Jul 2026</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Nursing Workload Optimization"</p>
+                <p className="text-sm text-muted-foreground">
+                  Funded research examining AI-driven approaches to reduce nursing documentation burden
+                  and optimize staffing decisions.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Research Focus */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Research Focus</h2>
+          <Card>
+            <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground">
+              <p>
+                Dr. Collier's research pioneered the concept of <strong className="text-foreground">equipment-independent clinical AI</strong> —
+                predictive models that extract actionable insights from existing clinical workflows without requiring
+                additional sensors, wearables, or monitoring devices.
+              </p>
+              <p>
+                This work challenges the prevailing paradigm that AI-driven early warning systems must rely on
+                continuous physiological monitoring. By analyzing temporal patterns in routine clinical documentation,
+                VitaSignal systems detect deterioration signals at zero hardware cost.
+              </p>
+              <div>
+                <p className="font-semibold text-foreground mb-2">Core Research Areas:</p>
+                <ul className="space-y-1">
+                  <li>• Temporal pattern analysis in clinical documentation</li>
+                  <li>• Clinical phenotype discovery for risk stratification</li>
+                  <li>• Equity validation in algorithmic decision-making</li>
+                  <li>• Nursing workload optimization through predictive analytics</li>
+                  <li>• Trust-based alert systems to reduce alarm fatigue</li>
+                </ul>
+              </div>
+              <p>
+                All research methods are validated on large-scale de-identified datasets with rigorous attention
+                to fairness, transparency, and clinical applicability.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Intellectual Property */}
+      <section className="py-16 px-6 bg-secondary/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Intellectual Property Portfolio</h2>
+          <Card>
+            <CardHeader>
+              <CardTitle>5 U.S. Provisional Patent Applications Filed</CardTitle>
+              <CardDescription>December 2025 - February 2026</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Dr. Collier is the sole inventor on all five provisional patent applications covering the VitaSignal platform.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { num: 1, title: "ICU Mortality Prediction", date: "Feb 5, 2026", app: "63/976,293", validated: true },
+                  { num: 2, title: "Unified Nursing Intelligence Platform", date: "Jan 22, 2026", app: "63/966,117" },
+                  { num: 3, title: "Documentation Burden & Staffing System", date: "Jan 22, 2026", app: "63/966,099" },
+                  { num: 4, title: "Trust-Based Alert Prioritization", date: "Dec 21, 2025", app: "63/946,187" },
+                  { num: 5, title: "Clinical Risk Intelligence", date: "Dec 6, 2025", app: "63/932,953" },
+                ].map((p) => (
+                  <div key={p.num} className="p-3 rounded-lg bg-secondary/50 border border-border/50">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">Patent #{p.num}: {p.title}</p>
+                        <p className="text-xs text-muted-foreground">Filed {p.date} • Application No. {p.app}</p>
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {capability.description}
-                      </p>
+                      {p.validated && <Badge className="bg-risk-low/10 text-risk-low border-risk-low/30" variant="outline">Validated Performance</Badge>}
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </CardContent>
-        </Card>
-
-        {/* FAQ Section */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <FileText className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Frequently Asked Questions</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Common questions about this research prototype
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {faqs.map((faq, index) => (
-              <Collapsible key={index} open={openFaq === index} onOpenChange={() => setOpenFaq(openFaq === index ? null : index)}>
-                <CollapsibleTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-between p-4 h-auto text-left hover:bg-secondary/50"
-                  >
-                    <span className="font-medium">{faq.question}</span>
-                    {openFaq === index ? (
-                      <ChevronUp className="w-4 h-4 shrink-0 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 shrink-0 text-muted-foreground" />
-                    )}
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="px-4 pb-4">
-                  <p className="text-sm text-muted-foreground">{faq.answer}</p>
-                </CollapsibleContent>
-              </Collapsible>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Investigator Resources */}
-        <InvestigatorResources />
-
-        {/* Target Outcomes - All Patents */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <Users className="w-5 h-5 text-primary" aria-hidden="true" />
-              <CardTitle>Target Outcomes & Applications</CardTitle>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Integrated capabilities across all 5 patent filings
-            </p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Clinical Risk Intelligence - Patent #2 */}
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-risk-high" />
-                Clinical Risk Outcomes
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">Falls Prevention</Badge>
-                <Badge variant="secondary">Pressure Injury Prevention</Badge>
-                <Badge variant="secondary">CAUTI Prevention</Badge>
-                <Badge variant="secondary">CLABSI Prevention</Badge>
-                <Badge variant="secondary">Sepsis Early Detection</Badge>
-                <Badge variant="secondary">Respiratory Deterioration</Badge>
+                ))}
               </div>
-            </div>
-            
-            {/* Trust-Based Alert System - Patent #1 */}
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Alert Optimization
+              <p className="text-xs text-muted-foreground">
+                Non-provisional applications due December 2026 - February 2027 under 35 U.S.C. § 111(b)
               </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">Trust Score Calibration</Badge>
-                <Badge variant="secondary">Alert Fatigue Reduction</Badge>
-                <Badge variant="secondary">Provider Response Patterns</Badge>
-                <Badge variant="secondary">Cognitive Load Management</Badge>
-              </div>
-            </div>
-            
-            {/* Unified Nursing Intelligence - Patent #3 */}
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-accent" />
-                Unified Intelligence
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">Multi-Outcome Prediction</Badge>
-                <Badge variant="secondary">Workload Optimization</Badge>
-                <Badge variant="secondary">Staffing Recommendations</Badge>
-                <Badge variant="secondary">Equity Monitoring</Badge>
-              </div>
-            </div>
-            
-            {/* DBS System - Patent #4 */}
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-warning" />
-                Documentation Burden
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">DBS Prediction</Badge>
-                <Badge variant="secondary">Quartile Classification</Badge>
-                <Badge variant="secondary">Administrative Burden Reduction</Badge>
-                <Badge variant="secondary">Real-Time Workload Scoring</Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-        {/* Research Status */}
-        <Card className="border-warning/30">
-          <CardHeader>
-            <div className="flex items-center gap-2 mb-2">
-              <Database className="w-5 h-5 text-warning" aria-hidden="true" />
-              <CardTitle>Research Status</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 rounded-lg border border-warning/30 bg-warning/5">
-              <p className="text-sm font-medium mb-2">This is a Research Prototype</p>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Uses synthetic data for demonstration purposes</li>
-                <li>• Not validated for clinical use</li>
-                <li>• Not FDA cleared or approved</li>
-                <li>• Requires IRB approval and clinical trials before deployment</li>
-                <li>• All intellectual property rights reserved</li>
-              </ul>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              © 2025–2026 Dr. Alexis Collier. All rights reserved. {filedPatents.length} U.S. Patents Filed pursuant to 35 U.S.C. § 111(b). 
-              For licensing inquiries or research collaboration, please contact info@alexiscollier.com.
-            </p>
-          </CardContent>
-        </Card>
-      </main>
+      {/* Presentations & Recognition */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Presentations & Recognition</h2>
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-primary" />
+                <CardTitle>Stanford AI+Health Conference 2025</CardTitle>
+              </div>
+              <CardDescription>December 2025 • Stanford University</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+                Presented VitaSignal research findings to leading healthcare AI researchers and clinicians at
+                one of the nation's premier conferences on artificial intelligence in medicine.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-16 px-6 bg-primary text-primary-foreground">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-4">Work With Dr. Collier</h2>
+          <p className="text-primary-foreground/80 mb-8">
+            Interested in research collaborations, licensing partnerships, or speaking engagements?
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="secondary" size="lg" asChild>
+              <a href="mailto:contact@dralexis.ceo">
+                <Mail className="w-5 h-5 mr-2" />
+                Get in Touch
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <a href="mailto:licensing@dralexis.ceo">Licensing Inquiries</a>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer role="contentinfo" className="border-t border-border bg-secondary/30 py-6">
-        <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground space-y-1">
-          <p>© {new Date().getFullYear()} Dr. Alexis Collier. All Rights Reserved.</p>
-          <p>NSO Quality Dashboard • {filedPatents.length} U.S. Patents Filed · 35 U.S.C. § 111(b) • Not for Clinical Use</p>
+      <footer className="py-10 px-6 border-t border-border/30 bg-secondary/30">
+        <div className="max-w-6xl mx-auto flex flex-col items-center text-center gap-4">
+          <div className="flex items-center gap-2">
+            <Activity className="w-4 h-4 text-primary" />
+            <span className="font-bold text-foreground">VitaSignal</span>
+          </div>
+          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
+            <span className="text-border">|</span>
+            <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
+            <span className="text-border">|</span>
+            <Link to="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Technology</Link>
+            <span className="text-border">|</span>
+            <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
+          </div>
         </div>
       </footer>
     </div>
