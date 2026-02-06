@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, Users, Bell, TrendingUp, DollarSign, Clock, Shield, Award, Mail } from "lucide-react";
+import { Activity, Users, Bell, TrendingUp, DollarSign, Clock, Shield, Award, Mail, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { WalkthroughRequestModal } from "@/components/WalkthroughRequestModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -105,66 +105,101 @@ export const Landing = () => {
         </div>
       </section>
 
-      {/* Platform Components */}
+      {/* Platform Overview - Patent #1 Featured */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
             Platform Components
           </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Activity className="w-5 h-5 text-primary" />
-                  <CardTitle>VitaSignal Mortality</CardTitle>
-                </div>
-                <CardDescription>ICU mortality prediction using temporal documentation analysis.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Badge className="bg-risk-low/10 text-risk-low border-risk-low/30" variant="outline">
-                  ✓ Validated on large-scale research datasets with strong predictive performance.
+
+          {/* Featured: Patent #1 - Validated */}
+          <Card className="border-2 border-risk-low/40 bg-risk-low/5 mb-8">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                <Badge className="bg-risk-low text-white px-3 py-1.5 text-xs">
+                  ✓ VALIDATED PERFORMANCE • MOST RECENT FILING
                 </Badge>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Users className="w-5 h-5 text-primary" />
-                  <CardTitle>VitaSignal Nursing</CardTitle>
+                <Badge variant="outline" className="text-xs border-risk-low/50 text-risk-low">
+                  Patent #1 • Filed Feb 5, 2026
+                </Badge>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Activity className="w-8 h-8 text-primary-foreground" />
                 </div>
-                <CardDescription>Workload prediction and staffing optimization to reduce burnout.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Badge variant="outline">⚙️ Design phase; pilot studies planned.</Badge>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Bell className="w-5 h-5 text-primary" />
-                  <CardTitle>VitaSignal Alerts</CardTitle>
+                <div className="flex-1">
+                  <CardTitle className="text-xl mb-1">VitaSignal Mortality</CardTitle>
+                  <CardDescription className="text-base">
+                    ICU mortality prediction using temporal documentation analysis
+                  </CardDescription>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                    <strong className="text-foreground">Only VitaSignal component with validated research performance.</strong> Predicts ICU mortality
+                    risk by analyzing temporal patterns in routine clinical documentation without requiring additional sensors
+                    or monitoring equipment.
+                  </p>
                 </div>
-                <CardDescription>Trust-based alert prioritization to reduce alarm fatigue by 40-70%.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Badge variant="outline">⚙️ Design phase; clinical validation ongoing.</Badge>
-              </CardContent>
-            </Card>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { label: "Validated AUC", value: "0.741", sub: "95% CI: 0.712-0.769" },
+                  { label: "Dataset Size", value: "26,153", sub: "ICU admissions" },
+                  { label: "Temporal Validation", value: "11 years", sub: "Mean AUC: 0.684" },
+                  { label: "Equity Validated", value: "✓ Pass", sub: "AUC parity maintained" },
+                ].map((m) => (
+                  <div key={m.label} className="bg-card p-3 rounded-lg border border-risk-low/20">
+                    <p className="text-xs text-muted-foreground mb-1">{m.label}</p>
+                    <p className="text-xl font-bold text-risk-low">{m.value}</p>
+                    <p className="text-xs text-muted-foreground">{m.sub}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-3 mt-4">
+                <Button size="sm" asChild>
+                  <Link to="/patents">View Full Technical Details</Link>
+                </Button>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/licensing">Licensing Inquiries</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                  <CardTitle>VitaSignal Risk</CardTitle>
-                </div>
-                <CardDescription>Real-time risk stratification with explainable AI.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Badge variant="outline">⚙️ Design phase; clinical validation ongoing.</Badge>
-              </CardContent>
-            </Card>
+          {/* Other Patents (Design Phase) */}
+          <div className="bg-secondary/50 p-6 rounded-xl border border-border/50">
+            <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-muted-foreground" />
+              Additional Patent-Pending Systems (Design Phase)
+            </h4>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { icon: Users, name: "VitaSignal Nursing", desc: "Unified nursing intelligence and workload optimization", num: 2, date: "Jan 22, 2026" },
+                { icon: FileText, name: "VitaSignal DBS", desc: "Documentation burden scoring and staffing recommendations", num: 3, date: "Jan 22, 2026" },
+                { icon: Bell, name: "VitaSignal Alerts", desc: "Trust-based alert prioritization to reduce fatigue", num: 4, date: "Dec 21, 2025" },
+                { icon: TrendingUp, name: "VitaSignal Risk", desc: "Real-time risk stratification with explainable AI", num: 5, date: "Dec 6, 2025" },
+              ].map((p) => (
+                <Card key={p.num} className="border-border/50">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <p.icon className="w-5 h-5 text-primary" />
+                      <Badge variant="outline" className="text-xs">Design Phase</Badge>
+                    </div>
+                    <CardTitle className="text-sm">{p.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-xs text-muted-foreground mb-2">{p.desc}</p>
+                    <Badge variant="secondary" className="text-xs">Patent #{p.num} • {p.date}</Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="mt-4 bg-accent/50 border border-accent p-3 rounded-lg">
+              <p className="text-xs text-muted-foreground">
+                <strong className="text-foreground">Note:</strong> Patents #2-5 are in design phase with projected performance goals.
+                Clinical validation studies planned. Performance metrics are NOT validated.
+              </p>
+            </div>
           </div>
         </div>
       </section>
