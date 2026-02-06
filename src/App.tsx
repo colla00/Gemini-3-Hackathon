@@ -33,6 +33,8 @@ const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ de
 const PatentEvidence = lazy(() => import("./pages/PatentEvidence").then(m => ({ default: m.PatentEvidence })));
 const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
 const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Patents = lazy(() => import("./pages/Patents"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
@@ -114,6 +116,16 @@ const App = () => {
                   <Route path="/about" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <About />
+                    </Suspense>
+                  } />
+                  <Route path="/contact" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Contact />
+                    </Suspense>
+                  } />
+                  <Route path="/patents" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Patents />
                     </Suspense>
                   } />
                   <Route path="/patent-evidence" element={
