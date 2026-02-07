@@ -16,7 +16,6 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
-  PresentationSkeleton, 
   AdminSkeleton 
 } from "@/components/skeletons";
 
@@ -28,10 +27,6 @@ import NotFound from "./pages/NotFound";
 // Lazy loaded (heavy components)
 const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m.Dashboard })));
 const NursingDashboard = lazy(() => import("./pages/NursingDashboard"));
-const Presentation = lazy(() => import("./pages/Presentation").then(m => ({ default: m.Presentation })));
-const AIToolsRedirect = lazy(() => import("./pages/AIToolsRedirect").then(m => ({ default: m.AIToolsRedirect })));
-const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ default: m.RecordingDemo })));
-const PatentEvidence = lazy(() => import("./pages/PatentEvidence").then(m => ({ default: m.PatentEvidence })));
 const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -101,18 +96,6 @@ const App = () => {
                       </Suspense>
                     </ProtectedRoute>
                   } />
-                  <Route path="/presentation" element={
-                    <Suspense fallback={<PresentationSkeleton />}>
-                      <Presentation />
-                    </Suspense>
-                  } />
-                  <Route path="/record" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PresentationSkeleton />}>
-                        <RecordingDemo />
-                      </Suspense>
-                    </ProtectedRoute>
-                  } />
                   <Route path="/about" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <About />
@@ -133,11 +116,6 @@ const App = () => {
                       <Licensing />
                     </Suspense>
                   } />
-                  <Route path="/patent-evidence" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <PatentEvidence />
-                    </Suspense>
-                  } />
                   <Route path="/patent-attestations" element={
                     <ProtectedRoute>
                       <Suspense fallback={<AdminSkeleton />}>
@@ -153,12 +131,6 @@ const App = () => {
                   <Route path="/privacy" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <PrivacyPolicy />
-                    </Suspense>
-                  } />
-                  {/* AI Tools redirect - opens dashboard with AI Tools tab selected */}
-                  <Route path="/ai-tools" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <AIToolsRedirect />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
