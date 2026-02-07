@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'Validated AUC', value: '0.684', detail: '95% CI: 0.653-0.715' },
+  { label: 'Validated AUC', value: '0.741', detail: '95% CI: 0.712-0.769' },
   { label: 'Cohort Size', value: '26,153', detail: 'ICU admissions' },
   { label: 'Temporal Validation', value: '11 years', detail: '2008-2019' },
   { label: 'Equity Validated', value: 'Pass', detail: 'AUC parity maintained', icon: true },

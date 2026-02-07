@@ -10,7 +10,7 @@ const idiFeatures = [
 ];
 
 const keyFindings = [
-  { metric: 'AUC', value: '0.684', detail: '95% CI: 0.653–0.715' },
+  { metric: 'AUC', value: '0.741', detail: '95% CI: 0.712–0.769' },
   { metric: 'Cohort', value: 'n = 26,153', detail: 'ICU admissions' },
   { metric: 'Temporal Span', value: '11 years', detail: '2008–2019' },
   { metric: 'Strongest Predictor', value: 'CV (OR 1.82)', detail: 'p < 0.001' },
