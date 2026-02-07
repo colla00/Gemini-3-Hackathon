@@ -1,5 +1,4 @@
 import { FlaskConical } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const COMPONENTS = [
@@ -27,12 +26,15 @@ const COMPONENTS = [
 
 export const DesignPhaseComponents = () => {
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-foreground">
-          VitaSignal Platform Components (Design Phase)
+        <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+          Platform Expansion
+        </p>
+        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
+          Design Phase Components
         </h2>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-muted-foreground max-w-2xl">
           The following components are under development with no clinical validation. Only VitaSignal
           Mortality (Patent #1) above has been validated.
         </p>
@@ -40,28 +42,26 @@ export const DesignPhaseComponents = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {COMPONENTS.map(comp => (
-          <Card
+          <div
             key={comp.name}
-            className="opacity-60 hover:opacity-100 transition-opacity border-border"
+            className="rounded-xl border border-border/50 bg-card p-5 space-y-3 opacity-60 hover:opacity-100 hover:border-primary/20 hover:shadow-md transition-all"
           >
-            <CardContent className="p-5 space-y-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="secondary" className="text-[10px] font-semibold">
-                  {comp.patent}
-                </Badge>
-                <Badge variant="outline" className="text-[10px] text-muted-foreground">
-                  DESIGN PHASE
-                </Badge>
-              </div>
-              <h3 className="text-sm font-bold text-foreground">{comp.name}</h3>
-              <p className="text-xs text-muted-foreground">{comp.description}</p>
-              <p className="text-[10px] text-muted-foreground font-mono">Patent Pending</p>
-              <Badge className="bg-warning/15 text-warning border border-warning/30 text-[10px] gap-1">
-                <FlaskConical className="h-3 w-3" />
-                No Clinical Validation
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="secondary" className="text-[10px] font-semibold">
+                {comp.patent}
               </Badge>
-            </CardContent>
-          </Card>
+              <Badge variant="outline" className="text-[10px] text-muted-foreground">
+                DESIGN PHASE
+              </Badge>
+            </div>
+            <h3 className="text-sm font-bold text-foreground">{comp.name}</h3>
+            <p className="text-xs text-muted-foreground">{comp.description}</p>
+            <p className="text-[10px] text-muted-foreground font-mono">Patent Pending</p>
+            <Badge className="bg-accent/15 text-accent border border-accent/30 text-[10px] gap-1">
+              <FlaskConical className="h-3 w-3" />
+              No Clinical Validation
+            </Badge>
+          </div>
         ))}
       </div>
     </section>

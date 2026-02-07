@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Activity, Shield, ArrowLeft } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { SiteLayout } from '@/components/layout/SiteLayout';
 import { AcknowledgmentModal } from '@/components/demo/AcknowledgmentModal';
 import { PatentHeroSection } from '@/components/demo/PatentHeroSection';
 import { IDIFeaturesSection } from '@/components/demo/IDIFeaturesSection';
 import { DesignPhaseComponents } from '@/components/demo/DesignPhaseComponents';
 import { PatentPublicationInfo } from '@/components/demo/PatentPublicationInfo';
 import { DemoFooterDisclaimer } from '@/components/demo/DemoFooterDisclaimer';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const STORAGE_KEY = 'vitasignal-demo-acknowledged';
 
@@ -23,65 +21,58 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-secondary/60">
+    <SiteLayout
+      title="Technology Demo"
+      description="Interactive demonstration of VitaSignal's patent-protected clinical intelligence platform using simulated data."
+    >
       {/* Acknowledgment Modal */}
       <AcknowledgmentModal open={!acknowledged} onAccept={handleAccept} />
 
-      {/* Top accent bar */}
-      <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary w-full" aria-hidden="true" />
-
-      {/* Header */}
-      <header className="px-4 md:px-8 py-4 border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild className="h-9 w-9">
-              <Link to="/" aria-label="Back to Home">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-primary/15 border border-primary/30">
-                <Activity className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-base md:text-lg font-bold text-foreground tracking-tight">
-                  VitaSignal Technology Demo
-                </h1>
-                <p className="text-[11px] text-muted-foreground font-medium tracking-wide">
-                  Clinical Intelligence Platform
-                </p>
-              </div>
-            </div>
+      {/* Hero Section - matches home page dark style */}
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm animate-fade-in">
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle" />
+            <span className="text-primary font-medium">Interactive Research Prototype</span>
           </div>
-
-          <div className="flex items-center gap-2">
-            <Badge className="bg-primary/15 text-primary border border-primary/30 text-[10px] font-semibold">
-              DEMO MODE
-            </Badge>
-            <Badge className="bg-warning/15 text-warning border border-warning/30 text-[10px] font-semibold">
-              SIMULATED DATA
-            </Badge>
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-[1.05] max-w-4xl animate-fade-in">
+            Technology
+            <br />
+            <span className="text-primary">Demonstration</span>
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed animate-fade-in">
+            Explore the validated IDI features, patent portfolio, and platform components
+            powering VitaSignal's clinical intelligence. All data shown is simulated.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden animate-fade-in">
+            {[
+              { value: '9', label: 'IDI Features', detail: 'Temporal predictors' },
+              { value: '0.684', label: 'AUC', detail: 'Validated performance' },
+              { value: '5', label: 'Patents Filed', detail: '175+ claims' },
+              { value: 'n=26,153', label: 'Cohort', detail: 'ICU admissions' },
+            ].map((s) => (
+              <div key={s.label} className="bg-foreground/80 backdrop-blur-sm p-5 text-center">
+                <p className="font-display text-2xl md:text-3xl text-primary mb-1">{s.value}</p>
+                <p className="text-sm font-semibold opacity-90">{s.label}</p>
+                <p className="text-xs opacity-50 mt-0.5">{s.detail}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 md:px-8 py-8 space-y-10">
-        {/* Patent #1 Hero */}
+      {/* Content Sections */}
+      <div className="max-w-6xl mx-auto px-6 py-16 space-y-16">
         <PatentHeroSection />
-
-        {/* 9 IDI Features */}
         <IDIFeaturesSection />
-
-        {/* Design Phase Components */}
         <DesignPhaseComponents />
-
-        {/* Patent & Publication Info */}
         <PatentPublicationInfo />
-
-        {/* Footer Disclaimer */}
         <DemoFooterDisclaimer />
-      </main>
-    </div>
+      </div>
+    </SiteLayout>
   );
 };
