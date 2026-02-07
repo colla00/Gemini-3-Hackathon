@@ -1,10 +1,10 @@
 import { Mail } from 'lucide-react';
 
 const contacts = [
-  { label: 'For Licensing Inquiries', email: 'licensing@dralexis.ceo' },
-  { label: 'For Research Collaborations', email: 'research@dralexis.ceo' },
-  { label: 'For Media & Press', email: 'media@dralexis.ceo' },
-  { label: 'General Inquiries', email: 'contact@dralexis.ceo' },
+  { label: 'For Licensing Inquiries', email: 'info@alexiscollier.com' },
+  { label: 'For Research Collaborations', email: 'info@alexiscollier.com' },
+  { label: 'For Media & Press', email: 'info@alexiscollier.com' },
+  { label: 'General Inquiries', email: 'info@alexiscollier.com' },
 ];
 
 export const ContactSection = () => (

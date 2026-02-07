@@ -256,7 +256,7 @@ function Licensing() {
           <h2 className="text-2xl font-bold text-foreground text-center mb-12">Licensing Process</h2>
           <div className="space-y-4">
             {[
-              { step: 1, title: "Initial Inquiry & NDA", desc: "Contact licensing@dralexis.ceo with your organization details, intended use case, and timeline. We'll execute a mutual Non-Disclosure Agreement to enable detailed technical discussions." },
+              { step: 1, title: "Initial Inquiry & NDA", desc: "Contact info@alexiscollier.com with your organization details, intended use case, and timeline. We'll execute a mutual Non-Disclosure Agreement to enable detailed technical discussions." },
               { step: 2, title: "Technical Due Diligence", desc: "Review technical documentation, patent applications, validation data, and system architecture. Schedule demonstration and Q&A sessions with Dr. Collier." },
               { step: 3, title: "License Negotiation", desc: "Negotiate license scope (exclusive/non-exclusive), field of use, territory, financial terms, milestones, and support requirements. Typical negotiation period: 4-8 weeks." },
               { step: 4, title: "Agreement Execution", desc: "Execute license agreement, transfer initial payment, and receive full technical package. Begin implementation planning and technical transfer sessions." },
@@ -345,13 +345,13 @@ function Licensing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:licensing@dralexis.ceo" className="flex items-center gap-2">
+              <a href="mailto:info@alexiscollier.com" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
-                licensing@dralexis.ceo
+                info@alexiscollier.com
               </a>
             </Button>
             <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-              <a href="mailto:licensing@dralexis.ceo">Schedule a Call</a>
+              <a href="mailto:info@alexiscollier.com">Schedule a Call</a>
             </Button>
           </div>
           <p className="text-xs text-primary-foreground/60 mt-6">

@@ -39,7 +39,7 @@ export const Landing = () => {
               </Badge>
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:licensing@dralexis.ceo">Licensing Inquiries</a>
+                <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
               </Button>
             </div>
           </div>
@@ -72,7 +72,7 @@ export const Landing = () => {
               <Link to="/about">Learn More →</Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href="mailto:licensing@dralexis.ceo">Licensing Inquiries</a>
+              <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
             </Button>
             <WalkthroughRequestModal
               trigger={
@@ -293,13 +293,13 @@ export const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:licensing@dralexis.ceo">
+              <a href="mailto:info@alexiscollier.com">
                 <Mail className="w-5 h-5 mr-2" />
                 Licensing Inquiries
               </a>
             </Button>
             <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-              <a href="mailto:contact@dralexis.ceo">General Contact</a>
+              <a href="mailto:info@alexiscollier.com">General Contact</a>
             </Button>
           </div>
         </div>
@@ -310,10 +310,10 @@ export const Landing = () => {
         <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">Contact</h3>
         <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
           {[
-            { label: "For Licensing Inquiries", email: "licensing@dralexis.ceo" },
-            { label: "For Research Collaborations", email: "research@dralexis.ceo" },
-            { label: "For Media & Press", email: "media@dralexis.ceo" },
-            { label: "General Inquiries", email: "contact@dralexis.ceo" },
+            { label: "For Licensing Inquiries", email: "info@alexiscollier.com" },
+            { label: "For Research Collaborations", email: "info@alexiscollier.com" },
+            { label: "For Media & Press", email: "info@alexiscollier.com" },
+            { label: "General Inquiries", email: "info@alexiscollier.com" },
           ].map((c) => (
             <Card key={c.email}>
               <CardHeader>

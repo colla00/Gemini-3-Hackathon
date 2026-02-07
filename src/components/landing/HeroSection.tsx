@@ -63,7 +63,7 @@ export const HeroSection = () => (
             <ArrowRight className="w-5 h-5" aria-hidden="true" />
           </Link>
           <a
-            href="mailto:licensing@dralexis.ceo"
+            href="mailto:info@alexiscollier.com"
             className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
           >
             <span>Licensing Inquiries</span>
