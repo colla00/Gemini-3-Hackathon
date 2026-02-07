@@ -103,7 +103,7 @@ function About() {
                   <Award className="w-5 h-5 text-primary" />
                   <CardTitle>NIH CLINAQ Fellowship</CardTitle>
                 </div>
-                <CardDescription>K12 HL138039-06</CardDescription>
+                <CardDescription>NIH Training Fellowship</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
@@ -119,7 +119,7 @@ function About() {
                   <Award className="w-5 h-5 text-primary" />
                   <CardTitle>AIM-AHEAD Research Grant</CardTitle>
                 </div>
-                <CardDescription>1OT2OD032581 • $55,475 • Oct 2025 - Jul 2026</CardDescription>
+                <CardDescription>NIH AIM-AHEAD Consortium • Oct 2025 - Jul 2026</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Nursing Workload Optimization"</p>
@@ -175,34 +175,20 @@ function About() {
           <Card>
             <CardHeader>
               <CardTitle>5 U.S. Provisional Patent Applications Filed</CardTitle>
-              <CardDescription>December 2025 - February 2026</CardDescription>
+              <CardDescription>December 2025 – February 2026</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Dr. Collier is the sole inventor on all five provisional patent applications covering the VitaSignal platform.
+                Dr. Collier is the sole inventor on all five provisional patent applications covering the VitaSignal platform,
+                spanning ICU mortality prediction, nursing intelligence, documentation burden scoring, alert prioritization,
+                and clinical risk intelligence.
               </p>
-              <div className="space-y-3">
-                {[
-                  { num: 1, title: "ICU Mortality Prediction", date: "Feb 5, 2026", app: "63/976,293", validated: true },
-                  { num: 2, title: "Unified Nursing Intelligence Platform", date: "Jan 22, 2026", app: "63/966,117" },
-                  { num: 3, title: "Documentation Burden & Staffing System", date: "Jan 22, 2026", app: "63/966,099" },
-                  { num: 4, title: "Trust-Based Alert Prioritization", date: "Dec 21, 2025", app: "63/946,187" },
-                  { num: 5, title: "Clinical Risk Intelligence", date: "Dec 6, 2025", app: "63/932,953" },
-                ].map((p) => (
-                  <div key={p.num} className="p-3 rounded-lg bg-secondary/50 border border-border/50">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">Patent #{p.num}: {p.title}</p>
-                        <p className="text-xs text-muted-foreground">Filed {p.date} • Application No. {p.app}</p>
-                      </div>
-                      {p.validated && <Badge className="bg-risk-low/10 text-risk-low border-risk-low/30" variant="outline">Validated Performance</Badge>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Non-provisional applications due December 2026 - February 2027 under 35 U.S.C. § 111(b)
+              <p className="text-xs text-muted-foreground/70">
+                Application numbers, detailed claims, and technical specifications are available to qualified partners under NDA.
               </p>
+              <Button variant="outline" size="sm" asChild>
+                <a href="mailto:info@alexiscollier.com">Request Details Under NDA</a>
+              </Button>
             </CardContent>
           </Card>
         </div>
