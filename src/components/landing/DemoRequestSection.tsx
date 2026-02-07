@@ -1,11 +1,11 @@
 import { Monitor, ShieldCheck, Clock } from "lucide-react";
-import { WalkthroughRequestModal } from "@/components/WalkthroughRequestModal";
+import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import { Button } from "@/components/ui/button";
 
 const benefits = [
-  { icon: Monitor, text: "Full clinical dashboard walkthrough" },
+  { icon: Monitor, text: "Interactive clinical dashboard experience" },
   { icon: ShieldCheck, text: "Patent-protected AI in action" },
-  { icon: Clock, text: "45-minute guided experience" },
+  { icon: Clock, text: "Self-paced technology demonstration" },
 ];
 
 export const DemoRequestSection = () => (
@@ -15,12 +15,12 @@ export const DemoRequestSection = () => (
         See It In Action
       </p>
       <h2 className="font-display text-2xl md:text-4xl text-primary-foreground mb-4">
-        Request a Live Demo
+        Request Demo Access
       </h2>
       <p className="text-primary-foreground/70 mb-8 max-w-2xl mx-auto">
         Experience VitaSignal's clinical intelligence platform firsthand.
-        Submit a request and we'll set up a personalized walkthrough
-        of the full dashboard and AI capabilities.
+        Submit a request and we'll review your access to the interactive
+        technology demonstration.
       </p>
 
       <div className="flex flex-wrap justify-center gap-6 mb-10">
@@ -32,7 +32,7 @@ export const DemoRequestSection = () => (
         ))}
       </div>
 
-      <WalkthroughRequestModal
+      <DemoAccessModal
         trigger={
           <Button size="lg" className="text-base px-10 h-12 shadow-lg">
             Request Demo Access

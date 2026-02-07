@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, Activity } from 'lucide-react';
-import { WalkthroughRequestModal } from '@/components/WalkthroughRequestModal';
+import { DemoAccessModal } from '@/components/WalkthroughRequestModal';
 import { PATENTS_FILED_COUNT } from '@/constants/patent';
 
 export const HeroSection = () => (
@@ -55,10 +55,10 @@ export const HeroSection = () => (
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12">
-          <WalkthroughRequestModal
+          <DemoAccessModal
             trigger={
               <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/25">
-                <span>Request Live Walkthrough</span>
+                <span>Request Demo Access</span>
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </button>
             }

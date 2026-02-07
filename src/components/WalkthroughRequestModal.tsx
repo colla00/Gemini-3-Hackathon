@@ -16,7 +16,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import {
   Form,
   FormControl,
@@ -36,11 +35,11 @@ const requestSchema = z.object({
 
 type RequestFormData = z.infer<typeof requestSchema>;
 
-interface WalkthroughRequestModalProps {
+interface DemoAccessModalProps {
   trigger?: React.ReactNode;
 }
 
-export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProps) => {
+export const DemoAccessModal = ({ trigger }: DemoAccessModalProps) => {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -71,7 +70,7 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
 
       if (error) throw error;
 
-      // Send email notification (fire and forget - don't block on this)
+      // Send email notification (fire and forget)
       supabase.functions.invoke('send-walkthrough-notification', {
         body: {
           name: data.name,
@@ -82,11 +81,10 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
         },
       }).catch((emailError) => {
         console.error('Email notification failed:', emailError);
-        // Don't show error to user as the request was still saved
       });
 
       setIsSubmitted(true);
-      toast.success('Request submitted successfully!');
+      toast.success('Demo access request submitted!');
     } catch (error) {
       console.error('Error submitting request:', error);
       toast.error('Failed to submit request. Please try again.');
@@ -98,7 +96,6 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     if (!newOpen) {
-      // Reset form when closing
       setTimeout(() => {
         form.reset();
         setIsSubmitted(false);
@@ -110,30 +107,28 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button
-            variant="outline"
-            className="gap-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-          >
+          <Button className="gap-2">
             <Presentation className="w-5 h-5" />
-            <span>Request 45-Min Walkthrough</span>
+            <span>Request Demo Access</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Presentation className="w-5 h-5 text-emerald-500" />
-            Request Walkthrough Access
+            <Presentation className="w-5 h-5 text-primary" />
+            Request Demo Access
           </DialogTitle>
           <DialogDescription>
-            Submit your request to access the 45-minute automated presentation walkthrough.
+            Submit your request to access VitaSignal's interactive technology demonstration.
+            We'll review your request and follow up shortly.
           </DialogDescription>
         </DialogHeader>
 
         {isSubmitted ? (
           <div className="py-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="w-8 h-8 text-emerald-500" />
+            <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Request Submitted!</h3>
             <p className="text-sm text-muted-foreground mb-4">
@@ -207,10 +202,10 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
                 name="reason"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Reason for Request</FormLabel>
+                    <FormLabel>Interest</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="I'm interested in learning more about the NSO Quality Dashboard for our hospital's quality improvement initiative..."
+                        placeholder="I'm interested in exploring VitaSignal for our hospital's quality improvement initiative..."
                         className="resize-none"
                         rows={3}
                         {...field} 
@@ -232,7 +227,7 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="gap-2 bg-emerald-600 hover:bg-emerald-700"
+                  className="gap-2"
                 >
                   {isSubmitting ? (
                     <>
@@ -254,3 +249,6 @@ export const WalkthroughRequestModal = ({ trigger }: WalkthroughRequestModalProp
     </Dialog>
   );
 };
+
+// Keep backward compatibility
+export const WalkthroughRequestModal = DemoAccessModal;

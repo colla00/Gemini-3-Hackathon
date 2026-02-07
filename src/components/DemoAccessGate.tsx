@@ -27,7 +27,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
       return;
     }
 
-    // Check if user has an approved walkthrough request
+    // Check if user has an approved demo access request
     const checkAccess = async () => {
       const { data, error } = await supabase
         .from('walkthrough_access_requests')

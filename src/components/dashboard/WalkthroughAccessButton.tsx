@@ -20,23 +20,20 @@ const requestSchema = z.object({
 
 type AccessStatus = 'loading' | 'none' | 'pending' | 'approved' | 'denied';
 
-// Rate limiting: one request per email per hour
-const RATE_LIMIT_KEY = 'walkthrough_request_last_submitted';
-const RATE_LIMIT_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_KEY = 'demo_request_last_submitted';
+const RATE_LIMIT_MS = 60 * 60 * 1000;
 
 const checkClientRateLimit = (): boolean => {
   const lastSubmitted = localStorage.getItem(RATE_LIMIT_KEY);
   if (!lastSubmitted) return true;
-  
-  const elapsed = Date.now() - parseInt(lastSubmitted, 10);
-  return elapsed > RATE_LIMIT_MS;
+  return Date.now() - parseInt(lastSubmitted, 10) > RATE_LIMIT_MS;
 };
 
 const setClientRateLimit = () => {
   localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
 };
 
-export const WalkthroughAccessButton = () => {
+export const DemoAccessButton = () => {
   const { user } = useAuth();
   const [accessStatus, setAccessStatus] = useState<AccessStatus>('loading');
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -49,7 +46,6 @@ export const WalkthroughAccessButton = () => {
     reason: '',
   });
 
-  // Check access status on mount
   useEffect(() => {
     checkAccessStatus();
   }, [user]);
@@ -69,13 +65,7 @@ export const WalkthroughAccessButton = () => {
         .limit(1)
         .maybeSingle();
 
-      if (error) {
-        console.error('Error checking access:', error);
-        setAccessStatus('none');
-        return;
-      }
-
-      if (!data) {
+      if (error || !data) {
         setAccessStatus('none');
       } else if (data.status === 'approved') {
         setAccessStatus('approved');
@@ -84,24 +74,20 @@ export const WalkthroughAccessButton = () => {
       } else {
         setAccessStatus('denied');
       }
-    } catch (err) {
-      console.error('Error checking access:', err);
+    } catch {
       setAccessStatus('none');
     }
   };
 
   const handleSubmitRequest = async () => {
-    // Client-side rate limiting
     if (!checkClientRateLimit()) {
-      toast.error('Please wait before submitting another request. Try again in an hour.');
+      toast.error('Please wait before submitting another request.');
       return;
     }
 
-    // Validate form
     const result = requestSchema.safeParse(formData);
     if (!result.success) {
-      const firstError = result.error.errors[0];
-      toast.error(firstError.message);
+      toast.error(result.error.errors[0].message);
       return;
     }
 
@@ -120,44 +106,31 @@ export const WalkthroughAccessButton = () => {
         .insert(requestData);
 
       if (error) {
-        if (error.code === '23505') {
-          toast.error('A request with this email already exists');
-        } else {
-          toast.error('Failed to submit request. Please try again.');
-        }
+        toast.error(error.code === '23505' ? 'A request with this email already exists' : 'Failed to submit request.');
         return;
       }
 
-      // Send email notification to admin (fire and forget)
       supabase.functions.invoke('send-walkthrough-notification', {
         body: requestData,
-      }).then(({ error: notifyError }) => {
-        if (notifyError) {
-          console.error('Failed to send notification email:', notifyError);
-        }
-      });
+      }).catch(console.error);
 
-      // Set rate limit after successful submission
       setClientRateLimit();
-      
-      toast.success('Access request submitted! You will be notified when approved.');
+      toast.success('Demo access request submitted!');
       setShowRequestModal(false);
       setAccessStatus('pending');
-    } catch (err) {
+    } catch {
       toast.error('Failed to submit request');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Pre-fill email from user
   useEffect(() => {
     if (user?.email && !formData.email) {
       setFormData(prev => ({ ...prev, email: user.email || '' }));
     }
   }, [user]);
 
-  // Loading state
   if (accessStatus === 'loading') {
     return (
       <Button variant="outline" size="sm" disabled className="gap-1.5 text-xs">
@@ -167,49 +140,36 @@ export const WalkthroughAccessButton = () => {
     );
   }
 
-  // Approved - show walkthrough button
   if (accessStatus === 'approved') {
     return (
       <Button
-        onClick={() => window.location.href = '/presentation'}
+        onClick={() => window.location.href = '/dashboard'}
         variant="outline"
         size="sm"
         className="gap-1.5 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20 text-xs"
       >
         <Presentation className="w-3.5 h-3.5" />
-        <span className="hidden md:inline">45-Min Walkthrough</span>
+        <span className="hidden md:inline">View Demo</span>
         <span className="md:hidden">Demo</span>
       </Button>
     );
   }
 
-  // Pending - show status
   if (accessStatus === 'pending') {
     return (
-      <Button
-        variant="outline"
-        size="sm"
-        disabled
-        className="gap-1.5 text-xs bg-amber-500/10 border-amber-500/30 text-amber-600"
-      >
+      <Button variant="outline" size="sm" disabled className="gap-1.5 text-xs bg-accent/10 border-accent/30 text-accent">
         <Clock className="w-3.5 h-3.5" />
-        <span className="hidden md:inline">Request Pending</span>
+        <span className="hidden md:inline">Access Pending</span>
         <span className="md:hidden">Pending</span>
       </Button>
     );
   }
 
-  // None or denied - show request button
   return (
     <>
-      <Button
-        onClick={() => setShowRequestModal(true)}
-        variant="outline"
-        size="sm"
-        className="gap-1.5 text-xs"
-      >
+      <Button onClick={() => setShowRequestModal(true)} variant="outline" size="sm" className="gap-1.5 text-xs">
         <Send className="w-3.5 h-3.5" />
-        <span className="hidden md:inline">Request Zoom Walkthrough</span>
+        <span className="hidden md:inline">Request Demo Access</span>
         <span className="md:hidden">Request</span>
       </Button>
 
@@ -218,88 +178,40 @@ export const WalkthroughAccessButton = () => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Presentation className="w-5 h-5 text-primary" />
-              Request Walkthrough Access
+              Request Demo Access
             </DialogTitle>
             <DialogDescription>
-              Submit a request to access the 45-minute guided walkthrough of the NSO Quality Dashboard.
+              Submit a request to access VitaSignal's interactive technology demonstration.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                placeholder="Your full name"
-                value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                maxLength={100}
-              />
+              <Input id="name" placeholder="Your full name" value={formData.name} onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))} maxLength={100} />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="email">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                maxLength={255}
-              />
+              <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))} maxLength={255} />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="organization">Organization</Label>
-              <Input
-                id="organization"
-                placeholder="Hospital, University, etc."
-                value={formData.organization}
-                onChange={(e) => setFormData(prev => ({ ...prev, organization: e.target.value }))}
-                maxLength={200}
-              />
+              <Input id="organization" placeholder="Hospital, University, etc." value={formData.organization} onChange={(e) => setFormData(prev => ({ ...prev, organization: e.target.value }))} maxLength={200} />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="role">Your Role</Label>
-              <Input
-                id="role"
-                placeholder="Nurse, Researcher, Administrator, etc."
-                value={formData.role}
-                onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-                maxLength={100}
-              />
+              <Input id="role" placeholder="Nurse, Researcher, Administrator, etc." value={formData.role} onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))} maxLength={100} />
             </div>
-
             <div className="space-y-2">
-              <Label htmlFor="reason">Why are you interested? (Optional)</Label>
-              <Textarea
-                id="reason"
-                placeholder="Brief description of your interest..."
-                value={formData.reason}
-                onChange={(e) => setFormData(prev => ({ ...prev, reason: e.target.value }))}
-                maxLength={500}
-                rows={3}
-              />
+              <Label htmlFor="reason">Interest (Optional)</Label>
+              <Textarea id="reason" placeholder="Brief description of your interest..." value={formData.reason} onChange={(e) => setFormData(prev => ({ ...prev, reason: e.target.value }))} maxLength={500} rows={3} />
             </div>
           </div>
 
           <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setShowRequestModal(false)}>
-              Cancel
-            </Button>
+            <Button variant="outline" onClick={() => setShowRequestModal(false)}>Cancel</Button>
             <Button onClick={handleSubmitRequest} disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4 mr-2" />
-                  Submit Request
-                </>
-              )}
+              {isSubmitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Submitting...</> : <><Send className="w-4 h-4 mr-2" />Submit Request</>}
             </Button>
           </div>
         </DialogContent>
@@ -307,3 +219,6 @@ export const WalkthroughAccessButton = () => {
     </>
   );
 };
+
+// Backward compatibility
+export const WalkthroughAccessButton = DemoAccessButton;
