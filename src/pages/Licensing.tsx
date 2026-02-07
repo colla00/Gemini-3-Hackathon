@@ -317,8 +317,8 @@ function Licensing() {
                 info@alexiscollier.com
               </a>
             </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-              <a href="mailto:info@alexiscollier.com">Schedule a Call</a>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="mailto:info@alexiscollier.com?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
             </Button>
           </div>
           <p className="text-xs text-primary-foreground/60 mt-6">
