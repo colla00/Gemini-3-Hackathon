@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Activity, ArrowLeft, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3 } from 'lucide-react';
+import { Activity, ArrowLeft, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -9,6 +9,12 @@ import { SurgeAlerts } from '@/components/nursing/SurgeAlerts';
 import { TaskPrioritization } from '@/components/nursing/TaskPrioritization';
 import { BurnoutTracking } from '@/components/nursing/BurnoutTracking';
 import { WorkflowAnalytics } from '@/components/nursing/WorkflowAnalytics';
+import { ICUMortalityPrediction } from '@/components/dashboard/ICUMortalityPrediction';
+import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
+import { ROICalculator } from '@/components/dashboard/ROICalculator';
+import { LinkedCalculatorView } from '@/components/dashboard/LinkedCalculatorView';
+import { ResearchCharts } from '@/components/dashboard/ResearchCharts';
+import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
 
 export const NursingDashboard = () => {
   return (
@@ -39,13 +45,18 @@ export const NursingDashboard = () => {
               </div>
               <div>
                 <h1 className="text-lg md:text-xl font-bold tracking-tight">VitaSignal Nursing</h1>
-                <p className="text-xs text-muted-foreground">AI-Powered Nursing Workload Optimization</p>
+                <p className="text-xs text-muted-foreground">AI-Powered Clinical Intelligence Platform</p>
               </div>
             </div>
           </div>
-          <Badge className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-semibold">
-            Aim 2 Prototype
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-semibold">
+              Aim 2 Prototype
+            </Badge>
+            <Badge className="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-semibold">
+              SIMULATED DATA
+            </Badge>
+          </div>
         </div>
       </header>
 
@@ -55,40 +66,75 @@ export const NursingDashboard = () => {
         <Alert className="mb-8 border-l-4 border-l-amber-500 bg-amber-50 border-amber-200">
           <AlertDescription className="text-sm text-amber-900">
             <strong className="block mb-1 text-amber-800">Development Prototype - Mock Data Only</strong>
-            This dashboard displays simulated data for demonstration purposes. The workload prediction model is currently undergoing clinical validation on real OCHIN EHR data. Data shown here does NOT represent actual patient information or clinical recommendations. For fellowship research use only.
+            This dashboard displays simulated data for demonstration purposes. Only VitaSignal Mortality (Patent #1, AUC 0.684, n=26,153) has completed validation. All other components are in design phase with clinical validation pending. Data shown does NOT represent actual patient information or clinical recommendations.
           </AlertDescription>
         </Alert>
 
         {/* Tabs */}
         <Tabs defaultValue="workload">
           <TabsList className="mb-6 bg-card border border-border flex-wrap h-auto gap-1.5 p-1.5 rounded-xl shadow-sm">
-            <TabsTrigger value="workload" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold">
+            {/* Nursing Tabs */}
+            <TabsTrigger value="workload" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
               <TrendingUp className="h-4 w-4" />
-              Workload Prediction
+              <span className="hidden sm:inline">Workload</span> Prediction
             </TabsTrigger>
-            <TabsTrigger value="surge" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold">
+            <TabsTrigger value="surge" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
               <AlertTriangle className="h-4 w-4" />
               Surge Alerts
             </TabsTrigger>
-            <TabsTrigger value="tasks" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold">
+            <TabsTrigger value="tasks" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
               <CheckSquare className="h-4 w-4" />
-              Task Prioritization
+              Tasks
             </TabsTrigger>
-            <TabsTrigger value="burnout" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold">
+            <TabsTrigger value="burnout" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
               <Heart className="h-4 w-4" />
-              Burnout Tracking
+              Burnout
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold">
+            <TabsTrigger value="analytics" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
               <BarChart3 className="h-4 w-4" />
-              Workflow Analytics
+              Analytics
+            </TabsTrigger>
+            {/* Clinical Tools Tabs */}
+            <TabsTrigger value="icu-mortality" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <HeartPulse className="h-4 w-4" />
+              ICU Mortality
+            </TabsTrigger>
+            <TabsTrigger value="dbs" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <FileText className="h-4 w-4" />
+              DBS Score
+            </TabsTrigger>
+            <TabsTrigger value="roi" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <DollarSign className="h-4 w-4" />
+              ROI
+            </TabsTrigger>
+            <TabsTrigger value="linked" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <Link2 className="h-4 w-4" />
+              Linked View
+            </TabsTrigger>
+            <TabsTrigger value="charts" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <BarChart3 className="h-4 w-4" />
+              Research
+            </TabsTrigger>
+            <TabsTrigger value="ai-tools" className="gap-2 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-violet-500 data-[state=active]:text-white font-semibold text-xs sm:text-sm">
+              <Sparkles className="h-4 w-4" />
+              AI Tools
             </TabsTrigger>
           </TabsList>
 
+          {/* Nursing Tabs */}
           <TabsContent value="workload"><WorkloadPrediction /></TabsContent>
           <TabsContent value="surge"><SurgeAlerts /></TabsContent>
           <TabsContent value="tasks"><TaskPrioritization /></TabsContent>
           <TabsContent value="burnout"><BurnoutTracking /></TabsContent>
           <TabsContent value="analytics"><WorkflowAnalytics /></TabsContent>
+
+          {/* Clinical Tools Tabs */}
+          <TabsContent value="icu-mortality"><ICUMortalityPrediction /></TabsContent>
+          <TabsContent value="dbs"><DBSCalculator /></TabsContent>
+          <TabsContent value="roi"><ROICalculator /></TabsContent>
+          <TabsContent value="linked"><LinkedCalculatorView /></TabsContent>
+          <TabsContent value="charts"><ResearchCharts /></TabsContent>
+          <TabsContent value="ai-tools"><AIToolsPanel /></TabsContent>
         </Tabs>
       </main>
 
@@ -96,8 +142,8 @@ export const NursingDashboard = () => {
       <footer className="text-center py-8 px-4 text-muted-foreground text-sm border-t border-border mt-12">
         <p><strong>VitaSignal Nursing Dashboard</strong> | NIH AIM-AHEAD CLINAQ Fellowship (Grant 1OT2OD032581)</p>
         <p className="mt-2">
-          Developed by Dr. Alexis M. Collier | Research Prototype - Not for Clinical Use<br />
-          For fellowship research and demonstration purposes only.
+          Developed by Dr. Alexis M. Collier, DHA, MHA, RN | University of North Georgia<br />
+          Research Prototype - Not for Clinical Use | For fellowship research and demonstration purposes only.
         </p>
       </footer>
     </div>
