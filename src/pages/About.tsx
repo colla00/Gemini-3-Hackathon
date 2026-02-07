@@ -184,7 +184,7 @@ function About() {
                 Get in Touch
               </a>
             </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+            <Button variant="secondary" size="lg" asChild>
               <a href="https://www.linkedin.com/in/alexiscollier/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="w-5 h-5 mr-2" />
                 LinkedIn

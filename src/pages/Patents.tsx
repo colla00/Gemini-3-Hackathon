@@ -158,7 +158,7 @@ function Patents() {
             <Button variant="secondary" size="lg" asChild>
               <Link to="/licensing">View Licensing Options</Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+            <Button variant="secondary" size="lg" asChild>
               <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
