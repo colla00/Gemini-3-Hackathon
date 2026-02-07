@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Building2, Briefcase, Users, CheckCircle2, Mail, FileText, Shield, Lightbulb } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import heroBg from "@/assets/hero-bg.jpg";
 
 function Licensing() {
   return (
@@ -10,17 +11,25 @@ function Licensing() {
 
 
       {/* Hero Section */}
-      <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
-        <div className="max-w-4xl mx-auto">
-          <Badge variant="secondary" className="mb-4 gap-1">
-            <FileText className="w-3 h-3" />
-            Technology Licensing Opportunities
-          </Badge>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">License VitaSignal Technology</h1>
-          <p className="text-lg text-muted-foreground mb-4">
-            Partner with us to bring equipment-independent clinical AI to healthcare organizations worldwide
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
+            <FileText className="w-3 h-3 text-primary" />
+            <span className="text-primary font-medium">Technology Licensing Opportunities</span>
+          </div>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
+            License
+            <br />
+            <span className="text-primary">VitaSignal Technology</span>
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl mb-4 opacity-80 leading-relaxed">
+            Partner with us to bring equipment-independent clinical AI to healthcare organizations worldwide.
           </p>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm opacity-60 max-w-2xl">
             VitaSignal is protected by 5 U.S. provisional patent applications. We're seeking strategic partnerships
             with organizations ready to advance clinical AI innovation.
           </p>
@@ -303,10 +312,14 @@ function Licensing() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-6 bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground py-16 px-6">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 to-foreground/80" />
+        </div>
+        <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to Explore Licensing?</h2>
-          <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+          <p className="opacity-80 mb-8 max-w-2xl mx-auto">
             Contact us today to schedule a confidential discussion about how VitaSignal can strengthen
             your clinical AI portfolio and deliver equipment-independent predictive intelligence to your customers.
           </p>
@@ -321,7 +334,7 @@ function Licensing() {
               <a href="mailto:info@alexiscollier.com?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
             </Button>
           </div>
-          <p className="text-xs text-primary-foreground/60 mt-6">
+          <p className="text-xs opacity-50 mt-6">
             All licensing discussions are conducted under mutual NDA. Initial consultations are provided at no cost.
           </p>
         </div>
