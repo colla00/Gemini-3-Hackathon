@@ -26,11 +26,14 @@ export default defineConfig(({ mode }) => ({
     ],
   },
   optimizeDeps: {
+    force: true,
     include: [
       "react", 
       "react-dom", 
       "react/jsx-runtime",
-      "next-themes"
+      "react/jsx-dev-runtime",
+      "next-themes",
+      "@tanstack/react-query"
     ],
   },
 }));
