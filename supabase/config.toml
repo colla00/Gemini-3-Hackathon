@@ -62,3 +62,6 @@ verify_jwt = false
 
 [functions.document-intervention]
 verify_jwt = false
+
+[functions.approve-demo-access]
+verify_jwt = false

@@ -51,53 +51,48 @@ export const WalkthroughRequestsPanel = () => {
     setProcessingId(id);
     
     const request = requests.find(r => r.id === id);
-    
-    const { error } = await supabase
-      .from('walkthrough_access_requests')
-      .update({ 
-        status, 
-        reviewed_at: new Date().toISOString() 
-      })
-      .eq('id', id);
 
-    if (error) {
-      toast.error(`Failed to ${status} request`);
-      console.error('Error updating request:', error);
-      setProcessingId(null);
-      return;
-    }
-
-    // Send email notification to user
-    if (request) {
-      supabase.functions.invoke('send-walkthrough-notification', {
+    try {
+      const { data, error } = await supabase.functions.invoke('approve-demo-access', {
         body: {
-          name: request.name,
-          email: request.email,
-          organization: request.organization,
-          role: request.role,
-          type: status,
+          requestId: id,
+          action: status,
         },
-      }).then(({ error: notifyError }) => {
-        if (notifyError) {
-          console.error('Failed to send notification email:', notifyError);
-          toast.error('Status updated but email notification failed');
+      });
+
+      if (error) {
+        toast.error(`Failed to ${status} request: ${error.message}`);
+        setProcessingId(null);
+        return;
+      }
+
+      await logAction({
+        action: status === 'approved' ? 'approve' : 'reject',
+        resource_type: 'walkthrough_request',
+        resource_id: id,
+        details: {
+          requester_email: request?.email || '',
+          requester_name: request?.name || '',
+          new_status: status,
+          account_created: data?.accountCreated || false,
         }
       });
-    }
-
-    await logAction({
-      action: status === 'approved' ? 'approve' : 'reject',
-      resource_type: 'walkthrough_request',
-      resource_id: id,
-      details: {
-        requester_email: request?.email || '',
-        requester_name: request?.name || '',
-        new_status: status,
+      
+      if (status === 'approved') {
+        toast.success(
+          data?.accountCreated 
+            ? 'Approved! Account created and credentials emailed.' 
+            : 'Approved! Credentials emailed.'
+        );
+      } else {
+        toast.success('Request denied. Notification sent.');
       }
-    });
+      
+      fetchRequests();
+    } catch (err: any) {
+      toast.error(`Error: ${err.message}`);
+    }
     
-    toast.success(`Request ${status} — notification sent`);
-    fetchRequests();
     setProcessingId(null);
   };
 
