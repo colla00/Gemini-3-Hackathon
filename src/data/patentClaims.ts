@@ -1,7 +1,7 @@
 import { Brain, BarChart3, Clock, Sliders, RefreshCw, Activity, Shield, Heart, Users, FileText, Layers, Timer, Dna } from 'lucide-react';
 import type { PatentClaim, CategoryConfig, ClaimCategory } from '@/types/patent';
 
-// ========== PATENT #1: TRUST-BASED ALERT SYSTEM (63/946,187) ==========
+// ========== PATENT #1: TRUST-BASED ALERT SYSTEM ==========
 const TRUST_ALERT_CLAIMS: PatentClaim[] = [
   {
     number: 1,
@@ -71,7 +71,7 @@ const TRUST_ALERT_CLAIMS: PatentClaim[] = [
   },
 ];
 
-// ========== PATENT #2: CLINICAL RISK INTELLIGENCE (63/932,953) ==========
+// ========== PATENT #2: CLINICAL RISK INTELLIGENCE ==========
 const RISK_INTELLIGENCE_CLAIMS: PatentClaim[] = [
   {
     number: 1,
@@ -295,7 +295,7 @@ const RISK_INTELLIGENCE_CLAIMS: PatentClaim[] = [
   },
 ];
 
-// ========== PATENT #3: UNIFIED NURSING INTELLIGENCE (63/966,117) ==========
+// ========== PATENT #3: UNIFIED NURSING INTELLIGENCE ==========
 const UNIFIED_PLATFORM_CLAIMS: PatentClaim[] = [
   {
     number: 1,
@@ -365,7 +365,7 @@ const UNIFIED_PLATFORM_CLAIMS: PatentClaim[] = [
   },
 ];
 
-// ========== PATENT #4: DBS SYSTEM (63/966,099) ==========
+// ========== PATENT #4: DBS SYSTEM ==========
 const DBS_SYSTEM_CLAIMS: PatentClaim[] = [
   {
     number: 1,
@@ -604,27 +604,22 @@ export const CATEGORY_CONFIG: Record<ClaimCategory, CategoryConfig> = {
 // Patent metadata for display
 export const PATENT_METADATA = {
   'trust-alerts': {
-    number: '63/946,187',
     shortName: 'Trust-Based Alert System',
     claimCount: TRUST_ALERT_CLAIMS.length,
   },
   'risk-intelligence': {
-    number: '63/932,953',
     shortName: 'Clinical Risk Intelligence',
     claimCount: RISK_INTELLIGENCE_CLAIMS.length,
   },
   'unified-platform': {
-    number: '63/966,117',
     shortName: 'Unified Nursing Intelligence',
     claimCount: UNIFIED_PLATFORM_CLAIMS.length,
   },
   'dbs-system': {
-    number: '63/966,099',
     shortName: 'DBS System',
     claimCount: DBS_SYSTEM_CLAIMS.length,
   },
   'icu-mortality': {
-    number: 'Pending',
     shortName: 'ICU Mortality Prediction',
     claimCount: ICU_MORTALITY_CLAIMS.length,
   },

@@ -1,7 +1,7 @@
 import { FileText, Award, Shield, Lightbulb, User, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PATENT_PORTFOLIO, PATENT_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER, PATENT_4_NUMBER, PATENT_5_NUMBER } from '@/constants/patent';
+import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 export const PatentNotice = () => {
   const filedPatents = PATENT_PORTFOLIO.filter(p => p.status === 'filed');
@@ -81,19 +81,18 @@ export const PatentNotice = () => {
 };
 
 export const PatentBadge = ({ className = '', contextPatent }: { className?: string; contextPatent?: 'trust' | 'risk' | 'unified' | 'dbs' | 'icu' }) => {
-  // Context-specific patent display
   const getPatentInfo = () => {
     switch (contextPatent) {
       case 'trust':
-        return { number: PATENT_NUMBER, name: 'Trust-Based Alerts' };
+        return { name: 'Trust-Based Alerts' };
       case 'risk':
-        return { number: PATENT_2_NUMBER, name: 'Risk Intelligence' };
+        return { name: 'Risk Intelligence' };
       case 'unified':
-        return { number: PATENT_3_NUMBER, name: 'Unified Platform' };
+        return { name: 'Unified Platform' };
       case 'dbs':
-        return { number: PATENT_4_NUMBER, name: 'DBS System' };
+        return { name: 'DBS System' };
       case 'icu':
-        return { number: PATENT_5_NUMBER, name: 'ICU Mortality Prediction' };
+        return { name: 'ICU Mortality Prediction' };
       default:
         return null;
     }
@@ -107,7 +106,7 @@ export const PatentBadge = ({ className = '', contextPatent }: { className?: str
       <div className={`flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30 ${className}`}>
         <Award className="w-3 h-3 text-accent" aria-hidden="true" />
         <span className="text-[10px] text-accent font-medium">
-          U.S. Patent {patentInfo.number} · {patentInfo.name}
+          Patent Pending · {patentInfo.name}
         </span>
       </div>
     );

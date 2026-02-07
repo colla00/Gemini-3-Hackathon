@@ -1,5 +1,5 @@
 // DBS (Documentation Burden Score) Calculator Component
-// Copyright © Dr. Alexis Collier - U.S. Patent Application 63/966,099
+// Copyright © Dr. Alexis Collier - Patent Pending
 
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

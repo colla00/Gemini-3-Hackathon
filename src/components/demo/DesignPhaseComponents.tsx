@@ -7,25 +7,21 @@ const COMPONENTS = [
     patent: 'Patent #2',
     name: 'VitaSignal Nursing',
     description: 'Unified Nursing Intelligence Platform',
-    number: '63/966,117',
   },
   {
     patent: 'Patent #3',
     name: 'VitaSignal DBS',
     description: 'Documentation Burden & Staffing Intelligence',
-    number: '63/966,099',
   },
   {
     patent: 'Patent #4',
     name: 'VitaSignal Alerts',
     description: 'Trust-Based Alert Prioritization',
-    number: '63/946,187',
   },
   {
     patent: 'Patent #5',
     name: 'VitaSignal Risk',
     description: 'Clinical Risk Intelligence System',
-    number: '63/932,953',
   },
 ];
 
@@ -59,7 +55,7 @@ export const DesignPhaseComponents = () => {
               </div>
               <h3 className="text-sm font-bold text-foreground">{comp.name}</h3>
               <p className="text-xs text-muted-foreground">{comp.description}</p>
-              <p className="text-[10px] text-muted-foreground font-mono">{comp.number}</p>
+              <p className="text-[10px] text-muted-foreground font-mono">Patent Pending</p>
               <Badge className="bg-warning/15 text-warning border border-warning/30 text-[10px] gap-1">
                 <FlaskConical className="h-3 w-3" />
                 No Clinical Validation
