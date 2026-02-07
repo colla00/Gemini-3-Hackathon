@@ -3,18 +3,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Mail, Users, Clock, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import heroBg from "@/assets/hero-bg.jpg";
 
 function Contact() {
   return (
     <SiteLayout title="Contact" description="Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal.">
       {/* Hero */}
-      <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
-          <p className="text-lg text-muted-foreground mb-4">
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
+            Get in
+            <br />
+            <span className="text-primary">Touch</span>
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
             Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal.
           </p>
-          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-4 text-sm opacity-70">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
               Typical response time: 2-3 business days

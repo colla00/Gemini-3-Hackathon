@@ -4,6 +4,7 @@ import { Shield, Lock, Eye, Database, Trash2, Mail, List, Globe, Clock } from 'l
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { SiteLayout } from '@/components/layout/SiteLayout';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const sections = [
   { id: 'overview', title: '1. Overview', icon: Shield },
@@ -54,20 +55,26 @@ export const PrivacyPolicy = () => {
   return (
     <SiteLayout title="Privacy Policy" description="Privacy Policy for VitaSignal Clinical Intelligence Platform.">
       {/* Hero */}
-      <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
-        <div className="max-w-4xl mx-auto">
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center">
               <Shield className="w-6 h-6 text-primary" />
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Privacy Policy</h1>
-          <p className="text-muted-foreground">Last Updated: February 2026</p>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-4 leading-[1.05]">
+            Privacy <span className="text-primary">Policy</span>
+          </h1>
+          <p className="text-sm opacity-60">Last Updated: February 2026</p>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setShowToc(!showToc)}
-            className="mt-4 lg:hidden"
+            className="mt-4 lg:hidden text-primary-foreground/70 hover:text-primary-foreground"
           >
             <List className="w-4 h-4 mr-2" />
             Table of Contents

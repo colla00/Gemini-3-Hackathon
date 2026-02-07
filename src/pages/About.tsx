@@ -1,23 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Award, Building2, Mail, Linkedin } from "lucide-react";
+import { GraduationCap, Award, Building2, Mail, Linkedin, ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import heroBg from "@/assets/hero-bg.jpg";
 
 function About() {
   return (
     <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Inventor and Principal Investigator of the VitaSignal Clinical Intelligence Platform.">
       {/* Hero */}
-      <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Dr. Alexis Collier</h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            Inventor & Principal Investigator, VitaSignal Clinical Intelligence Platform
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle" />
+            <span className="text-primary font-medium">NIH CLINAQ Fellow · AIM-AHEAD Researcher</span>
+          </div>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
+            About
+            <br />
+            <span className="text-primary">Dr. Alexis Collier</span>
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed">
+            Inventor & Principal Investigator of the VitaSignal Clinical Intelligence Platform.
+            Stanford AI+Health 2025 Presenter.
           </p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            <Badge variant="secondary">NIH CLINAQ Fellow</Badge>
-            <Badge variant="secondary">AIM-AHEAD Researcher</Badge>
-            <Badge variant="secondary">Stanford AI+Health Presenter</Badge>
+          <div className="flex flex-wrap gap-2">
+            <Badge className="bg-primary/20 border-primary/30 text-primary">NIH CLINAQ Fellow</Badge>
+            <Badge className="bg-primary/20 border-primary/30 text-primary">AIM-AHEAD Researcher</Badge>
+            <Badge className="bg-primary/20 border-primary/30 text-primary">Stanford AI+Health Presenter</Badge>
           </div>
         </div>
       </section>
@@ -171,10 +185,14 @@ function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-6 bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative overflow-hidden bg-foreground text-primary-foreground py-16 px-6">
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 to-foreground/80" />
+        </div>
+        <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">Work With Dr. Collier</h2>
-          <p className="text-primary-foreground/80 mb-8">
+          <p className="opacity-80 mb-8">
             Interested in research collaborations, licensing partnerships, or speaking engagements?
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
