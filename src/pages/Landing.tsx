@@ -62,7 +62,7 @@ export const Landing = () => {
             Detecting Life-Saving Signals Before Crisis
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-3xl mx-auto">
-            Equipment-Independent AI for ICU Mortality Prediction, Nursing Optimization, and Real-Time Risk Intelligence
+            The Intensive Documentation Index (IDI): Equipment-Independent AI for ICU Mortality Prediction Using Temporal Documentation Pattern Analysis
           </p>
           <p className="text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">
             5 U.S. provisional patent applications covering novel analytical methods for clinical documentation pattern analysis.
@@ -90,15 +90,13 @@ export const Landing = () => {
             What is VitaSignal?
           </h3>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-            VitaSignal is a suite of patent-pending AI systems that analyze clinical documentation patterns to predict
-            patient deterioration and optimize nursing workflows without requiring any additional monitoring equipment.
+            VitaSignal is a suite of patent-pending AI systems anchored by the Intensive Documentation Index (IDI) — a novel framework of 9 automatically extractable features from routine EHR nursing documentation timestamps that predict ICU mortality without requiring any additional monitoring equipment.
           </p>
           <Card className="border-primary/20 bg-primary/5">
             <CardContent className="pt-6">
               <p className="font-semibold text-foreground mb-2">The Innovation:</p>
               <p className="text-muted-foreground">
-                While traditional systems rely on expensive sensors and vital signs, VitaSignal detects subtle signals in the
-                timing and rhythm of routine clinical documentation, enabling earlier intervention at zero hardware cost.
+                While traditional systems rely on expensive sensors and vital signs ($50,000–$150,000 per ICU bed), VitaSignal's IDI detects that documentation <em>rhythm irregularity</em> — not volume — is the strongest predictor of mortality (OR 1.82, p&lt;0.001), capturing clinician-detected deterioration signals embedded in real-time surveillance behavior at zero hardware cost.
               </p>
             </CardContent>
           </Card>
@@ -128,14 +126,12 @@ export const Landing = () => {
                   <Activity className="w-8 h-8 text-primary-foreground" />
                 </div>
                 <div className="flex-1">
-                  <CardTitle className="text-xl mb-1">VitaSignal Mortality</CardTitle>
+                   <CardTitle className="text-xl mb-1">VitaSignal Mortality (IDI Framework)</CardTitle>
                   <CardDescription className="text-base">
-                    ICU mortality prediction using temporal documentation analysis
+                    30-day post-ICU mortality prediction using the Intensive Documentation Index
                   </CardDescription>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                    <strong className="text-foreground">Only VitaSignal component with validated research performance.</strong> Predicts ICU mortality
-                    risk by analyzing temporal patterns in routine clinical documentation without requiring additional sensors
-                    or monitoring equipment.
+                    <strong className="text-foreground">Only VitaSignal component with validated research performance.</strong> 9 IDI features across 4 domains (frequency, rhythm irregularity, surveillance gaps, temporal concentration) extracted from 24-hour nursing documentation timestamps. Coefficient of variation of inter-event intervals identified as strongest predictor (OR 1.82, 95% CI: 1.58–2.11).
                   </p>
                 </div>
               </div>
@@ -143,10 +139,10 @@ export const Landing = () => {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
-                  { label: "Validated AUC", value: "0.684", sub: "95% CI: 0.653-0.715" },
-                  { label: "Dataset Size", value: "26,153", sub: "ICU admissions" },
-                  { label: "Temporal Validation", value: "11 years", sub: "2008-2019" },
-                  { label: "Equity Validated", value: "✓ Pass", sub: "AUC parity maintained" },
+                  { label: "Validated AUC", value: "0.684", sub: "95% CI: 0.653–0.715" },
+                  { label: "Dataset Size", value: "26,153", sub: "ICU stays (MIMIC-IV)" },
+                  { label: "Temporal Validation", value: "11 years", sub: "2008–2019" },
+                  { label: "Strongest Predictor", value: "OR 1.82", sub: "CV inter-event intervals" },
                 ].map((m) => (
                   <div key={m.label} className="bg-card p-3 rounded-lg border border-risk-low/20">
                     <p className="text-xs text-muted-foreground mb-1">{m.label}</p>
@@ -209,12 +205,12 @@ export const Landing = () => {
         <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">Key Benefits</h3>
         <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { icon: DollarSign, title: "Zero Hardware Cost", desc: "Works with existing EHR systems. No sensors, wearables, or monitoring devices required." },
-            { icon: Clock, title: "Early Detection", desc: "Identifies deterioration signals hours before traditional vital sign alerts." },
-            { icon: Bell, title: "Reduced Alert Fatigue", desc: "Adaptive algorithms minimize false alarms while maintaining patient safety." },
-            { icon: Users, title: "Equity-Focused", desc: "Validated for fairness across patient populations." },
-            { icon: Award, title: "NIH-Funded Research", desc: "Backed by rigorous scientific validation and federal research support." },
-            { icon: Shield, title: "Patent-Protected", desc: "5 U.S. provisional patent applications covering novel analytical methods." },
+            { icon: DollarSign, title: "Zero Hardware Cost", desc: "Works with existing EHR documentation timestamps. No sensors, wearables, or monitoring equipment ($50K–$150K/bed savings)." },
+            { icon: Clock, title: "Early Detection", desc: "IDI captures clinician-detected deterioration signals before physiologic decompensation manifests in vital sign abnormalities." },
+            { icon: Bell, title: "No Workflow Burden", desc: "All 9 IDI features are automatically extractable from routine nursing documentation — zero additional data collection required." },
+            { icon: Users, title: "Equity-Validated", desc: "Validated for fairness across patient populations with AUC parity maintained." },
+            { icon: Award, title: "NIH-Funded Research", desc: "Backed by MIMIC-IV validation (n=26,153) with temporal split design and federal research support." },
+            { icon: Shield, title: "Patent-Protected", desc: "5 U.S. provisional patent applications covering novel analytical methods for documentation pattern analysis." },
           ].map((b) => (
             <Card key={b.title}>
               <CardHeader>
