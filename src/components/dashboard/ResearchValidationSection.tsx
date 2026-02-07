@@ -41,7 +41,7 @@ export const ResearchValidationSection = () => (
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          Demonstrates that temporal patterns in EHR documentation — not the clinical content — independently predict ICU mortality.
+          Demonstrates that temporal patterns in EHR documentation, not the clinical content, independently predict ICU mortality.
           The Intensive Documentation Index (IDI) extracts 9 features from timestamp metadata alone, requiring no additional hardware or sensors.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -63,7 +63,7 @@ export const ResearchValidationSection = () => (
           <Activity className="h-4 w-4 text-primary" />
           IDI Feature Domains
         </CardTitle>
-        <p className="text-xs text-muted-foreground">9 temporal features across 4 domains — all computable from EHR timestamp metadata</p>
+        <p className="text-xs text-muted-foreground">9 temporal features across 4 domains, all computable from EHR timestamp metadata</p>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

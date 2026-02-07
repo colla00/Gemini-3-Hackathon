@@ -382,7 +382,7 @@ export const ICUMortalityPrediction = () => {
               <Zap className="w-3.5 h-3.5 text-chart-4 mt-0.5 shrink-0" />
               <p className="text-[10px] text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">Human Sensor Concept:</span>{' '}
-                Nursing documentation patterns serve as a physiological signal — the "human sensor" — capturing clinical intuition
+                Nursing documentation patterns serve as a physiological signal, the "human sensor," capturing clinical intuition
                 that traditional monitoring equipment cannot detect. Zero additional hardware required.
               </p>
             </div>
