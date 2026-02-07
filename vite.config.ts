@@ -19,8 +19,10 @@ export default defineConfig(({ mode }) => ({
       "react", 
       "react-dom", 
       "react/jsx-runtime",
+      "react/jsx-dev-runtime",
       "@tanstack/react-query",
-      "framer-motion"
+      "framer-motion",
+      "next-themes"
     ],
   },
   optimizeDeps: {
