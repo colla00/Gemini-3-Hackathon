@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { BarChart3, Clock, Zap, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 interface IDIFeature {
@@ -17,8 +16,6 @@ interface IDIFeature {
 interface FeatureDomain {
   title: string;
   icon: React.ReactNode;
-  color: string;
-  borderColor: string;
   features: IDIFeature[];
 }
 
@@ -26,8 +23,6 @@ const DOMAINS: FeatureDomain[] = [
   {
     title: 'Frequency',
     icon: <BarChart3 className="h-4 w-4" />,
-    color: 'text-primary',
-    borderColor: 'border-primary/30',
     features: [
       {
         name: 'Total Events (24h)',
@@ -53,8 +48,6 @@ const DOMAINS: FeatureDomain[] = [
   {
     title: 'Rhythm / Regularity',
     icon: <TrendingUp className="h-4 w-4" />,
-    color: 'text-destructive',
-    borderColor: 'border-destructive/30',
     features: [
       {
         name: 'Coefficient of Variation (CV)',
@@ -89,8 +82,6 @@ const DOMAINS: FeatureDomain[] = [
   {
     title: 'Gaps',
     icon: <Clock className="h-4 w-4" />,
-    color: 'text-warning',
-    borderColor: 'border-warning/30',
     features: [
       {
         name: 'Maximum Gap Duration',
@@ -115,8 +106,6 @@ const DOMAINS: FeatureDomain[] = [
   {
     title: 'Burst Activity',
     icon: <Zap className="h-4 w-4" />,
-    color: 'text-chart-4',
-    borderColor: 'border-chart-4/30',
     features: [
       {
         name: 'Maximum Burst Events',
@@ -144,19 +133,24 @@ export const IDIFeaturesSection = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-foreground">The 9 IDI Features</h2>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+          Feature Engineering
+        </p>
+        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
+          The 9 IDI Features
+        </h2>
+        <p className="text-muted-foreground max-w-2xl">
           Automatically extracted from EHR nursing documentation timestamps. Click any feature to see clinical interpretation.
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {DOMAINS.map(domain => (
-          <div key={domain.title} className="space-y-2">
+          <div key={domain.title} className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className={domain.color}>{domain.icon}</span>
+              <span className="text-primary">{domain.icon}</span>
               <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
                 {domain.title}
               </h3>
@@ -167,13 +161,13 @@ export const IDIFeaturesSection = () => {
                 const isExpanded = expanded === feature.name;
                 return (
                   <div key={feature.name}>
-                    <Card
-                      className={`cursor-pointer transition-all hover:shadow-md ${domain.borderColor} ${
-                        isExpanded ? 'ring-2 ring-primary/30' : ''
+                    <div
+                      className={`cursor-pointer rounded-xl border p-5 transition-all hover:shadow-md ${
+                        isExpanded ? 'border-primary/30 bg-primary/[0.04]' : 'border-border/50 bg-card hover:border-primary/20'
                       } ${feature.note ? 'opacity-60 hover:opacity-100' : ''}`}
                       onClick={() => setExpanded(isExpanded ? null : feature.name)}
                     >
-                      <CardContent className="p-4 space-y-2">
+                      <div className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
                           <h4 className="text-sm font-semibold text-foreground leading-tight">
                             {feature.name}
@@ -200,11 +194,11 @@ export const IDIFeaturesSection = () => {
                         {feature.note && (
                           <p className="text-[10px] text-muted-foreground italic">{feature.note}</p>
                         )}
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </div>
                     {isExpanded && (
-                      <div className="mt-2 p-4 rounded-lg bg-secondary/50 border border-border text-sm text-foreground leading-relaxed animate-fade-in">
-                        <p className="font-semibold text-xs text-primary mb-1">Clinical Interpretation</p>
+                      <div className="mt-2 p-5 rounded-xl bg-muted/50 border border-border text-sm text-foreground leading-relaxed animate-fade-in">
+                        <p className="font-semibold text-xs text-primary mb-2">Clinical Interpretation</p>
                         {feature.interpretation}
                       </div>
                     )}
