@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Award, Building2, Mail } from "lucide-react";
+import { GraduationCap, Award, Building2, Mail, Linkedin } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
 function About() {
@@ -177,12 +177,20 @@ function About() {
           <p className="text-primary-foreground/80 mb-8">
             Interested in research collaborations, licensing partnerships, or speaking engagements?
           </p>
-          <Button variant="secondary" size="lg" asChild>
-            <a href="mailto:info@alexiscollier.com">
-              <Mail className="w-5 h-5 mr-2" />
-              Get in Touch
-            </a>
-          </Button>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Button variant="secondary" size="lg" asChild>
+              <a href="mailto:info@alexiscollier.com">
+                <Mail className="w-5 h-5 mr-2" />
+                Get in Touch
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <a href="https://www.linkedin.com/in/alexiscollier/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="w-5 h-5 mr-2" />
+                LinkedIn
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
     </SiteLayout>
