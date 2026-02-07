@@ -24,7 +24,11 @@ export default defineConfig(({ mode }) => ({
     ],
   },
   optimizeDeps: {
-    // Force rebuild of pre-bundled dependencies
-    force: true,
+    include: [
+      "react", 
+      "react-dom", 
+      "react/jsx-runtime",
+      "next-themes"
+    ],
   },
 }));
