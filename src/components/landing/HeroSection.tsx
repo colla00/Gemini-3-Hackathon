@@ -55,26 +55,26 @@ export const HeroSection = () => (
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12">
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/25"
-          >
-            <span>Learn More</span>
-            <ArrowRight className="w-5 h-5" aria-hidden="true" />
-          </Link>
-          <a
-            href="mailto:info@alexiscollier.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
-          >
-            <span>Licensing Inquiries</span>
-          </a>
           <WalkthroughRequestModal
             trigger={
-              <button className="inline-flex items-center gap-2 px-8 py-4 bg-risk-low/10 text-risk-low rounded-xl font-semibold hover:bg-risk-low/20 transition-all border border-risk-low/30">
-                <span>Request Walkthrough</span>
+              <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/25">
+                <span>Request Live Walkthrough</span>
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </button>
             }
           />
+          <Link
+            to="/presentation"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-xl font-semibold hover:bg-secondary/80 transition-all border border-border"
+          >
+            <span>Self-Paced Walkthrough</span>
+          </Link>
+          <a
+            href="mailto:info@alexiscollier.com"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent/10 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all border border-accent/30"
+          >
+            <span>Licensing Inquiries</span>
+          </a>
         </div>
       </div>
     </div>
