@@ -2,9 +2,11 @@ import { AlertTriangle } from 'lucide-react';
 
 export const DemoFooterDisclaimer = () => {
   return (
-    <section className="rounded-xl border border-destructive/20 bg-destructive/[0.04] p-6">
-      <div className="flex gap-3">
-        <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+    <div className="rounded-xl border border-destructive/20 bg-destructive/[0.04] p-6 md:p-8">
+      <div className="flex gap-4">
+        <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center shrink-0">
+          <AlertTriangle className="h-5 w-5 text-destructive" />
+        </div>
         <div>
           <p className="text-sm font-semibold text-foreground mb-2">Research Prototype Disclaimer</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -15,6 +17,6 @@ export const DemoFooterDisclaimer = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
