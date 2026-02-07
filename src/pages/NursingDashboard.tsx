@@ -1,6 +1,6 @@
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
-import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
@@ -16,6 +16,8 @@ import { LinkedCalculatorView } from '@/components/dashboard/LinkedCalculatorVie
 import { ResearchCharts } from '@/components/dashboard/ResearchCharts';
 import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
 import { ResearchValidationSection } from '@/components/dashboard/ResearchValidationSection';
+import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
+import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const stats = [
@@ -79,9 +81,12 @@ export const NursingDashboard = () => {
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="workload" className="animate-fade-in">
             <div className="bg-card border border-border/40 rounded-2xl shadow-sm p-2 mb-6">
-              {/* Nursing Operations */}
+              {/* Nursing Operations — Patent #3 & #4 */}
               <div className="mb-1">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold px-2 py-1">Nursing Operations</p>
+                <div className="flex items-center gap-2 px-2 py-1">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Nursing Operations</p>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #3 · #4</Badge>
+                </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
                   <TabsTrigger value="workload" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <TrendingUp className="h-3.5 w-3.5" />
@@ -108,14 +113,37 @@ export const NursingDashboard = () => {
 
               <Separator className="my-1.5" />
 
-              {/* Clinical Tools */}
+              {/* Patent-Specific Demos — Patents #1, #2, #5 */}
               <div className="mb-1">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold px-2 py-1">Clinical Tools</p>
+                <div className="flex items-center gap-2 px-2 py-1">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Patent Features</p>
+                  <Badge className="bg-accent/10 text-accent border-accent/20 text-[9px] h-4">Patent #1 · #2 · #5</Badge>
+                </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
+                  <TabsTrigger value="alert-optimization" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                    <Shield className="h-3.5 w-3.5" />
+                    Alert Optimization
+                  </TabsTrigger>
+                  <TabsTrigger value="risk-stratification" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                    <Layers className="h-3.5 w-3.5" />
+                    Risk Stratification
+                  </TabsTrigger>
                   <TabsTrigger value="icu-mortality" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <HeartPulse className="h-3.5 w-3.5" />
                     ICU Mortality
                   </TabsTrigger>
+                </TabsList>
+              </div>
+
+              <Separator className="my-1.5" />
+
+              {/* Clinical Tools — Patent #4 */}
+              <div className="mb-1">
+                <div className="flex items-center gap-2 px-2 py-1">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Clinical Tools</p>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #4</Badge>
+                </div>
+                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
                   <TabsTrigger value="dbs" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <FileText className="h-3.5 w-3.5" />
                     DBS Score
@@ -133,9 +161,12 @@ export const NursingDashboard = () => {
 
               <Separator className="my-1.5" />
 
-              {/* Research & AI */}
+              {/* Research & AI — Manuscript + AI */}
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold px-2 py-1">Research & AI</p>
+                <div className="flex items-center gap-2 px-2 py-1">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Research & AI</p>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">medRxiv · Patent #5</Badge>
+                </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
                   <TabsTrigger value="research" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <FlaskConical className="h-3.5 w-3.5" />
@@ -159,6 +190,8 @@ export const NursingDashboard = () => {
             <TabsContent value="tasks" className="mt-0"><TaskPrioritization /></TabsContent>
             <TabsContent value="burnout" className="mt-0"><BurnoutTracking /></TabsContent>
             <TabsContent value="analytics" className="mt-0"><WorkflowAnalytics /></TabsContent>
+            <TabsContent value="alert-optimization" className="mt-0"><AlertOptimizationTab /></TabsContent>
+            <TabsContent value="risk-stratification" className="mt-0"><RiskStratificationTab /></TabsContent>
             <TabsContent value="icu-mortality" className="mt-0"><ICUMortalityPrediction /></TabsContent>
             <TabsContent value="dbs" className="mt-0"><DBSCalculator /></TabsContent>
             <TabsContent value="roi" className="mt-0"><ROICalculator /></TabsContent>
