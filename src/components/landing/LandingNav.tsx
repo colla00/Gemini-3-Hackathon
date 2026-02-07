@@ -12,28 +12,29 @@ export const LandingNav = () => {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-primary">
           <Lock className="w-3 h-3" aria-hidden="true" />
-          <span className="font-medium">{PATENTS_FILED_LABEL}</span>
-          <span className="text-primary/60" aria-hidden="true">•</span>
+          <span className="font-medium hidden sm:inline">{PATENTS_FILED_LABEL}</span>
+          <span className="font-medium sm:hidden">Patents Filed</span>
+          <span className="text-primary/60 hidden sm:inline" aria-hidden="true">•</span>
           <a
             href="mailto:info@alexiscollier.com"
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-accent/20 border border-accent/30 text-accent hover:bg-accent/30 transition-colors font-medium"
+            className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded bg-accent/20 border border-accent/30 text-accent hover:bg-accent/30 transition-colors font-medium"
           >
             <Mail className="w-3 h-3" aria-hidden="true" />
             Licensing Inquiries
           </a>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
             <Home className="w-3 h-3" />
-            Home
+            <span className="hidden sm:inline">Home</span>
           </Link>
           <Link
             to="/dashboard"
-            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-colors"
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-colors"
           >
             <Activity className="w-3 h-3 text-primary" />
-            <span className="text-xs font-medium text-primary">Dashboard</span>
+            <span className="text-xs font-medium text-primary hidden sm:inline">Dashboard</span>
           </Link>
           <ThemeToggle />
           {user ? (
