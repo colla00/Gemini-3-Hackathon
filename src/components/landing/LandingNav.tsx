@@ -30,10 +30,13 @@ export const LandingNav = () => {
           <ThemeToggle />
           {isAdmin ? (
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30">
-                <div className="w-2 h-2 rounded-full bg-risk-low animate-pulse" aria-hidden="true" />
-                <span className="text-xs font-medium text-risk-low">Admin</span>
-              </div>
+              <Link
+                to="/dashboard"
+                className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30 hover:bg-risk-low/30 transition-colors"
+              >
+                <Activity className="w-3 h-3 text-risk-low" />
+                <span className="text-xs font-medium text-risk-low">Dashboard</span>
+              </Link>
               <Link
                 to="/auth"
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors"
