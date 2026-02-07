@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Lock, Mail, Activity } from 'lucide-react';
+import { Lock, Mail, Activity, Home } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { PATENTS_FILED_LABEL } from '@/constants/patent';
 
 export const LandingNav = () => {
-  const { isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
 
   return (
     <nav aria-label="Patent and user information" className="bg-primary/5 border-b border-primary/20 py-2 px-4">
@@ -24,32 +24,31 @@ export const LandingNav = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link to="/presentation" className="text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
-            Walkthrough
+          <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
+            <Home className="w-3 h-3" />
+            Home
+          </Link>
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-colors"
+          >
+            <Activity className="w-3 h-3 text-primary" />
+            <span className="text-xs font-medium text-primary">Dashboard</span>
           </Link>
           <ThemeToggle />
-          {isAdmin ? (
-            <div className="flex items-center gap-2">
-              <Link
-                to="/dashboard"
-                className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-risk-low/20 border border-risk-low/30 hover:bg-risk-low/30 transition-colors"
-              >
-                <Activity className="w-3 h-3 text-risk-low" />
-                <span className="text-xs font-medium text-risk-low">Dashboard</span>
-              </Link>
-              <Link
-                to="/auth"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  const { supabase } = await import('@/integrations/supabase/client');
-                  await supabase.auth.signOut();
-                  window.location.href = '/';
-                }}
-              >
-                Sign Out
-              </Link>
-            </div>
+          {user ? (
+            <Link
+              to="/auth"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              onClick={async (e) => {
+                e.preventDefault();
+                const { supabase } = await import('@/integrations/supabase/client');
+                await supabase.auth.signOut();
+                window.location.href = '/';
+              }}
+            >
+              Sign Out
+            </Link>
           ) : (
             <Link to="/auth" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Sign In
