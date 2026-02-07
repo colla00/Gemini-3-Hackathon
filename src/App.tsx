@@ -10,7 +10,7 @@ import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { WatermarkOverlay } from "@/components/WatermarkOverlay";
+
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
 import { 
@@ -73,7 +73,7 @@ const App = () => {
               <ErrorBoundary>
               <Toaster />
               <Sonner />
-              <WatermarkOverlay />
+              
               <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <CookieConsent />
                 <Routes>
@@ -85,9 +85,11 @@ const App = () => {
                     </Suspense>
                   } />
                   <Route path="/dashboard" element={
-                    <Suspense fallback={<DashboardSkeleton />}>
-                      <NursingDashboard />
-                    </Suspense>
+                    <ProtectedRoute>
+                      <Suspense fallback={<DashboardSkeleton />}>
+                        <NursingDashboard />
+                      </Suspense>
+                    </ProtectedRoute>
                   } />
                   <Route path="/admin" element={
                     <ProtectedRoute>

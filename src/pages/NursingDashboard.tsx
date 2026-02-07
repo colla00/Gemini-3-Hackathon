@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { WatermarkOverlay } from '@/components/WatermarkOverlay';
 import { Activity, ArrowLeft, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -20,6 +21,7 @@ import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
 export const NursingDashboard = () => {
   return (
     <div className="min-h-screen flex flex-col gradient-burgundy">
+      <WatermarkOverlay />
       {/* Fellowship Banner */}
       <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground py-2.5 px-4 text-center text-xs font-semibold sticky top-0 z-50">
         NIH-Funded Research |{' '}
