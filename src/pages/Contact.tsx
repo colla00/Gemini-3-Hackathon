@@ -4,10 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2 } from "lucide-react";
+import { Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 type FieldKey = "organization" | "role" | "useCase" | "timeline" | "irb";
 
@@ -53,11 +55,52 @@ const inquiryTypes: {
   },
 ];
 
-type InquiryType = typeof inquiryTypes[number]["id"];
-
 function Contact() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const selected = inquiryTypes.find((t) => t.id === selectedType);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!selected) return;
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    setSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("submit-contact-inquiry", {
+        body: {
+          inquiry_type: selected.id,
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+          organization: formData.get("org") as string || undefined,
+          role: formData.get("role") as string || undefined,
+          timeline: formData.get("timeline") as string || undefined,
+          irb_status: formData.get("irb") as string || undefined,
+          message: formData.get("message") as string,
+        },
+      });
+
+      if (error) throw error;
+
+      setSubmitted(true);
+      toast({
+        title: "Inquiry sent",
+        description: "We'll get back to you within 2-3 business days.",
+      });
+    } catch (err) {
+      console.error("Submit error:", err);
+      toast({
+        title: "Failed to send",
+        description: "Please try again or email info@alexiscollier.com directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <SiteLayout title="Contact" description="Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal.">
@@ -92,143 +135,158 @@ function Contact() {
       {/* Inquiry Type Selector */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
-            Step 1: Select inquiry type
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-            {inquiryTypes.map((type) => (
-              <button
-                key={type.id}
-                onClick={() => setSelectedType(type.id)}
-                className={cn(
-                  "group p-4 rounded-xl border text-left transition-all",
-                  selectedType === type.id
-                    ? "border-primary bg-primary/5 shadow-md"
-                    : "border-border/50 bg-card hover:border-primary/30 hover:shadow-sm"
-                )}
-              >
-                <div className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center mb-3 transition-colors",
-                  selectedType === type.id ? "bg-primary/15" : "bg-secondary"
-                )}>
-                  <type.icon className={cn(
-                    "w-5 h-5 transition-colors",
-                    selectedType === type.id ? "text-primary" : "text-muted-foreground"
-                  )} />
-                </div>
-                <p className="text-sm font-semibold text-foreground">{type.label}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{type.desc}</p>
-              </button>
-            ))}
-          </div>
-
-          {/* Contact Form */}
-          {selected && (
-            <div className="animate-fade-in">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
-                Step 2: Your details
-              </p>
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <selected.icon className="w-5 h-5 text-primary" />
-                    <CardTitle>{selected.label}</CardTitle>
-                  </div>
-                  <CardDescription>
-                    All fields marked with * are required. Your inquiry will be sent to info@alexiscollier.com.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form
-                    action={`mailto:info@alexiscollier.com?subject=${encodeURIComponent(`[${selected.label}] New Inquiry via VitaSignal Website`)}`}
-                    method="GET"
-                    className="space-y-4"
-                  >
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input id="name" placeholder="Dr. Jane Smith" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input id="email" type="email" placeholder="jane@hospital.org" required />
-                      </div>
-                    </div>
-
-                    {selected.fields.includes("organization") && (
-                      <div className="space-y-2">
-                        <Label htmlFor="org">Organization *</Label>
-                        <Input id="org" placeholder="Hospital System / Company / University" required />
-                      </div>
-                    )}
-
-                    {selected.fields.includes("role") && (
-                      <div className="space-y-2">
-                        <Label htmlFor="role">Your Role</Label>
-                        <Input id="role" placeholder="Chief Medical Officer, Researcher, Journalist, etc." />
-                      </div>
-                    )}
-
-                    {selected.fields.includes("timeline") && (
-                      <div className="space-y-2">
-                        <Label htmlFor="timeline">Evaluation Timeline</Label>
-                        <Input id="timeline" placeholder="e.g., Q2 2026, Exploratory, Immediate" />
-                      </div>
-                    )}
-
-                    {selected.fields.includes("irb") && (
-                      <div className="space-y-2">
-                        <Label htmlFor="irb">IRB Status</Label>
-                        <Input id="irb" placeholder="Approved / In Progress / Not Yet Started" />
-                      </div>
-                    )}
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        rows={5}
-                        placeholder={selected.placeholder}
-                        required
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2">
-                      <p className="text-xs text-muted-foreground">
-                        Your data will only be used to respond to this inquiry.
-                      </p>
-                      <Button type="submit" className="gap-2">
-                        <Send className="w-4 h-4" />
-                        Send Inquiry
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {/* Guidelines */}
-          {selected && (
-            <div className="mt-8 p-4 rounded-lg bg-secondary/50 border border-border/30">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <div className="text-xs text-muted-foreground space-y-1">
-                  {selectedType === "licensing" && (
-                    <p>Licensing discussions are conducted under mutual NDA. Initial conversations are exploratory with no commitment required.</p>
-                  )}
-                  {selectedType === "research" && (
-                    <p>Clinical validation studies require IRB approval, executed Data Use Agreements, and institutional affiliation. We can discuss requirements during initial conversations.</p>
-                  )}
-                  {selectedType === "press" && (
-                    <p>Dr. Collier is available for interviews, expert commentary, and speaking engagements on clinical AI, nursing informatics, and health equity in algorithmic systems.</p>
-                  )}
-                  {selectedType === "general" && (
-                    <p>Note: VitaSignal is a research prototype not cleared for clinical use. We cannot provide medical advice or patient-specific recommendations.</p>
-                  )}
-                </div>
+          {submitted ? (
+            <div className="text-center py-16 animate-fade-in">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 className="w-8 h-8 text-primary" />
               </div>
+              <h2 className="text-2xl font-bold text-foreground mb-3">Inquiry Received</h2>
+              <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                Thank you for reaching out. We'll respond to your inquiry within 2-3 business days at the email address you provided.
+              </p>
+              <Button variant="outline" onClick={() => { setSubmitted(false); setSelectedType(null); }}>
+                Submit Another Inquiry
+              </Button>
             </div>
+          ) : (
+            <>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+                Step 1: Select inquiry type
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+                {inquiryTypes.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => setSelectedType(type.id)}
+                    className={cn(
+                      "group p-4 rounded-xl border text-left transition-all",
+                      selectedType === type.id
+                        ? "border-primary bg-primary/5 shadow-md"
+                        : "border-border/50 bg-card hover:border-primary/30 hover:shadow-sm"
+                    )}
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-lg flex items-center justify-center mb-3 transition-colors",
+                      selectedType === type.id ? "bg-primary/15" : "bg-secondary"
+                    )}>
+                      <type.icon className={cn(
+                        "w-5 h-5 transition-colors",
+                        selectedType === type.id ? "text-primary" : "text-muted-foreground"
+                      )} />
+                    </div>
+                    <p className="text-sm font-semibold text-foreground">{type.label}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{type.desc}</p>
+                  </button>
+                ))}
+              </div>
+
+              {/* Contact Form */}
+              {selected && (
+                <div className="animate-fade-in">
+                  <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+                    Step 2: Your details
+                  </p>
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-center gap-2">
+                        <selected.icon className="w-5 h-5 text-primary" />
+                        <CardTitle>{selected.label}</CardTitle>
+                      </div>
+                      <CardDescription>
+                        All fields marked with * are required.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input id="name" name="name" placeholder="Dr. Jane Smith" required maxLength={200} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input id="email" name="email" type="email" placeholder="jane@hospital.org" required maxLength={255} />
+                          </div>
+                        </div>
+
+                        {selected.fields.includes("organization") && (
+                          <div className="space-y-2">
+                            <Label htmlFor="org">Organization *</Label>
+                            <Input id="org" name="org" placeholder="Hospital System / Company / University" required maxLength={300} />
+                          </div>
+                        )}
+
+                        {selected.fields.includes("role") && (
+                          <div className="space-y-2">
+                            <Label htmlFor="role">Your Role</Label>
+                            <Input id="role" name="role" placeholder="Chief Medical Officer, Researcher, Journalist, etc." maxLength={200} />
+                          </div>
+                        )}
+
+                        {selected.fields.includes("timeline") && (
+                          <div className="space-y-2">
+                            <Label htmlFor="timeline">Evaluation Timeline</Label>
+                            <Input id="timeline" name="timeline" placeholder="e.g., Q2 2026, Exploratory, Immediate" maxLength={200} />
+                          </div>
+                        )}
+
+                        {selected.fields.includes("irb") && (
+                          <div className="space-y-2">
+                            <Label htmlFor="irb">IRB Status</Label>
+                            <Input id="irb" name="irb" placeholder="Approved / In Progress / Not Yet Started" maxLength={200} />
+                          </div>
+                        )}
+
+                        <div className="space-y-2">
+                          <Label htmlFor="message">Message *</Label>
+                          <Textarea
+                            id="message"
+                            name="message"
+                            rows={5}
+                            placeholder={selected.placeholder}
+                            required
+                            maxLength={5000}
+                          />
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2">
+                          <p className="text-xs text-muted-foreground">
+                            Your data will only be used to respond to this inquiry.
+                          </p>
+                          <Button type="submit" className="gap-2" disabled={submitting}>
+                            {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                            {submitting ? "Sending..." : "Send Inquiry"}
+                          </Button>
+                        </div>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {/* Guidelines */}
+              {selected && (
+                <div className="mt-8 p-4 rounded-lg bg-secondary/50 border border-border/30">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      {selectedType === "licensing" && (
+                        <p>Licensing discussions are conducted under mutual NDA. Initial conversations are exploratory with no commitment required.</p>
+                      )}
+                      {selectedType === "research" && (
+                        <p>Clinical validation studies require IRB approval, executed Data Use Agreements, and institutional affiliation. We can discuss requirements during initial conversations.</p>
+                      )}
+                      {selectedType === "press" && (
+                        <p>Dr. Collier is available for interviews, expert commentary, and speaking engagements on clinical AI, nursing informatics, and health equity in algorithmic systems.</p>
+                      )}
+                      {selectedType === "general" && (
+                        <p>Note: VitaSignal is a research prototype not cleared for clinical use. We cannot provide medical advice or patient-specific recommendations.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
