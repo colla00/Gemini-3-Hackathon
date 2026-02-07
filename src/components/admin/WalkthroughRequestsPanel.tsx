@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuditLog } from '@/hooks/useAuditLog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { toast } from 'sonner';
 import { Presentation, CheckCircle, XCircle, Clock, RefreshCw, Mail, ChevronDown, ChevronRight, Building, Briefcase, MessageSquare } from 'lucide-react';
 
-interface WalkthroughRequest {
+interface DemoRequest {
   id: string;
   name: string;
   email: string;
@@ -22,7 +21,7 @@ interface WalkthroughRequest {
 }
 
 export const WalkthroughRequestsPanel = () => {
-  const [requests, setRequests] = useState<WalkthroughRequest[]>([]);
+  const [requests, setRequests] = useState<DemoRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -82,13 +81,10 @@ export const WalkthroughRequestsPanel = () => {
         if (notifyError) {
           console.error('Failed to send notification email:', notifyError);
           toast.error('Status updated but email notification failed');
-        } else {
-          console.log(`${status} notification email sent to ${request.email}`);
         }
       });
     }
 
-    // Log the admin action
     await logAction({
       action: status === 'approved' ? 'approve' : 'reject',
       resource_type: 'walkthrough_request',
@@ -100,7 +96,7 @@ export const WalkthroughRequestsPanel = () => {
       }
     });
     
-    toast.success(`Request ${status} - notification email sent`);
+    toast.success(`Request ${status} — notification sent`);
     fetchRequests();
     setProcessingId(null);
   };
@@ -108,7 +104,7 @@ export const WalkthroughRequestsPanel = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'approved':
-        return <Badge className="bg-emerald-500/20 text-emerald-600 border-emerald-500/30"><CheckCircle className="w-3 h-3 mr-1" /> Approved</Badge>;
+        return <Badge className="bg-primary/20 text-primary border-primary/30"><CheckCircle className="w-3 h-3 mr-1" /> Approved</Badge>;
       case 'denied':
         return <Badge variant="destructive"><XCircle className="w-3 h-3 mr-1" /> Denied</Badge>;
       default:
@@ -118,21 +114,17 @@ export const WalkthroughRequestsPanel = () => {
 
   const pendingCount = requests.filter(r => r.status === 'pending').length;
 
-  const toggleExpanded = (id: string) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Presentation className="h-5 w-5 text-emerald-500" />
-            <CardTitle>Walkthrough Access Requests</CardTitle>
+            <Presentation className="h-5 w-5 text-primary" />
+            <CardTitle>Demo Access Requests</CardTitle>
           </div>
           <div className="flex items-center gap-2">
             {pendingCount > 0 && (
-              <Badge variant="secondary" className="bg-amber-500/20 text-amber-600 border-amber-500/30">
+              <Badge variant="secondary" className="bg-accent/20 text-accent border-accent/30">
                 {pendingCount} pending
               </Badge>
             )}
@@ -143,7 +135,7 @@ export const WalkthroughRequestsPanel = () => {
           </div>
         </div>
         <CardDescription>
-          Review and manage walkthrough access requests from potential users. Click a row to see full details.
+          Review and manage demo access requests. Approved users can access the interactive technology demonstration. Click a row for details.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -152,7 +144,7 @@ export const WalkthroughRequestsPanel = () => {
         ) : requests.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Mail className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>No walkthrough requests yet</p>
+            <p>No demo access requests yet</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -160,7 +152,7 @@ export const WalkthroughRequestsPanel = () => {
               <Collapsible
                 key={request.id}
                 open={expandedId === request.id}
-                onOpenChange={() => toggleExpanded(request.id)}
+                onOpenChange={() => setExpandedId(expandedId === request.id ? null : request.id)}
               >
                 <div className="border rounded-lg overflow-hidden">
                   <CollapsibleTrigger asChild>
@@ -200,7 +192,7 @@ export const WalkthroughRequestsPanel = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-emerald-600 hover:bg-emerald-500/10"
+                            className="text-primary hover:bg-primary/10"
                             onClick={() => updateRequestStatus(request.id, 'approved')}
                             disabled={processingId === request.id}
                           >
@@ -265,7 +257,7 @@ export const WalkthroughRequestsPanel = () => {
                         <div className="mt-4 space-y-1">
                           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
                             <MessageSquare className="w-3 h-3" />
-                            Reason for Request
+                            Interest
                           </div>
                           <p className="text-sm text-foreground bg-background/50 p-3 rounded-md border">
                             {request.reason}
