@@ -24,8 +24,8 @@ export const LandingNav = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link to="/dashboard" className="text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
-            Technology
+          <Link to="/presentation" className="text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
+            Walkthrough
           </Link>
           <ThemeToggle />
           {isAdmin ? (
