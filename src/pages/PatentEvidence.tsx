@@ -395,8 +395,8 @@ export const PatentEvidence = () => {
         <div className="bg-card rounded-xl border border-accent/30 p-6 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="px-2 py-0.5 rounded bg-risk-low/20 text-risk-low text-[10px] font-bold uppercase tracking-wider">New Filing</div>
-            <span className="text-xs text-muted-foreground">February 5, 2026</span>
-            <span className="px-2 py-0.5 rounded bg-accent/10 text-accent text-[10px] font-medium">NIH-Funded Research (K12 HL138039-06)</span>
+            <span className="text-xs text-muted-foreground">2026</span>
+            <span className="px-2 py-0.5 rounded bg-accent/10 text-accent text-[10px] font-medium">NIH-Funded Research</span>
           </div>
           <h2 className="text-lg font-bold text-foreground mb-2">
             ICU Mortality Prediction from EHR Documentation Rhythm Patterns

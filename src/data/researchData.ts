@@ -162,7 +162,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: 'Dec 2025',
     title: 'Patent Filings #1 & #2',
-    description: 'Trust-Based Alert System (63/946,187) & Clinical Risk Intelligence (63/932,953)',
+    description: 'Trust-Based Alert System & Clinical Risk Intelligence patent applications filed',
     icon: '⚖️',
   },
   {
@@ -245,30 +245,30 @@ export const DBS_CALCULATION_FACTORS: DBSCalculationFactor[] = [
 
 export const PATENTS: PatentInfo[] = [
   {
-    number: '63/946,187',
+    number: 'Patent Pending',
     title: 'Trust-Based Alert Prioritization',
-    filed: 'December 21, 2025',
+    filed: '2025',
     status: 'Filed',
     description: 'Clinical decision support with trust-based alert prioritization and equity monitoring',
   },
   {
-    number: '63/932,953',
+    number: 'Patent Pending',
     title: 'Clinical Risk Intelligence',
-    filed: 'December 2025',
+    filed: '2025',
     status: 'Filed',
     description: 'ML-based system for predicting clinical deterioration with SHAP explainability',
   },
   {
-    number: '63/966,117',
+    number: 'Patent Pending',
     title: 'Unified Nursing Intelligence Platform',
-    filed: 'January 2026',
+    filed: '2026',
     status: 'Filed',
     description: 'Three-module integration: DBS, Risk Intelligence, Trust-Based Alerts with Equity Monitoring',
   },
   {
-    number: '63/966,099',
+    number: 'Patent Pending',
     title: 'DBS System',
-    filed: 'January 22, 2026',
+    filed: '2026',
     status: 'Filed',
     description: 'ML-based documentation burden prediction with quartile staffing recommendations',
   },

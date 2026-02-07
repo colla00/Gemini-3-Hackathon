@@ -11,15 +11,15 @@ export const PatentPublicationInfo = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm">
-          <InfoRow label="Patent #1" value="USPTO Application No. 63/976,293 &bull; Filed February 5, 2026" />
+          <InfoRow label="Patent #1" value="U.S. Provisional Patent Application Filed (2026)" />
           <InfoRow
             label="Manuscript"
             value="Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study"
           />
-          <InfoRow label="Status" value="Submitted to medRxiv (February 2026) &bull; Targeting Critical Care Medicine" />
+          <InfoRow label="Status" value="Submitted to medRxiv &bull; Targeting Critical Care Medicine" />
           <InfoRow
             label="Funding"
-            value="NIH CLINAQ Fellowship (K12 HL138039-06) &bull; AIM-AHEAD Grant (1OT2OD032581)"
+            value="NIH-funded research"
           />
           <InfoRow
             label="Inventor"
