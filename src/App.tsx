@@ -28,6 +28,7 @@ import NotFound from "./pages/NotFound";
 // Lazy loaded (heavy components)
 // Dashboard is now handled by NursingDashboard via DemoAccessGate
 const NursingDashboard = lazy(() => import("./pages/NursingDashboard"));
+const AITools = lazy(() => import("./pages/AITools"));
 const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -89,6 +90,13 @@ const App = () => {
                     <DemoAccessGate>
                       <Suspense fallback={<DashboardSkeleton />}>
                         <NursingDashboard />
+                      </Suspense>
+                    </DemoAccessGate>
+                  } />
+                  <Route path="/ai-tools" element={
+                    <DemoAccessGate>
+                      <Suspense fallback={<DashboardSkeleton />}>
+                        <AITools />
                       </Suspense>
                     </DemoAccessGate>
                   } />
