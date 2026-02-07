@@ -140,7 +140,7 @@ function About() {
           <Card>
             <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground">
               <p>
-                Dr. Collier's research pioneered the concept of <strong className="text-foreground">equipment-independent clinical AI</strong> —
+                Dr. Collier's research advances the concept of <strong className="text-foreground">equipment-independent clinical AI</strong> —
                 predictive models that extract actionable insights from existing clinical workflows without requiring
                 additional sensors, wearables, or monitoring devices.
               </p>

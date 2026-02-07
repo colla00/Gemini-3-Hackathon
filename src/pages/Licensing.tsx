@@ -95,10 +95,10 @@ function Licensing() {
             {[
               { icon: CheckCircle2, title: "Zero Hardware Requirements", desc: "Works with existing EHR infrastructure—no sensors, wearables, or monitoring devices required. Dramatically lowers implementation costs and deployment barriers." },
               { icon: Shield, title: "Patent-Protected Innovation", desc: "5 U.S. provisional patent applications covering novel methods for temporal documentation analysis, trust-based alerting, and nursing workload optimization." },
-              { icon: CheckCircle2, title: "Validated Research Foundation", desc: "VitaSignal Mortality validated on large-scale ICU datasets with strong predictive performance. NIH-funded research with rigorous equity validation across patient populations." },
-              { icon: Briefcase, title: "Comprehensive Platform", desc: "Four integrated systems addressing mortality prediction, nursing optimization, alert fatigue, and risk intelligence—a complete clinical AI ecosystem." },
-              { icon: Users, title: "Equity & Explainability Built-In", desc: "Designed with fairness validation and SHAP-based explainability from the ground up. Meets emerging regulatory requirements for transparent, equitable AI." },
-              { icon: Lightbulb, title: "First-Mover Advantage", desc: "Equipment-independent clinical AI represents a paradigm shift. License now to establish market leadership before competitors develop similar approaches." },
+              { icon: CheckCircle2, title: "Validated Research Foundation", desc: "VitaSignal Mortality validated on large-scale ICU datasets (AUC 0.684, n=26,153). NIH-funded research with equity validation across patient populations." },
+              { icon: Briefcase, title: "Comprehensive Platform", desc: "Five patent-pending systems addressing mortality prediction, nursing optimization, documentation burden, alert fatigue, and risk intelligence." },
+              { icon: Users, title: "Equity & Explainability Built-In", desc: "Designed with fairness validation and SHAP-based explainability from the ground up for transparent, accountable clinical AI." },
+              { icon: Lightbulb, title: "First-Mover Advantage", desc: "Equipment-independent clinical AI using existing EHR documentation. License to establish market position in this emerging approach." },
             ].map((item) => (
               <Card key={item.title}>
                 <CardHeader>
