@@ -46,7 +46,7 @@ export const NursingDashboard = () => {
               </div>
               <div>
                 <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground">VitaSignal</h1>
-                <p className="text-xs text-muted-foreground">Clinical Intelligence Platform | Dr. Alexis M. Collier</p>
+                <p className="text-xs text-muted-foreground">Clinical Intelligence Platform | Dr. Alexis Collier</p>
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ export const NursingDashboard = () => {
       <footer className="text-center py-8 px-4 text-muted-foreground text-sm border-t border-border" role="contentinfo">
         <p><strong>VitaSignal Clinical Intelligence Platform</strong> | NIH AIM-AHEAD CLINAQ Fellowship (Grant 1OT2OD032581)</p>
         <p className="mt-2">
-          Dr. Alexis M. Collier, DHA, MHA, RN | University of North Georgia<br />
+          Dr. Alexis Collier, DHA | University of North Georgia<br />
           Research Prototype | Not for Clinical Use | For fellowship research and demonstration purposes only
         </p>
         <p className="mt-1 text-xs">

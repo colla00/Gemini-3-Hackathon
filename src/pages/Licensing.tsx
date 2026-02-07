@@ -367,7 +367,7 @@ function Licensing() {
             <Activity className="w-4 h-4 text-primary" />
             <span className="font-bold text-foreground">VitaSignal</span>
           </div>
-          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis Collier, DHA. All Rights Reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
             <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
             <span className="text-border">|</span>

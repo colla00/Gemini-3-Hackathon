@@ -65,7 +65,7 @@ export const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
             <Button size="lg" className="shadow-lg" asChild>
-              <Link to="/clinical-dashboard">View Dashboard</Link>
+              <Link to="/dashboard">View Dashboard</Link>
             </Button>
             <WalkthroughRequestModal
               trigger={
@@ -239,7 +239,7 @@ export const Landing = () => {
           <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">About the Inventor</h3>
           <Card>
             <CardContent className="pt-6">
-              <h4 className="text-xl font-bold text-foreground mb-4">Dr. Alexis M. Collier, DHA</h4>
+              <h4 className="text-xl font-bold text-foreground mb-4">Dr. Alexis Collier, DHA</h4>
               <div className="space-y-2 mb-6 text-sm text-muted-foreground">
                 <p>• <strong className="text-foreground">NIH CLINAQ Fellow</strong> (K12 HL138039-06)</p>
                 <p>• <strong className="text-foreground">AIM-AHEAD Researcher</strong> (1OT2OD032581, $55,475)</p>
@@ -377,7 +377,7 @@ export const Landing = () => {
             <Activity className="w-4 h-4 text-primary" />
             <span className="font-bold text-foreground">VitaSignal</span>
           </div>
-          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis Collier, DHA. All Rights Reserved.</p>
           <p className="text-xs text-muted-foreground">NIH CLINAQ Fellow (K12 HL138039-06) | AIM-AHEAD Researcher (1OT2OD032581)</p>
           <p className="text-xs text-primary font-medium">5 U.S. Provisional Patent Applications Filed</p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
@@ -392,7 +392,7 @@ export const Landing = () => {
             <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
           </div>
           <div className="text-[10px] text-muted-foreground/60 max-w-lg">
-            <p>VitaSignal and associated marks are property of Dr. Alexis M. Collier.</p>
+            <p>VitaSignal and associated marks are property of Dr. Alexis Collier.</p>
             <p className="mt-1">Research supported by NIH CLINAQ Fellowship (K12 HL138039-06) and AIM-AHEAD Program (1OT2OD032581)</p>
           </div>
         </div>
