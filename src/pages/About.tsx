@@ -1,48 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, GraduationCap, Award, Building2, FileText, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { GraduationCap, Award, Building2, Mail } from "lucide-react";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 
 function About() {
   return (
-    <div className="min-h-screen bg-background">
-
-      {/* Alert Banner */}
-      <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-2 text-center text-sm">
-        <span className="font-semibold text-destructive">⚠️ RESEARCH PROTOTYPE</span>
-        <span className="text-muted-foreground mx-2">•</span>
-        <span className="text-muted-foreground">Not FDA cleared or approved. Not a medical device. Not for clinical use. Simulated data only.</span>
-      </div>
-
-      {/* Header */}
-      <header className="border-b border-border/40 bg-card">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <Activity className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-lg font-bold text-foreground">VitaSignal</p>
-                <p className="text-xs text-muted-foreground">Clinical Intelligence</p>
-              </div>
-            </Link>
-            <nav className="flex items-center gap-4">
-              <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Technology</Link>
-              <Link to="/about" className="text-sm text-primary font-medium">About</Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Contact</Link>
-              <ThemeToggle />
-              <Button variant="outline" size="sm" asChild>
-                <a href="mailto:info@alexiscollier.com">Licensing</a>
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
+    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Inventor and Principal Investigator of the VitaSignal Clinical Intelligence Platform.">
+      {/* Hero */}
       <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Dr. Alexis Collier</h1>
@@ -74,7 +39,6 @@ function About() {
                 <p>Specialized in clinical informatics, artificial intelligence, and healthcare systems optimization</p>
               </CardContent>
             </Card>
-
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
@@ -112,14 +76,13 @@ function About() {
                 </p>
               </CardContent>
             </Card>
-
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-primary" />
                   <CardTitle>AIM-AHEAD Research Grant</CardTitle>
                 </div>
-                <CardDescription>NIH AIM-AHEAD Consortium • Oct 2025 - Jul 2026</CardDescription>
+                <CardDescription>NIH AIM-AHEAD Consortium</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Nursing Workload Optimization"</p>
@@ -144,11 +107,6 @@ function About() {
                 predictive models that extract actionable insights from existing clinical workflows without requiring
                 additional sensors, wearables, or monitoring devices.
               </p>
-              <p>
-                This work challenges the prevailing paradigm that AI-driven early warning systems must rely on
-                continuous physiological monitoring. By analyzing temporal patterns in routine clinical documentation,
-                VitaSignal systems detect deterioration signals at zero hardware cost.
-              </p>
               <div>
                 <p className="font-semibold text-foreground mb-2">Core Research Areas:</p>
                 <ul className="space-y-1">
@@ -159,23 +117,19 @@ function About() {
                   <li>• Trust-based alert systems to reduce alarm fatigue</li>
                 </ul>
               </div>
-              <p>
-                All research methods are validated on large-scale de-identified datasets with rigorous attention
-                to fairness, transparency, and clinical applicability.
-              </p>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* Intellectual Property */}
+      {/* IP */}
       <section className="py-16 px-6 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-foreground mb-8">Intellectual Property Portfolio</h2>
           <Card>
             <CardHeader>
               <CardTitle>5 U.S. Provisional Patent Applications Filed</CardTitle>
-              <CardDescription>December 2025 – February 2026</CardDescription>
+              <CardDescription>2025–2026</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
@@ -194,7 +148,7 @@ function About() {
         </div>
       </section>
 
-      {/* Presentations & Recognition */}
+      {/* Recognition */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-foreground mb-8">Presentations & Recognition</h2>
@@ -204,7 +158,7 @@ function About() {
                 <Award className="w-5 h-5 text-primary" />
                 <CardTitle>Stanford AI+Health Conference 2025</CardTitle>
               </div>
-              <CardDescription>December 2025 • Stanford University</CardDescription>
+              <CardDescription>December 2025 · Stanford University</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
@@ -216,47 +170,22 @@ function About() {
         </div>
       </section>
 
-      {/* Contact CTA */}
+      {/* CTA */}
       <section className="py-16 px-6 bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">Work With Dr. Collier</h2>
           <p className="text-primary-foreground/80 mb-8">
             Interested in research collaborations, licensing partnerships, or speaking engagements?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com">
-                <Mail className="w-5 h-5 mr-2" />
-                Get in Touch
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-              <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
-            </Button>
-          </div>
+          <Button variant="secondary" size="lg" asChild>
+            <a href="mailto:info@alexiscollier.com">
+              <Mail className="w-5 h-5 mr-2" />
+              Get in Touch
+            </a>
+          </Button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-10 px-6 border-t border-border/30 bg-secondary/30">
-        <div className="max-w-6xl mx-auto flex flex-col items-center text-center gap-4">
-          <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-primary" />
-            <span className="font-bold text-foreground">VitaSignal</span>
-          </div>
-          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis Collier, DHA. All Rights Reserved.</p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
-            <span className="text-border">|</span>
-            <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
-            <span className="text-border">|</span>
-            <Link to="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Technology</Link>
-            <span className="text-border">|</span>
-            <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </SiteLayout>
   );
 }
 

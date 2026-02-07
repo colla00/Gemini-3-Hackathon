@@ -1,46 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, Building2, Briefcase, Users, CheckCircle2, Mail, FileText, Shield, Lightbulb } from "lucide-react";
-import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Building2, Briefcase, Users, CheckCircle2, Mail, FileText, Shield, Lightbulb } from "lucide-react";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 
 function Licensing() {
   return (
-    <div className="min-h-screen bg-background">
+    <SiteLayout title="Licensing" description="License VitaSignal's patent-protected clinical AI technology. Available for EHR vendors, hospital systems, and healthcare AI companies.">
 
-      {/* Alert Banner */}
-      <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-2 text-center text-sm">
-        <span className="font-semibold text-destructive">⚠️ RESEARCH PROTOTYPE</span>
-        <span className="text-muted-foreground mx-2">•</span>
-        <span className="text-muted-foreground">Not FDA cleared or approved. Not a medical device. Not for clinical use.</span>
-      </div>
-
-      {/* Header */}
-      <header className="border-b border-border/40 bg-card">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <Activity className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-lg font-bold text-foreground">VitaSignal</p>
-                <p className="text-xs text-muted-foreground">Clinical Intelligence</p>
-              </div>
-            </Link>
-            <nav className="flex items-center gap-4">
-              <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Technology</Link>
-              <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">About</Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Contact</Link>
-              <ThemeToggle />
-              <Button variant="default" size="sm" asChild>
-                <Link to="/licensing">Licensing</Link>
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section className="py-16 px-6 bg-gradient-to-b from-primary/5 to-transparent text-center">
@@ -360,30 +327,7 @@ function Licensing() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 px-6 border-t border-border/30 bg-secondary/30">
-        <div className="max-w-6xl mx-auto flex flex-col items-center text-center gap-4">
-          <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-primary" />
-            <span className="font-bold text-foreground">VitaSignal</span>
-          </div>
-          <p className="text-xs text-muted-foreground">© 2024–2026 Dr. Alexis Collier, DHA. All Rights Reserved.</p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link>
-            <span className="text-border">|</span>
-            <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
-            <span className="text-border">|</span>
-            <Link to="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Technology</Link>
-            <span className="text-border">|</span>
-            <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
-            <span className="text-border">|</span>
-            <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms</Link>
-            <span className="text-border">|</span>
-            <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </SiteLayout>
   );
 }
 
