@@ -14,11 +14,28 @@ interface DemoAccessGateProps {
 type AccessStatus = 'loading' | 'approved' | 'pending' | 'denied' | 'none';
 
 const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
-  const { user, loading, isAdmin } = useAuth();
+  const { user, loading, isAdmin, roles } = useAuth();
   const [accessStatus, setAccessStatus] = useState<AccessStatus>('loading');
+  const [rolesChecked, setRolesChecked] = useState(false);
 
+  // Wait for roles to be fetched before evaluating access
   useEffect(() => {
     if (loading) return;
+    if (!user) {
+      setRolesChecked(true);
+      return;
+    }
+    // roles array will be empty initially, then populated async
+    // We need a small delay to let roles load after auth resolves
+    if (roles.length === 0 && !rolesChecked) {
+      const timer = setTimeout(() => setRolesChecked(true), 500);
+      return () => clearTimeout(timer);
+    }
+    setRolesChecked(true);
+  }, [loading, user, roles, rolesChecked]);
+
+  useEffect(() => {
+    if (loading || !rolesChecked) return;
     if (!user) return;
 
     // Admins always have access
@@ -52,7 +69,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
     };
 
     checkAccess();
-  }, [user, loading, isAdmin]);
+  }, [user, loading, isAdmin, rolesChecked]);
 
   if (loading || accessStatus === 'loading') {
     return (
