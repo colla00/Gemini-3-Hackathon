@@ -1,29 +1,23 @@
 // Patent-related constants - centralized for consistency
 
 // Patent #1: Trust-Based Alert Prioritization and Equity Monitoring (FILED)
-export const PATENT_NUMBER = '63/946,187';
 export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 
 // Patent #2: Clinical Risk Intelligence System (FILED Dec 2025)
-export const PATENT_2_NUMBER = '63/932,953';
 export const PATENT_2_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED EXPLAINABILITY, TEMPORAL FORECASTING, ADAPTIVE THRESHOLDS, AND CLOSED-LOOP INTERVENTION FEEDBACK';
 
 // Patent #3: Unified Nursing Intelligence Platform (FILED Jan 2026)
-export const PATENT_3_NUMBER = '63/966,117';
 export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
 
 // Patent #4: DBS System (FILED Jan 22, 2026)
-export const PATENT_4_NUMBER = '63/966,099';
 export const PATENT_4_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
 // Patent #5: ICU Mortality Prediction (FILED Feb 5, 2026)
-export const PATENT_5_NUMBER = 'Pending';
 export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
 
 // All patent applications
 export interface PatentApplication {
   id: string;
-  number?: string;
   title: string;
   shortName: string;
   status: 'filed' | 'pending' | 'preparation';
@@ -37,7 +31,6 @@ export interface PatentApplication {
 export const PATENT_PORTFOLIO: PatentApplication[] = [
   {
     id: 'trust-alerts',
-    number: '63/946,187',
     title: PATENT_TITLE,
     shortName: 'Trust-Based Alert System',
     status: 'filed',
@@ -46,7 +39,6 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'risk-intelligence',
-    number: '63/932,953',
     title: PATENT_2_TITLE,
     shortName: 'Clinical Risk Intelligence',
     status: 'filed',
@@ -55,7 +47,6 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'unified-platform',
-    number: '63/966,117',
     title: PATENT_3_TITLE,
     shortName: 'Unified Nursing Intelligence',
     status: 'filed',
@@ -64,7 +55,6 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'dbs-system',
-    number: '63/966,099',
     title: PATENT_4_TITLE,
     shortName: 'DBS System',
     status: 'filed',
@@ -73,7 +63,6 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'icu-mortality',
-    number: PATENT_5_NUMBER,
     title: PATENT_5_TITLE,
     shortName: 'ICU Mortality Prediction',
     status: 'filed',
@@ -81,7 +70,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     inventor: 'Dr. Alexis Collier',
     claimsCount: 99,
     nihFunded: true,
-    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata. The invention eliminates the need for physiological monitoring equipment by analyzing the "human sensor" signal of nursing surveillance. The system extracts 9 temporal features to quantify documentation intensity and regularity. An unsupervised clustering module identifies four distinct clinical phenotypes with significant mortality stratification (3.2% to 24.1%). Achieves AUC of 0.684 (95% CI: 0.653-0.715), providing a cost-effective, equipment-independent solution for real-time risk stratification.'
+    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata.'
   }
 ];
 

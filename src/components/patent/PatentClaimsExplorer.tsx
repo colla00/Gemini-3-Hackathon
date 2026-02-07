@@ -332,7 +332,7 @@ export const PatentClaimsExplorer = ({ className, compact = false }: PatentClaim
                       <div className="flex-1">
                         <h3 className="text-sm font-semibold text-foreground">{meta?.shortName}</h3>
                         <p className="text-[10px] text-muted-foreground">
-                          App No. {meta?.number} · {claims.length} claims
+                          {meta?.shortName} · {claims.length} claims
                         </p>
                       </div>
                       {patent?.status === 'filed' && (

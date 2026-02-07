@@ -115,7 +115,7 @@ export const ResearchValidationSlide = () => {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium">Clinical Risk Intelligence Targets</span>
-                  <Badge variant="secondary" className="text-[10px]">Patent #63/932,953</Badge>
+                  <Badge variant="secondary" className="text-[10px]">Patent Pending</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-lg bg-secondary/50">

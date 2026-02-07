@@ -1,5 +1,5 @@
 import { Shield, Award } from 'lucide-react';
-import { PATENT_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER, PATENT_4_NUMBER, PATENT_PORTFOLIO } from '@/constants/patent';
+import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 export const Footer = () => {
   const filedCount = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;

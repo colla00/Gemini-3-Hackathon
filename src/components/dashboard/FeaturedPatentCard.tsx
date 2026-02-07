@@ -93,7 +93,7 @@ export const FeaturedPatentCard = () => {
           Patent Portfolio
         </Link>
         <span className="text-[11px] text-muted-foreground hidden md:inline">
-          {icuPatent.number !== 'Pending' ? `#${icuPatent.number}` : 'Filed'} · {icuPatent.filingDate}
+          Filed · {icuPatent.filingDate}
         </span>
       </div>
     </div>

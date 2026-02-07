@@ -2,7 +2,7 @@ import { Award, Brain, Shield, Activity, TrendingUp, Users, Clock, Target, Check
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { PATENT_NUMBER, PATENT_PORTFOLIO, PATENT_4_NUMBER, PATENT_2_NUMBER, PATENT_3_NUMBER } from '@/constants/patent';
+import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 interface PatentInfo {
   id: string;
@@ -26,7 +26,7 @@ const patents: PatentInfo[] = [
     icon: <Brain className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Dec 21, 2025',
-    applicationNumber: PATENT_NUMBER,
+    applicationNumber: undefined,
     keyInnovations: [
       'Trust Score Algorithm with temporal decay',
       'Neural Reasoning Engine with explainability',
@@ -48,7 +48,7 @@ const patents: PatentInfo[] = [
     icon: <Cpu className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Dec 2025',
-    applicationNumber: PATENT_2_NUMBER,
+    applicationNumber: undefined,
     keyInnovations: [
       'Multi-horizon temporal forecasting (4-48h)',
       'Patient-adaptive alert thresholds',
@@ -70,7 +70,7 @@ const patents: PatentInfo[] = [
     icon: <Shield className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Jan 2026',
-    applicationNumber: PATENT_3_NUMBER,
+    applicationNumber: undefined,
     keyInnovations: [
       'Documentation Burden Score (DBS) module',
       'Risk Intelligence module integration',
@@ -92,7 +92,7 @@ const patents: PatentInfo[] = [
     icon: <Activity className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Jan 22, 2026',
-    applicationNumber: PATENT_4_NUMBER,
+    applicationNumber: undefined,
     keyInnovations: [
       'Prospective burden scoring at admission',
       'Quartile-based staffing recommendations',
@@ -140,7 +140,7 @@ export const PatentPortfolioSlide = () => {
           Four complementary patents creating a defensible moat in clinical AI
         </p>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
-          <span className="text-xs font-semibold text-primary">Lead Application: {PATENT_NUMBER}</span>
+          <span className="text-xs font-semibold text-primary">Patent Portfolio · {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed</span>
         </div>
       </div>
 
