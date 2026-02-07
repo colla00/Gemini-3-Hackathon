@@ -63,7 +63,7 @@ export const Landing = () => {
           <p className="text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">
             5 U.S. provisional patent applications covering novel analytical methods for clinical documentation pattern analysis.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
             <WalkthroughRequestModal
               trigger={
                 <Button size="lg" className="shadow-lg">
@@ -73,6 +73,9 @@ export const Landing = () => {
             />
             <Button variant="outline" size="lg" asChild>
               <Link to="/presentation">Self-Paced Walkthrough</Link>
+            </Button>
+            <Button size="lg" asChild>
+              <Link to="/about">Learn More →</Link>
             </Button>
             <Button variant="secondary" size="lg" asChild>
               <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
