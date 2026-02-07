@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Activity, Menu, X } from "lucide-react";
+import { Activity, Menu, X, Linkedin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -116,20 +116,68 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30">
-        <div className="max-w-6xl mx-auto flex flex-col items-center text-center gap-3">
-          <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-primary" />
-            <span className="font-bold text-foreground">VitaSignal</span>
+      <footer className="py-14 px-6 border-t border-border/30 bg-foreground text-primary-foreground">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Activity className="w-5 h-5 text-primary" />
+                <span className="font-display text-lg text-primary-foreground">VitaSignal</span>
+              </div>
+              <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
+                Equipment-independent clinical AI. Patent-protected technology for ICU mortality prediction and nursing workflow optimization.
+              </p>
+              <a
+                href="https://www.linkedin.com/in/alexiscollier/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+                Dr. Alexis Collier
+              </a>
+            </div>
+
+            {/* Technology */}
+            <div>
+              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Technology</p>
+              <div className="space-y-2">
+                <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patent Portfolio</Link>
+                <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Research</Link>
+                <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
+              </div>
+            </div>
+
+            {/* Company */}
+            <div>
+              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Company</p>
+              <div className="space-y-2">
+                <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">About</Link>
+                <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
+                <a href="mailto:info@alexiscollier.com" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">info@alexiscollier.com</a>
+              </div>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Legal</p>
+              <div className="space-y-2">
+                <Link to="/terms" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Terms of Use</Link>
+                <Link to="/privacy" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
+                <span className="block text-sm text-primary-foreground/50">5 U.S. Patents Pending</span>
+              </div>
+            </div>
           </div>
-          <p className="text-xs text-muted-foreground">© 2025–2026 Dr. Alexis Collier, DHA. All Rights Reserved.</p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-            <Link to="/about" className="hover:text-primary transition-colors">About</Link>
-            <Link to="/patents" className="hover:text-primary transition-colors">Patents</Link>
-            <Link to="/licensing" className="hover:text-primary transition-colors">Licensing</Link>
-            <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
-            <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
-            <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
+
+          {/* Bottom bar */}
+          <div className="pt-6 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-primary-foreground/40">
+              &copy; 2025-2026 Dr. Alexis Collier, DHA. All Rights Reserved.
+            </p>
+            <p className="text-[10px] text-primary-foreground/30">
+              Pre-Market Research Prototype. Not FDA Cleared. Not a Medical Device.
+            </p>
           </div>
         </div>
       </footer>

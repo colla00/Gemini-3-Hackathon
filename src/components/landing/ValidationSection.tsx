@@ -1,68 +1,72 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
 const metrics = [
-  { label: "AUC", value: "0.684", detail: "95% CI: 0.653–0.715" },
+  { label: "AUC", value: "0.684", detail: "95% CI: 0.653-0.715" },
   { label: "Dataset", value: "26,153", detail: "ICU admissions" },
-  { label: "Validation Span", value: "11 years", detail: "Temporal split 2008–2019" },
+  { label: "Validation Span", value: "11 years", detail: "Temporal split 2008-2019" },
   { label: "Strongest Predictor", value: "OR 1.82", detail: "Documentation rhythm (CV)" },
 ];
 
 const differentiators = [
-  "Zero hardware cost — uses existing EHR data only",
+  "Zero hardware cost - uses existing EHR data only",
   "Equity-validated across patient populations",
   "SHAP-based explainability for every prediction",
   "Real-time deployment with sub-second inference",
 ];
 
 export const ValidationSection = () => (
-  <section className="py-20 px-6 bg-secondary/40">
-    <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-14">
-        <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
-          Validated Performance
-        </p>
-        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          Research-Backed Results
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          The ICU Mortality Prediction system has been validated on large-scale clinical datasets
-          with NIH-funded research support.
-        </p>
-      </div>
+  <section className="relative py-24 px-6 overflow-hidden">
+    {/* Dark background for contrast */}
+    <div className="absolute inset-0 bg-foreground" />
+    <div
+      className="absolute inset-0 opacity-10"
+      style={{
+        backgroundImage: `radial-gradient(circle at 30% 50%, hsl(173 58% 29% / 0.4) 0%, transparent 50%),
+                         radial-gradient(circle at 70% 50%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
+      }}
+    />
 
-      {/* Metrics grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        {metrics.map((m) => (
-          <Card key={m.label} className="text-center">
-            <CardContent className="pt-6 pb-5">
-              <p className="text-3xl md:text-4xl font-bold text-primary font-display mb-1">
-                {m.value}
-              </p>
-              <p className="text-sm font-semibold text-foreground mb-0.5">{m.label}</p>
-              <p className="text-xs text-muted-foreground">{m.detail}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="relative max-w-5xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-16 items-center">
+        {/* Left: narrative */}
+        <div>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+            Validated Performance
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-6">
+            Research-Backed Results
+          </h2>
+          <p className="text-primary-foreground/70 mb-8 leading-relaxed">
+            The ICU Mortality Prediction system has been validated on large-scale
+            clinical datasets with NIH-funded research support, demonstrating
+            consistent performance across an 11-year temporal validation window.
+          </p>
 
-      {/* Differentiators */}
-      <Card>
-        <CardContent className="pt-6 pb-5">
-          <div className="flex items-center gap-2 mb-4">
-            <Badge variant="outline" className="text-xs">Why It Matters</Badge>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="space-y-3">
             {differentiators.map((d) => (
-              <div key={d} className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">{d}</p>
+              <div key={d} className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" />
+                <p className="text-sm text-primary-foreground/70">{d}</p>
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Right: metrics */}
+        <div className="grid grid-cols-2 gap-3">
+          {metrics.map((m) => (
+            <div
+              key={m.label}
+              className="p-6 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 text-center"
+            >
+              <p className="font-display text-3xl text-primary mb-1">{m.value}</p>
+              <p className="text-sm font-semibold text-primary-foreground mb-0.5">{m.label}</p>
+              <p className="text-xs text-primary-foreground/50">{m.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 );
