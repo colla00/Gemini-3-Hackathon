@@ -23,7 +23,7 @@ export const PatentPublicationInfo = () => {
           />
           <InfoRow
             label="Inventor"
-            value="Dr. Alexis M. Collier, DHA, MHA, RN &bull; University of North Georgia"
+            value="Dr. Alexis Collier, DHA &bull; University of North Georgia"
           />
         </div>
       </CardContent>

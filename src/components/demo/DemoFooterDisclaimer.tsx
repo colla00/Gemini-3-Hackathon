@@ -25,7 +25,7 @@ export const DemoFooterDisclaimer = () => {
         </div>
         <div className="flex items-center justify-center gap-2">
           <Shield className="h-3 w-3" />
-          <span>&copy; 2024-2026 Dr. Alexis M. Collier. All Rights Reserved. &bull; 5 U.S. Patents Filed</span>
+          <span>&copy; 2024-2026 Dr. Alexis Collier. All Rights Reserved. &bull; 5 U.S. Patents Filed</span>
         </div>
       </div>
     </footer>
