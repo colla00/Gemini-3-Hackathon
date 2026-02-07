@@ -4,6 +4,7 @@ import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
 import { InventorSection } from "@/components/landing/InventorSection";
 import { PartnersSection } from "@/components/landing/PartnersSection";
+import { DemoRequestSection } from "@/components/landing/DemoRequestSection";
 import { LicensingCTA } from "@/components/landing/LicensingCTA";
 
 export const Landing = () => {
@@ -15,6 +16,7 @@ export const Landing = () => {
       <LandingHero />
       <TechnologyPortfolio />
       <ValidationSection />
+      <DemoRequestSection />
       <InventorSection />
       <PartnersSection />
       <LicensingCTA />
