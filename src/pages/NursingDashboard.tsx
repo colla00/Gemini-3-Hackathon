@@ -22,7 +22,7 @@ export const NursingDashboard = () => {
     <div className="min-h-screen flex flex-col gradient-burgundy">
       {/* Fellowship Banner */}
       <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground py-2.5 px-4 text-center text-xs font-semibold sticky top-0 z-50">
-        NIH AIM-AHEAD CLINAQ Fellowship (Grant 1OT2OD032581) | K12 HL138039-06 |{' '}
+        NIH-Funded Research |{' '}
         <span className="font-bold">VitaSignal Clinical Intelligence Platform</span>
       </div>
 
