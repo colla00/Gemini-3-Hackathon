@@ -33,9 +33,9 @@ const alertHistoryData = [
 ];
 
 const levelStyles = {
-  critical: 'border-l-red-500 bg-red-50',
-  warning: 'border-l-amber-500 bg-amber-50',
-  info: 'border-l-blue-500 bg-blue-50',
+  critical: 'border-l-destructive bg-destructive/10',
+  warning: 'border-l-warning bg-warning/10',
+  info: 'border-l-primary bg-primary/10',
 };
 
 export const SurgeAlerts = () => {
@@ -47,7 +47,7 @@ export const SurgeAlerts = () => {
             <CardTitle>Active Surge Alerts</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">Real-time notifications for workload spikes</p>
           </div>
-          <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">MOCK DATA</Badge>
+          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
         </CardHeader>
         <CardContent className="space-y-3">
           {alerts.map((a) => (
@@ -65,19 +65,19 @@ export const SurgeAlerts = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Alert History (Last 24 Hours)</CardTitle>
-          <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">MOCK DATA</Badge>
+          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={alertHistoryData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="time" />
-              <YAxis label={{ value: 'Number of Alerts', angle: -90, position: 'insideLeft' }} />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="time" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+              <YAxis label={{ value: 'Number of Alerts', angle: -90, position: 'insideLeft', fill: 'hsl(var(--muted-foreground))' }} tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+              <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
               <Legend />
-              <Bar dataKey="critical" stackId="a" fill="#ef4444" name="Critical Alerts" />
-              <Bar dataKey="warning" stackId="a" fill="#f59e0b" name="Warning Alerts" />
-              <Bar dataKey="info" stackId="a" fill="#3b82f6" name="Info Alerts" />
+              <Bar dataKey="critical" stackId="a" fill="hsl(var(--destructive))" name="Critical Alerts" />
+              <Bar dataKey="warning" stackId="a" fill="hsl(var(--warning))" name="Warning Alerts" />
+              <Bar dataKey="info" stackId="a" fill="hsl(var(--primary))" name="Info Alerts" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

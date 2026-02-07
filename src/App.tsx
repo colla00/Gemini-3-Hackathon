@@ -97,11 +97,9 @@ const App = () => {
                     </ProtectedRoute>
                   } />
                   <Route path="/clinical-dashboard" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<DashboardSkeleton />}>
-                        <NursingDashboard />
-                      </Suspense>
-                    </ProtectedRoute>
+                    <Suspense fallback={<DashboardSkeleton />}>
+                      <NursingDashboard />
+                    </Suspense>
                   } />
                   <Route path="/admin" element={
                     <ProtectedRoute>

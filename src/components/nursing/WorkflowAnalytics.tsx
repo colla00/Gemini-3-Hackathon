@@ -19,7 +19,12 @@ const completionData = [
   { name: 'Delayed (>15 min)', value: 3 },
 ];
 
-const completionColors = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'];
+const completionColors = [
+  'hsl(var(--risk-low))',
+  'hsl(var(--primary))',
+  'hsl(var(--warning))',
+  'hsl(var(--destructive))',
+];
 
 const outcomesData = [
   { metric: 'Readmissions', pre: 12.5, post: 9.8 },
@@ -43,20 +48,20 @@ export const WorkflowAnalytics = () => {
             <CardTitle>Documentation Heatmap</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">Nursing chart entry patterns by hour and day of week</p>
           </div>
-          <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">MOCK DATA</Badge>
+          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={heatmapData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" label={{ value: 'Day of Week', position: 'insideBottom', offset: -5 }} />
-              <YAxis label={{ value: 'Number of Chart Entries', angle: -90, position: 'insideLeft' }} />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="day" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+              <YAxis label={{ value: 'Chart Entries', angle: -90, position: 'insideLeft', fill: 'hsl(var(--muted-foreground))' }} tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+              <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
               <Legend />
-              <Bar dataKey="6 AM" fill="#dbeafe" />
-              <Bar dataKey="12 PM" fill="#93c5fd" />
-              <Bar dataKey="6 PM" fill="#3b82f6" />
-              <Bar dataKey="12 AM" fill="#1e40af" />
+              <Bar dataKey="6 AM" fill="hsl(var(--primary) / 0.3)" />
+              <Bar dataKey="12 PM" fill="hsl(var(--primary) / 0.6)" />
+              <Bar dataKey="6 PM" fill="hsl(var(--primary))" />
+              <Bar dataKey="12 AM" fill="hsl(var(--accent))" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
@@ -66,7 +71,7 @@ export const WorkflowAnalytics = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Task Completion Times</CardTitle>
-            <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">MOCK DATA</Badge>
+            <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -77,7 +82,7 @@ export const WorkflowAnalytics = () => {
                   ))}
                 </Pie>
                 <Legend />
-                <Tooltip />
+                <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -86,18 +91,18 @@ export const WorkflowAnalytics = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Patient Outcomes</CardTitle>
-            <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">PILOT DATA PLACEHOLDER</Badge>
+            <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">PILOT DATA PLACEHOLDER</Badge>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={outcomesData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="metric" tick={{ fontSize: 11 }} />
-                <YAxis label={{ value: 'Rate / Score', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="metric" tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
+                <YAxis tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
                 <Legend />
-                <Bar dataKey="pre" fill="#94a3b8" name="Pre-Intervention" />
-                <Bar dataKey="post" fill="#10b981" name="Post-Intervention (Projected)" />
+                <Bar dataKey="pre" fill="hsl(var(--muted-foreground))" name="Pre-Intervention" />
+                <Bar dataKey="post" fill="hsl(var(--risk-low))" name="Post-Intervention (Projected)" />
               </BarChart>
             </ResponsiveContainer>
             <p className="text-sm text-muted-foreground mt-4">
@@ -110,14 +115,14 @@ export const WorkflowAnalytics = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Unit Performance Summary</CardTitle>
-          <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">MOCK DATA</Badge>
+          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {performanceMetrics.map((m) => (
-              <div key={m.label}>
-                <h4 className="text-sm text-muted-foreground mb-2">{m.label}</h4>
-                <p className="text-2xl font-bold">{m.value}</p>
+              <div key={m.label} className="p-4 rounded-lg bg-muted/50 border border-border/40">
+                <h4 className="text-xs text-muted-foreground mb-2 uppercase tracking-wide">{m.label}</h4>
+                <p className="text-2xl font-bold text-foreground">{m.value}</p>
                 <p className="text-sm text-muted-foreground">{m.detail}</p>
               </div>
             ))}
