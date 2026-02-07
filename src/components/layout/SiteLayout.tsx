@@ -39,8 +39,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       </Helmet>
 
       {/* Research Disclaimer */}
-      <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-1.5 text-center text-xs">
-        <span className="text-muted-foreground">Research Prototype · Not FDA cleared · Simulated data only</span>
+      <div className="bg-muted border-b border-border/40 px-4 py-1.5 text-center text-xs">
+        <span className="text-muted-foreground">Pre-Market · Patent Pending · Not a Medical Device</span>
       </div>
 
       {/* Header */}
