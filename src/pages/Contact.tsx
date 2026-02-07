@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Users, Clock } from "lucide-react";
+import { Mail, Users, Clock, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
@@ -14,9 +14,15 @@ function Contact() {
           <p className="text-lg text-muted-foreground mb-4">
             Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal.
           </p>
-          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <Clock className="w-4 h-4" />
-            Typical response time: 2-3 business days
+          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              Typical response time: 2-3 business days
+            </div>
+            <a href="https://www.linkedin.com/in/alexiscollier/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
+              <Linkedin className="w-4 h-4" />
+              LinkedIn
+            </a>
           </div>
         </div>
       </section>
