@@ -26,7 +26,7 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 // Lazy loaded (heavy components)
-const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m.Dashboard })));
+// Dashboard is now handled by NursingDashboard via DemoAccessGate
 const NursingDashboard = lazy(() => import("./pages/NursingDashboard"));
 const PatentAttestationsAdmin = lazy(() => import("./pages/PatentAttestationsAdmin"));
 const About = lazy(() => import("./pages/About"));
