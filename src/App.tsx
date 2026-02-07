@@ -27,6 +27,7 @@ import NotFound from "./pages/NotFound";
 
 // Lazy loaded (heavy components)
 const Dashboard = lazy(() => import("./pages/Dashboard").then(m => ({ default: m.Dashboard })));
+const ClinicalDashboard = lazy(() => import("./components/dashboard/Dashboard").then(m => ({ default: m.Dashboard })));
 const Presentation = lazy(() => import("./pages/Presentation").then(m => ({ default: m.Presentation })));
 const AIToolsRedirect = lazy(() => import("./pages/AIToolsRedirect").then(m => ({ default: m.AIToolsRedirect })));
 const RecordingDemo = lazy(() => import("./pages/RecordingDemo").then(m => ({ default: m.RecordingDemo })));
@@ -92,6 +93,13 @@ const App = () => {
                     <ProtectedRoute>
                       <Suspense fallback={<DashboardSkeleton />}>
                         <Dashboard />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/clinical-dashboard" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<DashboardSkeleton />}>
+                        <ClinicalDashboard />
                       </Suspense>
                     </ProtectedRoute>
                   } />
