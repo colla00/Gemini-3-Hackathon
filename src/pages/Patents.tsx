@@ -1,12 +1,81 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, AlertCircle, CheckCircle2, Clock, Mail } from "lucide-react";
+import { FileText, AlertCircle, CheckCircle2, Clock, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
+import { cn } from "@/lib/utils";
+
+const ipSummary = [
+  { label: "Patents Filed", value: "5", sub: "U.S. Provisional" },
+  { label: "Total Claims", value: "175+", sub: "Across all filings" },
+  { label: "AUC", value: "0.741", sub: "Validated (Patent #1)" },
+  { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
+];
+
+const patentSystems = [
+  {
+    number: 1,
+    title: "ICU Mortality Prediction System",
+    icon: TrendingUp,
+    status: "validated" as const,
+    oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 9 temporal features",
+    validated: true,
+    metrics: [
+      "AUC 0.741 (95% CI: 0.712-0.769)",
+      "Mean temporal AUC 0.684 over 11 years",
+      "n = 26,153 ICU admissions (MIMIC-IV)",
+      "Documentation rhythm (CV) strongest predictor: OR 1.82",
+    ],
+    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment.",
+  },
+  {
+    number: 2,
+    title: "Trust-Based Alert Prioritization",
+    icon: Shield,
+    status: "design" as const,
+    oneLiner: "Adaptive clinical alerts with provider trust scoring to reduce alarm fatigue",
+    validated: false,
+    innovation: "Dynamic alert thresholds that learn from provider response patterns, targeting 40-70% reduction in non-actionable alerts.",
+  },
+  {
+    number: 3,
+    title: "Unified Nursing Intelligence Platform",
+    icon: Activity,
+    status: "design" as const,
+    oneLiner: "Integrated workload prediction and staffing optimization for nursing units",
+    validated: false,
+    innovation: "Three-module integration combining Documentation Burden Score, Risk Intelligence, and Trust-Based Alerts with continuous equity monitoring.",
+  },
+  {
+    number: 4,
+    title: "Documentation Burden & Staffing System",
+    icon: FileText,
+    status: "design" as const,
+    oneLiner: "ML-based documentation burden prediction with quartile staffing recommendations",
+    validated: false,
+    innovation: "Predicts documentation workload intensity to enable proactive staffing adjustments before burden escalates.",
+  },
+  {
+    number: 5,
+    title: "Clinical Risk Intelligence",
+    icon: Brain,
+    status: "design" as const,
+    oneLiner: "Multi-outcome risk stratification with SHAP-based explainable AI",
+    validated: false,
+    innovation: "Predicts nurse-sensitive outcomes (falls, pressure injuries, CAUTI) with interpretable feature attributions for clinical trust.",
+  },
+];
 
 function Patents() {
+  const [expandedPatent, setExpandedPatent] = useState<number | null>(1);
+
+  const toggle = (num: number) => {
+    setExpandedPatent(expandedPatent === num ? null : num);
+  };
+
   return (
     <SiteLayout title="Technology Portfolio" description="5 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
       {/* Hero */}
@@ -29,110 +98,143 @@ function Patents() {
             Patent-protected equipment-independent AI systems for clinical risk prediction and nursing workflow optimization.
           </p>
           <p className="text-sm opacity-60">
-            Sole Inventor: Dr. Alexis Collier, DHA · Filed 2025–2026
+            Sole Inventor: Dr. Alexis Collier, DHA
           </p>
         </div>
       </section>
 
-      {/* Patent Portfolio */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Patent #1 */}
-          <Card className="border-risk-low/30">
-            <CardHeader>
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-risk-low" />
-                  <Badge className="bg-risk-low/10 text-risk-low border-risk-low/30" variant="outline">VALIDATED PERFORMANCE</Badge>
-                </div>
-                <Badge variant="secondary">Patent #1</Badge>
+      {/* Executive IP Summary */}
+      <section className="py-12 px-6 border-b border-border/30">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {ipSummary.map((s) => (
+              <div key={s.label} className="text-center p-5 rounded-xl bg-secondary/50 border border-border/30">
+                <p className="font-display text-3xl text-primary mb-1">{s.value}</p>
+                <p className="text-sm font-semibold text-foreground">{s.label}</p>
+                <p className="text-xs text-muted-foreground">{s.sub}</p>
               </div>
-              <CardTitle className="mt-2">ICU Mortality Prediction System</CardTitle>
-              <CardDescription>Temporal documentation analysis for early prediction of ICU patient mortality</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-sm text-muted-foreground">
-                <p className="font-semibold text-foreground mb-1">Validated Research Performance:</p>
-                <ul className="space-y-1">
-                  <li>• Validated on large-scale ICU research datasets (n=26,153 admissions)</li>
-                  <li>• Predictive performance: AUC 0.741 (95% CI: 0.712-0.769), mean temporal AUC 0.684</li>
-                  <li>• 11-year temporal validation demonstrating consistency</li>
-                  <li>• Equity validation across patient populations</li>
-                </ul>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Core Innovation:</strong> Analyzes temporal patterns in routine clinical documentation to predict
-                ICU mortality risk without requiring additional physiological sensors or monitoring equipment.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Patents #2-5 */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-muted-foreground" />
-                <Badge variant="outline">DESIGN PHASE</Badge>
-              </div>
-              <CardTitle className="mt-2">4 Additional Patent-Pending Systems</CardTitle>
-              <CardDescription>Covering nursing intelligence, documentation burden, alert prioritization, and risk stratification</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-3">
-                {[
-                  { title: "Unified Nursing Intelligence Platform", desc: "Integrated workload prediction and staffing optimization" },
-                  { title: "Documentation Burden & Staffing System", desc: "ML-based documentation burden prediction with staffing recommendations" },
-                  { title: "Trust-Based Alert Prioritization", desc: "Adaptive clinical alerts with provider trust scoring" },
-                  { title: "Clinical Risk Intelligence", desc: "Multi-outcome risk stratification with explainable AI" },
-                ].map((p) => (
-                  <div key={p.title} className="p-3 rounded-lg bg-secondary/50 border border-border/50">
-                    <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{p.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Application numbers, filing dates, and detailed claims available to qualified partners under NDA.
-              </p>
-              <Button variant="outline" size="sm" asChild>
-                <a href="mailto:info@alexiscollier.com">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Request Details Under NDA
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Technical Overview */}
+      {/* Patent Portfolio - Accordion */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-6">
+            Patent Portfolio
+          </p>
+          <div className="space-y-3">
+            {patentSystems.map((patent) => {
+              const isExpanded = expandedPatent === patent.number;
+              return (
+                <div
+                  key={patent.number}
+                  className={cn(
+                    "rounded-xl border transition-all",
+                    patent.validated
+                      ? "border-primary/30 bg-primary/[0.02]"
+                      : "border-border/50 bg-card"
+                  )}
+                >
+                  <button
+                    onClick={() => toggle(patent.number)}
+                    className="w-full flex items-center gap-4 p-5 text-left"
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-lg flex items-center justify-center shrink-0",
+                      patent.validated ? "bg-primary/10" : "bg-secondary"
+                    )}>
+                      <patent.icon className={cn(
+                        "w-5 h-5",
+                        patent.validated ? "text-primary" : "text-muted-foreground"
+                      )} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-bold text-muted-foreground">#{patent.number}</span>
+                        <span className="text-sm font-bold text-foreground">{patent.title}</span>
+                        {patent.validated ? (
+                          <Badge className="bg-risk-low/10 text-risk-low border-risk-low/30 text-[10px]" variant="outline">VALIDATED</Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-[10px]">DESIGN PHASE</Badge>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 truncate">{patent.oneLiner}</p>
+                    </div>
+                    {isExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+                    )}
+                  </button>
+
+                  {isExpanded && (
+                    <div className="px-5 pb-5 pt-0 border-t border-border/20 mt-0 animate-fade-in">
+                      <div className="ml-14 space-y-3 pt-4">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          <strong className="text-foreground">Core Innovation:</strong> {patent.innovation}
+                        </p>
+                        {patent.metrics && (
+                          <div>
+                            <p className="text-xs font-semibold text-foreground mb-2">Validated Performance:</p>
+                            <ul className="space-y-1">
+                              {patent.metrics.map((m) => (
+                                <li key={m} className="flex items-start gap-2 text-xs text-muted-foreground">
+                                  <CheckCircle2 className="w-3 h-3 text-risk-low mt-0.5 shrink-0" />
+                                  {m}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-xs text-muted-foreground mt-6">
+            Application numbers, filing dates, and detailed claims available to qualified partners under NDA.
+          </p>
+          <Button variant="outline" size="sm" className="mt-3" asChild>
+            <a href="mailto:info@alexiscollier.com">
+              <Mail className="w-4 h-4 mr-2" />
+              Request Details Under NDA
+            </a>
+          </Button>
+        </div>
+      </section>
+
+      {/* Core Innovation */}
       <section className="py-16 px-6 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-foreground mb-8">Core Technical Innovation</h2>
+          <h2 className="font-display text-2xl text-foreground mb-8">Why Equipment-Independent?</h2>
           <Card>
-            <CardHeader>
-              <CardTitle>Equipment-Independent Clinical AI</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-muted-foreground">
+            <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground">
               <p>
-                VitaSignal represents a paradigm shift in clinical AI: rather than requiring expensive sensors,
-                wearables, or continuous physiological monitoring, the platform extracts predictive signals from
-                the temporal patterns in routine clinical documentation.
+                Traditional clinical AI requires expensive sensors, wearables, or continuous physiological monitoring.
+                VitaSignal extracts predictive signals from data that already exists in every hospital --
+                the temporal patterns of routine clinical documentation.
               </p>
-              <div>
-                <p className="font-semibold text-foreground mb-2">Key Advantages:</p>
-                <ul className="space-y-1">
-                  <li>• <strong className="text-foreground">Zero Hardware Cost:</strong> Works with existing EHR systems without additional infrastructure</li>
-                  <li>• <strong className="text-foreground">Passive Monitoring:</strong> No additional burden on clinical staff or patients</li>
-                  <li>• <strong className="text-foreground">Universal Applicability:</strong> Any healthcare setting with electronic documentation</li>
-                  <li>• <strong className="text-foreground">Equity-Focused:</strong> Validated for fairness across patient populations</li>
-                  <li>• <strong className="text-foreground">Explainable AI:</strong> SHAP-based interpretability for clinical trust</li>
-                </ul>
+              <div className="grid sm:grid-cols-2 gap-3 mt-4">
+                {[
+                  { label: "Zero Hardware Cost", desc: "Works with existing EHR systems" },
+                  { label: "Passive Monitoring", desc: "No additional burden on staff" },
+                  { label: "Universal Applicability", desc: "Any setting with electronic documentation" },
+                  { label: "Equity-Focused", desc: "Validated for fairness across populations" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-2 p-3 rounded-lg bg-secondary/50 border border-border/30">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="text-xs text-muted-foreground/70">
-                Note: Detailed technical specifications, training methodologies, and performance
-                metrics are available to qualified licensing partners under Non-Disclosure Agreement (NDA).
-              </p>
             </CardContent>
           </Card>
         </div>
@@ -162,10 +264,10 @@ function Patents() {
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 to-foreground/80" />
         </div>
         <div className="relative max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Interested in Licensing VitaSignal Technology?</h2>
+          <h2 className="font-display text-2xl mb-4">Interested in Licensing VitaSignal Technology?</h2>
           <p className="opacity-80 mb-8 max-w-2xl mx-auto">
-            We're seeking strategic partnerships with EHR vendors, hospital systems, healthcare AI companies,
-            and investors to bring VitaSignal to clinical practice.
+            We're seeking strategic partnerships with EHR vendors, hospital systems, and investors
+            to bring VitaSignal to clinical practice.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
