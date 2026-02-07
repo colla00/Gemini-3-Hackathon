@@ -12,7 +12,7 @@ export const Landing = () => {
 
       {/* Alert Banner */}
       <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-2 text-center text-sm">
-        <span className="font-semibold text-destructive">RESEARCH PROTOTYPE</span>
+        <span className="font-semibold text-destructive">⚠️ RESEARCH PROTOTYPE</span>
         <span className="text-muted-foreground mx-2">•</span>
         <span className="text-muted-foreground">Not FDA cleared or approved. Not a medical device. Not for clinical use. Simulated data only.</span>
         <span className="text-muted-foreground mx-2">•</span>
@@ -48,7 +48,7 @@ export const Landing = () => {
 
       {/* Fellowship Banner */}
       <div className="py-3 px-5 text-center text-sm font-semibold tracking-wide shadow-md border-b-[3px] sticky top-0 z-50" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)', color: 'white', borderBottomColor: '#60a5fa' }}>
-        NIH AIM-AHEAD CLINAQ Fellowship Project (Grant 1OT2OD032581) | VitaSignal Nursing Dashboard
+        🎓 NIH AIM-AHEAD CLINAQ Fellowship Project (Grant 1OT2OD032581) | VitaSignal Nursing Dashboard
       </div>
 
       {/* Hero Section */}
@@ -116,7 +116,7 @@ export const Landing = () => {
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
                 <Badge className="bg-risk-low text-white px-3 py-1.5 text-xs">
-                  VALIDATED PERFORMANCE — MOST RECENT FILING
+                  ✓ VALIDATED PERFORMANCE • MOST RECENT FILING
                 </Badge>
                 <Badge variant="outline" className="text-xs border-risk-low/50 text-risk-low">
                   Patent #1 • Filed Feb 5, 2026
