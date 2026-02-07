@@ -64,17 +64,19 @@ export const Landing = () => {
             5 U.S. provisional patent applications covering novel analytical methods for clinical documentation pattern analysis.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link to="/about">Learn More →</Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
-            </Button>
             <WalkthroughRequestModal
               trigger={
-                <Button variant="secondary" size="lg">Request Walkthrough</Button>
+                <Button size="lg" className="shadow-lg">
+                  Request Live Walkthrough →
+                </Button>
               }
             />
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/presentation">Self-Paced Walkthrough</Link>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="mailto:info@alexiscollier.com">Licensing Inquiries</a>
+            </Button>
           </div>
         </div>
       </section>
