@@ -54,7 +54,7 @@ function Patents() {
             Patent-protected equipment-independent AI systems for clinical risk prediction and nursing workflow optimization
           </p>
           <p className="text-sm text-muted-foreground">
-            Sole Inventor: Dr. Alexis Collier, DHA • Filed December 2025 - February 2026
+            Sole Inventor: Dr. Alexis Collier, DHA · Filed 2025–2026
           </p>
         </div>
       </section>
@@ -77,27 +77,13 @@ function Patents() {
               <CardDescription>Temporal documentation analysis for early prediction of ICU patient mortality</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-4 text-sm">
-                <div>
-                  <p className="text-xs text-muted-foreground">Application Number</p>
-                  <p className="font-medium text-foreground">63/976,293</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Filing Date</p>
-                  <p className="font-medium text-foreground">February 5, 2026</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Non-Provisional Due</p>
-                  <p className="font-medium text-foreground">February 5, 2027</p>
-                </div>
-              </div>
               <div className="text-sm text-muted-foreground">
                 <p className="font-semibold text-foreground mb-1">Validated Research Performance:</p>
                 <ul className="space-y-1">
                   <li>• Validated on large-scale ICU research datasets (n=26,153 admissions)</li>
                   <li>• Strong predictive performance (AUC 0.684, 95% CI: 0.653-0.715)</li>
                   <li>• 11-year temporal validation demonstrating consistency</li>
-                  <li>• Equity validation across race/ethnicity (AUC parity maintained)</li>
+                  <li>• Equity validation across patient populations</li>
                 </ul>
               </div>
               <p className="text-sm text-muted-foreground">
@@ -107,49 +93,41 @@ function Patents() {
             </CardContent>
           </Card>
 
-          {/* Patents #2-5 */}
-          {[
-            { num: 2, title: "Unified Nursing Intelligence Platform", desc: "Integrated system for nursing workload prediction and staffing optimization", app: "63/966,117", date: "January 22, 2026", due: "January 22, 2027", innovation: "Unified predictive platform integrating patient risk assessment with nursing workload forecasting to optimize staffing decisions and reduce burnout.", extra: "Funded by AIM-AHEAD Grant (1OT2OD032581, $55,475)" },
-            { num: 3, title: "Documentation Burden & Staffing System", desc: "ML-based prediction of documentation burden with real-time staffing recommendations", app: "63/966,099", date: "January 22, 2026", due: "January 22, 2027", innovation: "Predicts nursing documentation burden and provides quantified staffing recommendations to reduce administrative workload and improve work-life balance." },
-            { num: 4, title: "Trust-Based Alert Prioritization System", desc: "Adaptive clinical alert system with provider trust scoring to reduce alarm fatigue", app: "63/946,187", date: "December 21, 2025", due: "December 21, 2026", innovation: "Patient-specific adaptive thresholds with trust-based prioritization projected to reduce alert fatigue by 40-70% while maintaining patient safety." },
-            { num: 5, title: "Clinical Risk Intelligence System", desc: "Real-time multi-outcome risk stratification with explainable AI and temporal forecasting", app: "63/932,953", date: "December 6, 2025", due: "December 6, 2026", innovation: "Unified risk prediction system with SHAP-based explainability, multi-horizon temporal forecasting (4h, 12h, 24h, 48h), and equity monitoring capabilities." },
-          ].map((p) => (
-            <Card key={p.num}>
-              <CardHeader>
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-muted-foreground" />
-                    <Badge variant="outline">DESIGN PHASE</Badge>
+          {/* Patents #2-5 Summary */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-muted-foreground" />
+                <Badge variant="outline">DESIGN PHASE</Badge>
+              </div>
+              <CardTitle className="mt-2">4 Additional Patent-Pending Systems</CardTitle>
+              <CardDescription>Covering nursing intelligence, documentation burden, alert prioritization, and risk stratification</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-3">
+                {[
+                  { title: "Unified Nursing Intelligence Platform", desc: "Integrated workload prediction and staffing optimization" },
+                  { title: "Documentation Burden & Staffing System", desc: "ML-based documentation burden prediction with staffing recommendations" },
+                  { title: "Trust-Based Alert Prioritization", desc: "Adaptive clinical alerts with provider trust scoring" },
+                  { title: "Clinical Risk Intelligence", desc: "Multi-outcome risk stratification with explainable AI" },
+                ].map((p) => (
+                  <div key={p.title} className="p-3 rounded-lg bg-secondary/50 border border-border/50">
+                    <p className="text-sm font-semibold text-foreground">{p.title}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{p.desc}</p>
                   </div>
-                  <Badge variant="secondary">Patent #{p.num}</Badge>
-                </div>
-                <CardTitle className="mt-2">{p.title}</CardTitle>
-                <CardDescription>{p.desc}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p className="text-xs text-muted-foreground">Application Number</p>
-                    <p className="font-medium text-foreground">{p.app}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Filing Date</p>
-                    <p className="font-medium text-foreground">{p.date}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Non-Provisional Due</p>
-                    <p className="font-medium text-foreground">{p.due}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Core Innovation:</strong> {p.innovation}
-                </p>
-                {p.extra && (
-                  <Badge variant="secondary" className="text-xs">{p.extra}</Badge>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Application numbers, filing dates, and detailed claims available to qualified partners under NDA.
+              </p>
+              <Button variant="outline" size="sm" asChild>
+                <a href="mailto:info@alexiscollier.com">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Request Details Under NDA
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -228,16 +206,9 @@ function Patents() {
           <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border/50">
             <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground space-y-2">
-              <p className="font-semibold text-foreground">Important IP Status Information:</p>
-              <p>
-                All five applications are provisional patents filed under 35 U.S.C. § 111(b).
-                Non-provisional applications must be filed by December 2026 - February 2027 to maintain priority dates.
-              </p>
-              <p>Final patent grants are subject to USPTO examination and are not guaranteed.</p>
-              <p>
-                Research supported by NIH grants K12 HL138039-06 and 1OT2OD032581. The U.S. Government retains
-                certain non-commercial use rights under the Bayh-Dole Act.
-              </p>
+              <p className="font-semibold text-foreground">Important:</p>
+              <p>All five applications are provisional patents. Final patent grants are subject to USPTO examination and are not guaranteed.</p>
+              <p>NIH-funded research. The U.S. Government retains certain non-commercial use rights under the Bayh-Dole Act.</p>
               <p className="text-destructive">
                 VitaSignal systems are research prototypes and are NOT FDA cleared, approved, or authorized for clinical use.
               </p>
