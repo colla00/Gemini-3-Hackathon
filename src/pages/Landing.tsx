@@ -3,7 +3,7 @@ import { LandingHero } from "@/components/landing/LandingHero";
 import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
 import { InventorSection } from "@/components/landing/InventorSection";
-import { PartnersSection } from "@/components/landing/PartnersSection";
+import { RecognitionSection } from "@/components/landing/RecognitionSection";
 import { DemoRequestSection } from "@/components/landing/DemoRequestSection";
 import { LicensingCTA } from "@/components/landing/LicensingCTA";
 
@@ -18,7 +18,7 @@ export const Landing = () => {
       <ValidationSection />
       <DemoRequestSection />
       <InventorSection />
-      <PartnersSection />
+      <RecognitionSection />
       <LicensingCTA />
     </SiteLayout>
   );
