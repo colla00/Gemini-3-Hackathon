@@ -17,15 +17,9 @@ export const DemoFooterDisclaimer = () => {
       <div className="text-center space-y-2 text-xs text-muted-foreground pb-6">
         <div className="flex flex-wrap justify-center gap-6">
           <span>
-            For Licensing Inquiries:{' '}
-            <a href="mailto:licensing@dralexis.ceo" className="text-primary hover:underline">
-              licensing@dralexis.ceo
-            </a>
-          </span>
-          <span>
-            For Research Collaborations:{' '}
-            <a href="mailto:research@dralexis.ceo" className="text-primary hover:underline">
-              research@dralexis.ceo
+            For All Inquiries:{' '}
+            <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">
+              info@alexiscollier.com
             </a>
           </span>
         </div>

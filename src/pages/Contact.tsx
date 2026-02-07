@@ -34,7 +34,7 @@ function Contact() {
               <Link to="/contact" className="text-sm text-primary font-medium">Contact</Link>
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:licensing@dralexis.ceo">Licensing</a>
+                <a href="mailto:info@alexiscollier.com">Licensing</a>
               </Button>
             </nav>
           </div>
@@ -75,8 +75,8 @@ function Contact() {
               <p className="text-sm text-muted-foreground">
                 For EHR vendors, hospital systems, healthcare AI companies, and investors interested in licensing VitaSignal technology.
               </p>
-              <a href="mailto:licensing@dralexis.ceo" className="block text-primary hover:underline font-semibold text-lg">
-                licensing@dralexis.ceo
+              <a href="mailto:info@alexiscollier.com" className="block text-primary hover:underline font-semibold text-lg">
+                info@alexiscollier.com
               </a>
               <Button variant="outline" size="sm" asChild>
                 <Link to="/patents">View Licensing Information</Link>
@@ -101,11 +101,11 @@ function Contact() {
               <p className="text-sm text-muted-foreground">
                 For researchers, clinicians, and academic institutions interested in clinical validation studies or co-investigation.
               </p>
-              <a href="mailto:research@dralexis.ceo" className="block text-accent hover:underline font-semibold text-lg">
-                research@dralexis.ceo
+              <a href="mailto:info@alexiscollier.com" className="block text-accent hover:underline font-semibold text-lg">
+                info@alexiscollier.com
               </a>
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:research@dralexis.ceo">
+                <a href="mailto:info@alexiscollier.com">
                   <Mail className="w-4 h-4 mr-2" />
                   Send Research Inquiry
                 </a>
@@ -130,11 +130,11 @@ function Contact() {
               <p className="text-sm text-muted-foreground">
                 For journalists, conference organizers, and media outlets requesting interviews or expert commentary on healthcare AI.
               </p>
-              <a href="mailto:media@dralexis.ceo" className="block text-primary hover:underline font-semibold text-lg">
-                media@dralexis.ceo
+              <a href="mailto:info@alexiscollier.com" className="block text-primary hover:underline font-semibold text-lg">
+                info@alexiscollier.com
               </a>
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:media@dralexis.ceo">
+                <a href="mailto:info@alexiscollier.com">
                   <Mail className="w-4 h-4 mr-2" />
                   Media Request
                 </a>
@@ -159,11 +159,11 @@ function Contact() {
               <p className="text-sm text-muted-foreground">
                 For general questions, information requests, or inquiries that don't fit the categories above.
               </p>
-              <a href="mailto:contact@dralexis.ceo" className="block text-muted-foreground hover:underline font-semibold text-lg">
-                contact@dralexis.ceo
+              <a href="mailto:info@alexiscollier.com" className="block text-muted-foreground hover:underline font-semibold text-lg">
+                info@alexiscollier.com
               </a>
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:contact@dralexis.ceo">
+                <a href="mailto:info@alexiscollier.com">
                   <Mail className="w-4 h-4 mr-2" />
                   General Contact
                 </a>

@@ -35,7 +35,7 @@ function Patents() {
               <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors hidden sm:inline">Contact</Link>
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
-                <a href="mailto:licensing@dralexis.ceo">Licensing</a>
+                <a href="mailto:info@alexiscollier.com">Licensing</a>
               </Button>
             </nav>
           </div>
@@ -215,7 +215,7 @@ function Patents() {
                 </ul>
               </div>
               <Button variant="outline" asChild>
-                <a href="mailto:research@dralexis.ceo">Inquire About Research Collaboration</a>
+                <a href="mailto:info@alexiscollier.com">Inquire About Research Collaboration</a>
               </Button>
             </CardContent>
           </Card>
@@ -256,7 +256,7 @@ function Patents() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:licensing@dralexis.ceo">View Licensing Information</a>
+              <a href="mailto:info@alexiscollier.com">View Licensing Information</a>
             </Button>
             <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
               <Link to="/contact">Contact Us</Link>

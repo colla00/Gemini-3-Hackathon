@@ -12,14 +12,14 @@ export const LicensingCTA = () => (
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="mailto:licensing@dralexis.ceo"
+          href="mailto:info@alexiscollier.com"
           className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-primary rounded-xl font-semibold hover:bg-primary-foreground/90 transition-colors shadow-lg"
         >
           <Mail className="w-5 h-5" aria-hidden="true" />
           Licensing Inquiries
         </a>
         <a
-          href="mailto:contact@dralexis.ceo"
+          href="mailto:info@alexiscollier.com"
           className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground/10 text-primary-foreground rounded-xl font-semibold border-2 border-primary-foreground/30 hover:bg-primary-foreground/20 transition-colors"
         >
           General Contact

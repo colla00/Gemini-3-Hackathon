@@ -15,7 +15,7 @@ export const LandingNav = () => {
           <span className="font-medium">{PATENTS_FILED_LABEL}</span>
           <span className="text-primary/60" aria-hidden="true">•</span>
           <a
-            href="mailto:licensing@dralexis.ceo"
+            href="mailto:info@alexiscollier.com"
             className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-accent/20 border border-accent/30 text-accent hover:bg-accent/30 transition-colors font-medium"
           >
             <Mail className="w-3 h-3" aria-hidden="true" />
