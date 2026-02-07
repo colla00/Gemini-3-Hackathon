@@ -10,6 +10,7 @@ import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import DemoAccessGate from "@/components/DemoAccessGate";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -85,11 +86,11 @@ const App = () => {
                     </Suspense>
                   } />
                   <Route path="/dashboard" element={
-                    <ProtectedRoute>
+                    <DemoAccessGate>
                       <Suspense fallback={<DashboardSkeleton />}>
                         <NursingDashboard />
                       </Suspense>
-                    </ProtectedRoute>
+                    </DemoAccessGate>
                   } />
                   <Route path="/admin" element={
                     <ProtectedRoute>
