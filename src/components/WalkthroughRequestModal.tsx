@@ -250,5 +250,5 @@ export const DemoAccessModal = ({ trigger }: DemoAccessModalProps) => {
   );
 };
 
-// Keep backward compatibility
+// Backward compatibility alias
 export const WalkthroughRequestModal = DemoAccessModal;
