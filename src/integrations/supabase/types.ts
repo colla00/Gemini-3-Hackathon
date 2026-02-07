@@ -173,6 +173,48 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_inquiries: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          inquiry_type: string
+          irb_status: string | null
+          message: string
+          name: string
+          organization: string | null
+          role: string | null
+          status: string
+          timeline: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          inquiry_type: string
+          irb_status?: string | null
+          message: string
+          name: string
+          organization?: string | null
+          role?: string | null
+          status?: string
+          timeline?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          inquiry_type?: string
+          irb_status?: string | null
+          message?: string
+          name?: string
+          organization?: string | null
+          role?: string | null
+          status?: string
+          timeline?: string | null
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           created_at: string

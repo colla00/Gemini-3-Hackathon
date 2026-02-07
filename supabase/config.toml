@@ -65,3 +65,6 @@ verify_jwt = false
 
 [functions.approve-demo-access]
 verify_jwt = false
+
+[functions.submit-contact-inquiry]
+verify_jwt = false
