@@ -173,34 +173,37 @@ const handler = async (req: Request): Promise<Response> => {
     const safeReason = escapeHtml(data.reason);
 
     const adminEmail = "info@alexiscollier.com";
-    const dashboardUrl = "https://nso-quality-dashboard.lovable.app";
+    const dashboardUrl = "https://clinicaldashboard.lovable.app";
 
     // Handle approval notification
     if (notificationType === 'approved') {
       const approvalEmailResponse = await resend.emails.send({
-        from: "NSO Quality Dashboard <cs@ezlearning.center>",
+        from: "VitaSignal <cs@ezlearning.center>",
         to: [data.email],
-        subject: "Your Walkthrough Access Has Been Approved! 🎉",
+        subject: "Your Demo Access Has Been Approved! 🎉",
         html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #10b981;">Welcome to the NSO Quality Dashboard!</h2>
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+            <h2 style="color: #10b981;">Welcome to VitaSignal</h2>
             <p>Hi ${safeName},</p>
-            <p>Great news! Your request to access the 45-minute NSO Quality Dashboard walkthrough has been <strong style="color: #10b981;">approved</strong>.</p>
+            <p>Great news! Your request to access the VitaSignal technology demonstration has been <strong style="color: #10b981;">approved</strong>.</p>
             <p>You now have full access to:</p>
             <ul>
-              <li>Complete 45-minute interactive walkthrough</li>
-              <li>All dashboard features and demonstrations</li>
+              <li>Interactive clinical intelligence dashboard</li>
+              <li>Patent-protected AI risk analysis</li>
               <li>Clinical workflow simulations</li>
-              <li>AI-powered analysis tools</li>
+              <li>Real-time predictive analytics</li>
             </ul>
-            <div style="margin: 30px 0;">
-              <a href="${dashboardUrl}/presentation" 
-                 style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500;">
-                Access the Walkthrough
+            <div style="margin: 30px 0; text-align: center;">
+              <a href="${dashboardUrl}/dashboard" 
+                 style="background-color: #10b981; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
+                Access the Demo Dashboard
               </a>
             </div>
-            <p>If you have any questions, feel free to reply to this email.</p>
-            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
+            <p style="color: #666; font-size: 14px;">If the button above doesn't work, copy and paste this link into your browser:<br>
+              <a href="${dashboardUrl}/dashboard" style="color: #10b981;">${dashboardUrl}/dashboard</a>
+            </p>
+            <p>If you have any questions, feel free to reach out at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
           </div>
         `,
       });
@@ -216,17 +219,17 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial notification
     if (notificationType === 'denied') {
       const denialEmailResponse = await resend.emails.send({
-        from: "NSO Quality Dashboard <cs@ezlearning.center>",
+        from: "VitaSignal <cs@ezlearning.center>",
         to: [data.email],
-        subject: "Update on Your Walkthrough Access Request",
+        subject: "Update on Your Demo Access Request",
         html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2>NSO Quality Dashboard</h2>
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+            <h2>VitaSignal</h2>
             <p>Hi ${safeName},</p>
-            <p>Thank you for your interest in the NSO Quality Dashboard walkthrough.</p>
+            <p>Thank you for your interest in VitaSignal's technology demonstration.</p>
             <p>After reviewing your request, we're unable to grant access at this time. This may be due to limited availability or eligibility requirements for the current phase of the research prototype.</p>
-            <p>If you believe this was in error or would like to provide additional information, please reply to this email and we'll be happy to reconsider your request.</p>
-            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>NSO Quality Dashboard</p>
+            <p>If you believe this was in error or would like to provide additional information, please contact us at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
           </div>
         `,
       });
@@ -241,12 +244,12 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <cs@ezlearning.center>",
+      from: "VitaSignal <cs@ezlearning.center>",
       to: [adminEmail],
-      subject: `New Walkthrough Access Request from ${safeName}`,
+      subject: `New Demo Access Request from ${safeName}`,
       html: `
-        <h2>New Walkthrough Access Request</h2>
-        <p>A new request for the 45-minute walkthrough has been submitted:</p>
+        <h2>New Demo Access Request</h2>
+        <p>A new request for the VitaSignal technology demo has been submitted:</p>
         <table style="border-collapse: collapse; width: 100%; max-width: 500px;">
           <tr>
             <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Name:</td>
@@ -270,7 +273,7 @@ const handler = async (req: Request): Promise<Response> => {
           ` : ''}
           ${safeReason ? `
           <tr>
-            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Reason:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Interest:</td>
             <td style="padding: 8px; border-bottom: 1px solid #eee;">${safeReason}</td>
           </tr>
           ` : ''}
@@ -284,16 +287,18 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin notification sent:", adminEmailResponse);
 
     const confirmationResponse = await resend.emails.send({
-      from: "NSO Quality Dashboard <cs@ezlearning.center>",
+      from: "VitaSignal <cs@ezlearning.center>",
       to: [data.email],
-      subject: "Your Walkthrough Request Has Been Received",
+      subject: "Your Demo Access Request Has Been Received",
       html: `
-        <h2>Thank You for Your Interest!</h2>
-        <p>Hi ${safeName},</p>
-        <p>We've received your request to access the 45-minute NSO Quality Dashboard walkthrough.</p>
-        <p>Our team will review your request and get back to you shortly with access details.</p>
-        <p>In the meantime, feel free to explore our landing page for more information about the dashboard.</p>
-        <p style="margin-top: 30px;">Best regards,<br>The NSO Quality Dashboard Team</p>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+          <h2>Thank You for Your Interest!</h2>
+          <p>Hi ${safeName},</p>
+          <p>We've received your request to access VitaSignal's technology demonstration.</p>
+          <p>Our team will review your request and get back to you shortly with access details.</p>
+          <p>In the meantime, feel free to explore our site for more information about VitaSignal's clinical intelligence platform.</p>
+          <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
+        </div>
       `,
     });
 
