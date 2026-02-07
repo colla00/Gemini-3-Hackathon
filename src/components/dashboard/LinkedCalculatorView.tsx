@@ -1,5 +1,5 @@
 // Linked DBS + ROI Calculator View
-// Copyright © Dr. Alexis Collier - U.S. Patent Applications 63/966,099 & 63/966,117
+// Copyright © Dr. Alexis Collier - Patent Pending
 
 import { useState, useMemo, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

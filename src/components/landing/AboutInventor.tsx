@@ -14,11 +14,11 @@ export const AboutInventor = () => (
         <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">NIH CLINAQ Fellow</strong> (K12 HL138039-06)</span>
+            <span><strong className="text-foreground">NIH CLINAQ Fellow</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">AIM-AHEAD Researcher</strong> (1OT2OD032581, $55,475)</span>
+            <span><strong className="text-foreground">AIM-AHEAD Researcher</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
