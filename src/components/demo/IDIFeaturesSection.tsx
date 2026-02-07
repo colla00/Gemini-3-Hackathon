@@ -133,25 +133,25 @@ export const IDIFeaturesSection = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-8">
       <div>
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
           Feature Engineering
         </p>
-        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
+        <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-3">
           The 9 IDI Features
         </h2>
-        <p className="text-muted-foreground max-w-2xl">
-          Automatically extracted from EHR nursing documentation timestamps. Click any feature to see clinical interpretation.
+        <p className="text-primary-foreground/70 max-w-2xl">
+          Automatically extracted from EHR nursing documentation timestamps. Click any feature to see the clinical interpretation.
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-10">
         {DOMAINS.map(domain => (
           <div key={domain.title} className="space-y-3">
             <div className="flex items-center gap-2">
               <span className="text-primary">{domain.icon}</span>
-              <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+              <h3 className="text-sm font-semibold text-primary-foreground uppercase tracking-wide">
                 {domain.title}
               </h3>
             </div>
@@ -163,26 +163,28 @@ export const IDIFeaturesSection = () => {
                   <div key={feature.name}>
                     <div
                       className={`cursor-pointer rounded-xl border p-5 transition-all hover:shadow-md ${
-                        isExpanded ? 'border-primary/30 bg-primary/[0.04]' : 'border-border/50 bg-card hover:border-primary/20'
+                        isExpanded
+                          ? 'border-primary/40 bg-primary/10'
+                          : 'border-primary-foreground/10 bg-primary-foreground/5 hover:border-primary/30'
                       } ${feature.note ? 'opacity-60 hover:opacity-100' : ''}`}
                       onClick={() => setExpanded(isExpanded ? null : feature.name)}
                     >
                       <div className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
-                          <h4 className="text-sm font-semibold text-foreground leading-tight">
+                          <h4 className="text-sm font-semibold text-primary-foreground leading-tight">
                             {feature.name}
                           </h4>
                           {isExpanded ? (
-                            <ChevronUp className="h-4 w-4 text-muted-foreground shrink-0" />
+                            <ChevronUp className="h-4 w-4 text-primary-foreground/50 shrink-0" />
                           ) : (
-                            <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
+                            <ChevronDown className="h-4 w-4 text-primary-foreground/50 shrink-0" />
                           )}
                         </div>
-                        <p className="text-xs text-muted-foreground">{feature.description}</p>
+                        <p className="text-xs text-primary-foreground/60">{feature.description}</p>
                         <div className="flex flex-wrap items-center gap-2 text-xs">
-                          <span className="font-mono text-foreground">Simulated: {feature.simulated}</span>
-                          <span className="text-muted-foreground">|</span>
-                          <span className="text-muted-foreground">
+                          <span className="font-mono text-primary">Simulated: {feature.simulated}</span>
+                          <span className="text-primary-foreground/30">|</span>
+                          <span className="text-primary-foreground/60">
                             OR {feature.or} ({feature.pValue})
                           </span>
                         </div>
@@ -192,12 +194,12 @@ export const IDIFeaturesSection = () => {
                           </Badge>
                         )}
                         {feature.note && (
-                          <p className="text-[10px] text-muted-foreground italic">{feature.note}</p>
+                          <p className="text-[10px] text-primary-foreground/50 italic">{feature.note}</p>
                         )}
                       </div>
                     </div>
                     {isExpanded && (
-                      <div className="mt-2 p-5 rounded-xl bg-muted/50 border border-border text-sm text-foreground leading-relaxed animate-fade-in">
+                      <div className="mt-2 p-5 rounded-xl bg-primary/10 border border-primary/20 text-sm text-primary-foreground leading-relaxed animate-fade-in">
                         <p className="font-semibold text-xs text-primary mb-2">Clinical Interpretation</p>
                         {feature.interpretation}
                       </div>
@@ -209,6 +211,6 @@ export const IDIFeaturesSection = () => {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };

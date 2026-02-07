@@ -25,26 +25,25 @@ export const Dashboard = () => {
       title="Technology Demo"
       description="Interactive demonstration of VitaSignal's patent-protected clinical intelligence platform using simulated data."
     >
-      {/* Acknowledgment Modal */}
       <AcknowledgmentModal open={!acknowledged} onAccept={handleAccept} />
 
-      {/* Hero Section - matches home page dark style */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm animate-fade-in">
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-primary/20 border border-primary/30 text-sm animate-fade-in">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle" />
             <span className="text-primary font-medium">Interactive Research Prototype</span>
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-[1.05] max-w-4xl animate-fade-in">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-[1.05] max-w-4xl animate-fade-in">
             Technology
             <br />
             <span className="text-primary">Demonstration</span>
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed animate-fade-in">
+          <p className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed animate-fade-in">
             Explore the validated IDI features, patent portfolio, and platform components
             powering VitaSignal's clinical intelligence. All data shown is simulated.
           </p>
@@ -65,14 +64,55 @@ export const Dashboard = () => {
         </div>
       </section>
 
-      {/* Content Sections */}
-      <div className="max-w-6xl mx-auto px-6 py-16 space-y-16">
-        <PatentHeroSection />
-        <IDIFeaturesSection />
-        <DesignPhaseComponents />
-        <PatentPublicationInfo />
-        <DemoFooterDisclaimer />
-      </div>
+      {/* Validated Technology - Light section */}
+      <section className="py-24 px-6 bg-secondary/30">
+        <div className="max-w-5xl mx-auto">
+          <PatentHeroSection />
+        </div>
+      </section>
+
+      {/* IDI Features - Dark section */}
+      <section className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-foreground" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `radial-gradient(circle at 30% 50%, hsl(173 58% 29% / 0.4) 0%, transparent 50%),
+                             radial-gradient(circle at 70% 50%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
+          }}
+        />
+        <div className="relative max-w-5xl mx-auto">
+          <IDIFeaturesSection />
+        </div>
+      </section>
+
+      {/* Design Phase - Light section */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <DesignPhaseComponents />
+        </div>
+      </section>
+
+      {/* Publication - Dark section */}
+      <section className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-foreground" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `radial-gradient(circle at 60% 40%, hsl(173 58% 29% / 0.3) 0%, transparent 50%)`,
+          }}
+        />
+        <div className="relative max-w-5xl mx-auto">
+          <PatentPublicationInfo />
+        </div>
+      </section>
+
+      {/* Disclaimer - Light section */}
+      <section className="py-16 px-6 bg-secondary/30">
+        <div className="max-w-4xl mx-auto">
+          <DemoFooterDisclaimer />
+        </div>
+      </section>
     </SiteLayout>
   );
 };
