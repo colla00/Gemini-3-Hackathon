@@ -46,13 +46,9 @@ export const Landing = () => {
         </div>
       </header>
 
-      {/* Recognition Badge */}
-      <div className="bg-secondary/50 border-b border-border/30 py-2">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <span className="text-sm text-muted-foreground">
-            🎓 Presented at Stanford AI+Health 2025 • Dec 2025
-          </span>
-        </div>
+      {/* Fellowship Banner */}
+      <div className="py-3 px-5 text-center text-sm font-semibold tracking-wide shadow-md border-b-[3px] sticky top-0 z-50" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)', color: 'white', borderBottomColor: '#60a5fa' }}>
+        🎓 NIH AIM-AHEAD CLINAQ Fellowship Project (Grant 1OT2OD032581) | VitaSignal Nursing Dashboard
       </div>
 
       {/* Hero Section */}
