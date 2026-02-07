@@ -89,9 +89,11 @@ const App = () => {
                     </Suspense>
                   } />
                   <Route path="/dashboard" element={
-                    <Suspense fallback={<DashboardSkeleton />}>
-                      <Dashboard />
-                    </Suspense>
+                    <ProtectedRoute>
+                      <Suspense fallback={<DashboardSkeleton />}>
+                        <Dashboard />
+                      </Suspense>
+                    </ProtectedRoute>
                   } />
                   <Route path="/admin" element={
                     <ProtectedRoute>
