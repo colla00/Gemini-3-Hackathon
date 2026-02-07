@@ -1,7 +1,8 @@
-import { ArrowRight, Shield, Mail } from "lucide-react";
+import { ArrowRight, Shield, Mail, Presentation } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { WalkthroughRequestModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
@@ -46,17 +47,18 @@ export const LandingHero = () => (
             <ArrowRight className="w-4 h-4" />
           </Link>
         </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          className="text-base px-8 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
-          asChild
-        >
-          <a href="mailto:info@alexiscollier.com" className="gap-2">
-            <Mail className="w-4 h-4" />
-            Contact Us
-          </a>
-        </Button>
+        <WalkthroughRequestModal
+          trigger={
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base px-8 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+            >
+              <Presentation className="w-4 h-4 mr-2" />
+              Request Demo
+            </Button>
+          }
+        />
       </div>
 
       {/* Stats bar */}
