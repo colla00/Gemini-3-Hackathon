@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['DM Serif Display', 'Georgia', 'serif'],
       },
       fontSize: {
         'display': ['3rem', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
