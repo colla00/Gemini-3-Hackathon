@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const idiFeatures = [
-  { domain: 'Frequency', features: ['Total Events', 'Events per Hour'], color: 'primary' },
-  { domain: 'Rhythm', features: ['Coefficient of Variation', 'Entropy', 'Lag-1 Autocorrelation'], color: 'accent' },
-  { domain: 'Gaps', features: ['Max Gap', 'Proportion Gaps >60min'], color: 'warning' },
-  { domain: 'Burst Activity', features: ['Max Burst', 'Burstiness Index'], color: 'destructive' },
+  { domain: 'Frequency', features: ['Total Events', 'Events per Hour'], dotClass: 'bg-primary' },
+  { domain: 'Rhythm', features: ['Coefficient of Variation', 'Entropy', 'Lag-1 Autocorrelation'], dotClass: 'bg-accent' },
+  { domain: 'Gaps', features: ['Max Gap', 'Proportion Gaps >60min'], dotClass: 'bg-warning' },
+  { domain: 'Burst Activity', features: ['Max Burst', 'Burstiness Index'], dotClass: 'bg-destructive' },
 ];
 
 const keyFindings = [
@@ -73,7 +73,7 @@ export const ResearchValidationSection = () => (
               <div className="space-y-1.5">
                 {domain.features.map((f) => (
                   <div key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <div className={`w-1.5 h-1.5 rounded-full bg-${domain.color}`} />
+                    <div className={`w-1.5 h-1.5 rounded-full ${domain.dotClass}`} />
                     {f}
                   </div>
                 ))}
