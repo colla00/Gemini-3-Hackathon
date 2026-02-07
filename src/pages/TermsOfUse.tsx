@@ -144,7 +144,7 @@ export const TermsOfUse = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-foreground">Terms of Use</h1>
-              <p className="text-muted-foreground">Last Updated: December 2024</p>
+              <p className="text-muted-foreground">Last Updated: February 2026</p>
             </div>
           </div>
 
@@ -157,7 +157,7 @@ export const TermsOfUse = () => {
                 1. Acceptance of Terms
               </h2>
               <p className="text-muted-foreground">
-                By accessing or using the NSO Quality Dashboard ("Software"), you agree to be bound by these Terms of Use. 
+                By accessing or using VitaSignal ("Software"), you agree to be bound by these Terms of Use. 
                 If you do not agree to these terms, you may not access or use the Software.
               </p>
             </section>
@@ -349,10 +349,8 @@ export const TermsOfUse = () => {
               <div className="text-muted-foreground">
                 <p>For questions regarding these Terms of Use or licensing inquiries:</p>
                 <p className="mt-2">
-                  <strong>Alexis Collier</strong><br />
-                  University of North Georgia<br />
-                  College of Health Sciences & Professions<br />
-                  Email: <a href="mailto:alexis.collier@ung.edu" className="text-primary hover:underline">alexis.collier@ung.edu</a>
+                  <strong>Dr. Alexis M. Collier, DHA</strong><br />
+                  Email: <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>
                 </p>
               </div>
             </section>
@@ -371,7 +369,7 @@ export const TermsOfUse = () => {
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-border/30 bg-secondary/30 mt-12">
         <div className="max-w-4xl mx-auto text-center text-sm text-muted-foreground">
-          <p>© 2024–2026 Dr. Alexis Collier. All Rights Reserved.</p>
+          <p>© 2025–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.</p>
           <p className="mt-1">5 U.S. Patents Filed</p>
         </div>
       </footer>

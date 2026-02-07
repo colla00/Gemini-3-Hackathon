@@ -119,7 +119,7 @@ export const PrivacyPolicy = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-foreground">Privacy Policy</h1>
-              <p className="text-muted-foreground">Last Updated: January 2025</p>
+              <p className="text-muted-foreground">Last Updated: February 2026</p>
             </div>
           </div>
 
@@ -132,7 +132,7 @@ export const PrivacyPolicy = () => {
                 1. Overview
               </h2>
               <p className="text-muted-foreground">
-                This Privacy Policy explains how the NSO Quality Dashboard ("we", "us", or "our") collects, 
+                This Privacy Policy explains how VitaSignal ("we", "us", or "our") collects, 
                 uses, and protects your personal information when you use our research prototype software.
               </p>
               <p className="text-muted-foreground">
@@ -324,9 +324,7 @@ export const PrivacyPolicy = () => {
                 <p>For privacy-related inquiries or to exercise your data rights:</p>
                 <p className="mt-4">
                   <strong>Data Controller:</strong><br />
-                  Alexis Collier<br />
-                  University of North Georgia<br />
-                  College of Health Sciences & Professions<br />
+                  Dr. Alexis M. Collier, DHA<br />
                   Email: <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>
                 </p>
               </div>
