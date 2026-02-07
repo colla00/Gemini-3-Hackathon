@@ -94,6 +94,12 @@ export const Header = () => {
           
           <LiveBadge />
 
+          {/* Logout Button */}
+          <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-muted-foreground hover:text-destructive" onClick={handleSignOut}>
+            <LogOut className="h-4 w-4" />
+            <span className="hidden md:inline text-xs">Sign out</span>
+          </Button>
+
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
