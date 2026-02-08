@@ -6,6 +6,15 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const escapeHtml = (str: string): string => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 interface RegressionAlert {
   metric: string;
   baseline: number;
@@ -79,14 +88,15 @@ serve(async (req) => {
         const formatValue = (v: number) => a.metric === 'Memory Usage' 
           ? `${(v / 1024 / 1024).toFixed(1)}MB`
           : `${v.toFixed(2)}ms`;
-        return `• ${a.metric}: ${formatValue(a.baseline)} → ${formatValue(a.current)} (+${a.degradation.toFixed(1)}%)`;
+        return `• ${escapeHtml(a.metric)}: ${formatValue(a.baseline)} → ${formatValue(a.current)} (+${a.degradation.toFixed(1)}%)`;
       }).join('\n');
     };
 
     // Build notification content
+    const safeProjectName = projectName ? escapeHtml(projectName) : '';
     const subject = criticalAlerts.length > 0
-      ? `🚨 Critical Performance Regression${projectName ? ` - ${projectName}` : ''}`
-      : `⚠️ Performance Warning${projectName ? ` - ${projectName}` : ''}`;
+      ? `🚨 Critical Performance Regression${safeProjectName ? ` - ${safeProjectName}` : ''}`
+      : `⚠️ Performance Warning${safeProjectName ? ` - ${safeProjectName}` : ''}`;
 
     const body = `
 Performance Regression Detected
@@ -137,7 +147,7 @@ This is an automated notification from the Performance Monitoring System.
                     <ul style="margin: 8px 0; padding-left: 20px;">
                       ${criticalAlerts.map(a => `
                         <li style="margin: 4px 0;">
-                          <strong>${a.metric}</strong>: 
+                          <strong>${escapeHtml(a.metric)}</strong>: 
                           ${a.metric === 'Memory Usage' ? `${(a.baseline / 1024 / 1024).toFixed(1)}MB → ${(a.current / 1024 / 1024).toFixed(1)}MB` : `${a.baseline.toFixed(2)}ms → ${a.current.toFixed(2)}ms`}
                           <span style="color: #dc2626;">(+${a.degradation.toFixed(1)}%)</span>
                         </li>
@@ -152,7 +162,7 @@ This is an automated notification from the Performance Monitoring System.
                     <ul style="margin: 8px 0; padding-left: 20px;">
                       ${warningAlerts.map(a => `
                         <li style="margin: 4px 0;">
-                          <strong>${a.metric}</strong>: 
+                          <strong>${escapeHtml(a.metric)}</strong>: 
                           ${a.metric === 'Memory Usage' ? `${(a.baseline / 1024 / 1024).toFixed(1)}MB → ${(a.current / 1024 / 1024).toFixed(1)}MB` : `${a.baseline.toFixed(2)}ms → ${a.current.toFixed(2)}ms`}
                           <span style="color: #d97706;">(+${a.degradation.toFixed(1)}%)</span>
                         </li>

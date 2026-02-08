@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const PATENT_ATTORNEY_EMAIL = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@alexiscollier.com";
@@ -6,7 +7,16 @@ const PATENT_ATTORNEY_EMAIL = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@ale
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
+
+const escapeHtml = (str: string): string => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 };
 
 interface AttorneyNotificationRequest {
@@ -24,15 +34,37 @@ interface AttorneyNotificationRequest {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Authentication check
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const payload: AttorneyNotificationRequest = await req.json();
-    
-    console.log("Sending attorney notification:", payload);
+    console.log("Sending attorney notification type:", payload.notificationType);
 
     let subject = "";
     let emailHtml = "";
@@ -49,9 +81,15 @@ const handler = async (req: Request): Promise<Response> => {
         })
       : new Date().toLocaleString();
 
+    const safeWitnessName = escapeHtml(payload.witnessName || '');
+    const safeWitnessTitle = escapeHtml(payload.witnessTitle || '');
+    const safeOrganization = payload.organization ? escapeHtml(payload.organization) : null;
+    const safeDocumentHash = escapeHtml(payload.documentHash || '');
+    const safeGroupId = escapeHtml(payload.groupId || '');
+
     switch (payload.notificationType) {
       case 'new_attestation':
-        subject = `New Patent Attestation - ${payload.witnessName}`;
+        subject = `New Patent Attestation - ${safeWitnessName}`;
         emailHtml = `
           <!DOCTYPE html>
           <html>
@@ -74,12 +112,12 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               <div class="content">
                 <p><span class="badge">Attestation</span></p>
-                <div class="detail-row"><strong>Witness:</strong> ${payload.witnessName}</div>
-                <div class="detail-row"><strong>Title:</strong> ${payload.witnessTitle}</div>
-                ${payload.organization ? `<div class="detail-row"><strong>Organization:</strong> ${payload.organization}</div>` : ''}
-                <div class="detail-row"><strong>Claims Attested:</strong> ${payload.claimsCount}</div>
-                <div class="detail-row"><strong>Date:</strong> ${formattedDate}</div>
-                <div class="detail-row"><strong>Document Hash:</strong> <code>${payload.documentHash}</code></div>
+                <div class="detail-row"><strong>Witness:</strong> ${safeWitnessName}</div>
+                <div class="detail-row"><strong>Title:</strong> ${safeWitnessTitle}</div>
+                ${safeOrganization ? `<div class="detail-row"><strong>Organization:</strong> ${safeOrganization}</div>` : ''}
+                <div class="detail-row"><strong>Claims Attested:</strong> ${Number(payload.claimsCount) || 0}</div>
+                <div class="detail-row"><strong>Date:</strong> ${escapeHtml(formattedDate)}</div>
+                <div class="detail-row"><strong>Document Hash:</strong> <code>${safeDocumentHash}</code></div>
               </div>
               <div class="footer">
                 <p>Patent Evidence Documentation System</p>
@@ -91,7 +129,7 @@ const handler = async (req: Request): Promise<Response> => {
         break;
 
       case 'multi_witness_complete':
-        subject = `Multi-Witness Attestation Complete - ${payload.witnessCount} Witnesses`;
+        subject = `Multi-Witness Attestation Complete - ${Number(payload.witnessCount) || 0} Witnesses`;
         emailHtml = `
           <!DOCTYPE html>
           <html>
@@ -108,15 +146,15 @@ const handler = async (req: Request): Promise<Response> => {
           <body>
             <div class="container">
               <div class="header">
-                <h1 style="margin: 0;">✓ Multi-Witness Attestation Complete</h1>
+                <h1 style="margin: 0;">&#10003; Multi-Witness Attestation Complete</h1>
                 <p style="margin: 10px 0 0; opacity: 0.9;">All required witnesses have signed</p>
               </div>
               <div class="content">
                 <p><span class="badge">Complete</span></p>
-                <p>A multi-witness attestation has been completed with <strong>${payload.witnessCount} witnesses</strong>.</p>
-                <div class="detail-row"><strong>Group ID:</strong> <code>${payload.groupId}</code></div>
-                <div class="detail-row"><strong>Document Hash:</strong> <code>${payload.documentHash}</code></div>
-                <div class="detail-row"><strong>Completed:</strong> ${formattedDate}</div>
+                <p>A multi-witness attestation has been completed with <strong>${Number(payload.witnessCount) || 0} witnesses</strong>.</p>
+                <div class="detail-row"><strong>Group ID:</strong> <code>${safeGroupId}</code></div>
+                <div class="detail-row"><strong>Document Hash:</strong> <code>${safeDocumentHash}</code></div>
+                <div class="detail-row"><strong>Completed:</strong> ${escapeHtml(formattedDate)}</div>
               </div>
               <div class="footer">
                 <p>Patent Evidence Documentation System</p>
@@ -128,7 +166,7 @@ const handler = async (req: Request): Promise<Response> => {
         break;
 
       case 'screenshot_upload':
-        subject = `New Evidence Screenshot - Claim ${payload.claimNumber}`;
+        subject = `New Evidence Screenshot - Claim ${Number(payload.claimNumber) || 0}`;
         emailHtml = `
           <!DOCTYPE html>
           <html>
@@ -146,14 +184,14 @@ const handler = async (req: Request): Promise<Response> => {
             <div class="container">
               <div class="header">
                 <h1 style="margin: 0;">New Screenshot Evidence</h1>
-                <p style="margin: 10px 0 0; opacity: 0.9;">Claim ${payload.claimNumber}</p>
+                <p style="margin: 10px 0 0; opacity: 0.9;">Claim ${Number(payload.claimNumber) || 0}</p>
               </div>
               <div class="content">
                 <p><span class="badge">Screenshot</span></p>
-                <p>A new screenshot has been uploaded for <strong>Claim ${payload.claimNumber}</strong>.</p>
-                <div class="detail-row"><strong>Total Screenshots for Claim:</strong> ${payload.screenshotCount}</div>
-                <div class="detail-row"><strong>Document Hash:</strong> <code>${payload.documentHash}</code></div>
-                <div class="detail-row"><strong>Uploaded:</strong> ${formattedDate}</div>
+                <p>A new screenshot has been uploaded for <strong>Claim ${Number(payload.claimNumber) || 0}</strong>.</p>
+                <div class="detail-row"><strong>Total Screenshots for Claim:</strong> ${Number(payload.screenshotCount) || 0}</div>
+                <div class="detail-row"><strong>Document Hash:</strong> <code>${safeDocumentHash}</code></div>
+                <div class="detail-row"><strong>Uploaded:</strong> ${escapeHtml(formattedDate)}</div>
               </div>
               <div class="footer">
                 <p>Patent Evidence Documentation System</p>
@@ -165,7 +203,6 @@ const handler = async (req: Request): Promise<Response> => {
         break;
     }
 
-    // Send email using Resend API
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -184,7 +221,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       console.error("Resend API error:", emailData);
-      throw new Error(emailData.message || "Failed to send email");
+      throw new Error("Failed to send email");
     }
 
     console.log("Attorney notification sent successfully:", emailData);
@@ -196,7 +233,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending attorney notification:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An unexpected error occurred." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
