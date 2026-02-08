@@ -19,7 +19,7 @@ export const WatermarkOverlay = () => {
         {Array.from({ length: rows * cols }).map((_, index) => (
           <div
             key={index}
-            className="flex items-center gap-2 text-foreground/[0.02] dark:text-foreground/[0.025] -rotate-[25deg] whitespace-nowrap"
+            className="flex items-center gap-2 text-foreground/[0.04] dark:text-foreground/[0.025] -rotate-[25deg] whitespace-nowrap"
             style={{
               width: `${100 / cols}%`,
               paddingLeft: index % 2 === 0 ? '5%' : '15%',
@@ -34,7 +34,7 @@ export const WatermarkOverlay = () => {
       </div>
       
       {/* Research Prototype badge - top right */}
-      <div className="absolute top-4 right-4 flex items-center gap-1.5 text-warning/15 dark:text-warning/20">
+      <div className="absolute top-4 right-4 flex items-center gap-1.5 text-warning/25 dark:text-warning/20">
         <AlertTriangle className="w-3 h-3" />
         <span className="text-[10px] font-bold tracking-wider uppercase">
           Research Prototype
@@ -42,7 +42,7 @@ export const WatermarkOverlay = () => {
       </div>
       
       {/* No Clinical Validation badge - bottom left */}
-      <div className="absolute bottom-16 left-4 flex items-center gap-1.5 text-warning/15 dark:text-warning/20">
+      <div className="absolute bottom-16 left-4 flex items-center gap-1.5 text-warning/25 dark:text-warning/20">
         <AlertTriangle className="w-3 h-3" />
         <span className="text-[10px] font-bold tracking-wider uppercase">
           No Clinical Validation
@@ -50,7 +50,7 @@ export const WatermarkOverlay = () => {
       </div>
       
       {/* Patent protection badge - bottom right */}
-      <div className="absolute bottom-16 right-4 flex items-center gap-1.5 text-foreground/[0.04] dark:text-foreground/[0.05]">
+      <div className="absolute bottom-16 right-4 flex items-center gap-1.5 text-foreground/[0.06] dark:text-foreground/[0.05]">
         <Shield className="w-3 h-3" />
         <span className="text-[10px] font-medium tracking-wider uppercase">
           Protected Design – Do Not Copy
