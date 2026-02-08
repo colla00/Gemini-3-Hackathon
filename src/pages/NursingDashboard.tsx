@@ -80,7 +80,7 @@ export const NursingDashboard = () => {
       <section className="py-10 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="workload" className="animate-fade-in">
-            <div className="bg-card border border-border/40 rounded-2xl shadow-sm p-2 mb-6">
+            <div className="bg-card border border-border/40 rounded-2xl shadow-sm p-2 mb-6 overflow-x-auto">
               {/* Nursing Operations — Patent #3 & #4 */}
               <div className="mb-1">
                 <div className="flex items-center gap-2 px-2 py-1">

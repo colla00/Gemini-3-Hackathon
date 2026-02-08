@@ -163,7 +163,7 @@ export const ICUMortalityPrediction = () => {
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-3">
             Feature Extraction Pipeline
           </p>
-          <div className="flex items-center justify-between gap-1">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-1">
             {PIPELINE_STEPS.map((step, i) => (
               <div key={step.label} className="flex items-center flex-1">
                 <motion.div
@@ -241,7 +241,7 @@ export const ICUMortalityPrediction = () => {
             </div>
 
             {/* Phenotype cards */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {PHENOTYPES.map((phenotype, i) => (
                 <motion.div
                   key={phenotype.id}
@@ -310,7 +310,7 @@ export const ICUMortalityPrediction = () => {
             </div>
 
             {/* Validation stats */}
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
                 { label: 'Cohort', value: '26,153', sub: 'ICU admissions' },
                 { label: 'Database', value: 'MIMIC-IV', sub: 'Validated' },

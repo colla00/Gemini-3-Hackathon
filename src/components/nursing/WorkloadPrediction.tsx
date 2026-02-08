@@ -24,8 +24,8 @@ const metrics = [
 ];
 
 const variantStyles = {
-  success: 'bg-gradient-to-br from-[hsl(var(--risk-low))] to-[hsl(var(--risk-low)/0.8)] text-white',
-  warning: 'bg-gradient-to-br from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)] text-white',
+  success: 'bg-gradient-to-br from-[hsl(var(--risk-low))] to-[hsl(var(--risk-low)/0.8)] text-primary-foreground',
+  warning: 'bg-gradient-to-br from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)] text-primary-foreground',
   info: 'bg-gradient-to-br from-primary to-accent text-primary-foreground',
 };
 
