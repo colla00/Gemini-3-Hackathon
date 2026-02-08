@@ -1,14 +1,11 @@
 import { Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { EnhancedAIToolsPanel } from '@/components/ai/EnhancedAIToolsPanel';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 
 const AITools = () => {
-  const { user, signOut } = useAuth();
-
   return (
     <div className="min-h-screen bg-background">
       {/* Minimal header */}
@@ -27,14 +24,7 @@ const AITools = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            {user && (
-              <Button variant="ghost" size="sm" className="text-xs" onClick={() => signOut()}>
-                Sign out
-              </Button>
-            )}
-          </div>
+          <ThemeToggle />
         </div>
       </header>
 
