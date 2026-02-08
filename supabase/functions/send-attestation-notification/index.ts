@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const PATENT_ATTORNEY_EMAIL = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@alexiscollier.com";
@@ -6,7 +7,7 @@ const PATENT_ATTORNEY_EMAIL = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@ale
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 interface AttestationNotificationRequest {
@@ -17,13 +18,45 @@ interface AttestationNotificationRequest {
   attestedAt: string;
 }
 
+const escapeHtml = (str: string): string => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Authentication check
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { 
       witnessName, 
       witnessTitle, 
@@ -35,7 +68,6 @@ const handler = async (req: Request): Promise<Response> => {
     const recipientEmail = PATENT_ATTORNEY_EMAIL;
 
     console.log("Sending attestation notification to:", recipientEmail);
-    console.log("Attestation details:", { witnessName, witnessTitle, organization, claimsCount, attestedAt });
 
     const formattedDate = new Date(attestedAt).toLocaleString('en-US', {
       weekday: 'long',
@@ -46,6 +78,10 @@ const handler = async (req: Request): Promise<Response> => {
       minute: '2-digit',
       timeZoneName: 'short'
     });
+
+    const safeWitnessName = escapeHtml(witnessName || '');
+    const safeWitnessTitle = escapeHtml(witnessTitle || '');
+    const safeOrganization = organization ? escapeHtml(organization) : null;
 
     const emailHtml = `
       <!DOCTYPE html>
@@ -75,25 +111,25 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="margin-top: 20px;">
               <div class="detail-row">
                 <span class="detail-label">Witness Name:</span>
-                <span class="detail-value">${witnessName}</span>
+                <span class="detail-value">${safeWitnessName}</span>
               </div>
               <div class="detail-row">
                 <span class="detail-label">Title:</span>
-                <span class="detail-value">${witnessTitle}</span>
+                <span class="detail-value">${safeWitnessTitle}</span>
               </div>
-              ${organization ? `
+              ${safeOrganization ? `
               <div class="detail-row">
                 <span class="detail-label">Organization:</span>
-                <span class="detail-value">${organization}</span>
+                <span class="detail-value">${safeOrganization}</span>
               </div>
               ` : ''}
               <div class="detail-row">
                 <span class="detail-label">Claims Attested:</span>
-                <span class="detail-value">${claimsCount} patent claims</span>
+                <span class="detail-value">${Number(claimsCount) || 0} patent claims</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Date & Time:</span>
-                <span class="detail-value">${formattedDate}</span>
+                <span class="detail-label">Date &amp; Time:</span>
+                <span class="detail-value">${escapeHtml(formattedDate)}</span>
               </div>
             </div>
 
@@ -104,14 +140,13 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
           <div class="footer">
             <p style="margin: 0;">This is an automated notification from the Patent Evidence Documentation System.</p>
-            <p style="margin: 8px 0 0;">© ${new Date().getFullYear()} Patent Documentation System. All rights reserved.</p>
+            <p style="margin: 8px 0 0;">&copy; ${new Date().getFullYear()} Patent Documentation System. All rights reserved.</p>
           </div>
         </div>
       </body>
       </html>
     `;
 
-    // Send email using Resend API directly
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -121,7 +156,7 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Patent System <cs@ezlearning.center>",
         to: [recipientEmail],
-        subject: `New Patent Attestation Recorded - ${witnessName}`,
+        subject: `New Patent Attestation Recorded - ${safeWitnessName}`,
         html: emailHtml,
       }),
     });
@@ -130,7 +165,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       console.error("Resend API error:", emailData);
-      throw new Error(emailData.message || "Failed to send email");
+      throw new Error("Failed to send email");
     }
 
     console.log("Email sent successfully:", emailData);
@@ -142,7 +177,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending attestation notification:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An unexpected error occurred." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
