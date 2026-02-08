@@ -836,11 +836,11 @@ export const EnhancedAIToolsPanel = () => {
   }, []);
 
   const simulateProcessing = async (duration: number, moduleId: string): Promise<number> => {
-    const delay = demoMode ? 0.1 : duration;
+    const delay = demoMode ? Math.max(duration * 0.6, 0.8) : duration;
     await new Promise(resolve => setTimeout(resolve, delay * 1000));
     setActiveModules(prev => new Set([...prev, moduleId]));
     setAnalysisCount(prev => prev + 1);
-    const time = demoMode ? 0.1 : duration;
+    const time = demoMode ? delay : duration;
     setPerformanceMetrics(prev => ({
       times: [...prev.times, time],
       modules: [...prev.modules, moduleId]
@@ -950,6 +950,15 @@ export const EnhancedAIToolsPanel = () => {
     'multi-risk'
   ] as const;
 
+  const scrollToModule = (moduleId: string) => {
+    setTimeout(() => {
+      const el = document.querySelector(`[data-module-id="${moduleId}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 200);
+  };
+
   const runAllDemos = async () => {
     if (runningAllDemos) return;
     
@@ -966,8 +975,8 @@ export const EnhancedAIToolsPanel = () => {
     setEquityResult(null);
     setMultiRiskResult(null);
     
-    // Expand all modules
-    setExpandedModules(new Set(MODULE_ORDER));
+    // Collapse all modules first for a clean start
+    setExpandedModules(new Set());
 
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     
@@ -982,6 +991,11 @@ export const EnhancedAIToolsPanel = () => {
       const moduleId = MODULE_ORDER[i];
       setCurrentDemoIndex(i + 1);
       setCurrentDemoModule(moduleId);
+      
+      // Expand only current module and scroll to it
+      setExpandedModules(new Set([moduleId]));
+      scrollToModule(moduleId);
+      await delay(400);
       
       switch (moduleId) {
         case 'clinical-notes':
@@ -1020,18 +1034,24 @@ export const EnhancedAIToolsPanel = () => {
           break;
       }
       
-      // Delay between modules
-      await delay(5000);
+      // Delay between modules for reading
+      await delay(4000);
       // Check if paused before moving to next module
       await waitWhilePaused();
     }
     
+    // Expand all modules at the end to show complete results
+    setExpandedModules(new Set(MODULE_ORDER));
     setCurrentDemoModule(null);
     setRunningAllDemos(false);
+    setDemoMode(false);
+    
+    // Scroll back to top
+    document.querySelector('[data-ai-tools-panel]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     
     toast({
       title: "🎬 All Demos Complete!",
-      description: `Successfully ran all 8 AI modules. Total analyses: ${analysisCount + MODULE_ORDER.length}`,
+      description: `Successfully ran all 8 AI modules with ${analysisCount + MODULE_ORDER.length} total analyses.`,
     });
   };
 
