@@ -10,20 +10,19 @@ const corsHeaders = {
 
 // Generate a secure temporary password
 function generateTempPassword(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+  // Use crypto.getRandomValues with base64 for ~96 bits of entropy
+  const bytes = new Uint8Array(18);
+  crypto.getRandomValues(bytes);
+  // Convert to base64 and make URL-safe
+  const base64 = btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, "A")
+    .replace(/\//g, "B")
+    .replace(/=/g, "");
+  // Take 16 chars and append a special char + digit for policy compliance
   const specials = "!@#$%&*";
-  let password = "";
-  const array = new Uint8Array(10);
-  crypto.getRandomValues(array);
-  for (let i = 0; i < 10; i++) {
-    password += chars[array[i] % chars.length];
-  }
-  // Add a special char and digit to satisfy password policies
-  const specialArray = new Uint8Array(2);
-  crypto.getRandomValues(specialArray);
-  password += specials[specialArray[0] % specials.length];
-  password += String(specialArray[1] % 10);
-  return password;
+  const extraBytes = new Uint8Array(2);
+  crypto.getRandomValues(extraBytes);
+  return base64.substring(0, 16) + specials[extraBytes[0] % specials.length] + String(extraBytes[1] % 10);
 }
 
 const escapeHtml = (str: string | undefined): string => {
@@ -280,7 +279,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in approve-demo-access:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An internal error occurred. Please try again." }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }

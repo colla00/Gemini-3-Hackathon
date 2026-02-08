@@ -21,12 +21,47 @@ interface ContactInquiry {
 
 const VALID_TYPES = ["licensing", "research", "press", "general"];
 
+const escapeHtml = (str: string | undefined): string => {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+};
+
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Rate limiting by IP
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rateLimitKey = `contact_inquiry:${clientIp}`;
+    const { data: rateLimitResult } = await supabase.rpc("check_rate_limit", {
+      p_key: rateLimitKey,
+      p_max_requests: 5,
+      p_window_seconds: 3600,
+    });
+
+    if (rateLimitResult && !rateLimitResult.allowed) {
+      await supabase.rpc("log_rate_limit_violation", {
+        p_key: rateLimitKey,
+        p_ip_address: clientIp,
+        p_endpoint: "submit-contact-inquiry",
+      });
+      return new Response(
+        JSON.stringify({ error: "Too many submissions. Please try again later." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json", "Retry-After": "3600" } }
+      );
+    }
+
     const body: ContactInquiry = await req.json();
 
     // Validate required fields
@@ -62,10 +97,6 @@ serve(async (req: Request) => {
     }
 
     // Save to database
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
     const { error: dbError } = await supabase.from("contact_inquiries").insert({
       inquiry_type: body.inquiry_type,
       name: body.name.trim(),
@@ -98,10 +129,10 @@ serve(async (req: Request) => {
       };
 
       const optionalFields = [
-        body.organization && `<p><strong>Organization:</strong> ${body.organization}</p>`,
-        body.role && `<p><strong>Role:</strong> ${body.role}</p>`,
-        body.timeline && `<p><strong>Timeline:</strong> ${body.timeline}</p>`,
-        body.irb_status && `<p><strong>IRB Status:</strong> ${body.irb_status}</p>`,
+        body.organization && `<p><strong>Organization:</strong> ${escapeHtml(body.organization)}</p>`,
+        body.role && `<p><strong>Role:</strong> ${escapeHtml(body.role)}</p>`,
+        body.timeline && `<p><strong>Timeline:</strong> ${escapeHtml(body.timeline)}</p>`,
+        body.irb_status && `<p><strong>IRB Status:</strong> ${escapeHtml(body.irb_status)}</p>`,
       ].filter(Boolean).join("\n");
 
       try {
@@ -113,12 +144,12 @@ serve(async (req: Request) => {
           html: `
             <h2>New ${typeLabels[body.inquiry_type]}</h2>
             <hr />
-            <p><strong>Name:</strong> ${body.name}</p>
-            <p><strong>Email:</strong> ${body.email}</p>
+            <p><strong>Name:</strong> ${escapeHtml(body.name)}</p>
+            <p><strong>Email:</strong> ${escapeHtml(body.email)}</p>
             ${optionalFields}
             <hr />
             <h3>Message</h3>
-            <p>${body.message.replace(/\n/g, "<br />")}</p>
+            <p>${escapeHtml(body.message).replace(/\n/g, "<br />")}</p>
             <hr />
             <p style="color: #888; font-size: 12px;">Submitted via VitaSignal website contact form</p>
           `,
