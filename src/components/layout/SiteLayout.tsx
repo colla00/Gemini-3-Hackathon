@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Activity, Menu, X, Linkedin } from "lucide-react";
+import { Activity, Menu, X, Linkedin, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Helmet } from "react-helmet-async";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
@@ -23,6 +25,12 @@ const navLinks = [
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success('Signed out successfully');
+  };
 
   const pageTitle = title ? `${title} | VitaSignal` : "VitaSignal | Clinical Intelligence";
   const pageDescription = description || "Equipment-independent AI for ICU mortality prediction. 5 U.S. patents filed. Available for licensing.";
@@ -75,9 +83,16 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 </Link>
               ))}
               <ThemeToggle />
-              <Button variant="outline" size="sm" asChild>
-                <a href="mailto:info@alexiscollier.com">Get in Touch</a>
-              </Button>
+              {user ? (
+                <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" asChild>
+                  <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                </Button>
+              )}
             </nav>
 
             {/* Mobile menu button */}
@@ -106,9 +121,16 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   {link.label}
                 </Link>
               ))}
-              <Button variant="outline" size="sm" className="w-fit" asChild>
-                <a href="mailto:info@alexiscollier.com">Get in Touch</a>
-              </Button>
+              {user ? (
+                <Button variant="outline" size="sm" className="w-fit gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" className="w-fit" asChild>
+                  <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                </Button>
+              )}
             </nav>
           )}
         </div>
