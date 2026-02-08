@@ -94,11 +94,9 @@ const App = () => {
                     </DemoAccessGate>
                   } />
                   <Route path="/ai-tools" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<DashboardSkeleton />}>
-                        <AITools />
-                      </Suspense>
-                    </ProtectedRoute>
+                    <Suspense fallback={<DashboardSkeleton />}>
+                      <AITools />
+                    </Suspense>
                   } />
                   <Route path="/admin" element={
                     <ProtectedRoute>
