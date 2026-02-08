@@ -150,7 +150,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       console.error("Resend API error:", emailData);
-      throw new Error(emailData.message || "Failed to send invitation email");
+      throw new Error("Failed to send invitation email");
     }
 
     console.log("Witness invitation email sent successfully:", emailData);
@@ -162,7 +162,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending witness invitation:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An internal error occurred. Please try again." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
