@@ -1,6 +1,6 @@
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
-import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers, Gauge } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
@@ -18,6 +18,7 @@ import { AIToolsPanel } from '@/components/dashboard/AIToolsPanel';
 import { ResearchValidationSection } from '@/components/dashboard/ResearchValidationSection';
 import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
+import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const stats = [
@@ -182,6 +183,22 @@ export const NursingDashboard = () => {
                   </TabsTrigger>
                 </TabsList>
               </div>
+
+              <Separator className="my-1.5" />
+
+              {/* ChartMinder — Alert Governance */}
+              <div>
+                <div className="flex items-center gap-2 px-2 py-1">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">ChartMinder</p>
+                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[9px] h-4">Alert Governance · HFES</Badge>
+                </div>
+                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
+                  <TabsTrigger value="chartminder" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                    <Gauge className="h-3.5 w-3.5" />
+                    ChartMinder Dashboard
+                  </TabsTrigger>
+                </TabsList>
+              </div>
             </div>
 
             {/* Tab Contents */}
@@ -199,6 +216,7 @@ export const NursingDashboard = () => {
             <TabsContent value="research" className="mt-0"><ResearchValidationSection /></TabsContent>
             <TabsContent value="charts" className="mt-0"><ResearchCharts /></TabsContent>
             <TabsContent value="ai-tools" className="mt-0"><AIToolsPanel /></TabsContent>
+            <TabsContent value="chartminder" className="mt-0"><ChartMinderPanel /></TabsContent>
           </Tabs>
         </div>
       </section>
