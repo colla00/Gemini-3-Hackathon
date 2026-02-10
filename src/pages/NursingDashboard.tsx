@@ -107,18 +107,6 @@ type PatentGroup = {
 
 const patentGroups: PatentGroup[] = [
   {
-    id: 'hackathon',
-    patent: 'Hackathon',
-    title: 'Gemini 3 AI Showcase',
-    validated: false,
-    statusLabel: 'hackathon',
-    color: 'text-chart-4',
-    activeBg: 'bg-chart-4',
-    tabs: [
-      { value: 'ai-tools', label: 'AI Tools', icon: Sparkles },
-    ],
-  },
-  {
     id: 'patent-1',
     patent: 'Patent #1',
     title: 'ICU Mortality Prediction',
@@ -181,6 +169,18 @@ const patentGroups: PatentGroup[] = [
     tabs: [
       { value: 'dbs', label: 'DBS Score', icon: FileText },
       { value: 'roi', label: 'ROI Calculator', icon: DollarSign },
+    ],
+  },
+  {
+    id: 'hackathon',
+    patent: 'Hackathon',
+    title: 'Gemini 3 AI Showcase',
+    validated: false,
+    statusLabel: 'hackathon',
+    color: 'text-chart-4',
+    activeBg: 'bg-chart-4',
+    tabs: [
+      { value: 'ai-tools', label: 'AI Tools', icon: Sparkles },
     ],
   },
 ];
@@ -465,7 +465,7 @@ export const NursingDashboard = () => {
                                       'patent-nav-item w-full flex items-center gap-2.5 pl-6 pr-3 py-2 rounded-lg text-xs font-medium transition-all text-left group',
                                       isActive
                                         ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                                        : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
+                                        : 'text-foreground/80 hover:bg-muted/60 hover:text-foreground'
                                     )}
                                   >
                                     <Icon className={cn('h-3.5 w-3.5 shrink-0 transition-transform group-hover:scale-110', isActive && 'drop-shadow-sm')} />
