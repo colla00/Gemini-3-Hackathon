@@ -99,6 +99,7 @@ type PatentGroup = {
   patent: string;
   title: string;
   validated: boolean;
+  statusLabel?: 'validated' | 'hackathon' | 'design';
   color: string;
   activeBg: string;
   tabs: { value: string; label: string; icon: React.ElementType }[];
@@ -106,14 +107,26 @@ type PatentGroup = {
 
 const patentGroups: PatentGroup[] = [
   {
+    id: 'hackathon',
+    patent: 'Hackathon',
+    title: 'Gemini 3 AI Showcase',
+    validated: false,
+    statusLabel: 'hackathon',
+    color: 'text-chart-4',
+    activeBg: 'bg-chart-4',
+    tabs: [
+      { value: 'ai-tools', label: 'AI Tools', icon: Sparkles },
+    ],
+  },
+  {
     id: 'patent-1',
     patent: 'Patent #1',
-    title: 'ICU Mortality Prediction',
+    title: 'ICU Mortality Research',
     validated: true,
+    statusLabel: 'validated',
     color: 'text-primary',
     activeBg: 'bg-primary',
     tabs: [
-      { value: 'icu-mortality', label: 'ICU Mortality', icon: HeartPulse },
       { value: 'research', label: 'Validation', icon: FlaskConical },
       { value: 'charts', label: 'Research Charts', icon: BarChart3 },
     ],
@@ -162,12 +175,12 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-5',
     patent: 'Patent #5',
-    title: 'Unified Clinical Intelligence',
+    title: 'Human Sensor / Unified Intelligence',
     validated: false,
-    color: 'text-chart-4',
-    activeBg: 'bg-chart-4',
+    color: 'text-chart-3',
+    activeBg: 'bg-chart-3',
     tabs: [
-      { value: 'ai-tools', label: 'AI Tools', icon: Sparkles },
+      { value: 'icu-mortality', label: 'ICU Mortality Visualization', icon: HeartPulse },
     ],
   },
 ];
@@ -198,7 +211,7 @@ const stats = [
 ];
 
 export const NursingDashboard = () => {
-  const [activeTab, setActiveTab] = useState('icu-mortality');
+  const [activeTab, setActiveTab] = useState('ai-tools');
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     patentGroups.forEach((g) => (initial[g.id] = true));
@@ -327,9 +340,13 @@ export const NursingDashboard = () => {
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
                               <span className={cn('text-[10px] font-bold uppercase tracking-wider', hasActiveTab ? group.color : 'text-muted-foreground')}>{group.patent}</span>
-                              {group.validated ? (
+                              {group.statusLabel === 'validated' ? (
                                 <Badge className="validated-badge bg-risk-low/15 text-risk-low border-risk-low/25 text-[8px] h-3.5 px-1 gap-0.5">
                                   <CheckCircle2 className="h-2 w-2" /> Validated
+                                </Badge>
+                              ) : group.statusLabel === 'hackathon' ? (
+                                <Badge className="bg-chart-4/15 text-chart-4 border-chart-4/25 text-[8px] h-3.5 px-1 gap-0.5 animate-pulse-subtle">
+                                  <Zap className="h-2 w-2" /> Gemini 3
                                 </Badge>
                               ) : (
                                 <Badge className="bg-muted text-muted-foreground border-border/40 text-[8px] h-3.5 px-1 gap-0.5">
@@ -390,7 +407,7 @@ export const NursingDashboard = () => {
                   <div className="flex items-center gap-2">
                     <Award className="h-3.5 w-3.5 text-primary" />
                     <p className="text-[10px] text-muted-foreground">
-                      <span className="font-semibold text-foreground/70">15 Modules</span> across 5 patents
+                      <span className="font-semibold text-foreground/70">15 Modules</span> across 5 patents + Hackathon
                     </p>
                   </div>
                 </div>
@@ -415,9 +432,11 @@ export const NursingDashboard = () => {
                 >
                   <Badge className={cn(
                     'text-[10px] font-bold',
-                    activeGroup.validated
+                    activeGroup.statusLabel === 'validated'
                       ? 'bg-risk-low/15 text-risk-low border-risk-low/25'
-                      : 'bg-muted text-muted-foreground border-border/40'
+                      : activeGroup.statusLabel === 'hackathon'
+                        ? 'bg-chart-4/15 text-chart-4 border-chart-4/25'
+                        : 'bg-muted text-muted-foreground border-border/40'
                   )}>
                     {activeGroup.patent}
                   </Badge>
