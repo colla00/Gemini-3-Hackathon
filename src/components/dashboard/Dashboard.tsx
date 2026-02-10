@@ -126,37 +126,42 @@ export const Dashboard = () => {
           />
         ) : (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-            <TabsList className="mb-6 bg-card/60 border border-border/40 flex-wrap h-auto gap-1 p-1.5 rounded-2xl shadow-sm">
+            {/* Tab hint */}
+            <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Click any tab below to explore different modules
+            </p>
+            <TabsList className="mb-6 bg-card/80 border-2 border-primary/20 flex-wrap h-auto gap-1 p-2 rounded-2xl shadow-md">
               {/* Clinical */}
-              <TabsTrigger value="dashboard" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="dashboard" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <Activity className="h-4 w-4" />
                 Dashboard
               </TabsTrigger>
-              <TabsTrigger value="icu-mortality" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="icu-mortality" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <HeartPulse className="h-4 w-4" />
                 ICU Mortality
               </TabsTrigger>
               <div className="w-px h-6 bg-border/40 mx-0.5 hidden md:block" />
               {/* Scoring & ROI */}
-              <TabsTrigger value="dbs" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="dbs" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <FileText className="h-4 w-4" />
                 DBS Score
               </TabsTrigger>
-              <TabsTrigger value="roi" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="roi" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <DollarSign className="h-4 w-4" />
                 ROI Calculator
               </TabsTrigger>
-              <TabsTrigger value="linked" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="linked" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <Link2 className="h-4 w-4" />
                 Linked View
               </TabsTrigger>
               <div className="w-px h-6 bg-border/40 mx-0.5 hidden md:block" />
               {/* Research & AI */}
-              <TabsTrigger value="charts" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="charts" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <BarChart3 className="h-4 w-4" />
                 Research
               </TabsTrigger>
-              <TabsTrigger value="ai-tools" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
+              <TabsTrigger value="ai-tools" className="gap-2 rounded-xl border border-transparent data-[state=active]:border-primary/30 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all hover:bg-muted">
                 <Sparkles className="h-4 w-4" />
                 AI Tools
               </TabsTrigger>

@@ -87,8 +87,12 @@ export const LandingHero = () => (
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.6 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden"
+        className="space-y-2"
       >
+        <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
+          Patent #1 — ICU Mortality Prediction · Manuscript Validation Results
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden">
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
@@ -102,6 +106,7 @@ export const LandingHero = () => (
             <p className="text-xs opacity-50 mt-0.5">{s.detail}</p>
           </motion.div>
         ))}
+        </div>
       </motion.div>
     </div>
   </section>
