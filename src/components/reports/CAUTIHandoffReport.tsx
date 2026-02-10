@@ -418,7 +418,7 @@ export const CAUTIHandoffReport = ({ onClose }: CAUTIHandoffReportProps) => {
               <strong>⚠️ Research Prototype</strong> - Synthetic data only. CAUTI risk signals require clinical validation.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1">
-              Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patents Filed
+              Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patent Applications Filed
             </p>
           </div>
         </div>

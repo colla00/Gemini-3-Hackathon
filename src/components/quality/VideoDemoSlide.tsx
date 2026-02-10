@@ -166,11 +166,11 @@ export const VideoDemoSlide = ({
         <p className="text-xs text-muted-foreground">
           {isHackathon ? (
             <>
-               Dr. Alexis Collier • Gemini 3 Hackathon 2026 Submission • 5 U.S. Patents Filed • 
+               Dr. Alexis Collier • Gemini 3 Hackathon 2026 Submission • 5 U.S. Patent Applications Filed • 
                <span className="text-primary"> info@alexiscollier.com</span>
              </>
            ) : (
-             'Presented by Dr. Alexis Collier • info@alexiscollier.com • Research Prototype • 5 U.S. Patents Filed'
+             'Presented by Dr. Alexis Collier • info@alexiscollier.com • Research Prototype • 5 U.S. Patent Applications Filed'
           )}
         </p>
       </div>

@@ -13,7 +13,7 @@ export const LandingNav = () => {
         <div className="flex items-center gap-2 text-xs text-primary">
           <Lock className="w-3 h-3" aria-hidden="true" />
           <span className="font-medium hidden sm:inline">{PATENTS_FILED_LABEL}</span>
-          <span className="font-medium sm:hidden">Patents Filed</span>
+          <span className="font-medium sm:hidden">Patent Applications</span>
           <span className="text-primary/60 hidden sm:inline" aria-hidden="true">•</span>
           <a
             href="mailto:info@alexiscollier.com"

@@ -7,7 +7,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 
 function Licensing() {
   return (
-    <SiteLayout title="Licensing" description="License VitaSignal's patent-protected clinical AI technology. Available for EHR vendors, hospital systems, and healthcare AI companies.">
+    <SiteLayout title="Licensing" description="License VitaSignal's patent-pending clinical AI technology. Available for EHR vendors, hospital systems, and healthcare AI companies.">
 
 
       {/* Hero Section */}
