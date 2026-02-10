@@ -144,7 +144,7 @@ function About() {
                 <CardDescription>NIH AIM-AHEAD Consortium</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-                <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Nursing Workload Optimization"</p>
+                <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Clinical Decision Support"</p>
                 <p className="text-sm text-muted-foreground">
                   Funded research examining AI-driven approaches to reduce nursing documentation burden
                   and optimize staffing decisions using temporal pattern analysis.

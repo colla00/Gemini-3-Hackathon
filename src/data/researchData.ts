@@ -168,7 +168,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: '2024',
     title: 'Clinical AI Fellowship',
-    description: 'Focus on AI for nursing workload optimization',
+    description: 'Focus on AI for clinical decision support',
     icon: '🏆',
   },
   {
