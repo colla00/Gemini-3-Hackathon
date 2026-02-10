@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { LandingHero } from "@/components/landing/LandingHero";
 import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
+import { MarketOpportunitySection } from "@/components/landing/MarketOpportunitySection";
 import { InventorSection } from "@/components/landing/InventorSection";
 import { RecognitionSection } from "@/components/landing/RecognitionSection";
 import { DemoRequestSection } from "@/components/landing/DemoRequestSection";
@@ -16,6 +17,7 @@ export const Landing = () => {
       <LandingHero />
       <TechnologyPortfolio />
       <ValidationSection />
+      <MarketOpportunitySection />
       <DemoRequestSection />
       <InventorSection />
       <RecognitionSection />

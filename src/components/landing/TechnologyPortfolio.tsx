@@ -17,7 +17,7 @@ const systems = [
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Filed",
-    metric: "87% alert reduction",
+    metric: "Target: 87% alert reduction",
   },
   {
     icon: Brain,
@@ -25,7 +25,7 @@ const systems = [
     patent: "#3",
     desc: "Integrated explainability with SHAP, temporal forecasting, and closed-loop intervention feedback.",
     status: "Patent Filed",
-    metric: "4-48h forecasting",
+    metric: "Designed: 4-48h forecasting",
   },
   {
     icon: BarChart3,
@@ -33,7 +33,7 @@ const systems = [
     patent: "#4",
     desc: "Workload prediction, surge detection, and burnout risk monitoring using documentation signals.",
     status: "Patent Filed",
-    metric: "3.8M target RNs",
+    metric: "Target: 3.8M RNs",
   },
   {
     icon: FileText,
@@ -41,7 +41,7 @@ const systems = [
     patent: "#5",
     desc: "ML-powered staffing optimization through real-time documentation burden quantification.",
     status: "Patent Filed",
-    metric: "15-20% overtime reduction",
+    metric: "Projected: 15-20% overtime reduction",
   },
 ];
 
