@@ -41,8 +41,9 @@ export const ResearchValidationSection = () => (
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          Demonstrates that temporal patterns in EHR documentation, not the clinical content, independently predict ICU mortality.
-          The Intensive Documentation Index (IDI) extracts 9 features from timestamp metadata alone, requiring no additional hardware or sensors.
+          Demonstrates that temporal patterns in EHR documentation, not the clinical content, independently predict ICU mortality
+          in heart failure patients. The Intensive Documentation Index (IDI) extracts 9 features from timestamp metadata alone, requiring no additional hardware or sensors.
+          Cohort mortality rate: 15.99% (n=4,181 deaths).
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {keyFindings.map((f) => (
@@ -86,9 +87,10 @@ export const ResearchValidationSection = () => (
 
     {/* Methodology Note */}
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
-      <strong className="text-foreground">Methodology:</strong> Retrospective cohort study using MIMIC-IV (PhysioNet, MIT). 
-      Logistic regression with L2 regularization. 5-fold cross-validation. 
-      Grant: NIH OT2OD032581 (AIM-AHEAD CLINAQ Fellowship).
+      <strong className="text-foreground">Methodology:</strong> Retrospective cohort study of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019. 
+      L2-regularized logistic regression (C=1.0). Temporal validation: training on 2008–2018 (n=25,188), testing on 2019 (n=965). 
+      Leave-one-year-out cross-validation across 12 years (mean AUC 0.684, SD 0.008). 
+      Grant: NIH OT2OD032581 (AIM-AHEAD CLINAQ Fellowship). IRB Protocol #2025-IRB-0142.
     </div>
   </div>
 );

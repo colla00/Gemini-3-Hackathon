@@ -276,6 +276,12 @@ export const PATENTS: PatentInfo[] = [
 
 export const PUBLICATIONS: PublicationInfo[] = [
   {
+    title: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study',
+    venue: 'medRxiv (Preprint)',
+    date: 'February 2026',
+    type: 'Manuscript',
+  },
+  {
     title: 'ANIA 2026 - Documentation Burden Score System',
     venue: 'ANIA Annual Conference',
     date: 'February 2026',
