@@ -421,7 +421,7 @@ export const NursingDashboard = () => {
                           <div className={cn('w-1.5 h-8 rounded-full transition-colors', hasActiveTab ? group.activeBg : 'bg-border')} />
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <span className={cn('text-[10px] font-bold uppercase tracking-wider', hasActiveTab ? group.color : 'text-muted-foreground')}>{group.patent}</span>
+                              <span className={cn('text-[10px] font-bold uppercase tracking-wider', hasActiveTab ? group.color : 'text-foreground/70')}>{group.patent}</span>
                               {group.statusLabel === 'validated' ? (
                                 <Badge className="validated-badge bg-risk-low/15 text-risk-low border-risk-low/25 text-[8px] h-3.5 px-1 gap-0.5">
                                   <CheckCircle2 className="h-2 w-2" /> Validated
@@ -431,15 +431,15 @@ export const NursingDashboard = () => {
                                   <Zap className="h-2 w-2" /> Gemini 3
                                 </Badge>
                               ) : (
-                                <Badge className="bg-muted text-muted-foreground border-border/40 text-[8px] h-3.5 px-1 gap-0.5">
+                                <Badge className="bg-muted text-foreground/60 border-border/40 text-[8px] h-3.5 px-1 gap-0.5">
                                   <Clock className="h-2 w-2" /> Design
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-[11px] font-medium text-foreground/70 truncate mt-0.5">{group.title}</p>
+                            <p className="text-[11px] font-medium text-foreground/80 truncate mt-0.5">{group.title}</p>
                           </div>
                         </div>
-                        <ChevronRight className={cn('h-3.5 w-3.5 text-muted-foreground shrink-0 transition-transform duration-200', isExpanded && 'rotate-90')} />
+                        <ChevronRight className={cn('h-3.5 w-3.5 text-foreground/50 shrink-0 transition-transform duration-200', isExpanded && 'rotate-90')} />
                       </button>
 
                       {/* Tab buttons */}
