@@ -364,11 +364,12 @@ export const NursingDashboard = () => {
                               <button
                                 key={tab.value}
                                 onClick={() => { setActiveTab(tab.value); setMobileSidebarOpen(false); }}
+                                style={!isActive ? { color: 'var(--sidebar-text, hsl(222, 47%, 11%))' } : undefined}
                                 className={cn(
-                                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-left',
+                                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all text-left',
                                   isActive
                                     ? 'bg-primary text-primary-foreground'
-                                    : 'text-foreground/80 hover:bg-muted/60'
+                                    : 'hover:bg-muted/60'
                                 )}
                               >
                                 <Icon className="h-4 w-4 shrink-0" />
@@ -461,11 +462,12 @@ export const NursingDashboard = () => {
                                     key={tab.value}
                                     onClick={() => setActiveTab(tab.value)}
                                     data-active={isActive}
+                                    style={!isActive ? { color: 'hsl(222, 47%, 11%)' } : undefined}
                                     className={cn(
-                                      'patent-nav-item w-full flex items-center gap-2.5 pl-6 pr-3 py-2 rounded-lg text-xs font-medium transition-all text-left group',
+                                      'patent-nav-item w-full flex items-center gap-2.5 pl-6 pr-3 py-2 rounded-lg text-sm font-semibold transition-all text-left group',
                                       isActive
                                         ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                                        : 'text-foreground hover:bg-muted/60'
+                                        : 'hover:bg-muted/60'
                                     )}
                                   >
                                     <Icon className={cn('h-3.5 w-3.5 shrink-0 transition-transform group-hover:scale-110', isActive && 'drop-shadow-sm')} />
