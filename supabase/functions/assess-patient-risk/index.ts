@@ -13,22 +13,32 @@ serve(async (req) => {
   }
 
   try {
-    // Soft auth - allow demo access
+    // Strict authentication
     const authHeader = req.headers.get("Authorization");
-    let userId = "demo-user";
-    if (authHeader?.startsWith("Bearer ")) {
-      try {
-        const supabase = createClient(
-          Deno.env.get("SUPABASE_URL")!,
-          Deno.env.get("SUPABASE_ANON_KEY")!,
-          { global: { headers: { Authorization: authHeader } } }
-        );
-        const token = authHeader.replace("Bearer ", "");
-        const { data: claimsData } = await supabase.auth.getClaims(token);
-        if (claimsData?.claims?.sub) userId = claimsData.claims.sub;
-      } catch { /* proceed as demo user */ }
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
-    console.log("[Auth] User:", userId);
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - invalid token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    console.log("[Auth] Authenticated user:", userId);
 
     const patientData = await req.json();
 
