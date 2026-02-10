@@ -16,34 +16,22 @@ serve(async (req) => {
   }
 
   try {
-    // Authentication validation
+    // Soft auth - allow demo access without valid JWT
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized - missing or invalid authorization header" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    let userId = "demo-user";
+    if (authHeader?.startsWith("Bearer ")) {
+      try {
+        const supabase = createClient(
+          Deno.env.get("SUPABASE_URL")!,
+          Deno.env.get("SUPABASE_ANON_KEY")!,
+          { global: { headers: { Authorization: authHeader } } }
+        );
+        const token = authHeader.replace("Bearer ", "");
+        const { data: claimsData } = await supabase.auth.getClaims(token);
+        if (claimsData?.claims?.sub) userId = claimsData.claims.sub;
+      } catch { /* proceed as demo user */ }
     }
-
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      { global: { headers: { Authorization: authHeader } } }
-    );
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
-    
-    if (claimsError || !claimsData?.claims) {
-      console.error("[Auth] Token validation failed:", claimsError);
-      return new Response(
-        JSON.stringify({ error: "Unauthorized - invalid token" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const userId = claimsData.claims.sub;
-    console.log("[Auth] Authenticated user:", userId);
+    console.log("[Auth] User:", userId);
 
     const { notes, patientContext } = await req.json();
 

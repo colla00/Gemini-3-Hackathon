@@ -13,43 +13,27 @@ serve(async (req) => {
   }
 
   try {
-    // Authentication validation
+    // Soft auth - allow demo access
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized - missing or invalid authorization header" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    let userId = "demo-user";
+    if (authHeader?.startsWith("Bearer ")) {
+      try {
+        const supabase = createClient(
+          Deno.env.get("SUPABASE_URL")!,
+          Deno.env.get("SUPABASE_ANON_KEY")!,
+          { global: { headers: { Authorization: authHeader } } }
+        );
+        const token = authHeader.replace("Bearer ", "");
+        const { data: claimsData } = await supabase.auth.getClaims(token);
+        if (claimsData?.claims?.sub) userId = claimsData.claims.sub;
+      } catch { /* proceed as demo user */ }
     }
-
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      { global: { headers: { Authorization: authHeader } } }
-    );
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
-    
-    if (claimsError || !claimsData?.claims) {
-      console.error("[Auth] Token validation failed:", claimsError);
-      return new Response(
-        JSON.stringify({ error: "Unauthorized - invalid token" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const userId = claimsData.claims.sub;
-    console.log("[Auth] Authenticated user:", userId);
+    console.log("[Auth] User:", userId);
 
     const { imageData, mimeType, clinicalNotes, previousAssessment, patientInfo } = await req.json();
 
-    if (!imageData) {
-      return new Response(
-        JSON.stringify({ error: "Image data is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    // imageData is optional - can do text-only analysis for demos
+    const hasImage = !!imageData;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -117,8 +101,13 @@ Provide your assessment in this JSON format:
   "clinicalPearls": ["Key observation or teaching point"]
 }`;
 
-    // Construct multimodal message with image
-    const imageUrl = `data:${mimeType || 'image/jpeg'};base64,${imageData}`;
+    // Construct message - with or without image
+    const userContent = hasImage
+      ? [
+          { type: "text", text: userPrompt },
+          { type: "image_url", image_url: { url: `data:${mimeType || 'image/jpeg'};base64,${imageData}` } }
+        ]
+      : userPrompt;
     
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -130,16 +119,7 @@ Provide your assessment in this JSON format:
         model: "google/gemini-3-pro-preview",
         messages: [
           { role: "system", content: systemPrompt },
-          { 
-            role: "user", 
-            content: [
-              { type: "text", text: userPrompt },
-              { 
-                type: "image_url", 
-                image_url: { url: imageUrl }
-              }
-            ]
-          }
+          { role: "user", content: userContent }
         ],
         temperature: 0.2,
       }),
