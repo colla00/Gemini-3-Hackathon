@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, AlertCircle, CheckCircle2, Clock, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity } from "lucide-react";
+import { FileText, AlertCircle, CheckCircle2, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -208,55 +207,6 @@ function Patents() {
         </div>
       </section>
 
-      {/* Core Innovation */}
-      <section className="py-16 px-6 bg-secondary/30">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-display text-2xl text-foreground mb-8">Why Equipment-Independent?</h2>
-          <Card>
-            <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground">
-              <p>
-                Traditional clinical AI requires expensive sensors, wearables, or continuous physiological monitoring.
-                VitaSignal extracts predictive signals from data that already exists in every hospital --
-                the temporal patterns of routine clinical documentation.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-3 mt-4">
-                {[
-                  { label: "Zero Hardware Cost", desc: "Works with existing EHR systems" },
-                  { label: "Passive Monitoring", desc: "No additional burden on staff" },
-                  { label: "Universal Applicability", desc: "Any setting with electronic documentation" },
-                  { label: "Equity-Focused", desc: "Validated for fairness across populations" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-2 p-3 rounded-lg bg-secondary/50 border border-border/30">
-                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                      <p className="text-xs text-muted-foreground">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* IP Disclaimers */}
-      <section className="py-12 px-6 bg-destructive/5 border-t border-destructive/20">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border/50">
-            <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
-            <div className="text-xs text-muted-foreground space-y-2">
-              <p className="font-semibold text-foreground">Important:</p>
-              <p>All five applications are provisional patents. Final patent grants are subject to USPTO examination and are not guaranteed.</p>
-              <p>NIH-funded research. The U.S. Government retains certain non-commercial use rights under the Bayh-Dole Act.</p>
-              <p className="text-destructive">
-                VitaSignal systems are research prototypes and are NOT FDA cleared, approved, or authorized for clinical use.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Licensing CTA */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground py-16 px-6">
         <div className="absolute inset-0">
@@ -264,10 +214,9 @@ function Patents() {
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 to-foreground/80" />
         </div>
         <div className="relative max-w-4xl mx-auto text-center">
-          <h2 className="font-display text-2xl mb-4">Interested in Licensing VitaSignal Technology?</h2>
+          <h2 className="font-display text-2xl mb-4">Interested in Licensing?</h2>
           <p className="opacity-80 mb-8 max-w-2xl mx-auto">
-            We're seeking strategic partnerships with EHR vendors, hospital systems, and investors
-            to bring VitaSignal to clinical practice.
+            Detailed patent claims, filing dates, and technical specifications available to qualified partners under NDA.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>

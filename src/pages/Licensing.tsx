@@ -69,10 +69,9 @@ function Licensing() {
           <h2 className="text-2xl font-bold text-foreground text-center mb-12">Why License VitaSignal?</h2>
           <div className="space-y-4">
             {[
-              { icon: CheckCircle2, title: "Zero Hardware Requirements", desc: "Works with existing EHR infrastructure. No sensors, wearables, or monitoring devices required. Dramatically lowers implementation costs and deployment barriers." },
+              { icon: CheckCircle2, title: "Turnkey Integration", desc: "Works with existing EHR infrastructure. No sensors, wearables, or additional hardware. Implementation costs are dramatically lower than competing solutions." },
               { icon: Shield, title: "Patent-Pending Innovation", desc: "5 U.S. provisional patent applications covering novel methods for temporal documentation analysis, trust-based alerting, and clinical risk intelligence." },
-              { icon: CheckCircle2, title: "Validated Research Foundation", desc: "VitaSignal Mortality validated on large-scale ICU datasets (AUC 0.683, n=26,153). NIH-funded research with equity validation across patient populations." },
-              { icon: Briefcase, title: "Comprehensive Platform", desc: "Five patent-pending systems addressing mortality prediction, nursing optimization, documentation burden, alert fatigue, and risk intelligence." },
+              { icon: Briefcase, title: "Comprehensive Platform", desc: "Five patent-pending systems addressing mortality prediction, documentation burden, alert fatigue, risk intelligence, and unified nursing operations." },
               { icon: Users, title: "Equity & Explainability Built-In", desc: "Designed with fairness validation and SHAP-based explainability from the ground up for transparent, accountable clinical AI." },
               { icon: Lightbulb, title: "First-Mover Advantage", desc: "Equipment-independent clinical AI using existing EHR documentation. License to establish market position in this emerging approach." },
             ].map((item) => (
