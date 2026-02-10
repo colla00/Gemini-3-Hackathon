@@ -245,37 +245,37 @@ export const NursingDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="relative max-w-6xl mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-16"
+          className="relative max-w-6xl mx-auto px-4 md:px-6 pt-8 pb-6 md:pt-20 md:pb-16"
         >
           {/* Title row */}
           <div className="flex items-center gap-4 mb-5">
             <motion.div
               animate={{ boxShadow: ['0 0 0 0 hsl(var(--primary) / 0.3)', '0 0 20px 4px hsl(var(--primary) / 0.15)', '0 0 0 0 hsl(var(--primary) / 0.3)'] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className="p-3 rounded-2xl bg-primary/20 border border-primary/30"
+              className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-primary/20 border border-primary/30"
             >
-              <Activity className="h-7 w-7 text-primary" />
+              <Activity className="h-5 w-5 md:h-7 md:w-7 text-primary" />
             </motion.div>
             <div>
-              <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">VitaSignal Technology Demo</h1>
-              <p className="text-sm text-primary-foreground/50 mt-0.5">Clinical Intelligence Platform, Dr. Alexis Collier</p>
+              <h1 className="font-display text-xl md:text-4xl font-bold tracking-tight">VitaSignal Technology Demo</h1>
+              <p className="text-xs md:text-sm text-primary-foreground/50 mt-0.5 hidden md:block">Clinical Intelligence Platform, Dr. Alexis Collier</p>
             </div>
           </div>
 
           {/* Status badges */}
-          <div className="flex flex-wrap items-center gap-2 mb-8">
-            <Badge className="bg-primary/20 text-primary border border-primary/30 text-[10px] font-semibold gap-1">
-              <Zap className="h-3 w-3" /> LIVE DEMO
+          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-8">
+            <Badge className="bg-primary/20 text-primary border border-primary/30 text-[9px] md:text-[10px] font-semibold gap-1">
+              <Zap className="h-2.5 w-2.5 md:h-3 md:w-3" /> LIVE DEMO
             </Badge>
-            <Badge className="bg-warning/20 text-warning border border-warning/30 text-[10px] font-semibold">SIMULATED DATA</Badge>
-            <Badge className="bg-destructive/20 text-destructive border border-destructive/30 text-[10px] font-semibold">NOT FOR CLINICAL USE</Badge>
-            <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[10px] font-semibold gap-1">
-              <CheckCircle2 className="h-3 w-3" /> PATENT #1 VALIDATED
+            <Badge className="bg-warning/20 text-warning border border-warning/30 text-[9px] md:text-[10px] font-semibold">SIMULATED DATA</Badge>
+            <Badge className="bg-destructive/20 text-destructive border border-destructive/30 text-[9px] md:text-[10px] font-semibold hidden md:inline-flex">NOT FOR CLINICAL USE</Badge>
+            <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[9px] md:text-[10px] font-semibold gap-1">
+              <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 VALIDATED
             </Badge>
           </div>
 
           {/* Stats grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
