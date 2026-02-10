@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
-import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers, Gauge, Award } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers, Gauge, Award, ChevronDown } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 import { WorkloadPrediction } from '@/components/nursing/WorkloadPrediction';
 import { SurgeAlerts } from '@/components/nursing/SurgeAlerts';
 import { TaskPrioritization } from '@/components/nursing/TaskPrioritization';
@@ -28,7 +29,105 @@ const stats = [
   { value: '9', label: 'IDI Features', detail: '4 Temporal Domains · EHR Metadata' },
 ];
 
+type PatentGroup = {
+  id: string;
+  label: string;
+  badge: string;
+  badgeColor: string;
+  tabs: { value: string; label: string; icon: React.ElementType }[];
+};
+
+const patentGroups: PatentGroup[] = [
+  {
+    id: 'patent-1',
+    label: 'Patent #1 — ICU Mortality Prediction',
+    badge: 'Patent #1 · medRxiv',
+    badgeColor: 'bg-primary/10 text-primary border-primary/20',
+    tabs: [
+      { value: 'icu-mortality', label: 'ICU Mortality', icon: HeartPulse },
+      { value: 'research', label: 'Validation', icon: FlaskConical },
+      { value: 'charts', label: 'Research Charts', icon: BarChart3 },
+    ],
+  },
+  {
+    id: 'patent-2',
+    label: 'Patent #2 — ChartMinder Alert Governance',
+    badge: 'Patent #2',
+    badgeColor: 'bg-green-500/10 text-green-600 border-green-500/20',
+    tabs: [
+      { value: 'alert-optimization', label: 'Alert Optimization', icon: Shield },
+      { value: 'risk-stratification', label: 'Risk Stratification', icon: Layers },
+      { value: 'chartminder', label: 'ChartMinder Dashboard', icon: Gauge },
+    ],
+  },
+  {
+    id: 'patent-3',
+    label: 'Patent #3 — Nursing Workload Optimization',
+    badge: 'Patent #3',
+    badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+    tabs: [
+      { value: 'workload', label: 'Workload', icon: TrendingUp },
+      { value: 'surge', label: 'Surge Alerts', icon: AlertTriangle },
+      { value: 'burnout', label: 'Burnout', icon: Heart },
+    ],
+  },
+  {
+    id: 'patent-4',
+    label: 'Patent #4 — Clinical Documentation & Scoring',
+    badge: 'Patent #4',
+    badgeColor: 'bg-violet-500/10 text-violet-600 border-violet-500/20',
+    tabs: [
+      { value: 'tasks', label: 'Tasks', icon: CheckSquare },
+      { value: 'analytics', label: 'Analytics', icon: BarChart3 },
+      { value: 'dbs', label: 'DBS Score', icon: FileText },
+      { value: 'roi', label: 'ROI', icon: DollarSign },
+      { value: 'linked', label: 'Linked View', icon: Link2 },
+    ],
+  },
+  {
+    id: 'patent-5',
+    label: 'Patent #5 — Unified Clinical Intelligence',
+    badge: 'Patent #5',
+    badgeColor: 'bg-sky-500/10 text-sky-600 border-sky-500/20',
+    tabs: [
+      { value: 'ai-tools', label: 'AI Tools', icon: Sparkles },
+    ],
+  },
+];
+
+const tabContent: Record<string, React.ReactNode> = {
+  'icu-mortality': <ICUMortalityPrediction />,
+  'research': <ResearchValidationSection />,
+  'charts': <ResearchCharts />,
+  'alert-optimization': <AlertOptimizationTab />,
+  'risk-stratification': <RiskStratificationTab />,
+  'chartminder': <ChartMinderPanel />,
+  'workload': <WorkloadPrediction />,
+  'surge': <SurgeAlerts />,
+  'burnout': <BurnoutTracking />,
+  'tasks': <TaskPrioritization />,
+  'analytics': <WorkflowAnalytics />,
+  'dbs': <DBSCalculator />,
+  'roi': <ROICalculator />,
+  'linked': <LinkedCalculatorView />,
+  'ai-tools': <AIToolsPanel />,
+};
+
 export const NursingDashboard = () => {
+  const [activeTab, setActiveTab] = useState('icu-mortality');
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    patentGroups.forEach((g) => (initial[g.id] = true));
+    return initial;
+  });
+
+  const toggleGroup = (groupId: string) => {
+    setExpandedGroups((prev) => ({ ...prev, [groupId]: !prev[groupId] }));
+  };
+
+  // Find which group owns the active tab
+  const activeGroup = patentGroups.find((g) => g.tabs.some((t) => t.value === activeTab));
+
   return (
     <SiteLayout
       title="Technology Demo"
@@ -36,7 +135,7 @@ export const NursingDashboard = () => {
     >
       <WatermarkOverlay />
 
-      {/* Dark Hero Section — matches landing page */}
+      {/* Dark Hero Section */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" />
@@ -59,7 +158,6 @@ export const NursingDashboard = () => {
             <Badge className="bg-destructive/20 text-destructive border border-destructive/30 text-[10px] font-semibold">NOT FOR CLINICAL USE</Badge>
           </div>
 
-          {/* Patent #1 Validation Stats */}
           <div className="mb-2">
             <div className="flex items-center gap-2 mb-3">
               <Award className="w-4 h-4 text-primary" />
@@ -86,144 +184,83 @@ export const NursingDashboard = () => {
       {/* Main Content */}
       <section className="py-10 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <Tabs defaultValue="workload" className="animate-fade-in">
-            <div className="bg-card border border-border/40 rounded-2xl shadow-sm p-2 mb-6 overflow-x-auto">
-              {/* Nursing Operations — Patent #3 & #4 */}
-              <div className="mb-1">
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Nursing Operations</p>
-                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #3 · #4</Badge>
-                </div>
-                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="workload" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <TrendingUp className="h-3.5 w-3.5" />
-                    Workload
-                  </TabsTrigger>
-                  <TabsTrigger value="surge" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <AlertTriangle className="h-3.5 w-3.5" />
-                    Surge Alerts
-                  </TabsTrigger>
-                  <TabsTrigger value="tasks" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <CheckSquare className="h-3.5 w-3.5" />
-                    Tasks
-                  </TabsTrigger>
-                  <TabsTrigger value="burnout" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Heart className="h-3.5 w-3.5" />
-                    Burnout
-                  </TabsTrigger>
-                  <TabsTrigger value="analytics" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <BarChart3 className="h-3.5 w-3.5" />
-                    Analytics
-                  </TabsTrigger>
-                </TabsList>
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Sidebar Navigation */}
+            <nav className="lg:w-72 shrink-0 animate-fade-in">
+              <div className="bg-card border border-border/40 rounded-2xl shadow-sm overflow-hidden lg:sticky lg:top-24">
+                {patentGroups.map((group, idx) => {
+                  const isExpanded = expandedGroups[group.id];
+                  const hasActiveTab = group.tabs.some((t) => t.value === activeTab);
+
+                  return (
+                    <div key={group.id}>
+                      {idx > 0 && <Separator />}
+                      {/* Group header — collapsible */}
+                      <button
+                        onClick={() => toggleGroup(group.id)}
+                        className={cn(
+                          'w-full flex items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-muted/50',
+                          hasActiveTab && 'bg-muted/30'
+                        )}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <Badge className={cn(group.badgeColor, 'text-[9px] h-4 shrink-0')}>{group.badge}</Badge>
+                          <span className="text-[11px] font-semibold text-foreground/80 truncate">{group.label.split(' — ')[1]}</span>
+                        </div>
+                        <ChevronDown className={cn('h-3.5 w-3.5 text-muted-foreground shrink-0 transition-transform', isExpanded && 'rotate-180')} />
+                      </button>
+
+                      {/* Tabs */}
+                      <div
+                        className={cn(
+                          'overflow-hidden transition-all duration-200',
+                          isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        )}
+                      >
+                        <div className="px-2 pb-2 flex flex-col gap-0.5">
+                          {group.tabs.map((tab) => {
+                            const Icon = tab.icon;
+                            const isActive = activeTab === tab.value;
+                            return (
+                              <button
+                                key={tab.value}
+                                onClick={() => setActiveTab(tab.value)}
+                                className={cn(
+                                  'flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all text-left',
+                                  isActive
+                                    ? 'bg-primary text-primary-foreground shadow-md'
+                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                )}
+                              >
+                                <Icon className="h-3.5 w-3.5 shrink-0" />
+                                {tab.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
+            </nav>
 
-              <Separator className="my-1.5" />
-
-              {/* Patent-Specific Demos — Patents #1, #2, #5 */}
-              <div className="mb-1">
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Patent Features</p>
-                  <Badge className="bg-accent/10 text-accent border-accent/20 text-[9px] h-4">Patent #1 · #2 · #5</Badge>
+            {/* Content Area */}
+            <div className="flex-1 min-w-0 animate-fade-in">
+              {/* Active patent breadcrumb */}
+              {activeGroup && (
+                <div className="flex items-center gap-2 mb-4">
+                  <Badge className={cn(activeGroup.badgeColor, 'text-[10px]')}>{activeGroup.badge}</Badge>
+                  <span className="text-sm font-semibold text-foreground/70">{activeGroup.label.split(' — ')[1]}</span>
+                  <span className="text-muted-foreground">›</span>
+                  <span className="text-sm font-semibold text-foreground">{activeGroup.tabs.find((t) => t.value === activeTab)?.label}</span>
                 </div>
-                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="alert-optimization" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Shield className="h-3.5 w-3.5" />
-                    Alert Optimization
-                  </TabsTrigger>
-                  <TabsTrigger value="risk-stratification" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Layers className="h-3.5 w-3.5" />
-                    Risk Stratification
-                  </TabsTrigger>
-                  <TabsTrigger value="icu-mortality" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <HeartPulse className="h-3.5 w-3.5" />
-                    ICU Mortality
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              <Separator className="my-1.5" />
-
-              {/* Clinical Tools — Patent #4 */}
-              <div className="mb-1">
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Clinical Tools</p>
-                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #4</Badge>
-                </div>
-                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="dbs" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <FileText className="h-3.5 w-3.5" />
-                    DBS Score
-                  </TabsTrigger>
-                  <TabsTrigger value="roi" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <DollarSign className="h-3.5 w-3.5" />
-                    ROI
-                  </TabsTrigger>
-                  <TabsTrigger value="linked" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Link2 className="h-3.5 w-3.5" />
-                    Linked View
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              <Separator className="my-1.5" />
-
-              {/* Research & AI — Manuscript + AI */}
-              <div>
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Research & AI</p>
-                  <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">medRxiv · Patent #5</Badge>
-                </div>
-                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="research" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <FlaskConical className="h-3.5 w-3.5" />
-                    Validation
-                  </TabsTrigger>
-                  <TabsTrigger value="charts" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <BarChart3 className="h-3.5 w-3.5" />
-                    Research Charts
-                  </TabsTrigger>
-                  <TabsTrigger value="ai-tools" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    AI Tools
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              <Separator className="my-1.5" />
-
-              {/* ChartMinder — Patent #2 */}
-              <div>
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">ChartMinder</p>
-                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[9px] h-4">Patent #2 · Alert Governance</Badge>
-                </div>
-                <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="chartminder" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
-                    <Gauge className="h-3.5 w-3.5" />
-                    ChartMinder Dashboard
-                  </TabsTrigger>
-                </TabsList>
+              )}
+              <div key={activeTab} className="animate-fade-in">
+                {tabContent[activeTab]}
               </div>
             </div>
-
-            {/* Tab Contents */}
-            <TabsContent value="workload" className="mt-0"><WorkloadPrediction /></TabsContent>
-            <TabsContent value="surge" className="mt-0"><SurgeAlerts /></TabsContent>
-            <TabsContent value="tasks" className="mt-0"><TaskPrioritization /></TabsContent>
-            <TabsContent value="burnout" className="mt-0"><BurnoutTracking /></TabsContent>
-            <TabsContent value="analytics" className="mt-0"><WorkflowAnalytics /></TabsContent>
-            <TabsContent value="alert-optimization" className="mt-0"><AlertOptimizationTab /></TabsContent>
-            <TabsContent value="risk-stratification" className="mt-0"><RiskStratificationTab /></TabsContent>
-            <TabsContent value="icu-mortality" className="mt-0"><ICUMortalityPrediction /></TabsContent>
-            <TabsContent value="dbs" className="mt-0"><DBSCalculator /></TabsContent>
-            <TabsContent value="roi" className="mt-0"><ROICalculator /></TabsContent>
-            <TabsContent value="linked" className="mt-0"><LinkedCalculatorView /></TabsContent>
-            <TabsContent value="research" className="mt-0"><ResearchValidationSection /></TabsContent>
-            <TabsContent value="charts" className="mt-0"><ResearchCharts /></TabsContent>
-            <TabsContent value="ai-tools" className="mt-0"><AIToolsPanel /></TabsContent>
-            <TabsContent value="chartminder" className="mt-0"><ChartMinderPanel /></TabsContent>
-          </Tabs>
+          </div>
         </div>
       </section>
     </SiteLayout>
