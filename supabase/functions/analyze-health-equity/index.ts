@@ -24,8 +24,8 @@ serve(async (req) => {
           { global: { headers: { Authorization: authHeader } } }
         );
         const token = authHeader.replace("Bearer ", "");
-        const { data: claimsData } = await supabase.auth.getClaims(token);
-        if (claimsData?.claims?.sub) userId = claimsData.claims.sub;
+        const { data: { user } } = await supabase.auth.getUser(token);
+        if (user?.id) userId = user.id;
       } catch { /* proceed as demo user */ }
     }
     console.log("[Auth] User:", userId);
