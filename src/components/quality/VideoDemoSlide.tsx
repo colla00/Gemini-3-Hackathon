@@ -107,7 +107,7 @@ export const VideoDemoSlide = ({
             </div>
             <div>
               <div className="text-sm font-bold text-foreground">
-                {isHackathon ? 'Gemini 3 Flash + Pro' : 'Stanford AI+HEALTH'}
+                {isHackathon ? 'Gemini 2.5 Flash' : 'Stanford AI+HEALTH'}
               </div>
               <div className="text-[10px] text-muted-foreground">
                 {isHackathon ? 'Dual Model Integration' : 'December 2025'}
