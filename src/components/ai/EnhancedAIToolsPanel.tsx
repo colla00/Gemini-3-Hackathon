@@ -836,7 +836,7 @@ export const EnhancedAIToolsPanel = () => {
   }, []);
 
   const simulateProcessing = async (duration: number, moduleId: string): Promise<number> => {
-    const delay = demoMode ? Math.max(duration * 0.6, 0.8) : duration;
+    const delay = demoMode ? Math.max(duration * 0.8, 1.5) : duration;
     await new Promise(resolve => setTimeout(resolve, delay * 1000));
     setActiveModules(prev => new Set([...prev, moduleId]));
     setAnalysisCount(prev => prev + 1);
@@ -1035,7 +1035,7 @@ export const EnhancedAIToolsPanel = () => {
       }
       
       // Delay between modules for reading
-      await delay(4000);
+      await delay(7000);
       // Check if paused before moving to next module
       await waitWhilePaused();
     }
