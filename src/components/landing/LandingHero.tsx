@@ -1,4 +1,4 @@
-import { ArrowRight, Shield, Presentation, Sparkles } from "lucide-react";
+import { ArrowRight, Presentation } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -62,13 +62,7 @@ export const LandingHero = () => (
         transition={{ duration: 0.6, delay: 0.45 }}
         className="flex flex-col sm:flex-row gap-3 mb-16"
       >
-        <Button size="lg" className="text-base px-8 h-12 shadow-lg gap-2" asChild>
-          <Link to="/ai-tools">
-            <Sparkles className="w-4 h-4" />
-            Try AI Demo
-          </Link>
-        </Button>
-        <Button size="lg" className="text-base px-8 h-12 shadow-lg" variant="secondary" asChild>
+        <Button size="lg" className="text-base px-8 h-12 shadow-lg" asChild>
           <Link to="/licensing" className="gap-2">
             Explore Licensing
             <ArrowRight className="w-4 h-4" />

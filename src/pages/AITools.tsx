@@ -6,6 +6,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { EnhancedAIToolsPanel } from '@/components/ai/EnhancedAIToolsPanel';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
 const AITools = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -179,6 +180,7 @@ const AITools = () => {
       </footer>
 
       <ResearchDisclaimer />
+      <ScrollToTopButton />
     </div>
   );
 };
