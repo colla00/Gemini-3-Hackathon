@@ -3,7 +3,7 @@ import { PATENT_PORTFOLIO } from '@/constants/patent';
 
 export const WatermarkOverlay = () => {
   const filedCount = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;
-  const watermarkText = `RESEARCH PROTOTYPE – NO CLINICAL VALIDATION – © Dr. Alexis Collier – ${filedCount} U.S. Patents Filed`;
+  const watermarkText = `RESEARCH PROTOTYPE – NO CLINICAL VALIDATION – © Dr. Alexis Collier – ${filedCount} U.S. Patent Applications Filed`;
   
   // Create a grid of watermarks
   const rows = 8;

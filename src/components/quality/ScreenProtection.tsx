@@ -168,7 +168,7 @@ export const ScreenProtection = ({
               <p className="text-xs text-muted-foreground">
                 <span className="font-semibold text-foreground">© Dr. Alexis Collier</span>
                 <br />
-                5 U.S. Patents Filed • All Rights Reserved
+                5 U.S. Patent Applications Filed • All Rights Reserved
               </p>
             </div>
             <button

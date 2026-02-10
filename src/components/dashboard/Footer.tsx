@@ -16,7 +16,7 @@ export const Footer = () => {
         <div className="flex items-center gap-3 text-[10px] flex-wrap justify-center opacity-60">
           <div className="flex items-center gap-1 text-muted-foreground">
             <Award className="w-2.5 h-2.5" />
-            <span>{filedCount} Patents Filed</span>
+            <span>{filedCount} Patent Applications Filed</span>
           </div>
           <span className="w-0.5 h-0.5 rounded-full bg-muted-foreground/40" />
           <span className="text-muted-foreground/80">

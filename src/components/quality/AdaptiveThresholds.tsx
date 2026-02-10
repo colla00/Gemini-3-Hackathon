@@ -189,7 +189,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          NSO Quality Dashboard – 5 U.S. Patents Filed
+          NSO Quality Dashboard – 5 U.S. Patent Applications Filed
         </p>
       </div>
     </div>

@@ -11,7 +11,7 @@ export const Landing = () => {
   return (
     <SiteLayout
       title="Equipment-Independent Clinical AI"
-      description="Patent-protected AI for ICU mortality prediction using temporal documentation pattern analysis. 5 U.S. patents filed. Available for licensing."
+      description="Patent-pending AI for ICU mortality prediction using temporal documentation pattern analysis. 5 U.S. patent applications filed. Available for licensing."
     >
       <LandingHero />
       <TechnologyPortfolio />
