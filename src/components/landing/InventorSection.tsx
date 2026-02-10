@@ -1,4 +1,5 @@
 import { GraduationCap, Award, BookOpen, Linkedin } from "lucide-react";
+import { motion } from "framer-motion";
 import alexisPhoto from "@/assets/alexis-collier.png";
 
 const credentials = [
@@ -23,8 +24,13 @@ export const InventorSection = () => (
   <section className="py-24 px-6">
     <div className="max-w-5xl mx-auto">
       <div className="grid md:grid-cols-5 gap-12 items-center">
-        {/* Photo + name */}
-        <div className="md:col-span-2 text-center md:text-left">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="md:col-span-2 text-center md:text-left"
+        >
           <div className="relative inline-block mb-6">
             <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border-2 border-primary/20 shadow-lg">
               <img
@@ -33,7 +39,6 @@ export const InventorSection = () => (
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Accent corner */}
             <div className="absolute -bottom-2 -right-2 w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
               <Award className="w-5 h-5 text-primary" />
             </div>
@@ -53,10 +58,15 @@ export const InventorSection = () => (
             <Linkedin className="w-4 h-4" />
             LinkedIn Profile
           </a>
-        </div>
+        </motion.div>
 
-        {/* Bio + credentials */}
-        <div className="md:col-span-3">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="md:col-span-3"
+        >
           <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
             Inventor
           </p>
@@ -74,9 +84,13 @@ export const InventorSection = () => (
           </p>
 
           <div className="space-y-3">
-            {credentials.map((c) => (
-              <div
+            {credentials.map((c, i) => (
+              <motion.div
                 key={c.title}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
                 className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50 border border-border/50"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -86,10 +100,10 @@ export const InventorSection = () => (
                   <h4 className="font-semibold text-foreground text-sm">{c.title}</h4>
                   <p className="text-sm text-muted-foreground">{c.detail}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
