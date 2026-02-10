@@ -1321,7 +1321,8 @@
 }
 
 .patent-nav-item[data-active="true"] {
-  @apply bg-primary text-white;
+  @apply bg-primary;
+  color: white !important;
 }
 
 /* Animated counter */
