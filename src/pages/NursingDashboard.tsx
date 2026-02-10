@@ -355,7 +355,7 @@ export const NursingDashboard = () => {
                   <div className="max-h-[60vh] overflow-y-auto">
                     {patentGroups.map((group) => (
                       <div key={group.id}>
-                        <p className={cn('text-[10px] font-bold uppercase tracking-wider px-4 pt-3 pb-1', group.color)}>{group.patent} — {group.title}</p>
+                        <p className={cn('text-[10px] font-bold uppercase tracking-wider px-4 pt-3 pb-1', group.color)}>{group.patent} - {group.title}</p>
                         <div className="px-2 pb-2 space-y-0.5">
                           {group.tabs.map((tab) => {
                             const Icon = tab.icon;
