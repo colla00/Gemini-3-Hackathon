@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    // INITIAL load — sets loading false only after roles are fetched
+    // INITIAL load - sets loading false only after roles are fetched
     const initializeAuth = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();

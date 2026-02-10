@@ -172,7 +172,7 @@ export const WalkthroughRequestsPanel = () => {
                             </a>
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            {request.organization || '—'}
+                            {request.organization || '-'}
                           </div>
                           <div>
                             {getStatusBadge(request.status)}

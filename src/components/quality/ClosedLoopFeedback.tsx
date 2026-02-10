@@ -173,7 +173,7 @@ export const ClosedLoopFeedback = () => {
                 <span className="text-lg font-bold">-38%</span>
               </div>
             ) : (
-              <span className="text-xs text-muted-foreground">—</span>
+              <span className="text-xs text-muted-foreground">-</span>
             )}
           </div>
         </div>

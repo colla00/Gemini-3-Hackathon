@@ -154,7 +154,7 @@ export const TermsOfUse = () => {
             <section id="research" className="scroll-mt-24 p-6 rounded-xl bg-destructive/5 border border-destructive/30">
               <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
                 <AlertTriangle className="w-5 h-5 text-destructive" />
-                2. Research Prototype — Not for Clinical Use
+                2. Research Prototype - Not for Clinical Use
               </h2>
               <div className="space-y-3 text-muted-foreground">
                 <p className="font-medium text-foreground">

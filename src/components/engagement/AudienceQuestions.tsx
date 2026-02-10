@@ -212,7 +212,7 @@ export const AudienceQuestions = ({
                 <div className="flex-1">
                   <p className="text-sm text-foreground">{q.question}</p>
                   <p className="text-[10px] text-muted-foreground mt-1">
-                    — {q.asked_by}
+                    - {q.asked_by}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">

@@ -13,7 +13,7 @@ export const RiskStratificationTab = () => {
       </div>
       <p className="text-sm text-muted-foreground max-w-3xl">
         Integrated clinical risk intelligence with explainability, temporal forecasting, adaptive thresholds,
-        and closed-loop intervention feedback — providing real-time multi-outcome risk scoring across patient populations.
+        and closed-loop intervention feedback, providing real-time multi-outcome risk scoring across patient populations.
       </p>
 
       <NeuralReasoningEngine />

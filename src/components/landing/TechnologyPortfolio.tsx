@@ -14,7 +14,7 @@ const systems = [
   },
   {
     icon: Shield,
-    name: "ChartMinder — Trust-Based Alerts",
+    name: "ChartMinder - Trust-Based Alerts",
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Filed",

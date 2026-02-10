@@ -473,7 +473,7 @@ export const ShapExplainability = () => {
                 <span className="text-[10px] font-semibold text-warning block">Clinical Validation Required</span>
                 <p className="text-[10px] text-warning/80">
                   <ClinicalTooltip term="SHAP">SHAP values</ClinicalTooltip> quantify factor contributions but require clinical verification. 
-                  Model predictions support—not replace—nursing judgment. Human-in-the-loop validation essential.
+                  Model predictions support, not replace, nursing judgment. Human-in-the-loop validation essential.
                 </p>
               </div>
             </div>

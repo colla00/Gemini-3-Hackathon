@@ -17,7 +17,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   patients: {
     title: 'Individual Risk Stratification',
     subtitle: 'Patient-Level Predictive Analytics with Confidence Intervals',
-    citation: 'Illustrative metrics — Validation study planned',
+    citation: 'Illustrative metrics - Validation study planned',
   },
   shap: {
     title: 'Explainable Artificial Intelligence',

@@ -31,7 +31,7 @@ const talkingPoints: TalkingPoint[] = [
     keyPoints: [
       '700K falls, 2.5M pressure injuries, 75K CAUTIs annually',
       '$50B+ in preventable costs',
-      'Current monitoring is retrospective — too late',
+      'Current monitoring is retrospective, too late',
       'My question: What if we could predict BEFORE?',
     ],
   },
@@ -85,7 +85,7 @@ const talkingPoints: TalkingPoint[] = [
     duration: '8m',
     keyPoints: [
       'KEY DIFFERENTIATOR',
-      'Most AI is a black box — no explanation',
+      'Most AI is a black box - no explanation',
       'SHAP shows exactly WHY patient is at risk',
       'Red bars = risk factors, Green = protective',
       'Actionable intelligence, not just a number',
@@ -214,7 +214,7 @@ const chartMinderQA: QAPrepItem[] = [
   {
     category: 'neural',
     question: 'What happens when the AI is wrong?',
-    answer: 'The system is advisory only—nurses make all final decisions. Wrong predictions feed back into the model via closed-loop learning, improving accuracy over time. Transparency in reasoning helps nurses identify when to override.',
+    answer: 'The system is advisory only. Nurses make all final decisions. Wrong predictions feed back into the model via closed-loop learning, improving accuracy over time. Transparency in reasoning helps nurses identify when to override.',
   },
   {
     category: 'cognitive',
