@@ -156,12 +156,13 @@ Provide comprehensive unit trend analysis in this JSON format:
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
         temperature: 0.3,
+        max_tokens: 1500,
       }),
     });
 
@@ -219,7 +220,7 @@ Provide comprehensive unit trend analysis in this JSON format:
       JSON.stringify({
         success: true,
         analysis,
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         timestamp: new Date().toISOString(),
         unitName: unitName || "Unknown Unit",
         timeRange: timeRange || "24 hours"
