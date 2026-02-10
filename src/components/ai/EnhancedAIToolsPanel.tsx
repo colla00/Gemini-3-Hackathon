@@ -888,7 +888,7 @@ export const EnhancedAIToolsPanel = () => {
   };
 
   // ============================================================================
-  // MODULE HANDLERS — LIVE GEMINI 3 API CALLS (mock fallback)
+  // MODULE HANDLERS - LIVE GEMINI 3 API CALLS (mock fallback)
   // ============================================================================
 
   const handleClinicalNotesAnalysis = async (notesOverride?: string) => {

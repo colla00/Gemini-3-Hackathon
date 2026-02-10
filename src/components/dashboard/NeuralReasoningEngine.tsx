@@ -305,7 +305,7 @@ export const NeuralReasoningEngine = () => {
                   ))}
                 </div>
                 <p className="text-[9px] text-muted-foreground text-center mt-2">
-                  Aᵢ = Σₗ,ₕ(wₗ,ₕ × αₗ,ₕ,ᵢ) — weighted aggregation across all layers and heads
+                  Aᵢ = Σₗ,ₕ(wₗ,ₕ × αₗ,ₕ,ᵢ) - weighted aggregation across all layers and heads
                 </p>
               </motion.div>
             )}

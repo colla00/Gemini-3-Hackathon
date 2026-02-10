@@ -32,7 +32,7 @@ const patentSystems = [
   },
   {
     number: 2,
-    title: "ChartMinder — Trust-Based Alert Prioritization",
+    title: "ChartMinder - Trust-Based Alert Prioritization",
     icon: Shield,
     status: "design" as const,
     oneLiner: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization",

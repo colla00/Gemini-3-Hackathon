@@ -1,10 +1,10 @@
 // Patent-related constants - centralized for consistency
 // Numbering reflects presentation order (Patent #1 = ICU Mortality, the validated medRxiv manuscript)
 
-// Patent #1: ICU Mortality Prediction (FILED Feb 5, 2026) — medRxiv validated
+// Patent #1: ICU Mortality Prediction (FILED Feb 5, 2026) - medRxiv validated
 export const PATENT_1_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
 
-// Patent #2: Trust-Based Alert Prioritization and Equity Monitoring — "ChartMinder" (FILED Dec 2025)
+// Patent #2: Trust-Based Alert Prioritization and Equity Monitoring - "ChartMinder" (FILED Dec 2025)
 export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 
 // Patent #3: Clinical Risk Intelligence System (FILED Dec 2025)
@@ -49,7 +49,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     status: 'filed',
     filingDate: 'December 2025',
     inventor: 'Dr. Alexis Collier',
-    abstract: 'Trust-based alert prioritization with equity monitoring, explainable AI reasoning, and cognitive load optimization — implemented as ChartMinder mobile governance dashboard.'
+    abstract: 'Trust-based alert prioritization with equity monitoring, explainable AI reasoning, and cognitive load optimization, implemented as ChartMinder mobile governance dashboard.'
   },
   {
     id: 'risk-intelligence',

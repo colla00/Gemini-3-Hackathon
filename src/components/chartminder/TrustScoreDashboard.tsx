@@ -29,7 +29,7 @@ export const TrustScoreDashboard = ({ onNavigate }: TrustScoreDashboardProps) =>
       {/* Header context */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted-foreground">ICU — West Wing · Quality Dashboard</p>
+          <p className="text-sm text-muted-foreground">ICU - West Wing · Quality Dashboard</p>
           <p className="text-xs text-muted-foreground/60">January 23, 2026, 2:45 PM</p>
         </div>
         <Badge className="bg-green-500/15 text-green-600 border-green-500/30 text-[10px] font-bold">● LIVE</Badge>

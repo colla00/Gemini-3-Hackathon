@@ -13,7 +13,7 @@ export const AlertOptimizationTab = () => {
       </div>
       <p className="text-sm text-muted-foreground max-w-3xl">
         Trust-based alert prioritization reduces alarm fatigue by dynamically filtering alerts based on confidence scores,
-        nurse workload, and historical accuracy — ensuring clinicians see what matters most.
+        nurse workload, and historical accuracy, ensuring clinicians see what matters most.
       </p>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">

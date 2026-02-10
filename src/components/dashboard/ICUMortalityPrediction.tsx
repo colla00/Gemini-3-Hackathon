@@ -90,15 +90,15 @@ interface TemporalFeature {
 
 // Manuscript Table 3: IDI Feature Associations with In-Hospital Mortality
 const TEMPORAL_FEATURES: TemporalFeature[] = [
-  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.38-1.70', pValue: '<0.001', description: 'Rhythm irregularity — strongest predictor of mortality' },
+  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.38-1.70', pValue: '<0.001', description: 'Rhythm irregularity - strongest predictor of mortality' },
   { name: 'Gap count >120 min', domain: 'gaps', or: 1.32, ci: '1.19-1.46', pValue: '<0.001', description: 'Number of extended surveillance gaps (>2 hours)' },
   { name: 'Maximum gap (min)', domain: 'gaps', or: 1.28, ci: '1.16-1.42', pValue: '<0.001', description: 'Longest period without documentation' },
   { name: 'Burstiness index', domain: 'rhythm', or: 1.24, ci: '1.12-1.38', pValue: '<0.001', description: 'Clustered vs evenly-spaced documentation (B=(σ−μ)/(σ+μ))' },
   { name: 'Gap count >60 min', domain: 'gaps', or: 1.19, ci: '1.08-1.31', pValue: '<0.001', description: 'Number of moderate surveillance gaps (>1 hour)' },
   { name: 'Std dev inter-event intervals', domain: 'rhythm', or: 1.15, ci: '1.05-1.27', pValue: '0.003', description: 'Variability in time between consecutive events' },
   { name: 'Mean inter-event interval', domain: 'rhythm', or: 1.11, ci: '1.01-1.23', pValue: '0.032', description: 'Average time between consecutive documentation events' },
-  { name: 'Events per hour', domain: 'volume', or: 0.88, ci: '0.80-0.97', pValue: '0.009', description: 'Documentation rate — protective (higher = lower mortality)' },
-  { name: 'Total events (24h)', domain: 'volume', or: 0.91, ci: '0.83-1.01', pValue: '0.081', description: 'Raw count — NOT independently significant' },
+  { name: 'Events per hour', domain: 'volume', or: 0.88, ci: '0.80-0.97', pValue: '0.009', description: 'Documentation rate - protective (higher = lower mortality)' },
+  { name: 'Total events (24h)', domain: 'volume', or: 0.91, ci: '0.83-1.01', pValue: '0.081', description: 'Raw count - NOT independently significant' },
 ];
 
 const DOMAIN_CONFIG = {
@@ -334,7 +334,7 @@ export const ICUMortalityPrediction = () => {
               ))}
             </div>
 
-            {/* Feature bars — sorted by OR descending */}
+            {/* Feature bars - sorted by OR descending */}
             <div className="space-y-1.5">
               {TEMPORAL_FEATURES
                 .sort((a, b) => b.or - a.or)

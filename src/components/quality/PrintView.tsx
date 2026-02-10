@@ -36,7 +36,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
       <div className="bg-amber-100 border-2 border-amber-500 rounded-lg p-3 mb-4 flex items-center gap-2">
         <AlertTriangle className="w-5 h-5 text-amber-600" />
         <span className="text-amber-800 font-bold text-sm">
-          ⚠ RESEARCH PROTOTYPE — NO CLINICAL VALIDATION CONDUCTED — NOT FOR CLINICAL USE
+          ⚠ RESEARCH PROTOTYPE - NO CLINICAL VALIDATION CONDUCTED - NOT FOR CLINICAL USE
         </span>
       </div>
       
@@ -159,7 +159,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         {/* Prominent Warning */}
         <div className="bg-amber-100 border-2 border-amber-500 rounded p-2 mb-3 text-center">
           <span className="font-bold text-amber-800">
-            ⚠ RESEARCH PROTOTYPE — NO CLINICAL VALIDATION CONDUCTED — ALL METRICS ARE ILLUSTRATIVE DESIGN TARGETS
+            ⚠ RESEARCH PROTOTYPE - NO CLINICAL VALIDATION CONDUCTED - ALL METRICS ARE ILLUSTRATIVE DESIGN TARGETS
           </span>
         </div>
         

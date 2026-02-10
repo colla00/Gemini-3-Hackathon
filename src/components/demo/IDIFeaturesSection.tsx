@@ -40,7 +40,7 @@ const DOMAINS: FeatureDomain[] = [
         simulated: '48.2',
         or: '0.88',
         pValue: 'p=0.009',
-        note: 'PROTECTIVE — higher rate = lower mortality',
+        note: 'PROTECTIVE - higher rate = lower mortality',
         interpretation:
           'Higher documentation event rates are associated with LOWER mortality (OR 0.88), consistent with the hypothesis that more frequent monitoring reflects appropriate clinical attention. This is a protective factor.',
       },
