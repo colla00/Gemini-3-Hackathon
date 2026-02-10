@@ -116,12 +116,13 @@ Provide your assessment in this JSON format:
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userContent }
         ],
         temperature: 0.2,
+        max_tokens: 1500,
       }),
     });
 
@@ -177,7 +178,7 @@ Provide your assessment in this JSON format:
       JSON.stringify({
         success: true,
         analysis,
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         timestamp: new Date().toISOString(),
         disclaimer: "AI-assisted assessment. Requires clinical verification."
       }),

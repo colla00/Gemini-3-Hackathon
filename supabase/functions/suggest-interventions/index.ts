@@ -105,12 +105,13 @@ Provide 3-5 prioritized interventions with rationale. Return as JSON.`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
         temperature: 0.3,
+        max_tokens: 1500,
       }),
     });
 
@@ -162,7 +163,7 @@ Provide 3-5 prioritized interventions with rationale. Return as JSON.`;
       JSON.stringify({
         success: true,
         suggestions,
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         timestamp: new Date().toISOString(),
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }

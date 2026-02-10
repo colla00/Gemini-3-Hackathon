@@ -117,12 +117,13 @@ Always return valid JSON. Be specific and actionable in your interventions.`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: prompt },
         ],
         temperature: 0.2,
+        max_tokens: 1500,
       }),
     });
 
@@ -181,7 +182,7 @@ Always return valid JSON. Be specific and actionable in your interventions.`;
       JSON.stringify({
         success: true,
         assessment,
-        model: "google/gemini-3-pro-preview",
+        model: "google/gemini-2.5-flash",
         timestamp: new Date().toISOString(),
         patientId: patientData.patientId
       }),
