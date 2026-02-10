@@ -107,31 +107,33 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
 
           {/* Mobile nav */}
           {mobileOpen && (
-            <nav className="md:hidden pt-4 pb-2 border-t border-border/40 mt-4 flex flex-col gap-3">
+            <nav className="md:hidden pt-4 pb-2 border-t border-border/40 mt-4 flex flex-col gap-1 animate-in slide-in-from-top-2 duration-200">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className={`text-sm py-2 transition-colors ${
+                  className={`text-sm py-2.5 px-3 rounded-lg transition-colors ${
                     location.pathname === link.to
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground hover:text-primary"
+                      ? "text-primary font-medium bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:bg-muted"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              {user ? (
-                <Button variant="outline" size="sm" className="w-fit gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
-                  <LogOut className="w-4 h-4" />
-                  Sign Out
-                </Button>
-              ) : (
-                <Button variant="outline" size="sm" className="w-fit" asChild>
-                  <a href="mailto:info@alexiscollier.com">Get in Touch</a>
-                </Button>
-              )}
+              <div className="pt-2 mt-1 border-t border-border/30">
+                {user ? (
+                  <Button variant="outline" size="sm" className="w-full gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="sm" className="w-full" asChild>
+                    <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                  </Button>
+                )}
+              </div>
             </nav>
           )}
         </div>
