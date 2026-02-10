@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const recognitions = [
   { icon: Award, title: 'Stanford AI+Health 2025', subtitle: 'Presented research findings (December 2025)' },
   { icon: FlaskConical, title: 'NIH CLINAQ Fellowship', subtitle: 'Federal research fellowship' },
-  { icon: Trophy, title: 'AIM-AHEAD Grant', subtitle: 'Nursing workload optimization research' },
+  { icon: Trophy, title: 'AIM-AHEAD Grant', subtitle: 'NIH-funded clinical AI research' },
   { icon: BarChart3, title: 'Large-Scale Validation', subtitle: 'Validated on extensive ICU datasets' },
 ];
 

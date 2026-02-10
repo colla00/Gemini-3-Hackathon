@@ -147,7 +147,7 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-3',
     patent: 'Patent #3',
-    title: 'Nursing Workload Optimization',
+    title: 'Clinical Risk Intelligence',
     validated: false,
     color: 'text-warning',
     activeBg: 'bg-warning',
