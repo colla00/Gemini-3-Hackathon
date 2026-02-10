@@ -10,7 +10,7 @@ const summaryPoints = [
   {
     icon: <Brain className="w-5 h-5" />,
     title: 'SHAP Explainability',
-    description: 'Interpretable risk attribution (Target AUROC 0.89)',
+    description: 'Interpretable risk attribution (Validated AUC 0.683)',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,

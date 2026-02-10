@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, Brain, Clock, Dna, ArrowRight, TrendingUp, AlertTriangle, BarChart3, Zap, Timer } from 'lucide-react';
+import { Activity, Brain, Clock, Dna, ArrowRight, TrendingUp, AlertTriangle, BarChart3, Timer } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -81,39 +81,36 @@ const PHENOTYPES: Phenotype[] = [
 // ── Temporal Features ───────────────────────────────────────────────────────
 interface TemporalFeature {
   name: string;
-  domain: 'intensity' | 'regularity' | 'pattern';
-  importance: number;
+  domain: 'volume' | 'rhythm' | 'gaps';
+  or: number;
+  ci: string;
+  pValue: string;
   description: string;
 }
 
+// Manuscript Table 3: IDI Feature Associations with In-Hospital Mortality
 const TEMPORAL_FEATURES: TemporalFeature[] = [
-  { name: 'Notes per hour', domain: 'intensity', importance: 92, description: 'Average documentation frequency across the admission' },
-  { name: 'Burst frequency', domain: 'intensity', importance: 87, description: 'Rate of documentation bursts (>3 notes in 30 min)' },
-  { name: 'Peak-to-trough ratio', domain: 'intensity', importance: 78, description: 'Ratio of maximum to minimum hourly documentation' },
-  { name: 'Night documentation density', domain: 'intensity', importance: 71, description: 'Documentation rate during 0000-0600 hours' },
-  { name: 'Escalation velocity', domain: 'intensity', importance: 68, description: 'Rate of change in documentation frequency over time' },
-  { name: 'Coefficient of variation', domain: 'regularity', importance: 85, description: 'Variability in documentation intervals' },
-  { name: 'Shannon entropy', domain: 'regularity', importance: 83, description: 'Disorder measure of documentation interval distribution' },
-  { name: 'Autocorrelation (lag-1)', domain: 'regularity', importance: 74, description: 'Self-similarity of documentation patterns over time' },
-  { name: 'Gap duration (max)', domain: 'regularity', importance: 70, description: 'Longest interval without documentation' },
-  { name: 'Interval standard deviation', domain: 'regularity', importance: 65, description: 'Standard deviation of time between consecutive notes' },
-  { name: 'Circadian alignment', domain: 'pattern', importance: 80, description: 'Deviation from expected 24-hour documentation cycle' },
-  { name: 'Shift-boundary spikes', domain: 'pattern', importance: 76, description: 'Documentation clustering at shift change times' },
-  { name: 'Weekend deviation', domain: 'pattern', importance: 63, description: 'Pattern differences between weekday and weekend documentation' },
-  { name: 'First-24h trajectory', domain: 'pattern', importance: 88, description: 'Documentation pattern shape in the first 24 hours of admission' },
-  { name: 'Phenotype transition rate', domain: 'pattern', importance: 82, description: 'Frequency of shifts between documentation phenotypes' },
+  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.38-1.70', pValue: '<0.001', description: 'Rhythm irregularity — strongest predictor of mortality' },
+  { name: 'Gap count >120 min', domain: 'gaps', or: 1.32, ci: '1.19-1.46', pValue: '<0.001', description: 'Number of extended surveillance gaps (>2 hours)' },
+  { name: 'Maximum gap (min)', domain: 'gaps', or: 1.28, ci: '1.16-1.42', pValue: '<0.001', description: 'Longest period without documentation' },
+  { name: 'Burstiness index', domain: 'rhythm', or: 1.24, ci: '1.12-1.38', pValue: '<0.001', description: 'Clustered vs evenly-spaced documentation (B=(σ−μ)/(σ+μ))' },
+  { name: 'Gap count >60 min', domain: 'gaps', or: 1.19, ci: '1.08-1.31', pValue: '<0.001', description: 'Number of moderate surveillance gaps (>1 hour)' },
+  { name: 'Std dev inter-event intervals', domain: 'rhythm', or: 1.15, ci: '1.05-1.27', pValue: '0.003', description: 'Variability in time between consecutive events' },
+  { name: 'Mean inter-event interval', domain: 'rhythm', or: 1.11, ci: '1.01-1.23', pValue: '0.032', description: 'Average time between consecutive documentation events' },
+  { name: 'Events per hour', domain: 'volume', or: 0.88, ci: '0.80-0.97', pValue: '0.009', description: 'Documentation rate — protective (higher = lower mortality)' },
+  { name: 'Total events (24h)', domain: 'volume', or: 0.91, ci: '0.83-1.01', pValue: '0.081', description: 'Raw count — NOT independently significant' },
 ];
 
 const DOMAIN_CONFIG = {
-  intensity: { label: 'Documentation Intensity', color: 'bg-chart-1', textColor: 'text-chart-1', count: 5 },
-  regularity: { label: 'Regularity Metrics', color: 'bg-chart-2', textColor: 'text-chart-2', count: 5 },
-  pattern: { label: 'Pattern Features', color: 'bg-chart-4', textColor: 'text-chart-4', count: 5 },
+  volume: { label: 'Event Volume', color: 'bg-chart-1', textColor: 'text-chart-1', count: 2 },
+  rhythm: { label: 'Rhythm Regularity', color: 'bg-chart-2', textColor: 'text-chart-2', count: 4 },
+  gaps: { label: 'Surveillance Gaps', color: 'bg-chart-4', textColor: 'text-chart-4', count: 3 },
 };
 
 // ── Pipeline Steps ──────────────────────────────────────────────────────────
 const PIPELINE_STEPS = [
   { icon: <Timer className="w-4 h-4" />, label: 'EHR Timestamps', desc: 'Raw metadata' },
-  { icon: <BarChart3 className="w-4 h-4" />, label: '15 Features', desc: 'Temporal extraction' },
+  { icon: <BarChart3 className="w-4 h-4" />, label: '9 IDI Features', desc: 'Temporal extraction' },
   { icon: <Dna className="w-4 h-4" />, label: '4 Phenotypes', desc: 'K-means clustering' },
   { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUC 0.683' },
 ];
@@ -203,13 +200,13 @@ export const ICUMortalityPrediction = () => {
         {/* ── Tabs: Phenotypes / Temporal Features ───────────────────── */}
         <Tabs defaultValue="phenotypes" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-3">
-            <TabsTrigger value="phenotypes" className="text-xs flex items-center gap-1.5">
+             <TabsTrigger value="phenotypes" className="text-xs flex items-center gap-1.5">
               <Dna className="w-3.5 h-3.5" />
               Clinical Phenotypes
             </TabsTrigger>
             <TabsTrigger value="features" className="text-xs flex items-center gap-1.5">
               <BarChart3 className="w-3.5 h-3.5" />
-              15 Temporal Features
+              9 IDI Features
             </TabsTrigger>
           </TabsList>
 
@@ -328,7 +325,7 @@ export const ICUMortalityPrediction = () => {
           {/* ── Temporal Features Tab ──────────────────────────────── */}
           <TabsContent value="features" className="space-y-4">
             {/* Domain summary */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               {Object.entries(DOMAIN_CONFIG).map(([key, cfg]) => (
                 <div key={key} className="flex items-center gap-1.5 text-[10px]">
                   <div className={cn('w-2 h-2 rounded-full', cfg.color)} />
@@ -337,39 +334,51 @@ export const ICUMortalityPrediction = () => {
               ))}
             </div>
 
-            {/* Feature bars */}
+            {/* Feature bars — sorted by OR descending */}
             <div className="space-y-1.5">
               {TEMPORAL_FEATURES
-                .sort((a, b) => b.importance - a.importance)
+                .sort((a, b) => b.or - a.or)
                 .map((feature, i) => {
                   const domain = DOMAIN_CONFIG[feature.domain];
+                  const isProtective = feature.or < 1;
+                  const barWidth = isProtective
+                    ? ((1 - feature.or) / 0.2) * 100
+                    : ((feature.or - 1) / 0.6) * 100;
                   return (
                     <motion.div
                       key={feature.name}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.03 }}
+                      transition={{ delay: i * 0.04 }}
                       className="group"
                     >
                       <div className="flex items-center gap-2">
                         <div className={cn('w-1.5 h-1.5 rounded-full shrink-0', domain.color)} />
-                        <span className="text-[11px] text-foreground w-40 truncate" title={feature.name}>
+                        <span className="text-[11px] text-foreground w-44 truncate shrink-0" title={feature.name}>
                           {feature.name}
                         </span>
-                        <div className="flex-1 h-4 bg-muted/40 rounded-full overflow-hidden relative">
+                        <div className="flex-1 h-4 bg-muted/30 rounded-full overflow-hidden relative">
                           <motion.div
-                            className={cn('h-full rounded-full', domain.color)}
+                            className={cn(
+                              'h-full rounded-full',
+                              isProtective ? 'bg-chart-2/60' : domain.color + '/60'
+                            )}
                             initial={{ width: 0 }}
-                            animate={{ width: `${feature.importance}%` }}
-                            transition={{ delay: i * 0.03 + 0.2, duration: 0.4, ease: 'easeOut' }}
-                            style={{ opacity: 0.7 }}
+                            animate={{ width: `${Math.min(barWidth, 100)}%` }}
+                            transition={{ delay: i * 0.04 + 0.1, duration: 0.4 }}
                           />
                         </div>
-                        <span className="text-[10px] font-mono font-medium text-foreground w-8 text-right">
-                          {feature.importance}
+                        <span className={cn(
+                          'text-[11px] font-bold w-10 text-right shrink-0',
+                          isProtective ? 'text-chart-2' : feature.or >= 1.3 ? 'text-destructive' : 'text-foreground'
+                        )}>
+                          {feature.or.toFixed(2)}
+                        </span>
+                        <span className="text-[9px] text-muted-foreground w-20 shrink-0">
+                          ({feature.ci})
                         </span>
                       </div>
-                      <p className="text-[9px] text-muted-foreground ml-4 pl-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <p className="text-[9px] text-muted-foreground ml-4 pl-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         {feature.description}
                       </p>
                     </motion.div>
@@ -377,15 +386,13 @@ export const ICUMortalityPrediction = () => {
                 })}
             </div>
 
-            {/* Key insight */}
-            <div className="flex items-start gap-2 p-3 rounded-lg bg-chart-4/5 border border-chart-4/20">
-              <Zap className="w-3.5 h-3.5 text-chart-4 mt-0.5 shrink-0" />
-              <p className="text-[10px] text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">Human Sensor Concept:</span>{' '}
-                Nursing documentation patterns serve as a physiological signal, the "human sensor," capturing clinical intuition
-                that traditional monitoring equipment cannot detect. Zero additional hardware required.
-              </p>
+            {/* Source attribution */}
+            <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-lg p-2.5 border border-border/20">
+              <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from L2-regularized logistic regression.
+              Heart failure ICU cohort (n=26,153). Features extracted from first 24h of documentation timestamps.
             </div>
+
+            <PatentBadge contextPatent="icu" />
           </TabsContent>
         </Tabs>
 
