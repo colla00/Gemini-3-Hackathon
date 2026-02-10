@@ -397,8 +397,8 @@ export const NursingDashboard = () => {
               <div className="patent-sidebar rounded-2xl overflow-hidden lg:sticky lg:top-24">
                 {/* Sidebar header */}
                 <div className="px-4 py-3 border-b border-border/30">
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Patent Portfolio</p>
-                  <p className="text-[10px] text-muted-foreground/60 mt-0.5">5 Provisional Patents, 175+ Claims</p>
+                  <p className="text-[10px] uppercase tracking-widest text-foreground/70 font-bold">Patent Portfolio</p>
+                  <p className="text-[10px] text-foreground/50 mt-0.5">5 Provisional Patents, 175+ Claims</p>
                 </div>
 
                 {patentGroups.map((group, idx) => {
@@ -421,7 +421,7 @@ export const NursingDashboard = () => {
                           <div className={cn('w-1.5 h-8 rounded-full transition-colors', hasActiveTab ? group.activeBg : 'bg-border')} />
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <span className={cn('text-[10px] font-bold uppercase tracking-wider', hasActiveTab ? group.color : 'text-foreground/70')}>{group.patent}</span>
+                              <span className={cn('text-[10px] font-bold uppercase tracking-wider', hasActiveTab ? group.color : 'text-foreground/60')}>{group.patent}</span>
                               {group.statusLabel === 'validated' ? (
                                 <Badge className="validated-badge bg-risk-low/15 text-risk-low border-risk-low/25 text-[8px] h-3.5 px-1 gap-0.5">
                                   <CheckCircle2 className="h-2 w-2" /> Validated
@@ -436,7 +436,7 @@ export const NursingDashboard = () => {
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-[11px] font-medium text-foreground/80 truncate mt-0.5">{group.title}</p>
+                            <p className="text-[11px] font-semibold text-foreground truncate mt-0.5">{group.title}</p>
                           </div>
                         </div>
                         <ChevronRight className={cn('h-3.5 w-3.5 text-foreground/50 shrink-0 transition-transform duration-200', isExpanded && 'rotate-90')} />
@@ -465,7 +465,7 @@ export const NursingDashboard = () => {
                                       'patent-nav-item w-full flex items-center gap-2.5 pl-6 pr-3 py-2 rounded-lg text-xs font-medium transition-all text-left group',
                                       isActive
                                         ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                                        : 'text-foreground/80 hover:bg-muted/60 hover:text-foreground'
+                                        : 'text-foreground hover:bg-muted/60'
                                     )}
                                   >
                                     <Icon className={cn('h-3.5 w-3.5 shrink-0 transition-transform group-hover:scale-110', isActive && 'drop-shadow-sm')} />
