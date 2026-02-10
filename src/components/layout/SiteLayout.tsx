@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Activity, Menu, X, Linkedin, LogOut } from "lucide-react";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -138,6 +139,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
 
       {/* Content */}
       <main className="flex-1">{children}</main>
+
+      <ScrollToTopButton />
 
       {/* Footer */}
       <footer className="py-14 px-6 border-t border-border/30 bg-foreground text-primary-foreground">

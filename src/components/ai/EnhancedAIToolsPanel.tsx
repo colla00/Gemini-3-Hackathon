@@ -1227,7 +1227,20 @@ export const EnhancedAIToolsPanel = () => {
         </CardContent>
       </Card>
 
-      {/* Modules Grid */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* CATEGORY 1: Risk Assessment & Analysis */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-border/60" />
+          <h2 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+            <Activity className="h-3.5 w-3.5" />
+            Risk Assessment & Analysis
+          </h2>
+          <div className="h-px flex-1 bg-border/60" />
+        </div>
+        <p className="text-xs text-muted-foreground text-center">Patient-level risk scoring, clinical note parsing, and explainable AI narratives</p>
+      </div>
       <div className="grid md:grid-cols-2 gap-4">
         {/* MODULE 1: Clinical Notes Analysis */}
         <ModuleCard
@@ -1645,7 +1658,23 @@ ${narrativeResult.technicalOutput.features.map(f => `  ${f.name}: ${f.weight.toF
             )}
           </div>
         </ModuleCard>
+      </div>
 
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* CATEGORY 2: Clinical Intelligence */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-border/60" />
+          <h2 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+            <Brain className="h-3.5 w-3.5" />
+            Clinical Intelligence
+          </h2>
+          <div className="h-px flex-1 bg-border/60" />
+        </div>
+        <p className="text-xs text-muted-foreground text-center">Health equity monitoring, multimodal assessment, and disparity detection</p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-4">
         {/* MODULE 4: Health Equity Analysis */}
         <ModuleCard
           id="health-equity"
@@ -1945,7 +1974,23 @@ ${narrativeResult.technicalOutput.features.map(f => `  ${f.name}: ${f.weight.toF
             )}
           </div>
         </ModuleCard>
+      </div>
 
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* CATEGORY 3: Workflow & Operations */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-border/60" />
+          <h2 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+            <TrendingUp className="h-3.5 w-3.5" />
+            Workflow & Operations
+          </h2>
+          <div className="h-px flex-1 bg-border/60" />
+        </div>
+        <p className="text-xs text-muted-foreground text-center">Smart alerts, unit-level trend analysis, and comprehensive multi-risk assessment</p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-4">
         {/* MODULE 6: Smart Alert Generation */}
         <ModuleCard
           id="smart-alert"

@@ -126,7 +126,8 @@ export const Dashboard = () => {
           />
         ) : (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-            <TabsList className="mb-6 bg-card/60 border border-border/40 flex-wrap h-auto gap-1.5 p-1.5 rounded-2xl shadow-sm">
+            <TabsList className="mb-6 bg-card/60 border border-border/40 flex-wrap h-auto gap-1 p-1.5 rounded-2xl shadow-sm">
+              {/* Clinical */}
               <TabsTrigger value="dashboard" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <Activity className="h-4 w-4" />
                 Dashboard
@@ -135,6 +136,8 @@ export const Dashboard = () => {
                 <HeartPulse className="h-4 w-4" />
                 ICU Mortality
               </TabsTrigger>
+              <div className="w-px h-6 bg-border/40 mx-0.5 hidden md:block" />
+              {/* Scoring & ROI */}
               <TabsTrigger value="dbs" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <FileText className="h-4 w-4" />
                 DBS Score
@@ -147,9 +150,11 @@ export const Dashboard = () => {
                 <Link2 className="h-4 w-4" />
                 Linked View
               </TabsTrigger>
+              <div className="w-px h-6 bg-border/40 mx-0.5 hidden md:block" />
+              {/* Research & AI */}
               <TabsTrigger value="charts" className="gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <BarChart3 className="h-4 w-4" />
-                Research Charts
+                Research
               </TabsTrigger>
               <TabsTrigger value="ai-tools" className="gap-2 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold">
                 <Sparkles className="h-4 w-4" />
