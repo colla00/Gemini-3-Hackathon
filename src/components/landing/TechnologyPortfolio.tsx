@@ -1,4 +1,4 @@
-import { Activity, Brain, Shield, FileText, BarChart3, Gauge } from "lucide-react";
+import { Activity, Brain, Shield, FileText, BarChart3 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const systems = [
@@ -13,9 +13,9 @@ const systems = [
   },
   {
     icon: Shield,
-    name: "Trust-Based Alert Prioritization",
+    name: "ChartMinder — Trust-Based Alerts",
     patent: "#2",
-    desc: "Reduces alert fatigue through clinician trust scoring, adaptive thresholds, and equity-aware monitoring.",
+    desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Filed",
     metric: "87% alert reduction",
   },
@@ -43,14 +43,6 @@ const systems = [
     status: "Patent Filed",
     metric: "15-20% overtime reduction",
   },
-  {
-    icon: Gauge,
-    name: "ChartMinder Alert Governance",
-    patent: "#6",
-    desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
-    status: "Patent Filed",
-    metric: "87% alert reduction",
-  },
 ];
 
 export const TechnologyPortfolio = () => (
@@ -61,7 +53,7 @@ export const TechnologyPortfolio = () => (
           Patent Portfolio
         </p>
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          Six Patent-Pending Systems
+          Five Patent-Pending Systems
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           A comprehensive platform for equipment-independent clinical AI, from

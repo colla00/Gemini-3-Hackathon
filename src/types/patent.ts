@@ -2,7 +2,7 @@
 
 export type ClaimCategory = 'system' | 'explainability' | 'forecasting' | 'thresholds' | 'feedback' | 'workflow' | 'trust' | 'equity' | 'dbs' | 'workload' | 'integration' | 'temporal' | 'phenotype';
 export type ClaimStatus = 'implemented' | 'demonstrated' | 'prototype';
-export type PatentId = 'trust-alerts' | 'risk-intelligence' | 'unified-platform' | 'dbs-system' | 'icu-mortality' | 'chartminder';
+export type PatentId = 'trust-alerts' | 'risk-intelligence' | 'unified-platform' | 'dbs-system' | 'icu-mortality';
 
 export interface PatentClaim {
   number: number;

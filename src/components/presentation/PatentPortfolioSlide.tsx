@@ -21,24 +21,24 @@ interface PatentInfo {
 const patents: PatentInfo[] = [
   {
     id: 'trust-alerts',
-    name: 'Trust-Based Alert System',
-    tagline: 'Trust-based prioritization with equity monitoring',
+    name: 'ChartMinder (Trust-Based Alerts)',
+    tagline: 'Mobile alert governance with trust-based prioritization & equity monitoring',
     icon: <Brain className="w-6 h-6" />,
     status: 'filed',
     filingDate: 'Dec 21, 2025',
     applicationNumber: undefined,
     keyInnovations: [
       'Trust Score Algorithm with temporal decay',
-      'Neural Reasoning Engine with explainability',
-      'Equity Pulse Monitor (<0.5% disparity)',
-      'Cognitive Load Optimization'
+      'Real-time equity monitoring (<0.5% disparity)',
+      'Explainable AI with attention weights',
+      'Cognitive Load Optimization (HFES-validated)'
     ],
     metrics: [
       { label: 'Alert Reduction', value: '87%' },
       { label: 'Expert Agreement', value: '94%' },
       { label: 'Time Saved', value: '2.3m/decision' }
     ],
-    differentiator: 'First system combining trust-based prioritization with real-time equity monitoring',
+    differentiator: 'Human-factors-engineered mobile dashboard combining trust-based prioritization with real-time equity monitoring',
     color: 'primary'
   },
   {
@@ -107,32 +107,10 @@ const patents: PatentInfo[] = [
     differentiator: 'ML-based prospective workload prediction replacing reactive census-based staffing',
     color: 'chart-2'
   },
-  {
-    id: 'chartminder',
-    name: 'ChartMinder Alert Governance',
-    tagline: 'Mobile alert governance with HFES-validated design',
-    icon: <Activity className="w-6 h-6" />,
-    status: 'filed',
-    filingDate: 'Feb 2026',
-    applicationNumber: undefined,
-    keyInnovations: [
-      'Trust-based alert prioritization',
-      'Real-time equity monitoring',
-      'Explainable AI with attention weights',
-      'Cognitive load optimization'
-    ],
-    metrics: [
-      { label: 'Alert Reduction', value: '87%' },
-      { label: 'Equity Variance', value: '<0.5%' },
-      { label: 'HFES Validated', value: '✓' }
-    ],
-    differentiator: 'Human-factors-engineered mobile dashboard integrating trust, equity, explainability, and cognitive load in one interface',
-    color: 'chart-3'
-  }
 ];
 
 const portfolioMetrics = [
-  { label: 'Patent Applications', value: '6', icon: <FileText className="w-4 h-4" /> },
+  { label: 'Patent Applications', value: '5', icon: <FileText className="w-4 h-4" /> },
   { label: 'Market Size', value: '$4.2B', icon: <TrendingUp className="w-4 h-4" /> },
   { label: 'Target Users', value: '3.8M RNs', icon: <Users className="w-4 h-4" /> },
   { label: 'Time to Value', value: '<90 days', icon: <Clock className="w-4 h-4" /> }
@@ -159,7 +137,7 @@ export const PatentPortfolioSlide = () => {
           <h1 className="text-xl font-bold text-foreground">Patent Portfolio Overview</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Six complementary patents creating a defensible moat in clinical AI
+          Five complementary patents creating a defensible moat in clinical AI
         </p>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
           <span className="text-xs font-semibold text-primary">Patent Portfolio · {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed</span>
@@ -189,7 +167,7 @@ export const PatentPortfolioSlide = () => {
       </div>
 
       {/* Patent Cards - 2x2 Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {patents.map((patent, index) => {
           const statusBadge = getStatusBadge(patent.status);
           return (
@@ -273,12 +251,12 @@ export const PatentPortfolioSlide = () => {
             <div className="flex-1">
               <h3 className="font-semibold text-sm text-foreground">Portfolio Synergy</h3>
               <p className="text-xs text-muted-foreground">
-                Trust-Based Alerts + Risk Intelligence + Unified Platform + DBS System + ChartMinder = Comprehensive clinical AI solution 
+                ChartMinder (Trust-Based Alerts) + Risk Intelligence + Unified Platform + DBS System = Comprehensive clinical AI solution 
                 with multiple layers of IP protection that competitors cannot easily replicate.
               </p>
             </div>
             <div className="text-right">
-              <div className="text-xl font-bold text-primary">6x</div>
+              <div className="text-xl font-bold text-primary">5x</div>
               <div className="text-[10px] text-muted-foreground">IP Barrier</div>
             </div>
           </div>

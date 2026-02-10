@@ -1,6 +1,6 @@
 // Patent-related constants - centralized for consistency
 
-// Patent #1: Trust-Based Alert Prioritization and Equity Monitoring (FILED)
+// Patent #1: Trust-Based Alert Prioritization and Equity Monitoring — "ChartMinder" (FILED)
 export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 
 // Patent #2: Clinical Risk Intelligence System (FILED Dec 2025)
@@ -15,8 +15,6 @@ export const PATENT_4_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BU
 // Patent #5: ICU Mortality Prediction (FILED Feb 5, 2026)
 export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
 
-// Patent #6: ChartMinder Alert Governance (FILED Feb 2026)
-export const PATENT_6_TITLE = 'CHARTMINDER: MOBILE ALERT GOVERNANCE DASHBOARD WITH TRUST-BASED PRIORITIZATION, EQUITY MONITORING, AND COGNITIVE LOAD OPTIMIZATION';
 
 // All patent applications
 export interface PatentApplication {
@@ -35,10 +33,11 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   {
     id: 'trust-alerts',
     title: PATENT_TITLE,
-    shortName: 'Trust-Based Alert System',
+    shortName: 'ChartMinder (Trust-Based Alerts)',
     status: 'filed',
     filingDate: 'December 2025',
-    inventor: 'Dr. Alexis Collier'
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Trust-based alert prioritization with equity monitoring, explainable AI reasoning, and cognitive load optimization — implemented as ChartMinder mobile governance dashboard.'
   },
   {
     id: 'risk-intelligence',
@@ -75,15 +74,6 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     nihFunded: true,
     abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata.'
   },
-  {
-    id: 'chartminder',
-    title: PATENT_6_TITLE,
-    shortName: 'ChartMinder Alert Governance',
-    status: 'filed',
-    filingDate: 'February 2026',
-    inventor: 'Dr. Alexis Collier',
-    abstract: 'A mobile-first alert governance dashboard integrating trust-based alert prioritization, real-time equity monitoring, explainable AI reasoning, and cognitive load optimization for clinical decision support.'
-  }
 ];
 
 // Dynamic counts - use these instead of hardcoding
