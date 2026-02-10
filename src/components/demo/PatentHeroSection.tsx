@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'Validated AUC', value: '0.741', detail: '95% CI: 0.712-0.769' },
+  { label: 'Validated AUC', value: '0.683', detail: '95% CI: 0.631-0.732' },
   { label: 'Cohort Size', value: '26,153', detail: 'ICU admissions' },
   { label: 'Temporal Validation', value: '11 years', detail: '2008-2019' },
   { label: 'Equity Validated', value: 'Pass', detail: 'AUC parity maintained', icon: true },
@@ -61,8 +61,8 @@ export const PatentHeroSection = () => {
               <p className="text-sm font-semibold text-foreground mb-1">Key Finding</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Documentation rhythm irregularity (CV) is the strongest predictor
-                (OR 1.82, p&lt;0.001), while volume is not independently predictive
-                (OR 0.98, p=0.74).
+                (OR 1.53, p&lt;0.001), while volume is not independently predictive
+                (OR 0.88, p=0.009).
               </p>
             </div>
           </div>

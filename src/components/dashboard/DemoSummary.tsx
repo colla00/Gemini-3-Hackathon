@@ -31,7 +31,7 @@ const summaryPoints = [
 
 const dataSources = [
   { name: 'HiRID', desc: 'Reference dataset' },
-  { name: 'MIMIC-IV', desc: 'Validated (AUC 0.741)' },
+  { name: 'MIMIC-IV', desc: 'Validated (AUC 0.683)' },
   { name: 'eICU-CRD', desc: 'Reference dataset' },
 ];
 

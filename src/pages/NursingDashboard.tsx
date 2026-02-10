@@ -22,7 +22,7 @@ import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const stats = [
-  { value: '0.741', label: 'AUC', detail: 'ICU Mortality Prediction (Patent #1)' },
+  { value: '0.683', label: 'AUC', detail: 'ICU Mortality Prediction (Patent #1)' },
   { value: '26,153', label: 'ICU Admissions', detail: 'MIMIC-IV Validation Cohort' },
   { value: '5', label: 'Patents Filed', detail: '175+ Claims · Dec 2025–Feb 2026' },
   { value: '9', label: 'IDI Features', detail: '4 Temporal Domains · EHR Metadata' },
