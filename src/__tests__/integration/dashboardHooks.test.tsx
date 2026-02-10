@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Dashboard } from '@/components/dashboard/Dashboard';
+import NursingDashboard from '@/pages/NursingDashboard';
 
 // Mock all external dependencies
 vi.mock('@/integrations/supabase/client', () => ({
@@ -50,7 +50,7 @@ const renderDashboard = () => {
   return render(
     <QueryClientProvider client={queryClient}>
       <MemoryRouter>
-        <Dashboard />
+        <NursingDashboard />
       </MemoryRouter>
     </QueryClientProvider>
   );
