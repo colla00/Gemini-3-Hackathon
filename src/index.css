@@ -1276,3 +1276,25 @@
     display: none !important;
   }
 }
+
+/* Tab flash animation for inactive dashboard tabs */
+@keyframes tab-flash-glow {
+  0%, 100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  50% {
+    background-color: hsl(var(--primary) / 0.08);
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.25);
+  }
+}
+
+.tab-flash[data-state="inactive"] {
+  animation: tab-flash-glow 2s ease-in-out infinite;
+  border: 1px dashed hsl(var(--primary) / 0.3);
+}
+
+.tab-flash[data-state="active"] {
+  animation: none;
+  border: 1px solid transparent;
+}
