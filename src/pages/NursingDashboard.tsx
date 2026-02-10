@@ -95,23 +95,23 @@ export const NursingDashboard = () => {
                   <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #3 · #4</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="workload" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="workload" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <TrendingUp className="h-3.5 w-3.5" />
                     Workload
                   </TabsTrigger>
-                  <TabsTrigger value="surge" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="surge" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <AlertTriangle className="h-3.5 w-3.5" />
                     Surge Alerts
                   </TabsTrigger>
-                  <TabsTrigger value="tasks" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="tasks" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <CheckSquare className="h-3.5 w-3.5" />
                     Tasks
                   </TabsTrigger>
-                  <TabsTrigger value="burnout" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="burnout" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Heart className="h-3.5 w-3.5" />
                     Burnout
                   </TabsTrigger>
-                  <TabsTrigger value="analytics" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="analytics" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <BarChart3 className="h-3.5 w-3.5" />
                     Analytics
                   </TabsTrigger>
@@ -127,15 +127,15 @@ export const NursingDashboard = () => {
                   <Badge className="bg-accent/10 text-accent border-accent/20 text-[9px] h-4">Patent #1 · #2 · #5</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="alert-optimization" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="alert-optimization" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Shield className="h-3.5 w-3.5" />
                     Alert Optimization
                   </TabsTrigger>
-                  <TabsTrigger value="risk-stratification" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="risk-stratification" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Layers className="h-3.5 w-3.5" />
                     Risk Stratification
                   </TabsTrigger>
-                  <TabsTrigger value="icu-mortality" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="icu-mortality" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <HeartPulse className="h-3.5 w-3.5" />
                     ICU Mortality
                   </TabsTrigger>
@@ -151,15 +151,15 @@ export const NursingDashboard = () => {
                   <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">Patent #4</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="dbs" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="dbs" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <FileText className="h-3.5 w-3.5" />
                     DBS Score
                   </TabsTrigger>
-                  <TabsTrigger value="roi" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="roi" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <DollarSign className="h-3.5 w-3.5" />
                     ROI
                   </TabsTrigger>
-                  <TabsTrigger value="linked" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="linked" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Link2 className="h-3.5 w-3.5" />
                     Linked View
                   </TabsTrigger>
@@ -175,15 +175,15 @@ export const NursingDashboard = () => {
                   <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] h-4">medRxiv · Patent #5</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="research" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="research" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <FlaskConical className="h-3.5 w-3.5" />
                     Validation
                   </TabsTrigger>
-                  <TabsTrigger value="charts" className="gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="charts" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <BarChart3 className="h-3.5 w-3.5" />
                     Research Charts
                   </TabsTrigger>
-                  <TabsTrigger value="ai-tools" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="ai-tools" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Sparkles className="h-3.5 w-3.5" />
                     AI Tools
                   </TabsTrigger>
@@ -199,7 +199,7 @@ export const NursingDashboard = () => {
                   <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[9px] h-4">Patent #2 · Alert Governance</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
-                  <TabsTrigger value="chartminder" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
+                  <TabsTrigger value="chartminder" className="tab-flash gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
                     <Gauge className="h-3.5 w-3.5" />
                     ChartMinder Dashboard
                   </TabsTrigger>
