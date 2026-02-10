@@ -8,7 +8,7 @@ export const AlertOptimizationTab = () => {
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-2">
         <h2 className="text-lg font-bold text-foreground">Alert Optimization</h2>
-        <Badge className="bg-primary/10 text-primary border border-primary/20 text-[10px]">Patent #1</Badge>
+        <Badge className="bg-primary/10 text-primary border border-primary/20 text-[10px]">Patent #2</Badge>
         <Badge variant="outline" className="text-[10px]">Design Phase</Badge>
       </div>
       <p className="text-sm text-muted-foreground max-w-3xl">
