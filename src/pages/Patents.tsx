@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, AlertCircle, CheckCircle2, Clock, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity, Gauge } from "lucide-react";
+import { FileText, AlertCircle, CheckCircle2, Clock, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
 
 const ipSummary = [
-  { label: "Patents Filed", value: "6", sub: "U.S. Provisional" },
+  { label: "Patents Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
   { label: "AUC", value: "0.741", sub: "Validated (Patent #1)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
@@ -33,12 +33,12 @@ const patentSystems = [
   },
   {
     number: 2,
-    title: "Trust-Based Alert Prioritization",
+    title: "ChartMinder — Trust-Based Alert Prioritization",
     icon: Shield,
     status: "design" as const,
-    oneLiner: "Adaptive clinical alerts with provider trust scoring to reduce alarm fatigue",
+    oneLiner: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization",
     validated: false,
-    innovation: "Dynamic alert thresholds that learn from provider response patterns, targeting 40-70% reduction in non-actionable alerts.",
+    innovation: "Human-factors-engineered mobile dashboard combining trust-based alert prioritization, real-time equity monitoring across demographics, explainable AI reasoning with attention weights and literature evidence, and adaptive cognitive load optimization. HFES-validated design targeting 87% alert reduction.",
   },
   {
     number: 3,
@@ -67,15 +67,6 @@ const patentSystems = [
     validated: false,
     innovation: "Predicts nurse-sensitive outcomes (falls, pressure injuries, CAUTI) with interpretable feature attributions for clinical trust.",
   },
-  {
-    number: 6,
-    title: "ChartMinder Alert Governance",
-    icon: Gauge,
-    status: "design" as const,
-    oneLiner: "Mobile-first alert governance with trust scoring, equity monitoring, and cognitive load optimization",
-    validated: false,
-    innovation: "Human-factors-engineered mobile dashboard combining trust-based alert prioritization, real-time equity monitoring across demographics, explainable AI reasoning with attention weights and literature evidence, and adaptive cognitive load optimization.",
-  },
 ];
 
 function Patents() {
@@ -86,7 +77,7 @@ function Patents() {
   };
 
   return (
-    <SiteLayout title="Technology Portfolio" description="6 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
+    <SiteLayout title="Technology Portfolio" description="5 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -96,7 +87,7 @@ function Patents() {
         <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
             <FileText className="w-3 h-3 text-primary" />
-            <span className="text-primary font-medium">6 U.S. Provisional Patent Applications Filed</span>
+            <span className="text-primary font-medium">5 U.S. Provisional Patent Applications Filed</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
             VitaSignal
@@ -256,7 +247,7 @@ function Patents() {
             <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground space-y-2">
               <p className="font-semibold text-foreground">Important:</p>
-              <p>All six applications are provisional patents. Final patent grants are subject to USPTO examination and are not guaranteed.</p>
+              <p>All five applications are provisional patents. Final patent grants are subject to USPTO examination and are not guaranteed.</p>
               <p>NIH-funded research. The U.S. Government retains certain non-commercial use rights under the Bayh-Dole Act.</p>
               <p className="text-destructive">
                 VitaSignal systems are research prototypes and are NOT FDA cleared, approved, or authorized for clinical use.
