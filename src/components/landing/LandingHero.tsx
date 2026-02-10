@@ -24,9 +24,9 @@ export const LandingHero = () => (
     <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
       {/* Stanford credential */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-primary/20 border border-primary/30 text-sm"
       >
         <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -35,9 +35,9 @@ export const LandingHero = () => (
 
       {/* Main headline */}
       <motion.h1
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.15 }}
+        transition={{ duration: 0.35, delay: 0.08 }}
         className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-[1.05] max-w-4xl"
       >
         Clinical Intelligence
@@ -46,9 +46,9 @@ export const LandingHero = () => (
       </motion.h1>
 
       <motion.p
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        transition={{ duration: 0.35, delay: 0.15 }}
         className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed"
       >
         Patent-pending AI that predicts ICU mortality from documentation
@@ -57,9 +57,9 @@ export const LandingHero = () => (
 
       {/* CTAs */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.45 }}
+        transition={{ duration: 0.35, delay: 0.22 }}
         className="flex flex-col sm:flex-row gap-3 mb-16"
       >
         <Button size="lg" className="text-base px-8 h-12 shadow-lg" asChild>
@@ -84,9 +84,9 @@ export const LandingHero = () => (
 
       {/* Stats bar */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.6 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
         className="space-y-2"
       >
         <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
@@ -98,7 +98,7 @@ export const LandingHero = () => (
             key={s.label}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 + i * 0.1 }}
+            transition={{ delay: 0.35 + i * 0.05 }}
             className="bg-foreground/80 backdrop-blur-sm p-5 text-center"
           >
             <p className="font-display text-2xl md:text-3xl text-primary mb-1">{s.value}</p>
