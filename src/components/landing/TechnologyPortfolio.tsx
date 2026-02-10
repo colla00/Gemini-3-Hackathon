@@ -1,5 +1,6 @@
 import { Activity, Brain, Shield, FileText, BarChart3 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 
 const systems = [
   {
@@ -48,7 +49,13 @@ const systems = [
 export const TechnologyPortfolio = () => (
   <section className="py-24 px-6">
     <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-16"
+      >
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
           Patent Portfolio
         </p>
@@ -59,12 +66,16 @@ export const TechnologyPortfolio = () => (
           A comprehensive platform for equipment-independent clinical AI, from
           mortality prediction through documentation optimization.
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-3">
-        {systems.map((s) => (
-          <div
+        {systems.map((s, i) => (
+          <motion.div
             key={s.name}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ delay: i * 0.08, duration: 0.5 }}
             className={`group flex items-start gap-5 p-5 rounded-xl border transition-all hover:shadow-md ${
               s.highlight
                 ? "border-primary/30 bg-primary/[0.04]"
@@ -102,7 +113,7 @@ export const TechnologyPortfolio = () => (
                 </span>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
