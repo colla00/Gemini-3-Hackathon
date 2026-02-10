@@ -186,11 +186,11 @@ export const NursingDashboard = () => {
 
               <Separator className="my-1.5" />
 
-              {/* ChartMinder — Alert Governance */}
+              {/* ChartMinder — Patent #2 */}
               <div>
                 <div className="flex items-center gap-2 px-2 py-1">
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">ChartMinder</p>
-                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[9px] h-4">Alert Governance · HFES</Badge>
+                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[9px] h-4">Patent #2 · Alert Governance</Badge>
                 </div>
                 <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0">
                   <TabsTrigger value="chartminder" className="gap-1.5 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold text-xs">
