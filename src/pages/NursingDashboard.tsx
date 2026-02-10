@@ -121,12 +121,13 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-1',
     patent: 'Patent #1',
-    title: 'ICU Mortality Research',
+    title: 'ICU Mortality Prediction',
     validated: true,
     statusLabel: 'validated',
     color: 'text-primary',
     activeBg: 'bg-primary',
     tabs: [
+      { value: 'icu-mortality', label: 'ICU Mortality', icon: HeartPulse },
       { value: 'research', label: 'Validation', icon: FlaskConical },
       { value: 'charts', label: 'Research Charts', icon: BarChart3 },
     ],
@@ -160,27 +161,26 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-4',
     patent: 'Patent #4',
-    title: 'Clinical Documentation & Scoring',
+    title: 'Unified Nursing Intelligence',
     validated: false,
     color: 'text-accent',
     activeBg: 'bg-accent',
     tabs: [
       { value: 'tasks', label: 'Tasks', icon: CheckSquare },
       { value: 'analytics', label: 'Analytics', icon: BarChart3 },
-      { value: 'dbs', label: 'DBS Score', icon: FileText },
-      { value: 'roi', label: 'ROI Calculator', icon: DollarSign },
       { value: 'linked', label: 'Linked View', icon: Link2 },
     ],
   },
   {
     id: 'patent-5',
     patent: 'Patent #5',
-    title: 'Human Sensor / Unified Intelligence',
+    title: 'DBS System',
     validated: false,
     color: 'text-chart-3',
     activeBg: 'bg-chart-3',
     tabs: [
-      { value: 'icu-mortality', label: 'ICU Mortality Visualization', icon: HeartPulse },
+      { value: 'dbs', label: 'DBS Score', icon: FileText },
+      { value: 'roi', label: 'ROI Calculator', icon: DollarSign },
     ],
   },
 ];
