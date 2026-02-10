@@ -88,7 +88,7 @@ const AITools = () => {
                 transition={{ delay: 1.1, duration: 0.6 }}
                 className="text-sm text-primary-foreground/50 mb-10"
               >
-                8 AI-powered clinical modules · Powered by Gemini 3 Flash + Pro
+                8 AI-powered clinical modules · Powered by Gemini 2.5 Flash
               </motion.p>
 
               <motion.div

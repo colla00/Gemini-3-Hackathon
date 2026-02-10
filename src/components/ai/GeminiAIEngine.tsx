@@ -653,7 +653,7 @@ export const GeminiAIEngine = () => {
                   </Badge>
                 </h1>
                 <p className="text-primary-foreground/80 mt-1.5 text-sm">
-                  Enterprise-grade AI-powered clinical decision support · Gemini 3 Flash + Pro
+                  Enterprise-grade AI-powered clinical decision support · Gemini 2.5 Flash
                 </p>
               </div>
             </div>
@@ -743,7 +743,7 @@ export const GeminiAIEngine = () => {
                             integration.model === 'pro' && "border-purple-500 text-purple-500"
                           )}
                         >
-                          {integration.model === 'pro' ? 'Gemini 3 Pro' : 'Gemini 3 Flash'}
+                          {integration.model === 'pro' ? 'Gemini 2.5 Flash' : 'Gemini 2.5 Flash'}
                         </Badge>
                       </CardTitle>
                       <CardDescription className="text-xs mt-0.5">
@@ -888,7 +888,7 @@ export const GeminiAIEngine = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 rounded-full bg-primary mt-1.5 shrink-0" />
-                  Lovable AI Gateway → Gemini 3
+                  Lovable AI Gateway → Gemini 2.5 Flash
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 rounded-full bg-primary mt-1.5 shrink-0" />
@@ -913,7 +913,7 @@ export const GeminiAIEngine = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 rounded-full bg-accent mt-1.5 shrink-0" />
-                  Avg latency: &lt;2 seconds
+                  Avg latency: &lt;5 seconds
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 rounded-full bg-accent mt-1.5 shrink-0" />
