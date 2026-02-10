@@ -79,7 +79,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
 // Dynamic counts - use these instead of hardcoding
 export const PATENTS_FILED_COUNT = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;
 export const PATENTS_TOTAL_CLAIMS = '175+';
-export const PATENTS_FILED_LABEL = `${PATENTS_FILED_COUNT} U.S. Patents Filed`;
+export const PATENTS_FILED_LABEL = `${PATENTS_FILED_COUNT} U.S. Patent Applications Filed`;
 export const PATENTS_DATE_RANGE = 'December 2025 – February 2026';
 
 export const PATENT_ACCESS_KEY = 'patent2025';

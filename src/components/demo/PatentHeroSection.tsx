@@ -14,7 +14,7 @@ const differentiators = [
   'Zero hardware cost - uses existing EHR data only',
   'Equity-validated across patient populations',
   'SHAP-based explainability for every prediction',
-  'Real-time deployment with sub-second inference',
+  'Designed for real-time EHR integration',
 ];
 
 export const PatentHeroSection = () => {

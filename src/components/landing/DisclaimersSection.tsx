@@ -33,7 +33,7 @@ export const DisclaimersSection = () => (
         <div className="p-4 rounded-lg bg-card border border-border/50">
           <p className="font-semibold text-foreground mb-2">IP Status</p>
           <p>
-            All patents are provisional applications subject to USPTO examination.
+            All patents are provisional applications filed under 35 U.S.C. § 111(b), subject to USPTO examination.
             Final patent grants are not guaranteed.
           </p>
         </div>

@@ -10,7 +10,7 @@ const partners = [
   {
     icon: Briefcase,
     title: "Healthcare AI Companies",
-    desc: "Add patent-protected clinical prediction to your product suite",
+    desc: "Add patent-pending clinical prediction to your product suite",
   },
   {
     icon: Microscope,
@@ -37,7 +37,7 @@ export const PartnersSection = () => (
             Built for Integration
           </h2>
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            VitaSignal's patent-protected technology is designed to embed into
+            VitaSignal's patent-pending technology is designed to embed into
             existing clinical workflows. We're seeking strategic partners to
             bring equipment-independent AI to healthcare at scale.
           </p>

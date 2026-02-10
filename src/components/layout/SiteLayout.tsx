@@ -33,7 +33,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
   };
 
   const pageTitle = title ? `${title} | VitaSignal` : "VitaSignal | Clinical Intelligence";
-  const pageDescription = description || "Equipment-independent AI for ICU mortality prediction. 5 U.S. patents filed. Available for licensing.";
+  const pageDescription = description || "Equipment-independent AI for ICU mortality prediction. 5 U.S. patent applications filed. Available for licensing.";
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -150,7 +150,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <span className="font-display text-lg text-primary-foreground">VitaSignal</span>
               </div>
               <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
-                Equipment-independent clinical AI. Patent-protected technology for ICU mortality prediction and nursing workflow optimization.
+                Equipment-independent clinical AI. Patent-pending technology for ICU mortality prediction and nursing workflow optimization.
               </p>
               <a
                 href="https://www.linkedin.com/in/alexiscollier/"
