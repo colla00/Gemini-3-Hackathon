@@ -137,48 +137,50 @@ export const Dashboard = () => {
               </p>
             </div>
 
-            <div className="mb-6 bg-card/90 backdrop-blur-sm border-2 border-primary/30 p-3 rounded-2xl shadow-lg ring-2 ring-primary/10">
-              <TabsList className="bg-transparent flex-wrap h-auto gap-1 p-0 w-full justify-start">
-                {/* ── Clinical ── */}
-                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-2 hidden md:inline self-center">Clinical</span>
-                <TabsTrigger value="dashboard" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <Activity className="h-4 w-4" />
-                  Dashboard
-                </TabsTrigger>
-                <TabsTrigger value="icu-mortality" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <HeartPulse className="h-4 w-4" />
-                  ICU Mortality
-                </TabsTrigger>
+            <div className="mb-6 bg-card/90 backdrop-blur-sm border-2 border-primary/30 p-4 rounded-2xl shadow-lg ring-2 ring-primary/10 space-y-2">
+              <TabsList className="bg-transparent h-auto gap-1.5 p-0 w-full justify-start flex-wrap">
+                {/* ── Row 1: Clinical (Patent #1) ── */}
+                <div className="w-full flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded-md border border-primary/10 shrink-0">Patent #1 · Clinical</span>
+                  <TabsTrigger value="dashboard" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <Activity className="h-4 w-4" />
+                    Dashboard
+                  </TabsTrigger>
+                  <TabsTrigger value="icu-mortality" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <HeartPulse className="h-4 w-4" />
+                    ICU Mortality
+                  </TabsTrigger>
+                </div>
 
-                <div className="w-px h-8 bg-primary/30 mx-1 hidden md:block self-center" />
+                {/* ── Row 2: Scoring & ROI (Patent #5) ── */}
+                <div className="w-full flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded-md border border-primary/10 shrink-0">Patent #5 · Scoring</span>
+                  <TabsTrigger value="dbs" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <FileText className="h-4 w-4" />
+                    DBS Score
+                  </TabsTrigger>
+                  <TabsTrigger value="roi" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <DollarSign className="h-4 w-4" />
+                    ROI Calculator
+                  </TabsTrigger>
+                  <TabsTrigger value="linked" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <Link2 className="h-4 w-4" />
+                    Linked View
+                  </TabsTrigger>
+                </div>
 
-                {/* ── Scoring & ROI ── */}
-                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-2 hidden md:inline self-center">Scoring</span>
-                <TabsTrigger value="dbs" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <FileText className="h-4 w-4" />
-                  DBS Score
-                </TabsTrigger>
-                <TabsTrigger value="roi" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <DollarSign className="h-4 w-4" />
-                  ROI Calculator
-                </TabsTrigger>
-                <TabsTrigger value="linked" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <Link2 className="h-4 w-4" />
-                  Linked View
-                </TabsTrigger>
-
-                <div className="w-px h-8 bg-primary/30 mx-1 hidden md:block self-center" />
-
-                {/* ── Research & AI ── */}
-                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-2 hidden md:inline self-center">Research</span>
-                <TabsTrigger value="charts" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <BarChart3 className="h-4 w-4" />
-                  Research
-                </TabsTrigger>
-                <TabsTrigger value="ai-tools" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
-                  <Sparkles className="h-4 w-4" />
-                  AI Tools
-                </TabsTrigger>
+                {/* ── Row 3: Research & AI ── */}
+                <div className="w-full flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded-md border border-primary/10 shrink-0">Research & AI</span>
+                  <TabsTrigger value="charts" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <BarChart3 className="h-4 w-4" />
+                    Research
+                  </TabsTrigger>
+                  <TabsTrigger value="ai-tools" className="gap-2 rounded-xl border-2 border-dashed border-primary/40 data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg data-[state=inactive]:animate-pulse-subtle font-semibold transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:shadow-md">
+                    <Sparkles className="h-4 w-4" />
+                    AI Tools
+                  </TabsTrigger>
+                </div>
               </TabsList>
             </div>
 
