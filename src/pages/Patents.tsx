@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const ipSummary = [
   { label: "Patents Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "AUC", value: "0.741", sub: "Validated (Patent #1)" },
+  { label: "AUC", value: "0.683", sub: "Validated (Patent #1)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
@@ -24,10 +24,10 @@ const patentSystems = [
     oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 9 temporal features",
     validated: true,
     metrics: [
-      "AUC 0.741 (95% CI: 0.712-0.769)",
+      "AUC 0.683 (95% CI: 0.631-0.732)",
       "Mean temporal AUC 0.684 over 11 years",
       "n = 26,153 ICU admissions (MIMIC-IV)",
-      "Documentation rhythm (CV) strongest predictor: OR 1.82",
+      "Documentation rhythm (CV) strongest predictor: OR 1.53",
     ],
     innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment.",
   },

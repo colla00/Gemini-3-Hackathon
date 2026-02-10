@@ -22,7 +22,7 @@ export const FeaturedPatentCard = () => {
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30">
           <Sparkles className="w-3.5 h-3.5 text-risk-low" />
-          <span className="text-xs font-bold text-risk-low">AUC 0.741</span>
+          <span className="text-xs font-bold text-risk-low">AUC 0.683</span>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export const FeaturedPatentCard = () => {
         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50 border border-border/30">
           <TrendingUp className="w-4 h-4 text-primary shrink-0" />
           <div>
-            <span className="text-sm font-bold text-foreground">0.741</span>
+            <span className="text-sm font-bold text-foreground">0.683</span>
             <span className="text-[10px] text-muted-foreground block">AUC Score</span>
           </div>
         </div>

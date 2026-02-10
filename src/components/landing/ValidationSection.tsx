@@ -2,10 +2,10 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2 } from "lucide-react";
 
 const metrics = [
-  { label: "AUC", value: "0.741", detail: "95% CI: 0.712-0.769" },
+  { label: "AUC", value: "0.683", detail: "95% CI: 0.631-0.732" },
   { label: "Temporal Stability", value: "0.684", detail: "Mean AUC over 11 years" },
   { label: "Dataset", value: "26,153", detail: "ICU admissions" },
-  { label: "Strongest Predictor", value: "OR 1.82", detail: "Documentation rhythm (CV)" },
+  { label: "Strongest Predictor", value: "OR 1.53", detail: "Documentation rhythm (CV)" },
 ];
 
 const differentiators = [

@@ -53,7 +53,7 @@ const DOMAINS: FeatureDomain[] = [
         name: 'Coefficient of Variation (CV)',
         description: 'Irregularity in documentation timing intervals',
         simulated: '0.87',
-        or: '1.82',
+        or: '1.53',
         pValue: 'p<0.001',
         badge: 'STRONGEST PREDICTOR',
         interpretation:

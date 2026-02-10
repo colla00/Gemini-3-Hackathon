@@ -9,7 +9,7 @@ const systems = [
     desc: "Predicts mortality risk from documentation rhythm patterns. 9 temporal features extracted from routine EHR timestamps.",
     status: "Validated",
     highlight: true,
-    metric: "AUC 0.741",
+    metric: "AUC 0.683",
   },
   {
     icon: Shield,

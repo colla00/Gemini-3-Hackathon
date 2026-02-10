@@ -495,7 +495,7 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
   {
     number: 4,
     title: 'Equipment-Independent Risk Stratification',
-    description: 'The system of claim 1, achieving AUC of 0.741 (95% CI: 0.712-0.769) for mortality prediction using only EHR timestamp metadata without requiring physiological monitoring equipment, enabling deployment in resource-limited settings.',
+    description: 'The system of claim 1, achieving AUC of 0.683 (95% CI: 0.631-0.732) for mortality prediction using only EHR timestamp metadata without requiring physiological monitoring equipment, enabling deployment in resource-limited settings.',
     category: 'system',
     implementation: 'Risk stratification module operating on timestamp-only data, validated against MIMIC-IV with 35,782 ICU admissions.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
@@ -552,7 +552,7 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
     title: 'Multi-Model Ensemble Prediction',
     description: 'The system of claim 1, employing an ensemble of gradient boosting, random forest, and logistic regression models with model-specific feature importance extraction.',
     category: 'system',
-    implementation: 'Ensemble model comparison showing XGBoost (AUC 0.741), Random Forest (0.658), and Logistic Regression (0.641) with feature importance rankings.',
+    implementation: 'Ensemble model comparison showing XGBoost (AUC 0.683), Random Forest (0.658), and Logistic Regression (0.641) with feature importance rankings.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
     status: 'demonstrated',
     demoSection: 'patents',

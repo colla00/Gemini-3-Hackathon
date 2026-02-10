@@ -6,7 +6,7 @@ import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "0.741", label: "AUC", detail: "Predictive Performance" },
+  { value: "0.683", label: "AUC", detail: "Predictive Performance" },
   { value: "26,153", label: "ICU Admissions", detail: "Validation Cohort" },
   { value: "5", label: "Patents Filed", detail: "175+ Claims" },
   { value: "11yr", label: "Temporal Span", detail: "2008-2019" },
