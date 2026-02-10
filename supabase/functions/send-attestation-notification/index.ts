@@ -57,14 +57,35 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const { 
-      witnessName, 
-      witnessTitle, 
-      organization, 
-      claimsCount, 
-      attestedAt
-    }: AttestationNotificationRequest = await req.json();
-    
+    const body: AttestationNotificationRequest = await req.json();
+    const { witnessName, witnessTitle, organization, claimsCount, attestedAt } = body;
+
+    // Input validation
+    if (!witnessName || typeof witnessName !== 'string' || witnessName.length > 200) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing witnessName (max 200 chars)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (!witnessTitle || typeof witnessTitle !== 'string' || witnessTitle.length > 200) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing witnessTitle (max 200 chars)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (organization && (typeof organization !== 'string' || organization.length > 300)) {
+      return new Response(
+        JSON.stringify({ error: "Organization exceeds max length (300 chars)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (claimsCount !== undefined && (typeof claimsCount !== 'number' || claimsCount < 0 || claimsCount > 1000)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid claimsCount" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const recipientEmail = PATENT_ATTORNEY_EMAIL;
 
     console.log("Sending attestation notification to:", recipientEmail);
