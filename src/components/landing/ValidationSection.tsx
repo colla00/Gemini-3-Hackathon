@@ -3,17 +3,17 @@ import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const metrics = [
-  { label: "AUC", value: "0.683", detail: "95% CI: 0.631-0.732" },
   { label: "Temporal Stability", value: "0.684", detail: "Mean AUC over 11 years" },
-  { label: "Dataset", value: "26,153", detail: "ICU admissions" },
   { label: "Strongest Predictor", value: "OR 1.53", detail: "Documentation rhythm (CV)" },
+  { label: "L2 Regularization", value: "C=0.01", detail: "Optimized via grid search" },
+  { label: "Validation Window", value: "2008-19", detail: "11-year temporal span" },
 ];
 
 const differentiators = [
   "Zero hardware cost - uses existing EHR data only",
   "Equity-validated across patient populations",
   "SHAP-based explainability for every prediction",
-  "Designed for real-time EHR integration",
+  "9 temporal features from documentation timestamps",
 ];
 
 export const ValidationSection = () => (
