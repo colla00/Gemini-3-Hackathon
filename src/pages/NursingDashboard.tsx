@@ -462,7 +462,7 @@ export const NursingDashboard = () => {
                                     key={tab.value}
                                     onClick={() => setActiveTab(tab.value)}
                                     data-active={isActive}
-                                    style={!isActive ? { color: 'hsl(222, 47%, 11%)' } : undefined}
+                                    style={!isActive ? { color: 'var(--sidebar-text)' } : undefined}
                                     className={cn(
                                       'patent-nav-item w-full flex items-center gap-2.5 pl-6 pr-3 py-2 rounded-lg text-sm font-semibold transition-all text-left group',
                                       isActive
