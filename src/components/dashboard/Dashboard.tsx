@@ -137,12 +137,12 @@ export const Dashboard = () => {
               </p>
             </div>
 
-            <div className="mb-6 space-y-1">
-              <TabsList className="bg-transparent h-auto gap-0 p-0 w-full flex-col items-stretch">
-                {/* ── CLINICAL · Patent #1 ── */}
-                <div className="flex items-center gap-2 py-2 border-b border-border/30 flex-wrap">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground w-32 shrink-0">Clinical</span>
-                  <span className="text-[10px] font-semibold bg-primary/15 text-primary px-2 py-0.5 rounded-full border border-primary/20 shrink-0">Patent #1</span>
+            <div className="mb-6 bg-card/80 rounded-2xl border border-border/30 p-4 space-y-0">
+              {/* ── PATENT FEATURES · Patent #1 · #2 · #5 ── */}
+              <div className="flex items-center gap-3 py-2.5 border-b border-border/30 flex-wrap">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground min-w-[130px] shrink-0">Patent Features</span>
+                <span className="text-[10px] font-semibold bg-primary/15 text-primary px-2.5 py-0.5 rounded-full border border-primary/20 shrink-0">Patent #1 · #5</span>
+                <TabsList className="bg-transparent h-auto gap-1 p-0">
                   <TabsTrigger value="dashboard" className="tab-flash gap-2 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all duration-200 hover:bg-primary/10 hover:scale-105">
                     <Activity className="h-4 w-4" />
                     Dashboard
@@ -151,12 +151,14 @@ export const Dashboard = () => {
                     <HeartPulse className="h-4 w-4" />
                     ICU Mortality
                   </TabsTrigger>
-                </div>
+                </TabsList>
+              </div>
 
-                {/* ── SCORING · Patent #5 ── */}
-                <div className="flex items-center gap-2 py-2 border-b border-border/30 flex-wrap">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground w-32 shrink-0">Clinical Tools</span>
-                  <span className="text-[10px] font-semibold bg-primary/15 text-primary px-2 py-0.5 rounded-full border border-primary/20 shrink-0">Patent #5</span>
+              {/* ── CLINICAL TOOLS · Patent #5 ── */}
+              <div className="flex items-center gap-3 py-2.5 border-b border-border/30 flex-wrap">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground min-w-[130px] shrink-0">Clinical Tools</span>
+                <span className="text-[10px] font-semibold bg-primary/15 text-primary px-2.5 py-0.5 rounded-full border border-primary/20 shrink-0">Patent #5</span>
+                <TabsList className="bg-transparent h-auto gap-1 p-0">
                   <TabsTrigger value="dbs" className="tab-flash gap-2 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all duration-200 hover:bg-primary/10 hover:scale-105">
                     <FileText className="h-4 w-4" />
                     DBS Score
@@ -169,12 +171,14 @@ export const Dashboard = () => {
                     <Link2 className="h-4 w-4" />
                     Linked View
                   </TabsTrigger>
-                </div>
+                </TabsList>
+              </div>
 
-                {/* ── RESEARCH & AI ── */}
-                <div className="flex items-center gap-2 py-2 flex-wrap">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground w-32 shrink-0">Research & AI</span>
-                  <span className="text-[10px] font-semibold bg-accent/15 text-accent-foreground px-2 py-0.5 rounded-full border border-accent/20 shrink-0">medRxiv · Patent #1</span>
+              {/* ── RESEARCH & AI · medRxiv ── */}
+              <div className="flex items-center gap-3 py-2.5 flex-wrap">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground min-w-[130px] shrink-0">Research & AI</span>
+                <span className="text-[10px] font-semibold bg-primary/15 text-primary px-2.5 py-0.5 rounded-full border border-primary/20 shrink-0">medRxiv · Patent #1</span>
+                <TabsList className="bg-transparent h-auto gap-1 p-0">
                   <TabsTrigger value="charts" className="tab-flash gap-2 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md font-semibold transition-all duration-200 hover:bg-primary/10 hover:scale-105">
                     <BarChart3 className="h-4 w-4" />
                     Research Charts
@@ -183,8 +187,8 @@ export const Dashboard = () => {
                     <Sparkles className="h-4 w-4" />
                     AI Tools
                   </TabsTrigger>
-                </div>
-              </TabsList>
+                </TabsList>
+              </div>
             </div>
 
             <TabsContent value="dashboard" className="space-y-6 mt-0">
