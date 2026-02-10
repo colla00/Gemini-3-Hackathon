@@ -1,6 +1,6 @@
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
-import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers, Gauge } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, CheckSquare, Heart, BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse, FlaskConical, Shield, Layers, Gauge, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
@@ -59,7 +59,13 @@ export const NursingDashboard = () => {
             <Badge className="bg-destructive/20 text-destructive border border-destructive/30 text-[10px] font-semibold">NOT FOR CLINICAL USE</Badge>
           </div>
 
-          {/* Stats grid */}
+          {/* Patent #1 Validation Stats */}
+          <div className="mb-2">
+            <div className="flex items-center gap-2 mb-3">
+              <Award className="w-4 h-4 text-primary" />
+              <p className="text-xs font-semibold text-primary-foreground/80 tracking-wide">Patent #1 — ICU Mortality Prediction · Manuscript Validation Results</p>
+            </div>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {stats.map((s) => (
               <div key={s.label} className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-xl px-4 py-3 text-center backdrop-blur-sm">
