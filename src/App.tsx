@@ -17,7 +17,8 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
-  AdminSkeleton 
+  AdminSkeleton,
+  AIToolsSkeleton,
 } from "@/components/skeletons";
 
 // Eagerly loaded (critical path)
@@ -94,7 +95,7 @@ const App = () => {
                     </DemoAccessGate>
                   } />
                   <Route path="/ai-tools" element={
-                    <Suspense fallback={<DashboardSkeleton />}>
+                    <Suspense fallback={<AIToolsSkeleton />}>
                       <AITools />
                     </Suspense>
                   } />
