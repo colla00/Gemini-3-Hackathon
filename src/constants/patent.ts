@@ -1,22 +1,23 @@
 // Patent-related constants - centralized for consistency
+// Numbering reflects presentation order (Patent #1 = ICU Mortality, the validated medRxiv manuscript)
 
-// Patent #1: Trust-Based Alert Prioritization and Equity Monitoring — "ChartMinder" (FILED)
+// Patent #1: ICU Mortality Prediction (FILED Feb 5, 2026) — medRxiv validated
+export const PATENT_1_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
+
+// Patent #2: Trust-Based Alert Prioritization and Equity Monitoring — "ChartMinder" (FILED Dec 2025)
 export const PATENT_TITLE = 'CLINICAL DECISION SUPPORT SYSTEM WITH TRUST-BASED ALERT PRIORITIZATION AND EQUITY MONITORING';
 
-// Patent #2: Clinical Risk Intelligence System (FILED Dec 2025)
-export const PATENT_2_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED EXPLAINABILITY, TEMPORAL FORECASTING, ADAPTIVE THRESHOLDS, AND CLOSED-LOOP INTERVENTION FEEDBACK';
+// Patent #3: Clinical Risk Intelligence System (FILED Dec 2025)
+export const PATENT_3_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED EXPLAINABILITY, TEMPORAL FORECASTING, ADAPTIVE THRESHOLDS, AND CLOSED-LOOP INTERVENTION FEEDBACK';
 
-// Patent #3: Unified Nursing Intelligence Platform (FILED Jan 2026)
-export const PATENT_3_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
+// Patent #4: Unified Nursing Intelligence Platform (FILED Jan 2026)
+export const PATENT_4_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
 
-// Patent #4: DBS System (FILED Jan 22, 2026)
-export const PATENT_4_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
-
-// Patent #5: ICU Mortality Prediction (FILED Feb 5, 2026)
-export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING ICU MORTALITY FROM ELECTRONIC HEALTH RECORD DOCUMENTATION RHYTHM PATTERNS AND TEMPORAL PHENOTYPES';
+// Patent #5: DBS System (FILED Jan 22, 2026)
+export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
 
-// All patent applications
+// All patent applications (ordered by presentation number, not filing date)
 export interface PatentApplication {
   id: string;
   title: string;
@@ -31,6 +32,17 @@ export interface PatentApplication {
 
 export const PATENT_PORTFOLIO: PatentApplication[] = [
   {
+    id: 'icu-mortality',
+    title: PATENT_1_TITLE,
+    shortName: 'ICU Mortality Prediction',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    claimsCount: 99,
+    nihFunded: true,
+    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata.'
+  },
+  {
     id: 'trust-alerts',
     title: PATENT_TITLE,
     shortName: 'ChartMinder (Trust-Based Alerts)',
@@ -41,7 +53,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'risk-intelligence',
-    title: PATENT_2_TITLE,
+    title: PATENT_3_TITLE,
     shortName: 'Clinical Risk Intelligence',
     status: 'filed',
     filingDate: 'December 2025',
@@ -49,7 +61,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'unified-platform',
-    title: PATENT_3_TITLE,
+    title: PATENT_4_TITLE,
     shortName: 'Unified Nursing Intelligence',
     status: 'filed',
     filingDate: 'January 2026',
@@ -57,22 +69,11 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
   },
   {
     id: 'dbs-system',
-    title: PATENT_4_TITLE,
+    title: PATENT_5_TITLE,
     shortName: 'DBS System',
     status: 'filed',
     filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier'
-  },
-  {
-    id: 'icu-mortality',
-    title: PATENT_5_TITLE,
-    shortName: 'ICU Mortality Prediction',
-    status: 'filed',
-    filingDate: 'February 2026',
-    inventor: 'Dr. Alexis Collier',
-    claimsCount: 99,
-    nihFunded: true,
-    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata.'
   },
 ];
 
