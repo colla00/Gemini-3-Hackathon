@@ -5,7 +5,7 @@ import { WatermarkOverlay } from '@/components/WatermarkOverlay';
 import {
   Activity, TrendingUp, AlertTriangle, CheckSquare, Heart,
   BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse,
-  FlaskConical, Shield, Layers, Gauge, Award, ChevronRight,
+  FlaskConical, Shield, Layers, Gauge, Award, ChevronRight, ChevronDown, Menu,
   CheckCircle2, Clock, Zap
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -211,30 +211,13 @@ const stats = [
 ];
 
 export const NursingDashboard = () => {
-  const [activeTab, setActiveTab] = useState('ai-tools');
+  const [activeTab, setActiveTab] = useState('icu-mortality');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const [autoPlayTriggered, setAutoPlayTriggered] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     patentGroups.forEach((g) => (initial[g.id] = true));
     return initial;
   });
-
-  // Auto-trigger "Run All Demos" when AI Tools tab loads for first time
-  useEffect(() => {
-    if (activeTab === 'ai-tools' && !autoPlayTriggered) {
-      const timer = setTimeout(() => {
-        const allButtons = document.querySelectorAll('[data-ai-tools-panel] button');
-        allButtons.forEach(btn => {
-          if (btn.textContent?.includes('Run All Demos')) {
-            (btn as HTMLButtonElement).click();
-            setAutoPlayTriggered(true);
-          }
-        });
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [activeTab, autoPlayTriggered]);
 
   const toggleGroup = (groupId: string) => {
     setExpandedGroups((prev) => ({ ...prev, [groupId]: !prev[groupId] }));
@@ -325,9 +308,15 @@ export const NursingDashboard = () => {
           <div className="lg:hidden mb-6">
             <button
               onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-              className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-card border border-border/50 shadow-sm"
+              className={cn(
+                "w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border shadow-sm transition-all",
+                mobileSidebarOpen
+                  ? "bg-primary/10 border-primary/30"
+                  : "bg-card border-border/50 animate-pulse-subtle"
+              )}
             >
               <div className="flex items-center gap-2.5 min-w-0">
+                <Menu className="h-4 w-4 text-primary shrink-0" />
                 {activeGroup && (
                   <>
                     <Badge className={cn(
@@ -346,7 +335,12 @@ export const NursingDashboard = () => {
                   </>
                 )}
               </div>
-              <ChevronRight className={cn('h-4 w-4 text-muted-foreground transition-transform', mobileSidebarOpen && 'rotate-90')} />
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-[10px] font-medium text-primary">
+                  {patentGroups.reduce((acc, g) => acc + g.tabs.length, 0)} modules
+                </span>
+                <ChevronDown className={cn('h-4 w-4 text-primary transition-transform', mobileSidebarOpen && 'rotate-180')} />
+              </div>
             </button>
 
             <AnimatePresence>

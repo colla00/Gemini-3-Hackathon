@@ -10,7 +10,6 @@ import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
 const AITools = () => {
   const [showIntro, setShowIntro] = useState(true);
-  const [autoStarted, setAutoStarted] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Auto-dismiss intro after 6 seconds
@@ -22,24 +21,6 @@ const AITools = () => {
       return () => clearTimeout(timer);
     }
   }, [showIntro]);
-
-  // After intro dismisses, auto-click "Run All Demos"
-  useEffect(() => {
-    if (!showIntro && !autoStarted) {
-      const timer = setTimeout(() => {
-        const runBtn = document.querySelector('[data-ai-tools-panel] button');
-        // Find the "Run All Demos" button specifically
-        const allButtons = document.querySelectorAll('[data-ai-tools-panel] button');
-        allButtons.forEach(btn => {
-          if (btn.textContent?.includes('Run All Demos')) {
-            (btn as HTMLButtonElement).click();
-            setAutoStarted(true);
-          }
-        });
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [showIntro, autoStarted]);
 
   const skipIntro = () => setShowIntro(false);
 
