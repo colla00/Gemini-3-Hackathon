@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const benefits = [
   { icon: Monitor, text: "Interactive clinical dashboard experience" },
-  { icon: ShieldCheck, text: "Patent-protected AI in action" },
+  { icon: ShieldCheck, text: "Patent-pending AI in action" },
   { icon: Clock, text: "Self-paced technology demonstration" },
 ];
 
