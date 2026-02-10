@@ -368,7 +368,7 @@ export const NursingDashboard = () => {
                                   'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-left',
                                   isActive
                                     ? 'bg-primary text-primary-foreground'
-                                    : 'text-muted-foreground hover:bg-muted/60'
+                                    : 'text-foreground/80 hover:bg-muted/60'
                                 )}
                               >
                                 <Icon className="h-4 w-4 shrink-0" />
