@@ -58,6 +58,19 @@ export const DemoAccessModal = ({ trigger }: DemoAccessModalProps) => {
   const onSubmit = async (data: RequestFormData) => {
     setIsSubmitting(true);
     try {
+      // Server-side rate limiting: 3 requests per hour per email
+      const { data: rateLimitResult } = await supabase.rpc('check_rate_limit', {
+        p_key: `walkthrough_request:${data.email}`,
+        p_max_requests: 3,
+        p_window_seconds: 3600,
+      });
+
+      if (rateLimitResult && !(rateLimitResult as Record<string, unknown>).allowed) {
+        toast.error('Too many requests. Please try again later.');
+        setIsSubmitting(false);
+        return;
+      }
+
       const { error } = await supabase
         .from('walkthrough_access_requests')
         .insert({
