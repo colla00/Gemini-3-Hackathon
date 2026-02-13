@@ -39,6 +39,8 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
+const ModelCard = lazy(() => import("./pages/ModelCard"));
+const Regulatory = lazy(() => import("./pages/Regulatory"));
 
 const queryClient = new QueryClient();
 
@@ -141,6 +143,16 @@ const App = () => {
                   <Route path="/privacy" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <PrivacyPolicy />
+                    </Suspense>
+                  } />
+                  <Route path="/model-card" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <ModelCard />
+                    </Suspense>
+                  } />
+                  <Route path="/regulatory" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Regulatory />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
