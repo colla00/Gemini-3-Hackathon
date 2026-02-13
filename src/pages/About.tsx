@@ -194,21 +194,7 @@ function About() {
             VitaSignal is built with regulatory readiness and scientific transparency at its core —
             even at the research prototype stage.
           </p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Link to="/model-card" className="group">
-              <Card className="h-full transition-colors group-hover:border-primary/40">
-                <CardContent className="pt-6 flex items-start gap-3">
-                  <FileText className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-foreground group-hover:text-primary transition-colors">Model Card</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Training data, performance metrics, known limitations, and ethical considerations
-                      documented per Google's Model Cards framework.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+          <div className="max-w-lg">
             <Link to="/regulatory" className="group">
               <Card className="h-full transition-colors group-hover:border-primary/40">
                 <CardContent className="pt-6 flex items-start gap-3">

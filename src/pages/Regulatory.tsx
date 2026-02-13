@@ -252,10 +252,6 @@ function Regulatory() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-center opacity-50 mt-6">
-            See our <Link to="/model-card" className="text-primary underline">Model Card</Link> for 
-            detailed performance metrics and limitations.
-          </p>
         </div>
       </section>
     </SiteLayout>
