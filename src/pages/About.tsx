@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart } from "lucide-react";
+import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart, FileText, Shield } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -183,6 +183,47 @@ function About() {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Compliance & Transparency */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl text-foreground mb-8">Compliance & Transparency</h2>
+          <p className="text-sm text-muted-foreground mb-6">
+            VitaSignal is built with regulatory readiness and scientific transparency at its core —
+            even at the research prototype stage.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link to="/model-card" className="group">
+              <Card className="h-full transition-colors group-hover:border-primary/40">
+                <CardContent className="pt-6 flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground group-hover:text-primary transition-colors">Model Card</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Training data, performance metrics, known limitations, and ethical considerations
+                      documented per Google's Model Cards framework.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link to="/regulatory" className="group">
+              <Card className="h-full transition-colors group-hover:border-primary/40">
+                <CardContent className="pt-6 flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground group-hover:text-primary transition-colors">Regulatory Readiness</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Progress across FDA SaMD, HIPAA, ISO 13485, AI transparency, and equity standards
+                      with milestone tracking.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
         </div>
       </section>
 
