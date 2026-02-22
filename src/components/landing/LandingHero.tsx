@@ -7,10 +7,10 @@ import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "0.683", label: "AUC", detail: "Predictive Performance" },
-  { value: "26,153", label: "ICU Admissions", detail: "Validation Cohort" },
+  { value: "0.683", label: "AUC (Patent #1)", detail: "ICU Mortality" },
+  { value: "0.857", label: "AUROC (Patent #5)", detail: "DBS · 208 Hospitals" },
   { value: "5", label: "Applications Filed", detail: "175+ Claims" },
-  { value: "11yr", label: "Temporal Span", detail: "2008-2019" },
+  { value: "321K+", label: "Patients Validated", detail: "MIMIC-IV + eICU" },
 ];
 
 export const LandingHero = () => (
@@ -90,7 +90,7 @@ export const LandingHero = () => (
         className="space-y-2"
       >
         <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
-          Patent #1 - ICU Mortality Prediction · Manuscript Validation Results
+          Patent #1 & #5 Validated · ICU Mortality & Documentation Burden Systems
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden">
         {stats.map((s, i) => (
