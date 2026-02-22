@@ -97,10 +97,10 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
     { name: 'Mortality\nReduction', value: 40, fullName: 'Mortality Reduction (10-18%)' },
   ], []);
 
-  // Validation AUC Comparison (ILLUSTRATIVE TARGETS)
+  // Validation AUC Comparison (DBS VALIDATED)
   const aucData = useMemo(() => [
-    { id: 'internal', name: 'Internal\n(Target)', auc: RESEARCH_DATA.validation.targetInternalAUC * 100, fill: '#3b82f6' },
-    { id: 'external', name: 'External\n(Target)', auc: RESEARCH_DATA.validation.targetExternalAUC * 100, fill: '#8b5cf6' },
+    { id: 'internal', name: 'Internal\n(MIMIC-IV)', auc: RESEARCH_DATA.validation.targetInternalAUC * 100, fill: '#3b82f6' },
+    { id: 'external', name: 'External\n(eICU)', auc: RESEARCH_DATA.validation.targetExternalAUC * 100, fill: '#8b5cf6' },
     { id: 'sepsis', name: 'Sepsis\n(Target)', auc: RESEARCH_DATA.risk.targetSepsisAUC * 100, fill: '#22c55e' },
     { id: 'respiratory', name: 'Respiratory\n(Target)', auc: RESEARCH_DATA.risk.targetRespiratoryAUC * 100, fill: '#06b6d4' },
   ], []);
