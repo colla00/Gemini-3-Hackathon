@@ -29,7 +29,7 @@ const performanceMetrics: PerformanceMetric[] = [
     name: 'Alert Volume', 
     baseline: 312, 
     chartminder: 41, 
-    improvement: '87% reduction',
+    improvement: '87% reduction (target)',
     improvementValue: 87,
     icon: AlertTriangle,
     unit: '/provider/day',

@@ -37,7 +37,7 @@ const patentSystems = [
     status: "design" as const,
     oneLiner: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization",
     validated: false,
-    innovation: "Human-factors-engineered mobile dashboard combining trust-based alert prioritization, real-time equity monitoring across demographics, explainable AI reasoning with attention weights and literature evidence, and adaptive cognitive load optimization. HFES-validated 87% alert reduction.",
+    innovation: "Human-factors-engineered mobile dashboard combining trust-based alert prioritization, real-time equity monitoring across demographics, explainable AI reasoning with attention weights and literature evidence, and adaptive cognitive load optimization. Simulated 87% alert reduction (design target, not clinically validated).",
   },
   {
     number: 3,

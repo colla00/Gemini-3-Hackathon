@@ -156,7 +156,7 @@ const talkingPoints: TalkingPoint[] = [
     keyPoints: [
       'ChartMinder DIFFERENTIATOR #2',
       'Workload-aware alert prioritization',
-      'Reduces alert fatigue by 87%',
+      'Target: reduces alert fatigue by 87% (simulated)',
       'Adapts to nurse capacity in real-time',
       'Smart batching during high-stress periods',
     ],

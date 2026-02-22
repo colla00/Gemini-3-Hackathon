@@ -186,8 +186,8 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
   const patentMetrics = [
     {
       label: 'Alert Fatigue Reduction',
-      value: '87%',
-      trend: 'ChartMinder',
+      value: '87%*',
+      trend: 'ChartMinder (target)',
       icon: Zap,
       styles: chartMinderMetrics.alertReduction,
     },
@@ -200,8 +200,8 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
     },
     {
       label: 'Cognitive Load Saved',
-      value: '2.3 min',
-      trend: 'per decision',
+      value: '2.3 min*',
+      trend: 'per decision (target)',
       icon: Clock,
       styles: chartMinderMetrics.cognitiveLoad,
     },
