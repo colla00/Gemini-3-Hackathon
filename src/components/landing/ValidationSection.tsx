@@ -81,6 +81,27 @@ export const ValidationSection = () => (
               <p className="text-xs text-primary-foreground/50">{m.detail}</p>
             </motion.div>
           ))}
+
+          {/* Why AUC 0.683 Matters Callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="col-span-2 p-5 rounded-xl bg-primary/10 border border-primary/30"
+          >
+            <p className="text-sm font-semibold text-primary mb-2">
+              Why AUC 0.683 Matters
+            </p>
+            <p className="text-xs text-primary-foreground/70 leading-relaxed">
+              Unlike APACHE IV, SOFA, and other ICU models that require vitals, labs, and bedside equipment, 
+              Patent #1 achieves mortality prediction using <span className="text-primary-foreground font-medium">zero physiological data</span> — only 
+              the timing and rhythm of routine EHR documentation. This is the first demonstration that 
+              nurse charting patterns alone carry a mortality signal, enabling risk detection in 
+              resource-limited settings with no additional hardware cost. Temporal validation held stable 
+              (mean AUC 0.684) across 11 years (2008–2019).
+            </p>
+          </motion.div>
         </div>
       </div>
     </div>
