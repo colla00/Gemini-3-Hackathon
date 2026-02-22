@@ -1,5 +1,5 @@
 // Research Data Visualizations
-// Based on DRALEXIS package specification: 10,000 patients, 201 hospitals
+// Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals)
 // Copyright © Dr. Alexis Collier - U.S. Patent Filed
 
 import { useMemo, useState, useCallback } from 'react';

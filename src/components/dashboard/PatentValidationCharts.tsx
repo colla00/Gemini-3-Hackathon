@@ -80,7 +80,7 @@ export const PatentValidationCharts = () => {
             <div>
               <CardTitle className="text-base">Research Validation Visualizations</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                10,000 patients · 201 hospitals · AUC 0.78
+                321,719 patients · 208 hospitals · AUROC 0.802→0.857
               </p>
             </div>
           </div>
