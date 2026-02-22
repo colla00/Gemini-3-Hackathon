@@ -506,7 +506,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Activity className="h-4 w-4 text-muted-foreground" />
-                APACHE II Score
+                Acuity Score
                 <span className="text-xs text-muted-foreground">(Strong influence)</span>
               </label>
               <span className="text-sm font-bold">{apache}</span>
@@ -525,7 +525,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Heart className="h-4 w-4 text-muted-foreground" />
-                SOFA Score
+                Organ Dysfunction
                 <span className="text-xs text-muted-foreground">(Strong influence)</span>
               </label>
               <span className="text-sm font-bold">{sofa}</span>
@@ -544,7 +544,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Users className="h-4 w-4 text-muted-foreground" />
-                Comorbidities
+                Comorbidity Burden
                 <span className="text-xs text-muted-foreground">(Moderate influence)</span>
               </label>
               <span className="text-sm font-bold">{comorbidities}</span>
@@ -563,7 +563,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Pill className="h-4 w-4 text-muted-foreground" />
-                Active Medications
+                Medication Complexity
                 <span className="text-xs text-muted-foreground">(Moderate influence)</span>
               </label>
               <span className="text-sm font-bold">{medications}</span>
@@ -582,7 +582,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium flex items-center gap-2">
                 <User className="h-4 w-4 text-muted-foreground" />
-                Age
+                Demographics
                 <span className="text-xs text-muted-foreground">(Mild influence)</span>
               </label>
               <span className="text-sm font-bold">{age}</span>

@@ -600,8 +600,8 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                     </p>
                     <div className="space-y-2 text-sm">
                       <div className="p-2 rounded bg-secondary border border-border/50">
-                        <p className="font-medium">Why XGBoost over deep learning?</p>
-                        <p className="text-muted-foreground text-xs mt-1">Better interpretability with SHAP, excellent tabular data performance.</p>
+                        <p className="font-medium">Why this ML approach over deep learning?</p>
+                        <p className="text-muted-foreground text-xs mt-1">Better interpretability with SHAP, excellent tabular data performance, and clinical transparency requirements.</p>
                       </div>
                       <div className="p-2 rounded bg-secondary border border-border/50">
                         <p className="font-medium">How do you handle alert fatigue?</p>

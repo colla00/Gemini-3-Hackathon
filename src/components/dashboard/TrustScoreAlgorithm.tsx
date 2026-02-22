@@ -28,7 +28,7 @@ const defaultComponents: TrustComponent[] = [
   { 
     id: 'historical', 
     name: 'Historical Accuracy', 
-    description: 'True positive rate over 90-day window',
+    description: 'Model performance over rolling window',
     weight: 0.35, 
     value: 0.89, 
     icon: History, 
@@ -37,7 +37,7 @@ const defaultComponents: TrustComponent[] = [
   { 
     id: 'feedback', 
     name: 'Clinician Feedback', 
-    description: 'Weighted accept/dismiss with decay',
+    description: 'Weighted accept/dismiss signals',
     weight: 0.30, 
     value: 0.82, 
     icon: MessageSquare, 
@@ -46,7 +46,7 @@ const defaultComponents: TrustComponent[] = [
   { 
     id: 'temporal', 
     name: 'Temporal Relevance', 
-    description: 'Exponential decay λ = ln(2)/30',
+    description: 'Recency-weighted signal decay',
     weight: 0.20, 
     value: 0.91, 
     icon: Clock, 
@@ -55,7 +55,7 @@ const defaultComponents: TrustComponent[] = [
   { 
     id: 'quality', 
     name: 'Data Quality', 
-    description: 'Completeness, consistency, timeliness',
+    description: 'Completeness and consistency metrics',
     weight: 0.15, 
     value: 0.78, 
     icon: Database, 
@@ -133,12 +133,9 @@ export const TrustScoreAlgorithm = () => {
               <span className="text-xs font-medium text-muted-foreground">Trust Score Formula</span>
             </div>
             <div className="font-mono text-[10px] text-foreground bg-secondary/50 rounded p-2 overflow-x-auto">
-              <div>Trust = (w₁×HA + w₂×CF + w₃×TR + w₄×DQ) × CI</div>
+              <div>Trust = Σ(wᵢ × Componentᵢ) × CI</div>
               <div className="text-muted-foreground mt-1">
-                = ({components[0].weight}×{components[0].value.toFixed(2)} + 
-                {components[1].weight}×{components[1].value.toFixed(2)} + 
-                {components[2].weight}×{components[2].value.toFixed(2)} + 
-                {components[3].weight}×{components[3].value.toFixed(2)}) × {confidenceInterval.toFixed(2)}
+                Four weighted components combined with confidence interval adjustment
               </div>
               <div className="text-primary mt-1 font-semibold">
                 = {(trustScore * 100).toFixed(1)}%
@@ -166,7 +163,7 @@ export const TrustScoreAlgorithm = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge variant="secondary" className="text-[9px]">
-                        w={comp.weight}
+                        weighted
                       </Badge>
                       <span className={cn("text-xs font-bold", comp.color)}>
                         {(comp.value * 100).toFixed(0)}%

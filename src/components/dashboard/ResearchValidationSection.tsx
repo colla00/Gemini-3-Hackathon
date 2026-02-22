@@ -88,7 +88,7 @@ export const ResearchValidationSection = () => (
     {/* Methodology Note */}
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
       <strong className="text-foreground">Methodology:</strong> Retrospective cohort study of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019. 
-      L2-regularized logistic regression (C=1.0). Temporal validation: training on 2008–2018 (n=25,188), testing on 2019 (n=965). 
+      Regularized logistic regression. Temporal validation: training on 2008–2018 (n=25,188), testing on 2019 (n=965). 
       Leave-one-year-out cross-validation across 12 years (mean AUC 0.684, SD 0.008). 
       Grant: NIH OT2OD032581 (AIM-AHEAD CLINAQ Fellowship). IRB Protocol #2025-IRB-0142.
     </div>

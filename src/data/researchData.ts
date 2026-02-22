@@ -82,14 +82,14 @@ export const RESEARCH_DATA = {
     ] as QuartileData[],
     overtimeReduction: [15, 20],  // Projected range (%)
     features: [
-      { name: 'APACHE II Score', weight: 0.25 },
-      { name: 'SOFA Score', weight: 0.20 },
-      { name: 'Comorbidities', weight: 0.18 },
-      { name: 'Active Medications', weight: 0.15 },
-      { name: 'Age', weight: 0.12 },
-      { name: 'Mechanical Ventilation', weight: 0.10 },
-      { name: 'Continuous Monitoring', weight: 0.08 },
-      { name: 'Admission Type', weight: 0.06 },
+      { name: 'Acuity Score', weight: 0.25 },
+      { name: 'Organ Dysfunction', weight: 0.20 },
+      { name: 'Comorbidity Burden', weight: 0.18 },
+      { name: 'Medication Complexity', weight: 0.15 },
+      { name: 'Demographics', weight: 0.12 },
+      { name: 'Ventilation Status', weight: 0.10 },
+      { name: 'Monitoring Intensity', weight: 0.08 },
+      { name: 'Admission Category', weight: 0.06 },
     ] as DBSFeature[],
   },
   
@@ -236,11 +236,11 @@ export const DEMO_PATIENT = {
 };
 
 export const DBS_CALCULATION_FACTORS: DBSCalculationFactor[] = [
-  { name: 'APACHE II Score', min: 0, max: 71, default: 25, weight: 0.25 },
-  { name: 'SOFA Score', min: 0, max: 24, default: 8, weight: 0.20 },
-  { name: 'Number of Comorbidities', min: 0, max: 10, default: 3, weight: 0.18 },
-  { name: 'Active Medications', min: 0, max: 30, default: 12, weight: 0.15 },
-  { name: 'Age', min: 18, max: 100, default: 65, weight: 0.12 },
+  { name: 'Acuity Score', min: 0, max: 71, default: 25, weight: 0.25 },
+  { name: 'Organ Dysfunction', min: 0, max: 24, default: 8, weight: 0.20 },
+  { name: 'Comorbidity Burden', min: 0, max: 10, default: 3, weight: 0.18 },
+  { name: 'Medication Complexity', min: 0, max: 30, default: 12, weight: 0.15 },
+  { name: 'Demographics', min: 0, max: 100, default: 65, weight: 0.12 },
 ];
 
 export const PATENTS: PatentInfo[] = [

@@ -370,7 +370,7 @@ const DBS_SYSTEM_CLAIMS: PatentClaim[] = [
   {
     number: 1,
     title: 'Documentation Burden Score System',
-    description: 'A system and method for predicting documentation burden using machine learning, comprising weighted factors including APACHE II, SOFA, comorbidities, active medications, and patient age.',
+    description: 'A system and method for predicting documentation burden using machine learning, comprising weighted clinical acuity, organ dysfunction, comorbidity, medication complexity, and demographic factors.',
     category: 'dbs',
     implementation: 'DBSCalculator with interactive sliders for each factor, real-time score calculation, and quartile classification.',
     componentPath: 'src/components/dashboard/DBSCalculator.tsx',
@@ -392,7 +392,7 @@ const DBS_SYSTEM_CLAIMS: PatentClaim[] = [
   {
     number: 3,
     title: 'Weighted Factor Calculation Method',
-    description: 'The system of claim 1, implementing a weighted factor calculation: DBS = (APACHE×0.30 + SOFA×0.25 + Comorbidities×0.20 + Medications×0.15 + Age×0.10) normalized to 0-100 scale.',
+    description: 'The system of claim 1, implementing a proprietary weighted factor calculation combining clinical acuity, organ dysfunction, comorbidity, medication complexity, and demographic inputs normalized to a 0-100 scale.',
     category: 'dbs',
     implementation: 'DBSCalculationBreakdown showing per-factor contributions with interactive weight visualization.',
     componentPath: 'src/components/dashboard/DBSCalculationBreakdown.tsx',
@@ -552,7 +552,7 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
     title: 'Multi-Model Ensemble Prediction',
     description: 'The system of claim 1, employing an ensemble of gradient boosting, random forest, and logistic regression models with model-specific feature importance extraction.',
     category: 'system',
-    implementation: 'Ensemble model comparison showing XGBoost (AUC 0.683), Random Forest (0.658), and Logistic Regression (0.641) with feature importance rankings.',
+    implementation: 'Ensemble model comparison with feature importance rankings. Primary model AUC 0.683.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
     status: 'demonstrated',
     demoSection: 'patents',

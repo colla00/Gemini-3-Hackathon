@@ -369,7 +369,7 @@ export function LinkedCalculatorView({ className }: LinkedCalculatorViewProps) {
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-medium flex items-center gap-1.5">
                     <Activity className="h-3.5 w-3.5 text-muted-foreground" />
-                    APACHE II
+                    Acuity Score
                   </label>
                   <span className="text-xs font-bold">{apache}</span>
                 </div>
@@ -380,7 +380,7 @@ export function LinkedCalculatorView({ className }: LinkedCalculatorViewProps) {
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-medium flex items-center gap-1.5">
                     <Heart className="h-3.5 w-3.5 text-muted-foreground" />
-                    SOFA Score
+                    Organ Dysfunction
                   </label>
                   <span className="text-xs font-bold">{sofa}</span>
                 </div>
