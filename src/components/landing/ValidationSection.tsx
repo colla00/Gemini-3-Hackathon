@@ -42,9 +42,9 @@ export const ValidationSection = () => (
             Research-Backed Results
           </h2>
           <p className="text-primary-foreground/70 mb-8 leading-relaxed">
-            The ICU Mortality Prediction system has been validated on large-scale
-            clinical datasets with NIH-funded research support, demonstrating
-            consistent performance across an 11-year temporal validation window.
+           Two patent systems have been validated on large-scale
+            clinical datasets with NIH-funded research support: ICU Mortality Prediction (AUC 0.683, n=26,153)
+            and DBS (AUROC 0.802→0.857, N=321,719 across 208 hospitals).
           </p>
 
           <div className="space-y-3">

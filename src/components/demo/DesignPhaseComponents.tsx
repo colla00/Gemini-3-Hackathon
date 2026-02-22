@@ -44,7 +44,7 @@ export const DesignPhaseComponents = () => {
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           The following components are under development with no clinical validation.
-          Only VitaSignal Mortality (Patent #1) has been validated.
+          Only Patent #1 (ICU Mortality) and Patent #5 (DBS) have been validated.
         </p>
       </div>
 
