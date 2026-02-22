@@ -625,7 +625,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     ],
     talkingPoints: [
       'Unlike black-box AI, we show exactly how the DBS score is calculated.',
-      'Each clinical factor has a validated weight derived from 10,000 patient outcomes.',
+      'Each clinical factor has a validated weight derived from 321,719 patient outcomes across 208 hospitals.',
       'APACHE II Score contributes 25% of the prediction. SOFA Score contributes 20%.',
       'Number of comorbidities: 18%. Active medications: 15%. Patient age: 12%.',
       'The interface shows how each factor contributes to the final score in real-time.',
@@ -765,7 +765,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     ],
     keyPoints: [
       'Feature Importance: Top 10 predictors visualized',
-      'ROC Curve: AUC 0.78 (95% CI: 0.76-0.80)',
+      'ROC Curve: AUROC 0.802 internal, 0.857 external',
       'DBS vs LOS: r=0.40 correlation (p<0.001)',
       'Quartile Distribution: Balanced Q1-Q4',
       'Staffing Impact: 15-20% overtime reduction, $180K-$360K ROI',
