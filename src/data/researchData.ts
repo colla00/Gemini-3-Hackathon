@@ -136,12 +136,12 @@ export const RESEARCH_DATA = {
       {
         icon: '🧠',
         title: 'Cognitive Load Optimization',
-        description: '87% reduction in non-actionable alerts, saving 2.3 minutes per decision',
+        description: 'Target: 87% reduction in non-actionable alerts, saving 2.3 minutes per decision (simulated)',
       },
       {
         icon: '⚖️',
         title: 'Equity Monitoring',
-        description: 'Real-time bias detection maintaining <0.5% demographic disparity',
+        description: 'Target: real-time bias detection maintaining <0.5% demographic disparity (design goal)',
       },
       {
         icon: '👩‍⚕️',

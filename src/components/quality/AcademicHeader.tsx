@@ -72,7 +72,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-trust-alerts': {
     title: 'Trust-Based Alert System',
     subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',
-    citation: '87% alert reduction with 100% sensitivity',
+    citation: 'Target: 87% alert reduction (simulated)',
   },
   'patent-equity': {
     title: 'Real-Time Equity Monitoring Engine',
@@ -97,7 +97,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-cognitive-load': {
     title: 'Cognitive Load Optimizer',
     subtitle: 'U.S. Patent Filed · Workload-Adaptive Thresholds',
-    citation: '2.3 minutes saved per decision',
+    citation: 'Target: 2.3 minutes saved per decision (simulated)',
   },
   'patent-trust-score': {
     title: 'Trust Score Algorithm',
@@ -107,7 +107,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-performance': {
     title: 'Performance Comparison',
     subtitle: 'U.S. Patent Filed · Validated Results',
-    citation: '87% alert reduction, 12 hospital sites',
+    citation: 'Target: 87% alert reduction (simulated)',
   },
 };
 

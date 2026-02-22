@@ -31,12 +31,12 @@ const patents: PatentInfo[] = [
       'Trust Score Algorithm with temporal decay',
       'Real-time equity monitoring (<0.5% disparity)',
       'Explainable AI with attention weights',
-      'Cognitive Load Optimization (HFES-validated)'
+      'Cognitive Load Optimization (simulated)'
     ],
     metrics: [
-      { label: 'Alert Reduction', value: '87%' },
-      { label: 'Expert Agreement', value: '94%' },
-      { label: 'Time Saved', value: '2.3m/decision' }
+      { label: 'Alert Reduction', value: '87%*' },
+      { label: 'Expert Agreement', value: '94%*' },
+      { label: 'Time Saved', value: '2.3m*' }
     ],
     differentiator: 'Human-factors-engineered mobile dashboard combining trust-based prioritization with real-time equity monitoring',
     color: 'primary'

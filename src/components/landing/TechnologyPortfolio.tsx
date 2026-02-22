@@ -18,7 +18,7 @@ const systems = [
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Filed",
-    metric: "Validated: 87% alert reduction",
+    metric: "Target: 87% alert reduction",
   },
   {
     icon: Brain,
