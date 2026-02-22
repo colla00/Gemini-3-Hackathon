@@ -40,9 +40,10 @@ const systems = [
     icon: FileText,
     name: "Documentation Burden Scoring (DBS)",
     patent: "#5",
-    desc: "ML-powered documentation burden quantification with quartile staffing recommendations.",
-    status: "Patent Filed",
-    metric: "Design Phase",
+    desc: "ML-powered documentation burden quantification with 13 clinical variables (XGBoost). Externally validated across 208 hospitals (N=321,719).",
+    status: "Validated",
+    highlight: true,
+    metric: "AUROC 0.802 → 0.857",
   },
 ];
 

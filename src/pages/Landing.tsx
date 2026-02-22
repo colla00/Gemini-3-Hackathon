@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { LandingHero } from "@/components/landing/LandingHero";
 import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
+import { RecognitionSection } from "@/components/landing/RecognitionSection";
 import { LicensingCTA } from "@/components/landing/LicensingCTA";
 import { Helmet } from "react-helmet-async";
 
@@ -33,6 +34,7 @@ export const Landing = () => {
       <LandingHero />
       <ValidationSection />
       <TechnologyPortfolio />
+      <RecognitionSection />
       <LicensingCTA />
     </SiteLayout>
   );

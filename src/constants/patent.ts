@@ -13,7 +13,7 @@ export const PATENT_3_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED
 // Patent #4: Unified Nursing Intelligence Platform (FILED Jan 2026)
 export const PATENT_4_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
 
-// Patent #5: DBS System (FILED Jan 22, 2026)
+// Patent #5: DBS System (FILED Jan 22, 2026) - Externally validated AUROC 0.802/0.857
 export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
 
@@ -73,7 +73,9 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     shortName: 'DBS System',
     status: 'filed',
     filingDate: 'January 2026',
-    inventor: 'Dr. Alexis Collier'
+    inventor: 'Dr. Alexis Collier',
+    nihFunded: true,
+    abstract: 'ML-powered documentation burden quantification using 13 clinical variables (XGBoost). Externally validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals). ANIA 2026 presentation accepted.'
   },
 ];
 
