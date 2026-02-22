@@ -14,11 +14,11 @@ export const AboutInventor = () => (
         <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">NIH CLINAQ Fellow</strong></span>
+            <span><strong className="text-foreground">NIH Research Fellow</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">AIM-AHEAD Researcher</strong></span>
+            <span><strong className="text-foreground">NIH-Funded AI Researcher</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
@@ -40,7 +40,7 @@ export const AboutInventor = () => (
           <p className="text-xs font-semibold text-foreground mb-1">Affiliations:</p>
           <p className="text-xs text-muted-foreground">
             University of North Georgia, College of Health Sciences & Professions
-            <br />NIH CLINAQ Fellowship Program • AIM-AHEAD Consortium
+            <br />NIH Fellowship Program • NIH Research Consortium
           </p>
         </div>
       </div>

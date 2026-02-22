@@ -70,7 +70,7 @@ const sections: ComplianceSection[] = [
   {
     title: "Equity & Fairness",
     icon: Users,
-    standard: "FDA Equity Guidance / AIM-AHEAD",
+    standard: "FDA Equity Guidance / NIH Standards",
     items: [
       { label: "Health Equity Analyzer built", status: "complete", detail: "Real-time demographic disparity detection" },
       { label: "No demographic features as direct inputs", status: "complete", detail: "Only temporal documentation features used" },
