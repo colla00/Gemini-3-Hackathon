@@ -3,17 +3,19 @@ import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const metrics = [
-  { label: "Temporal Stability", value: "0.684", detail: "Mean AUC over 11 years" },
+  { label: "Patent #1 AUC", value: "0.683", detail: "ICU Mortality (n=26,153)" },
+  { label: "Patent #5 AUROC", value: "0.857", detail: "DBS external (208 hospitals)" },
   { label: "Strongest Predictor", value: "OR 1.53", detail: "Documentation rhythm (CV)" },
-  { label: "L2 Regularization", value: "C=0.01", detail: "Optimized via grid search" },
-  { label: "Validation Window", value: "2008-19", detail: "11-year temporal span" },
+  { label: "Total Validated", value: "321K+", detail: "Patients across both systems" },
 ];
 
 const differentiators = [
-  "Zero hardware cost - uses existing EHR data only",
-  "Equity-validated across patient populations",
+  "Zero hardware cost — uses existing EHR data only",
+  "Two independently validated systems (Patent #1 & #5)",
+  "External validation across 208 hospitals (eICU)",
+  "13-feature XGBoost model + 9 temporal IDI features",
   "SHAP-based explainability for every prediction",
-  "9 temporal features from documentation timestamps",
+  "ANIA 2026 presentation accepted — Boston, MA",
 ];
 
 export const ValidationSection = () => (
