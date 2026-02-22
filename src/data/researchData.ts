@@ -57,19 +57,19 @@ export interface PublicationInfo {
   type: string;
 }
 
-// IMPORTANT: All values are DESIGN TARGETS or ILLUSTRATIVE for demonstration
-// No clinical validation has been conducted
+// VALIDATED RESULTS - Updated to match manuscript & ANIA 2026 presentation
+// Patent #5 DBS: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals)
 export const RESEARCH_DATA = {
-  // ILLUSTRATIVE TARGETS - Not validated results
+  // DBS VALIDATED RESULTS
   validation: {
-    targetPatients: 10000,        // Planned validation cohort size
-    targetHospitals: 201,         // Planned external validation sites
-    targetInternalAUC: 0.78,      // Design goal
-    targetExternalAUC: 0.74,      // Design goal
+    targetPatients: 321719,       // Total validated cohort (MIMIC-IV + eICU)
+    targetHospitals: 208,         // External validation hospitals (eICU)
+    targetInternalAUC: 0.802,     // Validated internal AUROC (MIMIC-IV)
+    targetExternalAUC: 0.857,     // Validated external AUROC (eICU)
     targetCorrelation: 0.40,      // Expected correlation
     targetCohensD: 3.2,           // Expected effect size
-    targetConfidenceInterval: [0.76, 0.80] as [number, number],
-    isValidated: false,           // No validation conducted yet
+    targetConfidenceInterval: [0.79, 0.81] as [number, number],
+    isValidated: true,            // Externally validated
   },
   
   // ILLUSTRATIVE - Based on literature review, not empirical data

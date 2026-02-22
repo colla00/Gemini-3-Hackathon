@@ -90,22 +90,22 @@ export const ResearchValidationSlide = () => {
               {/* DBS Performance */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium">Documentation Burden Score (DBS) Targets</span>
-                  <Badge variant="secondary" className="text-[10px] bg-amber-500/10 text-amber-600">Design Goals</Badge>
+                  <span className="text-xs font-medium">Documentation Burden Score (DBS) — Validated</span>
+                  <Badge variant="secondary" className="text-[10px] bg-risk-low/10 text-risk-low">Validated</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
                     <div className="text-lg font-bold text-primary">{validation.targetInternalAUC}</div>
-                    <div className="text-[10px] text-muted-foreground">Target Internal AUC</div>
+                    <div className="text-[10px] text-muted-foreground">Internal AUROC (MIMIC-IV)</div>
                     <div className="text-[9px] text-muted-foreground mt-1">
-                      Target CI: {validation.targetConfidenceInterval[0]} - {validation.targetConfidenceInterval[1]}
+                      N=24,689 · CI: {validation.targetConfidenceInterval[0]} - {validation.targetConfidenceInterval[1]}
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
                     <div className="text-lg font-bold text-emerald-500">{validation.targetExternalAUC}</div>
-                    <div className="text-[10px] text-muted-foreground">Target External AUC</div>
+                    <div className="text-[10px] text-muted-foreground">External AUROC (eICU)</div>
                     <div className="text-[9px] text-muted-foreground mt-1">
-                      Target r = {validation.targetCorrelation}
+                      N=297,030 · 208 hospitals
                     </div>
                   </div>
                 </div>
