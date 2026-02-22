@@ -42,7 +42,7 @@ const demoSteps: DemoStep[] = [
     presenterNotes: 'Emphasize the novelty of real-time SHAP computation at bedside. Mention patent-pending status.',
     keyPoints: [
       'Real-time EHR data integration',
-      'Ensemble ML with XGBoost backbone',
+      'Ensemble ML with proprietary architecture',
       'Novel SHAP attribution pipeline',
       'Sub-second prediction latency'
     ],

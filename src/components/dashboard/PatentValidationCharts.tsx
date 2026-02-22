@@ -11,17 +11,17 @@ import {
 } from 'recharts';
 import { RESEARCH_DATA } from '@/data/researchData';
 
-// Feature importance data from patent Figure 2
+// Feature importance data — generalized categories
 const featureImportanceData = [
-  { name: 'APACHE II Score', weight: 0.25, fill: 'hsl(var(--chart-1))' },
-  { name: 'SOFA Score', weight: 0.20, fill: 'hsl(var(--chart-2))' },
-  { name: 'Comorbidities', weight: 0.18, fill: 'hsl(var(--chart-3))' },
-  { name: 'Active Medications', weight: 0.15, fill: 'hsl(var(--chart-4))' },
-  { name: 'Age', weight: 0.12, fill: 'hsl(var(--chart-5))' },
-  { name: 'Mechanical Vent', weight: 0.10, fill: 'hsl(var(--primary))' },
-  { name: 'Continuous Monitoring', weight: 0.08, fill: 'hsl(var(--muted-foreground))' },
-  { name: 'Admission Type', weight: 0.06, fill: 'hsl(var(--secondary-foreground))' },
-  { name: 'Previous ICU', weight: 0.04, fill: 'hsl(var(--accent-foreground))' },
+  { name: 'Acuity Score', weight: 0.25, fill: 'hsl(var(--chart-1))' },
+  { name: 'Organ Dysfunction', weight: 0.20, fill: 'hsl(var(--chart-2))' },
+  { name: 'Comorbidity Burden', weight: 0.18, fill: 'hsl(var(--chart-3))' },
+  { name: 'Medication Complexity', weight: 0.15, fill: 'hsl(var(--chart-4))' },
+  { name: 'Demographics', weight: 0.12, fill: 'hsl(var(--chart-5))' },
+  { name: 'Ventilation Status', weight: 0.10, fill: 'hsl(var(--primary))' },
+  { name: 'Monitoring Intensity', weight: 0.08, fill: 'hsl(var(--muted-foreground))' },
+  { name: 'Admission Category', weight: 0.06, fill: 'hsl(var(--secondary-foreground))' },
+  { name: 'Prior ICU History', weight: 0.04, fill: 'hsl(var(--accent-foreground))' },
   { name: 'Mobility Score', weight: 0.02, fill: 'hsl(var(--destructive))' },
 ];
 

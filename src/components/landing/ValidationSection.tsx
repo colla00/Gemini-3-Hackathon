@@ -13,7 +13,7 @@ const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Two independently validated systems (Patent #1 & #5)",
   "External validation across 208 hospitals (eICU)",
-  "13-feature XGBoost model + 9 temporal IDI features",
+  "Multi-variable ML model + 9 temporal IDI features",
   "SHAP-based explainability for every prediction",
   "ANIA 2026 presentation accepted — Boston, MA",
 ];

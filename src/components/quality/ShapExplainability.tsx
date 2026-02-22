@@ -416,7 +416,7 @@ export const ShapExplainability = () => {
               <div className="p-2 rounded bg-primary/5 border border-primary/20">
                 <div className="flex justify-between mb-1">
                   <span className="text-muted-foreground">Algorithm</span>
-                  <span className="text-foreground font-medium">XGBoost + SHAP</span>
+                  <span className="text-foreground font-medium">Ensemble ML + SHAP</span>
                 </div>
                 <p className="text-[9px] text-muted-foreground">Novel real-time attribution integration</p>
               </div>

@@ -388,7 +388,7 @@ export const ICUMortalityPrediction = () => {
 
             {/* Source attribution */}
             <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-lg p-2.5 border border-border/20">
-              <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from L2-regularized logistic regression.
+              <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from regularized logistic regression.
               Heart failure ICU cohort (n=26,153). Features extracted from first 24h of documentation timestamps.
             </div>
 

@@ -25,20 +25,20 @@ interface FeatureValue {
 
 // Example high-risk patient from patent Figure 3
 const HIGH_RISK_PRESET = {
-  'APACHE II Score': 28,
-  'SOFA Score': 12,
-  'Number of Comorbidities': 5,
-  'Active Medications': 15,
-  'Age': 72,
+  'Acuity Score': 28,
+  'Organ Dysfunction': 12,
+  'Comorbidity Burden': 5,
+  'Medication Complexity': 15,
+  'Demographics': 72,
 };
 
 export const DBSCalculationBreakdown = () => {
   const [featureValues, setFeatureValues] = useState<Record<string, number>>({
-    'APACHE II Score': 25,
-    'SOFA Score': 8,
-    'Number of Comorbidities': 3,
-    'Active Medications': 12,
-    'Age': 65,
+    'Acuity Score': 25,
+    'Organ Dysfunction': 8,
+    'Comorbidity Burden': 3,
+    'Medication Complexity': 12,
+    'Demographics': 65,
   });
   
   const [calculations, setCalculations] = useState<FeatureValue[]>([]);
@@ -65,11 +65,11 @@ export const DBSCalculationBreakdown = () => {
     
     // Calculate DBS using existing utility
     const dbs = calculateDBS({
-      apache: featureValues['APACHE II Score'],
-      sofa: featureValues['SOFA Score'],
-      comorbidities: featureValues['Number of Comorbidities'],
-      medications: featureValues['Active Medications'],
-      age: featureValues['Age'],
+      apache: featureValues['Acuity Score'],
+      sofa: featureValues['Organ Dysfunction'],
+      comorbidities: featureValues['Comorbidity Burden'],
+      medications: featureValues['Medication Complexity'],
+      age: featureValues['Demographics'],
     });
     
     setDbsScore(dbs);
@@ -208,8 +208,8 @@ export const DBSCalculationBreakdown = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-medium text-foreground">{factor.name}</span>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                        ×{factor.weight}
+                       <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                        weighted
                       </Badge>
                     </div>
                     <div className="flex items-center gap-2">
