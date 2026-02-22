@@ -10,7 +10,7 @@ const summaryPoints = [
   {
     icon: <Brain className="w-5 h-5" />,
     title: 'SHAP Explainability',
-    description: 'Interpretable risk attribution (Validated AUC 0.683)',
+    description: 'Interpretable risk attribution (Patent #1 AUC 0.683, Patent #5 AUROC 0.857)',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,
@@ -31,8 +31,8 @@ const summaryPoints = [
 
 const dataSources = [
   { name: 'HiRID', desc: 'Reference dataset' },
-  { name: 'MIMIC-IV', desc: 'Validated (AUC 0.683)' },
-  { name: 'eICU-CRD', desc: 'Reference dataset' },
+  { name: 'MIMIC-IV', desc: 'Validated (AUC 0.683 & AUROC 0.802)' },
+  { name: 'eICU-CRD', desc: 'Validated (AUROC 0.857, 208 hospitals)' },
 ];
 
 interface DemoSummaryProps {

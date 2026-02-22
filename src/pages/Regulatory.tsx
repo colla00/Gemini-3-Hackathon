@@ -28,7 +28,7 @@ const sections: ComplianceSection[] = [
     items: [
       { label: "Intended use statement defined", status: "complete", detail: "ICU mortality risk prediction from documentation patterns" },
       { label: "SaMD categorization (IMDRF)", status: "complete", detail: "Category IIb — informs clinical management for serious conditions" },
-      { label: "Clinical validation (retrospective)", status: "complete", detail: "n=26,153 ICU admissions, MIMIC-IV, AUC 0.683" },
+      { label: "Clinical validation (retrospective)", status: "complete", detail: "Patent #1: n=26,153 (AUC 0.683) · Patent #5: N=321,719 (AUROC 0.802→0.857)" },
       { label: "Research disclaimers & regulatory boundaries", status: "complete", detail: "Comprehensive disclaimers on every page with acknowledgment gate" },
       { label: "Software documentation (IEC 62304)", status: "in-progress", detail: "Software architecture and risk analysis underway" },
       { label: "Predetermined change control plan", status: "in-progress", detail: "Algorithm retraining triggers defined" },

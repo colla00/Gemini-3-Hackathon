@@ -24,7 +24,7 @@ export const ResearchBanner = () => {
         </div>
         <div className="hidden xl:flex items-center gap-2 text-warning/70">
           <Award className="w-3 h-3" />
-          <span>Dec 2025 – Jan 2026</span>
+          <span>Dec 2025 – Feb 2026</span>
         </div>
         <AlertTriangle className="w-3.5 h-3.5 text-warning animate-pulse" />
       </div>

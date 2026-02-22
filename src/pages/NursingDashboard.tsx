@@ -204,9 +204,9 @@ const tabContent: Record<string, React.ReactNode> = {
 };
 
 const stats = [
-  { value: '0.683', label: 'AUC', detail: 'ICU Mortality Prediction', delay: 200 },
-  { value: '26,153', label: 'ICU Admissions', detail: 'MIMIC-IV Validation Cohort', delay: 400 },
-  { value: '11', label: 'Years', detail: 'Temporal Stability (2008-2019)', delay: 600 },
+  { value: '0.683', label: 'AUC (#1)', detail: 'ICU Mortality Prediction', delay: 200 },
+  { value: '0.857', label: 'AUROC (#5)', detail: 'DBS · 208 Hospitals', delay: 400 },
+  { value: '321K+', label: 'Patients', detail: 'Validated Across Both Systems', delay: 600 },
   { value: '175', label: 'Claims', detail: '5 Provisional Patents Filed', delay: 800 },
 ];
 
@@ -298,7 +298,7 @@ export const NursingDashboard = () => {
 
       {/* ──── DISCLAIMER ──── */}
       <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium">
-        Development Prototype. Only VitaSignal Mortality (Patent #1) has completed validation. All other components are design phase. Mock data only.
+        Development Prototype. Patent #1 (ICU Mortality) and Patent #5 (DBS) are validated. Other components are design phase. Mock data only.
       </div>
 
       {/* ──── MAIN CONTENT ──── */}
