@@ -33,8 +33,8 @@ function About() {
                 A career dedicated to reducing the burden on frontline healthcare workers through intelligent systems.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH CLINAQ Fellow</Badge>
-                <Badge className="bg-primary/20 border-primary/30 text-primary">AIM-AHEAD Researcher</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH Research Fellow</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH-Funded AI Researcher</Badge>
                 <Badge className="bg-primary/20 border-primary/30 text-primary">5 U.S. Patents Filed</Badge>
               </div>
             </div>
@@ -124,14 +124,14 @@ function About() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-primary" />
-                  <CardTitle>NIH CLINAQ Fellowship</CardTitle>
+                  <CardTitle>NIH Research Fellowship</CardTitle>
                 </div>
                 <CardDescription>National Institutes of Health</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   Prestigious NIH training fellowship for clinical researchers advancing quality improvement
-                  in cardiovascular and pulmonary care through innovative analytical methods.
+                  through innovative analytical methods in healthcare AI.
                 </p>
               </CardContent>
             </Card>
@@ -139,9 +139,9 @@ function About() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Microscope className="w-5 h-5 text-primary" />
-                  <CardTitle>AIM-AHEAD Research Grant</CardTitle>
+                  <CardTitle>NIH Research Grant</CardTitle>
                 </div>
-                <CardDescription>NIH AIM-AHEAD Consortium</CardDescription>
+                <CardDescription>NIH Research Consortium</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-sm font-medium text-foreground">Project: "Human-Centered AI for Clinical Decision Support"</p>

@@ -14,7 +14,7 @@ export const LandingFooter = () => (
             © 2025–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            NIH CLINAQ Fellow (K12 HL138039-06) | AIM-AHEAD Researcher (1OT2OD032581)
+            NIH Research Fellow | NIH-Funded AI Researcher
           </p>
           <p className="text-xs text-primary font-medium mt-1">
             5 U.S. Provisional Patent Applications Filed
@@ -36,8 +36,7 @@ export const LandingFooter = () => (
         <div className="text-[10px] text-muted-foreground/60 max-w-lg">
           <p>VitaSignal and associated marks are property of Dr. Alexis M. Collier.</p>
           <p className="mt-1">
-            Research supported by NIH CLINAQ Fellowship (K12 HL138039-06)
-            and AIM-AHEAD Program (1OT2OD032581)
+            Research supported by NIH fellowship and grant programs
           </p>
         </div>
       </div>

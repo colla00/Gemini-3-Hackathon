@@ -29,7 +29,7 @@ export const ResearchValidationSection = () => (
             <div>
               <CardTitle className="text-base font-bold">ICU Mortality Prediction via Documentation Rhythm</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                medRxiv Preprint · MIMIC-IV Database · NIH AIM-AHEAD CLINAQ Fellowship
+                medRxiv Preprint · MIMIC-IV Database · NIH-Funded Research
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ export const ResearchValidationSection = () => (
       <strong className="text-foreground">Methodology:</strong> Retrospective cohort study of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019. 
       Regularized logistic regression. Temporal validation: training on 2008–2018 (n=25,188), testing on 2019 (n=965). 
       Leave-one-year-out cross-validation across 12 years (mean AUC 0.684, SD 0.008). 
-      Grant: NIH OT2OD032581 (AIM-AHEAD CLINAQ Fellowship). IRB Protocol #2025-IRB-0142.
+      NIH-funded research. IRB Protocol #2025-IRB-0142.
     </div>
   </div>
 );
