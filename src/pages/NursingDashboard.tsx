@@ -26,6 +26,7 @@ import { ResearchValidationSection } from '@/components/dashboard/ResearchValida
 import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
+import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
 /* ───────── Animated Counter ───────── */
@@ -199,8 +200,8 @@ const tabContent: Record<string, React.ReactNode> = {
   'tasks': <TaskPrioritization />,
   'analytics': <WorkflowAnalytics />,
   'dbs': <DBSCalculator />,
-  'roi': <ROICalculator />,
-  'linked': <LinkedCalculatorView />,
+  'roi': <InvestorMetricsProvider><ROICalculator /></InvestorMetricsProvider>,
+  'linked': <InvestorMetricsProvider><LinkedCalculatorView /></InvestorMetricsProvider>,
   'ai-tools': <AIToolsPanel />,
 };
 
