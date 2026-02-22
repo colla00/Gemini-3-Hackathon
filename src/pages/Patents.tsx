@@ -100,7 +100,7 @@ function Patents() {
             <span className="text-primary">Technology Portfolio</span>
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-4 opacity-80 leading-relaxed">
-            Patent-protected equipment-independent AI systems for clinical risk prediction and nursing workflow optimization.
+            Patent-pending equipment-independent AI systems for clinical risk prediction and nursing workflow optimization.
           </p>
           <p className="text-sm opacity-60">
             Sole Inventor: Dr. Alexis Collier, DHA
