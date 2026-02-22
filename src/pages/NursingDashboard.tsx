@@ -164,6 +164,7 @@ const patentGroups: PatentGroup[] = [
     patent: 'Patent #5',
     title: 'DBS System',
     validated: true,
+    statusLabel: 'validated',
     color: 'text-chart-3',
     activeBg: 'bg-chart-3',
     tabs: [
