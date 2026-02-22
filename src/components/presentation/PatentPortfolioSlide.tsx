@@ -78,8 +78,8 @@ const patents: PatentInfo[] = [
       'Real-Time Equity Monitoring Engine'
     ],
     metrics: [
-      { label: 'Hospitals Validated', value: '201' },
-      { label: 'Patients Tested', value: '10,000' },
+      { label: 'Hospitals Validated', value: '208' },
+      { label: 'Patients Tested', value: '321K' },
       { label: 'ROI/Hospital', value: '$180-360K' }
     ],
     differentiator: 'First unified platform integrating workload, risk, and alerts into single coherent system',
