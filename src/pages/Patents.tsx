@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const ipSummary = [
   { label: "Patents Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "AUC", value: "0.683", sub: "Validated (Patent #1)" },
+  { label: "AUC", value: "0.683–0.857", sub: "Validated (#1 & #5)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
@@ -61,10 +61,16 @@ const patentSystems = [
     number: 5,
     title: "Documentation Burden & Staffing System (DBS)",
     icon: FileText,
-    status: "design" as const,
-    oneLiner: "ML-based documentation burden prediction with quartile staffing recommendations",
-    validated: false,
-    innovation: "Predicts documentation workload intensity using machine learning to enable proactive staffing adjustments before burden escalates.",
+    status: "validated" as const,
+    oneLiner: "ML-powered documentation burden quantification with 13 clinical variables (XGBoost). Externally validated across 208 hospitals.",
+    validated: true,
+    metrics: [
+      "AUROC 0.802 (MIMIC-IV, N=24,689)",
+      "AUROC 0.857 (eICU, N=297,030, 208 hospitals)",
+      "13-feature XGBoost model, 5-fold CV",
+      "ANIA 2026 Presentation — Boston, MA",
+    ],
+    innovation: "ML-powered documentation burden quantification using 13 clinical variables (XGBoost). Externally validated: AUROC 0.802 (MIMIC-IV) → 0.857 (eICU, 208 hospitals, N=321,719). ANIA 2026 presentation accepted.",
   },
 ];
 

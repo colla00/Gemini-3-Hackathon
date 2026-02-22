@@ -270,7 +270,7 @@ export const NursingDashboard = () => {
             <Badge className="bg-warning/20 text-warning border border-warning/30 text-[9px] md:text-[10px] font-semibold">SIMULATED DATA</Badge>
             <Badge className="bg-destructive/20 text-destructive border border-destructive/30 text-[9px] md:text-[10px] font-semibold hidden md:inline-flex">NOT FOR CLINICAL USE</Badge>
             <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[9px] md:text-[10px] font-semibold gap-1">
-              <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 VALIDATED
+              <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 & #5 VALIDATED
             </Badge>
           </div>
 
