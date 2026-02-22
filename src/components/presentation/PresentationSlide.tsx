@@ -480,7 +480,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'research-validation',
     title: 'Research Validation at Scale',
-    subtitle: '10,000 Patients • 201 Hospitals',
+    subtitle: '321,719 Patients • 208 Hospitals',
     duration: 4,
     icon: <Award className="w-8 h-8" />,
     notes: [
@@ -754,7 +754,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-validation-charts',
     title: 'Research Validation Visualizations',
-    subtitle: '10K Patients · 201 Hospitals · Patent Figures 2-8',
+    subtitle: '321K Patients · 208 Hospitals · Patent Figures 2-8',
     duration: 4,
     icon: <FlaskConical className="w-8 h-8" />,
     notes: [
