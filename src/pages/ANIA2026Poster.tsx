@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PATENT_5_TITLE } from '@/constants/patent';
 
-const POSTER_FILE_URL = ''; // Will be replaced with actual file URL once uploaded
+const POSTER_FILE_URL = '/ania2026-poster.pdf';
 
 const ANIA2026Poster = () => {
   const [fileError, setFileError] = useState(false);
