@@ -41,6 +41,7 @@ const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ default: m.PrivacyPolicy })));
 
 const Regulatory = lazy(() => import("./pages/Regulatory"));
+const ANIA2026Poster = lazy(() => import("./pages/ANIA2026Poster"));
 
 const queryClient = new QueryClient();
 
@@ -148,6 +149,11 @@ const App = () => {
                   <Route path="/regulatory" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <Regulatory />
+                    </Suspense>
+                  } />
+                  <Route path="/ania2026" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <ANIA2026Poster />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
