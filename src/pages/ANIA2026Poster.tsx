@@ -102,13 +102,6 @@ const ANIA2026Poster = () => {
               </object>
             </CardContent>
           </Card>
-          <div className="flex justify-center mt-4">
-            <Button variant="outline" asChild>
-              <a href={POSTER_FILE_URL} download="ANIA2026-DBS-Poster.pdf">
-                <FileText className="w-4 h-4 mr-2" /> Download PDF
-              </a>
-            </Button>
-          </div>
         </div>
 
         {/* Footer */}
