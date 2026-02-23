@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FileText, Upload, ExternalLink, Award, BarChart3, Users, Building2 } from 'lucide-react';
+import { FileText, ExternalLink, Award, BarChart3, Users, Building2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,6 @@ import { PATENT_5_TITLE } from '@/constants/patent';
 const POSTER_FILE_URL = '/ania2026-poster.pdf';
 
 const ANIA2026Poster = () => {
-  const [fileError, setFileError] = useState(false);
 
   return (
     <>
@@ -77,33 +75,40 @@ const ANIA2026Poster = () => {
 
         {/* Poster Embed Area */}
         <div className="max-w-5xl mx-auto px-4 py-8">
-          {POSTER_FILE_URL && !fileError ? (
-            <Card className="border-border/40 overflow-hidden">
-              <CardContent className="p-0">
-                <iframe
-                  src={POSTER_FILE_URL}
-                  className="w-full border-0"
-                  style={{ height: '80vh', minHeight: '600px' }}
-                  title="ANIA 2026 DBS Poster"
-                  onError={() => setFileError(true)}
-                />
-              </CardContent>
-            </Card>
-          ) : (
-            <Card className="border-dashed border-2 border-border/60">
-              <CardContent className="flex flex-col items-center justify-center py-20 text-center gap-4">
-                <div className="p-4 rounded-2xl bg-muted/50">
-                  <Upload className="w-10 h-10 text-muted-foreground" />
+          <Card className="border-border/40 overflow-hidden">
+            <CardContent className="p-0">
+              <object
+                data={POSTER_FILE_URL}
+                type="application/pdf"
+                className="w-full border-0"
+                style={{ height: '80vh', minHeight: '600px' }}
+              >
+                <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
+                  <div className="p-4 rounded-2xl bg-muted/50">
+                    <FileText className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">View Presentation</h3>
+                    <p className="text-sm text-muted-foreground max-w-md mb-4">
+                      Your browser may not support inline PDF viewing. Use the button below to open or download.
+                    </p>
+                    <Button asChild>
+                      <a href={POSTER_FILE_URL} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" /> Open Presentation
+                      </a>
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-1">Poster Coming Soon</h3>
-                  <p className="text-sm text-muted-foreground max-w-md">
-                    The ANIA 2026 presentation poster will be available here shortly. Check back soon.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+              </object>
+            </CardContent>
+          </Card>
+          <div className="flex justify-center mt-4">
+            <Button variant="outline" asChild>
+              <a href={POSTER_FILE_URL} download="ANIA2026-DBS-Poster.pdf">
+                <FileText className="w-4 h-4 mr-2" /> Download PDF
+              </a>
+            </Button>
+          </div>
         </div>
 
         {/* Footer */}
