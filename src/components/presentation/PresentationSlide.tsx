@@ -656,7 +656,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'The Neural Reasoning Engine is a key ChartMinder patent innovation.',
       'Unlike black-box AI, this system shows its complete reasoning chain.',
       'It progresses through 6 stages: data collection, pattern recognition, risk assessment, literature correlation, recommendation generation, and confidence scoring.',
-      'BioBERT integration connects predictions to peer-reviewed clinical literature.',
+      'BioBERT integration connects predictions to clinical literature.',
       'The what-if analysis lets clinicians explore how changing interventions would affect outcomes.',
       'In validation, this achieved 94% agreement with expert clinical reviewers.',
     ],

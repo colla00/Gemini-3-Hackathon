@@ -31,9 +31,6 @@ const ANIA2026Poster = () => {
                     <Award className="w-3 h-3 mr-1" />
                     ANIA 2026
                   </Badge>
-                  <Badge variant="outline" className="bg-primary/5 border-primary/20 text-primary">
-                    Peer-Reviewed
-                  </Badge>
                   <Badge variant="outline" className="text-muted-foreground">
                     Patent #5 — Filed Jan 2026
                   </Badge>
