@@ -22,10 +22,12 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-dev-runtime",
       "@tanstack/react-query",
       "framer-motion",
-      "next-themes"
+      "next-themes",
+      "qrcode.react"
     ],
   },
   optimizeDeps: {
+    force: true,
     include: [
       "react", 
       "react-dom", 
@@ -33,7 +35,8 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-dev-runtime",
       "next-themes",
       "@tanstack/react-query",
-      "framer-motion"
+      "framer-motion",
+      "qrcode.react"
     ],
   },
 }));
