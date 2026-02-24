@@ -5,9 +5,30 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PATENT_5_TITLE } from '@/constants/patent';
+import { cn } from '@/lib/utils';
 
 const TOTAL_SLIDES = 15;
 const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => `/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`);
+
+const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: string; className?: string; onClick?: () => void }) => (
+  <div
+    className={cn("relative overflow-hidden", className)}
+    onContextMenu={(e) => e.preventDefault()}
+    onClick={onClick}
+  >
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-full object-contain pointer-events-none select-none"
+      draggable={false}
+      onDragStart={(e) => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ WebkitUserDrag: 'none', userSelect: 'none' } as React.CSSProperties}
+    />
+    {/* Transparent overlay to block direct image interaction */}
+    <div className="absolute inset-0 z-10" onContextMenu={(e) => e.preventDefault()} />
+  </div>
+);
 
 const ANIA2026Poster = () => {
   const [current, setCurrent] = useState(0);
@@ -32,7 +53,7 @@ const ANIA2026Poster = () => {
         <meta name="description" content="ANIA 2026 conference poster for the Documentation Burden Score (DBS) System." />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background" onContextMenu={(e) => e.preventDefault()}>
         {/* Header */}
         <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-chart-2/10 border-b border-border/40">
           <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
@@ -89,16 +110,13 @@ const ANIA2026Poster = () => {
         <div className="max-w-5xl mx-auto px-4 py-8">
           <Card className="border-border/40 overflow-hidden">
             <CardContent className="p-0 relative select-none">
-              <img
+              <ProtectedImage
                 src={slides[current]}
                 alt={`Slide ${current + 1} of ${TOTAL_SLIDES}`}
-                className="w-full h-auto block pointer-events-none"
-                draggable={false}
-                onContextMenu={(e) => e.preventDefault()}
               />
 
               {/* Navigation overlay */}
-              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3 bg-gradient-to-t from-black/60 to-transparent">
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3 bg-gradient-to-t from-black/60 to-transparent z-20">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -123,6 +141,33 @@ const ANIA2026Poster = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Thumbnail Strip */}
+          <div className="mt-4 overflow-x-auto pb-2">
+            <div className="flex gap-2 min-w-max px-1">
+              {slides.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={cn(
+                    "relative flex-shrink-0 w-24 sm:w-28 rounded-lg overflow-hidden border-2 transition-all hover:opacity-100",
+                    current === i
+                      ? "border-primary ring-2 ring-primary/30 opacity-100"
+                      : "border-border/40 opacity-60 hover:border-border"
+                  )}
+                >
+                  <ProtectedImage
+                    src={src}
+                    alt={`Thumbnail ${i + 1}`}
+                    className="aspect-[16/9]"
+                  />
+                  <span className="absolute bottom-0 inset-x-0 text-[10px] font-medium text-white bg-black/50 py-0.5 text-center z-20">
+                    {i + 1}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Footer */}
