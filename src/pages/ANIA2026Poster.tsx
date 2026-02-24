@@ -1,13 +1,28 @@
+import { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FileText, ExternalLink, Award, BarChart3, Users, Building2 } from 'lucide-react';
+import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PATENT_5_TITLE } from '@/constants/patent';
 
-const POSTER_FILE_URL = '/ania2026-poster.pdf';
+const TOTAL_SLIDES = 15;
+const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => `/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`);
 
 const ANIA2026Poster = () => {
+  const [current, setCurrent] = useState(0);
+
+  const prev = useCallback(() => setCurrent((c) => Math.max(0, c - 1)), []);
+  const next = useCallback(() => setCurrent((c) => Math.min(TOTAL_SLIDES - 1, c + 1)), []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [prev, next]);
 
   return (
     <>
@@ -70,17 +85,42 @@ const ANIA2026Poster = () => {
           </div>
         </div>
 
-        {/* Poster Embed Area */}
+        {/* Slide Viewer */}
         <div className="max-w-5xl mx-auto px-4 py-8">
           <Card className="border-border/40 overflow-hidden">
-            <CardContent className="p-0">
-              <iframe
-                src="https://onedrive.live.com/embed?resid=571536B3A60C2AB4%21s3468d4f7f3eedc4ba00be4b846070749&authkey=%21AKlVpYG1Sh0HStI&em=2"
-                className="w-full border-0"
-                style={{ height: '80vh', minHeight: '600px' }}
-                allowFullScreen
-                title="ANIA 2026 Poster Presentation"
+            <CardContent className="p-0 relative select-none">
+              <img
+                src={slides[current]}
+                alt={`Slide ${current + 1} of ${TOTAL_SLIDES}`}
+                className="w-full h-auto block pointer-events-none"
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
               />
+
+              {/* Navigation overlay */}
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3 bg-gradient-to-t from-black/60 to-transparent">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={prev}
+                  disabled={current === 0}
+                  className="text-white hover:bg-white/20 disabled:opacity-30"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </Button>
+                <span className="text-sm font-medium text-white/90">
+                  {current + 1} / {TOTAL_SLIDES}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={next}
+                  disabled={current === TOTAL_SLIDES - 1}
+                  className="text-white hover:bg-white/20 disabled:opacity-30"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
