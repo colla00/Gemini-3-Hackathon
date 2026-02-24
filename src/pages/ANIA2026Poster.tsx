@@ -74,29 +74,13 @@ const ANIA2026Poster = () => {
         <div className="max-w-5xl mx-auto px-4 py-8">
           <Card className="border-border/40 overflow-hidden">
             <CardContent className="p-0">
-              <object
-                data={POSTER_FILE_URL}
-                type="application/pdf"
+              <iframe
+                src="https://onedrive.live.com/embed?resid=571536B3A60C2AB4%21s3468d4f7f3eedc4ba00be4b846070749&authkey=%21AKlVpYG1Sh0HStI&em=2"
                 className="w-full border-0"
                 style={{ height: '80vh', minHeight: '600px' }}
-              >
-                <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
-                  <div className="p-4 rounded-2xl bg-muted/50">
-                    <FileText className="w-10 h-10 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-1">View Presentation</h3>
-                    <p className="text-sm text-muted-foreground max-w-md mb-4">
-                      Your browser may not support inline PDF viewing. Use the button below to open or download.
-                    </p>
-                    <Button asChild>
-                      <a href={POSTER_FILE_URL} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" /> Open Presentation
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </object>
+                allowFullScreen
+                title="ANIA 2026 Poster Presentation"
+              />
             </CardContent>
           </Card>
         </div>
