@@ -225,7 +225,15 @@ export const NursingDashboard = () => {
   });
 
   const toggleGroup = (groupId: string) => {
+    const wasExpanded = expandedGroups[groupId];
     setExpandedGroups((prev) => ({ ...prev, [groupId]: !prev[groupId] }));
+    // When expanding a group, navigate to its first tab
+    if (!wasExpanded) {
+      const group = patentGroups.find((g) => g.id === groupId);
+      if (group && group.tabs.length > 0) {
+        setActiveTab(group.tabs[0].value);
+      }
+    }
   };
 
   const activeGroup = patentGroups.find((g) => g.tabs.some((t) => t.value === activeTab));
