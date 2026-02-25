@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -32,6 +32,7 @@ const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: st
 
 const ANIA2026Poster = () => {
   const [current, setCurrent] = useState(0);
+  const touchStart = useRef<number | null>(null);
 
   const prev = useCallback(() => setCurrent((c) => Math.max(0, c - 1)), []);
   const next = useCallback(() => setCurrent((c) => Math.min(TOTAL_SLIDES - 1, c + 1)), []);
@@ -44,6 +45,20 @@ const ANIA2026Poster = () => {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [prev, next]);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next();
+      else prev();
+    }
+    touchStart.current = null;
+  }, [next, prev]);
 
   return (
     <>
@@ -109,7 +124,7 @@ const ANIA2026Poster = () => {
         {/* Slide Viewer */}
         <div className="max-w-5xl mx-auto px-4 py-8">
           <Card className="border-border/40 overflow-hidden">
-            <CardContent className="p-0 relative select-none">
+            <CardContent className="p-0 relative select-none" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
               <ProtectedImage
                 src={slides[current]}
                 alt={`Slide ${current + 1} of ${TOTAL_SLIDES}`}
