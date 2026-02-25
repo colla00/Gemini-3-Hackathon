@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PATENT_5_TITLE } from '@/constants/patent';
 import { cn } from '@/lib/utils';
+import { WatermarkOverlay } from '@/components/WatermarkOverlay';
 
 const TOTAL_SLIDES = 15;
 const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => `/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`);
@@ -69,6 +70,7 @@ const ANIA2026Poster = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background" onContextMenu={(e) => e.preventDefault()}>
+        <WatermarkOverlay />
         {/* Header */}
         <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-chart-2/10 border-b border-border/40">
           <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
