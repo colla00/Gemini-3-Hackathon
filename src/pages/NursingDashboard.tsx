@@ -125,14 +125,14 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-2',
     patent: 'Patent #2',
-    title: 'ChartMinder Alert Governance',
+    title: 'ChartMinder™ Alert Governance',
     validated: false,
     color: 'text-risk-low',
     activeBg: 'bg-risk-low',
     tabs: [
       { value: 'alert-optimization', label: 'Alert Optimization', icon: Shield },
       { value: 'risk-stratification', label: 'Risk Stratification', icon: Layers },
-      { value: 'chartminder', label: 'ChartMinder', icon: Gauge },
+      { value: 'chartminder', label: 'ChartMinder™', icon: Gauge },
     ],
   },
   {
@@ -270,7 +270,7 @@ export const NursingDashboard = () => {
               <Activity className="h-5 w-5 md:h-7 md:w-7 text-primary" />
             </motion.div>
             <div>
-              <h1 className="font-display text-xl md:text-4xl font-bold tracking-tight">VitaSignal Technology Demo</h1>
+              <h1 className="font-display text-xl md:text-4xl font-bold tracking-tight">VitaSignal<sup className="text-[8px] md:text-xs align-super">™</sup> Technology Demo</h1>
               <p className="text-xs md:text-sm text-primary-foreground/50 mt-0.5 hidden md:block">Clinical Intelligence Platform, Dr. Alexis Collier</p>
             </div>
           </div>
