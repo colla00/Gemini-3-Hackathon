@@ -651,6 +651,48 @@ export type Database = {
         }
         Relationships: []
       }
+      site_archives: {
+        Row: {
+          captured_at: string
+          content_hash: string
+          created_at: string
+          html_content: string | null
+          id: string
+          markdown_content: string | null
+          metadata: Json | null
+          notes: string | null
+          page_title: string | null
+          page_url: string
+          trigger_type: string
+        }
+        Insert: {
+          captured_at?: string
+          content_hash: string
+          created_at?: string
+          html_content?: string | null
+          id?: string
+          markdown_content?: string | null
+          metadata?: Json | null
+          notes?: string | null
+          page_title?: string | null
+          page_url: string
+          trigger_type?: string
+        }
+        Update: {
+          captured_at?: string
+          content_hash?: string
+          created_at?: string
+          html_content?: string | null
+          id?: string
+          markdown_content?: string | null
+          metadata?: Json | null
+          notes?: string | null
+          page_title?: string | null
+          page_url?: string
+          trigger_type?: string
+        }
+        Relationships: []
+      }
       slide_analytics: {
         Row: {
           created_at: string

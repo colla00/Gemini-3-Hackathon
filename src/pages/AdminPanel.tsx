@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { Users, Shield, Settings, RotateCcw, FileText, Search, Download, ChevronLeft, ChevronRight, Trash2, UserCog } from 'lucide-react';
 import { WalkthroughRequestsPanel } from '@/components/admin/WalkthroughRequestsPanel';
+import { SiteArchivePanel } from '@/components/admin/SiteArchivePanel';
 import { RateLimitMonitoringPanel } from '@/components/admin/RateLimitMonitoringPanel';
 import { Header } from '@/components/dashboard/Header';
 import {
@@ -480,6 +481,9 @@ const AdminPanel = () => {
 
         {/* Rate Limit Monitoring */}
         <RateLimitMonitoringPanel />
+
+        {/* Site Archive - Trademark Evidence */}
+        <SiteArchivePanel />
 
         {/* Testing Tools */}
         <Card className="border-dashed">
