@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink, Maximize, Minimize, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -33,15 +33,20 @@ const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: st
 
 const ANIA2026Poster = () => {
   const [current, setCurrent] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
   const touchStart = useRef<number | null>(null);
 
   const prev = useCallback(() => setCurrent((c) => Math.max(0, c - 1)), []);
   const next = useCallback(() => setCurrent((c) => Math.min(TOTAL_SLIDES - 1, c + 1)), []);
 
+  const toggleFullscreen = useCallback(() => setFullscreen((f) => !f), []);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
+      if (e.key === 'Escape') setFullscreen(false);
+      if (e.key === 'f' || e.key === 'F') setFullscreen((f) => !f);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -146,15 +151,26 @@ const ANIA2026Poster = () => {
                 <span className="text-sm font-medium text-white/90">
                   {current + 1} / {TOTAL_SLIDES}
                 </span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={next}
-                  disabled={current === TOTAL_SLIDES - 1}
-                  className="text-white hover:bg-white/20 disabled:opacity-30"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </Button>
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={toggleFullscreen}
+                    className="text-white hover:bg-white/20"
+                    title="Fullscreen (F)"
+                  >
+                    <Maximize className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={next}
+                    disabled={current === TOTAL_SLIDES - 1}
+                    className="text-white hover:bg-white/20 disabled:opacity-30"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -205,6 +221,57 @@ const ANIA2026Poster = () => {
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Lightbox */}
+      {fullscreen && (
+        <div
+          className="fixed inset-0 z-[9998] bg-black flex items-center justify-center select-none"
+          onContextMenu={(e) => e.preventDefault()}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <ProtectedImage
+            src={slides[current]}
+            alt={`Slide ${current + 1} of ${TOTAL_SLIDES}`}
+            className="max-h-screen max-w-full"
+          />
+
+          {/* Close button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setFullscreen(false)}
+            className="absolute top-4 right-4 text-white/80 hover:text-white hover:bg-white/20 z-10"
+          >
+            <X className="w-6 h-6" />
+          </Button>
+
+          {/* Navigation */}
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-6 py-4 bg-gradient-to-t from-black/70 to-transparent">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={prev}
+              disabled={current === 0}
+              className="text-white hover:bg-white/20 disabled:opacity-30"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </Button>
+            <span className="text-sm font-medium text-white/90">
+              {current + 1} / {TOTAL_SLIDES}
+            </span>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={next}
+              disabled={current === TOTAL_SLIDES - 1}
+              className="text-white hover:bg-white/20 disabled:opacity-30"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
