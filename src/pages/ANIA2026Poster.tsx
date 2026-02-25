@@ -38,6 +38,7 @@ const ANIA2026Poster = () => {
   const [fullscreen, setFullscreen] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
   const [interval, setInterval_] = useState(5);
+  const [progressKey, setProgressKey] = useState(0);
   const touchStart = useRef<number | null>(null);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -50,17 +51,18 @@ const ANIA2026Poster = () => {
   useEffect(() => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     if (!autoPlay) return;
+    setProgressKey((k) => k + 1);
     autoPlayRef.current = setInterval(() => {
       setCurrent((c) => {
         if (c >= TOTAL_SLIDES - 1) {
-          // Loop back to start
           return 0;
         }
         return c + 1;
       });
+      setProgressKey((k) => k + 1);
     }, interval * 1000);
     return () => { if (autoPlayRef.current) clearInterval(autoPlayRef.current); };
-  }, [autoPlay, interval]);
+  }, [autoPlay, interval, current]);
 
   // Pause auto-play on manual navigation
   const manualPrev = useCallback(() => { setAutoPlay(false); prev(); }, [prev]);
@@ -173,6 +175,21 @@ const ANIA2026Poster = () => {
                 src={slides[current]}
                 alt={`Slide ${current + 1} of ${TOTAL_SLIDES}`}
               />
+
+              {/* Auto-play progress bar */}
+              {autoPlay && (
+                <div className="absolute inset-x-0 bottom-[52px] z-20 px-0">
+                  <div className="h-1 w-full bg-white/20">
+                    <div
+                      key={progressKey}
+                      className="h-full bg-primary rounded-r-full"
+                      style={{
+                        animation: `ania-progress ${interval}s linear forwards`,
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* Navigation overlay */}
               <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3 bg-gradient-to-t from-black/60 to-transparent z-20">
@@ -306,6 +323,21 @@ const ANIA2026Poster = () => {
           >
             <X className="w-6 h-6" />
           </Button>
+
+          {/* Auto-play progress bar (fullscreen) */}
+          {autoPlay && (
+            <div className="absolute inset-x-0 bottom-[60px] z-20">
+              <div className="h-1 w-full bg-white/20">
+                <div
+                  key={progressKey}
+                  className="h-full bg-primary rounded-r-full"
+                  style={{
+                    animation: `ania-progress ${interval}s linear forwards`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Navigation */}
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-6 py-4 bg-gradient-to-t from-black/70 to-transparent">
