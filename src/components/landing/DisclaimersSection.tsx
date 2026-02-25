@@ -12,7 +12,7 @@ export const DisclaimersSection = () => (
         <div className="p-4 rounded-lg bg-card border border-border/50">
           <p className="font-semibold text-foreground mb-2">RESEARCH PROTOTYPE STATUS</p>
           <p className="mb-2">
-            VitaSignal systems are research prototypes for demonstration and validation purposes only.
+            VitaSignal™ systems are research prototypes for demonstration and validation purposes only.
           </p>
           <ul className="space-y-1">
             <li>• NOT FDA cleared, approved, or authorized</li>

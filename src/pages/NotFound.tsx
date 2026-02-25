@@ -22,7 +22,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-foreground text-primary-foreground flex flex-col">
       <Helmet>
-        <title>Page Not Found | VitaSignal</title>
+        <title>Page Not Found | VitaSignal™</title>
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Helmet>
 
@@ -35,7 +35,7 @@ const NotFound = () => {
           {/* Logo */}
           <Link to="/" className="inline-flex items-center gap-2 mb-10 opacity-60 hover:opacity-100 transition-opacity">
             <Activity className="w-5 h-5 text-primary" />
-            <span className="font-display text-lg">VitaSignal</span>
+            <span className="font-display text-lg">VitaSignal™</span>
           </Link>
 
           {/* 404 Number */}

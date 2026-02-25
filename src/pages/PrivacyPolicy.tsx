@@ -53,7 +53,7 @@ export const PrivacyPolicy = () => {
   };
 
   return (
-    <SiteLayout title="Privacy Policy" description="Privacy Policy for VitaSignal Clinical Intelligence Platform.">
+    <SiteLayout title="Privacy Policy" description="Privacy Policy for VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -145,7 +145,7 @@ export const PrivacyPolicy = () => {
                 1. Overview
               </h2>
               <p className="text-muted-foreground">
-                This Privacy Policy explains how VitaSignal ("we", "us", or "our") collects, 
+                This Privacy Policy explains how VitaSignal™ ("we", "us", or "our") collects, 
                 uses, and protects your personal information when you use our research prototype software.
               </p>
               <p className="text-muted-foreground">

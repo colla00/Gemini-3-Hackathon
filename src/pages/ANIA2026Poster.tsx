@@ -108,7 +108,7 @@ const ANIA2026Poster = () => {
   return (
     <>
       <Helmet>
-        <title>ANIA 2026 Poster — DBS System | VitaSignal</title>
+        <title>ANIA 2026 Poster — DBS System | VitaSignal™</title>
         <meta name="robots" content="noindex, nofollow" />
         <meta name="description" content="ANIA 2026 conference poster for the Documentation Burden Score (DBS) System." />
       </Helmet>
@@ -286,11 +286,11 @@ const ANIA2026Poster = () => {
         <div className="border-t border-border/40 bg-muted/30">
           <div className="max-w-5xl mx-auto px-4 py-6 text-center">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} VitaSignal · Research Prototype · Not for clinical use
+              © {new Date().getFullYear()} VitaSignal™ · Research Prototype · Not for clinical use
             </p>
             <div className="flex items-center justify-center gap-4 mt-3">
               <a href="/" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                VitaSignal Home <ExternalLink className="w-3 h-3" />
+                VitaSignal™ Home <ExternalLink className="w-3 h-3" />
               </a>
               <a href="/patents" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
                 Patent Portfolio <ExternalLink className="w-3 h-3" />

@@ -40,7 +40,7 @@ export const MarketOpportunitySection = () => (
           Market Opportunity
         </p>
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          Why VitaSignal Matters
+          Why VitaSignal™ Matters
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Equipment-independent AI addresses the largest unmet need in clinical

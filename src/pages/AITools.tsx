@@ -70,7 +70,7 @@ const AITools = () => {
                 transition={{ delay: 0.5, duration: 0.7 }}
                 className="font-display text-4xl md:text-6xl text-primary-foreground mb-4"
               >
-                VitaSignal
+                VitaSignal™
               </motion.h1>
 
               <motion.p
@@ -127,7 +127,7 @@ const AITools = () => {
             </div>
             <div>
               <h1 className="text-sm md:text-base font-bold tracking-tight text-foreground">
-                VitaSignal AI Engine
+                VitaSignal™ AI Engine
               </h1>
               <p className="text-[10px] text-muted-foreground font-semibold tracking-wide">
                 Gemini 3 Hackathon · Research Demo
@@ -139,7 +139,7 @@ const AITools = () => {
               to="/"
               className="text-xs text-muted-foreground hover:text-primary transition-colors hidden sm:inline-flex items-center gap-1"
             >
-              VitaSignal Home
+              VitaSignal™ Home
               <ArrowRight className="w-3 h-3" />
             </Link>
             <ThemeToggle />
@@ -156,7 +156,7 @@ const AITools = () => {
       <footer className="border-t border-border/40 py-4 px-4 text-center">
         <p className="text-xs text-muted-foreground">
           Research prototype · Not for clinical use · Patent pending ·{' '}
-          <Link to="/" className="text-primary hover:underline">VitaSignal Home</Link>
+          <Link to="/" className="text-primary hover:underline">VitaSignal™ Home</Link>
         </p>
       </footer>
 

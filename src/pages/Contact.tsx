@@ -103,7 +103,7 @@ function Contact() {
   };
 
   return (
-    <SiteLayout title="Contact" description="Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal.">
+    <SiteLayout title="Contact" description="Connect with Dr. Collier for licensing inquiries, research collaborations, or general information about VitaSignal™.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -280,7 +280,7 @@ function Contact() {
                         <p>Dr. Collier is available for interviews, expert commentary, and speaking engagements on clinical AI, nursing informatics, and health equity in algorithmic systems.</p>
                       )}
                       {selectedType === "general" && (
-                        <p>Note: VitaSignal is a research prototype not cleared for clinical use. We cannot provide medical advice or patient-specific recommendations.</p>
+                        <p>Note: VitaSignal™ is a research prototype not cleared for clinical use. We cannot provide medical advice or patient-specific recommendations.</p>
                       )}
                     </div>
                   </div>

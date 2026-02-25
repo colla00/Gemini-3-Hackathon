@@ -37,7 +37,7 @@ export const PartnersSection = () => (
             Built for Integration
           </h2>
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            VitaSignal's patent-pending technology is designed to embed into
+            VitaSignal™'s patent-pending technology is designed to embed into
             existing clinical workflows. We're seeking strategic partners to
             bring equipment-independent AI to healthcare at scale.
           </p>

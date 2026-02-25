@@ -242,7 +242,7 @@ export const NursingDashboard = () => {
   return (
     <SiteLayout
       title="Technology Demo"
-      description="VitaSignal Clinical Intelligence Platform - interactive technology demonstration."
+      description="VitaSignal™ Clinical Intelligence Platform - interactive technology demonstration."
     >
       <WatermarkOverlay />
 
