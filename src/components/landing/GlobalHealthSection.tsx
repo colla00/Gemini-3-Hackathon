@@ -33,7 +33,7 @@ export const GlobalHealthSection = () => (
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
             Most clinical AI requires expensive hardware that 80% of the world's hospitals
-            can't afford. VitaSignal is different — it turns routine nursing documentation
+            can't afford. VitaSignal™ is different — it turns routine nursing documentation
             into actionable clinical intelligence, making validated mortality prediction
             accessible to any facility with basic EHR capability.
           </p>

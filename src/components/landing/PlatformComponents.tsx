@@ -4,28 +4,28 @@ import { cn } from '@/lib/utils';
 const components = [
   {
     icon: Activity,
-    name: 'VitaSignal Mortality',
+    name: 'VitaSignal™ Mortality',
     description: 'ICU mortality prediction using temporal documentation analysis.',
     status: '✓ Validated on large-scale research datasets with strong predictive performance.',
     statusType: 'validated' as const,
   },
   {
     icon: Users,
-    name: 'VitaSignal Nursing',
+    name: 'VitaSignal™ Nursing',
     description: 'Workload prediction and staffing optimization to reduce burnout.',
     status: '⚙️ Design phase; pilot studies planned.',
     statusType: 'design' as const,
   },
   {
     icon: Shield,
-    name: 'VitaSignal Alerts',
+    name: 'VitaSignal™ Alerts',
     description: 'Trust-based alert prioritization to reduce alarm fatigue by 40-70%.',
     status: '⚙️ Design phase; clinical validation ongoing.',
     statusType: 'design' as const,
   },
   {
     icon: Brain,
-    name: 'VitaSignal Risk',
+    name: 'VitaSignal™ Risk',
     description: 'Real-time risk stratification with explainable AI.',
     status: '⚙️ Design phase; clinical validation ongoing.',
     statusType: 'design' as const,

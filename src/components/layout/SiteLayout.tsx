@@ -63,7 +63,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Activity className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="text-lg font-bold text-foreground">VitaSignal</p>
+                <p className="text-lg font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></p>
                 <p className="text-xs text-muted-foreground">Clinical Intelligence</p>
               </div>
             </Link>
@@ -152,7 +152,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-3">
                 <Activity className="w-5 h-5 text-primary" />
-                <span className="font-display text-lg text-primary-foreground">VitaSignal</span>
+                <span className="font-display text-lg text-primary-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
               </div>
               <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
                 Equipment-independent clinical AI. Patent-pending technology for ICU mortality prediction and nursing workflow optimization.
@@ -205,6 +205,9 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               &copy; 2025-2026 Dr. Alexis Collier, DHA. All Rights Reserved.
             </p>
             <p className="text-[10px] text-primary-foreground/30">
+              VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier.
+            </p>
+            <p className="text-[10px] text-primary-foreground/30 mt-1">
               Pre-Market Research Prototype. Not FDA Cleared. Not a Medical Device.
             </p>
           </div>

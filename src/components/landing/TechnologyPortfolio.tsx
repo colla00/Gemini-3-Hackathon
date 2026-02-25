@@ -14,7 +14,7 @@ const systems = [
   },
   {
     icon: Shield,
-    name: "ChartMinder - Trust-Based Alerts",
+    name: "ChartMinder™ - Trust-Based Alerts",
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Filed",
@@ -38,7 +38,7 @@ const systems = [
   },
   {
     icon: FileText,
-    name: "Documentation Burden Scoring (DBS)",
+    name: "Documentation Burden Score™ (DBS)",
     patent: "#5",
     desc: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 208 hospitals (N=321,719).",
     status: "Validated",
