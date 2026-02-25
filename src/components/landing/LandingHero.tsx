@@ -38,21 +38,31 @@ export const LandingHero = () => (
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.08 }}
-        className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-[1.05] max-w-4xl"
+        className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 leading-[1.05] max-w-4xl"
       >
         Clinical Intelligence
         <br />
         <span className="text-primary">Without Equipment</span>
       </motion.h1>
 
+      {/* One-liner tagline */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.12 }}
+        className="text-base md:text-lg font-semibold text-primary mb-4 max-w-2xl tracking-tight"
+      >
+        The only validated clinical AI that works with nothing but a nurse and an EHR.
+      </motion.p>
+
       <motion.p
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.15 }}
+        transition={{ duration: 0.35, delay: 0.18 }}
         className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed"
       >
-        Patent-pending AI that predicts ICU mortality from documentation
-        patterns alone. No sensors. No wearables. No added cost.
+        Patent-pending AI that predicts ICU mortality and documentation burden
+        from EHR patterns alone. No sensors. No wearables. No added cost.
       </motion.p>
 
       {/* CTAs */}
