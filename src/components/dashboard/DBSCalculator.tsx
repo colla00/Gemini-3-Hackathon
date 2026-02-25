@@ -229,7 +229,7 @@ export function DBSCalculator({ className, compact = false, onScoreChange }: DBS
           <div>
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              Documentation Burden Score
+              Documentation Burden Score<sup className="text-[7px] align-super">™</sup>
             </CardTitle>
             <PatentBadge contextPatent="dbs" className="mt-1" />
           </div>

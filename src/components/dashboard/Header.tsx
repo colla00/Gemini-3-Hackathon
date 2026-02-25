@@ -44,7 +44,7 @@ export const Header = () => {
           </div>
           <div>
             <h1 className="text-base md:text-lg font-bold tracking-tight text-foreground">
-              VitaSignal Dashboard
+              VitaSignal<sup className="text-[7px] align-super">™</sup> Dashboard
             </h1>
             <p className="text-[10px] text-muted-foreground font-semibold tracking-wide">
               Clinical Intelligence · Research Prototype

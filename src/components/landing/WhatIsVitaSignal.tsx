@@ -2,11 +2,11 @@ export const WhatIsVitaSignal = () => (
   <section className="py-20 px-6 bg-secondary/30">
     <div className="max-w-4xl mx-auto">
       <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
-        What is VitaSignal?
+        What is VitaSignal<sup className="text-sm align-super">™</sup>?
       </h3>
       <div className="space-y-6 text-muted-foreground">
         <p className="text-base md:text-lg leading-relaxed">
-          VitaSignal is a suite of patent-pending AI systems that analyze clinical
+          VitaSignal™ is a suite of patent-pending AI systems that analyze clinical
           documentation patterns to predict patient deterioration and optimize nursing
           workflows without requiring any additional monitoring equipment.
         </p>

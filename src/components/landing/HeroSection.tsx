@@ -32,7 +32,7 @@ export const HeroSection = () => (
             <Activity className="w-7 h-7 text-primary" aria-hidden="true" />
           </div>
           <div className="text-left">
-            <h1 className="text-2xl font-bold text-foreground">VitaSignal</h1>
+            <h1 className="text-2xl font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></h1>
             <span className="text-sm text-muted-foreground">Clinical Intelligence</span>
           </div>
         </div>

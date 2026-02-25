@@ -8,7 +8,7 @@ export const LandingFooter = () => (
         <div>
           <div className="flex items-center gap-2 justify-center mb-2">
             <Activity className="w-4 h-4 text-primary" aria-hidden="true" />
-            <span className="font-bold text-foreground">VitaSignal</span>
+            <span className="font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
           </div>
           <p className="text-xs text-muted-foreground">
             © 2025–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.
@@ -34,7 +34,7 @@ export const LandingFooter = () => (
         </div>
 
         <div className="text-[10px] text-muted-foreground/60 max-w-lg">
-          <p>VitaSignal and associated marks are property of Dr. Alexis M. Collier.</p>
+          <p>VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier.</p>
           <p className="mt-1">
             Research supported by NIH fellowship and grant programs
           </p>

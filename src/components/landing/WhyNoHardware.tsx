@@ -24,7 +24,7 @@ export const WhyNoHardware = () => (
           Why No Hardware?
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Every nurse already documents care in the EHR. VitaSignal's insight is that the
+          Every nurse already documents care in the EHR. VitaSignal™'s insight is that the
           <span className="text-foreground font-semibold"> timing, rhythm, and frequency</span> of
           those entries carry a clinical signal as powerful as bedside monitors — without any
           additional equipment.
@@ -67,7 +67,7 @@ export const WhyNoHardware = () => (
         <div>
           <p className="font-semibold text-foreground mb-1">The Bottom Line</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            If a hospital has nurses and an EHR, it already has everything VitaSignal needs.
+            If a hospital has nurses and an EHR, it already has everything VitaSignal™ needs.
             No capital expenditure. No installation. No maintenance contracts. Just validated
             clinical intelligence from the data that's already being generated.
           </p>

@@ -21,7 +21,7 @@ const layers = [
     patent: "#5",
     icon: FileText,
     name: "Workload Signal Layer",
-    desc: "Documentation Burden Score quantifies and predicts nursing workload before each shift — the operational twin of patient complexity.",
+    desc: "Documentation Burden Score™ quantifies and predicts nursing workload before each shift — the operational twin of patient complexity.",
     metric: "AUROC 0.857",
   },
 ];
@@ -55,7 +55,7 @@ export const DigitalTwinsSection = () => (
           The Care Process Signal Layer
         </h2>
         <p className="text-primary-foreground/70 max-w-2xl mx-auto leading-relaxed">
-          Patient digital twins need more than vitals and labs. VitaSignal provides the
+          Patient digital twins need more than vitals and labs. VitaSignal™ provides the
           missing layer — <span className="text-primary-foreground font-semibold">the signal embedded in how care is documented</span>,
           not just what's documented.
         </p>
@@ -99,7 +99,7 @@ export const DigitalTwinsSection = () => (
       >
         <p className="text-sm text-primary-foreground/80 leading-relaxed">
           <span className="font-semibold text-primary-foreground">Why this matters:</span> Existing
-          digital twin platforms model anatomy and physiology. VitaSignal models the
+          digital twin platforms model anatomy and physiology. VitaSignal™ models the
           <span className="text-primary font-medium"> care delivery process itself</span> —
           creating a complete picture that includes the human element of nursing workflow.
         </p>
