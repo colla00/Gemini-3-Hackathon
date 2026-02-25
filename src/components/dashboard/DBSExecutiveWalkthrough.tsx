@@ -373,7 +373,7 @@ export function DBSExecutiveWalkthrough({ className }: { className?: string }) {
               size="sm"
               variant={playing ? 'default' : 'outline'}
               onClick={() => setPlaying(!playing)}
-              className="h-8 gap-1.5 text-xs"
+              className={cn("h-8 gap-1.5 text-xs", !playing && "animate-[tab-flash-glow_2s_ease-in-out_infinite] border-dashed border-primary")}
             >
               {playing ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               {playing ? 'Pause' : 'Play'}
