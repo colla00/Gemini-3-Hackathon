@@ -16,7 +16,7 @@ export const LicensingCTA = () => (
         Licensing & Partnerships
       </h2>
       <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-        VitaSignal is available for licensing to EHR vendors, hospital systems,
+        VitaSignal™ is available for licensing to EHR vendors, hospital systems,
         healthcare AI companies, and strategic investors.
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">

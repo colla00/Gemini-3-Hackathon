@@ -48,7 +48,7 @@ export const WhyNoHardware = () => (
             <div className="p-4 flex items-center gap-3">
               <ArrowRight className="w-4 h-4 text-primary shrink-0" />
               <div>
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">VitaSignal</p>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">VitaSignal™</p>
                 <p className="text-sm font-medium text-foreground">{c.vitasignal}</p>
               </div>
             </div>
