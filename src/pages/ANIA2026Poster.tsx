@@ -66,6 +66,17 @@ const ANIA2026Poster = () => {
     touchStart.current = null;
   }, [next, prev]);
 
+  // Preload adjacent slides for instant navigation
+  useEffect(() => {
+    const toPreload = [current - 1, current + 1, current + 2].filter(
+      (i) => i >= 0 && i < TOTAL_SLIDES && i !== current
+    );
+    toPreload.forEach((i) => {
+      const img = new Image();
+      img.src = slides[i];
+    });
+  }, [current]);
+
   return (
     <>
       <Helmet>
