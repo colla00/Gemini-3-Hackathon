@@ -4,28 +4,28 @@ import { Badge } from '@/components/ui/badge';
 const COMPONENTS = [
   {
     patent: '#2',
-    name: 'VitaSignal Nursing',
+    name: 'VitaSignal™ Nursing',
     description: 'Unified Nursing Intelligence Platform',
     icon: BarChart3,
     metric: '3.8M target RNs',
   },
   {
     patent: '#3',
-    name: 'VitaSignal DBS',
+    name: 'VitaSignal™ DBS',
     description: 'Documentation Burden & Staffing Intelligence',
     icon: FileText,
     metric: '15-20% overtime reduction',
   },
   {
     patent: '#4',
-    name: 'VitaSignal Alerts',
+    name: 'VitaSignal™ Alerts',
     description: 'Trust-Based Alert Prioritization',
     icon: Shield,
     metric: '87% alert reduction',
   },
   {
     patent: '#5',
-    name: 'VitaSignal Risk',
+    name: 'VitaSignal™ Risk',
     description: 'Clinical Risk Intelligence System',
     icon: Brain,
     metric: '4-48h forecasting',

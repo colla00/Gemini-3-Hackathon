@@ -48,7 +48,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
             <Activity className="w-4 h-4 text-primary" />
           </div>
           <h2 className="text-xl font-bold text-foreground tracking-tight">
-            VitaSignal Clinical Intelligence
+            VitaSignal™ Clinical Intelligence
           </h2>
         </div>
         <p className="text-sm text-muted-foreground font-medium">
@@ -91,7 +91,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
       <div className="flex items-center justify-center gap-2">
         <CheckCircle className="w-4 h-4 text-primary" />
         <span className="text-xs text-muted-foreground font-medium">
-          VitaSignal Research Prototype · Synthetic demonstration data
+          VitaSignal™ Research Prototype · Synthetic demonstration data
         </span>
       </div>
     </div>

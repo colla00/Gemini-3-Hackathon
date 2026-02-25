@@ -145,7 +145,7 @@ function Regulatory() {
   return (
     <SiteLayout
       title="Regulatory Readiness"
-      description="VitaSignal regulatory compliance roadmap — FDA SaMD, HIPAA, ISO 13485, AI transparency, and equity standards."
+      description="VitaSignal™ regulatory compliance roadmap — FDA SaMD, HIPAA, ISO 13485, AI transparency, and equity standards."
     >
       {/* Hero */}
       <section className="bg-foreground text-primary-foreground py-16 px-6">
@@ -159,7 +159,7 @@ function Regulatory() {
           </h1>
           <p className="text-lg opacity-80 max-w-2xl mb-6">
             Tracking progress across FDA SaMD, HIPAA, ISO 13485, AI transparency, 
-            equity, and cybersecurity standards for the VitaSignal platform.
+            equity, and cybersecurity standards for the VitaSignal™ platform.
           </p>
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex-1 max-w-xs min-w-[200px]">
@@ -190,7 +190,7 @@ function Regulatory() {
           <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
           <p className="text-sm text-muted-foreground">
             <strong className="text-foreground">Research Prototype:</strong> This roadmap reflects progress toward 
-            regulatory readiness. VitaSignal is NOT currently FDA-cleared or approved. Items marked "Complete" indicate 
+            regulatory readiness. VitaSignal™ is NOT currently FDA-cleared or approved. Items marked "Complete" indicate 
             features built into the platform — not regulatory certification.
           </p>
         </div>

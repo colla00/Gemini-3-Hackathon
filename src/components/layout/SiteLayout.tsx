@@ -33,7 +33,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
     toast.success('Signed out successfully');
   };
 
-  const pageTitle = title ? `${title} | VitaSignal` : "VitaSignal | Clinical Intelligence";
+  const pageTitle = title ? `${title} | VitaSignal™` : "VitaSignal™ | Clinical Intelligence";
   const pageDescription = description || "Equipment-independent AI for ICU mortality prediction. 5 U.S. patent applications filed. Available for licensing.";
 
   return (

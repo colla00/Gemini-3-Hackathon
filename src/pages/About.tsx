@@ -9,7 +9,7 @@ import alexisPhoto from "@/assets/alexis-collier.png";
 
 function About() {
   return (
-    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Inventor and Principal Investigator of the VitaSignal Clinical Intelligence Platform.">
+    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero - biographical focus */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -63,7 +63,7 @@ function About() {
               <p>
                 This firsthand understanding of clinical workflow challenges led to doctoral research
                 on nursing burnout and workload measurement, ultimately culminating in the development
-                of the <strong className="text-foreground">VitaSignal Clinical Intelligence Platform</strong> --
+                of the <strong className="text-foreground">VitaSignal™ Clinical Intelligence Platform</strong> --
                 a suite of AI systems designed by a nurse, for nurses.
               </p>
               <p>
@@ -191,7 +191,7 @@ function About() {
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl text-foreground mb-8">Compliance & Transparency</h2>
           <p className="text-sm text-muted-foreground mb-6">
-            VitaSignal is built with regulatory readiness and scientific transparency at its core —
+            VitaSignal™ is built with regulatory readiness and scientific transparency at its core —
             even at the research prototype stage.
           </p>
           <div className="max-w-lg">

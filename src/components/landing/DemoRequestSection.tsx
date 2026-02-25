@@ -25,7 +25,7 @@ export const DemoRequestSection = () => (
           Request Demo Access
         </h2>
         <p className="text-primary-foreground/70 mb-8 max-w-2xl mx-auto">
-          Experience VitaSignal's clinical intelligence platform firsthand.
+          Experience VitaSignal™'s clinical intelligence platform firsthand.
           Submit a request and we'll review your access to the interactive
           technology demonstration.
         </p>

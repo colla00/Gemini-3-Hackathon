@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet-async";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "VitaSignal",
+  "name": "VitaSignal™",
   "url": "https://clinicaldashboard.lovable.app",
   "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 321K+ patients across 208 hospitals.",
   "founder": {

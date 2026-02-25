@@ -53,7 +53,7 @@ export const TermsOfUse = () => {
   };
 
   return (
-    <SiteLayout title="Terms of Use" description="Terms of Use for VitaSignal Clinical Intelligence Platform.">
+    <SiteLayout title="Terms of Use" description="Terms of Use for VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -145,7 +145,7 @@ export const TermsOfUse = () => {
                 1. Acceptance of Terms
               </h2>
               <p className="text-muted-foreground">
-                By accessing or using VitaSignal ("Software"), you agree to be bound by these Terms of Use. 
+                By accessing or using VitaSignal™ ("Software"), you agree to be bound by these Terms of Use. 
                 If you do not agree to these terms, you may not access or use the Software.
               </p>
             </section>
