@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
         const pageTitle = titleMatch ? titleMatch[1].trim() : page.label;
 
         // Always store for scheduled, only store if changed for manual
-        if (contentChanged || triggerType === 'scheduled') {
+        if (contentChanged || triggerType === 'scheduled' || triggerType === 'manual') {
           const { error: insertError } = await supabase
             .from('site_archives')
             .insert({
