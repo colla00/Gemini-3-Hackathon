@@ -25,8 +25,8 @@ const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: st
       onContextMenu={(e) => e.preventDefault()}
       style={{ WebkitUserDrag: 'none', userSelect: 'none' } as React.CSSProperties}
     />
-    {/* Transparent overlay to block direct image interaction */}
-    <div className="absolute inset-0 z-10" onContextMenu={(e) => e.preventDefault()} />
+    {/* Transparent overlay to block direct image interaction — pointer-events-none so parent clicks work */}
+    <div className="absolute inset-0 z-10 pointer-events-none" onContextMenu={(e) => e.preventDefault()} />
   </div>
 );
 
@@ -156,10 +156,11 @@ const ANIA2026Poster = () => {
                       : "border-border/40 opacity-60 hover:border-border"
                   )}
                 >
-                  <ProtectedImage
+                  <img
                     src={src}
                     alt={`Thumbnail ${i + 1}`}
-                    className="aspect-[16/9]"
+                    className="w-full h-full object-cover pointer-events-none select-none aspect-[16/9]"
+                    draggable={false}
                   />
                   <span className="absolute bottom-0 inset-x-0 text-[10px] font-medium text-white bg-black/50 py-0.5 text-center z-20">
                     {i + 1}
