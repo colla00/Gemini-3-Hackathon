@@ -95,7 +95,7 @@ function Patents() {
             <span className="text-primary font-medium">5 U.S. Provisional Patent Applications Filed</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
-            VitaSignal
+            VitaSignal™
             <br />
             <span className="text-primary">Technology Portfolio</span>
           </h1>

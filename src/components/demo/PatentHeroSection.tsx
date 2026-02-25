@@ -26,7 +26,7 @@ export const PatentHeroSection = () => {
           Validated Technology
         </p>
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          VitaSignal Mortality
+          VitaSignal™ Mortality
         </h2>
         <p className="text-muted-foreground mb-6 leading-relaxed">
           ICU Mortality Prediction via the Intensive Documentation Index (IDI).
