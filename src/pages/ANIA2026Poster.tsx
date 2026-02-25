@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink, Maximize, Minimize, X } from 'lucide-react';
+import { FileText, Award, BarChart3, Users, Building2, ChevronLeft, ChevronRight, ExternalLink, Maximize, X, Play, Pause } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -31,26 +31,52 @@ const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: st
   </div>
 );
 
+const INTERVAL_OPTIONS = [3, 5, 8, 12];
+
 const ANIA2026Poster = () => {
   const [current, setCurrent] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+  const [interval, setInterval_] = useState(5);
   const touchStart = useRef<number | null>(null);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const prev = useCallback(() => setCurrent((c) => Math.max(0, c - 1)), []);
   const next = useCallback(() => setCurrent((c) => Math.min(TOTAL_SLIDES - 1, c + 1)), []);
 
   const toggleFullscreen = useCallback(() => setFullscreen((f) => !f), []);
 
+  // Auto-play timer
+  useEffect(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    if (!autoPlay) return;
+    autoPlayRef.current = setInterval(() => {
+      setCurrent((c) => {
+        if (c >= TOTAL_SLIDES - 1) {
+          // Loop back to start
+          return 0;
+        }
+        return c + 1;
+      });
+    }, interval * 1000);
+    return () => { if (autoPlayRef.current) clearInterval(autoPlayRef.current); };
+  }, [autoPlay, interval]);
+
+  // Pause auto-play on manual navigation
+  const manualPrev = useCallback(() => { setAutoPlay(false); prev(); }, [prev]);
+  const manualNext = useCallback(() => { setAutoPlay(false); next(); }, [next]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') prev();
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'Escape') setFullscreen(false);
+      if (e.key === 'ArrowLeft') manualPrev();
+      if (e.key === 'ArrowRight') manualNext();
+      if (e.key === 'Escape') { setFullscreen(false); setAutoPlay(false); }
       if (e.key === 'f' || e.key === 'F') setFullscreen((f) => !f);
+      if (e.key === ' ') { e.preventDefault(); setAutoPlay((a) => !a); }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [prev, next]);
+  }, [manualPrev, manualNext]);
 
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     touchStart.current = e.touches[0].clientX;
@@ -153,15 +179,39 @@ const ANIA2026Poster = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={prev}
-                  disabled={current === 0}
+                  onClick={manualPrev}
+                  disabled={current === 0 && !autoPlay}
                   className="text-white hover:bg-white/20 disabled:opacity-30"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
-                <span className="text-sm font-medium text-white/90">
-                  {current + 1} / {TOTAL_SLIDES}
-                </span>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setAutoPlay((a) => !a)}
+                    className="text-white hover:bg-white/20"
+                    title={autoPlay ? 'Pause (Space)' : 'Auto-play (Space)'}
+                  >
+                    {autoPlay ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  </Button>
+                  {autoPlay && (
+                    <select
+                      value={interval}
+                      onChange={(e) => setInterval_(Number(e.target.value))}
+                      className="bg-white/20 text-white text-xs rounded px-1.5 py-0.5 border border-white/20 outline-none cursor-pointer"
+                    >
+                      {INTERVAL_OPTIONS.map((s) => (
+                        <option key={s} value={s} className="text-black">{s}s</option>
+                      ))}
+                    </select>
+                  )}
+                  <span className="text-sm font-medium text-white/90">
+                    {current + 1} / {TOTAL_SLIDES}
+                  </span>
+                </div>
+
                 <div className="flex items-center gap-1">
                   <Button
                     variant="ghost"
@@ -175,8 +225,8 @@ const ANIA2026Poster = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={next}
-                    disabled={current === TOTAL_SLIDES - 1}
+                    onClick={manualNext}
+                    disabled={current === TOTAL_SLIDES - 1 && !autoPlay}
                     className="text-white hover:bg-white/20 disabled:opacity-30"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -262,20 +312,42 @@ const ANIA2026Poster = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={prev}
-              disabled={current === 0}
+              onClick={manualPrev}
+              disabled={current === 0 && !autoPlay}
               className="text-white hover:bg-white/20 disabled:opacity-30"
             >
               <ChevronLeft className="w-6 h-6" />
             </Button>
-            <span className="text-sm font-medium text-white/90">
-              {current + 1} / {TOTAL_SLIDES}
-            </span>
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setAutoPlay((a) => !a)}
+                className="text-white hover:bg-white/20"
+                title={autoPlay ? 'Pause (Space)' : 'Auto-play (Space)'}
+              >
+                {autoPlay ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+              </Button>
+              {autoPlay && (
+                <select
+                  value={interval}
+                  onChange={(e) => setInterval_(Number(e.target.value))}
+                  className="bg-white/20 text-white text-xs rounded px-1.5 py-0.5 border border-white/20 outline-none cursor-pointer"
+                >
+                  {INTERVAL_OPTIONS.map((s) => (
+                    <option key={s} value={s} className="text-black">{s}s</option>
+                  ))}
+                </select>
+              )}
+              <span className="text-sm font-medium text-white/90">
+                {current + 1} / {TOTAL_SLIDES}
+              </span>
+            </div>
             <Button
               variant="ghost"
               size="icon"
-              onClick={next}
-              disabled={current === TOTAL_SLIDES - 1}
+              onClick={manualNext}
+              disabled={current === TOTAL_SLIDES - 1 && !autoPlay}
               className="text-white hover:bg-white/20 disabled:opacity-30"
             >
               <ChevronRight className="w-6 h-6" />
