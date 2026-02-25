@@ -18,6 +18,7 @@ import { BurnoutTracking } from '@/components/nursing/BurnoutTracking';
 import { WorkflowAnalytics } from '@/components/nursing/WorkflowAnalytics';
 import { ICUMortalityPrediction } from '@/components/dashboard/ICUMortalityPrediction';
 import { DBSCalculator } from '@/components/dashboard/DBSCalculator';
+import { DBSExecutiveWalkthrough } from '@/components/dashboard/DBSExecutiveWalkthrough';
 import { ROICalculator } from '@/components/dashboard/ROICalculator';
 import { LinkedCalculatorView } from '@/components/dashboard/LinkedCalculatorView';
 import { ResearchCharts } from '@/components/dashboard/ResearchCharts';
@@ -169,7 +170,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-chart-3',
     activeBg: 'bg-chart-3',
     tabs: [
-      { value: 'dbs', label: 'DBS Score', icon: FileText },
+      { value: 'dbs-overview', label: 'DBS Overview', icon: Sparkles },
+      { value: 'dbs', label: 'DBS Calculator', icon: FileText },
       { value: 'roi', label: 'ROI Calculator', icon: DollarSign },
     ],
   },
@@ -199,6 +201,7 @@ const tabContent: Record<string, React.ReactNode> = {
   'burnout': <BurnoutTracking />,
   'tasks': <TaskPrioritization />,
   'analytics': <WorkflowAnalytics />,
+  'dbs-overview': <DBSExecutiveWalkthrough />,
   'dbs': <DBSCalculator />,
   'roi': <InvestorMetricsProvider><ROICalculator /></InvestorMetricsProvider>,
   'linked': <InvestorMetricsProvider><LinkedCalculatorView /></InvestorMetricsProvider>,
