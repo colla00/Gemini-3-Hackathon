@@ -11,18 +11,18 @@ import {
 } from 'recharts';
 import { RESEARCH_DATA } from '@/data/researchData';
 
-// Feature importance data — generalized categories
+// Feature importance data — illustrative weights for demo (actual weights proprietary)
 const featureImportanceData = [
-  { name: 'Acuity Score', weight: 0.25, fill: 'hsl(var(--chart-1))' },
-  { name: 'Organ Dysfunction', weight: 0.20, fill: 'hsl(var(--chart-2))' },
-  { name: 'Comorbidity Burden', weight: 0.18, fill: 'hsl(var(--chart-3))' },
-  { name: 'Medication Complexity', weight: 0.15, fill: 'hsl(var(--chart-4))' },
-  { name: 'Demographics', weight: 0.12, fill: 'hsl(var(--chart-5))' },
-  { name: 'Ventilation Status', weight: 0.10, fill: 'hsl(var(--primary))' },
+  { name: 'Acuity Score', weight: 0.18, fill: 'hsl(var(--chart-1))' },
+  { name: 'Organ Dysfunction', weight: 0.16, fill: 'hsl(var(--chart-2))' },
+  { name: 'Comorbidity Burden', weight: 0.14, fill: 'hsl(var(--chart-3))' },
+  { name: 'Medication Complexity', weight: 0.12, fill: 'hsl(var(--chart-4))' },
+  { name: 'Demographics', weight: 0.10, fill: 'hsl(var(--chart-5))' },
+  { name: 'Ventilation Status', weight: 0.08, fill: 'hsl(var(--primary))' },
   { name: 'Monitoring Intensity', weight: 0.08, fill: 'hsl(var(--muted-foreground))' },
   { name: 'Admission Category', weight: 0.06, fill: 'hsl(var(--secondary-foreground))' },
   { name: 'Prior ICU History', weight: 0.04, fill: 'hsl(var(--accent-foreground))' },
-  { name: 'Mobility Score', weight: 0.02, fill: 'hsl(var(--destructive))' },
+  { name: 'Mobility Score', weight: 0.04, fill: 'hsl(var(--destructive))' },
 ];
 
 // ROC curve data from patent Figure 4

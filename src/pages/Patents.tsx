@@ -8,7 +8,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
 
 const ipSummary = [
-  { label: "Patents Filed", value: "5", sub: "U.S. Provisional" },
+  { label: "Patent Applications Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
   { label: "AUC", value: "0.683–0.857", sub: "Validated (#1 & #5)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },

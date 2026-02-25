@@ -15,7 +15,7 @@ const tourSteps: TourStep[] = [
   {
     id: 'welcome',
     target: '[data-tour="header"]',
-    title: 'Welcome to NSO Quality Dashboard',
+    title: 'Welcome to VitaSignal™',
     description: 'This prototype demonstrates AI-assisted nursing quality monitoring. Let\'s take a quick tour of the key features.',
     position: 'bottom',
     spotlight: false,

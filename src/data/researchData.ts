@@ -81,13 +81,14 @@ export const RESEARCH_DATA = {
       { name: 'Q4: Very High', patients: 2149, percentage: 21.49, staffingRatio: '1:1 + Senior RN' },
     ] as QuartileData[],
     overtimeReduction: [15, 20],  // Projected range (%)
+    // Feature names shown for illustration; actual weights are proprietary
     features: [
-      { name: 'Acuity Score', weight: 0.25 },
-      { name: 'Organ Dysfunction', weight: 0.20 },
-      { name: 'Comorbidity Burden', weight: 0.18 },
-      { name: 'Medication Complexity', weight: 0.15 },
-      { name: 'Demographics', weight: 0.12 },
-      { name: 'Ventilation Status', weight: 0.10 },
+      { name: 'Acuity Score', weight: 0.20 },
+      { name: 'Organ Dysfunction', weight: 0.18 },
+      { name: 'Comorbidity Burden', weight: 0.16 },
+      { name: 'Medication Complexity', weight: 0.14 },
+      { name: 'Demographics', weight: 0.10 },
+      { name: 'Ventilation Status', weight: 0.08 },
       { name: 'Monitoring Intensity', weight: 0.08 },
       { name: 'Admission Category', weight: 0.06 },
     ] as DBSFeature[],
@@ -235,12 +236,13 @@ export const DEMO_PATIENT = {
   ],
 };
 
+// Illustrative weights for demo — actual model weights are proprietary
 export const DBS_CALCULATION_FACTORS: DBSCalculationFactor[] = [
-  { name: 'Acuity Score', min: 0, max: 71, default: 25, weight: 0.25 },
+  { name: 'Acuity Score', min: 0, max: 71, default: 25, weight: 0.20 },
   { name: 'Organ Dysfunction', min: 0, max: 24, default: 8, weight: 0.20 },
-  { name: 'Comorbidity Burden', min: 0, max: 10, default: 3, weight: 0.18 },
-  { name: 'Medication Complexity', min: 0, max: 30, default: 12, weight: 0.15 },
-  { name: 'Demographics', min: 0, max: 100, default: 65, weight: 0.12 },
+  { name: 'Comorbidity Burden', min: 0, max: 10, default: 3, weight: 0.20 },
+  { name: 'Medication Complexity', min: 0, max: 30, default: 12, weight: 0.20 },
+  { name: 'Demographics', min: 0, max: 100, default: 65, weight: 0.20 },
 ];
 
 export const PATENTS: PatentInfo[] = [

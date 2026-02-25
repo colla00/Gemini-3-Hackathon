@@ -109,7 +109,7 @@ export const EfficacySummary = ({ patientId, className }: EfficacySummaryProps) 
       
       <p className="text-[9px] text-muted-foreground mt-3 italic flex items-center gap-1">
         <CheckCircle2 className="w-2.5 h-2.5" />
-        Closed-loop effect tracking · U.S. Patent Filed
+        Closed-loop effect tracking · U.S. Patent Application Filed
       </p>
     </div>
   );

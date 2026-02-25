@@ -25,7 +25,7 @@ const demoSteps: DemoStep[] = [
     id: 'intro',
     title: 'Introduction & Problem Statement',
     duration: 45,
-    narration: 'Welcome to the NSO Quality Dashboard demonstration. Today we present a patent-pending approach to predictive analytics in nursing care.',
+    narration: 'Welcome to the VitaSignal™ demonstration. Today we present a patent-pending approach to predictive analytics in nursing care.',
     presenterNotes: 'Start with the problem: 7-15% of hospitalized patients experience adverse events. Traditional monitoring is reactive.',
     keyPoints: [
       'Hospital adverse events affect millions annually',
@@ -38,11 +38,11 @@ const demoSteps: DemoStep[] = [
     id: 'architecture',
     title: 'System Architecture Overview',
     duration: 60,
-    narration: 'Our system employs a novel three-layer architecture combining real-time data ingestion, ensemble machine learning, and explainable AI outputs.',
+    narration: 'Our system employs a novel three-layer architecture combining real-time data ingestion, multi-variable machine learning, and explainable AI outputs.',
     presenterNotes: 'Emphasize the novelty of real-time SHAP computation at bedside. Mention patent-pending status.',
     keyPoints: [
       'Real-time EHR data integration',
-      'Ensemble ML with proprietary architecture',
+      'Multi-variable ML with proprietary architecture',
       'Novel SHAP attribution pipeline',
       'Sub-second prediction latency'
     ],

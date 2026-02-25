@@ -14,7 +14,7 @@ interface ScreenProtectionProps {
 
 export const ScreenProtection = ({ 
   enabled = true, 
-  watermarkText = '5 PATENTS FILED',
+  watermarkText = '5 PATENT APPLICATIONS FILED',
   showDynamicInfo = true,
   disableBlurProtection = false 
 }: ScreenProtectionProps) => {
@@ -295,7 +295,7 @@ export const ScreenProtection = ({
       {/* Corner watermarks */}
       <div className="fixed top-2 left-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          5 PATENTS FILED
+          5 PATENT APPLICATIONS FILED
         </div>
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
@@ -322,7 +322,7 @@ export const ScreenProtection = ({
             visibility: hidden !important;
           }
           body::before {
-            content: "© Dr. Alexis Collier - 5 U.S. Patents Filed - Printing is disabled for this protected content.";
+            content: "© Dr. Alexis Collier - 5 U.S. Patent Applications Filed - Printing is disabled for this protected content.";
             display: block !important;
             visibility: visible !important;
             text-align: center;
