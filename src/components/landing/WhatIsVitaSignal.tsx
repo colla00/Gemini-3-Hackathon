@@ -14,7 +14,7 @@ export const WhatIsVitaSignal = () => (
           <p className="font-semibold text-foreground mb-2">The Innovation:</p>
           <p>
             While traditional systems rely on expensive sensors and vital signs,
-            VitaSignal detects subtle signals in the timing and rhythm of routine
+            VitaSignal™ detects subtle signals in the timing and rhythm of routine
             clinical documentation, enabling earlier intervention at zero hardware cost.
           </p>
         </div>
