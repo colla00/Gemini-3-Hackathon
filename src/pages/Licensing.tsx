@@ -11,7 +11,7 @@ const tracks = [
     id: "ehr",
     icon: Briefcase,
     title: "EHR Vendors",
-    subtitle: "Embed VitaSignal into your platform",
+    subtitle: "Embed VitaSignal™ into your platform",
     badge: "Exclusive Available",
     badgeVariant: "default" as const,
     description: "Integrate equipment-independent clinical AI directly into your EHR platform, giving your customers validated mortality prediction and workload optimization without additional hardware.",
@@ -31,7 +31,7 @@ const tracks = [
     id: "hospital",
     icon: Building2,
     title: "Hospital Systems",
-    subtitle: "Deploy VitaSignal in your facilities",
+    subtitle: "Deploy VitaSignal™ in your facilities",
     badge: "Non-Exclusive",
     badgeVariant: "secondary" as const,
     description: "Bring validated clinical AI to your nursing units. Predict mortality risk and documentation burden using the EHR data your nurses already generate — zero hardware, zero installation.",
@@ -54,7 +54,7 @@ const tracks = [
     subtitle: "Clinical AI for resource-limited settings",
     badge: "Impact License",
     badgeVariant: "outline" as const,
-    description: "Most clinical AI excludes the hospitals that need it most. VitaSignal's zero-hardware architecture makes validated mortality prediction accessible to any facility with basic EHR capability — anywhere in the world.",
+    description: "Most clinical AI excludes the hospitals that need it most. VitaSignal™'s zero-hardware architecture makes validated mortality prediction accessible to any facility with basic EHR capability — anywhere in the world.",
     idealFor: "NGOs, ministries of health, WHO/UNICEF programs, and global health organizations operating in low- and middle-income countries.",
     includes: [
       "Humanitarian pricing or grant-funded deployment",
@@ -78,7 +78,7 @@ const processSteps = [
 
 const faqs = [
   { q: "What is the current IP status?", a: "Five U.S. provisional patent applications have been filed (December 2025 - February 2026). Non-provisional applications will be filed by December 2026 - February 2027. Licensing partners benefit from priority dates." },
-  { q: "Is VitaSignal FDA cleared?", a: "No. VitaSignal is currently a research prototype. Licensing partners seeking clinical deployment will need to conduct their own FDA submission process (likely 510(k) pathway for Class II medical device software)." },
+  { q: "Is VitaSignal™ FDA cleared?", a: "No. VitaSignal™ is currently a research prototype. Licensing partners seeking clinical deployment will need to conduct their own FDA submission process (likely 510(k) pathway for Class II medical device software)." },
   { q: "What clinical validation has been completed?", a: "Patent #1 (ICU Mortality) validated on 26,153 patients (AUC 0.683). Patent #5 (DBS) validated on 321,719 patients across 208 hospitals (AUROC 0.857). Detailed performance data available under NDA." },
   { q: "Can we customize for our use case?", a: "Yes. License agreements can include co-development provisions for custom features, integration with proprietary systems, or adaptation to specific clinical workflows." },
   { q: "What about government rights under Bayh-Dole?", a: "Research was partially funded by NIH federal grants. Under the Bayh-Dole Act, the U.S. Government retains certain non-commercial use rights. Commercial licenses are unaffected." },
@@ -104,7 +104,7 @@ function Licensing() {
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-4 leading-[1.05] max-w-4xl">
             License
             <br />
-            <span className="text-primary">VitaSignal Technology</span>
+            <span className="text-primary">VitaSignal™ Technology</span>
           </h1>
           <p className="text-base font-semibold text-primary mb-4">
             Three tracks. Zero hardware. Validated clinical AI.
@@ -269,7 +269,7 @@ function Licensing() {
         <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to Explore Licensing?</h2>
           <p className="opacity-80 mb-8 max-w-2xl mx-auto">
-            Whether you're an EHR vendor, hospital system, or global health organization — VitaSignal's
+            Whether you're an EHR vendor, hospital system, or global health organization — VitaSignal™'s
             equipment-independent architecture makes validated clinical AI accessible at any scale.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
