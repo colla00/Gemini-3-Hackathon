@@ -35,7 +35,7 @@ function About() {
               <div className="flex flex-wrap gap-2">
                 <Badge className="bg-primary/20 border-primary/30 text-primary">NIH Research Fellow</Badge>
                 <Badge className="bg-primary/20 border-primary/30 text-primary">NIH-Funded AI Researcher</Badge>
-                <Badge className="bg-primary/20 border-primary/30 text-primary">5 U.S. Patents Filed</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">5 U.S. Patent Applications Filed</Badge>
               </div>
             </div>
             <div className="hidden md:block">

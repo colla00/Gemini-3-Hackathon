@@ -188,7 +188,7 @@ export const DBSCalculationBreakdown = () => {
                   <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
-                <p><strong>Validated:</strong> Feature weights derived from external validation across 208 hospitals (N=321,719). AUROC 0.857.</p>
+                <p><strong>Validated:</strong> Feature weights are illustrative — actual model weights are proprietary. Externally validated across multiple hospitals.</p>
               </TooltipContent>
             </Tooltip>
             </div>

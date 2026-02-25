@@ -173,7 +173,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     keyPoints: [
       'Real-time EHR integration via HL7 FHIR (planned)',
       '47 clinical features from published assessment scales',
-      'Gradient boosting ensemble model (proposed)',
+      'Multi-variable ML model (proposed)',
       'Target: sub-5-minute data latency',
       'Calibrated probability outputs',
     ],

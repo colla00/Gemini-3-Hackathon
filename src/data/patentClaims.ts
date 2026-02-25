@@ -549,10 +549,10 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
   },
   {
     number: 9,
-    title: 'Multi-Model Ensemble Prediction',
-    description: 'The system of claim 1, employing an ensemble of gradient boosting, random forest, and logistic regression models with model-specific feature importance extraction.',
+    title: 'Multi-Variable ML Prediction',
+    description: 'The system of claim 1, employing a multi-variable machine learning approach with model-specific feature importance extraction.',
     category: 'system',
-    implementation: 'Ensemble model comparison with feature importance rankings. Primary model AUC 0.683.',
+    implementation: 'ML model comparison with feature importance rankings. Validated performance.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
     status: 'demonstrated',
     demoSection: 'patents',

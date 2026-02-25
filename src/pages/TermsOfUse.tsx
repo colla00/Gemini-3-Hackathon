@@ -178,7 +178,7 @@ export const TermsOfUse = () => {
               </h2>
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Copyright:</strong> © 2025–2026 Dr. Alexis M. Collier, DHA. All rights reserved. The Software, including its design, code, methodologies, algorithms, user interfaces, and documentation, is protected by copyright law and international treaties.</p>
-                <p><strong>Patents Filed:</strong> This technology is protected by 5 U.S. provisional patent applications. Patent filing status provides notice of patent rights.</p>
+                <p><strong>Patent Applications Filed:</strong> This technology is protected by 5 U.S. provisional patent applications. Patent filing status provides notice of patent rights.</p>
                 <p><strong>Restrictions:</strong> You may not, without prior written consent:</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Copy, modify, or distribute the Software or its source code</li>

@@ -47,7 +47,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
             <BarChart3 className="w-6 h-6 text-gray-700" />
           </div>
           <div>
-            <h1 className="text-xl font-bold">NSO Quality Dashboard Report</h1>
+            <h1 className="text-xl font-bold">VitaSignal™ Report</h1>
             <p className="text-sm text-gray-600">Nurse-Sensitive Outcomes Monitoring • Research Prototype</p>
           </div>
         </div>
@@ -164,7 +164,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         </div>
         
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patents Filed | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | VitaSignal™ – 5 U.S. Patent Applications Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">

@@ -52,7 +52,7 @@ export const DemoSummary = ({ className }: DemoSummaryProps) => {
           </h2>
         </div>
         <p className="text-sm text-muted-foreground font-medium">
-          AI-powered nurse-sensitive outcome prediction · 5 U.S. patents filed
+          AI-powered nurse-sensitive outcome prediction · 5 U.S. patent applications filed
         </p>
       </div>
 

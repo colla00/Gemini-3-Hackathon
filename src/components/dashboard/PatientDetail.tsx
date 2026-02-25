@@ -302,7 +302,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
             Features on this page are protected by U.S. patents
           </p>
           <p className="text-[10px] text-muted-foreground mt-1">
-            © Dr. Alexis Collier | NSO Quality Dashboard – 5 U.S. Patent Applications Filed
+            © Dr. Alexis Collier | VitaSignal™ – 5 U.S. Patent Applications Filed
           </p>
         </div>
       </div>

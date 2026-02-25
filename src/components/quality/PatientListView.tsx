@@ -425,7 +425,7 @@ export const PatientListView = ({ liveSimulation }: PatientListViewProps) => {
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          NSO Quality Dashboard – 5 U.S. Patent Applications Filed
+          VitaSignal™ – 5 U.S. Patent Applications Filed
         </p>
       </div>
     </div>

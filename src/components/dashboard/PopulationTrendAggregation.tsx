@@ -1,6 +1,6 @@
 // Population-Level Trend Aggregation - Cohort Risk Reduction Visualization
 // Shows overall population risk trends with intervention efficacy metrics
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 
 import { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -458,7 +458,7 @@ export function PopulationTrendAggregation({ className, compact = false }: Popul
               Population-level risk aggregation with intervention efficacy tracking enables 
               unit-wide quality improvement and resource optimization.
             </span>
-            <p className="text-accent mt-1">U.S. Patent Filed</p>
+            <p className="text-accent mt-1">U.S. Patent Application Filed</p>
           </div>
         </div>
       </div>

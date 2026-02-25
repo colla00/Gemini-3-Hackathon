@@ -74,7 +74,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
       
       pdf.setFontSize(14);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('NSO Quality Dashboard - 5 U.S. Patents Filed', pageWidth / 2, 58, { align: 'center' });
+      pdf.text('VitaSignal™ - 5 U.S. Patent Applications Filed', pageWidth / 2, 58, { align: 'center' });
       
       pdf.setFontSize(10);
       pdf.text('RESEARCH PROTOTYPE - NOT FOR CLINICAL USE', pageWidth / 2, 72, { align: 'center' });

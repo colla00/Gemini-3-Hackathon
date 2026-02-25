@@ -15,7 +15,7 @@ export const PatentNotice = () => {
             <CardTitle className="text-base">U.S. Patent Portfolio</CardTitle>
           </div>
           <Badge variant="outline" className="bg-risk-low/10 border-risk-low/30 text-risk-low">
-            {filedPatents.length} Patents Filed
+            {filedPatents.length} Patent Applications Filed
           </Badge>
         </div>
       </CardHeader>
@@ -116,7 +116,7 @@ export const PatentBadge = ({ className = '', contextPatent }: { className?: str
     <div className={`flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30 ${className}`}>
       <Award className="w-3 h-3 text-accent" aria-hidden="true" />
       <span className="text-[10px] text-accent font-medium">
-        {filedCount} U.S. Patents Filed · Alexis Collier
+        {filedCount} U.S. Patent Applications Filed · Alexis Collier
       </span>
     </div>
   );

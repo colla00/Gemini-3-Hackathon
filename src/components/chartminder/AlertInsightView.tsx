@@ -9,10 +9,11 @@ interface AlertInsightViewProps {
   onNavigate: (screen: string) => void;
 }
 
+// Trust factor weights shown are illustrative — actual weights are proprietary
 const trustFactors = [
   {
     title: 'Historical Accuracy',
-    weight: '35%',
+    weight: 'Weighted',
     score: 92,
     detail: '92% true positive rate over past 90 days',
     subDetail: 'Based on 847 similar alert outcomes',
@@ -20,7 +21,7 @@ const trustFactors = [
   },
   {
     title: 'Clinician Feedback',
-    weight: '30%',
+    weight: 'Weighted',
     score: 87,
     detail: '87% clinicians accepted similar alerts',
     subDetail: 'Based on 156 feedback instances · 4.5/5 stars',
@@ -28,7 +29,7 @@ const trustFactors = [
   },
   {
     title: 'Temporal Relevance',
-    weight: '20%',
+    weight: 'Weighted',
     score: 94,
     detail: 'Recent data prioritized (14-day half-life)',
     subDetail: '94% accuracy for recent similar cases',
@@ -36,7 +37,7 @@ const trustFactors = [
   },
   {
     title: 'Data Quality',
-    weight: '15%',
+    weight: 'Weighted',
     score: 96,
     detail: '96% data completeness',
     subDetail: 'All vital signs, labs, meds, and documentation current',

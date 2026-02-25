@@ -150,9 +150,9 @@ export const PrintLegalView = ({
           {/* Header */}
           <div className="header">
             <h1>PATENT EVIDENCE DOCUMENTATION</h1>
-            <h2>NSO Quality Dashboard</h2>
+            <h2>VitaSignal™</h2>
             <p style={{ fontStyle: 'italic', margin: '10px 0' }}>
-              5 U.S. Patent Applications Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System • ICU Mortality Prediction
+               5 U.S. Patent Applications Filed: Trust-Based Alerts • Clinical Risk Intelligence • Unified Platform • DBS System • ICU Mortality Prediction
             </p>
             <div className="meta-info">
               <div>
@@ -232,7 +232,7 @@ export const PrintLegalView = ({
                   <p><strong>Date of Attestation:</strong> {att.attestedAt ? new Date(att.attestedAt).toLocaleString() : 'N/A'}</p>
                   <p style={{ marginTop: '15px', fontStyle: 'italic' }}>
                     "I hereby attest that I have reviewed the above patent claims and their corresponding 
-                    implementations in the NSO Quality Dashboard software. The implementations 
+                    implementations in the VitaSignal™ software. The implementations 
                     described accurately reflect the working functionality of the system as of the date of this attestation."
                   </p>
                   <div className="signature-line">
@@ -248,7 +248,7 @@ export const PrintLegalView = ({
             <div className="section-title">CERTIFICATION</div>
             <p>
               I, the undersigned, do hereby certify that this document is a true and accurate 
-              representation of the patent evidence documentation for the NSO Quality Dashboard 
+              representation of the patent evidence documentation for VitaSignal™
               as of the date indicated above.
             </p>
             <div style={{ marginTop: '50px' }}>

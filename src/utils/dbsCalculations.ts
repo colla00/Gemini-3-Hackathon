@@ -1,6 +1,6 @@
 // DBS (Documentation Burden Score) and ROI Calculation Utilities
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
-// Externally Validated: AUROC 0.802 (MIMIC-IV) → 0.857 (eICU, 208 hospitals)
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
+// Validated multi-variable ML model — details under NDA
 // ANIA 2026 Presentation — Boston, MA — March 26-28, 2026
 
 export interface DBSFactors {
@@ -28,18 +28,18 @@ export interface ROIResult {
 
 /**
  * Calculate Documentation Burden Score based on weighted clinical factors
- * Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030)
- * Multi-variable ML model with clinical variables, cross-validated
+ * Proprietary model — weights redacted for IP protection
+ * Illustrative calculation for demonstration purposes only
  */
 export function calculateDBS(factors: DBSFactors): number {
   const { apache, sofa, comorbidities, medications, age } = factors;
-  // Proprietary weighted calculation — weights represent relative clinical importance
+  // Illustrative weighted calculation for demo — actual model weights are proprietary
   const score = (
-    (apache / 71) * 0.25 +
+    (apache / 71) * 0.20 +
     (sofa / 24) * 0.20 +
-    (comorbidities / 10) * 0.18 +
-    (medications / 30) * 0.15 +
-    ((age - 18) / 82) * 0.12
+    (comorbidities / 10) * 0.20 +
+    (medications / 30) * 0.20 +
+    ((age - 18) / 82) * 0.20
   ) * 100;
   
   return Math.round(Math.min(100, Math.max(0, score)));

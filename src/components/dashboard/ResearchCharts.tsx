@@ -1,6 +1,6 @@
 // Research Data Visualizations
-// Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals)
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
+// Validated multi-variable ML model — performance details under NDA
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 
 import { useMemo, useState, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
