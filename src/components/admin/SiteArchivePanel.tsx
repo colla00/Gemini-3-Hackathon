@@ -7,8 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Archive, Camera, Clock, Hash, FileText, Download, RefreshCw, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Archive, Camera, Clock, Hash, FileText, Download, RefreshCw, ExternalLink, CheckCircle2, AlertCircle, Globe, Shield, Type, Heading1 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 
 interface SiteArchive {
   id: string;
@@ -258,13 +259,19 @@ export const SiteArchivePanel = () => {
                   <TableHead>Captured</TableHead>
                   <TableHead>Page</TableHead>
                   <TableHead>Content Hash</TableHead>
+                  <TableHead>™ Marks</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Notes</TableHead>
                   <TableHead className="w-20">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredArchives.map((archive) => (
+                {filteredArchives.map((archive) => {
+                  const meta = archive.metadata as Record<string, unknown> | null;
+                  const tmEvidence = meta?.trademark_evidence as { marks_found?: string[]; total_mentions?: number } | undefined;
+                  const tmCount = tmEvidence?.total_mentions ?? 0;
+                  const marksFound = tmEvidence?.marks_found ?? [];
+                  return (
                   <TableRow key={archive.id}>
                     <TableCell className="text-sm whitespace-nowrap">
                       {new Date(archive.captured_at).toLocaleString()}
@@ -288,6 +295,15 @@ export const SiteArchivePanel = () => {
                       <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
                         {archive.content_hash.substring(0, 12)}...
                       </code>
+                    </TableCell>
+                    <TableCell>
+                      {tmCount > 0 ? (
+                        <Badge className="bg-primary/20 text-primary border-primary/30">
+                          <Shield className="w-3 h-3 mr-1" />{tmCount}
+                        </Badge>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">0</span>
+                      )}
                     </TableCell>
                     <TableCell>{getTriggerBadge(archive.trigger_type)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground truncate max-w-[150px]">
@@ -321,41 +337,172 @@ export const SiteArchivePanel = () => {
                               <DialogTitle>Archive Details</DialogTitle>
                             </DialogHeader>
                             {selectedArchive && (
-                              <div className="space-y-3 text-sm">
-                                <div>
-                                  <span className="text-muted-foreground">Page:</span>{' '}
-                                  <a href={selectedArchive.page_url} target="_blank" rel="noopener noreferrer" className="text-primary underline">
-                                    {selectedArchive.page_url}
-                                  </a>
+                              <div className="space-y-4 text-sm max-h-[70vh] overflow-y-auto">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div>
+                                    <span className="text-muted-foreground text-xs">Page URL</span>
+                                    <a href={selectedArchive.page_url} target="_blank" rel="noopener noreferrer" className="block text-primary underline text-xs truncate">
+                                      {selectedArchive.page_url}
+                                    </a>
+                                  </div>
+                                  <div>
+                                    <span className="text-muted-foreground text-xs">Captured</span>
+                                    <p className="text-xs font-medium">{new Date(selectedArchive.captured_at).toLocaleString()}</p>
+                                  </div>
                                 </div>
+
                                 <div>
-                                  <span className="text-muted-foreground">Title:</span> {selectedArchive.page_title}
+                                  <span className="text-muted-foreground text-xs">Title</span>
+                                  <p className="font-medium">{selectedArchive.page_title || '—'}</p>
                                 </div>
+
                                 <div>
-                                  <span className="text-muted-foreground">Captured:</span>{' '}
-                                  {new Date(selectedArchive.captured_at).toLocaleString()}
-                                </div>
-                                <div>
-                                  <span className="text-muted-foreground">SHA-256:</span>
+                                  <span className="text-muted-foreground text-xs">SHA-256 Content Hash</span>
                                   <code className="block mt-1 text-xs bg-secondary/50 p-2 rounded font-mono break-all">
                                     {selectedArchive.content_hash}
                                   </code>
                                 </div>
-                                <div>
-                                  <span className="text-muted-foreground">Trigger:</span> {selectedArchive.trigger_type}
+
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div>
+                                    <span className="text-muted-foreground text-xs">Trigger</span>
+                                    <p className="text-xs">{selectedArchive.trigger_type}</p>
+                                  </div>
+                                  <div>
+                                    <span className="text-muted-foreground text-xs">Archiver</span>
+                                    <p className="text-xs">{(selectedArchive.metadata as Record<string, unknown>)?.captured_by as string || '—'}</p>
+                                  </div>
                                 </div>
+
                                 {selectedArchive.notes && (
                                   <div>
-                                    <span className="text-muted-foreground">Notes:</span> {selectedArchive.notes}
+                                    <span className="text-muted-foreground text-xs">Notes</span>
+                                    <p className="text-xs">{selectedArchive.notes}</p>
                                   </div>
                                 )}
+
+                                <Separator />
+
+                                {/* Trademark Evidence */}
+                                {(() => {
+                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
+                                  const tm = m?.trademark_evidence as { marks_found?: string[]; total_mentions?: number } | undefined;
+                                  return tm ? (
+                                    <div>
+                                      <div className="flex items-center gap-1.5 mb-2">
+                                        <Shield className="w-4 h-4 text-primary" />
+                                        <span className="font-semibold text-xs">Trademark Evidence</span>
+                                      </div>
+                                      <div className="grid grid-cols-2 gap-2">
+                                        <div className="p-2 rounded bg-secondary/30 border border-border">
+                                          <p className="text-xs text-muted-foreground">Total Mentions</p>
+                                          <p className="text-lg font-bold">{tm.total_mentions ?? 0}</p>
+                                        </div>
+                                        <div className="p-2 rounded bg-secondary/30 border border-border">
+                                          <p className="text-xs text-muted-foreground">Marks Found</p>
+                                          <div className="flex flex-wrap gap-1 mt-1">
+                                            {(tm.marks_found?.length ?? 0) > 0 ? tm.marks_found!.map((mark, i) => (
+                                              <Badge key={i} variant="secondary" className="text-xs">{mark}</Badge>
+                                            )) : <span className="text-xs text-muted-foreground">None (SPA shell)</span>}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : null;
+                                })()}
+
+                                {/* Open Graph */}
+                                {(() => {
+                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
+                                  const og = m?.open_graph as Record<string, string | null> | undefined;
+                                  if (!og) return null;
+                                  const entries = Object.entries(og).filter(([, v]) => v);
+                                  if (entries.length === 0) return null;
+                                  return (
+                                    <div>
+                                      <div className="flex items-center gap-1.5 mb-2">
+                                        <Globe className="w-4 h-4 text-primary" />
+                                        <span className="font-semibold text-xs">Open Graph</span>
+                                      </div>
+                                      <div className="space-y-1 bg-secondary/30 border border-border rounded p-2">
+                                        {entries.map(([key, val]) => (
+                                          <div key={key} className="flex gap-2 text-xs">
+                                            <span className="text-muted-foreground min-w-[80px]">og:{key}</span>
+                                            <span className="truncate">{val}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  );
+                                })()}
+
+                                {/* Headings Structure */}
+                                {(() => {
+                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
+                                  const headings = m?.headings as { h1?: string[]; h2?: string[] } | undefined;
+                                  if (!headings) return null;
+                                  const h1s = headings.h1 ?? [];
+                                  const h2s = headings.h2 ?? [];
+                                  if (h1s.length === 0 && h2s.length === 0) return null;
+                                  return (
+                                    <div>
+                                      <div className="flex items-center gap-1.5 mb-2">
+                                        <Heading1 className="w-4 h-4 text-primary" />
+                                        <span className="font-semibold text-xs">Heading Structure</span>
+                                      </div>
+                                      <div className="space-y-1 bg-secondary/30 border border-border rounded p-2 text-xs">
+                                        {h1s.map((h, i) => (
+                                          <div key={`h1-${i}`} className="flex gap-2">
+                                            <Badge variant="outline" className="text-[10px] px-1 py-0">H1</Badge>
+                                            <span>{h}</span>
+                                          </div>
+                                        ))}
+                                        {h2s.map((h, i) => (
+                                          <div key={`h2-${i}`} className="flex gap-2">
+                                            <Badge variant="outline" className="text-[10px] px-1 py-0">H2</Badge>
+                                            <span className="text-muted-foreground">{h}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  );
+                                })()}
+
+                                {/* Copyright & Structured Data */}
+                                {(() => {
+                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
+                                  const pageMeta = m?.page_meta as { description?: string; canonical?: string; has_structured_data?: boolean } | undefined;
+                                  const copyrights = m?.copyright_notices as string[] | undefined;
+                                  return (
+                                    <div className="grid grid-cols-2 gap-2">
+                                      {pageMeta?.has_structured_data !== undefined && (
+                                        <div className="p-2 rounded bg-secondary/30 border border-border">
+                                          <p className="text-xs text-muted-foreground">JSON-LD</p>
+                                          <p className="text-xs font-medium">{pageMeta.has_structured_data ? '✅ Present' : '❌ Missing'}</p>
+                                        </div>
+                                      )}
+                                      {copyrights && copyrights.length > 0 && (
+                                        <div className="p-2 rounded bg-secondary/30 border border-border">
+                                          <p className="text-xs text-muted-foreground">Copyright</p>
+                                          {copyrights.map((c, i) => (
+                                            <p key={i} className="text-xs">{c}</p>
+                                          ))}
+                                        </div>
+                                      )}
+                                    </div>
+                                  );
+                                })()}
+
+                                <Separator />
+
+                                {/* Raw metadata fallback */}
                                 {selectedArchive.metadata && (
-                                  <div>
-                                    <span className="text-muted-foreground">Metadata:</span>
+                                  <details className="text-xs">
+                                    <summary className="cursor-pointer text-muted-foreground hover:text-foreground">Raw Metadata JSON</summary>
                                     <pre className="mt-1 text-xs bg-secondary/50 p-2 rounded overflow-auto max-h-32">
                                       {JSON.stringify(selectedArchive.metadata, null, 2)}
                                     </pre>
-                                  </div>
+                                  </details>
                                 )}
                               </div>
                             )}
@@ -364,7 +511,8 @@ export const SiteArchivePanel = () => {
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                  );
+                })}
               </TableBody>
             </Table>
           </div>
