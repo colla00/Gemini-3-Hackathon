@@ -1,7 +1,7 @@
 // Research data and constants for DRALEXIS Clinical Intelligence Platform
 // IMPORTANT: All metrics are DESIGN TARGETS or ILLUSTRATIVE values for demonstration purposes
 // No clinical validation has been conducted - this is a research prototype
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 
 export interface ValidationData {
   // ILLUSTRATIVE - These are design targets, not validated results
@@ -187,7 +187,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: '2025 Dec',
     title: 'Patent Filing #2',
-    description: 'Trust-Based Alert System (U.S. Patent Filed)',
+    description: 'Trust-Based Alert System (U.S. Patent Application Filed)',
     icon: '⚖️',
   },
   {

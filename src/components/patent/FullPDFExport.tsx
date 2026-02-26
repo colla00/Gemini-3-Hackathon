@@ -150,7 +150,7 @@ export const FullPDFExport = ({ claims, attestations, documentHash, documentVers
 
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      const summaryText = `This document provides comprehensive evidence of the working implementation of the NSO Quality Dashboard, covering 175+ patent claims across 5 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, documentation burden scoring (DBS), and ICU mortality prediction from EHR documentation rhythm patterns.
+      const summaryText = `This document provides comprehensive evidence of the working implementation of VitaSignal™, covering 175+ patent claims across 5 U.S. provisional applications. The system integrates trust-based alert prioritization, clinical risk intelligence with SHAP explainability, unified nursing intelligence, documentation burden scoring (DBS), and ICU mortality prediction from EHR documentation rhythm patterns.
 
 Each claim is documented with its patent language, working implementation details, and source code references. Witness attestations verify the functionality of all described features.`;
       

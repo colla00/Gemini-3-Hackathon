@@ -1,5 +1,5 @@
 # Gemini 3 Hackathon 2026 - Demo Video Script
-## NSO Quality Dashboard: AI-Powered Clinical Decision Support
+## VitaSignal™: AI-Powered Clinical Decision Support
 
 **Total Runtime:** 3 minutes  
 **Presenter:** Dr. Alexis Collier  
@@ -28,7 +28,7 @@
 
 > "Hi, I'm Dr. Alexis Collier. Every year, over 400,000 preventable deaths occur in US hospitals due to delayed recognition of patient deterioration.
 >
-> The NSO Quality Dashboard uses machine learning to predict patient risk—but nurses need more than just numbers. They need clinical context, actionable insights, and plain-language explanations.
+> The VitaSignal™ dashboard uses machine learning to predict patient risk—but nurses need more than just numbers. They need clinical context, actionable insights, and plain-language explanations.
 >
 > That's where **Google Gemini 3** transforms our platform. Let me show you four AI-powered features built for this hackathon."
 
@@ -135,11 +135,11 @@ Skin slightly mottled on extremities.
 > - **Recommend** evidence-based interventions
 > - **Identify** health equity gaps
 >
-> This dashboard has **4 U.S. patents filed** and was presented at **Stanford AI+Health 2025**. With Gemini 3 integration, we're not just predicting patient deterioration—we're empowering nurses to prevent it.
+> This dashboard has **5 U.S. patent applications filed** and was presented at **Stanford AI+Health 2025**. With Gemini 3 integration, we're not just predicting patient deterioration—we're empowering nurses to prevent it.
 >
-> Thank you. I'm Dr. Alexis Collier, and this is the NSO Quality Dashboard, powered by Google Gemini 3."
+> Thank you. I'm Dr. Alexis Collier, and this is VitaSignal™, powered by Google Gemini 3."
 
-**[END CARD: "NSO Quality Dashboard | Gemini 3 Hackathon 2026 | info@alexiscollier.com"]**
+**[END CARD: "VitaSignal™ | Gemini 3 Hackathon 2026 | info@alexiscollier.com"]**
 
 ---
 

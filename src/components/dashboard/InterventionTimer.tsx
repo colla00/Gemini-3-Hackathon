@@ -75,7 +75,7 @@ export const InterventionTimer = ({ riskType, riskLevel, className }: Interventi
             Intervention Schedule
           </h4>
           <span className="text-[9px] px-1.5 py-0.5 rounded bg-primary/10 text-primary ml-auto">
-            U.S. Patent Filed
+            U.S. Patent Application Filed
           </span>
         </div>
         

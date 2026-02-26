@@ -150,7 +150,7 @@ export const ClosedLoopAnimation = ({ className, autoPlay = false }: ClosedLoopA
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p className="text-xs">Intervention Efficacy Tracking (U.S. Patent Filed)</p>
+              <p className="text-xs">Intervention Efficacy Tracking (U.S. Patent Application Filed)</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -353,7 +353,7 @@ export const ClosedLoopAnimation = ({ className, autoPlay = false }: ClosedLoopA
         )}
 
         <p className="text-[9px] text-muted-foreground mt-4 text-center italic">
-          Automated intervention → outcome tracking • U.S. Patent Filed
+          Automated intervention → outcome tracking • U.S. Patent Application Filed
         </p>
       </div>
     </TooltipProvider>

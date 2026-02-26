@@ -1,5 +1,5 @@
 // Research Validation Slide for Presentations
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 
 import { 
   Award, Building2, Users, TrendingUp, Shield, 
@@ -139,7 +139,7 @@ export const ResearchValidationSlide = () => {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium">Trust-Based Alert System Targets</span>
-                  <Badge variant="secondary" className="text-[10px]">U.S. Patent Filed</Badge>
+                  <Badge variant="secondary" className="text-[10px]">U.S. Patent Application Filed</Badge>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="p-2 rounded-lg bg-risk-low/10 text-center">

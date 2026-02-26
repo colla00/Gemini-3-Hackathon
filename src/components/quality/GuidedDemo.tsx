@@ -25,7 +25,7 @@ const DEMO_STEPS: DemoStep[] = [
     id: 'intro',
     title: 'Welcome',
     view: 'dashboard',
-    narration: "Welcome to the NSO Quality Dashboard. This research prototype demonstrates AI-powered predictive analytics for nurse-sensitive outcomes. Let's explore the key features.",
+    narration: "Welcome to VitaSignal™. This research prototype demonstrates AI-powered predictive analytics for nurse-sensitive outcomes. Let's explore the key features.",
     duration: 8,
     icon: <Presentation className="w-4 h-4" />,
     highlights: ['Real-time risk monitoring', 'SHAP explainability', 'Clinical workflow integration']

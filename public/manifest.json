@@ -1,6 +1,6 @@
 {
-  "name": "NSO Quality Dashboard",
-  "short_name": "NSO Dashboard",
+  "name": "VitaSignal™",
+  "short_name": "VitaSignal",
   "description": "AI-Powered Nurse-Sensitive Outcome Prediction",
   "start_url": "/dashboard",
   "display": "standalone",

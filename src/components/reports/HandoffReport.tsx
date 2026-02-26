@@ -160,7 +160,7 @@ export const HandoffReport = ({ onClose }: HandoffReportProps) => {
           {/* Report Header */}
           <div className="mb-6 pb-4 border-b border-border print:mb-4">
             <div className="flex items-center justify-between mb-2">
-              <h1 className="text-xl font-bold text-foreground">NSO Quality Handoff</h1>
+              <h1 className="text-xl font-bold text-foreground">VitaSignal™ Quality Handoff</h1>
               <div className="text-right">
                 <p className="text-sm font-medium text-foreground">{shiftType}</p>
                 <p className="text-xs text-muted-foreground">

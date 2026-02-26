@@ -1,4 +1,4 @@
-# NSO Quality Dashboard — Figma Design Specification
+# VitaSignal™ — Figma Design Specification
 
 > Use this document to recreate the demo dashboard in Figma with pixel-perfect accuracy.
 
