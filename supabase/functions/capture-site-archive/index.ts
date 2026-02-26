@@ -13,6 +13,8 @@ const PAGES_TO_ARCHIVE = [
   { url: 'https://clinicaldashboard.lovable.app/contact', label: 'Contact' },
 ];
 
+const BRAND_NAMES = ['VitaSignal', 'ChartMinder', 'Documentation Burden Score'];
+
 async function hashContent(content: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(content);
@@ -22,160 +24,159 @@ async function hashContent(content: string): Promise<string> {
 }
 
 /**
- * Fetch page using Jina Reader API for full JS-rendered DOM.
- * Falls back to basic fetch if Jina is unavailable.
+ * Fetch page using Jina Reader API for full JS-rendered content.
+ * Jina returns the SPA shell as HTML but the REAL rendered content as Markdown.
+ * We use Markdown as the primary evidence artifact.
  */
 async function fetchRenderedPage(url: string): Promise<{ html: string; markdown: string; rendered: boolean }> {
-  // Try Jina Reader for JS-rendered HTML
   try {
-    console.log(`[Renderer] Fetching rendered HTML via Jina Reader: ${url}`);
+    console.log(`[Renderer] Fetching via Jina Reader: ${url}`);
+    
+    // Fetch HTML version (will be SPA shell but useful for meta tags)
     const htmlResponse = await fetch(`https://r.jina.ai/${url}`, {
       headers: {
         'Accept': 'text/html',
         'X-Return-Format': 'html',
-        'X-Wait-For-Selector': 'h1', // Wait for main content to render
-        'User-Agent': 'VitaSignal-Archiver/3.0 (Trademark Evidence Collection)',
+        'X-Wait-For-Selector': 'h1',
+        'User-Agent': 'VitaSignal-Archiver/4.0 (Trademark Evidence Collection)',
       },
       signal: AbortSignal.timeout(30000),
     });
 
-    if (htmlResponse.ok) {
-      const renderedHtml = await htmlResponse.text();
-      
-      // Also get markdown version (default Jina format)
-      console.log(`[Renderer] Fetching rendered Markdown via Jina Reader: ${url}`);
-      const mdResponse = await fetch(`https://r.jina.ai/${url}`, {
-        headers: {
-          'Accept': 'text/plain',
-          'X-Wait-For-Selector': 'h1',
-          'User-Agent': 'VitaSignal-Archiver/3.0 (Trademark Evidence Collection)',
-        },
-        signal: AbortSignal.timeout(30000),
-      });
-
-      const renderedMarkdown = mdResponse.ok ? await mdResponse.text() : htmlToMarkdown(renderedHtml);
-
-      // Validate: accept if content is substantial (>2KB means real rendered page vs empty shell)
-      // Also check for trademark keywords (with or without ™ symbol — Jina may use plain text)
-      const isSubstantial = renderedHtml.length > 2000;
-      const hasTrademarks = /VitaSignal|ChartMinder|Documentation Burden Score/i.test(renderedHtml) || 
-                            /VitaSignal|ChartMinder|Documentation Burden Score/i.test(renderedMarkdown);
-      
-      console.log(`[Renderer] Jina response: ${renderedHtml.length} chars HTML, ${renderedMarkdown.length} chars MD, trademarks: ${hasTrademarks}`);
-      
-      if (isSubstantial) {
-        console.log(`[Renderer] ✓ Got JS-rendered content (${renderedHtml.length} chars, trademarks: ${hasTrademarks})`);
-        return { html: renderedHtml, markdown: renderedMarkdown, rendered: true };
-      } else {
-        console.log(`[Renderer] Jina content too small (${renderedHtml.length} chars), falling back`);
-      }
-    } else {
-      console.log(`[Renderer] Jina returned ${htmlResponse.status}, falling back to basic fetch`);
-      await htmlResponse.text(); // consume body
+    if (!htmlResponse.ok) {
+      console.log(`[Renderer] Jina HTML returned ${htmlResponse.status}, falling back`);
+      await htmlResponse.text();
+      throw new Error(`Jina HTML ${htmlResponse.status}`);
     }
+
+    const htmlContent = await htmlResponse.text();
+
+    // Fetch Markdown version (this is the REAL rendered content)
+    console.log(`[Renderer] Fetching rendered Markdown: ${url}`);
+    const mdResponse = await fetch(`https://r.jina.ai/${url}`, {
+      headers: {
+        'Accept': 'text/plain',
+        'X-Wait-For-Selector': 'h1',
+        'User-Agent': 'VitaSignal-Archiver/4.0 (Trademark Evidence Collection)',
+      },
+      signal: AbortSignal.timeout(30000),
+    });
+
+    const markdownContent = mdResponse.ok ? await mdResponse.text() : '';
+    
+    const isSubstantial = htmlContent.length > 2000 || markdownContent.length > 500;
+    const hasBrands = BRAND_NAMES.some(b => 
+      new RegExp(b, 'i').test(htmlContent) || new RegExp(b, 'i').test(markdownContent)
+    );
+
+    console.log(`[Renderer] HTML: ${htmlContent.length} chars, MD: ${markdownContent.length} chars, brands: ${hasBrands}`);
+
+    if (isSubstantial) {
+      return { html: htmlContent, markdown: markdownContent, rendered: true };
+    }
+    
+    console.log(`[Renderer] Content too small, falling back`);
   } catch (err) {
-    console.warn(`[Renderer] Jina Reader failed, falling back to basic fetch:`, err);
+    console.warn(`[Renderer] Jina Reader failed, falling back:`, err);
   }
 
   // Fallback: basic fetch (SPA shell only)
   console.log(`[Renderer] Using basic fetch for: ${url}`);
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'VitaSignal-Archiver/3.0 (Trademark Evidence Collection; Fallback)',
+      'User-Agent': 'VitaSignal-Archiver/4.0 (Trademark Evidence Collection; Fallback)',
       'Accept': 'text/html',
     },
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const html = await response.text();
   return { html, markdown: htmlToMarkdown(html), rendered: false };
 }
 
-/** Extract metadata from HTML + markdown: title, description, OG tags, canonical, structured data refs */
-function extractMetadata(html: string, url: string, markdown?: string) {
-  // Combine HTML + markdown for trademark searching (Jina may have trademarks in MD but not HTML)
-  const searchText = markdown ? html + '\n' + markdown : html;
+/** Extract headings from markdown content (# H1, ## H2) */
+function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[] } {
+  const h1s: string[] = [];
+  const h2s: string[] = [];
+  
+  for (const line of markdown.split('\n')) {
+    const trimmed = line.trim();
+    // Match ## but not ### (h2 only)
+    if (/^## (?!#)/.test(trimmed)) {
+      const text = trimmed.replace(/^## /, '').replace(/\*\*/g, '').trim();
+      if (text && !h2s.includes(text)) h2s.push(text);
+    }
+    // Match # but not ## (h1 only) — also handle === underline style
+    else if (/^# (?!#)/.test(trimmed)) {
+      const text = trimmed.replace(/^# /, '').replace(/\*\*/g, '').trim();
+      if (text && !h1s.includes(text)) h1s.push(text);
+    }
+  }
+
+  // Also check for underline-style headings (text followed by ===)
+  const lines = markdown.split('\n');
+  for (let i = 0; i < lines.length - 1; i++) {
+    if (/^={3,}\s*$/.test(lines[i + 1].trim()) && lines[i].trim().length > 0) {
+      const text = lines[i].trim().replace(/\*\*/g, '');
+      if (text && !h1s.includes(text)) h1s.push(text);
+    }
+  }
+
+  return { h1: h1s, h2: h2s };
+}
+
+/** Count brand name mentions in text */
+function countBrandMentions(text: string): { brandMentions: Record<string, number>; totalBrandMentions: number } {
+  const normalized = text
+    .replace(/&trade;/g, '™')
+    .replace(/&#8482;/g, '™');
+
+  const brandMentions: Record<string, number> = {};
+  for (const brand of BRAND_NAMES) {
+    const re = new RegExp(brand, 'gi');
+    const matches = normalized.match(re);
+    if (matches && matches.length > 0) {
+      brandMentions[brand] = matches.length;
+    }
+  }
+  const totalBrandMentions = Object.values(brandMentions).reduce((a, b) => a + b, 0);
+  return { brandMentions, totalBrandMentions };
+}
+
+/** Extract metadata from HTML <head> for OG tags, meta description, etc. */
+function extractHtmlMeta(html: string) {
   const get = (pattern: RegExp): string | null => {
     const m = html.match(pattern);
     return m ? m[1].trim() : null;
   };
 
-  const getAll = (pattern: RegExp): string[] => {
-    const results: string[] = [];
-    let m: RegExpExecArray | null;
-    const re = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
-    while ((m = re.exec(html)) !== null) results.push(m[1].trim());
-    return results;
-  };
-
-  // Core meta
   const title = get(/<title[^>]*>([\s\S]*?)<\/title>/i);
   const description = get(/<meta[^>]*name=["']description["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i)
     || get(/<meta[^>]*content=["']([\s\S]*?)["'][^>]*name=["']description["'][^>]*\/?>/i);
   const canonical = get(/<link[^>]*rel=["']canonical["'][^>]*href=["']([\s\S]*?)["'][^>]*\/?>/i);
 
-  // Open Graph
   const ogTitle = get(/<meta[^>]*property=["']og:title["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
   const ogDescription = get(/<meta[^>]*property=["']og:description["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
   const ogImage = get(/<meta[^>]*property=["']og:image["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
   const ogType = get(/<meta[^>]*property=["']og:type["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
   const ogUrl = get(/<meta[^>]*property=["']og:url["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
 
-  // Twitter card
   const twitterCard = get(/<meta[^>]*name=["']twitter:card["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
   const twitterTitle = get(/<meta[^>]*name=["']twitter:title["'][^>]*content=["']([\s\S]*?)["'][^>]*\/?>/i);
 
-  // Trademark mentions — search both HTML and markdown content
-  // Handle ™ as literal char, &trade; entity, &#8482; numeric entity
-  const tmSearchText = searchText
-    .replace(/&trade;/g, '™')
-    .replace(/&#8482;/g, '™');
-  
-  // Find formal ™ marked mentions
-  const formalPattern = /(?:VitaSignal|ChartMinder|Documentation Burden Score)™/g;
-  const trademarkMentions: string[] = [];
-  let tm: RegExpExecArray | null;
-  while ((tm = formalPattern.exec(tmSearchText)) !== null) {
-    if (!trademarkMentions.includes(tm[0])) trademarkMentions.push(tm[0]);
-  }
-  const trademarkCount = (tmSearchText.match(/(?:VitaSignal|ChartMinder|Documentation Burden Score)™/g) || []).length;
-
-  // Also count brand name mentions (with or without ™) for comprehensive evidence
-  const brandNames = ['VitaSignal', 'ChartMinder', 'Documentation Burden Score'];
-  const brandMentions: Record<string, number> = {};
-  for (const brand of brandNames) {
-    const re = new RegExp(brand, 'gi');
-    const matches = tmSearchText.match(re);
-    if (matches && matches.length > 0) {
-      brandMentions[brand] = matches.length;
-    }
-  }
-  const totalBrandMentions = Object.values(brandMentions).reduce((a, b) => a + b, 0);
-
-  // Headings structure
-  const h1s = getAll(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
-  const h2s = getAll(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
-
-  // JSON-LD structured data presence
   const hasJsonLd = /<script[^>]*type=["']application\/ld\+json["'][^>]*>/i.test(html);
-
-  // Extract JSON-LD content for evidence
   const jsonLdBlocks: string[] = [];
   const jsonLdPattern = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
   let jm: RegExpExecArray | null;
   while ((jm = jsonLdPattern.exec(html)) !== null) {
     try {
-      JSON.parse(jm[1].trim()); // validate it's real JSON
+      JSON.parse(jm[1].trim());
       jsonLdBlocks.push(jm[1].trim());
     } catch { /* skip invalid */ }
   }
 
-  // Copyright notices
   const copyrightPattern = /©\s*\d{4}[^<]*/g;
-  const copyrightNotices = getAll(copyrightPattern);
+  const copyrightMatches = html.match(copyrightPattern) || [];
 
   return {
     title,
@@ -183,15 +184,13 @@ function extractMetadata(html: string, url: string, markdown?: string) {
     canonical,
     open_graph: { title: ogTitle, description: ogDescription, image: ogImage, type: ogType, url: ogUrl },
     twitter: { card: twitterCard, title: twitterTitle },
-    trademark_evidence: { marks_found: trademarkMentions, total_mentions: trademarkCount, brand_mentions: brandMentions, total_brand_mentions: totalBrandMentions },
-    headings: { h1: h1s.map(h => h.replace(/<[^>]*>/g, '').trim()), h2: h2s.map(h => h.replace(/<[^>]*>/g, '').trim()) },
     has_structured_data: hasJsonLd,
     json_ld_blocks: jsonLdBlocks,
-    copyright_notices: copyrightNotices.map(c => c.replace(/<[^>]*>/g, '').trim()),
+    copyright_notices: copyrightMatches.map(c => c.replace(/<[^>]*>/g, '').trim()),
   };
 }
 
-/** Convert HTML to a basic markdown representation for evidence readability */
+/** Convert HTML to a basic markdown representation */
 function htmlToMarkdown(html: string): string {
   let text = html.replace(/<script[\s\S]*?<\/script>/gi, '');
   text = text.replace(/<style[\s\S]*?<\/style>/gi, '');
@@ -225,17 +224,6 @@ function htmlToMarkdown(html: string): string {
   return text;
 }
 
-/** Extract HTTP headers relevant to evidence */
-function extractResponseHeaders(response: Response): Record<string, string> {
-  const relevant = ['server', 'content-type', 'x-powered-by', 'cache-control', 'etag', 'last-modified', 'x-frame-options', 'content-security-policy'];
-  const headers: Record<string, string> = {};
-  for (const key of relevant) {
-    const val = response.headers.get(key);
-    if (val) headers[key] = val;
-  }
-  return headers;
-}
-
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -257,11 +245,34 @@ Deno.serve(async (req) => {
       try {
         console.log(`Archiving: ${page.url}`);
         
-        // Use headless rendering via Jina Reader with basic fetch fallback
         const { html: htmlContent, markdown: markdownContent, rendered } = await fetchRenderedPage(page.url);
         
-        const contentHash = await hashContent(htmlContent);
-        const pageMeta = extractMetadata(htmlContent, page.url, markdownContent);
+        // FIX #1: Hash the markdown (real content) instead of HTML shell
+        // Combine both for a comprehensive hash, but markdown is the primary signal
+        const contentToHash = markdownContent.length > 100 ? markdownContent : htmlContent;
+        const contentHash = await hashContent(contentToHash);
+        
+        // FIX #2: Extract headings from markdown (not HTML shell)
+        const mdHeadings = extractMarkdownHeadings(markdownContent);
+        
+        // Also try HTML headings as fallback
+        const htmlMeta = extractHtmlMeta(htmlContent);
+        const headings = {
+          h1: mdHeadings.h1.length > 0 ? mdHeadings.h1 : (htmlMeta.has_structured_data ? [] : []),
+          h2: mdHeadings.h2.length > 0 ? mdHeadings.h2 : [],
+          source: mdHeadings.h1.length > 0 || mdHeadings.h2.length > 0 ? 'markdown' : 'html',
+        };
+
+        // FIX #3: brand_mentions is the primary trademark metric
+        // Search across both HTML + markdown for comprehensive coverage
+        const searchText = htmlContent + '\n' + markdownContent;
+        const { brandMentions, totalBrandMentions } = countBrandMentions(searchText);
+        
+        // Also extract copyright notices from markdown
+        const mdCopyrights: string[] = [];
+        const cpMatch = markdownContent.match(/©\s*\d{4}[^\n]*/g);
+        if (cpMatch) mdCopyrights.push(...cpMatch.map(c => c.trim()));
+        const allCopyrights = [...new Set([...htmlMeta.copyright_notices, ...mdCopyrights])];
 
         // Check if content has changed since last snapshot
         const { data: lastArchive } = await supabase
@@ -273,9 +284,8 @@ Deno.serve(async (req) => {
           .single();
 
         const contentChanged = !lastArchive || lastArchive.content_hash !== contentHash;
-        const pageTitle = pageMeta.title || page.label;
+        const pageTitle = htmlMeta.title || page.label;
 
-        // Always store for manual/scheduled triggers
         if (contentChanged || triggerType === 'scheduled' || triggerType === 'manual') {
           const { error: insertError } = await supabase
             .from('site_archives')
@@ -290,21 +300,24 @@ Deno.serve(async (req) => {
                 content_length: htmlContent.length,
                 markdown_length: markdownContent.length,
                 content_changed: contentChanged,
-                captured_by: 'VitaSignal-Archiver/3.0',
+                captured_by: 'VitaSignal-Archiver/4.0',
                 rendering_method: rendered ? 'headless-browser' : 'basic-fetch',
                 js_rendered: rendered,
-                // Structured evidence metadata
+                hash_source: markdownContent.length > 100 ? 'markdown' : 'html',
                 page_meta: {
-                  description: pageMeta.description,
-                  canonical: pageMeta.canonical,
-                  has_structured_data: pageMeta.has_structured_data,
-                  json_ld_count: pageMeta.json_ld_blocks.length,
+                  description: htmlMeta.description,
+                  canonical: htmlMeta.canonical,
+                  has_structured_data: htmlMeta.has_structured_data,
+                  json_ld_count: htmlMeta.json_ld_blocks.length,
                 },
-                open_graph: pageMeta.open_graph,
-                twitter_card: pageMeta.twitter,
-                trademark_evidence: pageMeta.trademark_evidence,
-                headings: pageMeta.headings,
-                copyright_notices: pageMeta.copyright_notices,
+                open_graph: htmlMeta.open_graph,
+                twitter_card: htmlMeta.twitter,
+                trademark_evidence: {
+                  brand_mentions: brandMentions,
+                  total_brand_mentions: totalBrandMentions,
+                },
+                headings,
+                copyright_notices: allCopyrights,
               },
               trigger_type: triggerType,
               notes: notes,
@@ -319,9 +332,11 @@ Deno.serve(async (req) => {
               success: true, 
               content_changed: contentChanged,
               content_hash: contentHash,
+              hash_source: markdownContent.length > 100 ? 'markdown' : 'html',
               js_rendered: rendered,
-              trademark_mentions: pageMeta.trademark_evidence.total_mentions,
-              marks_found: pageMeta.trademark_evidence.marks_found,
+              brand_mentions: totalBrandMentions,
+              brand_detail: brandMentions,
+              headings_found: mdHeadings.h1.length + mdHeadings.h2.length,
             });
           }
         } else {
@@ -340,8 +355,9 @@ Deno.serve(async (req) => {
 
     const successCount = results.filter(r => r.success).length;
     const renderedCount = results.filter(r => r.js_rendered).length;
-    const totalTrademarkMentions = results.reduce((sum, r) => sum + (r.trademark_mentions || 0), 0);
-    console.log(`Archive complete: ${successCount}/${results.length} pages (${renderedCount} JS-rendered), ${totalTrademarkMentions} trademark mentions`);
+    const totalBrandMentions = results.reduce((sum, r) => sum + (r.brand_mentions || 0), 0);
+    const uniqueHashes = new Set(results.filter(r => r.content_hash).map(r => r.content_hash)).size;
+    console.log(`Archive complete: ${successCount}/${results.length} pages (${renderedCount} JS-rendered), ${uniqueHashes} unique hashes, ${totalBrandMentions} brand mentions`);
 
     return new Response(
       JSON.stringify({ 
@@ -349,10 +365,11 @@ Deno.serve(async (req) => {
         captured: successCount,
         total: results.length,
         js_rendered_count: renderedCount,
-        total_trademark_mentions: totalTrademarkMentions,
+        unique_content_hashes: uniqueHashes,
+        total_brand_mentions: totalBrandMentions,
         results,
         captured_at: new Date().toISOString(),
-        archiver_version: '3.0',
+        archiver_version: '4.0',
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Archive, Camera, Clock, Hash, FileText, Download, RefreshCw, ExternalLink, CheckCircle2, AlertCircle, Globe, Shield, Type, Heading1 } from 'lucide-react';
+import { Archive, Camera, Clock, FileText, Download, RefreshCw, ExternalLink, CheckCircle2, AlertTriangle, Globe, Shield, Heading1 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 
@@ -23,6 +23,20 @@ interface SiteArchive {
   notes: string | null;
   created_at: string;
 }
+
+type TmEvidence = {
+  brand_mentions?: Record<string, number>;
+  total_brand_mentions?: number;
+  // Legacy fields
+  marks_found?: string[];
+  total_mentions?: number;
+};
+
+type Headings = {
+  h1?: string[];
+  h2?: string[];
+  source?: string;
+};
 
 export const SiteArchivePanel = () => {
   const [archives, setArchives] = useState<SiteArchive[]>([]);
@@ -65,7 +79,7 @@ export const SiteArchivePanel = () => {
 
       if (error) throw error;
 
-      toast.success(`Archived ${data.captured}/${data.total} pages successfully`);
+      toast.success(`Archived ${data.captured}/${data.total} pages (${data.unique_content_hashes ?? '?'} unique hashes, ${data.total_brand_mentions ?? 0} brand mentions)`);
       setNotes('');
       fetchArchives();
     } catch (err) {
@@ -88,14 +102,17 @@ export const SiteArchivePanel = () => {
       return;
     }
 
-    const archive = data as unknown as SiteArchive;
-    const blob = new Blob([archive.html_content || ''], { type: 'text/html' });
+    const archive = data as unknown as SiteArchive & { markdown_content?: string };
+    // Prefer markdown (real rendered content) over HTML shell
+    const content = archive.markdown_content || archive.html_content || '';
+    const ext = archive.markdown_content ? 'md' : 'html';
+    const blob = new Blob([content], { type: ext === 'md' ? 'text/markdown' : 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     const dateStr = new Date(archive.captured_at).toISOString().split('T')[0];
     const pageName = new URL(archive.page_url).pathname.replace(/\//g, '-') || 'home';
-    a.download = `vitasignal-archive-${pageName}-${dateStr}.html`;
+    a.download = `vitasignal-archive-${pageName}-${dateStr}.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
     toast.success('Archive downloaded');
@@ -119,15 +136,17 @@ export const SiteArchivePanel = () => {
       owner: 'Dr. Alexis M. Collier',
       marks: ['VitaSignal™', 'ChartMinder™', 'Documentation Burden Score™'],
       total_snapshots: data.length,
-      snapshots: (data as unknown as SiteArchive[]).map(a => ({
+      snapshots: (data as unknown as (SiteArchive & { markdown_content?: string })[]).map(a => ({
         captured_at: a.captured_at,
         page_url: a.page_url,
         page_title: a.page_title,
         content_hash: a.content_hash,
         content_length: (a.metadata as Record<string, unknown>)?.content_length,
+        markdown_length: (a.metadata as Record<string, unknown>)?.markdown_length,
         trigger_type: a.trigger_type,
         notes: a.notes,
         html_content: a.html_content,
+        markdown_content: a.markdown_content,
         metadata: a.metadata,
       })),
     };
@@ -161,6 +180,10 @@ export const SiteArchivePanel = () => {
     }
   };
 
+  // Integrity check: flag if all hashes are identical (shell-only problem)
+  const uniqueHashes = new Set(archives.map(a => a.content_hash)).size;
+  const hasIntegrityWarning = archives.length > 1 && uniqueHashes === 1;
+
   return (
     <Card>
       <CardHeader>
@@ -185,6 +208,20 @@ export const SiteArchivePanel = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Integrity Warning */}
+        {hasIntegrityWarning && (
+          <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 flex items-start gap-2">
+            <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+              <p className="font-medium text-destructive">Data Integrity Warning</p>
+              <p className="text-muted-foreground text-xs mt-1">
+                All {archives.length} snapshots share the same content hash. This may indicate the archiver captured the SPA shell instead of rendered content. 
+                Re-capture with the latest archiver (v4.0+) which hashes markdown content.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Manual Capture */}
         <div className="p-4 rounded-lg bg-secondary/50 border border-border space-y-3">
           <div className="flex items-center gap-2">
@@ -239,7 +276,7 @@ export const SiteArchivePanel = () => {
           </div>
           <div className="p-3 rounded-lg bg-secondary/30 border border-border">
             <p className="text-xs text-muted-foreground">Unique Hashes</p>
-            <p className="text-xl font-bold">{new Set(archives.map(a => a.content_hash)).size}</p>
+            <p className="text-xl font-bold">{uniqueHashes}</p>
           </div>
         </div>
 
@@ -259,7 +296,7 @@ export const SiteArchivePanel = () => {
                   <TableHead>Captured</TableHead>
                   <TableHead>Page</TableHead>
                   <TableHead>Content Hash</TableHead>
-                  <TableHead>™ Marks</TableHead>
+                  <TableHead>Brand Mentions</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Notes</TableHead>
                   <TableHead className="w-20">Actions</TableHead>
@@ -268,11 +305,10 @@ export const SiteArchivePanel = () => {
               <TableBody>
                 {filteredArchives.map((archive) => {
                    const meta = archive.metadata as Record<string, unknown> | null;
-                   const tmEvidence = meta?.trademark_evidence as { marks_found?: string[]; total_mentions?: number; brand_mentions?: Record<string, number>; total_brand_mentions?: number } | undefined;
-                   const tmCount = tmEvidence?.total_mentions ?? 0;
-                   const brandCount = tmEvidence?.total_brand_mentions ?? 0;
-                   const displayCount = tmCount > 0 ? tmCount : brandCount;
+                   const tmEvidence = meta?.trademark_evidence as TmEvidence | undefined;
+                   const brandCount = tmEvidence?.total_brand_mentions ?? tmEvidence?.total_mentions ?? 0;
                    const isRendered = meta?.js_rendered === true;
+                   const hashSource = meta?.hash_source as string | undefined;
                    return (
                    <TableRow key={archive.id}>
                      <TableCell className="text-sm whitespace-nowrap">
@@ -285,6 +321,9 @@ export const SiteArchivePanel = () => {
                          </span>
                          {isRendered && (
                            <Badge variant="outline" className="text-[10px] px-1 py-0 ml-1 border-primary/30 text-primary">JS</Badge>
+                         )}
+                         {hashSource === 'markdown' && (
+                           <Badge variant="outline" className="text-[10px] px-1 py-0 border-primary/30 text-primary">MD</Badge>
                          )}
                          <a 
                            href={archive.page_url} 
@@ -302,9 +341,9 @@ export const SiteArchivePanel = () => {
                        </code>
                      </TableCell>
                      <TableCell>
-                       {displayCount > 0 ? (
+                       {brandCount > 0 ? (
                          <Badge className="bg-primary/20 text-primary border-primary/30">
-                           <Shield className="w-3 h-3 mr-1" />{displayCount}
+                           <Shield className="w-3 h-3 mr-1" />{brandCount}
                          </Badge>
                        ) : (
                          <span className="text-xs text-muted-foreground">0</span>
@@ -321,7 +360,7 @@ export const SiteArchivePanel = () => {
                           size="icon"
                           className="h-7 w-7"
                           onClick={() => downloadArchive(archive.id)}
-                          title="Download HTML"
+                          title="Download rendered content"
                         >
                           <Download className="w-3.5 h-3.5" />
                         </Button>
@@ -341,7 +380,18 @@ export const SiteArchivePanel = () => {
                             <DialogHeader>
                               <DialogTitle>Archive Details</DialogTitle>
                             </DialogHeader>
-                            {selectedArchive && (
+                            {selectedArchive && (() => {
+                              const m = selectedArchive.metadata as Record<string, unknown> | null;
+                              const tm = m?.trademark_evidence as TmEvidence | undefined;
+                              const renderMethod = m?.rendering_method as string | undefined;
+                              const jsRendered = m?.js_rendered === true;
+                              const hs = m?.hash_source as string | undefined;
+                              const headings = m?.headings as Headings | undefined;
+                              const pageMeta = m?.page_meta as { description?: string; canonical?: string; has_structured_data?: boolean; json_ld_count?: number } | undefined;
+                              const copyrights = m?.copyright_notices as string[] | undefined;
+                              const og = m?.open_graph as Record<string, string | null> | undefined;
+
+                              return (
                               <div className="space-y-4 text-sm max-h-[70vh] overflow-y-auto">
                                 <div className="grid grid-cols-2 gap-3">
                                   <div>
@@ -363,9 +413,16 @@ export const SiteArchivePanel = () => {
 
                                 <div>
                                   <span className="text-muted-foreground text-xs">SHA-256 Content Hash</span>
-                                  <code className="block mt-1 text-xs bg-secondary/50 p-2 rounded font-mono break-all">
-                                    {selectedArchive.content_hash}
-                                  </code>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <code className="text-xs bg-secondary/50 p-2 rounded font-mono break-all flex-1">
+                                      {selectedArchive.content_hash}
+                                    </code>
+                                    {hs && (
+                                      <Badge variant="outline" className="text-[10px] flex-shrink-0">
+                                        from {hs}
+                                      </Badge>
+                                    )}
+                                  </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-3">
@@ -375,7 +432,18 @@ export const SiteArchivePanel = () => {
                                   </div>
                                   <div>
                                     <span className="text-muted-foreground text-xs">Archiver</span>
-                                    <p className="text-xs">{(selectedArchive.metadata as Record<string, unknown>)?.captured_by as string || '—'}</p>
+                                    <p className="text-xs">{m?.captured_by as string || '—'}</p>
+                                  </div>
+                                </div>
+
+                                {/* Rendering Method */}
+                                <div className="p-2 rounded bg-secondary/30 border border-border">
+                                  <p className="text-xs text-muted-foreground">Rendering Method</p>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <Badge variant={jsRendered ? "default" : "secondary"} className="text-xs">
+                                      {jsRendered ? '✓ Headless Browser (JS Rendered)' : 'Basic Fetch (SPA Shell)'}
+                                    </Badge>
+                                    {renderMethod && <span className="text-xs text-muted-foreground">({renderMethod})</span>}
                                   </div>
                                 </div>
 
@@ -389,143 +457,94 @@ export const SiteArchivePanel = () => {
                                 <Separator />
 
                                 {/* Trademark Evidence */}
-                                 {(() => {
-                                   const m = selectedArchive.metadata as Record<string, unknown> | null;
-                                   const tm = m?.trademark_evidence as { marks_found?: string[]; total_mentions?: number; brand_mentions?: Record<string, number>; total_brand_mentions?: number } | undefined;
-                                   const renderMethod = m?.rendering_method as string | undefined;
-                                   const jsRendered = m?.js_rendered === true;
-                                   return (
-                                     <div className="space-y-3">
-                                       {/* Rendering Method */}
-                                       <div className="p-2 rounded bg-secondary/30 border border-border">
-                                         <p className="text-xs text-muted-foreground">Rendering Method</p>
-                                         <div className="flex items-center gap-2 mt-1">
-                                           <Badge variant={jsRendered ? "default" : "secondary"} className="text-xs">
-                                             {jsRendered ? '✓ Headless Browser (JS Rendered)' : 'Basic Fetch (SPA Shell)'}
-                                           </Badge>
-                                           {renderMethod && <span className="text-xs text-muted-foreground">({renderMethod})</span>}
-                                         </div>
-                                       </div>
-
-                                       {tm && (
-                                         <>
-                                           <div className="flex items-center gap-1.5 mb-2">
-                                             <Shield className="w-4 h-4 text-primary" />
-                                             <span className="font-semibold text-xs">Trademark Evidence</span>
-                                           </div>
-                                           <div className="grid grid-cols-2 gap-2">
-                                             <div className="p-2 rounded bg-secondary/30 border border-border">
-                                               <p className="text-xs text-muted-foreground">™ Formal Marks</p>
-                                               <p className="text-lg font-bold">{tm.total_mentions ?? 0}</p>
-                                               <div className="flex flex-wrap gap-1 mt-1">
-                                                 {(tm.marks_found?.length ?? 0) > 0 ? tm.marks_found!.map((mark, i) => (
-                                                   <Badge key={i} variant="secondary" className="text-xs">{mark}</Badge>
-                                                 )) : <span className="text-[10px] text-muted-foreground">No ™ symbols in rendered text</span>}
-                                               </div>
-                                             </div>
-                                             <div className="p-2 rounded bg-secondary/30 border border-border">
-                                               <p className="text-xs text-muted-foreground">Brand Name Mentions</p>
-                                               <p className="text-lg font-bold">{tm.total_brand_mentions ?? 0}</p>
-                                               <div className="flex flex-wrap gap-1 mt-1">
-                                                 {tm.brand_mentions && Object.entries(tm.brand_mentions).map(([brand, count]) => (
-                                                   <Badge key={brand} variant="outline" className="text-xs">
-                                                     {brand} ×{count as number}
-                                                   </Badge>
-                                                 ))}
-                                               </div>
-                                             </div>
-                                           </div>
-                                         </>
-                                       )}
-                                     </div>
-                                   );
-                                 })()}
-
-                                {/* Open Graph */}
-                                {(() => {
-                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
-                                  const og = m?.open_graph as Record<string, string | null> | undefined;
-                                  if (!og) return null;
-                                  const entries = Object.entries(og).filter(([, v]) => v);
-                                  if (entries.length === 0) return null;
-                                  return (
-                                    <div>
-                                      <div className="flex items-center gap-1.5 mb-2">
-                                        <Globe className="w-4 h-4 text-primary" />
-                                        <span className="font-semibold text-xs">Open Graph</span>
-                                      </div>
-                                      <div className="space-y-1 bg-secondary/30 border border-border rounded p-2">
-                                        {entries.map(([key, val]) => (
-                                          <div key={key} className="flex gap-2 text-xs">
-                                            <span className="text-muted-foreground min-w-[80px]">og:{key}</span>
-                                            <span className="truncate">{val}</span>
-                                          </div>
+                                {tm && (
+                                  <div>
+                                    <div className="flex items-center gap-1.5 mb-2">
+                                      <Shield className="w-4 h-4 text-primary" />
+                                      <span className="font-semibold text-xs">Trademark Evidence — Brand Mentions</span>
+                                    </div>
+                                    <div className="p-2 rounded bg-secondary/30 border border-border">
+                                      <p className="text-lg font-bold">{tm.total_brand_mentions ?? 0} <span className="text-xs font-normal text-muted-foreground">total mentions</span></p>
+                                      <div className="flex flex-wrap gap-1 mt-2">
+                                        {tm.brand_mentions && Object.entries(tm.brand_mentions).map(([brand, count]) => (
+                                          <Badge key={brand} variant="outline" className="text-xs">
+                                            {brand} ×{count as number}
+                                          </Badge>
                                         ))}
+                                        {(!tm.brand_mentions || Object.keys(tm.brand_mentions).length === 0) && (
+                                          <span className="text-[10px] text-muted-foreground">No brand names detected</span>
+                                        )}
                                       </div>
                                     </div>
-                                  );
-                                })()}
+                                  </div>
+                                )}
 
                                 {/* Headings Structure */}
-                                {(() => {
-                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
-                                  const headings = m?.headings as { h1?: string[]; h2?: string[] } | undefined;
-                                  if (!headings) return null;
-                                  const h1s = headings.h1 ?? [];
-                                  const h2s = headings.h2 ?? [];
-                                  if (h1s.length === 0 && h2s.length === 0) return null;
-                                  return (
-                                    <div>
-                                      <div className="flex items-center gap-1.5 mb-2">
-                                        <Heading1 className="w-4 h-4 text-primary" />
-                                        <span className="font-semibold text-xs">Heading Structure</span>
-                                      </div>
-                                      <div className="space-y-1 bg-secondary/30 border border-border rounded p-2 text-xs">
-                                        {h1s.map((h, i) => (
-                                          <div key={`h1-${i}`} className="flex gap-2">
-                                            <Badge variant="outline" className="text-[10px] px-1 py-0">H1</Badge>
-                                            <span>{h}</span>
-                                          </div>
-                                        ))}
-                                        {h2s.map((h, i) => (
-                                          <div key={`h2-${i}`} className="flex gap-2">
-                                            <Badge variant="outline" className="text-[10px] px-1 py-0">H2</Badge>
-                                            <span className="text-muted-foreground">{h}</span>
-                                          </div>
-                                        ))}
-                                      </div>
+                                {headings && ((headings.h1?.length ?? 0) > 0 || (headings.h2?.length ?? 0) > 0) && (
+                                  <div>
+                                    <div className="flex items-center gap-1.5 mb-2">
+                                      <Heading1 className="w-4 h-4 text-primary" />
+                                      <span className="font-semibold text-xs">Heading Structure</span>
+                                      {headings.source && (
+                                        <Badge variant="outline" className="text-[10px] px-1 py-0">from {headings.source}</Badge>
+                                      )}
                                     </div>
-                                  );
-                                })()}
+                                    <div className="space-y-1 bg-secondary/30 border border-border rounded p-2 text-xs">
+                                      {(headings.h1 ?? []).map((h, i) => (
+                                        <div key={`h1-${i}`} className="flex gap-2">
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0">H1</Badge>
+                                          <span>{h}</span>
+                                        </div>
+                                      ))}
+                                      {(headings.h2 ?? []).map((h, i) => (
+                                        <div key={`h2-${i}`} className="flex gap-2">
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0">H2</Badge>
+                                          <span className="text-muted-foreground">{h}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Open Graph */}
+                                {og && Object.entries(og).filter(([, v]) => v).length > 0 && (
+                                  <div>
+                                    <div className="flex items-center gap-1.5 mb-2">
+                                      <Globe className="w-4 h-4 text-primary" />
+                                      <span className="font-semibold text-xs">Open Graph</span>
+                                    </div>
+                                    <div className="space-y-1 bg-secondary/30 border border-border rounded p-2">
+                                      {Object.entries(og).filter(([, v]) => v).map(([key, val]) => (
+                                        <div key={key} className="flex gap-2 text-xs">
+                                          <span className="text-muted-foreground min-w-[80px]">og:{key}</span>
+                                          <span className="truncate">{val}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
 
                                 {/* Copyright & Structured Data */}
-                                {(() => {
-                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
-                                  const pageMeta = m?.page_meta as { description?: string; canonical?: string; has_structured_data?: boolean } | undefined;
-                                  const copyrights = m?.copyright_notices as string[] | undefined;
-                                  return (
-                                    <div className="grid grid-cols-2 gap-2">
-                                      {pageMeta?.has_structured_data !== undefined && (
-                                        <div className="p-2 rounded bg-secondary/30 border border-border">
-                                          <p className="text-xs text-muted-foreground">JSON-LD</p>
-                                          <p className="text-xs font-medium">{pageMeta.has_structured_data ? '✅ Present' : '❌ Missing'}</p>
-                                        </div>
-                                      )}
-                                      {copyrights && copyrights.length > 0 && (
-                                        <div className="p-2 rounded bg-secondary/30 border border-border">
-                                          <p className="text-xs text-muted-foreground">Copyright</p>
-                                          {copyrights.map((c, i) => (
-                                            <p key={i} className="text-xs">{c}</p>
-                                          ))}
-                                        </div>
-                                      )}
+                                <div className="grid grid-cols-2 gap-2">
+                                  {pageMeta?.has_structured_data !== undefined && (
+                                    <div className="p-2 rounded bg-secondary/30 border border-border">
+                                      <p className="text-xs text-muted-foreground">JSON-LD</p>
+                                      <p className="text-xs font-medium">{pageMeta.has_structured_data ? '✅ Present' : '❌ Missing'}</p>
                                     </div>
-                                  );
-                                })()}
+                                  )}
+                                  {copyrights && copyrights.length > 0 && (
+                                    <div className="p-2 rounded bg-secondary/30 border border-border">
+                                      <p className="text-xs text-muted-foreground">Copyright</p>
+                                      {copyrights.map((c, i) => (
+                                        <p key={i} className="text-xs">{c}</p>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
 
                                 <Separator />
 
-                                {/* Raw metadata fallback */}
+                                {/* Raw metadata */}
                                 {selectedArchive.metadata && (
                                   <details className="text-xs">
                                     <summary className="cursor-pointer text-muted-foreground hover:text-foreground">Raw Metadata JSON</summary>
@@ -535,7 +554,8 @@ export const SiteArchivePanel = () => {
                                   </details>
                                 )}
                               </div>
-                            )}
+                              );
+                            })()}
                           </DialogContent>
                         </Dialog>
                       </div>
