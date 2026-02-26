@@ -107,7 +107,7 @@ export const DBSCalculationBreakdown = () => {
               <div>
                 <CardTitle className="text-base">DBS Calculation Breakdown</CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  U.S. Patent Filed · Weighted feature analysis
+                  U.S. Patent Application Filed · Weighted feature analysis
                 </p>
               </div>
             </div>

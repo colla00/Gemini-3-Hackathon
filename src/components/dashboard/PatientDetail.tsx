@@ -100,7 +100,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                 <TooltipTrigger asChild>
                   <div className="flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30">
                     <Award className="w-3 h-3 text-accent" />
-                    <span className="text-[10px] text-accent font-medium">U.S. Patent Filed</span>
+                    <span className="text-[10px] text-accent font-medium">U.S. Patent Application Filed</span>
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>

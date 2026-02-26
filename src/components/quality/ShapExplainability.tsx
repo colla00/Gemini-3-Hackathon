@@ -459,7 +459,7 @@ export const ShapExplainability = () => {
                   while maintaining sub-5-minute data refresh.
                 </p>
                 <p className="text-[9px] text-accent mt-1.5 font-medium">
-                  U.S. Patent Filed
+                  U.S. Patent Application Filed
                 </p>
               </div>
             </div>

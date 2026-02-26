@@ -81,7 +81,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   },
   {
     id: 'title',
-    title: 'NSO Quality Dashboard',
+    title: 'VitaSignal™',
     subtitle: 'AI-Assisted Nursing Quality Monitoring for Nurse-Sensitive Outcomes',
     duration: 3,
     icon: <BarChart3 className="w-12 h-12" />,
@@ -545,7 +545,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-trust-alerts',
     title: 'Trust-Based Alert System',
-    subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',
+    subtitle: 'U.S. Patent Application Filed · Dynamic Precision Thresholds',
     duration: 4,
     icon: <Shield className="w-8 h-8" />,
     notes: [
@@ -576,7 +576,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-equity',
     title: 'Real-Time Equity Monitoring Engine',
-    subtitle: 'U.S. Patent Filed · <0.5% Demographic Disparity',
+    subtitle: 'U.S. Patent Application Filed · <0.5% Demographic Disparity',
     duration: 3,
     icon: <Scale className="w-8 h-8" />,
     notes: [
@@ -607,7 +607,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-dbs-breakdown',
     title: 'DBS Calculation Breakdown',
-    subtitle: 'U.S. Patent Filed · Weighted Feature Analysis',
+    subtitle: 'U.S. Patent Application Filed · Weighted Feature Analysis',
     duration: 3,
     icon: <Calculator className="w-8 h-8" />,
     notes: [
@@ -636,7 +636,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-neural-reasoning',
     title: 'Neural Reasoning Engine',
-    subtitle: 'U.S. Patent Filed · Chain-of-Thought Clinical AI',
+    subtitle: 'U.S. Patent Application Filed · Chain-of-Thought Clinical AI',
     duration: 3,
     icon: <Brain className="w-8 h-8" />,
     notes: [
@@ -665,7 +665,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-cognitive-load',
     title: 'Cognitive Load Optimizer',
-    subtitle: 'U.S. Patent Filed · Workload-Adaptive Thresholds',
+    subtitle: 'U.S. Patent Application Filed · Workload-Adaptive Thresholds',
     duration: 3,
     icon: <Cpu className="w-8 h-8" />,
     notes: [
@@ -694,7 +694,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-trust-score',
     title: 'Trust Score Algorithm',
-    subtitle: 'U.S. Patent Filed · Composite Reliability Scoring',
+    subtitle: 'U.S. Patent Application Filed · Composite Reliability Scoring',
     duration: 3,
     icon: <Target className="w-8 h-8" />,
     notes: [
@@ -721,7 +721,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-performance',
     title: 'Performance Comparison',
-    subtitle: 'U.S. Patent Filed · Target: 87% Alert Reduction (Simulated)',
+    subtitle: 'U.S. Patent Application Filed · Target: 87% Alert Reduction (Simulated)',
     duration: 3,
     icon: <TrendingUp className="w-8 h-8" />,
     notes: [

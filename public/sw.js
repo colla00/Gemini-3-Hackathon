@@ -1,4 +1,4 @@
-// Service Worker for NSO Quality Dashboard
+// Service Worker for VitaSignal™
 // Enables offline caching for presentation reliability
 
 const CACHE_NAME = 'nso-dashboard-v2';

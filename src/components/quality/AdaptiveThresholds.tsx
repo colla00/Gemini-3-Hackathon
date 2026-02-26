@@ -69,7 +69,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
                 Signals suggest substantial reduction in unnecessary alerts compared to fixed thresholds.
               </p>
               <div className="text-[9px] text-accent">
-                U.S. Patent Filed
+                U.S. Patent Application Filed
               </div>
             </div>
           </TooltipContent>
@@ -90,7 +90,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
         </div>
         <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-accent/10 border border-accent/30">
           <Award className="w-3 h-3 text-accent" />
-          <span className="text-[9px] text-accent font-medium">U.S. Patent Filed</span>
+          <span className="text-[9px] text-accent font-medium">U.S. Patent Application Filed</span>
         </div>
       </div>
 
@@ -180,7 +180,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
               reducing unnecessary alerts while preserving clinically meaningful signals.
             </p>
             <p className="text-accent mt-1">
-              U.S. Patent Filed
+              U.S. Patent Application Filed
             </p>
           </div>
         </div>
@@ -189,7 +189,7 @@ export const AdaptiveThresholds = ({ compact = false }: { compact?: boolean }) =
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-border/30 text-center">
         <p className="text-[9px] text-muted-foreground">
-          NSO Quality Dashboard – 5 U.S. Patent Applications Filed
+          VitaSignal™ – 5 U.S. Patent Applications Filed
         </p>
       </div>
     </div>

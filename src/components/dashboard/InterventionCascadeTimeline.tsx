@@ -1,6 +1,6 @@
 // Intervention Cascade Timeline - Animated Real-Time Risk Updates
 // Shows intervention effects cascading through time with live simulation
-// Copyright © Dr. Alexis Collier - U.S. Patent Filed
+// Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -418,7 +418,7 @@ export function InterventionCascadeTimeline({
               Real-time intervention cascade visualization with patient-level risk tracking 
               enables demonstration of AI-driven clinical workflow optimization.
             </span>
-            <p className="text-accent mt-1">U.S. Patent Filed</p>
+            <p className="text-accent mt-1">U.S. Patent Application Filed</p>
           </div>
         </div>
       </div>

@@ -189,11 +189,11 @@ export const AdaptiveThresholdVisualization = ({ patient, className }: AdaptiveT
             <TooltipTrigger asChild>
               <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-accent/10 border border-accent/30">
                 <Award className="w-3 h-3 text-accent" />
-                <span className="text-[9px] text-accent font-medium">U.S. Patent Filed</span>
+                <span className="text-[9px] text-accent font-medium">U.S. Patent Application Filed</span>
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p className="text-xs">Confidence-Based Risk Stratification (U.S. Patent Filed)</p>
+              <p className="text-xs">Confidence-Based Risk Stratification (U.S. Patent Application Filed)</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -318,7 +318,7 @@ export const AdaptiveThresholdVisualization = ({ patient, className }: AdaptiveT
         </div>
 
         <p className="text-[9px] text-muted-foreground mt-4 text-center italic">
-          Dynamic threshold adaptation based on patient characteristics • U.S. Patent Filed
+          Dynamic threshold adaptation based on patient characteristics • U.S. Patent Application Filed
         </p>
       </div>
     </TooltipProvider>

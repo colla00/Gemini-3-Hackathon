@@ -86,7 +86,7 @@ export const InterventionTracking = () => {
           </div>
           <div className="flex items-center gap-1 px-2 py-1 rounded bg-accent/10 border border-accent/30">
             <Award className="w-3 h-3 text-accent" />
-            <span className="text-xs text-accent font-medium">U.S. Patent Filed</span>
+            <span className="text-xs text-accent font-medium">U.S. Patent Application Filed</span>
           </div>
         </div>
       </CardHeader>
@@ -185,13 +185,13 @@ export const InterventionTracking = () => {
             the clinical utility of AI-guided interventions through real-world outcome tracking.
           </p>
           <p className="mt-2 text-[10px] text-accent">
-            U.S. Patent Filed
+            U.S. Patent Application Filed
           </p>
         </div>
       </CardContent>
       <CardFooter className="pt-0">
         <p className="text-[9px] text-muted-foreground w-full text-center">
-          NSO Quality Dashboard – 5 U.S. Patent Applications Filed
+          VitaSignal™ – 5 U.S. Patent Applications Filed
         </p>
       </CardFooter>
     </Card>

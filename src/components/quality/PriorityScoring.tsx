@@ -192,7 +192,7 @@ export const PriorityScoring = () => {
               Weighted composite scoring integrates current risk, trajectory dynamics, forecast uncertainty, 
               and temporal factors to optimize allocation of limited clinical attention.
             </span>
-            <p className="text-accent mt-1">U.S. Patent Filed</p>
+            <p className="text-accent mt-1">U.S. Patent Application Filed</p>
           </div>
         </div>
       </div>

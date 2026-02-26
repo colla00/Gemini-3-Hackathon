@@ -71,17 +71,17 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'patent-trust-alerts': {
     title: 'Trust-Based Alert System',
-    subtitle: 'U.S. Patent Filed · Dynamic Precision Thresholds',
+    subtitle: 'U.S. Patent Application Filed · Dynamic Precision Thresholds',
     citation: 'Target: 87% alert reduction (simulated)',
   },
   'patent-equity': {
     title: 'Real-Time Equity Monitoring Engine',
-    subtitle: 'U.S. Patent Filed · Demographic Bias Auditing',
+    subtitle: 'U.S. Patent Application Filed · Demographic Bias Auditing',
     citation: '<0.5% disparity threshold maintained',
   },
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
-    subtitle: 'U.S. Patent Filed · Weighted Feature Analysis',
+    subtitle: 'U.S. Patent Application Filed · Weighted Feature Analysis',
     citation: 'Validated on 321,719 patients, 208 hospitals',
   },
   'patent-validation-charts': {
@@ -91,22 +91,22 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'patent-neural-reasoning': {
     title: 'Neural Reasoning Engine',
-    subtitle: 'U.S. Patent Filed · Chain-of-Thought Clinical AI',
+    subtitle: 'U.S. Patent Application Filed · Chain-of-Thought Clinical AI',
     citation: '94% expert agreement rate',
   },
   'patent-cognitive-load': {
     title: 'Cognitive Load Optimizer',
-    subtitle: 'U.S. Patent Filed · Workload-Adaptive Thresholds',
+    subtitle: 'U.S. Patent Application Filed · Workload-Adaptive Thresholds',
     citation: 'Target: 2.3 minutes saved per decision (simulated)',
   },
   'patent-trust-score': {
     title: 'Trust Score Algorithm',
-    subtitle: 'U.S. Patent Filed · Composite Reliability Scoring',
+    subtitle: 'U.S. Patent Application Filed · Composite Reliability Scoring',
     citation: 'Weighted reliability composite',
   },
   'patent-performance': {
     title: 'Performance Comparison',
-    subtitle: 'U.S. Patent Filed · Validated Results',
+    subtitle: 'U.S. Patent Application Filed · Validated Results',
     citation: 'Target: 87% alert reduction (simulated)',
   },
 };

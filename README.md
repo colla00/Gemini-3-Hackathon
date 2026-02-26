@@ -1,4 +1,4 @@
-# NSO Quality Dashboard
+# VitaSignal™
 
 ## Gemini 3 Hackathon 2026 Submission
 
@@ -10,13 +10,13 @@
 
 ## 🏆 Project Overview
 
-The NSO Quality Dashboard is an **AI-powered clinical decision support system** that predicts patient deterioration in ICU/hospital settings. This submission integrates **Google Gemini 3** to enhance clinical workflows with natural language understanding and reasoning capabilities.
+VitaSignal™ is an **AI-powered clinical decision support system** that predicts patient deterioration in ICU/hospital settings. This submission integrates **Google Gemini 3** to enhance clinical workflows with natural language understanding and reasoning capabilities.
 
 ### Core Features (Pre-Hackathon)
 - ML-based patient deterioration prediction
 - SHAP explainability for risk factors
 - Temporal forecasting with confidence intervals
-- 4 U.S. Patents Filed
+- 5 U.S. Patent Applications Filed
 - Presented at Stanford AI+Health 2025
 
 ### New Gemini 3 Features (Hackathon Integration)
@@ -207,7 +207,7 @@ The project uses Lovable Cloud which automatically provisions:
 2. **Multiple Gemini 3 Features** - 4 distinct AI-powered capabilities
 3. **Explainable AI** - Transparent reasoning for clinical trust
 4. **Health Equity Focus** - Aligns with AIM-AHEAD initiative
-5. **Patent Protection** - 4 U.S. Patents Filed
+5. **Patent Protection** - 5 U.S. Patent Applications Filed
 6. **Production Ready** - Full error handling, loading states, accessibility
 
 ---

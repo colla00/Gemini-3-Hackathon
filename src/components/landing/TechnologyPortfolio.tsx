@@ -17,7 +17,7 @@ const systems = [
     name: "ChartMinder™ - Trust-Based Alerts",
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
-    status: "Patent Filed",
+    status: "Patent Application Filed",
     metric: "Target: 87% alert reduction",
   },
   {
@@ -25,7 +25,7 @@ const systems = [
     name: "Clinical Risk Intelligence",
     patent: "#3",
     desc: "Integrated explainability with SHAP, temporal forecasting, adaptive thresholds, and closed-loop intervention feedback.",
-    status: "Patent Filed",
+    status: "Patent Application Filed",
     metric: "Designed: 4-48h forecasting",
   },
   {
@@ -33,7 +33,7 @@ const systems = [
     name: "Unified Nursing Intelligence",
     patent: "#4",
     desc: "Integrated platform combining workload prediction, risk intelligence, and trust-based alerts with equity monitoring.",
-    status: "Patent Filed",
+    status: "Patent Application Filed",
     metric: "Target: 3.8M RNs",
   },
   {

@@ -94,7 +94,7 @@ export const AIWorkflowPipeline = ({
           </h3>
         </div>
         <span className="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded-full font-medium border border-primary/20">
-          Claim 3 · U.S. Patent Filed
+          Claim 3 · U.S. Patent Application Filed
         </span>
       </div>
 
