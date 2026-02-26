@@ -99,10 +99,11 @@ async function fetchRenderedPage(url: string): Promise<{ html: string; markdown:
  *  - Setext style: text followed by === (h1) or --- (h2)
  *  - Jina sometimes omits # prefixes and uses only underline-style headings
  */
-function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[]; h3: string[] } {
+function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[]; h3: string[]; h4: string[] } {
   const h1s: string[] = [];
   const h2s: string[] = [];
   const h3s: string[] = [];
+  const h4s: string[] = [];
 
   const addUnique = (arr: string[], text: string) => {
     const clean = text.replace(/\*\*/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').trim();
@@ -116,7 +117,9 @@ function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[]
     const trimmed = lines[i].trim();
 
     // ATX-style headings
-    if (/^### (?!#)/.test(trimmed)) {
+    if (/^#### (?!#)/.test(trimmed)) {
+      addUnique(h4s, trimmed.replace(/^#### /, ''));
+    } else if (/^### (?!#)/.test(trimmed)) {
       addUnique(h3s, trimmed.replace(/^### /, ''));
     } else if (/^## (?!#)/.test(trimmed)) {
       addUnique(h2s, trimmed.replace(/^## /, ''));
@@ -146,7 +149,7 @@ function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[]
     }
   }
 
-  return { h1: h1s, h2: h2s, h3: h3s };
+  return { h1: h1s, h2: h2s, h3: h3s, h4: h4s };
 }
 
 /** Count brand name mentions in text */
@@ -285,7 +288,8 @@ Deno.serve(async (req) => {
           h1: mdHeadings.h1,
           h2: mdHeadings.h2,
           h3: mdHeadings.h3,
-          source: (mdHeadings.h1.length > 0 || mdHeadings.h2.length > 0 || mdHeadings.h3.length > 0) ? 'markdown' : 'none',
+          h4: mdHeadings.h4,
+          source: (mdHeadings.h1.length > 0 || mdHeadings.h2.length > 0 || mdHeadings.h3.length > 0 || mdHeadings.h4.length > 0) ? 'markdown' : 'none',
         };
 
         // FIX #3: brand_mentions is the primary trademark metric
@@ -361,7 +365,7 @@ Deno.serve(async (req) => {
               js_rendered: rendered,
               brand_mentions: totalBrandMentions,
               brand_detail: brandMentions,
-              headings_found: mdHeadings.h1.length + mdHeadings.h2.length + mdHeadings.h3.length,
+              headings_found: mdHeadings.h1.length + mdHeadings.h2.length + mdHeadings.h3.length + mdHeadings.h4.length,
             });
           }
         } else {
