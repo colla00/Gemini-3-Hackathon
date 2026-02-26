@@ -103,15 +103,15 @@ Admin-only access is appropriate for reviewing access requests.
 
 ---
 
-## Remaining Medium-Priority Items
+## Remaining Medium-Priority Items — ALL RESOLVED
 
-### 10. Session Data via public_sessions View — OPEN
-**Severity:** WARN  
-No RLS policies on the `public_sessions` view. Session keys and presenter names are accessible. This is intentional for the audience join flow but should be documented.
+### 10. Session Data via public_sessions View — DOCUMENTED
+**Severity:** WARN → ACCEPTED  
+Added database COMMENT documenting rationale: intentionally public view for audience join flow, exposes only non-sensitive session metadata (session_key, presenter_name, slide counts). No RLS needed.
 
-### 11. Extensions in Public Schema — OPEN
-**Severity:** WARN  
-Some extensions installed in the `public` schema. Consider moving to a dedicated `extensions` schema to reduce attack surface. Low risk, no user data exposure.
+### 11. Extensions in Public Schema — ACCEPTED
+**Severity:** WARN → ACCEPTED  
+Only `pg_net` remains in public schema. It does not support `ALTER EXTENSION SET SCHEMA` (Postgres limitation). No data exposure risk — only provides HTTP client functions for backend cron jobs.
 
 ---
 
