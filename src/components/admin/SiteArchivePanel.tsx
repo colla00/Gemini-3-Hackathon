@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { Archive, Camera, Clock, FileText, Download, RefreshCw, ExternalLink, CheckCircle2, AlertTriangle, Globe, Shield, Heading1 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
+import { ArchiveDiffView } from '@/components/admin/ArchiveDiffView';
 
 interface SiteArchive {
   id: string;
@@ -642,7 +643,14 @@ export const SiteArchivePanel = () => {
 
                                 <Separator />
 
-                                {/* Raw metadata */}
+                                {/* Content Diff */}
+                                <ArchiveDiffView
+                                  currentArchiveId={selectedArchive.id}
+                                  pageUrl={selectedArchive.page_url}
+                                  capturedAt={selectedArchive.captured_at}
+                                />
+
+                                <Separator />
                                 {selectedArchive.metadata && (
                                   <details className="text-xs">
                                     <summary className="cursor-pointer text-muted-foreground hover:text-foreground">Raw Metadata JSON</summary>
