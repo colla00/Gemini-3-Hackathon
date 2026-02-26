@@ -357,6 +357,7 @@ export const SiteArchivePanel = () => {
                   <TableHead>Page</TableHead>
                   <TableHead>Content Hash</TableHead>
                   <TableHead>Brand Mentions</TableHead>
+                  <TableHead>Headings</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Notes</TableHead>
                   <TableHead className="w-20">Actions</TableHead>
@@ -414,7 +415,26 @@ export const SiteArchivePanel = () => {
                        ) : (
                          <span className="text-xs text-muted-foreground">0</span>
                        )}
-                     </TableCell>
+                    </TableCell>
+                    <TableCell>
+                      {(() => {
+                        const hdgs = meta?.headings as Headings | undefined;
+                        const h1 = hdgs?.h1?.length ?? 0;
+                        const h2 = hdgs?.h2?.length ?? 0;
+                        const h3 = hdgs?.h3?.length ?? 0;
+                        const h4 = hdgs?.h4?.length ?? 0;
+                        const total = h1 + h2 + h3 + h4;
+                        if (total === 0) return <span className="text-xs text-muted-foreground">—</span>;
+                        return (
+                          <div className="flex gap-0.5 flex-wrap">
+                            {h1 > 0 && <Badge variant="outline" className="text-[10px] px-1 py-0">H1×{h1}</Badge>}
+                            {h2 > 0 && <Badge variant="outline" className="text-[10px] px-1 py-0">H2×{h2}</Badge>}
+                            {h3 > 0 && <Badge variant="outline" className="text-[10px] px-1 py-0 border-muted-foreground/30">H3×{h3}</Badge>}
+                            {h4 > 0 && <Badge variant="outline" className="text-[10px] px-1 py-0 border-muted-foreground/20">H4×{h4}</Badge>}
+                          </div>
+                        );
+                      })()}
+                    </TableCell>
                     <TableCell>{getTriggerBadge(archive.trigger_type)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground truncate max-w-[150px]">
                       {archive.notes || '—'}
