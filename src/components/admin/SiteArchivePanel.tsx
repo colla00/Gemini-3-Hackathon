@@ -267,44 +267,49 @@ export const SiteArchivePanel = () => {
               </TableHeader>
               <TableBody>
                 {filteredArchives.map((archive) => {
-                  const meta = archive.metadata as Record<string, unknown> | null;
-                  const tmEvidence = meta?.trademark_evidence as { marks_found?: string[]; total_mentions?: number } | undefined;
-                  const tmCount = tmEvidence?.total_mentions ?? 0;
-                  const marksFound = tmEvidence?.marks_found ?? [];
-                  return (
-                  <TableRow key={archive.id}>
-                    <TableCell className="text-sm whitespace-nowrap">
-                      {new Date(archive.captured_at).toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <span className="text-sm font-medium truncate max-w-[200px]">
-                          {archive.page_title || archive.page_url}
-                        </span>
-                        <a 
-                          href={archive.page_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-primary"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
-                        {archive.content_hash.substring(0, 12)}...
-                      </code>
-                    </TableCell>
-                    <TableCell>
-                      {tmCount > 0 ? (
-                        <Badge className="bg-primary/20 text-primary border-primary/30">
-                          <Shield className="w-3 h-3 mr-1" />{tmCount}
-                        </Badge>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">0</span>
-                      )}
-                    </TableCell>
+                   const meta = archive.metadata as Record<string, unknown> | null;
+                   const tmEvidence = meta?.trademark_evidence as { marks_found?: string[]; total_mentions?: number; brand_mentions?: Record<string, number>; total_brand_mentions?: number } | undefined;
+                   const tmCount = tmEvidence?.total_mentions ?? 0;
+                   const brandCount = tmEvidence?.total_brand_mentions ?? 0;
+                   const displayCount = tmCount > 0 ? tmCount : brandCount;
+                   const isRendered = meta?.js_rendered === true;
+                   return (
+                   <TableRow key={archive.id}>
+                     <TableCell className="text-sm whitespace-nowrap">
+                       {new Date(archive.captured_at).toLocaleString()}
+                     </TableCell>
+                     <TableCell>
+                       <div className="flex items-center gap-1">
+                         <span className="text-sm font-medium truncate max-w-[200px]">
+                           {archive.page_title || archive.page_url}
+                         </span>
+                         {isRendered && (
+                           <Badge variant="outline" className="text-[10px] px-1 py-0 ml-1 border-primary/30 text-primary">JS</Badge>
+                         )}
+                         <a 
+                           href={archive.page_url} 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           className="text-muted-foreground hover:text-primary"
+                         >
+                           <ExternalLink className="w-3 h-3" />
+                         </a>
+                       </div>
+                     </TableCell>
+                     <TableCell>
+                       <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
+                         {archive.content_hash.substring(0, 12)}...
+                       </code>
+                     </TableCell>
+                     <TableCell>
+                       {displayCount > 0 ? (
+                         <Badge className="bg-primary/20 text-primary border-primary/30">
+                           <Shield className="w-3 h-3 mr-1" />{displayCount}
+                         </Badge>
+                       ) : (
+                         <span className="text-xs text-muted-foreground">0</span>
+                       )}
+                     </TableCell>
                     <TableCell>{getTriggerBadge(archive.trigger_type)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground truncate max-w-[150px]">
                       {archive.notes || '—'}
@@ -384,32 +389,57 @@ export const SiteArchivePanel = () => {
                                 <Separator />
 
                                 {/* Trademark Evidence */}
-                                {(() => {
-                                  const m = selectedArchive.metadata as Record<string, unknown> | null;
-                                  const tm = m?.trademark_evidence as { marks_found?: string[]; total_mentions?: number } | undefined;
-                                  return tm ? (
-                                    <div>
-                                      <div className="flex items-center gap-1.5 mb-2">
-                                        <Shield className="w-4 h-4 text-primary" />
-                                        <span className="font-semibold text-xs">Trademark Evidence</span>
-                                      </div>
-                                      <div className="grid grid-cols-2 gap-2">
-                                        <div className="p-2 rounded bg-secondary/30 border border-border">
-                                          <p className="text-xs text-muted-foreground">Total Mentions</p>
-                                          <p className="text-lg font-bold">{tm.total_mentions ?? 0}</p>
-                                        </div>
-                                        <div className="p-2 rounded bg-secondary/30 border border-border">
-                                          <p className="text-xs text-muted-foreground">Marks Found</p>
-                                          <div className="flex flex-wrap gap-1 mt-1">
-                                            {(tm.marks_found?.length ?? 0) > 0 ? tm.marks_found!.map((mark, i) => (
-                                              <Badge key={i} variant="secondary" className="text-xs">{mark}</Badge>
-                                            )) : <span className="text-xs text-muted-foreground">None (SPA shell)</span>}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  ) : null;
-                                })()}
+                                 {(() => {
+                                   const m = selectedArchive.metadata as Record<string, unknown> | null;
+                                   const tm = m?.trademark_evidence as { marks_found?: string[]; total_mentions?: number; brand_mentions?: Record<string, number>; total_brand_mentions?: number } | undefined;
+                                   const renderMethod = m?.rendering_method as string | undefined;
+                                   const jsRendered = m?.js_rendered === true;
+                                   return (
+                                     <div className="space-y-3">
+                                       {/* Rendering Method */}
+                                       <div className="p-2 rounded bg-secondary/30 border border-border">
+                                         <p className="text-xs text-muted-foreground">Rendering Method</p>
+                                         <div className="flex items-center gap-2 mt-1">
+                                           <Badge variant={jsRendered ? "default" : "secondary"} className="text-xs">
+                                             {jsRendered ? '✓ Headless Browser (JS Rendered)' : 'Basic Fetch (SPA Shell)'}
+                                           </Badge>
+                                           {renderMethod && <span className="text-xs text-muted-foreground">({renderMethod})</span>}
+                                         </div>
+                                       </div>
+
+                                       {tm && (
+                                         <>
+                                           <div className="flex items-center gap-1.5 mb-2">
+                                             <Shield className="w-4 h-4 text-primary" />
+                                             <span className="font-semibold text-xs">Trademark Evidence</span>
+                                           </div>
+                                           <div className="grid grid-cols-2 gap-2">
+                                             <div className="p-2 rounded bg-secondary/30 border border-border">
+                                               <p className="text-xs text-muted-foreground">™ Formal Marks</p>
+                                               <p className="text-lg font-bold">{tm.total_mentions ?? 0}</p>
+                                               <div className="flex flex-wrap gap-1 mt-1">
+                                                 {(tm.marks_found?.length ?? 0) > 0 ? tm.marks_found!.map((mark, i) => (
+                                                   <Badge key={i} variant="secondary" className="text-xs">{mark}</Badge>
+                                                 )) : <span className="text-[10px] text-muted-foreground">No ™ symbols in rendered text</span>}
+                                               </div>
+                                             </div>
+                                             <div className="p-2 rounded bg-secondary/30 border border-border">
+                                               <p className="text-xs text-muted-foreground">Brand Name Mentions</p>
+                                               <p className="text-lg font-bold">{tm.total_brand_mentions ?? 0}</p>
+                                               <div className="flex flex-wrap gap-1 mt-1">
+                                                 {tm.brand_mentions && Object.entries(tm.brand_mentions).map(([brand, count]) => (
+                                                   <Badge key={brand} variant="outline" className="text-xs">
+                                                     {brand} ×{count as number}
+                                                   </Badge>
+                                                 ))}
+                                               </div>
+                                             </div>
+                                           </div>
+                                         </>
+                                       )}
+                                     </div>
+                                   );
+                                 })()}
 
                                 {/* Open Graph */}
                                 {(() => {
