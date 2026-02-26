@@ -94,35 +94,59 @@ async function fetchRenderedPage(url: string): Promise<{ html: string; markdown:
   return { html, markdown: htmlToMarkdown(html), rendered: false };
 }
 
-/** Extract headings from markdown content (# H1, ## H2) */
-function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[] } {
+/** Extract headings from markdown content — handles Jina Reader formatting variations:
+ *  - ATX style: # H1, ## H2, ### H3
+ *  - Setext style: text followed by === (h1) or --- (h2)
+ *  - Jina sometimes omits # prefixes and uses only underline-style headings
+ */
+function extractMarkdownHeadings(markdown: string): { h1: string[]; h2: string[]; h3: string[] } {
   const h1s: string[] = [];
   const h2s: string[] = [];
-  
-  for (const line of markdown.split('\n')) {
-    const trimmed = line.trim();
-    // Match ## but not ### (h2 only)
-    if (/^## (?!#)/.test(trimmed)) {
-      const text = trimmed.replace(/^## /, '').replace(/\*\*/g, '').trim();
-      if (text && !h2s.includes(text)) h2s.push(text);
-    }
-    // Match # but not ## (h1 only) — also handle === underline style
-    else if (/^# (?!#)/.test(trimmed)) {
-      const text = trimmed.replace(/^# /, '').replace(/\*\*/g, '').trim();
-      if (text && !h1s.includes(text)) h1s.push(text);
-    }
-  }
+  const h3s: string[] = [];
 
-  // Also check for underline-style headings (text followed by ===)
+  const addUnique = (arr: string[], text: string) => {
+    const clean = text.replace(/\*\*/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').trim();
+    if (clean && clean.length > 1 && clean.length < 200 && !arr.includes(clean)) {
+      arr.push(clean);
+    }
+  };
+
   const lines = markdown.split('\n');
-  for (let i = 0; i < lines.length - 1; i++) {
-    if (/^={3,}\s*$/.test(lines[i + 1].trim()) && lines[i].trim().length > 0) {
-      const text = lines[i].trim().replace(/\*\*/g, '');
-      if (text && !h1s.includes(text)) h1s.push(text);
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+
+    // ATX-style headings
+    if (/^### (?!#)/.test(trimmed)) {
+      addUnique(h3s, trimmed.replace(/^### /, ''));
+    } else if (/^## (?!#)/.test(trimmed)) {
+      addUnique(h2s, trimmed.replace(/^## /, ''));
+    } else if (/^# (?!#)/.test(trimmed)) {
+      addUnique(h1s, trimmed.replace(/^# /, ''));
+    }
+
+    // Setext-style: check if NEXT line is === or ---
+    if (i < lines.length - 1 && trimmed.length > 0) {
+      const nextTrimmed = lines[i + 1].trim();
+      // H1: text followed by ===
+      if (/^={3,}\s*$/.test(nextTrimmed) && !/^[#\-*>|`]/.test(trimmed)) {
+        addUnique(h1s, trimmed);
+      }
+      // H2: text followed by --- (but not a horizontal rule after blank line)
+      if (/^-{3,}\s*$/.test(nextTrimmed) && !/^[#\-*>|`]/.test(trimmed)) {
+        // Only treat as h2 if the previous line isn't blank (avoids HR)
+        const prevBlank = i === 0 || lines[i - 1].trim() === '';
+        // Jina uses --- for h2 even after blank lines, so check content length
+        if (trimmed.length > 2 && !prevBlank) {
+          addUnique(h2s, trimmed);
+        } else if (trimmed.length > 2) {
+          // Could be h2 or HR — if text looks like a heading, treat as h2
+          addUnique(h2s, trimmed);
+        }
+      }
     }
   }
 
-  return { h1: h1s, h2: h2s };
+  return { h1: h1s, h2: h2s, h3: h3s };
 }
 
 /** Count brand name mentions in text */
@@ -258,9 +282,10 @@ Deno.serve(async (req) => {
         // Also try HTML headings as fallback
         const htmlMeta = extractHtmlMeta(htmlContent);
         const headings = {
-          h1: mdHeadings.h1.length > 0 ? mdHeadings.h1 : (htmlMeta.has_structured_data ? [] : []),
-          h2: mdHeadings.h2.length > 0 ? mdHeadings.h2 : [],
-          source: mdHeadings.h1.length > 0 || mdHeadings.h2.length > 0 ? 'markdown' : 'html',
+          h1: mdHeadings.h1,
+          h2: mdHeadings.h2,
+          h3: mdHeadings.h3,
+          source: (mdHeadings.h1.length > 0 || mdHeadings.h2.length > 0 || mdHeadings.h3.length > 0) ? 'markdown' : 'none',
         };
 
         // FIX #3: brand_mentions is the primary trademark metric
@@ -336,7 +361,7 @@ Deno.serve(async (req) => {
               js_rendered: rendered,
               brand_mentions: totalBrandMentions,
               brand_detail: brandMentions,
-              headings_found: mdHeadings.h1.length + mdHeadings.h2.length,
+              headings_found: mdHeadings.h1.length + mdHeadings.h2.length + mdHeadings.h3.length,
             });
           }
         } else {
