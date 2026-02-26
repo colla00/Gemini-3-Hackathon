@@ -180,9 +180,54 @@ export const SiteArchivePanel = () => {
     }
   };
 
-  // Integrity check: flag if all hashes are identical (shell-only problem)
+  // Integrity check: detect shell-only captures per batch (same captured_at minute = same batch)
+  const integrityReport = (() => {
+    // Group archives by capture batch (same minute)
+    const batches = new Map<string, SiteArchive[]>();
+    for (const a of archives) {
+      const batchKey = a.captured_at.substring(0, 16); // YYYY-MM-DDTHH:MM
+      if (!batches.has(batchKey)) batches.set(batchKey, []);
+      batches.get(batchKey)!.push(a);
+    }
+
+    let shellOnlyCount = 0;
+    const shellOnlyHashes = new Set<string>();
+    
+    for (const [, batch] of batches) {
+      if (batch.length < 2) continue;
+      const hashes = new Set(batch.map(a => a.content_hash));
+      // If all pages in a batch share the same hash, it's a shell-only capture
+      if (hashes.size === 1) {
+        shellOnlyCount += batch.length;
+        shellOnlyHashes.add(batch[0].content_hash);
+      }
+    }
+
+    // Also flag individual snapshots missing hash_source=markdown
+    const legacySnapshots = archives.filter(a => {
+      const meta = a.metadata as Record<string, unknown> | null;
+      return !meta?.hash_source || meta.hash_source !== 'markdown';
+    });
+
+    return {
+      shellOnlyCount,
+      shellOnlyHashes,
+      legacyCount: legacySnapshots.length,
+      totalV4: archives.filter(a => {
+        const meta = a.metadata as Record<string, unknown> | null;
+        return (meta?.captured_by as string)?.includes('4.0');
+      }).length,
+      hasIssues: shellOnlyCount > 0 || legacySnapshots.length > 0,
+    };
+  })();
+
+  // Helper to check if a snapshot is a shell-only capture
+  const isShellOnly = (archive: SiteArchive) => {
+    return integrityReport.shellOnlyHashes.has(archive.content_hash) && 
+      !((archive.metadata as Record<string, unknown>)?.hash_source === 'markdown');
+  };
+
   const uniqueHashes = new Set(archives.map(a => a.content_hash)).size;
-  const hasIntegrityWarning = archives.length > 1 && uniqueHashes === 1;
 
   return (
     <Card>
@@ -209,15 +254,28 @@ export const SiteArchivePanel = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Integrity Warning */}
-        {hasIntegrityWarning && (
+        {integrityReport.hasIssues && (
           <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-            <div className="text-sm">
-              <p className="font-medium text-destructive">Data Integrity Warning</p>
-              <p className="text-muted-foreground text-xs mt-1">
-                All {archives.length} snapshots share the same content hash. This may indicate the archiver captured the SPA shell instead of rendered content. 
-                Re-capture with the latest archiver (v4.0+) which hashes markdown content.
-              </p>
+            <div className="text-sm space-y-1">
+              <p className="font-medium text-destructive">Data Integrity Issues Detected</p>
+              {integrityReport.shellOnlyCount > 0 && (
+                <p className="text-muted-foreground text-xs">
+                  <strong>{integrityReport.shellOnlyCount}</strong> snapshots appear to be SPA shell-only captures 
+                  (all pages in a batch share the same content hash). These are flagged with ⚠️ below.
+                </p>
+              )}
+              {integrityReport.legacyCount > 0 && (
+                <p className="text-muted-foreground text-xs">
+                  <strong>{integrityReport.legacyCount}</strong> snapshots were captured with an older archiver version 
+                  (hash derived from HTML shell, not rendered markdown). Re-capture with v4.0+ for reliable evidence.
+                </p>
+              )}
+              {integrityReport.totalV4 > 0 && (
+                <p className="text-xs text-primary">
+                  ✓ {integrityReport.totalV4} snapshots captured with v4.0 (markdown-hashed, reliable).
+                </p>
+              )}
             </div>
           </div>
         )}
@@ -309,8 +367,9 @@ export const SiteArchivePanel = () => {
                    const brandCount = tmEvidence?.total_brand_mentions ?? tmEvidence?.total_mentions ?? 0;
                    const isRendered = meta?.js_rendered === true;
                    const hashSource = meta?.hash_source as string | undefined;
+                   const shellOnly = isShellOnly(archive);
                    return (
-                   <TableRow key={archive.id}>
+                   <TableRow key={archive.id} className={shellOnly ? 'opacity-60' : ''}>
                      <TableCell className="text-sm whitespace-nowrap">
                        {new Date(archive.captured_at).toLocaleString()}
                      </TableCell>
@@ -336,9 +395,14 @@ export const SiteArchivePanel = () => {
                        </div>
                      </TableCell>
                      <TableCell>
-                       <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
-                         {archive.content_hash.substring(0, 12)}...
-                       </code>
+                       <div className="flex items-center gap-1">
+                         <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
+                           {archive.content_hash.substring(0, 12)}...
+                         </code>
+                         {shellOnly && (
+                           <span title="Shell-only capture — hash is from SPA shell, not rendered content" className="cursor-help">⚠️</span>
+                         )}
+                       </div>
                      </TableCell>
                      <TableCell>
                        {brandCount > 0 ? (
