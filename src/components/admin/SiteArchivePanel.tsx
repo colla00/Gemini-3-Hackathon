@@ -11,6 +11,7 @@ import { Archive, Camera, Clock, FileText, Download, RefreshCw, ExternalLink, Ch
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { ArchiveDiffView } from '@/components/admin/ArchiveDiffView';
+import { PageChangelogTimeline } from '@/components/admin/PageChangelogTimeline';
 
 interface SiteArchive {
   id: string;
@@ -388,16 +389,20 @@ export const SiteArchivePanel = () => {
                          {hashSource === 'markdown' && (
                            <Badge variant="outline" className="text-[10px] px-1 py-0 border-primary/30 text-primary">MD</Badge>
                          )}
-                         <a 
-                           href={archive.page_url} 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           className="text-muted-foreground hover:text-primary"
-                         >
-                           <ExternalLink className="w-3 h-3" />
-                         </a>
-                       </div>
-                     </TableCell>
+                          <a 
+                            href={archive.page_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-primary"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                          <PageChangelogTimeline
+                            pageUrl={archive.page_url}
+                            pageLabel={archive.page_title || archive.page_url}
+                          />
+                        </div>
+                      </TableCell>
                      <TableCell>
                        <div className="flex items-center gap-1">
                          <code className="text-xs bg-secondary/50 px-1.5 py-0.5 rounded font-mono">
