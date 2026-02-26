@@ -126,6 +126,8 @@ export const SiteArchivePanel = () => {
         content_length: (a.metadata as Record<string, unknown>)?.content_length,
         trigger_type: a.trigger_type,
         notes: a.notes,
+        html_content: a.html_content,
+        metadata: a.metadata,
       })),
     };
 
