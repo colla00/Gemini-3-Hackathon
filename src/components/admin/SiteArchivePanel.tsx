@@ -36,6 +36,7 @@ type Headings = {
   h1?: string[];
   h2?: string[];
   h3?: string[];
+  h4?: string[];
   source?: string;
 };
 
@@ -545,7 +546,7 @@ export const SiteArchivePanel = () => {
                                 )}
 
                                 {/* Headings Structure */}
-                                {headings && ((headings.h1?.length ?? 0) > 0 || (headings.h2?.length ?? 0) > 0 || (headings.h3?.length ?? 0) > 0) && (
+                                {headings && ((headings.h1?.length ?? 0) > 0 || (headings.h2?.length ?? 0) > 0 || (headings.h3?.length ?? 0) > 0 || (headings.h4?.length ?? 0) > 0) && (
                                   <div>
                                     <div className="flex items-center gap-1.5 mb-2">
                                       <Heading1 className="w-4 h-4 text-primary" />
@@ -571,6 +572,12 @@ export const SiteArchivePanel = () => {
                                         <div key={`h3-${i}`} className="flex gap-2 pl-2">
                                           <Badge variant="outline" className="text-[10px] px-1 py-0 border-muted-foreground/30">H3</Badge>
                                           <span className="text-muted-foreground/80">{h}</span>
+                                        </div>
+                                      ))}
+                                      {(headings.h4 ?? []).map((h, i) => (
+                                        <div key={`h4-${i}`} className="flex gap-2 pl-4">
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0 border-muted-foreground/20">H4</Badge>
+                                          <span className="text-muted-foreground/60">{h}</span>
                                         </div>
                                       ))}
                                     </div>
