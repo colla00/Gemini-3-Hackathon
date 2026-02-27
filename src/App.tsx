@@ -43,6 +43,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy").then(m => ({ de
 const Regulatory = lazy(() => import("./pages/Regulatory"));
 const ANIA2026Poster = lazy(() => import("./pages/ANIA2026Poster"));
 const QRCodeDownload = lazy(() => import("./pages/QRCodeDownload"));
+const PressRelease = lazy(() => import("./pages/PressRelease"));
 
 const queryClient = new QueryClient();
 
@@ -160,6 +161,11 @@ const App = () => {
                   <Route path="/ania2026/qr" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <QRCodeDownload />
+                    </Suspense>
+                  } />
+                  <Route path="/press" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <PressRelease />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
