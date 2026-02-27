@@ -61,8 +61,8 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'research-validation': {
     title: 'Clinical Validation at Scale',
-    subtitle: '321,719 Patients • 208 Hospitals',
-    citation: 'Clinical AI Fellowship Research',
+    subtitle: '382K+ Patients • MIMIC-IV + HiRID + eICU',
+    citation: 'JAMIA & npj Digital Medicine · NIH-Funded',
   },
   'patent-portfolio': {
     title: 'Patent Portfolio Overview',
@@ -82,7 +82,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
     subtitle: 'U.S. Patent Application Filed · Weighted Feature Analysis',
-    citation: 'Validated on 321,719 patients, 208 hospitals',
+    citation: 'DBS validated on 321,719 patients, 208 hospitals',
   },
   'patent-validation-charts': {
     title: 'Research Validation Visualizations',

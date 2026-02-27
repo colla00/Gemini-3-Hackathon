@@ -79,7 +79,7 @@ const processSteps = [
 const faqs = [
   { q: "What is the current IP status?", a: "Five U.S. provisional patent applications have been filed (December 2025 - February 2026). Non-provisional applications will be filed by December 2026 - February 2027. Licensing partners benefit from priority dates." },
   { q: "Is VitaSignal™ FDA cleared?", a: "No. VitaSignal™ is currently a research prototype. Licensing partners seeking clinical deployment will need to conduct their own FDA submission process (likely 510(k) pathway for Class II medical device software)." },
-  { q: "What clinical validation has been completed?", a: "Patent #1 (ICU Mortality) validated on 26,153 patients (AUC 0.683). Patent #5 (DBS) validated on 321,719 patients across 208 hospitals (AUROC 0.857). Detailed performance data available under NDA." },
+  { q: "What clinical validation has been completed?", a: "Patent #1 (ICU Mortality) validated on 60,050 patients (AUROC 0.683 MIMIC-IV, 0.906 HiRID). Patent #5 (DBS) validated on 321,719 patients across 208 hospitals (AUROC 0.802→0.857). DBS sensitivity 0.768, specificity 0.785 (external). Detailed performance data available under NDA." },
   { q: "Can we customize for our use case?", a: "Yes. License agreements can include co-development provisions for custom features, integration with proprietary systems, or adaptation to specific clinical workflows." },
   { q: "What about government rights under Bayh-Dole?", a: "Research was partially funded by NIH federal grants. Under the Bayh-Dole Act, the U.S. Government retains certain non-commercial use rights. Commercial licenses are unaffected." },
 ];

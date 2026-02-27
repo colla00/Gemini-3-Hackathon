@@ -31,7 +31,7 @@ export const FeaturedPatentCard = () => {
         ICU Mortality Prediction
       </h3>
       <p className="text-sm text-muted-foreground mb-4 leading-relaxed max-w-2xl">
-        Equipment-independent AI using EHR timestamp metadata as a "human sensor" to identify clinical phenotypes with significant mortality stratification in heart failure ICU patients (n=26,153).
+        Equipment-independent AI using EHR timestamp metadata as a "human sensor" to identify clinical phenotypes with significant mortality stratification in heart failure ICU patients (n=60,050 across MIMIC-IV &amp; HiRID).
       </p>
 
       {/* Metrics Row */}
@@ -46,14 +46,14 @@ export const FeaturedPatentCard = () => {
         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50 border border-border/30">
           <Users className="w-4 h-4 text-accent shrink-0" />
           <div>
-            <span className="text-sm font-bold text-foreground">26,153</span>
-            <span className="text-[10px] text-muted-foreground block">ICU Admissions</span>
+            <span className="text-sm font-bold text-foreground">60,050</span>
+            <span className="text-[10px] text-muted-foreground block">Total Patients</span>
           </div>
         </div>
         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50 border border-border/30">
           <Clock className="w-4 h-4 text-primary shrink-0" />
           <div>
-            <span className="text-sm font-bold text-foreground">9</span>
+            <span className="text-sm font-bold text-foreground">11</span>
             <span className="text-[10px] text-muted-foreground block">IDI Features</span>
           </div>
         </div>

@@ -14,7 +14,7 @@ const jsonLd = {
   "@type": "Organization",
   "name": "VitaSignal™",
   "url": "https://clinicaldashboard.lovable.app",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 321K+ patients across 208 hospitals.",
+  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 382K+ patients across 208+ hospitals.",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
@@ -29,7 +29,7 @@ export const Landing = () => {
   return (
     <SiteLayout
       title="Equipment-Independent Clinical AI | Nursing Documentation AI"
-      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 5 U.S. patent applications, 321K+ patients validated."
+      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 5 U.S. patent applications, 382K+ patients validated."
     >
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>

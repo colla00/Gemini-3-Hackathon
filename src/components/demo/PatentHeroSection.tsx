@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'Validated AUC', value: '0.683', detail: '95% CI: 0.631-0.732' },
-  { label: 'Cohort Size', value: '26,153', detail: 'ICU admissions' },
-  { label: 'Temporal Validation', value: '11 years', detail: '2008-2019' },
-  { label: 'Equity Validated', value: 'Pass', detail: 'AUC parity maintained', icon: true },
+  { label: 'JAMIA AUROC', value: '0.683', detail: '95% CI: 0.631-0.732' },
+  { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
+  { label: 'Total Cohort', value: '60,050', detail: 'MIMIC-IV + HiRID' },
+  { label: 'IDI Features', value: '11', detail: 'Temporal extraction' },
 ];
 
 const differentiators = [
@@ -29,9 +29,9 @@ export const PatentHeroSection = () => {
           VitaSignal™ Mortality
         </h2>
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          ICU Mortality Prediction via the Intensive Documentation Index (IDI).
-          Unlike traditional risk scores requiring manual data entry, IDI features
-          are automatically computable from existing EHR data.
+          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 11 temporal features.
+          Validated on 60,050 patients across MIMIC-IV and HiRID (Switzerland). IDI features
+          are automatically computable from existing EHR data — no additional hardware or sensors required.
         </p>
 
         <div className="flex flex-wrap items-center gap-2 mb-8">

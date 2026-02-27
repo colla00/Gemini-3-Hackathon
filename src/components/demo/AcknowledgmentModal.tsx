@@ -16,7 +16,7 @@ const ACKNOWLEDGMENTS = [
   'This platform is NOT FDA-cleared or approved for any clinical use.',
   'This is NOT intended for clinical decision-making of any kind.',
   'All data shown is SIMULATED DATA ONLY and does not represent real patients.',
-  'Patent #1 (ICU Mortality, n=26,153) and Patent #5 (DBS, N=321,719) have completed validation.',
+  'Patent #1 (ICU Mortality, n=60,050) and Patent #5 (DBS, N=321,719) have completed validation.',
   'Other components (Nursing, Alerts, Risk) are in the DESIGN PHASE with no clinical validation.',
   'This platform is for RESEARCH AND EDUCATIONAL PURPOSES ONLY.',
 ];

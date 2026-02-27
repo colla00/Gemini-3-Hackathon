@@ -81,7 +81,7 @@ const PHENOTYPES: Phenotype[] = [
 // ── Temporal Features ───────────────────────────────────────────────────────
 interface TemporalFeature {
   name: string;
-  domain: 'volume' | 'rhythm' | 'gaps';
+  domain: 'volume' | 'rhythm' | 'gaps' | 'temporal';
   or: number;
   ci: string;
   pValue: string;
@@ -90,13 +90,15 @@ interface TemporalFeature {
 
 // Manuscript Table 3: IDI Feature Associations with In-Hospital Mortality
 const TEMPORAL_FEATURES: TemporalFeature[] = [
-  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.38-1.70', pValue: '<0.001', description: 'Rhythm irregularity - strongest predictor of mortality' },
+  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.35-1.74', pValue: '<0.001', description: 'Rhythm irregularity - strongest predictor of mortality' },
   { name: 'Gap count >120 min', domain: 'gaps', or: 1.32, ci: '1.19-1.46', pValue: '<0.001', description: 'Number of extended surveillance gaps (>2 hours)' },
   { name: 'Maximum gap (min)', domain: 'gaps', or: 1.28, ci: '1.16-1.42', pValue: '<0.001', description: 'Longest period without documentation' },
   { name: 'Burstiness index', domain: 'rhythm', or: 1.24, ci: '1.12-1.38', pValue: '<0.001', description: 'Clustered vs evenly-spaced documentation (B=(σ−μ)/(σ+μ))' },
   { name: 'Gap count >60 min', domain: 'gaps', or: 1.19, ci: '1.08-1.31', pValue: '<0.001', description: 'Number of moderate surveillance gaps (>1 hour)' },
+  { name: 'Entropy', domain: 'temporal', or: 1.17, ci: '1.06-1.30', pValue: '0.002', description: 'Shannon entropy of documentation event distribution over time' },
   { name: 'Std dev inter-event intervals', domain: 'rhythm', or: 1.15, ci: '1.05-1.27', pValue: '0.003', description: 'Variability in time between consecutive events' },
   { name: 'Mean inter-event interval', domain: 'rhythm', or: 1.11, ci: '1.01-1.23', pValue: '0.032', description: 'Average time between consecutive documentation events' },
+  { name: 'Lag-1 Autocorrelation', domain: 'temporal', or: 1.08, ci: '0.98-1.19', pValue: '0.098', description: 'Temporal dependency between consecutive documentation intervals' },
   { name: 'Events per hour', domain: 'volume', or: 0.88, ci: '0.80-0.97', pValue: '0.009', description: 'Documentation rate - protective (higher = lower mortality)' },
   { name: 'Total events (24h)', domain: 'volume', or: 0.91, ci: '0.83-1.01', pValue: '0.081', description: 'Raw count - NOT independently significant' },
 ];
@@ -105,14 +107,15 @@ const DOMAIN_CONFIG = {
   volume: { label: 'Event Volume', color: 'bg-chart-1', textColor: 'text-chart-1', count: 2 },
   rhythm: { label: 'Rhythm Regularity', color: 'bg-chart-2', textColor: 'text-chart-2', count: 4 },
   gaps: { label: 'Surveillance Gaps', color: 'bg-chart-4', textColor: 'text-chart-4', count: 3 },
+  temporal: { label: 'Temporal Dynamics', color: 'bg-chart-3', textColor: 'text-chart-3', count: 2 },
 };
 
 // ── Pipeline Steps ──────────────────────────────────────────────────────────
 const PIPELINE_STEPS = [
   { icon: <Timer className="w-4 h-4" />, label: 'EHR Timestamps', desc: 'Raw metadata' },
-  { icon: <BarChart3 className="w-4 h-4" />, label: '9 IDI Features', desc: 'Temporal extraction' },
+  { icon: <BarChart3 className="w-4 h-4" />, label: '11 IDI Features', desc: 'Temporal extraction' },
   { icon: <Dna className="w-4 h-4" />, label: '4 Phenotypes', desc: 'K-means clustering' },
-  { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUC 0.683' },
+  { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUROC 0.683–0.906' },
 ];
 
 // ── Main Component ──────────────────────────────────────────────────────────
@@ -206,7 +209,7 @@ export const ICUMortalityPrediction = () => {
             </TabsTrigger>
             <TabsTrigger value="features" className="text-xs flex items-center gap-1.5">
               <BarChart3 className="w-3.5 h-3.5" />
-              9 IDI Features
+              11 IDI Features
             </TabsTrigger>
           </TabsList>
 
@@ -309,10 +312,10 @@ export const ICUMortalityPrediction = () => {
             {/* Validation stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { label: 'Cohort', value: '26,153', sub: 'ICU admissions' },
-                { label: 'Database', value: 'MIMIC-IV', sub: 'Validated' },
-                { label: 'AUC', value: '0.683', sub: '95% CI: 0.631-0.732' },
-                { label: 'p-value', value: '<0.001', sub: 'Significant' },
+                { label: 'Total Cohort', value: '60,050', sub: 'MIMIC-IV + HiRID' },
+                { label: 'JAMIA AUROC', value: '0.683', sub: '95% CI: 0.631-0.732' },
+                { label: 'HiRID AUROC', value: '0.906', sub: 'n=33,897 (Switzerland)' },
+                { label: 'IDI Features', value: '11', sub: 'Temporal extraction' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-muted/40 rounded-lg p-2.5 text-center border border-border/20">
                   <p className="text-sm font-bold text-foreground">{stat.value}</p>
@@ -389,7 +392,7 @@ export const ICUMortalityPrediction = () => {
             {/* Source attribution */}
             <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-lg p-2.5 border border-border/20">
               <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from regularized logistic regression.
-              Heart failure ICU cohort (n=26,153). Features extracted from first 24h of documentation timestamps.
+              Heart failure ICU cohort (n=26,153 MIMIC-IV, n=33,897 HiRID; total n=60,050). 11 IDI features extracted from first 24h of documentation timestamps.
             </div>
 
             <PatentBadge contextPatent="icu" />

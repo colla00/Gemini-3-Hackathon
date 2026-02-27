@@ -153,6 +153,19 @@ const StepValidation = () => (
         <p className="text-[10px] text-muted-foreground mt-1">eICU · 297,030 patients · 208 hospitals</p>
       </div>
     </div>
+    {/* Sensitivity / Specificity */}
+    <div className="grid grid-cols-2 gap-3">
+      <div className="bg-muted/30 rounded-lg p-3 border border-border/30">
+        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Internal (MIMIC-IV)</p>
+        <p className="text-xs text-muted-foreground">Sensitivity: <span className="font-semibold text-foreground">0.714</span> <span className="text-[10px]">[0.695–0.733]</span></p>
+        <p className="text-xs text-muted-foreground">Specificity: <span className="font-semibold text-foreground">0.732</span> <span className="text-[10px]">[0.718–0.746]</span></p>
+      </div>
+      <div className="bg-muted/30 rounded-lg p-3 border border-border/30">
+        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">External (eICU)</p>
+        <p className="text-xs text-muted-foreground">Sensitivity: <span className="font-semibold text-foreground">0.768</span> <span className="text-[10px]">[0.762–0.774]</span></p>
+        <p className="text-xs text-muted-foreground">Specificity: <span className="font-semibold text-foreground">0.785</span> <span className="text-[10px]">[0.781–0.789]</span></p>
+      </div>
+    </div>
     <div className="bg-risk-low/5 border border-risk-low/20 rounded-lg p-3">
       <p className="text-xs text-risk-low font-medium flex items-center gap-2">
         <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />

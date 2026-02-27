@@ -167,7 +167,7 @@ function About() {
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mt-4">
                 {[
-                  { icon: BookOpen, label: "Temporal Pattern Analysis", desc: "9 features extracted from documentation timing metadata" },
+                  { icon: BookOpen, label: "Temporal Pattern Analysis", desc: "11 features extracted from documentation timing metadata" },
                   { icon: Heart, label: "Clinical Phenotype Discovery", desc: "Unsupervised clustering to identify documentation behavior archetypes" },
                   { icon: Microscope, label: "Equity Validation", desc: "Systematic fairness testing across demographic subgroups" },
                   { icon: Award, label: "SHAP Explainability", desc: "Every prediction accompanied by interpretable feature attributions" },

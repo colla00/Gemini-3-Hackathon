@@ -3,10 +3,10 @@ import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const metrics = [
-  { label: "Patent #1 AUC", value: "0.683", detail: "ICU Mortality (n=26,153)" },
+  { label: "Patent #1 JAMIA", value: "0.683", detail: "MIMIC-IV (n=26,153)" },
+  { label: "Patent #1 HiRID", value: "0.906", detail: "External (n=33,897)" },
   { label: "Patent #5 AUROC", value: "0.857", detail: "DBS external (208 hospitals)" },
-  { label: "Strongest Predictor", value: "OR 1.53", detail: "Documentation rhythm (CV)" },
-  { label: "Total Validated", value: "321K+", detail: "Patients across both systems" },
+  { label: "Total Validated", value: "382K+", detail: "Patients across both systems" },
 ];
 
 const differentiators = [
@@ -45,7 +45,7 @@ export const ValidationSection = () => (
           </h2>
           <p className="text-primary-foreground/70 mb-8 leading-relaxed">
            Two patent systems have been validated on large-scale
-            clinical datasets with NIH-funded research support: ICU Mortality Prediction (AUC 0.683, n=26,153)
+            clinical datasets with NIH-funded research support: ICU Mortality Prediction (AUROC 0.683 MIMIC-IV, 0.906 HiRID; n=60,050)
             and DBS (AUROC 0.802→0.857, N=321,719 across 208 hospitals).
           </p>
 
@@ -96,9 +96,8 @@ export const ValidationSection = () => (
             <p className="text-xs text-primary-foreground/70 leading-relaxed">
               Unlike APACHE IV, SOFA, and other ICU models that require vitals, labs, and bedside equipment, 
               Patent #1 achieves mortality prediction using <span className="text-primary-foreground font-medium">zero physiological data</span> — only 
-              the timing and rhythm of routine EHR documentation. This is the first demonstration that 
-              nurse charting patterns alone carry a mortality signal, enabling risk detection in 
-              resource-limited settings with no additional hardware cost. Temporal validation held stable 
+              the timing and rhythm of routine EHR documentation. Validated on MIMIC-IV (AUROC 0.683) and externally on HiRID 
+              (AUROC 0.9063), outperforming APACHE IV (0.8421) and SAPS III (0.8389). Temporal validation held stable 
               (mean AUC 0.684) across 11 years (2008–2019).
             </p>
           </motion.div>
