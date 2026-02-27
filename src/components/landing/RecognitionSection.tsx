@@ -6,7 +6,7 @@ const recognitions = [
   { icon: Award, title: 'Stanford AI+Health 2025', subtitle: 'Presented research findings (December 2025)' },
   { icon: FlaskConical, title: 'NIH Research Fellowship', subtitle: 'Federal clinical AI training program' },
   { icon: Trophy, title: 'NIH Research Grant', subtitle: 'Funded clinical AI research' },
-  { icon: BarChart3, title: 'Large-Scale Validation', subtitle: 'N=321,719 across 208 hospitals' },
+  { icon: BarChart3, title: 'Large-Scale Validation', subtitle: '382K+ patients across MIMIC-IV, HiRID & eICU' },
 ];
 
 export const RecognitionSection = () => (

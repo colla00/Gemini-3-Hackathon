@@ -153,7 +153,7 @@ const ANIA2026Poster = () => {
               { icon: BarChart3, label: 'Internal AUROC', value: '0.802', sub: 'MIMIC-IV · N=24,689' },
               { icon: BarChart3, label: 'External AUROC', value: '0.857', sub: 'eICU · N=297,030' },
               { icon: Building2, label: 'Hospitals', value: '208', sub: 'Multi-center validation' },
-              { icon: Users, label: 'Total Patients', value: '321K+', sub: 'Combined cohort' },
+              { icon: Users, label: 'Total DBS Cohort', value: '321K+', sub: 'Combined cohort' },
             ].map((m) => (
               <Card key={m.label} className="border-border/40 bg-card/80 backdrop-blur-sm">
                 <CardContent className="p-4 text-center">

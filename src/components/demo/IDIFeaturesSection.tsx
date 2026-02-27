@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart3, Clock, Zap, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
+import { BarChart3, Clock, Zap, TrendingUp, ChevronDown, ChevronUp, Activity } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface IDIFeature {
@@ -58,7 +58,7 @@ const DOMAINS: FeatureDomain[] = [
         pValue: 'p<0.001',
         badge: 'STRONGEST PREDICTOR',
         interpretation:
-          'CV captures how irregular the spacing between documentation events is. High CV indicates chaotic, unpredictable documentation patterns associated with clinical instability. This is the single most powerful predictor in the IDI model (OR 1.53, 95% CI 1.38-1.70).',
+          'CV captures how irregular the spacing between documentation events is. High CV indicates chaotic, unpredictable documentation patterns associated with clinical instability. This is the single most powerful predictor in the IDI model (OR 1.53, 95% CI 1.35-1.74).',
       },
       {
         name: 'Std Dev of Inter-Event Intervals',
@@ -122,6 +122,31 @@ const DOMAINS: FeatureDomain[] = [
       },
     ],
   },
+  {
+    title: 'Temporal Dynamics',
+    icon: <Zap className="h-4 w-4" />,
+    features: [
+      {
+        name: 'Entropy',
+        description: 'Shannon entropy of documentation event distribution over time',
+        simulated: '2.34',
+        or: '1.17',
+        pValue: 'p=0.002',
+        interpretation:
+          'Entropy quantifies the randomness/disorder of documentation timing. Higher entropy suggests unpredictable, disorganized documentation patterns associated with clinical instability and adverse outcomes.',
+      },
+      {
+        name: 'Lag-1 Autocorrelation',
+        description: 'Temporal dependency between consecutive documentation intervals',
+        simulated: '0.31',
+        or: '1.08',
+        pValue: 'p=0.098',
+        note: 'Borderline significance',
+        interpretation:
+          'Measures how strongly each documentation interval predicts the next. Low autocorrelation suggests reactive, event-driven documentation rather than planned, rhythmic charting patterns.',
+      },
+    ],
+  },
 ];
 
 export const IDIFeaturesSection = () => {
@@ -134,7 +159,7 @@ export const IDIFeaturesSection = () => {
           Feature Engineering
         </p>
         <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-3">
-          The 9 IDI Features
+          The 11 IDI Features
         </h2>
         <p className="text-primary-foreground/70 max-w-2xl">
           Automatically extracted from EHR nursing documentation timestamps. Click any feature to see the clinical interpretation.

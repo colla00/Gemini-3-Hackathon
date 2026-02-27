@@ -40,7 +40,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     inventor: 'Dr. Alexis Collier',
     claimsCount: 99,
     nihFunded: true,
-    abstract: 'A system and method for predicting ICU mortality and clinical deterioration utilizing documentation rhythm patterns and temporal phenotypes derived solely from EHR timestamp metadata.'
+    abstract: 'A system and method for predicting ICU mortality utilizing 11 IDI temporal features derived solely from EHR timestamp metadata. Validated on 60,050 patients: MIMIC-IV (AUROC 0.683, n=26,153) and HiRID (AUROC 0.9063, n=33,897). Outperforms APACHE IV and SAPS III on external validation.'
   },
   {
     id: 'trust-alerts',

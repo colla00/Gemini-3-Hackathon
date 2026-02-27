@@ -473,9 +473,9 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
   {
     number: 2,
     title: 'Temporal Feature Extraction Module',
-    description: 'The system of claim 1, comprising extraction of 9 IDI temporal features organized into three domains: event volume (total events, events per hour), rhythm regularity (coefficient of variation, standard deviation, mean inter-event interval, burstiness index), and surveillance gaps (gaps >60min, gaps >120min, maximum gap duration).',
+    description: 'The system of claim 1, comprising extraction of 11 IDI temporal features organized into four domains: event volume (total events, events per hour), rhythm regularity (coefficient of variation, standard deviation, mean inter-event interval, burstiness index), surveillance gaps (gaps >60min, gaps >120min, maximum gap duration), and temporal dynamics (entropy, lag-1 autocorrelation).',
     category: 'temporal',
-    implementation: 'Feature extraction engine computing 9 IDI metrics from EHR timestamp data across volume, rhythm, and gap domains.',
+    implementation: 'Feature extraction engine computing 11 IDI metrics from EHR timestamp data across volume, rhythm, gap, and temporal dynamics domains.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',
     status: 'prototype',
     demoSection: 'patents',

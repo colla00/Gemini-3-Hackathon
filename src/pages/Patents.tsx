@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const ipSummary = [
   { label: "Patent Applications Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "AUC", value: "0.683–0.857", sub: "Validated (#1 & #5)" },
+  { label: "AUROC Range", value: "0.634–0.906", sub: "Validated (#1 & #5)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
@@ -20,15 +20,17 @@ const patentSystems = [
     title: "ICU Mortality Prediction System",
     icon: TrendingUp,
     status: "validated" as const,
-    oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 9 temporal features",
+    oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 11 temporal features",
     validated: true,
     metrics: [
-      "AUC 0.683 (95% CI: 0.631-0.732)",
-      "Mean temporal AUC 0.684 over 11 years",
-      "n = 26,153 ICU admissions (MIMIC-IV)",
-      "Documentation rhythm (CV) strongest predictor: OR 1.53",
+      "JAMIA: AUROC 0.683 (95% CI: 0.631-0.732) — MIMIC-IV, n=26,153",
+      "npj: AUROC 0.634 — MIMIC-IV HF-specific, n=26,153",
+      "HiRID: AUROC 0.9063 — External (n=33,897, Switzerland)",
+      "Total cohort: 60,050 patients (MIMIC-IV + HiRID)",
+      "Outperforms APACHE IV (0.8421) & SAPS III (0.8389) on HiRID",
+      "CV strongest predictor: OR 1.53 (95% CI: 1.35-1.74)",
     ],
-    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment.",
+    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases (60,050 patients).",
   },
   {
     number: 2,
