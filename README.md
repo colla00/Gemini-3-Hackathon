@@ -19,7 +19,7 @@ This submission integrates **Google Gemini 3** to enhance clinical workflows wit
 - Intensive Documentation Index (IDI): 9-feature temporal EHR pattern analysis for ICU mortality prediction
 - SHAP explainability for transparent risk factor visualization
 - Temporal forecasting with bootstrap confidence intervals
-- **11 U.S. Provisional Patent Applications Filed (February 28, 2026)**
+- **11 U.S. Provisional Patent Applications Filed**
 - Presented at Stanford AI+Health 2025
 
 ### Validation Summary
