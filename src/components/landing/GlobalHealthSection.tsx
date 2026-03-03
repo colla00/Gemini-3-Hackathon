@@ -11,7 +11,7 @@ const capabilities = [
 ];
 
 export const GlobalHealthSection = () => (
-  <section className="py-24 px-6">
+  <section aria-labelledby="global-health-heading" className="py-24 px-6">
     <div className="max-w-5xl mx-auto">
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <motion.div
@@ -26,7 +26,7 @@ export const GlobalHealthSection = () => (
               Global Health
             </Badge>
           </div>
-          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+          <h2 id="global-health-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
             Clinical AI for
             <br />
             <span className="text-primary">Resource-Limited Settings</span>
@@ -48,7 +48,7 @@ export const GlobalHealthSection = () => (
                 transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
                 className="flex items-start gap-3"
               >
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
                 <p className="text-sm text-muted-foreground">{c}</p>
               </motion.div>
             ))}

@@ -10,7 +10,7 @@ const recognitions = [
 ];
 
 export const RecognitionSection = () => (
-  <section className="py-20 px-6 bg-secondary/30">
+  <section aria-labelledby="recognition-heading" className="py-20 px-6 bg-secondary/30">
     <div className="max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -18,10 +18,10 @@ export const RecognitionSection = () => (
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
       >
-        <h3 className="text-2xl md:text-3xl font-display text-foreground text-center mb-4">
+        <h2 id="recognition-heading" className="text-2xl md:text-3xl font-display text-foreground text-center mb-4">
           Recognition
-        </h3>
-        <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" />
+        </h2>
+        <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" aria-hidden="true" />
       </motion.div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">

@@ -27,10 +27,11 @@ const layers = [
 ];
 
 export const DigitalTwinsSection = () => (
-  <section className="relative py-24 px-6 overflow-hidden">
-    <div className="absolute inset-0 bg-foreground" />
+  <section aria-labelledby="digital-twins-heading" className="relative py-24 px-6 overflow-hidden">
+    <div className="absolute inset-0 bg-foreground" aria-hidden="true" />
     <div
       className="absolute inset-0 opacity-10"
+      aria-hidden="true"
       style={{
         backgroundImage: `radial-gradient(circle at 25% 40%, hsl(173 58% 29% / 0.5) 0%, transparent 50%),
                          radial-gradient(circle at 75% 60%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
@@ -51,7 +52,7 @@ export const DigitalTwinsSection = () => (
             Digital Twin Architecture
           </Badge>
         </div>
-        <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-4">
+        <h2 id="digital-twins-heading" className="font-display text-3xl md:text-4xl text-primary-foreground mb-4">
           The Care Process Signal Layer
         </h2>
         <p className="text-primary-foreground/70 max-w-2xl mx-auto leading-relaxed">
@@ -72,7 +73,7 @@ export const DigitalTwinsSection = () => (
             className="flex items-start gap-5 p-5 rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 backdrop-blur-sm"
           >
             <div className="w-11 h-11 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
-              <layer.icon className="w-5 h-5 text-primary" />
+              <layer.icon className="w-5 h-5 text-primary" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">

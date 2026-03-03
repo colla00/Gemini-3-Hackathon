@@ -51,7 +51,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       </Helmet>
 
       {/* Research Disclaimer */}
-      <div className="bg-muted border-b border-border/40 px-4 py-1.5 text-center text-xs">
+      <div className="bg-muted border-b border-border/40 px-4 py-1.5 text-center text-xs" role="status" aria-label="Regulatory disclaimer">
         <span className="text-muted-foreground">Pre-Market · Patent Pending · Not a Medical Device</span>
       </div>
 
@@ -70,7 +70,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-5">
+            <nav aria-label="Main navigation" className="hidden md:flex items-center gap-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -100,15 +100,15 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
             {/* Mobile menu button */}
             <div className="flex items-center gap-2 md:hidden">
               <ThemeToggle />
-              <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
-                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
+                {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
               </Button>
             </div>
           </div>
 
           {/* Mobile nav */}
           {mobileOpen && (
-            <nav className="md:hidden pt-4 pb-2 border-t border-border/40 mt-4 flex flex-col gap-1 animate-in slide-in-from-top-2 duration-200">
+            <nav aria-label="Mobile navigation" className="md:hidden pt-4 pb-2 border-t border-border/40 mt-4 flex flex-col gap-1 animate-in slide-in-from-top-2 duration-200">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -146,7 +146,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       <ScrollToTopButton />
 
       {/* Footer */}
-      <footer className="py-14 px-6 border-t border-border/30 bg-foreground text-primary-foreground">
+      <footer aria-label="Site footer" className="py-14 px-6 border-t border-border/30 bg-foreground text-primary-foreground">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10">
             {/* Brand */}

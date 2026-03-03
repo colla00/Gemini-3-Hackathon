@@ -14,9 +14,9 @@ const stats = [
 ];
 
 export const LandingHero = () => (
-  <section className="relative overflow-hidden bg-foreground text-primary-foreground">
+  <section aria-label="Hero" className="relative overflow-hidden bg-foreground text-primary-foreground">
     {/* Background image with overlay */}
-    <div className="absolute inset-0">
+    <div className="absolute inset-0" aria-hidden="true">
       <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" />
     </div>
@@ -29,7 +29,7 @@ export const LandingHero = () => (
         transition={{ duration: 0.3 }}
         className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-primary/20 border border-primary/30 text-sm"
       >
-        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true" />
         <span className="text-primary font-medium">Presented at Stanford AI+Health 2025</span>
       </motion.div>
 

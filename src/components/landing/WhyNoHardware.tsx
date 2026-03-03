@@ -8,7 +8,7 @@ const comparisons = [
 ];
 
 export const WhyNoHardware = () => (
-  <section className="py-24 px-6 bg-secondary/30">
+  <section aria-labelledby="why-no-hardware-heading" className="py-24 px-6 bg-secondary/30">
     <div className="max-w-5xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export const WhyNoHardware = () => (
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
           Equipment-Independent AI
         </p>
-        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+        <h2 id="why-no-hardware-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
           Why No Hardware?
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -46,7 +46,7 @@ export const WhyNoHardware = () => (
               <p className="text-sm text-muted-foreground">{c.traditional}</p>
             </div>
             <div className="p-4 flex items-center gap-3">
-              <ArrowRight className="w-4 h-4 text-primary shrink-0" />
+              <ArrowRight className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
               <div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">VitaSignal™</p>
                 <p className="text-sm font-medium text-foreground">{c.vitasignal}</p>
@@ -63,7 +63,7 @@ export const WhyNoHardware = () => (
         transition={{ delay: 0.3, duration: 0.5 }}
         className="flex items-start gap-4 p-6 rounded-xl bg-primary/5 border border-primary/20 max-w-3xl mx-auto"
       >
-        <Zap className="w-6 h-6 text-primary shrink-0 mt-0.5" />
+        <Zap className="w-6 h-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
         <div>
           <p className="font-semibold text-foreground mb-1">The Bottom Line</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
