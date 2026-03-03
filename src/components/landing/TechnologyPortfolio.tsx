@@ -48,7 +48,7 @@ const systems = [
 ];
 
 export const TechnologyPortfolio = () => (
-  <section className="py-24 px-6">
+  <section aria-labelledby="tech-portfolio-heading" className="py-24 px-6">
     <div className="max-w-5xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ export const TechnologyPortfolio = () => (
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
           Patent Portfolio
         </p>
-        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+        <h2 id="tech-portfolio-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
           Five Patent-Pending Systems
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -90,7 +90,7 @@ export const TechnologyPortfolio = () => (
                   : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
               }`}
             >
-              <s.icon className="w-5 h-5" />
+              <s.icon className="w-5 h-5" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">

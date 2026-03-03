@@ -19,10 +19,11 @@ const differentiators = [
 ];
 
 export const ValidationSection = () => (
-  <section className="relative py-24 px-6 overflow-hidden">
-    <div className="absolute inset-0 bg-foreground" />
+  <section aria-labelledby="validation-heading" className="relative py-24 px-6 overflow-hidden">
+    <div className="absolute inset-0 bg-foreground" aria-hidden="true" />
     <div
       className="absolute inset-0 opacity-10"
+      aria-hidden="true"
       style={{
         backgroundImage: `radial-gradient(circle at 30% 50%, hsl(173 58% 29% / 0.4) 0%, transparent 50%),
                          radial-gradient(circle at 70% 50%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
@@ -40,7 +41,7 @@ export const ValidationSection = () => (
           <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
             Validated Performance
           </p>
-          <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-6">
+          <h2 id="validation-heading" className="font-display text-3xl md:text-4xl text-primary-foreground mb-6">
             Research-Backed Results
           </h2>
           <p className="text-primary-foreground/70 mb-8 leading-relaxed">
@@ -59,7 +60,7 @@ export const ValidationSection = () => (
                 transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
                 className="flex items-start gap-3"
               >
-                <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary mt-1 shrink-0" aria-hidden="true" />
                 <p className="text-sm text-primary-foreground/70">{d}</p>
               </motion.div>
             ))}
