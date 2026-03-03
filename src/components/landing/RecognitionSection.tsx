@@ -18,7 +18,7 @@ export const RecognitionSection = () => (
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
       >
-        <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
+        <h3 className="text-2xl md:text-3xl font-display text-foreground text-center mb-4">
           Recognition
         </h3>
         <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" />

@@ -63,13 +63,13 @@ function About() {
               <p>
                 This firsthand understanding of clinical workflow challenges led to doctoral research
                 on nursing burnout and workload measurement, ultimately culminating in the development
-                of the <strong className="text-foreground">VitaSignal™ Clinical Intelligence Platform</strong> --
+                of the <strong className="text-foreground">VitaSignal™ Clinical Intelligence Platform</strong> —
                 a suite of AI systems designed by a nurse, for nurses.
               </p>
               <p>
                 Unlike traditional clinical AI that requires expensive sensors or additional hardware,
                 Dr. Collier's research demonstrates that predictive signals already exist within the
-                temporal patterns of routine clinical documentation -- waiting to be unlocked.
+                temporal patterns of routine clinical documentation — waiting to be unlocked.
               </p>
             </CardContent>
           </Card>
@@ -163,7 +163,7 @@ function About() {
             <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground">
               <p>
                 Dr. Collier's methodology centers on extracting clinically meaningful signals from data
-                that already exists in every hospital -- the timestamps and patterns of routine documentation.
+                that already exists in every hospital — the timestamps and patterns of routine documentation.
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mt-4">
                 {[

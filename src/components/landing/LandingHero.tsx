@@ -10,7 +10,7 @@ const stats = [
   { value: "0.683", label: "AUC (Patent #1)", detail: "ICU Mortality" },
   { value: "0.857", label: "AUROC (Patent #5)", detail: "DBS · 208 Hospitals" },
   { value: "5", label: "Applications Filed", detail: "175+ Claims" },
-  { value: "321K+", label: "Patients Validated", detail: "MIMIC-IV + eICU" },
+  { value: "382K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
 ];
 
 export const LandingHero = () => (
