@@ -2,7 +2,7 @@
 
 ## Gemini 3 Hackathon 2026 Submission
 
-**Submitted by:** Dr. Alexis Collier, DHA, MHA, RN
+**Submitted by:** Dr. Alexis Collier, DHA, MHA
 **Hackathon:** Google Gemini 3 Hackathon 2026
 **Deadline:** February 9, 2026
 
@@ -161,7 +161,7 @@ Each scenario includes:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd nso-quality-dashboard
+cd vitasignal    # or whatever the actual folder name is
 
 # Install dependencies
 npm install
@@ -222,7 +222,7 @@ under the 21st Century Cures Act
 Founder & CEO, VitaSignal LLC
 Email: info@alexiscollier.com
 Website: [dralexis.ceo](https://dralexis.ceo)
-AIM-AHEAD CLINAQ Fellow | University of North Georgia
+AIM-AHEAD CLINAQ Fellow (NIH 1OT2OD032581) | Independent Researcher
 
 ---
 
