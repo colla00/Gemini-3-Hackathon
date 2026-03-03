@@ -16,7 +16,6 @@ This submission integrates **Google Gemini 3** to enhance clinical workflows wit
 
 ### Core Features (Pre-Hackathon)
 - Intensive Documentation Index (IDI): 9-feature temporal EHR pattern analysis for ICU mortality prediction
-- Documentation Burden Score (DBS): 13-variable clinical model for proactive nursing workload prediction
 - SHAP explainability for transparent risk factor visualization
 - Temporal forecasting with bootstrap confidence intervals
 - **11 U.S. Provisional Patent Applications Filed (February 28, 2026)**
@@ -29,10 +28,7 @@ This submission integrates **Google Gemini 3** to enhance clinical workflows wit
 | MIMIC-IV (Internal, USA) | 26,153 | 0.683 | IDI |
 | HiRID (External, Switzerland) | 33,897 | 0.906 | IDI |
 | eICU-CRD (External, USA) | 5,107 | 0.665 | IDI |
-| MIMIC-IV (Internal, USA) | 24,689 | 0.802 | DBS |
-| eICU-CRD (External, USA) | 3,673 | 0.758 | DBS |
 | **Total IDI Cohort** | **65,157** | — | — |
-| **Total DBS Cohort** | **28,362** | — | — |
 
 *Manuscripts under review: JAMIA (IDI — Paper 1) and npj Digital Medicine (Multinational IDI — Paper 2)*
 
