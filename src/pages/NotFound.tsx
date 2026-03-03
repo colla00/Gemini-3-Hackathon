@@ -24,6 +24,7 @@ const NotFound = () => {
       <Helmet>
         <title>Page Not Found | VitaSignal™</title>
         <meta name="description" content="The page you're looking for doesn't exist." />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       {/* Full-screen dark hero 404 */}

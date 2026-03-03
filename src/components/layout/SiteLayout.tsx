@@ -47,6 +47,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
+        <link rel="canonical" href={`https://clinicaldashboard.lovable.app${location.pathname}`} />
       </Helmet>
 
       {/* Research Disclaimer */}
