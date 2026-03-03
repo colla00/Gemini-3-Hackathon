@@ -127,24 +127,8 @@ All findings must be verified by clinical staff.
 
 ### Risk Narrative Generator
 ```
-You are a clinical AI assistant that converts technical ML risk predictions
-into clear, actionable explanations for nurses.
-
-Your explanations should:
-- Be written in plain clinical language nurses understand
-- Focus on what the data means for patient care
-- Be concise (under 100 words)
-- Never provide diagnoses, only highlight patterns
-```
-
-### Intervention Recommender
-```
-You are a clinical nurse expert AI providing evidence-based nursing
-intervention suggestions. Your recommendations should be:
-- Specific and actionable
-- Based on established nursing practice guidelines
-- Prioritized by urgency
-- Include rationale for each intervention
+Clinical prompt templates are maintained in a private repository 
+to protect proprietary clinical reasoning frameworks.
 ```
 
 ---
@@ -202,7 +186,8 @@ Configure the following environment variables in your `.env` file:
 - **Input validation** — All user inputs sanitized before AI processing
 - **Rate limiting** — Built-in protection against abuse
 - **HIPAA considerations** — No real patient data; synthetic demonstrations only
-- **FDA classification** — Preliminarily classified as Non-Device CDS under 21st Century Cures Act §520(o)(1)(E)
+- **FDA classification** — Designed for compliance with FDA Non-Device CDS guidelines 
+under the 21st Century Cures Act
 
 ---
 
