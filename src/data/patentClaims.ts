@@ -561,7 +561,7 @@ const ICU_MORTALITY_CLAIMS: PatentClaim[] = [
   {
     number: 10,
     title: 'MIMIC-IV Validated Cohort Analysis',
-    description: 'The system of claim 4, validated on a cohort of 26,153 heart failure ICU admissions from the MIMIC-IV database (2008-2019) with 15.99% in-hospital mortality rate (n=4,181 deaths), demonstrating statistically significant phenotype-mortality associations (p < 0.001).',
+    description: 'The system of claim 4, validated on a cohort of 26,153 heart failure ICU admissions from the MIMIC-IV database (2008-2019) with 15.99% in-hospital mortality rate (n=4,182 deaths), demonstrating statistically significant phenotype-mortality associations (p < 0.001).',
     category: 'system',
     implementation: 'Research validation dashboard showing cohort demographics, mortality outcomes, and statistical significance metrics.',
     componentPath: 'src/components/dashboard/Dashboard.tsx',

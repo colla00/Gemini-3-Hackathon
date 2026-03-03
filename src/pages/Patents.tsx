@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const ipSummary = [
   { label: "Patent Applications Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "AUROC Range", value: "0.634–0.906", sub: "Validated (#1 & #5)" },
+  { label: "AUROC Range", value: "0.640–0.906", sub: "Validated (#1 & #5)" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
@@ -24,7 +24,7 @@ const patentSystems = [
     validated: true,
     metrics: [
       "JAMIA: AUROC 0.683 (95% CI: 0.631-0.732) — MIMIC-IV, n=26,153",
-      "npj: AUROC 0.634 — MIMIC-IV HF-specific, n=26,153",
+      "npj: AUROC 0.640 (95% CI: 0.62-0.66) — MIMIC-IV, random 80/20 split, n=26,153",
       "HiRID: AUROC 0.9063 — External (n=33,897, Switzerland)",
       "Total cohort: 60,050 patients (MIMIC-IV + HiRID)",
       "Outperforms APACHE IV (0.8421) & SAPS III (0.8389) on HiRID",
