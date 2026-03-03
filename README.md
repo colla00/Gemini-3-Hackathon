@@ -10,7 +10,7 @@
 
 ## 🏆 Project Overview
 
-VitaSignal™ is an **AI-powered clinical decision support system** predicts ICU patient deterioration using temporal patterns in 
+VitaSignal™ is an **AI-powered clinical decision support system** that predicts ICU patient deterioration using temporal patterns in 
 electronic health record data — without requiring physiological sensors, lab values, or additional medical devices.
 
 This submission integrates **Google Gemini 3** to enhance clinical workflows with natural language understanding and reasoning capabilities.
@@ -159,7 +159,7 @@ Each scenario includes:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd vitasignal    # or whatever the actual folder name is
+cd Gemini-3-Hackathon
 
 # Install dependencies
 npm install
