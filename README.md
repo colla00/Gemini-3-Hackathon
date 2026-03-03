@@ -10,7 +10,8 @@
 
 ## 🏆 Project Overview
 
-VitaSignal™ is an **AI-powered clinical decision support system** that predicts ICU patient deterioration and nursing documentation burden using temporal patterns in electronic health record data — without requiring physiological sensors, lab values, or additional medical devices.
+VitaSignal™ is an **AI-powered clinical decision support system** predicts ICU patient deterioration using temporal patterns in 
+electronic health record data — without requiring physiological sensors, lab values, or additional medical devices.
 
 This submission integrates **Google Gemini 3** to enhance clinical workflows with natural language understanding and reasoning capabilities.
 
@@ -79,7 +80,8 @@ This submission integrates **Google Gemini 3** to enhance clinical workflows wit
 
 ### API Key Handling
 
-All AI requests are routed through a **secure server-side gateway** to protect API credentials. No API keys are exposed in client-side code. Access tokens are provisioned and managed server-side.
+All AI requests are routed through a **secure server-side gateway** to protect API credentials. 
+No API keys are exposed in client-side code. Access tokens are provisioned and managed server-side.
 
 ---
 
@@ -203,12 +205,13 @@ under the 21st Century Cures Act
 
 ## 🏅 Hackathon Highlights
 
-1. **Real Clinical Use Case** — Addresses ICU nursing documentation burden and patient deterioration, validated across 65,157 ICU patients in 3 international databases across 2 countries
-2. **Multiple Gemini 3 Features** — 4 distinct AI-powered capabilities integrated into a production-ready clinical dashboard
-3. **Explainable AI** — SHAP + Gemini 3 narratives for transparent, bedside-ready reasoning nurses can act on
-4. **Health Equity Focus** — Health Equity Analyzer aligned with NIH AIM-AHEAD initiative (Grant 1OT2OD032581)
-5. **Patent Protected** — 11 U.S. Provisional Patent Applications Filed (February 28, 2026)
-6. **Production Ready** — Full error handling, loading states, accessibility, HIPAA-safe synthetic data only
+1. **Real Clinical Use Case** — Addresses ICU patient deterioration prediction using documentation timing patterns,
+validated across 65,157 ICU patients in 3 international databases across 2 countries
+3. **Multiple Gemini 3 Features** — 4 distinct AI-powered capabilities integrated into a production-ready clinical dashboard
+4. **Explainable AI** — SHAP + Gemini 3 narratives for transparent, bedside-ready reasoning nurses can act on
+5. **Health Equity Focus** — Health Equity Analyzer aligned with NIH AIM-AHEAD initiative (Grant 1OT2OD032581)
+6. **Patent Protected** — 11 U.S. Provisional Patent Applications Filed (February 28, 2026)
+7. **Production Ready** — Full error handling, loading states, accessibility, HIPAA-safe synthetic data only
 
 ---
 
@@ -222,6 +225,6 @@ AIM-AHEAD CLINAQ Fellow (NIH 1OT2OD032581) | Independent Researcher
 
 ---
 
-© 2026 VitaSignal LLC. All rights reserved.
-Core IDI and DBS algorithms patent pending (USPTO).
+© 2026 VitaSignal LLC. All rights reserved. Core IDI algorithm and 
+associated methods patent pending (USPTO).
 *Submitted to Gemini 3 Hackathon 2026 | Powered by Google Gemini 3 API*
