@@ -57,12 +57,18 @@ function About() {
               <h2 className="font-display text-2xl text-foreground">VitaSignal LLC</h2>
               <p className="text-sm text-muted-foreground mt-1">Clinical Intelligence Without Equipment™</p>
             </div>
-            <Button variant="outline" size="sm" asChild>
-              <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer" className="gap-2">
-                <ExternalLink className="w-4 h-4" />
-                vitasignal.ai
-              </a>
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer" className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  vitasignal.ai
+                </a>
+              </Button>
+              <Button variant="default" size="sm" onClick={() => { import('@/lib/investorDeckExport').then(m => m.generateInvestorDeck()); }} className="gap-2">
+                <FileText className="w-4 h-4" />
+                Download Investor Deck
+              </Button>
+            </div>
           </div>
 
           {/* Patent Portfolio */}
