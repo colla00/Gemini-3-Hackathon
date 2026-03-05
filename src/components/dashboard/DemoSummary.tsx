@@ -10,7 +10,7 @@ const summaryPoints = [
   {
     icon: <Brain className="w-5 h-5" />,
     title: 'SHAP Explainability',
-    description: 'Interpretable risk attribution (Patent #1 AUROC 0.683–0.906, Patent #5 AUROC 0.857)',
+    description: 'Interpretable risk attribution (Patent #1 AUROC 0.683–0.906, Patent #5 AUROC 0.758)',
   },
   {
     icon: <TrendingUp className="w-5 h-5" />,
