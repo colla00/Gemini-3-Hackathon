@@ -32,7 +32,7 @@ const summaryPoints = [
 const dataSources = [
   { name: 'MIMIC-IV', desc: 'Patent #1 (AUROC 0.683) & #5 (AUROC 0.802)' },
   { name: 'HiRID', desc: 'Patent #1 External (AUROC 0.906, n=33,897)' },
-  { name: 'eICU-CRD', desc: 'Patent #5 External (AUROC 0.857, 208 hospitals)' },
+  { name: 'eICU-CRD', desc: 'Patent #5 External (AUROC 0.758, 172 hospitals)' },
 ];
 
 interface DemoSummaryProps {

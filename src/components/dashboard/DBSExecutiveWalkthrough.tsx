@@ -268,7 +268,7 @@ const steps: WalkthroughStep[] = [
   {
     id: 'validation',
     title: 'Clinically Validated',
-    subtitle: '321K+ patients across 208 hospitals',
+    subtitle: '28K+ patients across 172 hospitals',
     icon: CheckCircle2,
     iconColor: 'text-risk-low',
     iconBg: 'bg-risk-low/10 border-risk-low/20',

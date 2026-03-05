@@ -105,7 +105,7 @@ export const ResearchValidationSlide = () => {
                     <div className="text-lg font-bold text-emerald-500">{validation.targetExternalAUC}</div>
                     <div className="text-[10px] text-muted-foreground">External AUROC (eICU)</div>
                     <div className="text-[9px] text-muted-foreground mt-1">
-                      N=297,030 · 208 hospitals
+                      N=3,673 · 172 hospitals
                     </div>
                   </div>
                 </div>

@@ -47,7 +47,7 @@ export const ValidationSection = () => (
           <p className="text-primary-foreground/70 mb-8 leading-relaxed">
            Two patent systems have been validated on large-scale
             clinical datasets with NIH-funded research support: ICU Mortality Prediction (AUROC 0.683 MIMIC-IV, 0.906 HiRID; n=60,050)
-            and DBS (AUROC 0.802→0.857, N=321,719 across 208 hospitals).
+            and DBS (AUROC 0.802 / 0.758, N=28,362 across 172 hospitals).
           </p>
 
           <div className="space-y-3">

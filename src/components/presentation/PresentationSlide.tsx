@@ -761,7 +761,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     ],
     keyPoints: [
       'Feature Importance: Top 10 predictors visualized',
-      'ROC Curve: AUROC 0.802 internal, 0.857 external',
+      'ROC Curve: AUROC 0.802 internal, 0.758 external',
       'DBS vs LOS: r=0.40 correlation (p<0.001)',
       'Quartile Distribution: Balanced Q1-Q4',
       'Staffing Impact: 15-20% overtime reduction, $180K-$360K ROI',
