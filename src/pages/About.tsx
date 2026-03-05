@@ -376,9 +376,9 @@ function About() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer">
+              <a href="https://dralexis.ceo" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-5 h-5 mr-2" />
-                vitasignal.ai
+                dralexis.ceo
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
