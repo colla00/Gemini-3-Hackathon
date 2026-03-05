@@ -22,7 +22,7 @@ export const FeaturedPatentCard = () => {
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-risk-low/10 border border-risk-low/30">
           <Sparkles className="w-3.5 h-3.5 text-risk-low" />
-          <span className="text-xs font-bold text-risk-low">AUC 0.683</span>
+          <span className="text-xs font-bold text-risk-low">Validated</span>
         </div>
       </div>
 
