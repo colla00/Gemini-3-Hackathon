@@ -10,7 +10,7 @@ const idiFeatures = [
 ];
 
 const keyFindings = [
-  { metric: 'JAMIA AUROC', value: '0.683', detail: '95% CI: 0.631–0.732' },
+  { metric: 'MIMIC-IV AUROC', value: '0.683', detail: '95% CI: 0.631–0.732' },
   { metric: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
   { metric: 'Total Cohort', value: 'n = 60,050', detail: 'MIMIC-IV + HiRID' },
   { metric: 'Strongest Predictor', value: 'CV (OR 1.53)', detail: '95% CI: 1.35–1.74' },
