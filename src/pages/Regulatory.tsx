@@ -260,7 +260,7 @@ function Regulatory() {
             {[
               { phase: "Phase 1", title: "Prospective Validation", timeline: "2026 Q3–Q4", desc: "Multi-site clinical study with IRB approval" },
               { phase: "Phase 2", title: "FDA Pre-Submission", timeline: "2027 Q1", desc: "Q-Sub meeting with FDA CDRH to confirm pathway" },
-              { phase: "Phase 3", title: "Market Authorization", timeline: "2027 Q3+", desc: "510(k) or De Novo submission based on FDA feedback" },
+              { phase: "Phase 3", title: "Market Authorization", timeline: "2027 Q3+", desc: "Non-Device CDS §520(o)(1)(E) classification or submission based on FDA feedback" },
             ].map((m) => (
               <div key={m.phase} className="p-4 rounded-lg bg-primary-foreground/10 border border-primary/20">
                 <Badge className="bg-primary/20 border-primary/30 text-primary text-[10px] mb-2">{m.phase}</Badge>

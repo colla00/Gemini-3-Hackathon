@@ -609,7 +609,7 @@ export const PresenterDashboard = ({ onClose }: PresenterDashboardProps) => {
                       </div>
                       <div className="p-2 rounded bg-secondary border border-border/50">
                         <p className="font-medium">What's the FDA pathway?</p>
-                        <p className="text-muted-foreground text-xs mt-1">510(k) as Class II medical device with existing predicates.</p>
+                        <p className="text-muted-foreground text-xs mt-1">Non-Device CDS under §520(o)(1)(E). Not classified as a medical device.</p>
                       </div>
                     </div>
                   </TabsContent>

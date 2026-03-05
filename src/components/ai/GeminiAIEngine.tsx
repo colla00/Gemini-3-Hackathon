@@ -949,7 +949,7 @@ export const GeminiAIEngine = () => {
               Built for Google Gemini 3 Hackathon 2026 • Enterprise Clinical AI
             </p>
             <Badge variant="outline" className="text-xs">
-              5 Patent Applications Filed
+              11 Patent Applications Filed
             </Badge>
           </div>
         </CardContent>

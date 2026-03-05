@@ -250,7 +250,7 @@ export const PressRelease = () => (
       <motion.section {...fade} transition={{ delay: 0.3, duration: 0.5 }} className="mb-14">
         <h2 className="text-xl font-bold text-foreground mb-4">Intellectual Property Portfolio</h2>
         <p className="text-sm text-muted-foreground mb-6">
-          Five U.S. patent applications filed between December 2025 and February 2026, covering the full clinical intelligence stack from documentation burden quantification to trust-based alert governance.
+          Eleven U.S. patent applications filed February 28, 2026, covering the full clinical intelligence stack from documentation burden quantification to trust-based alert governance. Non-provisional deadline: February 28, 2027.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
           {[

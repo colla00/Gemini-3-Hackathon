@@ -46,7 +46,7 @@ export const FeaturedPatentCard = () => {
         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/50 border border-border/30">
           <Users className="w-4 h-4 text-accent shrink-0" />
           <div>
-            <span className="text-sm font-bold text-foreground">60,050</span>
+            <span className="text-sm font-bold text-foreground">65,157</span>
             <span className="text-[10px] text-muted-foreground block">Total Patients</span>
           </div>
         </div>
