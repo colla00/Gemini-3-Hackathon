@@ -18,6 +18,40 @@ const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => ({
   src: `/slides/slide-${String(i + 1).padStart(2, "0")}.jpg`,
 }));
 
+const DEFAULT_NOTES: Record<number, string> = {
+  0: `Welcome & Introduction\n• "Thank you for your time today."\n• VitaSignal is a clinical AI company — equipment-independent intelligence for hospitals.\n• 11 U.S. patent applications filed. NIH-funded research.`,
+  1: `The Problem\n• Nurses spend 40%+ of their shift documenting, not at the bedside.\n• Alert fatigue: 85-99% of clinical alarms are false positives.\n• Burnout is driving nurses out of the profession — 100K+ left since 2020.`,
+  2: `Our Insight\n• Predictive signals already exist inside the EHR — hidden in documentation timestamps.\n• No new hardware. No new sensors. Just smarter use of data hospitals already collect.\n• This is what "equipment-independent" means.`,
+  3: `The VitaSignal Platform\n• Three integrated modules: IDI, DBS, and Trust-Based Alerts.\n• Each addresses a different dimension of clinical burden.\n• All work from existing EHR data — Epic, Cerner, Meditech compatible.`,
+  4: `Intensive Documentation Index (IDI)\n• Patent #1 — ICU mortality prediction from documentation patterns.\n• 11 temporal features across 4 domains.\n• Works where traditional scoring systems require lab values we may not have.`,
+  5: `IDI Validation Results\n• AUROC 0.9063 on external validation (HiRID dataset).\n• Outperforms APACHE IV and SAPS III (DeLong p < 0.001).\n• 65,157 patients validated across multiple databases.\n• Three manuscripts under review: JAMIA, npj Digital Medicine, JAMA Network Open.`,
+  6: `Documentation Burden Score (DBS)\n• Patent #5 — quantifies nursing documentation workload.\n• Validated: 0.802 internal AUROC, 0.758 external (172 hospitals).\n• Enables data-driven staffing decisions — quartile-based recommendations.`,
+  7: `Trust-Based Alert System\n• Reduces non-actionable alerts by up to 87% (design target).\n• Every alert includes SHAP explainability — nurses see WHY.\n• Built-in equity monitoring: <0.5% demographic disparity target.`,
+  8: `Technical Architecture\n• Temporal feature extraction from EHR timestamps.\n• ML models trained on MIMIC-IV, validated on eICU and HiRID.\n• SHAP-based explainability for every prediction.\n• Closed-loop feedback improves accuracy over time.`,
+  9: `Clinical Workflow Integration\n• Designed BY a clinician, FOR clinicians.\n• Integrates into existing EHR workflows — no new screens to learn.\n• Priority queue replaces chaotic alert streams with ranked, actionable items.`,
+  10: `Market Opportunity\n• $12B clinical decision support market, growing 11% CAGR.\n• 6,000+ US hospitals, 1M+ ICU beds.\n• No competitor offers equipment-independent mortality prediction.`,
+  11: `Competitive Landscape\n• Epic Sepsis Model: requires proprietary ecosystem, poor external validation.\n• APACHE/SAPS: requires manual data entry, not real-time.\n• VitaSignal: works across ANY EHR, real-time, no extra hardware.`,
+  12: `Business Model\n• SaaS licensing to health systems — per-bed pricing.\n• Implementation: 4-6 week deployment timeline.\n• Revenue streams: software licenses, integration services, analytics.`,
+  13: `Financial Impact\n• $2,847 savings per patient (reduced LOS, fewer adverse events).\n• 1,240% projected ROI for a 500-bed hospital.\n• 90 minutes saved per nursing shift from reduced documentation burden.`,
+  14: `Intellectual Property\n• 11 U.S. provisional patent applications filed February 28, 2026.\n• Covers: IDI, DBS, Trust-Based Alerts, Equity Monitoring, Digital Twins.\n• Strong defensible moat — temporal documentation analysis is novel.`,
+  15: `Regulatory Strategy\n• FDA: pursuing De Novo pathway for clinical decision support.\n• ISO 14971 risk management framework documented.\n• HIPAA-compliant architecture — all data de-identified for research.`,
+  16: `Research Validation\n• Multi-database validation: MIMIC-IV, eICU, HiRID.\n• 382K+ total patients across 208+ hospitals.\n• Peer review in progress at top-tier journals.`,
+  17: `NIH Funding & Recognition\n• NIH AIM-AHEAD CLINAQ Fellow — Award No. 1OT2OD032581.\n• ANIA 2026 conference presentation (Boston, March 26-28).\n• Stanford AI+Health Symposium (December 2025).`,
+  18: `Equity & Fairness\n• Built-in bias detection across demographic subgroups.\n• Fairness metrics monitored in real-time.\n• Addresses known disparities in existing clinical scoring systems.`,
+  19: `Digital Twins Vision\n• Future roadmap: patient digital twins for predictive simulation.\n• "What if" scenarios for staffing and intervention planning.\n• Patent applications cover this forward-looking capability.`,
+  20: `Global Health Impact\n• Equipment-independent design enables deployment in resource-limited settings.\n• No expensive monitors needed — just an EHR connection.\n• Potential to improve ICU outcomes in developing nations.`,
+  21: `Team & Leadership\n• Dr. Alexis Collier, DHA — Founder & CEO, Principal Investigator.\n• Background: clinical experience → health administration → AI research.\n• NIH fellow, adjunct faculty at University of North Georgia.`,
+  22: `Traction & Milestones\n• 11 patents filed, 3 manuscripts under peer review.\n• Platform prototype live and demonstrable.\n• ANIA 2026 presentation scheduled.\n• Active licensing conversations with health systems.`,
+  23: `Go-to-Market Strategy\n• Phase 1: Academic medical centers (validation partners).\n• Phase 2: Mid-size health systems (commercial launch).\n• Phase 3: International expansion and digital twins.`,
+  24: `The Ask\n• Seeking strategic partners and investors.\n• Funding for: FDA submission, clinical trials, sales team buildout.\n• Goal: first commercial deployment within 12 months.`,
+  25: `Why Now?\n• Nursing crisis is at peak — hospitals are desperate for solutions.\n• AI regulation is maturing — clear FDA pathway.\n• EHR adoption is near-universal — the data infrastructure exists.\n• First-mover advantage in equipment-independent clinical AI.`,
+  26: `Key Differentiators\n• Only validated equipment-independent ICU mortality predictor.\n• AUROC 0.9063 — outperforms industry gold standards.\n• 11 patents create strong IP moat.\n• NIH-funded, peer-reviewed research.`,
+  27: `Partnership Opportunities\n• Research collaborations with academic medical centers.\n• Licensing agreements with health systems.\n• Strategic investment for commercialization.`,
+  28: `Contact & Next Steps\n• Email: info@alexiscollier.com\n• Website: alexiscollier.com\n• "We'd love to schedule a deeper technical dive or pilot discussion."`,
+  29: `Appendix\n• Refer to supplementary materials for model architecture details.\n• De-identified demo available upon request.\n• All research data available for due diligence.`,
+  30: `Thank You\n• "Thank you for your time and interest in VitaSignal."\n• Open for questions.\n• Materials will be shared after this session.`,
+};
+
 function InvestorDeck() {
   const [current, setCurrent] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -26,8 +60,10 @@ function InvestorDeck() {
   const [showNotes, setShowNotes] = useState(true);
   const [notes, setNotes] = useState<Record<number, string>>(() => {
     try {
-      return JSON.parse(localStorage.getItem("presenter-notes") || "{}");
-    } catch { return {}; }
+      const saved = JSON.parse(localStorage.getItem("presenter-notes") || "{}");
+      // Merge defaults with saved (saved takes priority)
+      return { ...DEFAULT_NOTES, ...saved };
+    } catch { return { ...DEFAULT_NOTES }; }
   });
   const [elapsed, setElapsed] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
