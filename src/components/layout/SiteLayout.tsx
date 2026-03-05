@@ -92,7 +92,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 </Button>
               ) : (
                 <Button variant="outline" size="sm" asChild>
-                  <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                  <Link to="/contact">Get in Touch</Link>
                 </Button>
               )}
             </nav>
@@ -131,7 +131,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   </Button>
                 ) : (
                   <Button variant="outline" size="sm" className="w-full" asChild>
-                    <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Get in Touch</Link>
                   </Button>
                 )}
               </div>
@@ -187,7 +187,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
-                <a href="mailto:info@alexiscollier.com" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">info@alexiscollier.com</a>
+                <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Get in Touch</Link>
               </div>
             </div>
 
