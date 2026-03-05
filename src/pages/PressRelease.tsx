@@ -200,7 +200,7 @@ export const PressRelease = () => (
             />
           </div>
 
-          <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Cohort Demographics (JAMIA)</h3>
+          <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Cohort Demographics (MIMIC-IV)</h3>
           <div className="not-prose">
             <Card className="border-border/50">
               <CardContent className="pt-6">

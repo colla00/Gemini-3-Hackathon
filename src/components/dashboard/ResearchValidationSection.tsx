@@ -152,7 +152,7 @@ export const ResearchValidationSection = () => (
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
       <strong className="text-foreground">Methodology:</strong> Retrospective cohort studies of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019 (n=26,153) 
       and HiRID (University Hospital Bern, Switzerland, n=33,897). 
-      JAMIA: Regularized logistic regression, temporal validation training 2008–2018, testing 2019. LOYO cross-validation mean AUC 0.684 (SD 0.008). 
+      Regularized logistic regression, temporal validation training 2008–2018, testing 2019. LOYO cross-validation mean AUC 0.684 (SD 0.008). 
       NIH-funded research. IRB Protocol #2025-IRB-0142.
     </div>
   </div>

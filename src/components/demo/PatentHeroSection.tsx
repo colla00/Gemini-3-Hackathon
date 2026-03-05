@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'JAMIA AUROC', value: '0.683', detail: '95% CI: 0.631-0.732' },
+  { label: 'MIMIC-IV AUROC', value: '0.683', detail: '95% CI: 0.631-0.732' },
   { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
   { label: 'Total Cohort', value: '60,050', detail: 'MIMIC-IV + HiRID' },
   { label: 'IDI Features', value: '11', detail: 'Temporal extraction' },

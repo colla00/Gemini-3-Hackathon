@@ -313,7 +313,7 @@ export const ICUMortalityPrediction = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
                 { label: 'Total Cohort', value: '60,050', sub: 'MIMIC-IV + HiRID' },
-                { label: 'JAMIA AUROC', value: '0.683', sub: '95% CI: 0.631-0.732' },
+                { label: 'MIMIC-IV AUROC', value: '0.683', sub: '95% CI: 0.631-0.732' },
                 { label: 'HiRID AUROC', value: '0.906', sub: 'n=33,897 (Switzerland)' },
                 { label: 'IDI Features', value: '11', sub: 'Temporal extraction' },
               ].map((stat) => (
