@@ -75,7 +75,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier',
     nihFunded: true,
-    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Externally validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals). ANIA 2026 presentation accepted.'
+    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.758 (eICU, N=3,673, 172 hospitals). NPV 0.947 (external), 0.924 (internal). ANIA 2026 presentation accepted.'
   },
 ];
 
