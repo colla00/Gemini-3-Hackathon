@@ -33,7 +33,7 @@ function About() {
                 <span className="text-primary">Collier, DHA</span>
               </h1>
               <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
-                From bedside nursing to clinical AI research. 
+                From clinical experience to AI research. 
                 A career dedicated to reducing the burden on frontline healthcare workers through intelligent systems.
               </p>
               <div className="flex flex-wrap gap-2">
