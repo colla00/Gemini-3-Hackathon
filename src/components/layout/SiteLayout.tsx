@@ -8,6 +8,8 @@ import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
+const ADMIN_EMAIL = 'colliera75@gmail.com';
+
 interface SiteLayoutProps {
   children: React.ReactNode;
   title?: string;
