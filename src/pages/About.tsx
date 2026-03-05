@@ -63,9 +63,9 @@ function About() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://dralexis.ceo" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <a href="https://alexiscollier.com" target="_blank" rel="noopener noreferrer" className="gap-2">
                   <ExternalLink className="w-4 h-4" />
-                  dralexis.ceo
+                  alexiscollier.com
                 </a>
               </Button>
               <Button variant="default" size="sm" onClick={() => setWalkthroughOpen(true)} className="gap-2">
