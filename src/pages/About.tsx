@@ -399,6 +399,7 @@ function About() {
           </p>
         </div>
       </section>
+      <WalkthroughScheduleModal open={walkthroughOpen} onOpenChange={setWalkthroughOpen} />
     </SiteLayout>
   );
 }
