@@ -750,7 +750,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'patent-validation-charts',
     title: 'Research Validation Visualizations',
-    subtitle: '321K Patients · 208 Hospitals · Patent Figures 2-8',
+    subtitle: '28K Patients · 172 Hospitals · Patent Figures 2-8',
     duration: 4,
     icon: <FlaskConical className="w-8 h-8" />,
     notes: [
