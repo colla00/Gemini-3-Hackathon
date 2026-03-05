@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   ChevronLeft, ChevronRight, Maximize, Minimize, 
-  Download, Grid3X3, X, Monitor, Clock, Play, Square,
+  Grid3X3, X, Monitor, Clock, Play, Square,
   StickyNote
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
