@@ -8,7 +8,7 @@ import { PATENT_5_TITLE } from '@/constants/patent';
 import { cn } from '@/lib/utils';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
 
-const TOTAL_SLIDES = 15;
+const TOTAL_SLIDES = 31;
 const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => `/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`);
 
 const ProtectedImage = ({ src, alt, className, onClick }: { src: string; alt: string; className?: string; onClick?: () => void }) => (
@@ -133,13 +133,13 @@ const ANIA2026Poster = () => {
                   </Badge>
                 </div>
                 <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight mb-2">
-                  Documentation Burden Score (DBS) System
+                  Human-Centered AI to Reduce Nursing Workload
                 </h1>
                 <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-                  {PATENT_5_TITLE}
+                  Two-Stage Validation of a Documentation Burden Score (DBS) for Proactive Workforce Planning
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Inventor: Dr. Alexis Collier · NIH-funded research
+                  Dr. Alexis Collier, DHA, MHA · AIM-AHEAD CLINAQ Consortium · University of North Georgia
                 </p>
               </div>
             </div>
@@ -151,9 +151,9 @@ const ANIA2026Poster = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { icon: BarChart3, label: 'Internal AUROC', value: '0.802', sub: 'MIMIC-IV · N=24,689' },
-              { icon: BarChart3, label: 'External AUROC', value: '0.857', sub: 'eICU · N=297,030' },
-              { icon: Building2, label: 'Hospitals', value: '208', sub: 'Multi-center validation' },
-              { icon: Users, label: 'Total DBS Cohort', value: '321K+', sub: 'Combined cohort' },
+              { icon: BarChart3, label: 'External AUROC', value: '0.758', sub: 'eICU · N=3,673' },
+              { icon: Building2, label: 'Hospitals', value: '172', sub: 'Multi-center validation' },
+              { icon: Users, label: 'NPV', value: '0.947', sub: 'Superior safety profile' },
             ].map((m) => (
               <Card key={m.label} className="border-border/40 bg-card/80 backdrop-blur-sm">
                 <CardContent className="p-4 text-center">
