@@ -114,10 +114,10 @@ export const WalkthroughScheduleModal = ({ open, onOpenChange }: WalkthroughSche
             <DialogHeader>
               <div className="flex items-center gap-2 mb-1">
                 <Calendar className="w-4 h-4 text-primary" />
-                <DialogTitle className="text-base">Schedule a Walkthrough</DialogTitle>
+                <DialogTitle className="text-base">Schedule a Guided Walkthrough</DialogTitle>
               </div>
               <DialogDescription className="text-xs">
-                Request a live guided walkthrough of the VitaSignal™ platform. You'll see the presentation while Dr. Collier provides commentary via your presenter screen.
+                Request a live session where Dr. Collier personally walks you through the VitaSignal™ platform. This is different from self-service dashboard access — you'll be guided through the full technology portfolio.
               </DialogDescription>
             </DialogHeader>
 
