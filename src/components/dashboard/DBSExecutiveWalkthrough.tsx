@@ -136,8 +136,8 @@ const StepSolution = () => (
 const StepValidation = () => (
   <div className="space-y-5">
     <p className="text-sm text-muted-foreground leading-relaxed">
-      DBS was validated on <span className="font-bold text-foreground">321,719 real ICU patients</span> across 
-      <span className="font-bold text-foreground"> 208 hospitals</span> using two of the largest critical care databases in the world.
+      DBS was validated on <span className="font-bold text-foreground">28,362 real ICU patients</span> across 
+      <span className="font-bold text-foreground"> 172 hospitals</span> using two of the largest critical care databases in the world.
     </p>
     <div className="grid grid-cols-2 gap-3">
       <div className="bg-card border border-border/50 rounded-xl p-4">
