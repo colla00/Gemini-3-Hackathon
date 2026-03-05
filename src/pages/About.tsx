@@ -138,9 +138,10 @@ function About() {
           <Card>
             <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground leading-relaxed">
               <p>
-                Dr. Collier's path to clinical AI began at the bedside. Years of frontline nursing experience
-                revealed a critical gap: clinicians spend more time documenting care than delivering it,
-                while existing alert systems generate noise rather than actionable insight.
+                Dr. Collier's path to clinical AI began with firsthand experience in healthcare settings.
+                Years of exposure to clinical workflows revealed a critical gap: clinicians spend more time 
+                documenting care than delivering it, while existing alert systems generate noise rather than 
+                actionable insight.
               </p>
               <p>
                 This firsthand understanding of clinical workflow challenges led to doctoral research
