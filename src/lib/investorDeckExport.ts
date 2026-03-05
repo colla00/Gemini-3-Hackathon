@@ -82,7 +82,7 @@ export const generateInvestorDeck = () => {
   doc.text('Equipment-independent clinical AI that works with existing EHR data', margin, 240);
   // Three pillars
   const pillars = [
-    { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: 'AUROC 0.9063' },
+    { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: '65,157 patients' },
     { title: 'DBS Score', desc: 'Documentation Burden Score — quantifies\nnurse documentation workload', metric: '28,362 patients' },
     { title: 'ChartMinder™', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
   ];
@@ -112,8 +112,8 @@ export const generateInvestorDeck = () => {
   doc.setTextColor(255, 255, 255);
   doc.text('Clinical Validation', margin, 180);
   const metrics = [
-    { label: 'IDI Cohort', value: '65,157', sub: 'patients' },
-    { label: 'IDI Best AUROC', value: '0.9063', sub: 'mortality prediction' },
+    { label: 'IDI Cohort', value: '65,157', sub: 'patients validated' },
+    { label: 'IDI External', value: 'Outperforms', sub: 'established acuity scores' },
     { label: 'DBS Cohort', value: '28,362', sub: 'patients' },
     { label: 'DBS External', value: 'Validated', sub: '172 hospitals' },
     { label: 'DBS Internal', value: 'Validated', sub: 'MIMIC-IV' },
