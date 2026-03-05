@@ -86,32 +86,13 @@ function About() {
             </CardHeader>
             <CardContent>
               <div className="grid sm:grid-cols-2 gap-4">
-                {/* IDI */}
                 <div className="p-4 rounded-xl bg-muted/50 border border-border/40">
                   <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Intensive Documentation Index (IDI)</p>
-                  <div className="space-y-1.5 text-sm">
-                    <p className="text-foreground font-bold text-xl">AUROC 0.9063</p>
-                    <p className="text-muted-foreground text-xs">Best performance (HiRID external validation)</p>
-                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">65,157</strong> patients</p>
-                    <p className="text-muted-foreground text-xs">Outperforms APACHE IV & SAPS III (DeLong p &lt; 0.001)</p>
-                  </div>
+                  <p className="text-sm text-muted-foreground">ICU mortality prediction using temporal documentation patterns — no additional equipment required</p>
                 </div>
-                {/* DBS */}
                 <div className="p-4 rounded-xl bg-muted/50 border border-border/40">
                   <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Documentation Burden Score™ (DBS)</p>
-                  <div className="space-y-1.5 text-sm">
-                    <div className="flex gap-3">
-                      <div>
-                        <p className="text-foreground font-bold text-xl">0.802</p>
-                        <p className="text-muted-foreground text-[10px]">Internal AUROC</p>
-                      </div>
-                      <div>
-                        <p className="text-foreground font-bold text-xl">0.758</p>
-                        <p className="text-muted-foreground text-[10px]">External AUROC</p>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">28,362</strong> patients · <strong className="text-foreground">172</strong> hospitals validated</p>
-                  </div>
+                  <p className="text-sm text-muted-foreground">ML-based documentation burden prediction with quartile staffing recommendations</p>
                 </div>
               </div>
             </CardContent>
