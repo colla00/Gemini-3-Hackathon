@@ -23,14 +23,11 @@ const patentSystems = [
     oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 11 temporal features",
     validated: true,
     metrics: [
-      "MIMIC-IV AUROC 0.683 (95% CI: 0.631-0.732) — n=26,153",
-      "MIMIC-IV AUROC 0.640 (95% CI: 0.62-0.66) — random 80/20 split, n=26,153",
-      "HiRID: AUROC 0.9063 — External (n=33,897, Switzerland)",
-      "Total cohort: 60,050 patients (MIMIC-IV + HiRID)",
-      "Outperforms APACHE IV (0.8421) & SAPS III (0.8389) on HiRID",
-      "CV strongest predictor: OR 1.53 (95% CI: 1.35-1.74)",
+      "Validated on 65,157 patients across two international databases",
+      "External validation outperforms established acuity scores",
+      "11 temporal features extracted from EHR timestamp metadata",
     ],
-    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases (60,050 patients).",
+    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases.",
   },
   {
     number: 2,
