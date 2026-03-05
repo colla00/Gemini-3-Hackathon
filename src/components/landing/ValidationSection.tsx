@@ -3,9 +3,9 @@ import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const metrics = [
-  { label: "Patent #1 MIMIC-IV", value: "0.683", detail: "MIMIC-IV (n=26,153)" },
-  { label: "Patent #1 HiRID", value: "0.906", detail: "External (n=33,897)" },
-  { label: "Patent #5 AUROC", value: "0.758", detail: "DBS external (172 hospitals)" },
+  { label: "Patent #1 IDI", value: "65,157", detail: "Patients validated" },
+  { label: "Patent #1 External", value: "Outperforms", detail: "Established acuity scores" },
+  { label: "Patent #5 DBS", value: "172", detail: "Hospitals validated" },
   { label: "Total Validated", value: "93K+", detail: "Patients across both systems" },
 ];
 

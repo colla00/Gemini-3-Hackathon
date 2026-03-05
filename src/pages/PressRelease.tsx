@@ -187,59 +187,17 @@ export const PressRelease = () => (
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">IDI Validation Highlights (Patent #1)</h3>
           <div className="not-prose grid sm:grid-cols-2 gap-4">
             <StatCard
-              label="MIMIC-IV Validation"
-              value="AUROC 0.683"
-              detail="MIMIC-IV · n = 26,153 · Baseline 0.658"
-              sub="95% CI 0.631–0.732 · Key feature OR 1.53"
+              label="IDI Validation"
+              value="65,157 Patients"
+              detail="Across international databases"
+              sub="Outperforms established acuity scores"
             />
             <StatCard
-              label="HiRID External"
-              value="AUROC 0.9063"
-              detail="HiRID · n = 33,897 · Switzerland"
-              sub="Outperforms APACHE IV (0.8421) & SAPS III (0.8389)"
+              label="DBS Validation"
+              value="28,362 Patients"
+              detail="172 hospitals · External validation"
+              sub="ANIA 2026 presentation accepted"
             />
-          </div>
-
-          <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Cohort Demographics (MIMIC-IV)</h3>
-          <div className="not-prose">
-            <Card className="border-border/50">
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-sm">
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">15.99%</p>
-                    <p className="text-xs text-muted-foreground">In-hospital mortality</p>
-                    <p className="text-[10px] text-muted-foreground/70">4,182 deaths</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">69.8</p>
-                    <p className="text-xs text-muted-foreground">Mean age (years)</p>
-                    <p className="text-[10px] text-muted-foreground/70">± 13.8 SD</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">1,119</p>
-                    <p className="text-xs text-muted-foreground">Median events/24h</p>
-                    <p className="text-[10px] text-muted-foreground/70">~46.6/hour</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">11</p>
-                    <p className="text-xs text-muted-foreground">IDI features</p>
-                    <p className="text-[10px] text-muted-foreground/70">Temporal phenotypes</p>
-                  </div>
-                </div>
-                <Separator className="my-4" />
-                <div className="flex flex-wrap gap-3 justify-center text-xs text-muted-foreground">
-                  <span>White 69.0%</span>
-                  <span>·</span>
-                  <span>Black 13.5%</span>
-                  <span>·</span>
-                  <span>Hispanic 8.0%</span>
-                  <span>·</span>
-                  <span>Asian 4.5%</span>
-                  <span>·</span>
-                  <span>Other 5.0%</span>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </motion.section>

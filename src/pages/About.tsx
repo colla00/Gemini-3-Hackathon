@@ -106,7 +106,7 @@ function About() {
                         <p className="text-muted-foreground text-[10px]">External AUROC</p>
                       </div>
                     </div>
-                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">28,362</strong> patients · NPV <strong className="text-foreground">0.947</strong></p>
+                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">28,362</strong> patients · <strong className="text-foreground">172</strong> hospitals validated</p>
                   </div>
                 </div>
               </div>

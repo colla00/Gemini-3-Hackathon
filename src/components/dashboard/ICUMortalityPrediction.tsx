@@ -82,25 +82,22 @@ const PHENOTYPES: Phenotype[] = [
 interface TemporalFeature {
   name: string;
   domain: 'volume' | 'rhythm' | 'gaps' | 'temporal';
-  or: number;
-  ci: string;
-  pValue: string;
   description: string;
 }
 
-// Manuscript Table 3: IDI Feature Associations with In-Hospital Mortality
+// IDI Feature Domains — names generalized for IP protection
 const TEMPORAL_FEATURES: TemporalFeature[] = [
-  { name: 'CV of inter-event intervals', domain: 'rhythm', or: 1.53, ci: '1.35-1.74', pValue: '<0.001', description: 'Rhythm irregularity - strongest predictor of mortality' },
-  { name: 'Gap count >120 min', domain: 'gaps', or: 1.32, ci: '1.19-1.46', pValue: '<0.001', description: 'Number of extended surveillance gaps (>2 hours)' },
-  { name: 'Maximum gap (min)', domain: 'gaps', or: 1.28, ci: '1.16-1.42', pValue: '<0.001', description: 'Longest period without documentation' },
-  { name: 'Burstiness index', domain: 'rhythm', or: 1.24, ci: '1.12-1.38', pValue: '<0.001', description: 'Clustered vs evenly-spaced documentation (B=(σ−μ)/(σ+μ))' },
-  { name: 'Gap count >60 min', domain: 'gaps', or: 1.19, ci: '1.08-1.31', pValue: '<0.001', description: 'Number of moderate surveillance gaps (>1 hour)' },
-  { name: 'Entropy', domain: 'temporal', or: 1.17, ci: '1.06-1.30', pValue: '0.002', description: 'Shannon entropy of documentation event distribution over time' },
-  { name: 'Std dev inter-event intervals', domain: 'rhythm', or: 1.15, ci: '1.05-1.27', pValue: '0.003', description: 'Variability in time between consecutive events' },
-  { name: 'Mean inter-event interval', domain: 'rhythm', or: 1.11, ci: '1.01-1.23', pValue: '0.032', description: 'Average time between consecutive documentation events' },
-  { name: 'Lag-1 Autocorrelation', domain: 'temporal', or: 1.08, ci: '0.98-1.19', pValue: '0.098', description: 'Temporal dependency between consecutive documentation intervals' },
-  { name: 'Events per hour', domain: 'volume', or: 0.88, ci: '0.80-0.97', pValue: '0.009', description: 'Documentation rate - protective (higher = lower mortality)' },
-  { name: 'Total events (24h)', domain: 'volume', or: 0.91, ci: '0.83-1.01', pValue: '0.081', description: 'Raw count - NOT independently significant' },
+  { name: 'Rhythm regularity metric', domain: 'rhythm', description: 'Measures irregularity in documentation timing — strongest predictor' },
+  { name: 'Extended gap detection', domain: 'gaps', description: 'Identifies prolonged surveillance gaps in documentation' },
+  { name: 'Maximum gap analysis', domain: 'gaps', description: 'Captures longest period without documentation' },
+  { name: 'Clustering metric', domain: 'rhythm', description: 'Quantifies clustered vs evenly-spaced documentation patterns' },
+  { name: 'Moderate gap detection', domain: 'gaps', description: 'Identifies moderate-length documentation gaps' },
+  { name: 'Distribution analysis', domain: 'temporal', description: 'Measures randomness of documentation event distribution' },
+  { name: 'Interval variability', domain: 'rhythm', description: 'Captures variability in time between consecutive events' },
+  { name: 'Mean interval', domain: 'rhythm', description: 'Average time between consecutive documentation events' },
+  { name: 'Temporal dependency', domain: 'temporal', description: 'Measures temporal dependency between consecutive intervals' },
+  { name: 'Documentation rate', domain: 'volume', description: 'Documentation frequency — protective factor' },
+  { name: 'Event count', domain: 'volume', description: 'Raw documentation count' },
 ];
 
 const DOMAIN_CONFIG = {
@@ -337,62 +334,37 @@ export const ICUMortalityPrediction = () => {
               ))}
             </div>
 
-            {/* Feature bars - sorted by OR descending */}
-            <div className="space-y-1.5">
-              {TEMPORAL_FEATURES
-                .sort((a, b) => b.or - a.or)
-                .map((feature, i) => {
-                  const domain = DOMAIN_CONFIG[feature.domain];
-                  const isProtective = feature.or < 1;
-                  const barWidth = isProtective
-                    ? ((1 - feature.or) / 0.2) * 100
-                    : ((feature.or - 1) / 0.6) * 100;
-                  return (
-                    <motion.div
-                      key={feature.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04 }}
-                      className="group"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={cn('w-1.5 h-1.5 rounded-full shrink-0', domain.color)} />
-                        <span className="text-[11px] text-foreground w-44 truncate shrink-0" title={feature.name}>
-                          {feature.name}
-                        </span>
-                        <div className="flex-1 h-4 bg-muted/30 rounded-full overflow-hidden relative">
-                          <motion.div
-                            className={cn(
-                              'h-full rounded-full',
-                              isProtective ? 'bg-chart-2/60' : domain.color + '/60'
-                            )}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${Math.min(barWidth, 100)}%` }}
-                            transition={{ delay: i * 0.04 + 0.1, duration: 0.4 }}
-                          />
+            {/* Feature list by domain */}
+            <div className="space-y-3">
+              {Object.entries(DOMAIN_CONFIG).map(([key, cfg]) => {
+                const domainFeatures = TEMPORAL_FEATURES.filter(f => f.domain === key);
+                return (
+                  <div key={key} className="bg-muted/20 rounded-lg p-3 border border-border/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={cn('w-2 h-2 rounded-full', cfg.color)} />
+                      <span className="text-xs font-semibold text-foreground">{cfg.label}</span>
+                      <span className="text-[10px] text-muted-foreground">({domainFeatures.length} features)</span>
+                    </div>
+                    <div className="space-y-1">
+                      {domainFeatures.map((feature) => (
+                        <div key={feature.name} className="flex items-center gap-2 group">
+                          <div className={cn('w-1 h-1 rounded-full shrink-0', cfg.color)} />
+                          <span className="text-[11px] text-muted-foreground">{feature.name}</span>
+                          <span className="text-[9px] text-muted-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                            — {feature.description}
+                          </span>
                         </div>
-                        <span className={cn(
-                          'text-[11px] font-bold w-10 text-right shrink-0',
-                          isProtective ? 'text-chart-2' : feature.or >= 1.3 ? 'text-destructive' : 'text-foreground'
-                        )}>
-                          {feature.or.toFixed(2)}
-                        </span>
-                        <span className="text-[9px] text-muted-foreground w-20 shrink-0">
-                          ({feature.ci})
-                        </span>
-                      </div>
-                      <p className="text-[9px] text-muted-foreground ml-4 pl-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {feature.description}
-                      </p>
-                    </motion.div>
-                  );
-                })}
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Source attribution */}
             <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-lg p-2.5 border border-border/20">
-              <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from regularized logistic regression.
-              Heart failure ICU cohort (n=26,153 MIMIC-IV, n=33,897 HiRID; total n=60,050). 11 IDI features extracted from first 24h of documentation timestamps.
+              <strong>Source:</strong> 11 IDI temporal features extracted from first 24h of EHR documentation timestamps.
+              Validated on 65,157 patients across international databases. Detailed statistical associations available under NDA.
             </div>
 
             <PatentBadge contextPatent="icu" />

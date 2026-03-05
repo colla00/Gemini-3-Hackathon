@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'MIMIC-IV AUROC', value: '0.683', detail: '95% CI: 0.631-0.732' },
+  { label: 'IDI Validated', value: '65,157', detail: 'Patients across databases' },
   { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
   { label: 'Total Cohort', value: '60,050', detail: 'MIMIC-IV + HiRID' },
   { label: 'IDI Features', value: '11', detail: 'Temporal extraction' },
@@ -60,9 +60,8 @@ export const PatentHeroSection = () => {
             <div>
               <p className="text-sm font-semibold text-foreground mb-1">Key Finding</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Documentation rhythm irregularity (CV) is the strongest predictor
-                (OR 1.53, p&lt;0.001), while volume is not independently predictive
-                (OR 0.88, p=0.009).
+               Documentation rhythm irregularity is the strongest predictor of ICU mortality,
+               while documentation volume alone is not independently predictive.
               </p>
             </div>
           </div>

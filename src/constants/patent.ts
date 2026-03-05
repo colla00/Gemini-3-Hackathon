@@ -40,7 +40,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     inventor: 'Dr. Alexis Collier',
     claimsCount: 99,
     nihFunded: true,
-    abstract: 'A system and method for predicting ICU mortality utilizing 11 IDI temporal features derived solely from EHR timestamp metadata. Validated on 60,050 patients: MIMIC-IV (AUROC 0.683, n=26,153) and HiRID (AUROC 0.9063, n=33,897). Outperforms APACHE IV and SAPS III on external validation.'
+    abstract: 'A system and method for predicting ICU mortality utilizing temporal features derived solely from EHR timestamp metadata. Validated on 65,157 patients across international databases. Outperforms established acuity scores on external validation.'
   },
   {
     id: 'trust-alerts',
@@ -75,7 +75,7 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier',
     nihFunded: true,
-    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.758 (eICU, N=3,673, 172 hospitals). NPV 0.947 (external), 0.924 (internal). ANIA 2026 presentation accepted.'
+    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Validated internally and externally across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.'
   },
 ];
 

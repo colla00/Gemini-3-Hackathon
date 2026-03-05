@@ -23,14 +23,11 @@ const patentSystems = [
     oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 11 temporal features",
     validated: true,
     metrics: [
-      "MIMIC-IV AUROC 0.683 (95% CI: 0.631-0.732) — n=26,153",
-      "MIMIC-IV AUROC 0.640 (95% CI: 0.62-0.66) — random 80/20 split, n=26,153",
-      "HiRID: AUROC 0.9063 — External (n=33,897, Switzerland)",
-      "Total cohort: 60,050 patients (MIMIC-IV + HiRID)",
-      "Outperforms APACHE IV (0.8421) & SAPS III (0.8389) on HiRID",
-      "CV strongest predictor: OR 1.53 (95% CI: 1.35-1.74)",
+      "Validated on 65,157 patients across two international databases",
+      "External validation outperforms established acuity scores",
+      "11 temporal features extracted from EHR timestamp metadata",
     ],
-    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases (60,050 patients).",
+    innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases.",
   },
   {
     number: 2,
@@ -67,12 +64,11 @@ const patentSystems = [
     oneLiner: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 172 hospitals.",
     validated: true,
     metrics: [
-      "AUROC 0.802 (MIMIC-IV, N=24,689)",
-      "AUROC 0.758 (eICU, N=3,673, 172 hospitals)",
-      "NPV 0.947 (external) · 0.924 (internal)",
+      "Validated internally and externally across 172 hospitals",
+      "28,362 patients across two databases",
       "ANIA 2026 Presentation — Boston, MA",
     ],
-    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV) → 0.758 (eICU, 172 hospitals, N=28,362). NPV 0.947. ANIA 2026 presentation accepted.",
+    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Validated internally and externally across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.",
   },
 ];
 
