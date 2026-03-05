@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -6,8 +7,11 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import alexisPhoto from "@/assets/alexis-collier.png";
+import { WalkthroughScheduleModal } from "@/components/WalkthroughScheduleModal";
 
 function About() {
+  const [walkthroughOpen, setWalkthroughOpen] = useState(false);
+
   return (
     <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero - biographical focus */}
@@ -64,9 +68,9 @@ function About() {
                   vitasignal.ai
                 </a>
               </Button>
-              <Button variant="default" size="sm" onClick={() => { import('@/lib/investorDeckExport').then(m => m.generateInvestorDeck()); }} className="gap-2">
-                <FileText className="w-4 h-4" />
-                Download Investor Deck
+              <Button variant="default" size="sm" onClick={() => setWalkthroughOpen(true)} className="gap-2">
+                <Calendar className="w-4 h-4" />
+                Schedule Walkthrough
               </Button>
             </div>
           </div>
@@ -395,6 +399,7 @@ function About() {
           </p>
         </div>
       </section>
+      <WalkthroughScheduleModal open={walkthroughOpen} onOpenChange={setWalkthroughOpen} />
     </SiteLayout>
   );
 }
