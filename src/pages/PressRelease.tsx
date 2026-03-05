@@ -43,7 +43,7 @@ export const PressRelease = () => (
           VitaSignal™ DBS Research Accepted for Presentation at ANIA 2026 Annual Conference
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Documentation Burden Score system validated on 321,719 ICU patients across 208+ hospitals — the largest external validation of a nursing documentation burden predictor to date.
+          Documentation Burden Score system validated on 28,362 ICU patients across 172 hospitals with NPV of 0.947.
         </p>
       </motion.header>
 
