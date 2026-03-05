@@ -11,6 +11,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DemoAccessGate from "@/components/DemoAccessGate";
+import AdminRoute from "@/components/AdminRoute";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -172,11 +173,11 @@ const App = () => {
                     </Suspense>
                   } />
                   <Route path="/investor-deck" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <Suspense fallback={<PageSkeleton />}>
                         <InvestorDeck />
                       </Suspense>
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/audience" element={
                     <Suspense fallback={<div className="fixed inset-0 bg-black" />}>

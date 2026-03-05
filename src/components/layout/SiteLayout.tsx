@@ -8,6 +8,8 @@ import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
+const ADMIN_EMAIL = 'colliera75@gmail.com';
+
 interface SiteLayoutProps {
   children: React.ReactNode;
   title?: string;
@@ -87,16 +89,18 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <ThemeToggle />
               {user ? (
                 <>
-                  <Link
-                    to="/investor-deck"
-                    className={`text-sm transition-colors ${
-                      location.pathname === "/investor-deck"
-                        ? "text-primary font-medium"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    Investor Deck
-                  </Link>
+                  {user.email === ADMIN_EMAIL && (
+                    <Link
+                      to="/investor-deck"
+                      className={`text-sm transition-colors ${
+                        location.pathname === "/investor-deck"
+                          ? "text-primary font-medium"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      Investor Deck
+                    </Link>
+                  )}
                   <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
                     <LogOut className="w-4 h-4" />
                     Sign Out
@@ -139,17 +143,19 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <div className="pt-2 mt-1 border-t border-border/30">
                 {user ? (
                   <div className="space-y-2">
-                    <Link
-                      to="/investor-deck"
-                      onClick={() => setMobileOpen(false)}
-                      className={`block text-sm py-2.5 px-3 rounded-lg transition-colors ${
-                        location.pathname === "/investor-deck"
-                          ? "text-primary font-medium bg-primary/10"
-                          : "text-muted-foreground hover:text-primary hover:bg-muted"
-                      }`}
-                    >
-                      Investor Deck
-                    </Link>
+                    {user.email === ADMIN_EMAIL && (
+                      <Link
+                        to="/investor-deck"
+                        onClick={() => setMobileOpen(false)}
+                        className={`block text-sm py-2.5 px-3 rounded-lg transition-colors ${
+                          location.pathname === "/investor-deck"
+                            ? "text-primary font-medium bg-primary/10"
+                            : "text-muted-foreground hover:text-primary hover:bg-muted"
+                        }`}
+                      >
+                        Investor Deck
+                      </Link>
+                    )}
                     <Button variant="outline" size="sm" className="w-full gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
                       <LogOut className="w-4 h-4" />
                       Sign Out
