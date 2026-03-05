@@ -12,7 +12,7 @@ const metrics = [
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Two independently validated systems (Patent #1 & #5)",
-  "External validation across 208 hospitals (eICU)",
+  "External validation across 172 hospitals (eICU)",
   "Multi-variable ML model + 11 temporal IDI features",
   "SHAP-based explainability for every prediction",
   "ANIA 2026 presentation accepted — Boston, MA",
