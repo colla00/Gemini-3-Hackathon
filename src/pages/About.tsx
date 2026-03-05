@@ -8,10 +8,6 @@ import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import alexisPhoto from "@/assets/alexis-collier.png";
 import { WalkthroughScheduleModal } from "@/components/WalkthroughScheduleModal";
-import { SiteLayout } from "@/components/layout/SiteLayout";
-import { Link } from "react-router-dom";
-import heroBg from "@/assets/hero-bg.jpg";
-import alexisPhoto from "@/assets/alexis-collier.png";
 
 function About() {
   return (
