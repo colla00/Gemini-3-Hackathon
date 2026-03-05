@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 const capabilities = [
   "No bedside monitors, wearables, or sensors required",
   "Works with any EHR system that records timestamped entries",
-  "Validated across 208 hospitals with diverse patient populations",
+  "Validated across 172 hospitals with diverse patient populations",
   "Deployable via cloud or on-premise — no hardware installation",
   "Equity-validated to minimize bias across demographics",
 ];
