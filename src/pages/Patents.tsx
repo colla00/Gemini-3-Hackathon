@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const ipSummary = [
   { label: "Patent Applications Filed", value: "5", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "AUROC Range", value: "0.640–0.906", sub: "Validated (#1 & #5)" },
+  { label: "Patients Validated", value: "93K+", sub: "Across #1 & #5" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
