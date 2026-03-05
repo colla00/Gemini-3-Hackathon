@@ -187,7 +187,7 @@ export const PressRelease = () => (
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">IDI Validation Highlights (Patent #1)</h3>
           <div className="not-prose grid sm:grid-cols-2 gap-4">
             <StatCard
-              label="JAMIA Manuscript"
+              label="MIMIC-IV Validation"
               value="AUROC 0.683"
               detail="MIMIC-IV · n = 26,153 · Baseline 0.658"
               sub="95% CI 0.631–0.732 · Key feature OR 1.53"
@@ -200,7 +200,7 @@ export const PressRelease = () => (
             />
           </div>
 
-          <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Cohort Demographics (JAMIA)</h3>
+          <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Cohort Demographics (MIMIC-IV)</h3>
           <div className="not-prose">
             <Card className="border-border/50">
               <CardContent className="pt-6">

@@ -23,8 +23,8 @@ const patentSystems = [
     oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 11 temporal features",
     validated: true,
     metrics: [
-      "JAMIA: AUROC 0.683 (95% CI: 0.631-0.732) — MIMIC-IV, n=26,153",
-      "npj: AUROC 0.640 (95% CI: 0.62-0.66) — MIMIC-IV, random 80/20 split, n=26,153",
+      "MIMIC-IV AUROC 0.683 (95% CI: 0.631-0.732) — n=26,153",
+      "MIMIC-IV AUROC 0.640 (95% CI: 0.62-0.66) — random 80/20 split, n=26,153",
       "HiRID: AUROC 0.9063 — External (n=33,897, Switzerland)",
       "Total cohort: 60,050 patients (MIMIC-IV + HiRID)",
       "Outperforms APACHE IV (0.8421) & SAPS III (0.8389) on HiRID",

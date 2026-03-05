@@ -223,9 +223,9 @@ export const generateInvestorDeck = () => {
   doc.setTextColor(255, 255, 255);
   doc.text('Manuscripts Under Review', margin, 460);
   const pubs = [
-    { journal: 'JAMIA', title: 'IDI — Intervention Delay Index validation' },
-    { journal: 'npj Digital Medicine', title: 'Multinational IDI external validation' },
-    { journal: 'JAMA Network Open', title: 'Healthcare disparities analysis' },
+    { journal: 'Manuscript A', title: 'IDI — Intensive Documentation Index validation' },
+    { journal: 'Manuscript B', title: 'Multinational IDI external validation' },
+    { journal: 'Manuscript C', title: 'Healthcare disparities analysis' },
   ];
   pubs.forEach((p, i) => {
     const y = 510 + i * 80;

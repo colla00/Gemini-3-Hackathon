@@ -10,7 +10,7 @@ const idiFeatures = [
 ];
 
 const keyFindings = [
-  { metric: 'JAMIA AUROC', value: '0.683', detail: '95% CI: 0.631–0.732' },
+  { metric: 'MIMIC-IV AUROC', value: '0.683', detail: '95% CI: 0.631–0.732' },
   { metric: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
   { metric: 'Total Cohort', value: 'n = 60,050', detail: 'MIMIC-IV + HiRID' },
   { metric: 'Strongest Predictor', value: 'CV (OR 1.53)', detail: '95% CI: 1.35–1.74' },
@@ -38,7 +38,7 @@ export const ResearchValidationSection = () => (
             <div>
               <CardTitle className="text-base font-bold">ICU Mortality Prediction via Documentation Rhythm</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                JAMIA & npj Digital Medicine · MIMIC-IV + HiRID Databases · NIH-Funded Research
+                Manuscripts Under Review · MIMIC-IV + HiRID Databases · NIH-Funded Research
               </p>
             </div>
           </div>
@@ -58,7 +58,7 @@ export const ResearchValidationSection = () => (
         {/* Dual manuscript results */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           <div className="bg-primary/5 rounded-xl p-3 border border-primary/20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">JAMIA Paper (MIMIC-IV, n=26,153)</p>
+            <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">Manuscript A (MIMIC-IV, n=26,153)</p>
             <div className="space-y-1 text-xs text-muted-foreground">
               <p>Baseline AUROC: <span className="font-semibold text-foreground">0.658</span> <span className="text-[10px]">(95% CI: 0.609–0.710)</span></p>
               <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.683</span> <span className="text-[10px]">(95% CI: 0.631–0.732)</span></p>
@@ -66,11 +66,11 @@ export const ResearchValidationSection = () => (
             </div>
           </div>
           <div className="bg-accent/5 rounded-xl p-3 border border-accent/20">
-            <p className="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">npj Digital Medicine (MIMIC-IV, n=26,153)</p>
+            <p className="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">Manuscript B (MIMIC-IV, n=26,153)</p>
             <div className="space-y-1 text-xs text-muted-foreground">
               <p>Baseline AUROC: <span className="font-semibold text-foreground">0.615</span> <span className="text-[10px]">(random 80/20 split)</span></p>
               <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.640</span> <span className="text-[10px]">(95% CI: 0.62–0.66)</span></p>
-              <p className="text-[10px] italic">Same cohort, random split (vs. temporal in JAMIA)</p>
+              <p className="text-[10px] italic">Same cohort, random split (vs. temporal in Manuscript A)</p>
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export const ResearchValidationSection = () => (
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
       <strong className="text-foreground">Methodology:</strong> Retrospective cohort studies of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019 (n=26,153) 
       and HiRID (University Hospital Bern, Switzerland, n=33,897). 
-      JAMIA: Regularized logistic regression, temporal validation training 2008–2018, testing 2019. LOYO cross-validation mean AUC 0.684 (SD 0.008). 
+      Regularized logistic regression, temporal validation training 2008–2018, testing 2019. LOYO cross-validation mean AUC 0.684 (SD 0.008). 
       NIH-funded research. IRB Protocol #2025-IRB-0142.
     </div>
   </div>
