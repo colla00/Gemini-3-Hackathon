@@ -26,8 +26,10 @@ function InvestorDeck() {
   const [showNotes, setShowNotes] = useState(true);
   const [notes, setNotes] = useState<Record<number, string>>(() => {
     try {
-      return JSON.parse(localStorage.getItem("presenter-notes") || "{}");
-    } catch { return {}; }
+      const saved = JSON.parse(localStorage.getItem("presenter-notes") || "{}");
+      // Merge defaults with saved (saved takes priority)
+      return { ...DEFAULT_NOTES, ...saved };
+    } catch { return { ...DEFAULT_NOTES }; }
   });
   const [elapsed, setElapsed] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
