@@ -270,18 +270,6 @@ export const generateInvestorDeck = () => {
   bio.forEach((b, i) => doc.text(b, margin + 40, 400 + i * 36));
   // Co-I
   doc.setFillColor(30, 41, 59);
-  doc.roundedRect(margin + 840, 240, 780, 400, 16, 16, 'F');
-  doc.setFontSize(30);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text('Dr. Sophia Z. Shalhout, PhD', margin + 880, 310);
-  doc.setFontSize(20);
-  doc.setTextColor(16, 185, 129);
-  doc.text('Co-Investigator', margin + 880, 350);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(203, 213, 225);
-  doc.text('Harvard Medical School', margin + 880, 400);
-  doc.text('Massachusetts Eye and Ear', margin + 880, 436);
   slideFooter();
 
   // ─── SLIDE 9: Contact / CTA ───
