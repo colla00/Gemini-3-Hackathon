@@ -60,9 +60,8 @@ export const PatentHeroSection = () => {
             <div>
               <p className="text-sm font-semibold text-foreground mb-1">Key Finding</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Documentation rhythm irregularity (CV) is the strongest predictor
-                (OR 1.53, p&lt;0.001), while volume is not independently predictive
-                (OR 0.88, p=0.009).
+               Documentation rhythm irregularity is the strongest predictor of ICU mortality,
+               while documentation volume alone is not independently predictive.
               </p>
             </div>
           </div>
