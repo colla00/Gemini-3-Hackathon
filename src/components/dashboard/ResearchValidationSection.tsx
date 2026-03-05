@@ -10,10 +10,10 @@ const idiFeatures = [
 ];
 
 const keyFindings = [
-  { metric: 'MIMIC-IV AUROC', value: '0.683', detail: '95% CI: 0.631–0.732' },
-  { metric: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
-  { metric: 'Total Cohort', value: 'n = 60,050', detail: 'MIMIC-IV + HiRID' },
-  { metric: 'Strongest Predictor', value: 'CV (OR 1.53)', detail: '95% CI: 1.35–1.74' },
+  { metric: 'Total Cohort', value: '65,157', detail: 'Across databases' },
+  { metric: 'External Validation', value: 'Outperforms', detail: 'Established acuity scores' },
+  { metric: 'IDI Features', value: '11', detail: 'Temporal extraction' },
+  { metric: 'Databases', value: '3', detail: 'International validation' },
 ];
 
 const demographics = [
