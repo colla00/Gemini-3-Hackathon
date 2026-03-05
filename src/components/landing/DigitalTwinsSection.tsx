@@ -22,7 +22,7 @@ const layers = [
     icon: FileText,
     name: "Workload Signal Layer",
     desc: "Documentation Burden Score™ quantifies and predicts nursing workload before each shift — the operational twin of patient complexity.",
-    metric: "AUROC 0.857",
+    metric: "AUROC 0.758",
   },
 ];
 

@@ -28,13 +28,13 @@ const sections: ComplianceSection[] = [
     items: [
       { label: "Intended use statement defined", status: "complete", detail: "ICU mortality risk prediction from documentation patterns" },
       { label: "SaMD categorization (IMDRF)", status: "complete", detail: "Category IIb — informs clinical management for serious conditions" },
-      { label: "Clinical validation (retrospective)", status: "complete", detail: "Patent #1: n=60,050 (AUROC 0.683 MIMIC-IV, 0.906 HiRID) · Patent #5: N=321,719 (AUROC 0.802→0.857)" },
+      { label: "Clinical validation (retrospective)", status: "complete", detail: "Patent #1: n=65,157 (AUROC 0.683 MIMIC-IV, 0.9063 HiRID) · Patent #5: N=28,362 (AUROC 0.802/0.758)" },
       { label: "Research disclaimers & regulatory boundaries", status: "complete", detail: "Comprehensive disclaimers on every page with acknowledgment gate" },
       { label: "Software documentation (IEC 62304)", status: "in-progress", detail: "Software architecture and risk analysis underway" },
       { label: "Predetermined change control plan", status: "in-progress", detail: "Algorithm retraining triggers defined" },
-      { label: "510(k) / De Novo pathway determination", status: "planned", detail: "Regulatory counsel engagement planned" },
+      { label: "FDA classification determination", status: "complete", detail: "Non-Device CDS under §520(o)(1)(E) — not a medical device" },
       { label: "Prospective clinical validation", status: "planned", detail: "Multi-site study protocol in development" },
-      { label: "FDA Pre-Submission (Q-Sub)", status: "planned", detail: "Targeted after prospective validation" },
+      { label: "FDA Pre-Submission (Q-Sub)", status: "planned", detail: "Targeted after prospective validation if device pathway required" },
     ],
   },
   {
@@ -260,7 +260,7 @@ function Regulatory() {
             {[
               { phase: "Phase 1", title: "Prospective Validation", timeline: "2026 Q3–Q4", desc: "Multi-site clinical study with IRB approval" },
               { phase: "Phase 2", title: "FDA Pre-Submission", timeline: "2027 Q1", desc: "Q-Sub meeting with FDA CDRH to confirm pathway" },
-              { phase: "Phase 3", title: "Market Authorization", timeline: "2027 Q3+", desc: "510(k) or De Novo submission based on FDA feedback" },
+              { phase: "Phase 3", title: "Market Authorization", timeline: "2027 Q3+", desc: "Non-Device CDS §520(o)(1)(E) classification or submission based on FDA feedback" },
             ].map((m) => (
               <div key={m.phase} className="p-4 rounded-lg bg-primary-foreground/10 border border-primary/20">
                 <Badge className="bg-primary/20 border-primary/30 text-primary text-[10px] mb-2">{m.phase}</Badge>

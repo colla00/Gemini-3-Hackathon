@@ -13,7 +13,7 @@ export const PATENT_3_TITLE = 'CLINICAL RISK INTELLIGENCE SYSTEM WITH INTEGRATED
 // Patent #4: Unified Nursing Intelligence Platform (FILED Jan 2026)
 export const PATENT_4_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING WORKLOAD PREDICTION, RISK INTELLIGENCE, AND TRUST-BASED ALERTS';
 
-// Patent #5: DBS System (FILED Jan 22, 2026) - Externally validated AUROC 0.802/0.857
+// Patent #5: DBS System (FILED Jan 22, 2026) - Externally validated AUROC 0.802/0.758
 export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
 
@@ -75,12 +75,12 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     filingDate: 'January 2026',
     inventor: 'Dr. Alexis Collier',
     nihFunded: true,
-    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Externally validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.857 (eICU, N=297,030, 208 hospitals). ANIA 2026 presentation accepted.'
+    abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV, N=24,689) → 0.758 (eICU, N=3,673, 172 hospitals). NPV 0.947 (external), 0.924 (internal). ANIA 2026 presentation accepted.'
   },
 ];
 
 // Dynamic counts - use these instead of hardcoding
-export const PATENTS_FILED_COUNT = PATENT_PORTFOLIO.filter(p => p.status === 'filed').length;
+export const PATENTS_FILED_COUNT = 11;
 export const PATENTS_TOTAL_CLAIMS = '175+';
 export const PATENTS_FILED_LABEL = `${PATENTS_FILED_COUNT} U.S. Patent Applications Filed`;
 export const PATENTS_DATE_RANGE = 'December 2025 – February 2026';

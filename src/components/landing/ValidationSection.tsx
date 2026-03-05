@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 const metrics = [
   { label: "Patent #1 JAMIA", value: "0.683", detail: "MIMIC-IV (n=26,153)" },
   { label: "Patent #1 HiRID", value: "0.906", detail: "External (n=33,897)" },
-  { label: "Patent #5 AUROC", value: "0.857", detail: "DBS external (208 hospitals)" },
-  { label: "Total Validated", value: "382K+", detail: "Patients across both systems" },
+  { label: "Patent #5 AUROC", value: "0.758", detail: "DBS external (172 hospitals)" },
+  { label: "Total Validated", value: "93K+", detail: "Patients across both systems" },
 ];
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Two independently validated systems (Patent #1 & #5)",
-  "External validation across 208 hospitals (eICU)",
+  "External validation across 172 hospitals (eICU)",
   "Multi-variable ML model + 11 temporal IDI features",
   "SHAP-based explainability for every prediction",
   "ANIA 2026 presentation accepted — Boston, MA",
@@ -47,7 +47,7 @@ export const ValidationSection = () => (
           <p className="text-primary-foreground/70 mb-8 leading-relaxed">
            Two patent systems have been validated on large-scale
             clinical datasets with NIH-funded research support: ICU Mortality Prediction (AUROC 0.683 MIMIC-IV, 0.906 HiRID; n=60,050)
-            and DBS (AUROC 0.802→0.857, N=321,719 across 208 hospitals).
+            and DBS (AUROC 0.802 / 0.758, N=28,362 across 172 hospitals).
           </p>
 
           <div className="space-y-3">

@@ -136,8 +136,8 @@ const StepSolution = () => (
 const StepValidation = () => (
   <div className="space-y-5">
     <p className="text-sm text-muted-foreground leading-relaxed">
-      DBS was validated on <span className="font-bold text-foreground">321,719 real ICU patients</span> across 
-      <span className="font-bold text-foreground"> 208 hospitals</span> using two of the largest critical care databases in the world.
+      DBS was validated on <span className="font-bold text-foreground">28,362 real ICU patients</span> across 
+      <span className="font-bold text-foreground"> 172 hospitals</span> using two of the largest critical care databases in the world.
     </p>
     <div className="grid grid-cols-2 gap-3">
       <div className="bg-card border border-border/50 rounded-xl p-4">
@@ -148,9 +148,9 @@ const StepValidation = () => (
       </div>
       <div className="bg-card border border-border/50 rounded-xl p-4">
         <Badge variant="outline" className="mb-2 text-[10px]">External Validation</Badge>
-        <p className="text-3xl font-bold text-chart-3"><Counter value={0.857} decimals={3} /></p>
+        <p className="text-3xl font-bold text-chart-3"><Counter value={0.758} decimals={3} /></p>
         <p className="text-xs font-semibold text-foreground">AUROC</p>
-        <p className="text-[10px] text-muted-foreground mt-1">eICU · 297,030 patients · 208 hospitals</p>
+        <p className="text-[10px] text-muted-foreground mt-1">eICU · 3,673 patients · 172 hospitals</p>
       </div>
     </div>
     {/* Sensitivity / Specificity */}
@@ -268,7 +268,7 @@ const steps: WalkthroughStep[] = [
   {
     id: 'validation',
     title: 'Clinically Validated',
-    subtitle: '321K+ patients across 208 hospitals',
+    subtitle: '28K+ patients across 172 hospitals',
     icon: CheckCircle2,
     iconColor: 'text-risk-low',
     iconBg: 'bg-risk-low/10 border-risk-low/20',

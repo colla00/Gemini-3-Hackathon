@@ -43,7 +43,7 @@ export const PressRelease = () => (
           VitaSignal™ DBS Research Accepted for Presentation at ANIA 2026 Annual Conference
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Documentation Burden Score system validated on 321,719 ICU patients across 208+ hospitals — the largest external validation of a nursing documentation burden predictor to date.
+          Documentation Burden Score system validated on 28,362 ICU patients across 172 hospitals with NPV of 0.947.
         </p>
       </motion.header>
 
@@ -101,9 +101,9 @@ export const PressRelease = () => (
             />
             <StatCard
               label="External Validation"
-              value="AUROC 0.857"
-              detail="eICU-CRD · n = 297,030 · 208 hospitals"
-              sub="Sensitivity 0.768 · Specificity 0.785"
+              value="AUROC 0.758"
+              detail="eICU-CRD · n = 3,673 · 172 hospitals"
+              sub="NPV 0.947 · p < 0.001"
             />
           </div>
 
@@ -250,7 +250,7 @@ export const PressRelease = () => (
       <motion.section {...fade} transition={{ delay: 0.3, duration: 0.5 }} className="mb-14">
         <h2 className="text-xl font-bold text-foreground mb-4">Intellectual Property Portfolio</h2>
         <p className="text-sm text-muted-foreground mb-6">
-          Five U.S. patent applications filed between December 2025 and February 2026, covering the full clinical intelligence stack from documentation burden quantification to trust-based alert governance.
+          Eleven U.S. patent applications filed February 28, 2026, covering the full clinical intelligence stack from documentation burden quantification to trust-based alert governance. Non-provisional deadline: February 28, 2027.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
           {[

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 const capabilities = [
   "No bedside monitors, wearables, or sensors required",
   "Works with any EHR system that records timestamped entries",
-  "Validated across 208 hospitals with diverse patient populations",
+  "Validated across 172 hospitals with diverse patient populations",
   "Deployable via cloud or on-premise — no hardware installation",
   "Equity-validated to minimize bias across demographics",
 ];
@@ -64,8 +64,8 @@ export const GlobalHealthSection = () => (
         >
           {[
             { icon: Wifi, label: "Zero Hardware", detail: "Software-only deployment" },
-            { icon: Building2, label: "208 Hospitals", detail: "Multi-center validated" },
-            { icon: Heart, label: "382K+ Patients", detail: "Large-scale evidence" },
+            { icon: Building2, label: "172 Hospitals", detail: "Multi-center validated" },
+            { icon: Heart, label: "93K+ Patients", detail: "Large-scale evidence" },
             { icon: Globe, label: "Any EHR", detail: "Universal compatibility" },
           ].map((item, i) => (
             <motion.div
