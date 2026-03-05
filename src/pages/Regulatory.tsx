@@ -32,9 +32,9 @@ const sections: ComplianceSection[] = [
       { label: "Research disclaimers & regulatory boundaries", status: "complete", detail: "Comprehensive disclaimers on every page with acknowledgment gate" },
       { label: "Software documentation (IEC 62304)", status: "in-progress", detail: "Software architecture and risk analysis underway" },
       { label: "Predetermined change control plan", status: "in-progress", detail: "Algorithm retraining triggers defined" },
-      { label: "510(k) / De Novo pathway determination", status: "planned", detail: "Regulatory counsel engagement planned" },
+      { label: "FDA classification determination", status: "complete", detail: "Non-Device CDS under §520(o)(1)(E) — not a medical device" },
       { label: "Prospective clinical validation", status: "planned", detail: "Multi-site study protocol in development" },
-      { label: "FDA Pre-Submission (Q-Sub)", status: "planned", detail: "Targeted after prospective validation" },
+      { label: "FDA Pre-Submission (Q-Sub)", status: "planned", detail: "Targeted after prospective validation if device pathway required" },
     ],
   },
   {
