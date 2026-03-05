@@ -10,6 +10,8 @@ import alexisPhoto from "@/assets/alexis-collier.png";
 import { WalkthroughScheduleModal } from "@/components/WalkthroughScheduleModal";
 
 function About() {
+  const [walkthroughOpen, setWalkthroughOpen] = useState(false);
+
   return (
     <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero - biographical focus */}
