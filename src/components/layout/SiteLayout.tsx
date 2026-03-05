@@ -89,16 +89,18 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <ThemeToggle />
               {user ? (
                 <>
-                  <Link
-                    to="/investor-deck"
-                    className={`text-sm transition-colors ${
-                      location.pathname === "/investor-deck"
-                        ? "text-primary font-medium"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    Investor Deck
-                  </Link>
+                  {user.email === ADMIN_EMAIL && (
+                    <Link
+                      to="/investor-deck"
+                      className={`text-sm transition-colors ${
+                        location.pathname === "/investor-deck"
+                          ? "text-primary font-medium"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      Investor Deck
+                    </Link>
+                  )}
                   <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
                     <LogOut className="w-4 h-4" />
                     Sign Out
