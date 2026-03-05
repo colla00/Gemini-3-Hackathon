@@ -1,3 +1,5 @@
+import { ExternalLink } from "lucide-react";
+
 export const AboutInventor = () => (
   <section className="py-20 px-6">
     <div className="max-w-4xl mx-auto">
@@ -14,19 +16,23 @@ export const AboutInventor = () => (
         <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">NIH Research Fellow</strong></span>
+            <span><strong className="text-foreground">Founder & CEO, VitaSignal LLC</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">NIH-Funded AI Researcher</strong></span>
+            <span><strong className="text-foreground">NIH AIM-AHEAD CLINAQ Fellow</strong> · Morehouse School of Medicine</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-primary mt-0.5">•</span>
+            <span><strong className="text-foreground">Adjunct Faculty</strong> · University of North Georgia</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-primary mt-0.5">•</span>
+            <span><strong className="text-foreground">Sole Inventor:</strong> 11 U.S. provisional patent applications filed (Feb 28, 2026)</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
             <span><strong className="text-foreground">Stanford AI+Health Presenter</strong> (December 2025)</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">Sole Inventor:</strong> 5 U.S. provisional patent applications filed (2025-2026)</span>
           </li>
         </ul>
 
@@ -36,13 +42,23 @@ export const AboutInventor = () => (
           clinical phenotype discovery, and equity in algorithmic decision-making.
         </p>
 
-        <div className="p-4 rounded-lg bg-secondary/50 border border-border/50">
+        <div className="p-4 rounded-lg bg-secondary/50 border border-border/50 mb-4">
           <p className="text-xs font-semibold text-foreground mb-1">Affiliations:</p>
           <p className="text-xs text-muted-foreground">
-            University of North Georgia, College of Health Sciences & Professions
-            <br />NIH Fellowship Program • NIH Research Consortium
+            VitaSignal LLC · University of North Georgia, College of Health Sciences & Professions
+            <br />NIH AIM-AHEAD CLINAQ Consortium · Morehouse School of Medicine
           </p>
         </div>
+
+        <a
+          href="https://vitasignal.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline font-medium"
+        >
+          vitasignal.ai
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
       </div>
     </div>
   </section>

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart, FileText, Shield } from "lucide-react";
+import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart, FileText, Shield, ExternalLink, BarChart3, Users, DollarSign, Calendar } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -9,7 +9,7 @@ import alexisPhoto from "@/assets/alexis-collier.png";
 
 function About() {
   return (
-    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
+    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
       {/* Hero - biographical focus */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -33,9 +33,9 @@ function About() {
                 A career dedicated to reducing the burden on frontline healthcare workers through intelligent systems.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH Research Fellow</Badge>
-                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH-Funded AI Researcher</Badge>
-                <Badge className="bg-primary/20 border-primary/30 text-primary">5 U.S. Patent Applications Filed</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">Founder & CEO, VitaSignal LLC</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH AIM-AHEAD CLINAQ Fellow</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">11 U.S. Patent Applications Filed</Badge>
               </div>
             </div>
             <div className="hidden md:block">
@@ -46,6 +46,100 @@ function About() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* VitaSignal LLC Section */}
+      <section className="py-16 px-6 bg-primary/5 border-b border-primary/10">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+            <div>
+              <h2 className="font-display text-2xl text-foreground">VitaSignal LLC</h2>
+              <p className="text-sm text-muted-foreground mt-1">Clinical Intelligence Without Equipment™</p>
+            </div>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <ExternalLink className="w-4 h-4" />
+                vitasignal.ai
+              </a>
+            </Button>
+          </div>
+
+          {/* Patent Portfolio */}
+          <Card className="mb-6">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-primary" />
+                <CardTitle>Intellectual Property Portfolio</CardTitle>
+              </div>
+              <CardDescription>11 U.S. Provisional Patent Applications Filed — February 28, 2026</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {/* IDI */}
+                <div className="p-4 rounded-xl bg-muted/50 border border-border/40">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Intensive Documentation Index (IDI)</p>
+                  <div className="space-y-1.5 text-sm">
+                    <p className="text-foreground font-bold text-xl">AUROC 0.9063</p>
+                    <p className="text-muted-foreground text-xs">Best performance (HiRID external validation)</p>
+                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">65,157</strong> patients</p>
+                    <p className="text-muted-foreground text-xs">Outperforms APACHE IV & SAPS III (DeLong p &lt; 0.001)</p>
+                  </div>
+                </div>
+                {/* DBS */}
+                <div className="p-4 rounded-xl bg-muted/50 border border-border/40">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Documentation Burden Score™ (DBS)</p>
+                  <div className="space-y-1.5 text-sm">
+                    <div className="flex gap-3">
+                      <div>
+                        <p className="text-foreground font-bold text-xl">0.802</p>
+                        <p className="text-muted-foreground text-[10px]">Internal AUROC</p>
+                      </div>
+                      <div>
+                        <p className="text-foreground font-bold text-xl">0.758</p>
+                        <p className="text-muted-foreground text-[10px]">External AUROC</p>
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground text-xs">Cohort: <strong className="text-foreground">28,362</strong> patients · NPV <strong className="text-foreground">0.947</strong></p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Impact Metrics */}
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            {[
+              { icon: DollarSign, value: "$2,847", label: "Savings / Patient" },
+              { icon: BarChart3, value: "1,240%", label: "ROI" },
+              { icon: Calendar, value: "90 min", label: "Saved / Shift" },
+            ].map((m) => (
+              <Card key={m.label} className="border-border/40">
+                <CardContent className="p-4 text-center">
+                  <m.icon className="w-5 h-5 text-primary mx-auto mb-2" />
+                  <p className="text-lg font-bold text-foreground">{m.value}</p>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{m.label}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* NIH Funding & Co-PI */}
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-3">
+                <Award className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <div className="text-sm text-muted-foreground space-y-2">
+                  <p>
+                    <strong className="text-foreground">NIH AIM-AHEAD</strong> · Award No. 1OT2OD032581
+                  </p>
+                  <p>
+                    Co-Investigator: <strong className="text-foreground">Dr. Sophia Z. Shalhout, PhD</strong> — Harvard Medical School / Massachusetts Eye and Ear
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -100,15 +194,61 @@ function About() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Building2 className="w-5 h-5 text-primary" />
-                  <CardTitle>Current Affiliation</CardTitle>
+                  <CardTitle>Current Affiliations</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-2">
-                <p><strong className="text-foreground">University of North Georgia</strong></p>
-                <p>College of Health Sciences & Professions</p>
-                <p className="text-xs text-muted-foreground/70">
-                  Faculty researcher specializing in AI applications for nursing practice
-                </p>
+              <CardContent className="text-sm text-muted-foreground space-y-3">
+                <div>
+                  <p><strong className="text-foreground">Founder & CEO, VitaSignal LLC</strong></p>
+                  <p className="text-xs text-muted-foreground/70">Clinical intelligence platform company</p>
+                </div>
+                <div>
+                  <p><strong className="text-foreground">Adjunct Faculty, University of North Georgia</strong></p>
+                  <p className="text-xs text-muted-foreground/70">College of Health Sciences & Professions</p>
+                </div>
+                <div>
+                  <p><strong className="text-foreground">NIH AIM-AHEAD CLINAQ Fellow</strong></p>
+                  <p className="text-xs text-muted-foreground/70">Morehouse School of Medicine</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Speaking & Events */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl text-foreground mb-8">Speaking & Events</h2>
+          <div className="space-y-4">
+            <Card className="border-primary/30 bg-primary/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-primary/15 shrink-0">
+                    <Calendar className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <Badge className="mb-2 bg-primary/20 border-primary/30 text-primary text-[10px]">Upcoming</Badge>
+                    <p className="font-semibold text-foreground">ANIA 2026 Annual Conference</p>
+                    <p className="text-sm text-muted-foreground">Boston, MA — March 26–28, 2026</p>
+                    <p className="text-sm text-muted-foreground mt-2 italic">
+                      "Human-Centered AI to Reduce Nursing Workload: Two-Stage Validation of a Documentation Burden Score"
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-secondary shrink-0">
+                    <Calendar className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Stanford AI+Health Symposium</p>
+                    <p className="text-sm text-muted-foreground">December 2025</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -116,7 +256,7 @@ function About() {
       </section>
 
       {/* Research Funding */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl text-foreground mb-8">Research Funding</h2>
           <div className="space-y-6">
@@ -124,14 +264,14 @@ function About() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-primary" />
-                  <CardTitle>NIH Research Fellowship</CardTitle>
+                  <CardTitle>NIH AIM-AHEAD CLINAQ Fellowship</CardTitle>
                 </div>
-                <CardDescription>National Institutes of Health</CardDescription>
+                <CardDescription>National Institutes of Health · Award No. 1OT2OD032581</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Prestigious NIH training fellowship for clinical researchers advancing quality improvement
-                  through innovative analytical methods in healthcare AI.
+                  AIM-AHEAD CLINAQ Consortium fellowship through Morehouse School of Medicine, 
+                  supporting clinical AI research for equity-centered healthcare quality improvement.
                 </p>
               </CardContent>
             </Card>
@@ -156,7 +296,7 @@ function About() {
       </section>
 
       {/* Research Methodology */}
-      <section className="py-16 px-6 bg-secondary/30">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl text-foreground mb-8">Research Methodology</h2>
           <Card>
@@ -187,7 +327,7 @@ function About() {
       </section>
 
       {/* Compliance & Transparency */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl text-foreground mb-8">Compliance & Transparency</h2>
           <p className="text-sm text-muted-foreground mb-6">
@@ -226,9 +366,15 @@ function About() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com">
+              <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-5 h-5 mr-2" />
+                vitasignal.ai
+              </a>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="mailto:Alexis.Collier@ung.edu">
                 <Mail className="w-5 h-5 mr-2" />
-                Get in Touch
+                Alexis.Collier@ung.edu
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
@@ -238,6 +384,9 @@ function About() {
               </a>
             </Button>
           </div>
+          <p className="text-xs opacity-50 mt-6">
+            VitaSignal™ technology is patent-pending. USPTO patent applications filed. All rights reserved.
+          </p>
         </div>
       </section>
     </SiteLayout>
