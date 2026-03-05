@@ -624,7 +624,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     ],
     talkingPoints: [
       'Unlike black-box AI, we show exactly how the DBS score is calculated.',
-      'Each clinical factor has a validated weight derived from 321,719 patient outcomes across 208 hospitals.',
+      'Each clinical factor has a validated weight derived from 28,362 patient outcomes across 172 hospitals.',
       'Multiple clinical acuity and complexity factors contribute with proprietary weighting.',
       'The interface shows how each factor contributes to the final score in real-time.',
       'A 72-year-old patient with septic shock, 5 comorbidities, and 15 active medications calculates to a DBS of approximately 85 - placing them in Quartile 4.',
