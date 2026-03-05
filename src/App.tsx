@@ -173,11 +173,11 @@ const App = () => {
                     </Suspense>
                   } />
                   <Route path="/investor-deck" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <Suspense fallback={<PageSkeleton />}>
                         <InvestorDeck />
                       </Suspense>
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   <Route path="/audience" element={
                     <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
