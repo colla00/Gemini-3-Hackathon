@@ -43,7 +43,7 @@ const systems = [
     desc: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 172 hospitals (N=28,362).",
     status: "Validated",
     highlight: true,
-    metric: "AUROC 0.802 / 0.758",
+    metric: "28,362 patients · 172 hospitals",
   },
 ];
 

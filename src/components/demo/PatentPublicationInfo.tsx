@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const infoRows = [
   { label: 'Patent #1', value: 'U.S. Provisional Patent Application Filed (2026)' },
   { label: 'Manuscript', value: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study' },
-  { label: 'Status', value: 'Submitted to medRxiv. Targeting Critical Care Medicine' },
+  { label: 'Status', value: 'Manuscripts under review' },
   { label: 'Funding', value: 'NIH-funded research' },
   { label: 'Inventor', value: 'Dr. Alexis Collier, DHA. University of North Georgia' },
 ];

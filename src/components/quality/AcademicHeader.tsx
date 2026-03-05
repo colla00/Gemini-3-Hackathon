@@ -87,7 +87,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-validation-charts': {
     title: 'Research Validation Visualizations',
     subtitle: 'Patent Figures 2-8 · Comprehensive Analytics',
-    citation: 'AUROC 0.802→0.857, r=0.40 correlation',
+    citation: 'Validated metrics · Comprehensive Analytics',
   },
   'patent-neural-reasoning': {
     title: 'Neural Reasoning Engine',
