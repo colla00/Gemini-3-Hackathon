@@ -104,7 +104,7 @@ export const PatientDetail = ({ patient, onBack }: PatientDetailProps) => {
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-xs">5 U.S. Patent Applications Filed</p>
+                  <p className="text-xs">11 U.S. Patent Applications Filed</p>
                 </TooltipContent>
               </Tooltip>
             </div>
