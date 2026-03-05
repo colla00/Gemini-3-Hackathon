@@ -131,7 +131,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   </Button>
                 ) : (
                   <Button variant="outline" size="sm" className="w-full" asChild>
-                    <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Get in Touch</Link>
                   </Button>
                 )}
               </div>
