@@ -58,7 +58,7 @@ export const ResearchValidationSection = () => (
         {/* Dual manuscript results */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           <div className="bg-primary/5 rounded-xl p-3 border border-primary/20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">JAMIA Paper (MIMIC-IV, n=26,153)</p>
+            <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">Manuscript A (MIMIC-IV, n=26,153)</p>
             <div className="space-y-1 text-xs text-muted-foreground">
               <p>Baseline AUROC: <span className="font-semibold text-foreground">0.658</span> <span className="text-[10px]">(95% CI: 0.609–0.710)</span></p>
               <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.683</span> <span className="text-[10px]">(95% CI: 0.631–0.732)</span></p>
