@@ -63,14 +63,14 @@ function About() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <a href="https://dralexis.ceo" target="_blank" rel="noopener noreferrer" className="gap-2">
                   <ExternalLink className="w-4 h-4" />
-                  vitasignal.ai
+                  dralexis.ceo
                 </a>
               </Button>
               <Button variant="default" size="sm" onClick={() => setWalkthroughOpen(true)} className="gap-2">
                 <Calendar className="w-4 h-4" />
-                Schedule Walkthrough
+                Schedule Guided Walkthrough
               </Button>
             </div>
           </div>
@@ -376,9 +376,9 @@ function About() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer">
+              <a href="https://dralexis.ceo" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-5 h-5 mr-2" />
-                vitasignal.ai
+                dralexis.ceo
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>

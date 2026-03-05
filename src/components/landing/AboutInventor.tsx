@@ -51,12 +51,12 @@ export const AboutInventor = () => (
         </div>
 
         <a
-          href="https://vitasignal.ai"
+          href="https://dralexis.ceo"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline font-medium"
         >
-          vitasignal.ai
+          dralexis.ceo
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>

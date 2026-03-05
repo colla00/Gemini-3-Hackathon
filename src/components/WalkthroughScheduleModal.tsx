@@ -98,13 +98,14 @@ export const WalkthroughScheduleModal = ({ open, onOpenChange }: WalkthroughSche
             <div className="w-12 h-12 rounded-full bg-risk-low/10 border border-risk-low/30 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-6 h-6 text-risk-low" />
             </div>
-            <DialogTitle className="text-lg">Walkthrough Scheduled</DialogTitle>
+            <DialogTitle className="text-lg">Walkthrough Request Received</DialogTitle>
             <p className="text-sm text-muted-foreground">
               We'll reach out to <strong>{form.email}</strong> to confirm a time.
-              You'll receive a calendar invite with a secure presentation link.
+              You'll receive a calendar invite with a secure meeting link.
             </p>
             <p className="text-xs text-muted-foreground">
-              During the walkthrough, you'll see the live platform while Dr. Collier walks you through the technology portfolio.
+              During the walkthrough, Dr. Collier will personally guide you through the VitaSignal™ platform and technology portfolio in a live session.
+              This is separate from self-service dashboard access.
             </p>
             <Button onClick={handleClose} variant="outline" size="sm">Close</Button>
           </div>
@@ -113,10 +114,10 @@ export const WalkthroughScheduleModal = ({ open, onOpenChange }: WalkthroughSche
             <DialogHeader>
               <div className="flex items-center gap-2 mb-1">
                 <Calendar className="w-4 h-4 text-primary" />
-                <DialogTitle className="text-base">Schedule a Walkthrough</DialogTitle>
+                <DialogTitle className="text-base">Schedule a Guided Walkthrough</DialogTitle>
               </div>
               <DialogDescription className="text-xs">
-                Request a live guided walkthrough of the VitaSignal™ platform. You'll see the presentation while Dr. Collier provides commentary via your presenter screen.
+                Request a live session where Dr. Collier personally walks you through the VitaSignal™ platform. This is different from self-service dashboard access — you'll be guided through the full technology portfolio.
               </DialogDescription>
             </DialogHeader>
 
