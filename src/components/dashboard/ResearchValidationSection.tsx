@@ -17,12 +17,10 @@ const keyFindings = [
 ];
 
 const demographics = [
-  { label: 'Mortality Rate', value: '15.99%', detail: '4,182 deaths' },
-  { label: 'Mean Age', value: '69.8 ± 13.8', detail: 'years' },
-  { label: 'White', value: '69.0%', detail: 'of cohort' },
-  { label: 'Black', value: '13.5%', detail: 'of cohort' },
-  { label: 'Hispanic', value: '8.0%', detail: 'of cohort' },
-  { label: 'Asian / Other', value: '4.5% / 5.0%', detail: 'of cohort' },
+  { label: 'Cohort Size', value: '26,153', detail: 'MIMIC-IV' },
+  { label: 'IDI Features', value: '11', detail: 'Temporal' },
+  { label: 'Databases', value: '3', detail: 'International' },
+  { label: 'Hospitals', value: '172+', detail: 'DBS validated' },
 ];
 
 export const ResearchValidationSection = () => (
