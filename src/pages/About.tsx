@@ -25,7 +25,7 @@ function About() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle" />
-                <span className="text-primary font-medium">Nurse Scientist & AI Researcher</span>
+                <span className="text-primary font-medium">Health Informaticist & AI Researcher</span>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05]">
                 Dr. Alexis
@@ -33,7 +33,7 @@ function About() {
                 <span className="text-primary">Collier, DHA</span>
               </h1>
               <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
-                From bedside nursing to clinical AI research. 
+                From clinical experience to AI research. 
                 A career dedicated to reducing the burden on frontline healthcare workers through intelligent systems.
               </p>
               <div className="flex flex-wrap gap-2">
@@ -138,15 +138,16 @@ function About() {
           <Card>
             <CardContent className="pt-6 space-y-4 text-sm text-muted-foreground leading-relaxed">
               <p>
-                Dr. Collier's path to clinical AI began at the bedside. Years of frontline nursing experience
-                revealed a critical gap: clinicians spend more time documenting care than delivering it,
-                while existing alert systems generate noise rather than actionable insight.
+                Dr. Collier's path to clinical AI began with firsthand experience in healthcare settings.
+                Years of exposure to clinical workflows revealed a critical gap: clinicians spend more time 
+                documenting care than delivering it, while existing alert systems generate noise rather than 
+                actionable insight.
               </p>
               <p>
-                This firsthand understanding of clinical workflow challenges led to doctoral research
-                on nursing burnout and workload measurement, ultimately culminating in the development
+                This understanding of clinical workflow challenges led to doctoral research
+                on healthcare worker burnout and workload measurement, ultimately culminating in the development
                 of the <strong className="text-foreground">VitaSignal™ Clinical Intelligence Platform</strong> —
-                a suite of AI systems designed by a nurse, for nurses.
+                a suite of AI systems designed for clinicians, by someone who understands their challenges.
               </p>
               <p>
                 Unlike traditional clinical AI that requires expensive sensors or additional hardware,
