@@ -25,7 +25,7 @@ function About() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle" />
-                <span className="text-primary font-medium">Nurse Scientist & AI Researcher</span>
+                <span className="text-primary font-medium">Health Informaticist & AI Researcher</span>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05]">
                 Dr. Alexis
