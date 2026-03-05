@@ -44,7 +44,7 @@ const Regulatory = lazy(() => import("./pages/Regulatory"));
 const ANIA2026Poster = lazy(() => import("./pages/ANIA2026Poster"));
 const QRCodeDownload = lazy(() => import("./pages/QRCodeDownload"));
 const PressRelease = lazy(() => import("./pages/PressRelease"));
-const Publications = lazy(() => import("./pages/Publications"));
+
 
 const queryClient = new QueryClient();
 
