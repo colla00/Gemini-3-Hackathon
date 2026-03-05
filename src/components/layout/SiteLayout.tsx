@@ -92,7 +92,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 </Button>
               ) : (
                 <Button variant="outline" size="sm" asChild>
-                  <Link to="/contact">Get in Touch</Link>
+                  <Link to="/contact">Contact</Link>
                 </Button>
               )}
             </nav>
@@ -131,7 +131,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   </Button>
                 ) : (
                   <Button variant="outline" size="sm" className="w-full" asChild>
-                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Get in Touch</Link>
+                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
                   </Button>
                 )}
               </div>
@@ -187,7 +187,6 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
-                <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Get in Touch</Link>
               </div>
             </div>
 
