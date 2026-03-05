@@ -247,7 +247,7 @@ export const ComparisonSlide = () => {
       {/* Disclaimer */}
       <div className="mt-4 text-center">
         <p className="text-[9px] text-muted-foreground italic bg-amber-500/10 rounded px-2 py-1 inline-block">
-          ⚠️ Comparison metrics are design targets except Patent #1 (AUC 0.683) and Patent #5 (AUROC 0.758) which are validated.
+          ⚠️ Comparison metrics are design targets except Patent #1 and Patent #5 which are externally validated.
         </p>
       </div>
     </div>

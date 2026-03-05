@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const idiFeatures = [
-  { domain: 'Event Volume', features: ['Total Events (24h)', 'Events per Hour'], dotClass: 'bg-primary' },
-  { domain: 'Rhythm Regularity', features: ['Coefficient of Variation', 'Std Dev of Intervals', 'Mean Inter-Event Interval', 'Burstiness Index'], dotClass: 'bg-accent' },
-  { domain: 'Surveillance Gaps', features: ['Gap Count >60min', 'Gap Count >120min', 'Maximum Gap Duration'], dotClass: 'bg-warning' },
-  { domain: 'Temporal Dynamics', features: ['Entropy', 'Lag-1 Autocorrelation'], dotClass: 'bg-destructive' },
+  { domain: 'Event Volume', features: ['2 volume-based metrics'], dotClass: 'bg-primary' },
+  { domain: 'Rhythm Regularity', features: ['4 rhythm-based metrics'], dotClass: 'bg-accent' },
+  { domain: 'Surveillance Gaps', features: ['3 gap detection metrics'], dotClass: 'bg-warning' },
+  { domain: 'Temporal Dynamics', features: ['2 temporal dependency metrics'], dotClass: 'bg-destructive' },
 ];
 
 const keyFindings = [

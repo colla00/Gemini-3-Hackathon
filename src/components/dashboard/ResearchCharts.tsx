@@ -233,7 +233,7 @@ export function ResearchCharts({ className, compact = false }: ResearchChartsPro
             Research Validation Charts
           </h3>
           <p className="text-sm text-muted-foreground">
-            Validated results • AUROC 0.802 / 0.758
+            Validated results • 28,362 patients · 172 hospitals
           </p>
         </div>
         <Badge variant="outline" className="text-xs bg-risk-low/10 border-risk-low/30 text-risk-low">
