@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   ChevronLeft, ChevronRight, Maximize, Minimize, 
-  Download, Grid3X3, X, Monitor, Clock, Play, Square,
+  Grid3X3, X, Monitor, Clock, Play, Square,
   StickyNote
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -335,12 +335,6 @@ function InvestorDeck() {
               <Button variant="default" size="sm" onClick={startPresenting} className="gap-1.5">
                 <Monitor className="w-4 h-4" />
                 Present
-              </Button>
-              <Button variant="outline" size="sm" asChild className="gap-1.5">
-                <a href="/vitasignal-investor-deck.pdf" download>
-                  <Download className="w-4 h-4" />
-                  PDF
-                </a>
               </Button>
             </div>
           </div>
