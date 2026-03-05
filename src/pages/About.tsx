@@ -68,9 +68,9 @@ function About() {
                   vitasignal.ai
                 </a>
               </Button>
-              <Button variant="default" size="sm" onClick={() => { import('@/lib/investorDeckExport').then(m => m.generateInvestorDeck()); }} className="gap-2">
-                <FileText className="w-4 h-4" />
-                Download Investor Deck
+              <Button variant="default" size="sm" onClick={() => setWalkthroughOpen(true)} className="gap-2">
+                <Calendar className="w-4 h-4" />
+                Schedule Walkthrough
               </Button>
             </div>
           </div>
