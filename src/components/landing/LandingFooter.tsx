@@ -26,7 +26,7 @@ export const LandingFooter = () => (
           <span className="text-border">|</span>
           <Link to="/presentation" className="text-muted-foreground hover:text-primary transition-colors">Walkthrough</Link>
           <span className="text-border">|</span>
-          <a href="mailto:info@alexiscollier.com" className="text-muted-foreground hover:text-primary transition-colors">Contact</a>
+          <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
           <span className="text-border">|</span>
           <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
           <span className="text-border">|</span>
