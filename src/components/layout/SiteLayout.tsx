@@ -92,7 +92,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 </Button>
               ) : (
                 <Button variant="outline" size="sm" asChild>
-                  <a href="mailto:info@alexiscollier.com">Get in Touch</a>
+                  <Link to="/contact">Get in Touch</Link>
                 </Button>
               )}
             </nav>
