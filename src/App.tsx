@@ -169,11 +169,6 @@ const App = () => {
                       <PressRelease />
                     </Suspense>
                   } />
-                  <Route path="/publications" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Publications />
-                    </Suspense>
-                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
