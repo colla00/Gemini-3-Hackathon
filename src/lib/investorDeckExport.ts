@@ -216,7 +216,7 @@ export const generateInvestorDeck = () => {
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(203, 213, 225);
   doc.text('Award No. 1OT2OD032581 — CLINAQ Fellowship, Morehouse School of Medicine', margin + 40, 320);
-  doc.text('Co-Investigator: Dr. Sophia Z. Shalhout, PhD — Harvard / Mass Eye and Ear', margin + 40, 360);
+  
   // Publications
   doc.setFontSize(32);
   doc.setFont('helvetica', 'bold');
