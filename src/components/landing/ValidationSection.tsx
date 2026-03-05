@@ -83,7 +83,7 @@ export const ValidationSection = () => (
             </motion.div>
           ))}
 
-          {/* Why AUC 0.683 Matters Callout */}
+          {/* Why Equipment-Independent Matters */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,14 +92,13 @@ export const ValidationSection = () => (
             className="col-span-2 p-5 rounded-xl bg-primary/10 border border-primary/30"
           >
             <p className="text-sm font-semibold text-primary mb-2">
-              Why AUC 0.683 Matters
+              Why Equipment-Independent AI Matters
             </p>
             <p className="text-xs text-primary-foreground/70 leading-relaxed">
               Unlike APACHE IV, SOFA, and other ICU models that require vitals, labs, and bedside equipment, 
               Patent #1 achieves mortality prediction using <span className="text-primary-foreground font-medium">zero physiological data</span> — only 
-              the timing and rhythm of routine EHR documentation. Validated on MIMIC-IV (AUROC 0.683) and externally on HiRID 
-              (AUROC 0.9063), outperforming APACHE IV (0.8421) and SAPS III (0.8389). Temporal validation held stable 
-              (mean AUC 0.684) across 11 years (2008–2019).
+              the timing and rhythm of routine EHR documentation. Externally validated to outperform established
+              acuity scores across international databases. Detailed performance metrics available under NDA.
             </p>
           </motion.div>
         </div>
