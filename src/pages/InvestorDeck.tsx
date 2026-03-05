@@ -336,12 +336,6 @@ function InvestorDeck() {
                 <Monitor className="w-4 h-4" />
                 Present
               </Button>
-              <Button variant="outline" size="sm" asChild className="gap-1.5">
-                <a href="/vitasignal-investor-deck.pdf" download>
-                  <Download className="w-4 h-4" />
-                  PDF
-                </a>
-              </Button>
             </div>
           </div>
 
