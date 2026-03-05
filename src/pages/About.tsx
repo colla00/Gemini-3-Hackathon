@@ -143,9 +143,6 @@ function About() {
                   <p>
                     <strong className="text-foreground">NIH AIM-AHEAD</strong> · Award No. 1OT2OD032581
                   </p>
-                  <p>
-                    Co-Investigator: <strong className="text-foreground">Dr. Sophia Z. Shalhout, PhD</strong> — Harvard Medical School / Massachusetts Eye and Ear
-                  </p>
                 </div>
               </div>
             </CardContent>
