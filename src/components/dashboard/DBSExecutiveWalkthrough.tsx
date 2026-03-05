@@ -148,9 +148,9 @@ const StepValidation = () => (
       </div>
       <div className="bg-card border border-border/50 rounded-xl p-4">
         <Badge variant="outline" className="mb-2 text-[10px]">External Validation</Badge>
-        <p className="text-3xl font-bold text-chart-3"><Counter value={0.857} decimals={3} /></p>
+        <p className="text-3xl font-bold text-chart-3"><Counter value={0.758} decimals={3} /></p>
         <p className="text-xs font-semibold text-foreground">AUROC</p>
-        <p className="text-[10px] text-muted-foreground mt-1">eICU · 297,030 patients · 208 hospitals</p>
+        <p className="text-[10px] text-muted-foreground mt-1">eICU · 3,673 patients · 172 hospitals</p>
       </div>
     </div>
     {/* Sensitivity / Specificity */}
