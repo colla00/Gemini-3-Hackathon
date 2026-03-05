@@ -106,17 +106,17 @@ export const ResearchValidationSection = () => (
       </CardContent>
     </Card>
 
-    {/* Equity & Demographics */}
+    {/* Validation Summary */}
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-bold flex items-center gap-2">
           <Users className="h-4 w-4 text-primary" />
-          Cohort Demographics (MIMIC-IV)
+          Validation Overview
         </CardTitle>
-        <p className="text-xs text-muted-foreground">Heart failure ICU admissions · Documentation volume: median 1,119 events/24h (~46.6/hour)</p>
+        <p className="text-xs text-muted-foreground">Heart failure ICU admissions across international databases</p>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {demographics.map((d) => (
             <div key={d.label} className="bg-muted/30 rounded-lg p-2.5 text-center border border-border/30">
               <p className="text-sm font-bold text-foreground">{d.value}</p>
@@ -130,10 +130,10 @@ export const ResearchValidationSection = () => (
 
     {/* Methodology Note */}
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
-      <strong className="text-foreground">Methodology:</strong> Retrospective cohort studies of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT), 2008–2019 (n=26,153) 
-      and HiRID (University Hospital Bern, Switzerland, n=33,897). 
-      Regularized logistic regression, temporal validation training 2008–2018, testing 2019. LOYO cross-validation mean AUC 0.684 (SD 0.008). 
-      NIH-funded research. IRB Protocol #2025-IRB-0142.
+      <strong className="text-foreground">Methodology:</strong> Retrospective cohort studies of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT) 
+      and HiRID (University Hospital Bern, Switzerland). 
+      NIH-funded research (1OT2OD032581). Detailed statistical methods and cohort demographics available under NDA.
     </div>
+  </div>
   </div>
 );

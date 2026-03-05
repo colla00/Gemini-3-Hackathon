@@ -64,12 +64,11 @@ const patentSystems = [
     oneLiner: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 172 hospitals.",
     validated: true,
     metrics: [
-      "AUROC 0.802 (MIMIC-IV, N=24,689)",
-      "AUROC 0.758 (eICU, N=3,673, 172 hospitals)",
-      "NPV 0.947 (external) · 0.924 (internal)",
+      "Validated internally and externally across 172 hospitals",
+      "28,362 patients across two databases",
       "ANIA 2026 Presentation — Boston, MA",
     ],
-    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV) → 0.758 (eICU, 172 hospitals, N=28,362). NPV 0.947. ANIA 2026 presentation accepted.",
+    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Validated internally and externally across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.",
   },
 ];
 

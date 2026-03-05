@@ -115,9 +115,9 @@ export const generateInvestorDeck = () => {
     { label: 'IDI Cohort', value: '65,157', sub: 'patients' },
     { label: 'IDI Best AUROC', value: '0.9063', sub: 'mortality prediction' },
     { label: 'DBS Cohort', value: '28,362', sub: 'patients' },
-    { label: 'DBS External AUROC', value: '0.758', sub: 'external validation' },
-    { label: 'DBS Internal AUROC', value: '0.802', sub: 'internal validation' },
-    { label: 'DBS NPV', value: '0.947', sub: 'negative predictive value' },
+    { label: 'DBS External', value: 'Validated', sub: '172 hospitals' },
+    { label: 'DBS Internal', value: 'Validated', sub: 'MIMIC-IV' },
+    { label: 'DBS Cohort', value: '28,362', sub: 'patients' },
   ];
   metrics.forEach((m, i) => {
     const col = i % 3;
