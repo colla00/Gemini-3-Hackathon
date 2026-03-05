@@ -170,6 +170,13 @@ const App = () => {
                       <PressRelease />
                     </Suspense>
                   } />
+                  <Route path="/investor-deck" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <InvestorDeck />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
