@@ -45,6 +45,7 @@ const ANIA2026Poster = lazy(() => import("./pages/ANIA2026Poster"));
 const QRCodeDownload = lazy(() => import("./pages/QRCodeDownload"));
 const PressRelease = lazy(() => import("./pages/PressRelease"));
 const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
+const AudienceView = lazy(() => import("./pages/AudienceView"));
 
 
 const queryClient = new QueryClient();
