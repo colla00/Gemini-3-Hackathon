@@ -52,9 +52,6 @@ export const ResearchValidationSection = () => (
           The Intensive Documentation Index (IDI) extracts 11 features from timestamp metadata alone, requiring no additional hardware or sensors.
           Validated on 65,157 patients across international databases. Detailed metrics available under NDA.
         </p>
-          The Intensive Documentation Index (IDI) extracts 11 features from timestamp metadata alone, requiring no additional hardware or sensors.
-          Validated on 60,050 patients across two international databases.
-        </p>
 
         {/* High-level validation summary */}
         <div className="bg-risk-low/5 rounded-xl p-3 border border-risk-low/20 mb-4">
@@ -85,7 +82,7 @@ export const ResearchValidationSection = () => (
           <Activity className="h-4 w-4 text-primary" />
           IDI Feature Domains
         </CardTitle>
-        <p className="text-xs text-muted-foreground">11 temporal features across 4 domains, all computable from EHR timestamp metadata (45 tested in HiRID after leakage screening)</p>
+        <p className="text-xs text-muted-foreground">11 temporal features across 4 domains, all computable from EHR timestamp metadata</p>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -134,6 +131,5 @@ export const ResearchValidationSection = () => (
       and HiRID (University Hospital Bern, Switzerland). 
       NIH-funded research (1OT2OD032581). Detailed statistical methods and cohort demographics available under NDA.
     </div>
-  </div>
   </div>
 );
