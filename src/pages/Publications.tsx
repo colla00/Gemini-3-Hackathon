@@ -8,25 +8,25 @@ import { motion } from "framer-motion";
 const publications = [
   {
     id: "jamia",
-    title: "Temporal Documentation Patterns as Predictors of ICU Mortality: Developing an Intensive Documentation Index Using MIMIC-IV",
+    title: "Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction",
     journal: "Journal of the American Medical Informatics Association (JAMIA)",
-    authors: "Collier, A. M.",
+    authors: "Collier, A. M. · Shalhout, S. Z.",
     status: "Under Review",
     statusColor: "bg-amber-500/15 text-amber-700 border-amber-500/30 dark:text-amber-400",
     submittedDate: "2025",
     doi: null,
-    abstract: `This study developed and validated the Intensive Documentation Index (IDI), a novel set of temporal features extracted from electronic health record (EHR) documentation timestamps, to predict in-hospital mortality among ICU patients with heart failure. Using the MIMIC-IV database (n=26,153 admissions, 2008–2019), 11 temporal features across four domains — event volume, rhythm regularity, surveillance gaps, and temporal dynamics — were engineered from routine documentation metadata without requiring clinical content. Using temporal validation (training 2008–2018, testing 2019), a regularized logistic regression model incorporating IDI features achieved an AUROC of 0.683 (95% CI: 0.631–0.732), improving over a baseline model using only age, sex, and ethnicity (AUROC 0.658, 95% CI: 0.609–0.710). Leave-one-year-out cross-validation confirmed stability (mean AUC 0.684, SD 0.008). The coefficient of variation of inter-event intervals emerged as the strongest IDI predictor (OR 1.53, 95% CI: 1.35–1.74). These findings demonstrate that the rhythm and intensity of clinical documentation carry an independent mortality signal, offering a new equipment-independent approach to ICU risk prediction.`,
+    abstract: `Nursing documentation patterns may reflect patient acuity and clinical deterioration, yet their prognostic value remains underexplored. We developed the Intensive Documentation Index (IDI), a novel framework quantifying temporal documentation rhythms, and evaluated its ability to enhance ICU in-hospital mortality prediction. We analyzed 26,153 ICU admissions of heart failure patients from the MIMIC-IV database (2008–2019). Nine IDI features capturing documentation rhythm, volume, and surveillance gaps were extracted from electronic health record timestamps during the first 24 hours of ICU stay. Logistic regression models with and without IDI features were compared using temporal validation (training: 2008–2018; test: 2019). In-hospital mortality was 15.99% (n = 4,182). The baseline model (age, sex, ICU length of stay) achieved an AUROC of 0.658 (95% CI 0.609–0.710). Addition of nine IDI features significantly improved discrimination to AUROC 0.683 (95% CI 0.631–0.732), an absolute increase of 0.025 (p = 0.015, DeLong test). The coefficient of variation of inter-event intervals was the strongest predictor (OR = 1.53 per SD; 95% CI = 1.35–1.74; p < 0.001). Documentation rhythm patterns captured via the IDI modestly but reliably improve ICU mortality prediction beyond traditional clinical variables.`,
     keyFindings: [
       { label: "AUROC", value: "0.683", detail: "95% CI: 0.631–0.732" },
       { label: "Baseline AUROC", value: "0.658", detail: "95% CI: 0.609–0.710" },
-      { label: "Strongest Predictor", value: "CV (OR 1.53)", detail: "95% CI: 1.35–1.74" },
-      { label: "LOYO Stability", value: "AUC 0.684", detail: "SD 0.008, 11 years" },
+      { label: "Strongest Predictor", value: "CV (OR 1.53)", detail: "95% CI: 1.35–1.74, p < 0.001" },
+      { label: "Mortality Rate", value: "15.99%", detail: "n = 4,182 deaths" },
     ],
     cohort: "n=26,153 heart failure ICU admissions",
     database: "MIMIC-IV v2.2 (PhysioNet, MIT)",
     period: "2008–2019",
     validation: "Temporal split (train 2008–2018, test 2019) + LOYO cross-validation",
-    features: "11 temporal IDI features across 4 domains",
+    features: "9 IDI features across rhythm, volume, and gaps",
     funding: "NIH AIM-AHEAD · Award No. 1OT2OD032581",
     irb: "IRB Protocol #2025-IRB-0142",
     patentLink: "Patent Application #1",
@@ -35,15 +35,15 @@ const publications = [
     id: "npj",
     title: "Multinational Validation of the Intensive Documentation Index for ICU Mortality Prediction: A MIMIC-IV and HiRID Study",
     journal: "npj Digital Medicine",
-    authors: "Collier, A. M.",
+    authors: "Collier, A. M. · Shalhout, S. Z.",
     status: "Under Review",
     statusColor: "bg-amber-500/15 text-amber-700 border-amber-500/30 dark:text-amber-400",
     submittedDate: "2025",
     doi: null,
-    abstract: `This study externally validated the Intensive Documentation Index (IDI) for ICU mortality prediction using two international databases: MIMIC-IV (n=26,153, United States) and HiRID (n=33,897, Switzerland), totaling 60,050 patients. On the MIMIC-IV cohort using a random 80/20 split, the IDI-enhanced model achieved an AUROC of 0.640 (95% CI: 0.62–0.66) compared to a baseline of 0.615. On the HiRID external validation cohort, after systematic leakage screening reduced the feature set from 80+ candidates to 45 eligible temporal features, the IDI achieved a standalone AUROC of 0.9063, significantly outperforming both APACHE IV (0.8421) and SAPS III (0.8389) with DeLong p < 0.001 for both comparisons. Subgroup analyses across age, sex, and diagnostic categories confirmed consistent discriminative performance. These results demonstrate that temporal documentation patterns generalize across healthcare systems, EHR platforms, and national contexts, establishing the IDI as a robust, equipment-independent ICU mortality predictor.`,
+    abstract: `Clinical documentation timestamps generate a continuous, zero-burden behavioral signal in the electronic health record. We developed the Intensive Documentation Index (IDI) and validated it in two independent cohorts: MIMIC-IV (26,153 U.S. ICU heart failure patients, primary outcome in-hospital mortality) and HiRID (33,897 Swiss all-ICU patients, primary outcome ICU mortality). In MIMIC-IV, the IDI-enhanced logistic regression achieved an AUROC of 0.6401, compared with a baseline of 0.6153 (Brier score of 0.1347). In HiRID, where documentation latency is 1.2 minutes compared with 15 hours in MIMIC-IV, AUROC was 0.9063, well above published APACHE IV (0.8421) and SAPS III (0.8389) benchmarks with DeLong p < 0.001 for both. The approximately 0.27 AUROC gap reflects the importance of temporal granularity in documentation-based risk stratification. IDI requires no physiologic measurements, making it complementary to established severity scores.`,
     keyFindings: [
       { label: "HiRID AUROC", value: "0.9063", detail: "n=33,897 (Switzerland)" },
-      { label: "MIMIC-IV AUROC", value: "0.640", detail: "95% CI: 0.62–0.66" },
+      { label: "MIMIC-IV AUROC", value: "0.6401", detail: "Baseline: 0.6153" },
       { label: "vs APACHE IV", value: "0.8421", detail: "DeLong p < 0.001" },
       { label: "vs SAPS III", value: "0.8389", detail: "DeLong p < 0.001" },
     ],
@@ -234,7 +234,7 @@ const PublicationCard = ({ pub, index }: { pub: typeof publications[0]; index: n
 const Publications = () => (
   <SiteLayout
     title="Publications"
-    description="Peer-reviewed research manuscripts for VitaSignal™. JAMIA, npj Digital Medicine, and JAMA Network Open studies validating equipment-independent clinical AI."
+    description="Research manuscripts for VitaSignal™. JAMIA, npj Digital Medicine, and JAMA Network Open studies validating equipment-independent clinical AI."
   >
     <Helmet>
       <meta name="keywords" content="IDI, Intensive Documentation Index, DBS, Documentation Burden Score, ICU mortality prediction, JAMIA, npj Digital Medicine, JAMA Network Open, MIMIC-IV, HiRID, clinical AI research" />
@@ -255,7 +255,7 @@ const Publications = () => (
             Publications
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Peer-reviewed manuscripts and preprints documenting the development, validation, and 
+            Manuscripts and preprints documenting the development, validation, and 
             equity analysis of the VitaSignal™ clinical intelligence systems.
           </p>
         </motion.div>
