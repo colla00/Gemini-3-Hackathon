@@ -382,9 +382,9 @@ function About() {
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:Alexis.Collier@ung.edu">
+              <a href="mailto:info@alexiscollier.com">
                 <Mail className="w-5 h-5 mr-2" />
-                Alexis.Collier@ung.edu
+                info@alexiscollier.com
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
