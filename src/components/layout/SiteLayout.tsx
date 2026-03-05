@@ -86,10 +86,23 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               ))}
               <ThemeToggle />
               {user ? (
-                <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
-                  <LogOut className="w-4 h-4" />
-                  Sign Out
-                </Button>
+                <>
+                  <Link
+                    to="/investor-deck"
+                    className={`text-sm transition-colors ${
+                      location.pathname === "/investor-deck"
+                        ? "text-primary font-medium"
+                        : "text-muted-foreground hover:text-primary"
+                    }`}
+                  >
+                    Investor Deck
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </>
+              
               ) : (
                 <Button variant="outline" size="sm" asChild>
                   <Link to="/contact">Contact</Link>
