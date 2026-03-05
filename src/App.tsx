@@ -178,6 +178,11 @@ const App = () => {
                       </Suspense>
                     </ProtectedRoute>
                   } />
+                  <Route path="/audience" element={
+                    <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
+                      <AudienceView />
+                    </Suspense>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
