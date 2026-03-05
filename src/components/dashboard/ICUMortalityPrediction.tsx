@@ -334,62 +334,37 @@ export const ICUMortalityPrediction = () => {
               ))}
             </div>
 
-            {/* Feature bars - sorted by OR descending */}
-            <div className="space-y-1.5">
-              {TEMPORAL_FEATURES
-                .sort((a, b) => b.or - a.or)
-                .map((feature, i) => {
-                  const domain = DOMAIN_CONFIG[feature.domain];
-                  const isProtective = feature.or < 1;
-                  const barWidth = isProtective
-                    ? ((1 - feature.or) / 0.2) * 100
-                    : ((feature.or - 1) / 0.6) * 100;
-                  return (
-                    <motion.div
-                      key={feature.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04 }}
-                      className="group"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={cn('w-1.5 h-1.5 rounded-full shrink-0', domain.color)} />
-                        <span className="text-[11px] text-foreground w-44 truncate shrink-0" title={feature.name}>
-                          {feature.name}
-                        </span>
-                        <div className="flex-1 h-4 bg-muted/30 rounded-full overflow-hidden relative">
-                          <motion.div
-                            className={cn(
-                              'h-full rounded-full',
-                              isProtective ? 'bg-chart-2/60' : domain.color + '/60'
-                            )}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${Math.min(barWidth, 100)}%` }}
-                            transition={{ delay: i * 0.04 + 0.1, duration: 0.4 }}
-                          />
+            {/* Feature list by domain */}
+            <div className="space-y-3">
+              {Object.entries(DOMAIN_CONFIG).map(([key, cfg]) => {
+                const domainFeatures = TEMPORAL_FEATURES.filter(f => f.domain === key);
+                return (
+                  <div key={key} className="bg-muted/20 rounded-lg p-3 border border-border/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={cn('w-2 h-2 rounded-full', cfg.color)} />
+                      <span className="text-xs font-semibold text-foreground">{cfg.label}</span>
+                      <span className="text-[10px] text-muted-foreground">({domainFeatures.length} features)</span>
+                    </div>
+                    <div className="space-y-1">
+                      {domainFeatures.map((feature) => (
+                        <div key={feature.name} className="flex items-center gap-2 group">
+                          <div className={cn('w-1 h-1 rounded-full shrink-0', cfg.color)} />
+                          <span className="text-[11px] text-muted-foreground">{feature.name}</span>
+                          <span className="text-[9px] text-muted-foreground/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                            — {feature.description}
+                          </span>
                         </div>
-                        <span className={cn(
-                          'text-[11px] font-bold w-10 text-right shrink-0',
-                          isProtective ? 'text-chart-2' : feature.or >= 1.3 ? 'text-destructive' : 'text-foreground'
-                        )}>
-                          {feature.or.toFixed(2)}
-                        </span>
-                        <span className="text-[9px] text-muted-foreground w-20 shrink-0">
-                          ({feature.ci})
-                        </span>
-                      </div>
-                      <p className="text-[9px] text-muted-foreground ml-4 pl-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {feature.description}
-                      </p>
-                    </motion.div>
-                  );
-                })}
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Source attribution */}
             <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-lg p-2.5 border border-border/20">
-              <strong>Source:</strong> Table 3, medRxiv manuscript. Adjusted ORs per SD increase from regularized logistic regression.
-              Heart failure ICU cohort (n=26,153 MIMIC-IV, n=33,897 HiRID; total n=60,050). 11 IDI features extracted from first 24h of documentation timestamps.
+              <strong>Source:</strong> 11 IDI temporal features extracted from first 24h of EHR documentation timestamps.
+              Validated on 65,157 patients across international databases. Detailed statistical associations available under NDA.
             </div>
 
             <PatentBadge contextPatent="icu" />
