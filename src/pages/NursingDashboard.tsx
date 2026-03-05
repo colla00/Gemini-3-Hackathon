@@ -210,9 +210,9 @@ const tabContent: Record<string, React.ReactNode> = {
 
 const stats = [
   { value: '0.906', label: 'AUROC (#1)', detail: 'HiRID External · n=33,897', delay: 200 },
-  { value: '0.857', label: 'AUROC (#5)', detail: 'DBS · 208 Hospitals', delay: 400 },
-  { value: '382K+', label: 'Patients', detail: 'Validated Across Both Systems', delay: 600 },
-  { value: '175', label: 'Claims', detail: '5 Provisional Patent Applications Filed', delay: 800 },
+  { value: '0.758', label: 'AUROC (#5)', detail: 'DBS · 172 Hospitals', delay: 400 },
+  { value: '93K+', label: 'Patients', detail: 'Validated Across Both Systems', delay: 600 },
+  { value: '175+', label: 'Claims', detail: '11 Patent Applications Filed', delay: 800 },
 ];
 
 export const NursingDashboard = () => {

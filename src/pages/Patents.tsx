@@ -64,15 +64,15 @@ const patentSystems = [
     title: "Documentation Burden & Staffing System (DBS)",
     icon: FileText,
     status: "validated" as const,
-    oneLiner: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 208 hospitals.",
+    oneLiner: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 172 hospitals.",
     validated: true,
     metrics: [
       "AUROC 0.802 (MIMIC-IV, N=24,689)",
-      "AUROC 0.857 (eICU, N=297,030, 208 hospitals)",
-      "Multi-variable ML model, cross-validated",
+      "AUROC 0.758 (eICU, N=3,673, 172 hospitals)",
+      "NPV 0.947 (external) · 0.924 (internal)",
       "ANIA 2026 Presentation — Boston, MA",
     ],
-    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Externally validated: AUROC 0.802 (MIMIC-IV) → 0.857 (eICU, 208 hospitals, N=321,719). ANIA 2026 presentation accepted.",
+    innovation: "ML-powered documentation burden quantification using multiple clinical variables. Validated: AUROC 0.802 (MIMIC-IV) → 0.758 (eICU, 172 hospitals, N=28,362). NPV 0.947. ANIA 2026 presentation accepted.",
   },
 ];
 
