@@ -66,11 +66,11 @@ export const ResearchValidationSection = () => (
             </div>
           </div>
           <div className="bg-accent/5 rounded-xl p-3 border border-accent/20">
-            <p className="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">npj Digital Medicine (MIMIC-IV, n=26,153)</p>
+            <p className="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">Manuscript B (MIMIC-IV, n=26,153)</p>
             <div className="space-y-1 text-xs text-muted-foreground">
               <p>Baseline AUROC: <span className="font-semibold text-foreground">0.615</span> <span className="text-[10px]">(random 80/20 split)</span></p>
               <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.640</span> <span className="text-[10px]">(95% CI: 0.62–0.66)</span></p>
-              <p className="text-[10px] italic">Same cohort, random split (vs. temporal in JAMIA)</p>
+              <p className="text-[10px] italic">Same cohort, random split (vs. temporal in Manuscript A)</p>
             </div>
           </div>
         </div>
