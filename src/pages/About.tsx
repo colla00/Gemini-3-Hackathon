@@ -63,14 +63,14 @@ function About() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" asChild>
-                <a href="https://vitasignal.ai" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <a href="https://dralexis.ceo" target="_blank" rel="noopener noreferrer" className="gap-2">
                   <ExternalLink className="w-4 h-4" />
-                  vitasignal.ai
+                  dralexis.ceo
                 </a>
               </Button>
               <Button variant="default" size="sm" onClick={() => setWalkthroughOpen(true)} className="gap-2">
                 <Calendar className="w-4 h-4" />
-                Schedule Walkthrough
+                Schedule Guided Walkthrough
               </Button>
             </div>
           </div>
