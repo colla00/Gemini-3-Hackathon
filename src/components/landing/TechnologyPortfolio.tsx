@@ -10,7 +10,7 @@ const systems = [
     desc: "Predicts mortality risk from documentation rhythm patterns. 11 temporal features extracted from routine EHR timestamps. Validated on 60,050 patients (MIMIC-IV + HiRID).",
     status: "Validated",
     highlight: true,
-    metric: "AUROC 0.683–0.906",
+    metric: "65,157 patients validated",
   },
   {
     icon: Shield,
