@@ -101,9 +101,9 @@ export const PressRelease = () => (
             />
             <StatCard
               label="External Validation"
-              value="AUROC 0.857"
-              detail="eICU-CRD · n = 297,030 · 208 hospitals"
-              sub="Sensitivity 0.768 · Specificity 0.785"
+              value="AUROC 0.758"
+              detail="eICU-CRD · n = 3,673 · 172 hospitals"
+              sub="NPV 0.947 · p < 0.001"
             />
           </div>
 

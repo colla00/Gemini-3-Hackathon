@@ -11,9 +11,9 @@ export const DemoFooterDisclaimer = () => {
           <p className="text-sm font-semibold text-foreground mb-2">Research Prototype Disclaimer</p>
           <p className="text-sm text-muted-foreground leading-relaxed">
             This demonstration uses simulated/de-identified data for educational purposes only. VitaSignal
-            is NOT FDA-cleared, NOT approved for clinical use, and NOT a medical device. All clinical
-            decisions require qualified healthcare professionals. Patent #1 (ICU Mortality, n=26,153) and
-            Patent #5 (DBS, N=321,719) have completed validation.
+            is classified as Non-Device CDS under §520(o)(1)(E), NOT approved for clinical use. All clinical
+            decisions require qualified healthcare professionals. Patent #1 (ICU Mortality, n=65,157) and
+            Patent #5 (DBS, N=28,362) have completed validation.
           </p>
         </div>
       </div>
