@@ -144,10 +144,10 @@ function About() {
                 actionable insight.
               </p>
               <p>
-                This firsthand understanding of clinical workflow challenges led to doctoral research
-                on nursing burnout and workload measurement, ultimately culminating in the development
+                This understanding of clinical workflow challenges led to doctoral research
+                on healthcare worker burnout and workload measurement, ultimately culminating in the development
                 of the <strong className="text-foreground">VitaSignal™ Clinical Intelligence Platform</strong> —
-                a suite of AI systems designed by a nurse, for nurses.
+                a suite of AI systems designed for clinicians, by someone who understands their challenges.
               </p>
               <p>
                 Unlike traditional clinical AI that requires expensive sensors or additional hardware,
