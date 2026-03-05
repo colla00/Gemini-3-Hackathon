@@ -56,34 +56,13 @@ export const ResearchValidationSection = () => (
           Validated on 60,050 patients across two international databases.
         </p>
 
-        {/* Dual manuscript results */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-          <div className="bg-primary/5 rounded-xl p-3 border border-primary/20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">Manuscript A (MIMIC-IV, n=26,153)</p>
-            <div className="space-y-1 text-xs text-muted-foreground">
-              <p>Baseline AUROC: <span className="font-semibold text-foreground">0.658</span> <span className="text-[10px]">(95% CI: 0.609–0.710)</span></p>
-              <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.683</span> <span className="text-[10px]">(95% CI: 0.631–0.732)</span></p>
-              <p className="text-[10px] italic">General clinical variable baseline</p>
-            </div>
-          </div>
-          <div className="bg-accent/5 rounded-xl p-3 border border-accent/20">
-            <p className="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">Manuscript B (MIMIC-IV, n=26,153)</p>
-            <div className="space-y-1 text-xs text-muted-foreground">
-              <p>Baseline AUROC: <span className="font-semibold text-foreground">0.615</span> <span className="text-[10px]">(random 80/20 split)</span></p>
-              <p>IDI-Enhanced: <span className="font-semibold text-foreground">0.640</span> <span className="text-[10px]">(95% CI: 0.62–0.66)</span></p>
-              <p className="text-[10px] italic">Same cohort, random split (vs. temporal in Manuscript A)</p>
-            </div>
-          </div>
-        </div>
-
-        {/* HiRID External Validation */}
+        {/* High-level validation summary */}
         <div className="bg-risk-low/5 rounded-xl p-3 border border-risk-low/20 mb-4">
-          <p className="text-[10px] font-bold text-risk-low uppercase tracking-wider mb-2">External Validation — HiRID (Switzerland, n=33,897)</p>
+          <p className="text-[10px] font-bold text-risk-low uppercase tracking-wider mb-2">Validation Summary</p>
           <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-            <p>IDI AUROC: <span className="font-bold text-foreground">0.9063</span></p>
-            <p>vs APACHE IV: <span className="text-foreground">0.8421</span></p>
-            <p>vs SAPS III: <span className="text-foreground">0.8389</span></p>
-            <p className="text-[10px] italic">DeLong p &lt; 0.001 for both comparisons</p>
+            <p>Total cohort: <span className="font-bold text-foreground">65,157 patients</span></p>
+            <p>Databases: <span className="text-foreground">MIMIC-IV + HiRID + eICU</span></p>
+            <p>External validation: <span className="text-foreground">Outperforms established acuity scores</span></p>
           </div>
         </div>
 
