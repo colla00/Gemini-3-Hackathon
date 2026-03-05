@@ -44,6 +44,7 @@ const Regulatory = lazy(() => import("./pages/Regulatory"));
 const ANIA2026Poster = lazy(() => import("./pages/ANIA2026Poster"));
 const QRCodeDownload = lazy(() => import("./pages/QRCodeDownload"));
 const PressRelease = lazy(() => import("./pages/PressRelease"));
+const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 
 
 const queryClient = new QueryClient();
@@ -168,6 +169,13 @@ const App = () => {
                     <Suspense fallback={<PageSkeleton />}>
                       <PressRelease />
                     </Suspense>
+                  } />
+                  <Route path="/investor-deck" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <InvestorDeck />
+                      </Suspense>
+                    </ProtectedRoute>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
