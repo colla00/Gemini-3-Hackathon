@@ -82,7 +82,7 @@ export const generateInvestorDeck = () => {
   doc.text('Equipment-independent clinical AI that works with existing EHR data', margin, 240);
   // Three pillars
   const pillars = [
-    { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: 'AUROC 0.9063' },
+    { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: '65,157 patients' },
     { title: 'DBS Score', desc: 'Documentation Burden Score — quantifies\nnurse documentation workload', metric: '28,362 patients' },
     { title: 'ChartMinder™', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
   ];
