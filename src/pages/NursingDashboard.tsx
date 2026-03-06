@@ -177,6 +177,72 @@ const patentGroups: PatentGroup[] = [
     ],
   },
   {
+    id: 'patent-6',
+    patent: 'Patent #6',
+    title: 'TRACI – Temporal Risk',
+    validated: false,
+    color: 'text-chart-1',
+    activeBg: 'bg-chart-1',
+    tabs: [
+      { value: 'traci', label: 'TRACI Overview', icon: Activity },
+    ],
+  },
+  {
+    id: 'patent-7',
+    patent: 'Patent #7',
+    title: 'ESDBI – Staffing Optimization',
+    validated: false,
+    color: 'text-chart-2',
+    activeBg: 'bg-chart-2',
+    tabs: [
+      { value: 'esdbi', label: 'ESDBI Overview', icon: BarChart3 },
+    ],
+  },
+  {
+    id: 'patent-8',
+    patent: 'Patent #8',
+    title: 'SHQS – Healthcare Quality',
+    validated: false,
+    color: 'text-chart-5',
+    activeBg: 'bg-chart-5',
+    tabs: [
+      { value: 'shqs', label: 'SHQS Overview', icon: Shield },
+    ],
+  },
+  {
+    id: 'patent-9',
+    patent: 'Patent #9',
+    title: 'DTBL – Digital Twin Baseline',
+    validated: false,
+    color: 'text-primary',
+    activeBg: 'bg-primary',
+    tabs: [
+      { value: 'dtbl', label: 'DTBL Overview', icon: Layers },
+    ],
+  },
+  {
+    id: 'patent-10',
+    patent: 'Patent #10',
+    title: 'CTCI – Clinical Trial Intelligence',
+    validated: false,
+    color: 'text-warning',
+    activeBg: 'bg-warning',
+    tabs: [
+      { value: 'ctci', label: 'CTCI Overview', icon: FlaskConical },
+    ],
+  },
+  {
+    id: 'patent-11',
+    patent: 'Patent #11',
+    title: 'SEDR – Syndromic Surveillance',
+    validated: false,
+    color: 'text-destructive',
+    activeBg: 'bg-destructive',
+    tabs: [
+      { value: 'sedr', label: 'SEDR Overview', icon: Activity },
+    ],
+  },
+  {
     id: 'hackathon',
     patent: 'Hackathon',
     title: 'Gemini 3 AI Showcase',
