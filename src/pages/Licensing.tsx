@@ -274,9 +274,9 @@ function Licensing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com" className="flex items-center gap-2">
+               <a href="mailto:info@vitasignal.ai" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
-                info@alexiscollier.com
+                info@vitasignal.ai
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
