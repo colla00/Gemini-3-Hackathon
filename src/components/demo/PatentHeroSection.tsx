@@ -29,8 +29,8 @@ export const PatentHeroSection = () => {
           VitaSignal™ Mortality
         </h2>
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 11 temporal features.
-          Validated on 60,050 patients across MIMIC-IV and HiRID (Switzerland). IDI features
+          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 9 temporal features.
+          Validated on 65,157 patients across MIMIC-IV and HiRID (Switzerland). IDI features
           are automatically computable from existing EHR data — no additional hardware or sensors required.
         </p>
 

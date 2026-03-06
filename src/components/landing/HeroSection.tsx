@@ -15,15 +15,23 @@ export const HeroSection = () => (
 
     <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-32">
       <div className="flex flex-col items-center text-center">
-        {/* Stanford Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-[#8C1515]/10 to-[#8C1515]/5 border border-[#8C1515]/30">
-          <Award className="w-4 h-4 text-[#8C1515]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#8C1515]">
-            Presented at Stanford AI+Health 2025
-          </span>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-[#8C1515]/20 text-[#8C1515] font-medium">
-            Dec 2025
-          </span>
+        {/* Conference Badges */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/30">
+            <Award className="w-4 h-4 text-primary" aria-hidden="true" />
+            <span className="text-sm font-medium text-primary">
+              Presenting at ANIA 2026 — Boston
+            </span>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
+              Mar 2026
+            </span>
+          </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#8C1515]/10 to-[#8C1515]/5 border border-[#8C1515]/30">
+            <Award className="w-4 h-4 text-[#8C1515]" aria-hidden="true" />
+            <span className="text-sm font-medium text-[#8C1515]">
+              Presented at Stanford AI+Health 2025
+            </span>
+          </div>
         </div>
 
         {/* Brand */}

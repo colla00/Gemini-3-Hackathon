@@ -181,7 +181,7 @@ export const PressRelease = () => (
           </div>
 
           <p>
-            The framework directly informed the design of <strong>ChartMinder™</strong> (Patent #2), the trust-based alert prioritization system with integrated equity monitoring. The Stanford presentation also previewed early findings from the <strong>Intensive Documentation Index (IDI)</strong> — 11 temporal features derived solely from EHR timestamp metadata that would later form the basis of the ICU mortality prediction patent (Patent #1).
+            The framework directly informed the design of <strong>ChartMinder™</strong> (Patent #2), the trust-based alert prioritization system with integrated equity monitoring. The Stanford presentation also previewed early findings from the <strong>Intensive Documentation Index (IDI)</strong> — 9 temporal features derived solely from EHR timestamp metadata that would later form the basis of the ICU mortality prediction patent (Patent #1).
           </p>
 
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">IDI Validation Highlights (Patent #1)</h3>

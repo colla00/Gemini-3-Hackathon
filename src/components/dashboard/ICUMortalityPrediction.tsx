@@ -309,10 +309,10 @@ export const ICUMortalityPrediction = () => {
             {/* Validation stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { label: 'Total Cohort', value: '60,050', sub: 'MIMIC-IV + HiRID' },
+                { label: 'Total Cohort', value: '65,157', sub: 'MIMIC-IV + HiRID' },
                 { label: 'MIMIC-IV AUROC', value: '0.683', sub: '95% CI: 0.631-0.732' },
                 { label: 'HiRID AUROC', value: '0.906', sub: 'n=33,897 (Switzerland)' },
-                { label: 'IDI Features', value: '11', sub: 'Temporal extraction' },
+                { label: 'IDI Features', value: '9', sub: 'Temporal extraction' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-muted/40 rounded-lg p-2.5 text-center border border-border/20">
                   <p className="text-sm font-bold text-foreground">{stat.value}</p>

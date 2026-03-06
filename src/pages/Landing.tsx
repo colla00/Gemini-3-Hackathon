@@ -29,7 +29,7 @@ export const Landing = () => {
   return (
     <SiteLayout
       title="Equipment-Independent Clinical AI | Nursing Documentation AI"
-      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 5 U.S. patent applications, 382K+ patients validated."
+      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 11 U.S. patent applications, 357K+ patients validated."
     >
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>

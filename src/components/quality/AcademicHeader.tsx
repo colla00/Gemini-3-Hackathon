@@ -61,7 +61,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'research-validation': {
     title: 'Clinical Validation at Scale',
-    subtitle: '93K+ Patients · MIMIC-IV + HiRID + eICU',
+    subtitle: '357K+ Patients · MIMIC-IV + HiRID + eICU',
     citation: 'Manuscripts Under Review · NIH-Funded',
   },
   'patent-portfolio': {

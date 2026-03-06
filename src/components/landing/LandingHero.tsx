@@ -100,7 +100,7 @@ export const LandingHero = () => (
         className="space-y-2"
       >
         <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
-          Patent #1 & #5 Validated · ICU Mortality & Documentation Burden Systems
+          11 Patent Applications Filed · ICU Mortality & Documentation Burden Systems
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden">
         {stats.map((s, i) => (

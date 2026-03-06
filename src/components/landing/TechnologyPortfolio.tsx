@@ -61,7 +61,7 @@ export const TechnologyPortfolio = () => (
           Patent Portfolio
         </p>
         <h2 id="tech-portfolio-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          Five Patent-Pending Systems
+          11 Patent-Pending Systems
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           A comprehensive platform for equipment-independent clinical AI, from

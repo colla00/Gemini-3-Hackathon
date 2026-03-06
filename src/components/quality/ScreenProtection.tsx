@@ -295,7 +295,7 @@ export const ScreenProtection = ({
       {/* Corner watermarks */}
       <div className="fixed top-2 left-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">
         <div className="text-[10px] font-semibold text-primary/20 tracking-wider">
-          5 PATENT APPLICATIONS FILED
+          11 PATENT APPLICATIONS FILED
         </div>
       </div>
       <div className="fixed top-2 right-2 z-[101] pointer-events-none select-none print:hidden" aria-hidden="true">

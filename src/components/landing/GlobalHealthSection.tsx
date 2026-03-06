@@ -65,7 +65,7 @@ export const GlobalHealthSection = () => (
           {[
             { icon: Wifi, label: "Zero Hardware", detail: "Software-only deployment" },
             { icon: Building2, label: "172 Hospitals", detail: "Multi-center validated" },
-            { icon: Heart, label: "93K+ Patients", detail: "Large-scale evidence" },
+            { icon: Heart, label: "357K+ Patients", detail: "Large-scale evidence" },
             { icon: Globe, label: "Any EHR", detail: "Universal compatibility" },
           ].map((item, i) => (
             <motion.div
