@@ -315,6 +315,7 @@ const tabContent: Record<string, React.ReactNode> = {
   'ctci-patients': <CTCIPatientMatcher />,
   'sedr': <SEDRDemo />,
   'sedr-command': <SEDRCommandCenter />,
+  'fhir-demo': <FHIRIntegrationDemo />,
 };
 
 const stats = [
