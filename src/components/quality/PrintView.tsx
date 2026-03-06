@@ -164,7 +164,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         </div>
         
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | VitaSignal™ – 5 U.S. Patent Applications Filed | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | VitaSignal™ – 11 U.S. Patent Applications Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -181,7 +181,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           All predictions require human clinical verification. NOT CLINICALLY VALIDATED. Not intended for diagnostic or treatment decisions.
         </p>
         <p className="mt-2 text-[9px] text-center">
-          Created by Dr. Alexis Collier • 5 U.S. Patents Pending
+          Created by Dr. Alexis Collier • 11 U.S. Patents Pending
         </p>
       </div>
     </div>

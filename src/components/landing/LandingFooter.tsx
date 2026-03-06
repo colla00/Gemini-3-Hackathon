@@ -17,7 +17,7 @@ export const LandingFooter = () => (
             NIH Research Fellow | NIH-Funded AI Researcher
           </p>
           <p className="text-xs text-primary font-medium mt-1">
-            5 U.S. Provisional Patent Applications Filed
+            11 U.S. Provisional Patent Applications Filed
           </p>
         </div>
 

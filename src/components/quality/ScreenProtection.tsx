@@ -134,7 +134,7 @@ export const ScreenProtection = ({
             <ShieldAlert className="w-16 h-16 text-primary mb-4" />
             <h2 className="text-2xl font-bold text-foreground mb-2">Content Protected</h2>
             <p className="text-muted-foreground text-center max-w-md">
-              This prototype is protected by 5 U.S. patent applications and proprietary intellectual property. 
+              This prototype is protected by 11 U.S. patent applications and proprietary intellectual property. 
               Content is protected when the window is not in focus.
             </p>
             <button
@@ -168,7 +168,7 @@ export const ScreenProtection = ({
               <p className="text-xs text-muted-foreground">
                 <span className="font-semibold text-foreground">© Dr. Alexis Collier</span>
                 <br />
-                5 U.S. Patent Applications Filed • All Rights Reserved
+                11 U.S. Patent Applications Filed • All Rights Reserved
               </p>
             </div>
             <button
@@ -322,7 +322,7 @@ export const ScreenProtection = ({
             visibility: hidden !important;
           }
           body::before {
-            content: "© Dr. Alexis Collier - 5 U.S. Patent Applications Filed - Printing is disabled for this protected content.";
+            content: "© Dr. Alexis Collier - 11 U.S. Patent Applications Filed - Printing is disabled for this protected content.";
             display: block !important;
             visibility: visible !important;
             text-align: center;

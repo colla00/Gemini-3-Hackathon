@@ -80,7 +80,7 @@ function Patents() {
   };
 
   return (
-    <SiteLayout title="Technology Portfolio" description="5 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
+    <SiteLayout title="Technology Portfolio" description="11 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
@@ -90,7 +90,7 @@ function Patents() {
         <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-primary/20 border border-primary/30 text-sm">
             <FileText className="w-3 h-3 text-primary" />
-            <span className="text-primary font-medium">5 U.S. Provisional Patent Applications Filed</span>
+            <span className="text-primary font-medium">11 U.S. Provisional Patent Applications Filed</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05] max-w-4xl">
             VitaSignal™

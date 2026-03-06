@@ -191,7 +191,7 @@ export const InterventionTracking = () => {
       </CardContent>
       <CardFooter className="pt-0">
         <p className="text-[9px] text-muted-foreground w-full text-center">
-          VitaSignal™ – 5 U.S. Patent Applications Filed
+          VitaSignal™ – 11 U.S. Patent Applications Filed
         </p>
       </CardFooter>
     </Card>
