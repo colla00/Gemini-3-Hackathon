@@ -39,6 +39,7 @@ import { CTCIDemo } from '@/components/dashboard/CTCIDemo';
 import { CTCIPatientMatcher } from '@/components/dashboard/CTCIPatientMatcher';
 import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
 import { SEDRCommandCenter } from '@/components/dashboard/SEDRCommandCenter';
+import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
