@@ -45,7 +45,7 @@ const tracks = [
       "Access to Dr. Collier for technical consultation",
     ],
     cta: "Request Hospital Demo",
-    email: "info@alexiscollier.com?subject=Hospital%20System%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=Hospital%20System%20Licensing%20-%20VitaSignal",
   },
   {
     id: "global",
