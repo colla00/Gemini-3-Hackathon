@@ -256,7 +256,7 @@ export const PatentPortfolioSlide = () => {
               </p>
             </div>
             <div className="text-right">
-              <div className="text-xl font-bold text-primary">5x</div>
+              <div className="text-xl font-bold text-primary">11x</div>
               <div className="text-[10px] text-muted-foreground">IP Barrier</div>
             </div>
           </div>
