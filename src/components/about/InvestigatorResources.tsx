@@ -183,7 +183,7 @@ export function InvestigatorResources() {
                   </a>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
-                  <a href="mailto:info@alexiscollier.com">
+                  <a href="mailto:info@vitasignal.ai">
                     <Mail className="w-4 h-4 mr-2" />
                     Licensing & Partnerships
                   </a>

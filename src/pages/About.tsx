@@ -361,9 +361,9 @@ function About() {
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com">
+              <a href="mailto:info@vitasignal.ai">
                 <Mail className="w-5 h-5 mr-2" />
-                info@alexiscollier.com
+                info@vitasignal.ai
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>

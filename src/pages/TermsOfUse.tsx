@@ -264,7 +264,7 @@ export const TermsOfUse = () => {
                 <p>For questions regarding these Terms of Use or licensing inquiries:</p>
                 <p className="mt-2">
                   <strong>Dr. Alexis M. Collier, DHA</strong><br />
-                  Email: <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>
+                  Email: <a href="mailto:info@vitasignal.ai" className="text-primary hover:underline">info@vitasignal.ai</a>
                 </p>
               </div>
             </section>

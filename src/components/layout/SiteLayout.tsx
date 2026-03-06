@@ -239,7 +239,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               &copy; 2025-2026 VitaSignal LLC. All Rights Reserved.
             </p>
             <p className="text-[10px] text-primary-foreground/30">
-              VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier.
+              VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of VitaSignal LLC.
             </p>
             <p className="text-[10px] text-primary-foreground/30 mt-1">
               Pre-Market Research Prototype. Not FDA Cleared. Not a Medical Device.
