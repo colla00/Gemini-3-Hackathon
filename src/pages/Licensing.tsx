@@ -65,7 +65,7 @@ const tracks = [
       "Research collaboration for local clinical validation",
     ],
     cta: "Explore Impact Licensing",
-    email: "info@alexiscollier.com?subject=Global%20Health%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=Global%20Health%20Licensing%20-%20VitaSignal",
   },
 ];
 
