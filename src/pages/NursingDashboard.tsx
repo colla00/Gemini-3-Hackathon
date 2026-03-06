@@ -114,7 +114,7 @@ type PatentGroup = {
   patent: string;
   title: string;
   validated: boolean;
-  statusLabel?: 'validated' | 'hackathon' | 'design';
+  statusLabel?: 'validated' | 'hackathon' | 'design' | 'enterprise';
   color: string;
   activeBg: string;
   tabs: { value: string; label: string; icon: React.ElementType }[];
