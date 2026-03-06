@@ -209,7 +209,7 @@ Always return valid JSON. Be specific and actionable in your interventions.`;
   } catch (error) {
     console.error("[Gemini 3] Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      JSON.stringify({ error: "Risk assessment failed", code: "PROCESSING_ERROR" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

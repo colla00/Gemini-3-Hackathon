@@ -57,6 +57,13 @@ serve(async (req) => {
       );
     }
 
+    if (demographicData.length > 100) {
+      return new Response(
+        JSON.stringify({ error: "Too many demographic groups (max 100)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       console.error("LOVABLE_API_KEY is not configured");
@@ -194,7 +201,7 @@ Identify any disparities >10% and provide actionable recommendations. Return as 
   } catch (error) {
     console.error("[Gemini 3] Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      JSON.stringify({ error: "Equity analysis failed", code: "PROCESSING_ERROR" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
