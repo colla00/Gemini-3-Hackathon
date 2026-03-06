@@ -172,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeRole = escapeHtml(data.role);
     const safeReason = escapeHtml(data.reason);
 
-    const adminEmail = "info@alexiscollier.com";
+    const adminEmail = "info@vitasignal.ai";
     const dashboardUrl = "https://clinicaldashboard.lovable.app";
 
     // Handle approval notification
