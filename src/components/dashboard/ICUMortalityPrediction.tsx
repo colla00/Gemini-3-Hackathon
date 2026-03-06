@@ -110,7 +110,7 @@ const DOMAIN_CONFIG = {
 // ── Pipeline Steps ──────────────────────────────────────────────────────────
 const PIPELINE_STEPS = [
   { icon: <Timer className="w-4 h-4" />, label: 'EHR Timestamps', desc: 'Raw metadata' },
-  { icon: <BarChart3 className="w-4 h-4" />, label: '11 IDI Features', desc: 'Temporal extraction' },
+  { icon: <BarChart3 className="w-4 h-4" />, label: '9 IDI Features', desc: 'Temporal extraction' },
   { icon: <Dna className="w-4 h-4" />, label: '4 Phenotypes', desc: 'K-means clustering' },
   { icon: <Brain className="w-4 h-4" />, label: 'Risk Score', desc: 'AUROC 0.683–0.906' },
 ];
