@@ -134,7 +134,7 @@ export const ScreenProtection = ({
             <ShieldAlert className="w-16 h-16 text-primary mb-4" />
             <h2 className="text-2xl font-bold text-foreground mb-2">Content Protected</h2>
             <p className="text-muted-foreground text-center max-w-md">
-              This prototype is protected by 5 U.S. patent applications and proprietary intellectual property. 
+              This prototype is protected by 11 U.S. patent applications and proprietary intellectual property. 
               Content is protected when the window is not in focus.
             </p>
             <button
