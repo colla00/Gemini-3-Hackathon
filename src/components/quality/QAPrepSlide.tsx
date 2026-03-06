@@ -126,7 +126,7 @@ const anticipatedQuestions: QAItem[] = [
       'Seeking validation partners',
       'Pilot implementation opportunities',
       'Research collaboration possible',
-      'Contact: info@alexiscollier.com',
+      'Contact: info@vitasignal.ai',
     ],
     difficulty: 'easy',
   },
