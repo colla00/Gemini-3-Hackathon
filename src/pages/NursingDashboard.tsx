@@ -577,7 +577,7 @@ export const NursingDashboard = () => {
                   <div className="flex items-center gap-2">
                     <Award className="h-3.5 w-3.5 text-primary" />
                     <p className="text-[10px] text-muted-foreground">
-                      <span className="font-semibold text-foreground/70">15 Modules</span> across 5 patents + Hackathon
+                      <span className="font-semibold text-foreground/70">{patentGroups.reduce((acc, g) => acc + g.tabs.length, 0)} Modules</span> across 11 patents + Hackathon
                     </p>
                   </div>
                 </div>
