@@ -137,7 +137,7 @@ export const PatentPortfolioSlide = () => {
           <h1 className="text-xl font-bold text-foreground">Patent Portfolio Overview</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Five complementary patents creating a defensible moat in clinical AI
+          Eleven complementary patents creating a defensible moat in clinical AI
         </p>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
           <span className="text-xs font-semibold text-primary">Patent Portfolio · {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed</span>
