@@ -322,7 +322,7 @@ export const ScreenProtection = ({
             visibility: hidden !important;
           }
           body::before {
-            content: "© Dr. Alexis Collier - 5 U.S. Patent Applications Filed - Printing is disabled for this protected content.";
+            content: "© Dr. Alexis Collier - 11 U.S. Patent Applications Filed - Printing is disabled for this protected content.";
             display: block !important;
             visibility: visible !important;
             text-align: center;
