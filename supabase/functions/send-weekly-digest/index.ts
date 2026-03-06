@@ -26,7 +26,7 @@ serve(async (req) => {
     }
 
     const envRecipient = Deno.env.get("PATENT_ATTORNEY_EMAIL");
-    const RECIPIENT = envRecipient && envRecipient.includes("@") ? envRecipient : "info@alexiscollier.com";
+    const RECIPIENT = envRecipient && envRecipient.includes("@") ? envRecipient : "info@vitasignal.ai";
     console.log("[Digest] Sending to:", RECIPIENT);
 
     // Get archives from the last 7 days
