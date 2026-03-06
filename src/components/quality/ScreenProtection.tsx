@@ -14,7 +14,7 @@ interface ScreenProtectionProps {
 
 export const ScreenProtection = ({ 
   enabled = true, 
-  watermarkText = '5 PATENT APPLICATIONS FILED',
+  watermarkText = '11 PATENT APPLICATIONS FILED',
   showDynamicInfo = true,
   disableBlurProtection = false 
 }: ScreenProtectionProps) => {
