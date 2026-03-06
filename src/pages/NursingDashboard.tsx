@@ -28,11 +28,17 @@ import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTa
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
 import { TRACIDemo } from '@/components/dashboard/TRACIDemo';
+import { TRACIScenarios } from '@/components/dashboard/TRACIScenarios';
 import { ESDBIDemo } from '@/components/dashboard/ESDBIDemo';
+import { ESDBIScheduler } from '@/components/dashboard/ESDBIScheduler';
 import { SHQSDemo } from '@/components/dashboard/SHQSDemo';
+import { SHQSWorkflows } from '@/components/dashboard/SHQSWorkflows';
 import { DTBLDemo } from '@/components/dashboard/DTBLDemo';
+import { DTBLSimulator } from '@/components/dashboard/DTBLSimulator';
 import { CTCIDemo } from '@/components/dashboard/CTCIDemo';
+import { CTCIPatientMatcher } from '@/components/dashboard/CTCIPatientMatcher';
 import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
+import { SEDRCommandCenter } from '@/components/dashboard/SEDRCommandCenter';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
