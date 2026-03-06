@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 const metrics = [
   { label: 'IDI Validated', value: '65,157', detail: 'Patients across databases' },
   { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
-  { label: 'Total Cohort', value: '60,050', detail: 'MIMIC-IV + HiRID' },
-  { label: 'IDI Features', value: '11', detail: 'Temporal extraction' },
+  { label: 'Total Cohort', value: '65,157', detail: 'MIMIC-IV + HiRID' },
+  { label: 'IDI Features', value: '9', detail: 'Temporal extraction' },
 ];
 
 const differentiators = [
