@@ -7,7 +7,7 @@ const systems = [
     icon: Activity,
     name: "ICU Mortality Prediction",
     patent: "#1",
-    desc: "Predicts mortality risk from documentation rhythm patterns. 11 temporal features extracted from routine EHR timestamps. Validated on 60,050 patients (MIMIC-IV + HiRID).",
+    desc: "Predicts mortality risk from documentation rhythm patterns. 9 temporal features extracted from routine EHR timestamps. Validated on 65,157 patients (MIMIC-IV + HiRID).",
     status: "Validated",
     highlight: true,
     metric: "65,157 patients validated",
