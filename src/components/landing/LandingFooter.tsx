@@ -11,7 +11,7 @@ export const LandingFooter = () => (
             <span className="font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
           </div>
           <p className="text-xs text-muted-foreground">
-            © 2025–2026 Dr. Alexis M. Collier, DHA. All Rights Reserved.
+            © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
           <p className="text-xs text-muted-foreground mt-1">
             NIH Research Fellow | NIH-Funded AI Researcher
