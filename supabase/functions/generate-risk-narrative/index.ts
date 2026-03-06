@@ -154,7 +154,7 @@ Write a concise narrative (under 100 words) explaining what this means clinicall
   } catch (error) {
     console.error("[Gemini 3] Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      JSON.stringify({ error: "Narrative generation failed", code: "PROCESSING_ERROR" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

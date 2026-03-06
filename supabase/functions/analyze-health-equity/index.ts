@@ -194,7 +194,7 @@ Identify any disparities >10% and provide actionable recommendations. Return as 
   } catch (error) {
     console.error("[Gemini 3] Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      JSON.stringify({ error: "Equity analysis failed", code: "PROCESSING_ERROR" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
