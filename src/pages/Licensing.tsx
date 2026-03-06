@@ -191,7 +191,7 @@ function Licensing() {
                     <h3 className="font-semibold text-foreground">Technical Assets</h3>
                   </div>
                   <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• Patent license for all 5 provisional applications</li>
+                    <li>• Patent license for all 11 provisional applications</li>
                     <li>• Core algorithm specifications and training methodologies</li>
                     <li>• Model architectures and feature engineering pipelines</li>
                     <li>• Validation protocols and performance benchmarks</li>
