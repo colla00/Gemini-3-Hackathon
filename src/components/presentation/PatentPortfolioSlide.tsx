@@ -1,263 +1,221 @@
-import { Award, Brain, Shield, Activity, TrendingUp, Users, Clock, Target, CheckCircle2, FileText, Cpu } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Award, Brain, Shield, Activity, TrendingUp, Users, Clock, Target, FileText, Cpu, Stethoscope, BarChart3, Heart, Dna, Search, Radio } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { PATENT_PORTFOLIO } from '@/constants/patent';
+import { PATENT_PORTFOLIO, PATENTS_FILED_COUNT } from '@/constants/patent';
 
-interface PatentInfo {
+interface PatentEntry {
   id: string;
+  number: number;
   name: string;
   tagline: string;
   icon: React.ReactNode;
   status: 'filed' | 'pending' | 'preparation';
   filingDate: string;
-  applicationNumber?: string;
-  keyInnovations: string[];
-  metrics: { label: string; value: string }[];
-  differentiator: string;
+  validated?: boolean;
   color: string;
 }
 
-const patents: PatentInfo[] = [
+const allPatents: PatentEntry[] = [
+  {
+    id: 'icu-mortality',
+    number: 1,
+    name: 'ICU Mortality Prediction',
+    tagline: 'EHR documentation rhythm patterns & temporal phenotypes',
+    icon: <Heart className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    validated: true,
+    color: 'text-red-400',
+  },
   {
     id: 'trust-alerts',
-    name: 'ChartMinder (Trust-Based Alerts)',
-    tagline: 'Mobile alert governance with trust-based prioritization & equity monitoring',
-    icon: <Brain className="w-6 h-6" />,
+    number: 2,
+    name: 'ChartMinder™',
+    tagline: 'Trust-based alert prioritization & equity monitoring',
+    icon: <Brain className="w-4 h-4" />,
     status: 'filed',
-    filingDate: 'Dec 21, 2025',
-    applicationNumber: undefined,
-    keyInnovations: [
-      'Trust Score Algorithm with temporal decay',
-      'Real-time equity monitoring (<0.5% disparity)',
-      'Explainable AI with attention weights',
-      'Cognitive Load Optimization (simulated)'
-    ],
-    metrics: [
-      { label: 'Alert Reduction', value: '87%*' },
-      { label: 'Expert Agreement', value: '94%*' },
-      { label: 'Time Saved', value: '2.3m*' }
-    ],
-    differentiator: 'Human-factors-engineered mobile dashboard combining trust-based prioritization with real-time equity monitoring',
-    color: 'primary'
+    filingDate: 'Dec 2025',
+    color: 'text-primary',
   },
   {
     id: 'risk-intelligence',
+    number: 3,
     name: 'Clinical Risk Intelligence',
     tagline: 'Explainability, forecasting & closed-loop feedback',
-    icon: <Cpu className="w-6 h-6" />,
+    icon: <Cpu className="w-4 h-4" />,
     status: 'filed',
     filingDate: 'Dec 2025',
-    applicationNumber: undefined,
-    keyInnovations: [
-      'Multi-horizon temporal forecasting (4-48h)',
-      'Patient-adaptive alert thresholds',
-      'Closed-loop intervention feedback',
-      'Bidirectional risk recalibration'
-    ],
-    metrics: [
-      { label: 'Forecast Horizons', value: '4-48h' },
-      { label: 'False Positive ↓', value: '40%' },
-      { label: 'Sensitivity', value: '100%' }
-    ],
-    differentiator: 'Bidirectional feedback where interventions trigger automatic risk recalculation',
-    color: 'chart-1'
+    color: 'text-blue-400',
   },
   {
     id: 'unified-platform',
+    number: 4,
     name: 'Unified Nursing Intelligence',
     tagline: 'Three-module integration platform',
-    icon: <Shield className="w-6 h-6" />,
+    icon: <Shield className="w-4 h-4" />,
     status: 'filed',
     filingDate: 'Jan 2026',
-    applicationNumber: undefined,
-    keyInnovations: [
-      'Documentation Burden Score (DBS) module',
-      'Risk Intelligence module integration',
-      'Trust-Based Alert System filtering',
-      'Real-Time Equity Monitoring Engine'
-    ],
-    metrics: [
-      { label: 'Hospitals Validated', value: '172' },
-      { label: 'Patients Tested', value: '28K' },
-      { label: 'ROI/Hospital', value: '$180-360K' }
-    ],
-    differentiator: 'First unified platform integrating workload, risk, and alerts into single coherent system',
-    color: 'accent'
+    color: 'text-emerald-400',
   },
   {
     id: 'dbs-system',
+    number: 5,
     name: 'DBS System',
-    tagline: 'Documentation burden prediction & staffing optimization',
-    icon: <Activity className="w-6 h-6" />,
+    tagline: 'Documentation burden prediction & staffing',
+    icon: <Activity className="w-4 h-4" />,
     status: 'filed',
-    filingDate: 'Jan 22, 2026',
-    applicationNumber: undefined,
-    keyInnovations: [
-      'Prospective burden scoring at admission',
-      'Quartile-based staffing recommendations',
-      'ICU LOS correlation (r=0.40)',
-      'Equitable workload distribution'
-    ],
-    metrics: [
-      { label: 'AUC Score', value: '0.78' },
-      { label: 'Overtime ↓', value: '15-20%' },
-      { label: 'Disparity', value: '<0.5%' }
-    ],
-    differentiator: 'ML-based prospective workload prediction replacing reactive census-based staffing',
-    color: 'chart-2'
+    filingDate: 'Jan 2026',
+    validated: true,
+    color: 'text-amber-400',
+  },
+  {
+    id: 'traci',
+    number: 6,
+    name: 'TRACI',
+    tagline: 'Temporal risk assessment & clinical intelligence',
+    icon: <Clock className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-violet-400',
+  },
+  {
+    id: 'esdbi',
+    number: 7,
+    name: 'ESDBI',
+    tagline: 'Enhanced staffing & documentation burden intelligence',
+    icon: <BarChart3 className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-cyan-400',
+  },
+  {
+    id: 'shqs',
+    number: 8,
+    name: 'SHQS',
+    tagline: 'Smart healthcare quality surveillance',
+    icon: <Stethoscope className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-pink-400',
+  },
+  {
+    id: 'dtbl',
+    number: 9,
+    name: 'DTBL',
+    tagline: 'Digital twin baseline learning for personalized thresholds',
+    icon: <Dna className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-orange-400',
+  },
+  {
+    id: 'ctci',
+    number: 10,
+    name: 'CTCI',
+    tagline: 'Clinical trial & cohort intelligence',
+    icon: <Search className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-teal-400',
+  },
+  {
+    id: 'sedr',
+    number: 11,
+    name: 'SEDR',
+    tagline: 'Syndromic early detection & response',
+    icon: <Radio className="w-4 h-4" />,
+    status: 'filed',
+    filingDate: 'Feb 2026',
+    color: 'text-rose-400',
   },
 ];
 
 const portfolioMetrics = [
-  { label: 'Patent Applications', value: '11', icon: <FileText className="w-4 h-4" /> },
-  { label: 'Market Size', value: '$4.2B', icon: <TrendingUp className="w-4 h-4" /> },
+  { label: 'Patent Applications', value: String(PATENTS_FILED_COUNT), icon: <FileText className="w-4 h-4" /> },
+  { label: 'Market Size', value: '$4.7B', icon: <TrendingUp className="w-4 h-4" /> },
   { label: 'Target Users', value: '3.8M RNs', icon: <Users className="w-4 h-4" /> },
-  { label: 'Time to Value', value: '<90 days', icon: <Clock className="w-4 h-4" /> }
+  { label: 'Time to Value', value: '<90 days', icon: <Clock className="w-4 h-4" /> },
 ];
-
-const getStatusBadge = (status: PatentInfo['status']) => {
-  switch (status) {
-    case 'filed':
-      return { className: 'border-risk-low/50 text-risk-low bg-risk-low/10', label: 'Filed' };
-    case 'pending':
-      return { className: 'border-warning/50 text-warning bg-warning/10', label: 'Pending' };
-    case 'preparation':
-      return { className: 'border-chart-2/50 text-chart-2 bg-chart-2/10', label: 'In Preparation' };
-  }
-};
 
 export const PatentPortfolioSlide = () => {
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-3">
       {/* Header */}
-      <div className="text-center space-y-2">
+      <div className="text-center space-y-1">
         <div className="flex items-center justify-center gap-2">
-          <Award className="w-7 h-7 text-primary" />
+          <Award className="w-6 h-6 text-primary" />
           <h1 className="text-xl font-bold text-foreground">Patent Portfolio Overview</h1>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Eleven complementary patents creating a defensible moat in clinical AI
+        <p className="text-xs text-muted-foreground">
+          {PATENTS_FILED_COUNT} complementary patents creating a defensible moat in clinical AI
         </p>
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
-          <span className="text-xs font-semibold text-primary">Patent Portfolio · {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30">
+          <span className="text-xs font-semibold text-primary">
+            {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed · Dec 2025 – Feb 2026
+          </span>
         </div>
       </div>
 
-      {/* Portfolio Metrics */}
-      <div className="grid grid-cols-4 gap-3">
+      {/* Portfolio Metrics Row */}
+      <div className="grid grid-cols-4 gap-2">
         {portfolioMetrics.map((metric, index) => (
           <motion.div
             key={metric.label}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: index * 0.05 }}
           >
             <Card className="bg-secondary/30 border-border/50">
-              <CardContent className="p-3 text-center">
-                <div className="flex items-center justify-center gap-2 text-primary mb-1">
+              <CardContent className="p-2 text-center">
+                <div className="flex items-center justify-center gap-1.5 text-primary mb-0.5">
                   {metric.icon}
                 </div>
-                <div className="text-xl font-bold text-foreground">{metric.value}</div>
-                <div className="text-[10px] text-muted-foreground">{metric.label}</div>
+                <div className="text-lg font-bold text-foreground">{metric.value}</div>
+                <div className="text-[9px] text-muted-foreground">{metric.label}</div>
               </CardContent>
             </Card>
           </motion.div>
         ))}
       </div>
 
-      {/* Patent Cards - 2x2 Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        {patents.map((patent, index) => {
-          const statusBadge = getStatusBadge(patent.status);
-          return (
-            <motion.div
-              key={patent.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-            >
-              <Card className="h-full bg-background/50 border-border/50 hover:border-primary/30 transition-colors">
-                <CardHeader className="pb-2 pt-3 px-3">
-                  <div className="flex items-start justify-between">
-                    <div className={`p-1.5 rounded-lg bg-${patent.color}/10`}>
-                      <div className={`text-${patent.color}`}>{patent.icon}</div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <Badge variant="outline" className={`text-[9px] ${statusBadge.className}`}>
-                        {statusBadge.label}
-                      </Badge>
-                      {patent.applicationNumber && (
-                        <span className="text-[9px] text-primary font-mono font-medium">
-                          {patent.applicationNumber}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <CardTitle className="text-sm">{patent.name}</CardTitle>
-                  <p className="text-[10px] text-muted-foreground">{patent.tagline}</p>
-                  <p className="text-[9px] text-muted-foreground/70">Filing: {patent.filingDate}</p>
-                </CardHeader>
-                
-                <CardContent className="space-y-2 px-3 pb-3">
-                  {/* Key Innovations */}
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Key Innovations
-                    </span>
-                    <ul className="space-y-0.5">
-                      {patent.keyInnovations.slice(0, 3).map((innovation, i) => (
-                        <li key={i} className="flex items-start gap-1 text-[10px] text-foreground">
-                          <CheckCircle2 className="w-2.5 h-2.5 text-risk-low shrink-0 mt-0.5" />
-                          <span className="leading-tight">{innovation}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-3 gap-1">
-                    {patent.metrics.map((metric) => (
-                      <div key={metric.label} className="text-center p-1 rounded bg-secondary/30">
-                        <div className="text-xs font-bold text-primary">{metric.value}</div>
-                        <div className="text-[8px] text-muted-foreground leading-tight">{metric.label}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Differentiator */}
-                  <div className="p-1.5 rounded bg-primary/5 border border-primary/20">
-                    <div className="flex items-start gap-1">
-                      <Target className="w-2.5 h-2.5 text-primary shrink-0 mt-0.5" />
-                      <p className="text-[9px] text-foreground leading-relaxed">
-                        {patent.differentiator}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          );
-        })}
+      {/* All 11 Patents — Compact Grid */}
+      <div className="grid grid-cols-4 gap-2">
+        {/* First row: Patents 1-4 */}
+        {allPatents.slice(0, 4).map((patent, index) => (
+          <PatentCard key={patent.id} patent={patent} index={index} />
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        {/* Second row: Patents 5-8 */}
+        {allPatents.slice(4, 8).map((patent, index) => (
+          <PatentCard key={patent.id} patent={patent} index={index + 4} />
+        ))}
+      </div>
+      <div className="grid grid-cols-3 gap-2 max-w-[75%] mx-auto">
+        {/* Third row: Patents 9-11, centered */}
+        {allPatents.slice(8, 11).map((patent, index) => (
+          <PatentCard key={patent.id} patent={patent} index={index + 8} />
+        ))}
       </div>
 
-      {/* Synergy Statement */}
+      {/* Synergy Footer */}
       <Card className="bg-gradient-to-r from-primary/10 via-accent/10 to-chart-1/10 border-primary/30">
-        <CardContent className="p-3">
+        <CardContent className="p-2.5">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-full bg-primary/20">
-              <Shield className="w-5 h-5 text-primary" />
+            <div className="p-1.5 rounded-full bg-primary/20">
+              <Shield className="w-4 h-4 text-primary" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-sm text-foreground">Portfolio Synergy</h3>
-              <p className="text-xs text-muted-foreground">
-                ChartMinder (Trust-Based Alerts) + Risk Intelligence + Unified Platform + DBS System = Comprehensive clinical AI solution 
-                with multiple layers of IP protection that competitors cannot easily replicate.
+              <h3 className="font-semibold text-xs text-foreground">Portfolio Synergy</h3>
+              <p className="text-[10px] text-muted-foreground">
+                Interlocking IP across prediction, workflow, staffing, quality, surveillance, and trials —
+                competitors cannot replicate any single layer without infringing the others.
               </p>
             </div>
             <div className="text-right">
-              <div className="text-xl font-bold text-primary">11x</div>
-              <div className="text-[10px] text-muted-foreground">IP Barrier</div>
+              <div className="text-lg font-bold text-primary">{PATENTS_FILED_COUNT}x</div>
+              <div className="text-[9px] text-muted-foreground">IP Barrier</div>
             </div>
           </div>
         </CardContent>
@@ -265,3 +223,36 @@ export const PatentPortfolioSlide = () => {
     </div>
   );
 };
+
+/* ── Compact Patent Card ── */
+const PatentCard = ({ patent, index }: { patent: PatentEntry; index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ delay: 0.15 + index * 0.04 }}
+  >
+    <Card className="h-full bg-background/50 border-border/50 hover:border-primary/30 transition-colors">
+      <CardContent className="p-2.5 space-y-1">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <div className={patent.color}>{patent.icon}</div>
+            <span className="text-[10px] font-mono text-muted-foreground">#{patent.number}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            {patent.validated && (
+              <Badge variant="outline" className="text-[8px] px-1 py-0 border-risk-low/50 text-risk-low bg-risk-low/10">
+                Validated
+              </Badge>
+            )}
+            <Badge variant="outline" className="text-[8px] px-1 py-0 border-primary/40 text-primary bg-primary/5">
+              Filed
+            </Badge>
+          </div>
+        </div>
+        <p className="text-[11px] font-semibold text-foreground leading-tight truncate">{patent.name}</p>
+        <p className="text-[9px] text-muted-foreground leading-snug line-clamp-2">{patent.tagline}</p>
+        <p className="text-[8px] text-muted-foreground/60">{patent.filingDate}</p>
+      </CardContent>
+    </Card>
+  </motion.div>
+);
