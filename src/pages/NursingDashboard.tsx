@@ -27,7 +27,12 @@ import { ResearchValidationSection } from '@/components/dashboard/ResearchValida
 import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
-import { PatentPlaceholder } from '@/components/dashboard/PatentPlaceholder';
+import { TRACIDemo } from '@/components/dashboard/TRACIDemo';
+import { ESDBIDemo } from '@/components/dashboard/ESDBIDemo';
+import { SHQSDemo } from '@/components/dashboard/SHQSDemo';
+import { DTBLDemo } from '@/components/dashboard/DTBLDemo';
+import { CTCIDemo } from '@/components/dashboard/CTCIDemo';
+import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
