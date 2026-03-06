@@ -108,7 +108,7 @@ export const PressRelease = () => (
           </div>
 
           <p className="mt-6">
-            The DBS system represents the largest external validation of a nursing documentation burden predictor to date, demonstrating improved discrimination on multi-center external data — a hallmark of robust generalizability. The system is covered by <strong>U.S. Patent Application (Patent #5)</strong>, filed January 22, 2026 as part of a five-application intellectual property portfolio.
+            The DBS system represents the largest external validation of a nursing documentation burden predictor to date, demonstrating improved discrimination on multi-center external data — a hallmark of robust generalizability. The system is covered by <strong>U.S. Patent Application (Patent #5)</strong>, filed January 22, 2026 as part of an eleven-application intellectual property portfolio.
           </p>
 
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Research Impact</h3>
