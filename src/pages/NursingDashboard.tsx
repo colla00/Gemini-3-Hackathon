@@ -195,7 +195,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-chart-1',
     activeBg: 'bg-chart-1',
     tabs: [
-      { value: 'traci', label: 'TRACI Overview', icon: Activity },
+      { value: 'traci', label: 'Risk Dashboard', icon: Activity },
+      { value: 'traci-scenarios', label: 'Scenarios', icon: Zap },
     ],
   },
   {
@@ -206,7 +207,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-chart-2',
     activeBg: 'bg-chart-2',
     tabs: [
-      { value: 'esdbi', label: 'ESDBI Overview', icon: BarChart3 },
+      { value: 'esdbi', label: 'Staffing Analysis', icon: BarChart3 },
+      { value: 'esdbi-scheduler', label: 'Shift Scheduler', icon: Clock },
     ],
   },
   {
@@ -217,7 +219,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-chart-5',
     activeBg: 'bg-chart-5',
     tabs: [
-      { value: 'shqs', label: 'SHQS Overview', icon: Shield },
+      { value: 'shqs', label: 'Quality Monitor', icon: Shield },
+      { value: 'shqs-workflows', label: 'Improvement Workflows', icon: CheckSquare },
     ],
   },
   {
@@ -228,7 +231,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-primary',
     activeBg: 'bg-primary',
     tabs: [
-      { value: 'dtbl', label: 'DTBL Overview', icon: Layers },
+      { value: 'dtbl', label: 'Twin Dashboard', icon: Layers },
+      { value: 'dtbl-simulator', label: 'Live Simulator', icon: HeartPulse },
     ],
   },
   {
@@ -239,7 +243,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-warning',
     activeBg: 'bg-warning',
     tabs: [
-      { value: 'ctci', label: 'CTCI Overview', icon: FlaskConical },
+      { value: 'ctci', label: 'Trial Matching', icon: FlaskConical },
+      { value: 'ctci-patients', label: 'Patient Matcher', icon: Heart },
     ],
   },
   {
@@ -250,7 +255,8 @@ const patentGroups: PatentGroup[] = [
     color: 'text-destructive',
     activeBg: 'bg-destructive',
     tabs: [
-      { value: 'sedr', label: 'SEDR Overview', icon: Activity },
+      { value: 'sedr', label: 'Syndromic Trends', icon: Activity },
+      { value: 'sedr-command', label: 'Command Center', icon: AlertTriangle },
     ],
   },
   {
