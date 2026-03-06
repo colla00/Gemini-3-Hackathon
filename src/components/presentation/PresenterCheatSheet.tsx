@@ -21,7 +21,7 @@ const talkingPoints: TalkingPoint[] = [
     keyPoints: [
       'Welcome, introduce yourself',
       'Thank organizers',
-      'Research prototype, 5 patent applications filed',
+      'Research prototype, 11 patent applications filed',
       'Solo researcher, limitations are mine',
     ],
   },
