@@ -27,6 +27,7 @@ import { ResearchValidationSection } from '@/components/dashboard/ResearchValida
 import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
+import { PatentPlaceholder } from '@/components/dashboard/PatentPlaceholder';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
