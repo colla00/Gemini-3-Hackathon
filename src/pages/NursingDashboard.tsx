@@ -291,11 +291,17 @@ const tabContent: Record<string, React.ReactNode> = {
   'linked': <InvestorMetricsProvider><LinkedCalculatorView /></InvestorMetricsProvider>,
   'ai-tools': <AIToolsPanel />,
   'traci': <TRACIDemo />,
+  'traci-scenarios': <TRACIScenarios />,
   'esdbi': <ESDBIDemo />,
+  'esdbi-scheduler': <ESDBIScheduler />,
   'shqs': <SHQSDemo />,
+  'shqs-workflows': <SHQSWorkflows />,
   'dtbl': <DTBLDemo />,
+  'dtbl-simulator': <DTBLSimulator />,
   'ctci': <CTCIDemo />,
+  'ctci-patients': <CTCIPatientMatcher />,
   'sedr': <SEDRDemo />,
+  'sedr-command': <SEDRCommandCenter />,
 };
 
 const stats = [
