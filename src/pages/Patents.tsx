@@ -80,7 +80,7 @@ function Patents() {
   };
 
   return (
-    <SiteLayout title="Technology Portfolio" description="5 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
+    <SiteLayout title="Technology Portfolio" description="11 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
