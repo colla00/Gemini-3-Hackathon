@@ -18,7 +18,7 @@ const tracks = [
     idealFor: "Epic, Cerner, Meditech, Allscripts, and other EHR system providers seeking competitive differentiation.",
     includes: [
       "Exclusive or non-exclusive license within EHR field of use",
-      "Full patent license (5 provisional applications, 175+ claims)",
+      "Full patent license (11 provisional applications, 175+ claims)",
       "Algorithm specifications and integration documentation",
       "Technical transfer and co-development support",
       "Rights to sublicense to your customers (negotiable)",
