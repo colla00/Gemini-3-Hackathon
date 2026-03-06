@@ -236,7 +236,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
           {/* Bottom bar */}
           <div className="pt-6 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-primary-foreground/40">
-              &copy; 2025-2026 Dr. Alexis Collier, DHA. All Rights Reserved.
+              &copy; 2025-2026 VitaSignal LLC. All Rights Reserved.
             </p>
             <p className="text-[10px] text-primary-foreground/30">
               VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier.
