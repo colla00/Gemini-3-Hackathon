@@ -23,7 +23,7 @@ export const RecognitionSection = () => (
         <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" aria-hidden="true" />
       </motion.div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {recognitions.map((item, i) => (
           <motion.div
             key={item.title}
