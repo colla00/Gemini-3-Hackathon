@@ -6,7 +6,7 @@ const metrics = [
   { label: "Patent #1 IDI", value: "65,157", detail: "Patients validated" },
   { label: "Patent #1 External", value: "Outperforms", detail: "Established acuity scores" },
   { label: "Patent #5 DBS", value: "172", detail: "Hospitals validated" },
-  { label: "Total Validated", value: "93K+", detail: "Patients across both systems" },
+  { label: "Total Validated", value: "357K+", detail: "Patients across both systems" },
 ];
 
 const differentiators = [
