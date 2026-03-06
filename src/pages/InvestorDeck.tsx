@@ -258,6 +258,7 @@ function InvestorDeck() {
                 {slides.map((slide, i) => (
                   <button
                     key={slide.id}
+                    ref={i === current ? (el) => el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" }) : undefined}
                     onClick={() => setCurrent(i)}
                     className={`relative shrink-0 rounded-md overflow-hidden border-2 transition-all ${
                       i === current
