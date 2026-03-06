@@ -69,6 +69,8 @@ function InvestorDeck() {
   const [timerRunning, setTimerRunning] = useState(false);
   const channelRef = useRef<BroadcastChannel | null>(null);
   const audienceWindowRef = useRef<Window | null>(null);
+  const currentRef = useRef(current);
+  currentRef.current = current;
 
   const next = useCallback(() => setCurrent((c) => Math.min(c + 1, TOTAL_SLIDES - 1)), []);
   const prev = useCallback(() => setCurrent((c) => Math.max(c - 1, 0)), []);
@@ -80,14 +82,16 @@ function InvestorDeck() {
     channelRef.current = ch;
     ch.onmessage = (e) => {
       if (e.data?.type === "audience-ready") {
-        ch.postMessage({ type: "slide-change", slide: current });
+        ch.postMessage({ type: "slide-change", slide: currentRef.current });
       }
     };
     return () => { ch.close(); channelRef.current = null; };
-  }, [isPresenting]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isPresenting]);
 
   useEffect(() => {
-    channelRef.current?.postMessage({ type: "slide-change", slide: current });
+    if (isPresenting && channelRef.current) {
+      channelRef.current.postMessage({ type: "slide-change", slide: current });
+    }
   }, [current, isPresenting]);
 
   // Persist notes
