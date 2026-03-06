@@ -27,7 +27,7 @@ const opportunities = [
     icon: TrendingUp,
     value: "175+",
     label: "Patent Claims Filed",
-    detail: "Across 5 provisional applications",
+    detail: "Across 11 provisional applications",
     qualifier: "Dec 2025 - Feb 2026",
   },
 ];

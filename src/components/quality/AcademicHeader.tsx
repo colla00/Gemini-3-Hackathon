@@ -66,8 +66,8 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   },
   'patent-portfolio': {
     title: 'Patent Portfolio Overview',
-    subtitle: 'Five Complementary Patents · Defensible IP Moat',
-    citation: '5 U.S. Provisional Applications Filed',
+    subtitle: 'Eleven Complementary Patents · Defensible IP Moat',
+    citation: '11 U.S. Provisional Applications Filed',
   },
   'patent-trust-alerts': {
     title: 'Trust-Based Alert System',
