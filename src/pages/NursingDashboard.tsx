@@ -485,7 +485,7 @@ export const NursingDashboard = () => {
                 {/* Sidebar header */}
                 <div className="px-4 py-3 border-b border-border/30">
                   <p className="text-[10px] uppercase tracking-widest text-foreground/70 font-bold">Patent Portfolio</p>
-                  <p className="text-[10px] text-foreground/50 mt-0.5">5 Provisional Patents, 175+ Claims</p>
+                  <p className="text-[10px] text-foreground/50 mt-0.5">11 Patent Applications, 175+ Claims</p>
                 </div>
 
                 {patentGroups.map((group, idx) => {
