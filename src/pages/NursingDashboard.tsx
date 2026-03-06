@@ -554,6 +554,10 @@ export const NursingDashboard = () => {
                                 <Badge className="bg-chart-4/15 text-chart-4 border-chart-4/25 text-[8px] h-3.5 px-1 gap-0.5 animate-pulse-subtle">
                                   <Zap className="h-2 w-2" /> Gemini 3
                                 </Badge>
+                              ) : group.statusLabel === 'enterprise' ? (
+                                <Badge className="bg-chart-1/15 text-chart-1 border-chart-1/25 text-[8px] h-3.5 px-1 gap-0.5">
+                                  <Zap className="h-2 w-2" /> Enterprise
+                                </Badge>
                               ) : (
                                 <Badge className="bg-muted text-foreground/60 border-border/40 text-[8px] h-3.5 px-1 gap-0.5">
                                   <Clock className="h-2 w-2" /> Design
