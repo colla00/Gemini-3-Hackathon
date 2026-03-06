@@ -202,7 +202,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="color: #666; font-size: 14px;">If the button above doesn't work, copy and paste this link into your browser:<br>
               <a href="${dashboardUrl}/dashboard" style="color: #10b981;">${dashboardUrl}/dashboard</a>
             </p>
-            <p>If you have any questions, feel free to reach out at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p>If you have any questions, feel free to reach out at <a href="mailto:info@vitasignal.ai">info@vitasignal.ai</a>.</p>
             <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
           </div>
         `,
