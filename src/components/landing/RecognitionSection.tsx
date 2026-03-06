@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 const recognitions = [
   { icon: Award, title: 'ANIA 2026 — Boston', subtitle: 'DBS presentation accepted · March 26-28, 2026', featured: true },
+  { icon: Award, title: 'SIIM 2025', subtitle: 'Society for Imaging Informatics in Medicine annual meeting' },
   { icon: Award, title: 'Stanford AI+Health 2025', subtitle: 'Presented research findings (December 2025)' },
   { icon: FlaskConical, title: 'NIH-Funded Research', subtitle: 'Federal clinical AI fellowship & funded research grants' },
   { icon: BarChart3, title: 'Large-Scale Validation', subtitle: '382K+ patients across MIMIC-IV, HiRID & eICU' },
@@ -23,7 +24,7 @@ export const RecognitionSection = () => (
         <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-12" aria-hidden="true" />
       </motion.div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
         {recognitions.map((item, i) => (
           <motion.div
             key={item.title}
