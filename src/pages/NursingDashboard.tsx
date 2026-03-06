@@ -27,6 +27,7 @@ import { ResearchValidationSection } from '@/components/dashboard/ResearchValida
 import { AlertOptimizationTab } from '@/components/dashboard/AlertOptimizationTab';
 import { RiskStratificationTab } from '@/components/dashboard/RiskStratificationTab';
 import { ChartMinderPanel } from '@/components/chartminder/ChartMinderPanel';
+import { PatentPlaceholder } from '@/components/dashboard/PatentPlaceholder';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
@@ -176,6 +177,72 @@ const patentGroups: PatentGroup[] = [
     ],
   },
   {
+    id: 'patent-6',
+    patent: 'Patent #6',
+    title: 'TRACI – Temporal Risk',
+    validated: false,
+    color: 'text-chart-1',
+    activeBg: 'bg-chart-1',
+    tabs: [
+      { value: 'traci', label: 'TRACI Overview', icon: Activity },
+    ],
+  },
+  {
+    id: 'patent-7',
+    patent: 'Patent #7',
+    title: 'ESDBI – Staffing Optimization',
+    validated: false,
+    color: 'text-chart-2',
+    activeBg: 'bg-chart-2',
+    tabs: [
+      { value: 'esdbi', label: 'ESDBI Overview', icon: BarChart3 },
+    ],
+  },
+  {
+    id: 'patent-8',
+    patent: 'Patent #8',
+    title: 'SHQS – Healthcare Quality',
+    validated: false,
+    color: 'text-chart-5',
+    activeBg: 'bg-chart-5',
+    tabs: [
+      { value: 'shqs', label: 'SHQS Overview', icon: Shield },
+    ],
+  },
+  {
+    id: 'patent-9',
+    patent: 'Patent #9',
+    title: 'DTBL – Digital Twin Baseline',
+    validated: false,
+    color: 'text-primary',
+    activeBg: 'bg-primary',
+    tabs: [
+      { value: 'dtbl', label: 'DTBL Overview', icon: Layers },
+    ],
+  },
+  {
+    id: 'patent-10',
+    patent: 'Patent #10',
+    title: 'CTCI – Clinical Trial Intelligence',
+    validated: false,
+    color: 'text-warning',
+    activeBg: 'bg-warning',
+    tabs: [
+      { value: 'ctci', label: 'CTCI Overview', icon: FlaskConical },
+    ],
+  },
+  {
+    id: 'patent-11',
+    patent: 'Patent #11',
+    title: 'SEDR – Syndromic Surveillance',
+    validated: false,
+    color: 'text-destructive',
+    activeBg: 'bg-destructive',
+    tabs: [
+      { value: 'sedr', label: 'SEDR Overview', icon: Activity },
+    ],
+  },
+  {
     id: 'hackathon',
     patent: 'Hackathon',
     title: 'Gemini 3 AI Showcase',
@@ -206,6 +273,12 @@ const tabContent: Record<string, React.ReactNode> = {
   'roi': <InvestorMetricsProvider><ROICalculator /></InvestorMetricsProvider>,
   'linked': <InvestorMetricsProvider><LinkedCalculatorView /></InvestorMetricsProvider>,
   'ai-tools': <AIToolsPanel />,
+  'traci': <PatentPlaceholder number={6} title="Temporal Risk Assessment & Clinical Intelligence (TRACI)" acronym="TRACI" description="Advanced temporal risk assessment combining time-series analysis of clinical data with contextual intelligence for early deterioration detection." innovations={["Multi-horizon temporal risk scoring", "Context-aware clinical state estimation", "Automated risk trajectory classification", "Real-time temporal pattern recognition"]} filingDate="Feb 2026" />,
+  'esdbi': <PatentPlaceholder number={7} title="Enhanced Staffing & Documentation Burden Intelligence (ESDBI)" acronym="ESDBI" description="Next-generation staffing optimization that extends DBS with predictive scheduling, skill-mix optimization, and documentation burden forecasting." innovations={["Predictive staffing demand modeling", "Skill-mix optimization engine", "Documentation burden forecasting", "Real-time workload rebalancing"]} filingDate="Feb 2026" />,
+  'shqs': <PatentPlaceholder number={8} title="Smart Healthcare Quality Surveillance (SHQS)" acronym="SHQS" description="Continuous quality surveillance system that monitors healthcare delivery metrics, detects quality deviations, and triggers automated improvement workflows." innovations={["Automated quality deviation detection", "Multi-dimensional quality scoring", "Improvement workflow automation", "Benchmarking against national standards"]} filingDate="Feb 2026" />,
+  'dtbl': <PatentPlaceholder number={9} title="Digital Twin Baseline Learning (DTBL)" acronym="DTBL" description="Patient digital twin technology that creates dynamic baseline models from EHR data to enable personalized risk thresholds and deviation detection." innovations={["Dynamic patient baseline modeling", "Personalized risk threshold generation", "Digital twin state synchronization", "Baseline drift detection algorithms"]} filingDate="Feb 2026" />,
+  'ctci': <PatentPlaceholder number={10} title="Clinical Trial & Cohort Intelligence (CTCI)" acronym="CTCI" description="AI-driven clinical trial matching and cohort identification system leveraging EHR documentation patterns for automated eligibility screening." innovations={["Automated trial eligibility screening", "EHR-based cohort identification", "Documentation-pattern phenotyping", "Real-time enrollment optimization"]} filingDate="Feb 2026" />,
+  'sedr': <PatentPlaceholder number={11} title="Syndromic Early Detection & Response (SEDR)" acronym="SEDR" description="Population-level syndromic surveillance using aggregated documentation rhythm patterns for early outbreak detection and public health response coordination." innovations={["Documentation rhythm-based outbreak detection", "Population-level syndromic scoring", "Automated public health alerting", "Cross-facility pattern aggregation"]} filingDate="Feb 2026" />,
 };
 
 const stats = [
@@ -412,7 +485,7 @@ export const NursingDashboard = () => {
                 {/* Sidebar header */}
                 <div className="px-4 py-3 border-b border-border/30">
                   <p className="text-[10px] uppercase tracking-widest text-foreground/70 font-bold">Patent Portfolio</p>
-                  <p className="text-[10px] text-foreground/50 mt-0.5">5 Provisional Patents, 175+ Claims</p>
+                  <p className="text-[10px] text-foreground/50 mt-0.5">11 Patent Applications, 175+ Claims</p>
                 </div>
 
                 {patentGroups.map((group, idx) => {
@@ -504,7 +577,7 @@ export const NursingDashboard = () => {
                   <div className="flex items-center gap-2">
                     <Award className="h-3.5 w-3.5 text-primary" />
                     <p className="text-[10px] text-muted-foreground">
-                      <span className="font-semibold text-foreground/70">15 Modules</span> across 5 patents + Hackathon
+                      <span className="font-semibold text-foreground/70">{patentGroups.reduce((acc, g) => acc + g.tabs.length, 0)} Modules</span> across 11 patents + Hackathon
                     </p>
                   </div>
                 </div>
