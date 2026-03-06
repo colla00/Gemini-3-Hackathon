@@ -6,14 +6,14 @@ const metrics = [
   { label: "Patent #1 IDI", value: "65,157", detail: "Patients validated" },
   { label: "Patent #1 External", value: "Outperforms", detail: "Established acuity scores" },
   { label: "Patent #5 DBS", value: "172", detail: "Hospitals validated" },
-  { label: "Total Validated", value: "93K+", detail: "Patients across both systems" },
+  { label: "Total Validated", value: "357K+", detail: "Patients across both systems" },
 ];
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Two independently validated systems (Patent #1 & #5)",
   "External validation across 172 hospitals (eICU)",
-  "Multi-variable ML model + 11 temporal IDI features",
+  "Multi-variable ML model + 9 temporal IDI features",
   "SHAP-based explainability for every prediction",
   "ANIA 2026 presentation accepted — Boston, MA",
 ];

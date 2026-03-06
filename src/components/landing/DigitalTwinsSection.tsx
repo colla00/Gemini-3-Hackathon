@@ -8,7 +8,7 @@ const layers = [
     icon: Activity,
     name: "Mortality Signal Layer",
     desc: "Temporal documentation patterns predict ICU mortality risk — the foundational vital sign of the care process digital twin.",
-    metric: "AUC 0.683",
+    metric: "Outperforms established acuity scores",
   },
   {
     patent: "#3",

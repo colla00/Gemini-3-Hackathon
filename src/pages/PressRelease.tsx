@@ -13,7 +13,7 @@ const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 export const PressRelease = () => (
   <SiteLayout
     title="Press Release — ANIA 2026 & Stanford AI+Health"
-    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research validated on 382K+ patients."
+    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research validated on 357K+ patients."
   >
     <Helmet>
       <meta name="robots" content="index, follow" />
@@ -181,7 +181,7 @@ export const PressRelease = () => (
           </div>
 
           <p>
-            The framework directly informed the design of <strong>ChartMinder™</strong> (Patent #2), the trust-based alert prioritization system with integrated equity monitoring. The Stanford presentation also previewed early findings from the <strong>Intensive Documentation Index (IDI)</strong> — 11 temporal features derived solely from EHR timestamp metadata that would later form the basis of the ICU mortality prediction patent (Patent #1).
+            The framework directly informed the design of <strong>ChartMinder™</strong> (Patent #2), the trust-based alert prioritization system with integrated equity monitoring. The Stanford presentation also previewed early findings from the <strong>Intensive Documentation Index (IDI)</strong> — 9 temporal features derived solely from EHR timestamp metadata that would later form the basis of the ICU mortality prediction patent (Patent #1).
           </p>
 
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">IDI Validation Highlights (Patent #1)</h3>

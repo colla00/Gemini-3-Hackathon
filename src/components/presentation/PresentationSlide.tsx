@@ -480,7 +480,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
   {
     id: 'research-validation',
     title: 'Research Validation at Scale',
-    subtitle: '93K+ Patients • 172 Hospitals',
+    subtitle: '357K+ Patients • 172 Hospitals',
     duration: 4,
     icon: <Award className="w-8 h-8" />,
     notes: [

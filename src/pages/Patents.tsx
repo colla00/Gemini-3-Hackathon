@@ -8,9 +8,9 @@ import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
 
 const ipSummary = [
-  { label: "Patent Applications Filed", value: "5", sub: "U.S. Provisional" },
+  { label: "Patent Applications Filed", value: "11", sub: "U.S. Provisional" },
   { label: "Total Claims", value: "175+", sub: "Across all filings" },
-  { label: "Patients Validated", value: "93K+", sub: "Across #1 & #5" },
+  { label: "Patients Validated", value: "357K+", sub: "Across #1 & #5" },
   { label: "Filing Period", value: "2025-26", sub: "Dec 2025 - Feb 2026" },
 ];
 
@@ -20,12 +20,12 @@ const patentSystems = [
     title: "ICU Mortality Prediction System",
     icon: TrendingUp,
     status: "validated" as const,
-    oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 11 temporal features",
+    oneLiner: "Predicts ICU mortality from documentation rhythm patterns using 9 temporal features",
     validated: true,
     metrics: [
       "Validated on 65,157 patients across two international databases",
       "External validation outperforms established acuity scores",
-      "11 temporal features extracted from EHR timestamp metadata",
+      "9 temporal features extracted from EHR timestamp metadata",
     ],
     innovation: "Analyzes temporal patterns in routine clinical documentation to predict ICU mortality risk without requiring additional physiological sensors or monitoring equipment. Validated across two international databases.",
   },

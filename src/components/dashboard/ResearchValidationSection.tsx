@@ -49,7 +49,7 @@ export const ResearchValidationSection = () => (
       <CardContent>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
           Demonstrates that temporal patterns in EHR documentation independently predict ICU mortality.
-          The Intensive Documentation Index (IDI) extracts 11 features from timestamp metadata alone, requiring no additional hardware or sensors.
+          The Intensive Documentation Index (IDI) extracts 9 features from timestamp metadata alone, requiring no additional hardware or sensors.
           Validated on 65,157 patients across international databases. Detailed metrics available under NDA.
         </p>
 

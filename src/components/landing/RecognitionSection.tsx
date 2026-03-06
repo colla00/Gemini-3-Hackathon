@@ -6,7 +6,7 @@ const recognitions = [
   { icon: Award, title: 'SIIM 2025', subtitle: 'Society for Imaging Informatics in Medicine annual meeting' },
   { icon: Award, title: 'Stanford AI+Health 2025', subtitle: 'Presented research findings (December 2025)' },
   { icon: FlaskConical, title: 'NIH-Funded Research', subtitle: 'Federal clinical AI fellowship & funded research grants' },
-  { icon: BarChart3, title: 'Large-Scale Validation', subtitle: '382K+ patients across MIMIC-IV, HiRID & eICU' },
+  { icon: BarChart3, title: 'Large-Scale Validation', subtitle: '357K+ patients across MIMIC-IV, HiRID & eICU' },
 ];
 
 export const RecognitionSection = () => (

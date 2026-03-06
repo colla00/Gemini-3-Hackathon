@@ -7,10 +7,10 @@ import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "0.683", label: "AUC (Patent #1)", detail: "ICU Mortality" },
-  { value: "0.857", label: "AUROC (Patent #5)", detail: "DBS · 208 Hospitals" },
-  { value: "5", label: "Applications Filed", detail: "175+ Claims" },
-  { value: "382K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
+  { value: "11", label: "Applications Filed", detail: "U.S. Provisional Patents" },
+  { value: "175+", label: "Total Claims", detail: "Across all filings" },
+  { value: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
+  { value: "172", label: "Hospitals", detail: "External validation" },
 ];
 
 export const LandingHero = () => (
@@ -100,7 +100,7 @@ export const LandingHero = () => (
         className="space-y-2"
       >
         <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
-          Patent #1 & #5 Validated · ICU Mortality & Documentation Burden Systems
+          11 Patent Applications Filed · ICU Mortality & Documentation Burden Systems
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden">
         {stats.map((s, i) => (

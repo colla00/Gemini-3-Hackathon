@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 const metrics = [
   { label: 'IDI Validated', value: '65,157', detail: 'Patients across databases' },
   { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
-  { label: 'Total Cohort', value: '60,050', detail: 'MIMIC-IV + HiRID' },
-  { label: 'IDI Features', value: '11', detail: 'Temporal extraction' },
+  { label: 'Total Cohort', value: '65,157', detail: 'MIMIC-IV + HiRID' },
+  { label: 'IDI Features', value: '9', detail: 'Temporal extraction' },
 ];
 
 const differentiators = [
@@ -29,8 +29,8 @@ export const PatentHeroSection = () => {
           VitaSignal™ Mortality
         </h2>
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 11 temporal features.
-          Validated on 60,050 patients across MIMIC-IV and HiRID (Switzerland). IDI features
+          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 9 temporal features.
+          Validated on 65,157 patients across MIMIC-IV and HiRID (Switzerland). IDI features
           are automatically computable from existing EHR data — no additional hardware or sensors required.
         </p>
 
