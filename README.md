@@ -18,7 +18,7 @@ This submission integrates **Google Gemini 3** to enhance clinical workflows wit
 - EHR-based temporal pattern analysis for ICU mortality prediction
 - Nursing workload optimization using documentation signals
 - SHAP explainability for transparent, bedside-ready AI reasoning
-- **11 U.S. Provisional Patent Applications Filed — February 28, 2026**
+- **11 U.S. Provisional Patent Applications Filed**
 - Validated across international ICU databases (USA & Switzerland)
 
 ### Gemini 3 Integration
