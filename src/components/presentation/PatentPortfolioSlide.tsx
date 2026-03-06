@@ -110,7 +110,7 @@ const patents: PatentInfo[] = [
 ];
 
 const portfolioMetrics = [
-  { label: 'Patent Applications', value: '5', icon: <FileText className="w-4 h-4" /> },
+  { label: 'Patent Applications', value: '11', icon: <FileText className="w-4 h-4" /> },
   { label: 'Market Size', value: '$4.2B', icon: <TrendingUp className="w-4 h-4" /> },
   { label: 'Target Users', value: '3.8M RNs', icon: <Users className="w-4 h-4" /> },
   { label: 'Time to Value', value: '<90 days', icon: <Clock className="w-4 h-4" /> }
