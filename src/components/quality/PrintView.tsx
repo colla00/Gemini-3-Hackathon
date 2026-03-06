@@ -164,7 +164,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
         </div>
         
         <div className="text-center mb-3 font-semibold">
-          Copyright © Dr. Alexis Collier | VitaSignal™ – 5 U.S. Patent Applications Filed | Protected Design – Do Not Copy
+          Copyright © Dr. Alexis Collier | VitaSignal™ – 11 U.S. Patent Applications Filed | Protected Design – Do Not Copy
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
