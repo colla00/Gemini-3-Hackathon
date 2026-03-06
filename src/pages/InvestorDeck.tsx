@@ -252,58 +252,34 @@ function InvestorDeck() {
               />
             </div>
 
-            {/* Bottom row: Next preview + controls */}
-            <div className="flex gap-4 items-stretch shrink-0" style={{ height: "25%" }}>
-              {/* Next slide preview */}
-              <div className="flex-1 relative rounded-lg overflow-hidden bg-black/50 border border-border/30">
-                {current < TOTAL_SLIDES - 1 ? (
-                  <>
+            {/* Thumbnail strip for quick navigation */}
+            <div className="shrink-0 border-t border-border/30 bg-card/50 px-2 py-2">
+              <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin">
+                {slides.map((slide, i) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => setCurrent(i)}
+                    className={`relative shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                      i === current
+                        ? "border-primary ring-2 ring-primary/30 scale-105"
+                        : "border-border/30 hover:border-primary/50 opacity-70 hover:opacity-100"
+                    }`}
+                    style={{ width: 96, height: 54 }}
+                    aria-label={`Go to slide ${i + 1}`}
+                  >
                     <img
-                      src={slides[current + 1].src}
-                      alt={`Next: Slide ${current + 2}`}
-                      className="w-full h-full object-contain"
+                      src={slide.src}
+                      alt={`Slide ${i + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
                     />
-                    <div className="absolute top-2 left-2">
-                      <Badge variant="secondary" className="text-[10px] bg-black/50 text-white border-none">
-                        NEXT
-                      </Badge>
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-                    End of Presentation
-                  </div>
-                )}
-              </div>
-
-              {/* Controls */}
-              <div className="flex flex-col items-center justify-center gap-2 px-4">
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={prev}
-                    disabled={current === 0}
-                    className="h-10 w-10 p-0"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </Button>
-                  <span className="text-lg font-mono font-bold text-foreground min-w-[5rem] text-center">
-                    {current + 1} / {TOTAL_SLIDES}
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={next}
-                    disabled={current === TOTAL_SLIDES - 1}
-                    className="h-10 w-10 p-0"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </Button>
-                </div>
-                <p className="text-[10px] text-muted-foreground">
-                  ← → or click slide to navigate
-                </p>
+                    <span className={`absolute bottom-0 right-0 text-[9px] font-mono px-1 ${
+                      i === current ? "bg-primary text-primary-foreground" : "bg-black/60 text-white/80"
+                    }`}>
+                      {i + 1}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
