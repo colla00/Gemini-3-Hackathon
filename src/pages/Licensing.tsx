@@ -280,7 +280,7 @@ function Licensing() {
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
+              <a href="mailto:info@vitasignal.ai?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
             </Button>
           </div>
           <p className="text-xs opacity-50 mt-6">

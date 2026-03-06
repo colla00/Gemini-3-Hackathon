@@ -323,7 +323,7 @@ export const PrivacyPolicy = () => {
                 <p className="mt-4">
                   <strong>Data Controller:</strong><br />
                   Dr. Alexis M. Collier, DHA<br />
-                  Email: <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>
+                  Email: <a href="mailto:info@vitasignal.ai" className="text-primary hover:underline">info@vitasignal.ai</a>
                 </p>
               </div>
             </section>

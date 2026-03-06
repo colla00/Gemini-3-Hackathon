@@ -249,7 +249,7 @@ export const QAPrepSlide = () => {
           <div>• This is a research prototype</div>
           <div>• Metrics are targets, not results</div>
           <div>• Validation studies planned</div>
-          <div>• Contact: info@alexiscollier.com</div>
+          <div>• Contact: info@vitasignal.ai</div>
         </div>
       </div>
     </div>
