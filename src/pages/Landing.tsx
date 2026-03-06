@@ -14,7 +14,7 @@ const jsonLd = {
   "@type": "Organization",
   "name": "VitaSignal™",
   "url": "https://clinicaldashboard.lovable.app",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 382K+ patients across 208+ hospitals.",
+  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 357K+ patients across 208+ hospitals.",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
