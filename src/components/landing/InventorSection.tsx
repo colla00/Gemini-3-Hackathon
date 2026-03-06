@@ -16,7 +16,7 @@ const credentials = [
   {
     icon: BookOpen,
     title: "NIH-Funded Research",
-    detail: "NIH fellowship & consortium research grants",
+    detail: "Federal clinical AI fellowship & funded research grants",
   },
 ];
 
