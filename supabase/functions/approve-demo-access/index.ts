@@ -228,7 +228,7 @@ const handler = async (req: Request): Promise<Response> => {
             <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
             <p style="color: #999; font-size: 12px;">
               This is a research prototype demonstration. Not FDA cleared. Not for clinical use. 
-              Questions? Contact <a href="mailto:info@alexiscollier.com" style="color: #10b981;">info@alexiscollier.com</a>
+              Questions? Contact <a href="mailto:info@vitasignal.ai" style="color: #10b981;">info@vitasignal.ai</a>
             </p>
           </div>
         `,
