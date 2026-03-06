@@ -110,7 +110,7 @@ const patents: PatentInfo[] = [
 ];
 
 const portfolioMetrics = [
-  { label: 'Patent Applications', value: '5', icon: <FileText className="w-4 h-4" /> },
+  { label: 'Patent Applications', value: '11', icon: <FileText className="w-4 h-4" /> },
   { label: 'Market Size', value: '$4.2B', icon: <TrendingUp className="w-4 h-4" /> },
   { label: 'Target Users', value: '3.8M RNs', icon: <Users className="w-4 h-4" /> },
   { label: 'Time to Value', value: '<90 days', icon: <Clock className="w-4 h-4" /> }
@@ -137,7 +137,7 @@ export const PatentPortfolioSlide = () => {
           <h1 className="text-xl font-bold text-foreground">Patent Portfolio Overview</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Five complementary patents creating a defensible moat in clinical AI
+          Eleven complementary patents creating a defensible moat in clinical AI
         </p>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30">
           <span className="text-xs font-semibold text-primary">Patent Portfolio · {PATENT_PORTFOLIO.filter(p => p.status === 'filed').length} Filed</span>
@@ -256,7 +256,7 @@ export const PatentPortfolioSlide = () => {
               </p>
             </div>
             <div className="text-right">
-              <div className="text-xl font-bold text-primary">5x</div>
+              <div className="text-xl font-bold text-primary">11x</div>
               <div className="text-[10px] text-muted-foreground">IP Barrier</div>
             </div>
           </div>
