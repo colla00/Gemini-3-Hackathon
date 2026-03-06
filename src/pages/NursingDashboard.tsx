@@ -261,6 +261,18 @@ const patentGroups: PatentGroup[] = [
     ],
   },
   {
+    id: 'fhir-integration',
+    patent: 'Integration',
+    title: 'FHIR R4 EHR Pipeline',
+    validated: false,
+    statusLabel: 'enterprise',
+    color: 'text-chart-1',
+    activeBg: 'bg-chart-1',
+    tabs: [
+      { value: 'fhir-demo', label: 'FHIR Live Demo', icon: Zap },
+    ],
+  },
+  {
     id: 'hackathon',
     patent: 'Hackathon',
     title: 'Gemini 3 AI Showcase',
