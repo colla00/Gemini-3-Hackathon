@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 const recognitions = [
   { icon: Award, title: 'ANIA 2026 — Boston', subtitle: 'DBS presentation accepted · March 26-28, 2026', featured: true },
   { icon: Award, title: 'Stanford AI+Health 2025', subtitle: 'Presented research findings (December 2025)' },
-  { icon: FlaskConical, title: 'NIH Research Fellowship', subtitle: 'Federal clinical AI training program' },
-  { icon: Trophy, title: 'NIH Research Grant', subtitle: 'Funded clinical AI research' },
+  { icon: FlaskConical, title: 'NIH-Funded Research', subtitle: 'Federal clinical AI fellowship & funded research grants' },
   { icon: BarChart3, title: 'Large-Scale Validation', subtitle: '382K+ patients across MIMIC-IV, HiRID & eICU' },
 ];
 
