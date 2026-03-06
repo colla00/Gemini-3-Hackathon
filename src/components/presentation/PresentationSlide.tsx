@@ -854,7 +854,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'AI-augmented nursing quality monitoring',
       'Real-time, explainable risk prediction',
       'Human-in-the-loop design philosophy',
-      'Contact: info@alexiscollier.com',
+      'Contact: info@vitasignal.ai',
     ],
     talkingPoints: [
       'To summarize: I built a prototype AI system that predicts nursing-sensitive outcomes in real-time.',
