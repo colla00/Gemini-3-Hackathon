@@ -16,6 +16,24 @@ export const PATENT_4_TITLE = 'UNIFIED NURSING INTELLIGENCE PLATFORM INTEGRATING
 // Patent #5: DBS System (FILED Jan 22, 2026) - Externally validated AUROC 0.802/0.758
 export const PATENT_5_TITLE = 'SYSTEM AND METHOD FOR PREDICTING DOCUMENTATION BURDEN AND OPTIMIZING NURSE STAFFING USING MACHINE LEARNING (DBS SYSTEM)';
 
+// Patent #6: TRACI (FILED Feb 2026)
+export const PATENT_6_TITLE = 'TEMPORAL RISK ASSESSMENT AND CLINICAL INTELLIGENCE SYSTEM';
+
+// Patent #7: ESDBI (FILED Feb 2026)
+export const PATENT_7_TITLE = 'ENHANCED STAFFING AND DOCUMENTATION BURDEN INTELLIGENCE SYSTEM';
+
+// Patent #8: SHQS (FILED Feb 2026)
+export const PATENT_8_TITLE = 'SMART HEALTHCARE QUALITY SURVEILLANCE SYSTEM';
+
+// Patent #9: DTBL (FILED Feb 2026)
+export const PATENT_9_TITLE = 'DIGITAL TWIN BASELINE LEARNING SYSTEM FOR PERSONALIZED CLINICAL RISK THRESHOLDS';
+
+// Patent #10: CTCI (FILED Feb 2026)
+export const PATENT_10_TITLE = 'CLINICAL TRIAL AND COHORT INTELLIGENCE SYSTEM';
+
+// Patent #11: SEDR (FILED Feb 2026)
+export const PATENT_11_TITLE = 'SYNDROMIC EARLY DETECTION AND RESPONSE SYSTEM';
+
 
 // All patent applications (ordered by presentation number, not filing date)
 export interface PatentApplication {
@@ -76,6 +94,60 @@ export const PATENT_PORTFOLIO: PatentApplication[] = [
     inventor: 'Dr. Alexis Collier',
     nihFunded: true,
     abstract: 'ML-powered documentation burden quantification using multiple clinical variables. Validated internally and externally across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.'
+  },
+  {
+    id: 'traci',
+    title: PATENT_6_TITLE,
+    shortName: 'TRACI – Temporal Risk',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Advanced temporal risk assessment combining time-series analysis of clinical data with contextual intelligence for early deterioration detection. Multi-horizon temporal risk scoring with real-time pattern recognition.'
+  },
+  {
+    id: 'esdbi',
+    title: PATENT_7_TITLE,
+    shortName: 'ESDBI – Staffing Optimization',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Next-generation staffing optimization extending DBS with predictive scheduling, skill-mix optimization, documentation burden forecasting, and real-time workload rebalancing.'
+  },
+  {
+    id: 'shqs',
+    title: PATENT_8_TITLE,
+    shortName: 'SHQS – Quality Surveillance',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Continuous quality surveillance monitoring healthcare delivery metrics, detecting deviations, and triggering automated improvement workflows benchmarked against national standards.'
+  },
+  {
+    id: 'dtbl',
+    title: PATENT_9_TITLE,
+    shortName: 'DTBL – Digital Twin Baseline',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Patient digital twin technology creating dynamic baseline models from EHR data for personalized risk thresholds, state synchronization, and baseline drift detection.'
+  },
+  {
+    id: 'ctci',
+    title: PATENT_10_TITLE,
+    shortName: 'CTCI – Clinical Trial Intelligence',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'AI-driven clinical trial matching and cohort identification leveraging EHR documentation patterns for automated eligibility screening and real-time enrollment optimization.'
+  },
+  {
+    id: 'sedr',
+    title: PATENT_11_TITLE,
+    shortName: 'SEDR – Syndromic Surveillance',
+    status: 'filed',
+    filingDate: 'February 2026',
+    inventor: 'Dr. Alexis Collier',
+    abstract: 'Population-level syndromic surveillance using aggregated documentation rhythm patterns for early outbreak detection, automated public health alerting, and cross-facility pattern aggregation.'
   },
 ];
 
