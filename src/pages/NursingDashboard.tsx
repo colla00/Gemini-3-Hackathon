@@ -39,6 +39,7 @@ import { CTCIDemo } from '@/components/dashboard/CTCIDemo';
 import { CTCIPatientMatcher } from '@/components/dashboard/CTCIPatientMatcher';
 import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
 import { SEDRCommandCenter } from '@/components/dashboard/SEDRCommandCenter';
+import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import heroBg from '@/assets/hero-bg.jpg';
 
@@ -113,7 +114,7 @@ type PatentGroup = {
   patent: string;
   title: string;
   validated: boolean;
-  statusLabel?: 'validated' | 'hackathon' | 'design';
+  statusLabel?: 'validated' | 'hackathon' | 'design' | 'enterprise';
   color: string;
   activeBg: string;
   tabs: { value: string; label: string; icon: React.ElementType }[];
@@ -260,6 +261,18 @@ const patentGroups: PatentGroup[] = [
     ],
   },
   {
+    id: 'fhir-integration',
+    patent: 'Integration',
+    title: 'FHIR R4 EHR Pipeline',
+    validated: false,
+    statusLabel: 'enterprise',
+    color: 'text-chart-1',
+    activeBg: 'bg-chart-1',
+    tabs: [
+      { value: 'fhir-demo', label: 'FHIR Live Demo', icon: Zap },
+    ],
+  },
+  {
     id: 'hackathon',
     patent: 'Hackathon',
     title: 'Gemini 3 AI Showcase',
@@ -302,6 +315,7 @@ const tabContent: Record<string, React.ReactNode> = {
   'ctci-patients': <CTCIPatientMatcher />,
   'sedr': <SEDRDemo />,
   'sedr-command': <SEDRCommandCenter />,
+  'fhir-demo': <FHIRIntegrationDemo />,
 };
 
 const stats = [
@@ -539,6 +553,10 @@ export const NursingDashboard = () => {
                               ) : group.statusLabel === 'hackathon' ? (
                                 <Badge className="bg-chart-4/15 text-chart-4 border-chart-4/25 text-[8px] h-3.5 px-1 gap-0.5 animate-pulse-subtle">
                                   <Zap className="h-2 w-2" /> Gemini 3
+                                </Badge>
+                              ) : group.statusLabel === 'enterprise' ? (
+                                <Badge className="bg-chart-1/15 text-chart-1 border-chart-1/25 text-[8px] h-3.5 px-1 gap-0.5">
+                                  <Zap className="h-2 w-2" /> Enterprise
                                 </Badge>
                               ) : (
                                 <Badge className="bg-muted text-foreground/60 border-border/40 text-[8px] h-3.5 px-1 gap-0.5">
