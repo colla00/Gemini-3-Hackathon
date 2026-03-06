@@ -138,7 +138,7 @@ serve(async (req: Request) => {
       try {
         await resend.emails.send({
           from: "VitaSignal <cs@ezlearning.center>",
-          to: ["info@alexiscollier.com"],
+          to: ["info@vitasignal.ai"],
           reply_to: body.email.trim(),
           subject: `[${typeLabels[body.inquiry_type]}] ${body.name.trim()}`,
           html: `
@@ -195,7 +195,7 @@ serve(async (req: Request) => {
                 <p>Our team will review your inquiry and respond within 2 business days to discuss licensing options tailored to your organization.</p>
                 
                 <p style="margin-top: 30px;">Best regards,<br><strong>Dr. Alexis Collier</strong><br>Inventor &amp; Principal Investigator<br>
-                  <a href="mailto:info@alexiscollier.com" style="color: #10b981;">info@alexiscollier.com</a>
+                  <a href="mailto:info@vitasignal.ai" style="color: #10b981;">info@vitasignal.ai</a>
                 </p>
                 
                 <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />

@@ -83,7 +83,7 @@ const NotFound = () => {
           <p className="text-xs text-primary-foreground/30 mt-10">
             Think this is a bug?{' '}
             <a
-              href={`mailto:info@alexiscollier.com?subject=Broken Link Report&body=Path: ${location.pathname}%0AReferrer: ${document.referrer || 'Direct'}`}
+              href={`mailto:info@vitasignal.ai?subject=Broken Link Report&body=Path: ${location.pathname}%0AReferrer: ${document.referrer || 'Direct'}`}
               className="text-primary/70 hover:text-primary hover:underline"
             >
               Report this issue

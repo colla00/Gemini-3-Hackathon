@@ -25,7 +25,7 @@ const tracks = [
       "Priority access to new patent filings and improvements",
     ],
     cta: "Discuss EHR Integration",
-    email: "info@alexiscollier.com?subject=EHR%20Vendor%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=EHR%20Vendor%20Licensing%20-%20VitaSignal",
   },
   {
     id: "hospital",
@@ -45,7 +45,7 @@ const tracks = [
       "Access to Dr. Collier for technical consultation",
     ],
     cta: "Request Hospital Demo",
-    email: "info@alexiscollier.com?subject=Hospital%20System%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=Hospital%20System%20Licensing%20-%20VitaSignal",
   },
   {
     id: "global",
@@ -65,7 +65,7 @@ const tracks = [
       "Research collaboration for local clinical validation",
     ],
     cta: "Explore Impact Licensing",
-    email: "info@alexiscollier.com?subject=Global%20Health%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=Global%20Health%20Licensing%20-%20VitaSignal",
   },
 ];
 
@@ -274,13 +274,13 @@ function Licensing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com" className="flex items-center gap-2">
+               <a href="mailto:info@vitasignal.ai" className="flex items-center gap-2">
                 <Mail className="w-5 h-5" />
-                info@alexiscollier.com
+                info@vitasignal.ai
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <a href="mailto:info@alexiscollier.com?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
+              <a href="mailto:info@vitasignal.ai?subject=Schedule%20a%20Call%20-%20VitaSignal%20Licensing">Schedule a Call</a>
             </Button>
           </div>
           <p className="text-xs opacity-50 mt-6">

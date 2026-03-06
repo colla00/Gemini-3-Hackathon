@@ -94,7 +94,7 @@ function Contact() {
       console.error("Submit error:", err);
       toast({
         title: "Failed to send",
-        description: "Please try again or email info@alexiscollier.com directly.",
+        description: "Please try again or email info@vitasignal.ai directly.",
         variant: "destructive",
       });
     } finally {

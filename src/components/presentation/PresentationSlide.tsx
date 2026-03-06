@@ -854,7 +854,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'AI-augmented nursing quality monitoring',
       'Real-time, explainable risk prediction',
       'Human-in-the-loop design philosophy',
-      'Contact: info@alexiscollier.com',
+      'Contact: info@vitasignal.ai',
     ],
     talkingPoints: [
       'To summarize: I built a prototype AI system that predicts nursing-sensitive outcomes in real-time.',
@@ -865,7 +865,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'I believe the approach is sound, and I am motivated by the potential to prevent patient harm.',
       'Thank you for your time and attention today. I genuinely appreciate your presence here.',
       'I welcome your questions, concerns, and potential collaboration discussions.',
-      'My email is on the screen: info@alexiscollier.com. Please do not hesitate to reach out.',
+      'My email is on the screen: info@vitasignal.ai. Please do not hesitate to reach out.',
       '',
       '(See Q&A Prep tab for anticipated questions and suggested responses)',
     ],

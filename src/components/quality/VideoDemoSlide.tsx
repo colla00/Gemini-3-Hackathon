@@ -167,10 +167,10 @@ export const VideoDemoSlide = ({
           {isHackathon ? (
             <>
                Dr. Alexis Collier • Gemini 3 Hackathon 2026 Submission • 11 U.S. Patent Applications Filed • 
-               <span className="text-primary"> info@alexiscollier.com</span>
+               <span className="text-primary"> info@vitasignal.ai</span>
              </>
            ) : (
-             'Presented by Dr. Alexis Collier • info@alexiscollier.com • Research Prototype • 11 U.S. Patent Applications Filed'
+             'Presented by Dr. Alexis Collier • info@vitasignal.ai • Research Prototype • 11 U.S. Patent Applications Filed'
           )}
         </p>
       </div>

@@ -13,7 +13,7 @@ const corsHeaders = {
 const ALERT_THRESHOLD_TOTAL = 50; // Total violations in time window
 const ALERT_THRESHOLD_PER_IP = 10; // Violations per IP to flag as abuse
 const ALERT_WINDOW_HOURS = 1; // Time window for checking
-const ADMIN_EMAIL = "info@alexiscollier.com";
+const ADMIN_EMAIL = "info@vitasignal.ai";
 const DASHBOARD_URL = "https://nso-quality-dashboard.lovable.app";
 
 interface ViolationStats {

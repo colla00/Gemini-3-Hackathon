@@ -12,7 +12,7 @@ serve(async (req: Request) => {
 
   const { data, error } = await resend.emails.send({
     from: "VitaSignal <cs@ezlearning.center>",
-    to: ["info@alexiscollier.com"],
+    to: ["info@vitasignal.ai"],
     subject: "VitaSignal Vendor Deck — Executive Financial & Clinical Summary",
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">

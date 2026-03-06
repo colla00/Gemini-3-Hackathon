@@ -228,7 +228,7 @@ const handler = async (req: Request): Promise<Response> => {
             <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
             <p style="color: #999; font-size: 12px;">
               This is a research prototype demonstration. Not FDA cleared. Not for clinical use. 
-              Questions? Contact <a href="mailto:info@alexiscollier.com" style="color: #10b981;">info@alexiscollier.com</a>
+              Questions? Contact <a href="mailto:info@vitasignal.ai" style="color: #10b981;">info@vitasignal.ai</a>
             </p>
           </div>
         `,
@@ -258,7 +258,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p>Hi ${safeName},</p>
             <p>Thank you for your interest in VitaSignal's technology demonstration.</p>
             <p>After reviewing your request, we're unable to grant access at this time.</p>
-            <p>If you have questions, please contact us at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p>If you have questions, please contact us at <a href="mailto:info@vitasignal.ai">info@vitasignal.ai</a>.</p>
             <p style="margin-top: 30px;">Best regards,<br>Dr. Alexis Collier<br>VitaSignal</p>
           </div>
         `,

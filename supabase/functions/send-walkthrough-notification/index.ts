@@ -172,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeRole = escapeHtml(data.role);
     const safeReason = escapeHtml(data.reason);
 
-    const adminEmail = "info@alexiscollier.com";
+    const adminEmail = "info@vitasignal.ai";
     const dashboardUrl = "https://clinicaldashboard.lovable.app";
 
     // Handle approval notification
@@ -202,7 +202,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="color: #666; font-size: 14px;">If the button above doesn't work, copy and paste this link into your browser:<br>
               <a href="${dashboardUrl}/dashboard" style="color: #10b981;">${dashboardUrl}/dashboard</a>
             </p>
-            <p>If you have any questions, feel free to reach out at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p>If you have any questions, feel free to reach out at <a href="mailto:info@vitasignal.ai">info@vitasignal.ai</a>.</p>
             <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
           </div>
         `,
@@ -228,7 +228,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p>Hi ${safeName},</p>
             <p>Thank you for your interest in VitaSignal's technology demonstration.</p>
             <p>After reviewing your request, we're unable to grant access at this time. This may be due to limited availability or eligibility requirements for the current phase of the research prototype.</p>
-            <p>If you believe this was in error or would like to provide additional information, please contact us at <a href="mailto:info@alexiscollier.com">info@alexiscollier.com</a>.</p>
+            <p>If you believe this was in error or would like to provide additional information, please contact us at <a href="mailto:info@vitasignal.ai">info@vitasignal.ai</a>.</p>
             <p style="margin-top: 30px;">Best regards,<br>Alexis Collier<br>VitaSignal</p>
           </div>
         `,

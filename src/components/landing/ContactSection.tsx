@@ -1,10 +1,10 @@
 import { Mail } from 'lucide-react';
 
 const contacts = [
-  { label: 'For Licensing Inquiries', email: 'info@alexiscollier.com' },
-  { label: 'For Research Collaborations', email: 'info@alexiscollier.com' },
-  { label: 'For Media & Press', email: 'info@alexiscollier.com' },
-  { label: 'General Inquiries', email: 'info@alexiscollier.com' },
+  { label: 'For Licensing Inquiries', email: 'info@vitasignal.ai' },
+  { label: 'For Research Collaborations', email: 'info@vitasignal.ai' },
+  { label: 'For Media & Press', email: 'info@vitasignal.ai' },
+  { label: 'General Inquiries', email: 'info@vitasignal.ai' },
 ];
 
 export const ContactSection = () => (

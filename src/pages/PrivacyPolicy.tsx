@@ -260,7 +260,7 @@ export const PrivacyPolicy = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>To request deletion of your personal data, please email us at{' '}
-                  <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>{' '}
+                  <a href="mailto:info@vitasignal.ai" className="text-primary hover:underline">info@vitasignal.ai</a>{' '}
                   with the subject line "Data Deletion Request".
                 </p>
                 <p><strong>What can be deleted:</strong></p>
@@ -323,7 +323,7 @@ export const PrivacyPolicy = () => {
                 <p className="mt-4">
                   <strong>Data Controller:</strong><br />
                   Dr. Alexis M. Collier, DHA<br />
-                  Email: <a href="mailto:info@alexiscollier.com" className="text-primary hover:underline">info@alexiscollier.com</a>
+                  Email: <a href="mailto:info@vitasignal.ai" className="text-primary hover:underline">info@vitasignal.ai</a>
                 </p>
               </div>
             </section>

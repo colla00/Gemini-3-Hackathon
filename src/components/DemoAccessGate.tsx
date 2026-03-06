@@ -244,7 +244,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
             </Button>
             {accessStatus !== 'pending' && (
               <Button asChild>
-                <a href="mailto:info@alexiscollier.com">Contact for Access</a>
+                <a href="mailto:info@vitasignal.ai">Contact for Access</a>
               </Button>
             )}
           </div>

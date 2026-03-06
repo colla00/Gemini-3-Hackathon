@@ -284,7 +284,7 @@ export const generateInvestorDeck = () => {
   doc.setFontSize(24);
   doc.setTextColor(203, 213, 225);
   doc.text('Alexis.Collier@ung.edu', W / 2, 460, { align: 'center' });
-  doc.text('info@alexiscollier.com', W / 2, 500, { align: 'center' });
+  doc.text('info@vitasignal.ai', W / 2, 500, { align: 'center' });
   // Patent notice
   doc.setFillColor(30, 41, 59);
   doc.roundedRect(W / 2 - 500, 560, 1000, 80, 12, 12, 'F');
