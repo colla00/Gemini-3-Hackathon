@@ -228,7 +228,18 @@ function InvestorDeck() {
           </div>
         </div>
 
-        {/* Main presenter layout */}
+        {/* Progress bar */}
+        <div className="shrink-0 h-1.5 bg-muted/30 relative">
+          <div
+            className="absolute inset-y-0 left-0 bg-primary transition-all duration-300 ease-out rounded-r-full"
+            style={{ width: `${((current + 1) / TOTAL_SLIDES) * 100}%` }}
+          />
+          <span className="absolute right-2 -top-5 text-[10px] font-mono text-muted-foreground">
+            {Math.round(((current + 1) / TOTAL_SLIDES) * 100)}%
+          </span>
+        </div>
+
+
         <div className="flex-1 flex overflow-hidden">
           {/* Left: Current + Next slide */}
           <div className="flex-1 flex flex-col p-4 gap-4 min-w-0">
