@@ -181,7 +181,7 @@ export const PrintView = forwardRef<HTMLDivElement, PrintViewProps>(({ viewType 
           All predictions require human clinical verification. NOT CLINICALLY VALIDATED. Not intended for diagnostic or treatment decisions.
         </p>
         <p className="mt-2 text-[9px] text-center">
-          Created by Dr. Alexis Collier • 5 U.S. Patents Pending
+          Created by Dr. Alexis Collier • 11 U.S. Patents Pending
         </p>
       </div>
     </div>
