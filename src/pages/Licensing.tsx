@@ -25,7 +25,7 @@ const tracks = [
       "Priority access to new patent filings and improvements",
     ],
     cta: "Discuss EHR Integration",
-    email: "info@alexiscollier.com?subject=EHR%20Vendor%20Licensing%20-%20VitaSignal",
+    email: "info@vitasignal.ai?subject=EHR%20Vendor%20Licensing%20-%20VitaSignal",
   },
   {
     id: "hospital",
