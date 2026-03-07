@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
@@ -34,7 +35,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    const remembered = localStorage.getItem('nso_remember_email');
+    const remembered = getWithExpiry<string>('nso_remember_email');
     if (remembered) {
       setLoginEmail(remembered);
       setRememberMe(true);
@@ -88,9 +89,9 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
       toast.error('Login failed', { description: error.message });
     } else {
       if (rememberMe) {
-        localStorage.setItem('nso_remember_email', result.data.email);
+        setWithExpiry('nso_remember_email', result.data.email);
       } else {
-        localStorage.removeItem('nso_remember_email');
+        removeManaged('nso_remember_email');
       }
       toast.success('Welcome back!');
     }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 
 interface PresentationSession {
   id: string;
@@ -45,7 +46,7 @@ export const usePresentationSession = () => {
     if (data) {
       setSession(data);
       // Store session ID in localStorage for viewers
-      localStorage.setItem('presentation_session_id', data.id);
+      setWithExpiry('presentation_session_id', data.id);
     }
     setIsLoading(false);
     return data;
@@ -62,7 +63,7 @@ export const usePresentationSession = () => {
 
     if (!error && data) {
       setSession(data);
-      localStorage.setItem('presentation_session_id', data.id);
+      setWithExpiry('presentation_session_id', data.id);
       
       // Increment audience size
       await supabase
@@ -95,7 +96,7 @@ export const usePresentationSession = () => {
       .eq('id', session.id);
     
     setSession(null);
-    localStorage.removeItem('presentation_session_id');
+    removeManaged('presentation_session_id');
   }, [session]);
 
   const trackViewerAnalytics = useCallback(async (slideId: string, timeOnSlide: number, interactions?: any[]) => {
@@ -119,7 +120,7 @@ export const usePresentationSession = () => {
 
   // Try to restore session from localStorage on mount
   useEffect(() => {
-    const storedSessionId = localStorage.getItem('presentation_session_id');
+    const storedSessionId = getWithExpiry<string>('presentation_session_id');
     if (storedSessionId && !session) {
       supabase
         .from('presentation_sessions')

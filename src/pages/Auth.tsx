@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -57,9 +58,9 @@ const Auth = () => {
       toast.error('Login failed', { description: error.message });
     } else {
       if (rememberMe) {
-        localStorage.setItem('nso_remember_email', result.data.email);
+        setWithExpiry('nso_remember_email', result.data.email);
       } else {
-        localStorage.removeItem('nso_remember_email');
+        removeManaged('nso_remember_email');
       }
       toast.success('Welcome back!');
       navigate('/dashboard');
@@ -95,7 +96,7 @@ const Auth = () => {
 
   // Load remembered email on mount
   useState(() => {
-    const remembered = localStorage.getItem('nso_remember_email');
+    const remembered = getWithExpiry<string>('nso_remember_email');
     if (remembered) {
       setLoginEmail(remembered);
       setRememberMe(true);
