@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 
 interface PresentationSession {
   id: string;
