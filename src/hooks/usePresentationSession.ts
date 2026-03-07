@@ -63,7 +63,7 @@ export const usePresentationSession = () => {
 
     if (!error && data) {
       setSession(data);
-      localStorage.setItem('presentation_session_id', data.id);
+      setWithExpiry('presentation_session_id', data.id);
       
       // Increment audience size
       await supabase
