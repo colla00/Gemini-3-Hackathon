@@ -96,7 +96,7 @@ export const usePresentationSession = () => {
       .eq('id', session.id);
     
     setSession(null);
-    localStorage.removeItem('presentation_session_id');
+    removeManaged('presentation_session_id');
   }, [session]);
 
   const trackViewerAnalytics = useCallback(async (slideId: string, timeOnSlide: number, interactions?: any[]) => {
