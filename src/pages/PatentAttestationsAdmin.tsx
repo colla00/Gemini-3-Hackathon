@@ -33,13 +33,15 @@ interface Attestation {
   witness_name: string;
   witness_title: string;
   organization: string | null;
+  witness_email: string | null;
+  ip_address: string | null;
   attested_at: string;
   document_hash: string;
   document_version: string;
   claims_count: number;
   signature: string;
-  ip_address: string | null;
   created_at: string;
+  email_confirmed: boolean | null;
 }
 
 export const PatentAttestationsAdmin = () => {
