@@ -120,7 +120,7 @@ export const usePresentationSession = () => {
 
   // Try to restore session from localStorage on mount
   useEffect(() => {
-    const storedSessionId = localStorage.getItem('presentation_session_id');
+    const storedSessionId = getWithExpiry<string>('presentation_session_id');
     if (storedSessionId && !session) {
       supabase
         .from('presentation_sessions')
