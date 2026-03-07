@@ -46,7 +46,7 @@ export const usePresentationSession = () => {
     if (data) {
       setSession(data);
       // Store session ID in localStorage for viewers
-      localStorage.setItem('presentation_session_id', data.id);
+      setWithExpiry('presentation_session_id', data.id);
     }
     setIsLoading(false);
     return data;
