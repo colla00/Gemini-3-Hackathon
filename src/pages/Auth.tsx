@@ -96,7 +96,7 @@ const Auth = () => {
 
   // Load remembered email on mount
   useState(() => {
-    const remembered = localStorage.getItem('nso_remember_email');
+    const remembered = getWithExpiry<string>('nso_remember_email');
     if (remembered) {
       setLoginEmail(remembered);
       setRememberMe(true);
