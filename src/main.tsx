@@ -2,6 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { initStorageManager } from "./lib/storageManager";
+
+// Initialize storage manager: migrate legacy keys and clean expired entries
+initStorageManager();
 // Register Service Worker for offline support
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
