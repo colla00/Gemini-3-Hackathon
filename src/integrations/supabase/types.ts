@@ -215,6 +215,27 @@ export type Database = {
         }
         Relationships: []
       }
+      encryption_keys: {
+        Row: {
+          created_at: string
+          id: string
+          key_name: string
+          key_value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key_name: string
+          key_value: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key_name?: string
+          key_value?: string
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           created_at: string
@@ -347,10 +368,12 @@ export type Database = {
           email_confirmed: boolean | null
           id: string
           ip_address: string | null
+          ip_address_encrypted: string | null
           organization: string | null
           signature: string
           user_agent: string | null
           witness_email: string | null
+          witness_email_encrypted: string | null
           witness_name: string
           witness_title: string
         }
@@ -368,10 +391,12 @@ export type Database = {
           email_confirmed?: boolean | null
           id?: string
           ip_address?: string | null
+          ip_address_encrypted?: string | null
           organization?: string | null
           signature: string
           user_agent?: string | null
           witness_email?: string | null
+          witness_email_encrypted?: string | null
           witness_name: string
           witness_title: string
         }
@@ -389,10 +414,12 @@ export type Database = {
           email_confirmed?: boolean | null
           id?: string
           ip_address?: string | null
+          ip_address_encrypted?: string | null
           organization?: string | null
           signature?: string
           user_agent?: string | null
           witness_email?: string | null
+          witness_email_encrypted?: string | null
           witness_name?: string
           witness_title?: string
         }
@@ -967,6 +994,32 @@ export type Database = {
       cleanup_rate_limits: {
         Args: { p_older_than_hours?: number }
         Returns: number
+      }
+      decrypt_pii: { Args: { ciphertext: string }; Returns: string }
+      decrypt_witness_email: {
+        Args: { attestation_id: string }
+        Returns: string
+      }
+      encrypt_pii: { Args: { plaintext: string }; Returns: string }
+      get_decrypted_attestations: {
+        Args: never
+        Returns: {
+          attestation_group_id: string
+          attested_at: string
+          claims_count: number
+          confirmed_at: string
+          created_at: string
+          document_hash: string
+          document_version: string
+          email_confirmed: boolean
+          id: string
+          ip_address: string
+          organization: string
+          signature: string
+          witness_email: string
+          witness_name: string
+          witness_title: string
+        }[]
       }
       get_rate_limit_stats: { Args: { p_hours?: number }; Returns: Json }
       has_role: {

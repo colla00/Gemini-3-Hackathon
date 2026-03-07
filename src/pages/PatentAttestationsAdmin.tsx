@@ -33,13 +33,15 @@ interface Attestation {
   witness_name: string;
   witness_title: string;
   organization: string | null;
+  witness_email: string | null;
+  ip_address: string | null;
   attested_at: string;
   document_hash: string;
   document_version: string;
   claims_count: number;
   signature: string;
-  ip_address: string | null;
   created_at: string;
+  email_confirmed: boolean | null;
 }
 
 export const PatentAttestationsAdmin = () => {
@@ -85,13 +87,11 @@ export const PatentAttestationsAdmin = () => {
   const loadAttestations = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('patent_attestations')
-        .select('*')
-        .order('attested_at', { ascending: false });
+      // Use decrypted RPC to get PII fields (admin-only)
+      const { data, error } = await supabase.rpc('get_decrypted_attestations');
 
       if (error) throw error;
-      setAttestations(data || []);
+      setAttestations((data as Attestation[]) || []);
     } catch (error: any) {
       console.error('Error loading attestations:', error);
       toast({
