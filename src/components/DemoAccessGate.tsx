@@ -35,7 +35,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    const remembered = localStorage.getItem('nso_remember_email');
+    const remembered = getWithExpiry<string>('nso_remember_email');
     if (remembered) {
       setLoginEmail(remembered);
       setRememberMe(true);
