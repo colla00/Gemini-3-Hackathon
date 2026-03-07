@@ -58,9 +58,9 @@ const Auth = () => {
       toast.error('Login failed', { description: error.message });
     } else {
       if (rememberMe) {
-        localStorage.setItem('nso_remember_email', result.data.email);
+        setWithExpiry('nso_remember_email', result.data.email);
       } else {
-        localStorage.removeItem('nso_remember_email');
+        removeManaged('nso_remember_email');
       }
       toast.success('Welcome back!');
       navigate('/dashboard');
