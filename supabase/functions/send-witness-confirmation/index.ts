@@ -49,6 +49,7 @@ const handler = async (req: Request): Promise<Response> => {
         Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
       );
 
+      // witness_email is auto-encrypted by DB trigger on write
       await supabase
         .from('patent_attestations')
         .update({

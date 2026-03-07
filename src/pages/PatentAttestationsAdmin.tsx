@@ -87,13 +87,11 @@ export const PatentAttestationsAdmin = () => {
   const loadAttestations = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('patent_attestations')
-        .select('*')
-        .order('attested_at', { ascending: false });
+      // Use decrypted RPC to get PII fields (admin-only)
+      const { data, error } = await supabase.rpc('get_decrypted_attestations');
 
       if (error) throw error;
-      setAttestations(data || []);
+      setAttestations((data as Attestation[]) || []);
     } catch (error: any) {
       console.error('Error loading attestations:', error);
       toast({
