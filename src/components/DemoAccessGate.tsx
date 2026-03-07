@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
