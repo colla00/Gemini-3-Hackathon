@@ -280,8 +280,8 @@ export const ICUMortalityPrediction = () => {
                       {phenotype.icon}
                     </div>
                     <div className="text-right">
-                      <p className={cn('text-xl font-bold leading-none', phenotype.color)}>
-                        {phenotype.mortality}%
+                      <p className={cn('text-xl font-bold leading-none tabular-nums', phenotype.color)}>
+                        {livePhenotypeShifts[i]}%
                       </p>
                       <p className="text-[9px] text-muted-foreground">mortality</p>
                     </div>
