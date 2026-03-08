@@ -17,7 +17,7 @@ export interface SettingsState {
   };
 }
 
-const SETTINGS_STORAGE_KEY = 'nso-dashboard-settings';
+const SETTINGS_STORAGE_KEY = 'vitasignal_settings';
 
 const defaultSettings: SettingsState = {
   theme: 'dark',
