@@ -19,7 +19,7 @@ const slides = Array.from({ length: TOTAL_SLIDES }, (_, i) => ({
 }));
 
 const DEFAULT_NOTES: Record<number, string> = {
-  0: `Welcome & Introduction\n• "Thank you for your time today."\n• VitaSignal is a clinical AI company — equipment-independent intelligence for hospitals.\n• 11 U.S. patent applications filed. NIH-funded research.`,
+  0: `Welcome & Introduction\n• "Thank you for your time today."\n• VitaSignal is a clinical AI company — equipment-independent intelligence for hospitals.\n• 11 U.S. patent applications filed. Research supported in part by NIH Award No. 1OT2OD032581.`,
   1: `The Problem\n• Nurses spend 40%+ of their shift documenting, not at the bedside.\n• Alert fatigue: 85-99% of clinical alarms are false positives.\n• Burnout is driving nurses out of the profession — 100K+ left since 2020.`,
   2: `Our Insight\n• Predictive signals already exist inside the EHR — hidden in documentation timestamps.\n• No new hardware. No new sensors. Just smarter use of data hospitals already collect.\n• This is what "equipment-independent" means.`,
   3: `The VitaSignal Platform\n• Three integrated modules: IDI, DBS, and Trust-Based Alerts.\n• Each addresses a different dimension of clinical burden.\n• All work from existing EHR data — Epic, Cerner, Meditech compatible.`,
