@@ -23,6 +23,7 @@ const navLinks = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/about", label: "About" },
   { to: "/patents", label: "Patents" },
+  { to: "/investors", label: "Investors" },
   { to: "/licensing", label: "Licensing" },
   { to: "/contact", label: "Contact" },
 ];
