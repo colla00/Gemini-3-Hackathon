@@ -48,6 +48,7 @@ const PressRelease = lazy(() => import("./pages/PressRelease"));
 const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
+const DataRoom = lazy(() => import("./pages/DataRoom"));
 
 
 const queryClient = new QueryClient();
