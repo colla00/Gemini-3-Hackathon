@@ -68,3 +68,9 @@ verify_jwt = false
 
 [functions.submit-contact-inquiry]
 verify_jwt = false
+
+[functions.create-pilot-checkout]
+verify_jwt = false
+
+[functions.submit-licensing-inquiry]
+verify_jwt = false

@@ -320,6 +320,54 @@ export type Database = {
         }
         Relationships: []
       }
+      licensing_inquiries: {
+        Row: {
+          contact_name: string
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          nda_agreed: boolean
+          organization_name: string
+          organization_type: string
+          payment_status: string | null
+          phone: string | null
+          status: string
+          stripe_session_id: string | null
+          systems_of_interest: string[]
+        }
+        Insert: {
+          contact_name: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          nda_agreed?: boolean
+          organization_name: string
+          organization_type: string
+          payment_status?: string | null
+          phone?: string | null
+          status?: string
+          stripe_session_id?: string | null
+          systems_of_interest?: string[]
+        }
+        Update: {
+          contact_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          nda_agreed?: boolean
+          organization_name?: string
+          organization_type?: string
+          payment_status?: string | null
+          phone?: string | null
+          status?: string
+          stripe_session_id?: string | null
+          systems_of_interest?: string[]
+        }
+        Relationships: []
+      }
       patent_activities: {
         Row: {
           activity_type: string
