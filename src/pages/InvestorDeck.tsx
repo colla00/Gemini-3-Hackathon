@@ -45,7 +45,7 @@ const DEFAULT_NOTES: Record<number, string> = {
   23: `Go-to-Market Strategy\n• Phase 1: Academic medical centers (validation partners).\n• Phase 2: Mid-size health systems (commercial launch).\n• Phase 3: International expansion and digital twins.`,
   24: `The Ask\n• Seeking strategic partners and investors.\n• Funding for: FDA submission, clinical trials, sales team buildout.\n• Goal: first commercial deployment within 12 months.`,
   25: `Why Now?\n• Nursing crisis is at peak — hospitals are desperate for solutions.\n• AI regulation is maturing — clear FDA pathway.\n• EHR adoption is near-universal — the data infrastructure exists.\n• First-mover advantage in equipment-independent clinical AI.`,
-  26: `Key Differentiators\n• Only validated equipment-independent ICU mortality predictor.\n• AUROC 0.9063 — outperforms industry gold standards.\n• 11 patents create strong IP moat.\n• NIH-funded, peer-reviewed research.`,
+  26: `Key Differentiators\n• Only validated equipment-independent ICU mortality predictor.\n• AUROC 0.9063 — outperforms industry gold standards.\n• 11 patents create strong IP moat.\n• Research supported in part by NIH Award No. 1OT2OD032581. Manuscripts under review.`,
   27: `Partnership Opportunities\n• Research collaborations with academic medical centers.\n• Licensing agreements with health systems.\n• Strategic investment for commercialization.`,
   28: `Contact & Next Steps\n• Email: info@vitasignal.ai\n• Website: vitasignal.ai\n• "We'd love to schedule a deeper technical dive or pilot discussion."`,
   29: `Appendix\n• Refer to supplementary materials for model architecture details.\n• De-identified demo available upon request.\n• All research data available for due diligence.`,
