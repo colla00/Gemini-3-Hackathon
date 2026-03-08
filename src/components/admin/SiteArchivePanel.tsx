@@ -138,7 +138,7 @@ export const SiteArchivePanel = () => {
       export_date: new Date().toISOString(),
       purpose: 'Trademark Evidence - Site Archive Snapshots',
       owner: 'Dr. Alexis M. Collier',
-      marks: ['VitaSignal™', 'ChartMinder™', 'Documentation Burden Score™'],
+      marks: ['VitaSignal™', 'Documentation Burden Score™', 'IDI™'],
       total_snapshots: data.length,
       snapshots: (data as unknown as (SiteArchive & { markdown_content?: string })[]).map(a => ({
         captured_at: a.captured_at,
