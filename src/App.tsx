@@ -185,6 +185,11 @@ const App = () => {
                       <AudienceView />
                     </Suspense>
                   } />
+                  <Route path="/patents/tracker" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <PatentTracker />
+                    </Suspense>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
