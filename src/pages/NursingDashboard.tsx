@@ -6,7 +6,7 @@ import {
   Activity, TrendingUp, AlertTriangle, CheckSquare, Heart,
   BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse,
   FlaskConical, Shield, Layers, Gauge, Award, ChevronRight, ChevronDown, Menu,
-  CheckCircle2, Clock, Zap
+  CheckCircle2, Clock, Zap, Users, BedDouble
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
