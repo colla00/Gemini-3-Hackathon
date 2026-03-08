@@ -34,7 +34,7 @@ export const LandingHero = () => (
           <span className="text-primary font-medium">Presented at Stanford AI+Health 2025</span>
         </div>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-sm">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
           <span className="text-primary font-medium">ANIA 2026 — Boston, MA · March 26–28</span>
         </div>
       </motion.div>
