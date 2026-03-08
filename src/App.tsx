@@ -199,6 +199,13 @@ const App = () => {
                       </Suspense>
                     </ProtectedRoute>
                   } />
+                  <Route path="/hub" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <ProjectHub />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
