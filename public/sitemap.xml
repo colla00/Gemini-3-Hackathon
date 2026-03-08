@@ -8,6 +8,8 @@
   <url><loc>https://vitasignal.ai/contact</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/press</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/investors</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/ania2026</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://vitasignal.ai/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
 </urlset>
