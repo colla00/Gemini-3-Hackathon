@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { AlertTriangle, Clock, ChevronDown, ChevronRight, FileText, Lock, Shield, Loader2 } from "lucide-react";
+import { AlertTriangle, Clock, ChevronDown, ChevronRight, FileText, Lock, Shield, Loader2, Download } from "lucide-react";
+import jsPDF from "jspdf";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
