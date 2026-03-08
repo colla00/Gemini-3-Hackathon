@@ -189,6 +189,38 @@ export default function PatentTracker() {
     return critical[0];
   }, [patents]);
 
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    const now = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+    doc.setFontSize(16);
+    doc.text("VitaSignal Patent Portfolio — Attorney Brief", 14, 20);
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text(`Generated: ${now} · ${patents.length} applications · CONFIDENTIAL`, 14, 28);
+    doc.setTextColor(0);
+
+    let y = 38;
+    patents.forEach((p, i) => {
+      if (y > 265) { doc.addPage(); y = 20; }
+      const days = daysUntil(p.np_deadline);
+      const urgency = days < 0 ? "OVERDUE" : days < 183 ? "CRITICAL" : days < 365 ? "HIGH" : "OK";
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text(`${i + 1}. ${p.patent_number} — ${p.nickname}`, 14, y);
+      y += 5;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.text(`Description: ${p.description || "—"}`, 18, y); y += 4;
+      doc.text(`NP Deadline: ${new Date(p.np_deadline).toLocaleDateString("en-US")} (${days}d remaining) [${urgency}]`, 18, y); y += 4;
+      doc.text(`Filed: ${p.filing_date ? new Date(p.filing_date).toLocaleDateString("en-US") : "—"} · Priority: ${p.priority_level} · Attorney: ${p.attorney_assigned ? "Yes" : "No"}`, 18, y); y += 4;
+      if (p.notes) { doc.text(`Notes: ${p.notes.substring(0, 120)}`, 18, y); y += 4; }
+      y += 4;
+    });
+
+    doc.save(`VitaSignal-Patent-Portfolio-${now.replace(/\s/g, "-")}.pdf`);
+    toast.success("PDF exported");
+  };
+
   const standalonePatents = patents.filter(p => !p.bundle_group);
   const bundlePatents = patents.filter(p => p.bundle_group === "Bundle Group Q-2");
 
