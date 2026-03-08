@@ -42,6 +42,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SkipLink />
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
