@@ -98,17 +98,6 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
     setIsSigningIn(false);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   if (!user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -130,8 +119,20 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
             <Button variant="outline" className="w-full" asChild>
               <Link to="/">Return to Home</Link>
             </Button>
+            <p className="text-xs text-muted-foreground">Pre-Market · Patent Pending · Not a Medical Device</p>
           </CardFooter>
         </Card>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
       </div>
     );
   }
