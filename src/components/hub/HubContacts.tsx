@@ -53,11 +53,8 @@ const HubContacts = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
         <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase mb-3">Key Contacts</h3>
-        <CopyEmail label="Dr. Alexis Collier" email="alexis.collier@ung.edu" />
+        <CopyEmail label="Dr. Alexis Collier" email="info@vitasignal.ai" />
         <CopyEmail label="VitaSignal Licensing" email="info@vitasignal.ai" />
-        <CopyEmail label="Sophia Shalhout (co-investigator)" email="sophia_shalhout@meei.harvard.edu" />
-        <CopyEmail label="Howard IP Clinic" email="howardpatentipclinic@gmail.com" />
-        <CopyEmail label="GWU IP Clinic" email="iptl_uspto_intake@law.gwu.edu" />
         <div className="py-2">
           <p className="text-sm text-white/80">Georgia PATENTS</p>
           <p className="text-xs font-mono" style={{ color: '#00c8b4' }}>gapatents.org</p>
@@ -87,7 +84,7 @@ const HubContacts = () => (
 Founder & CEO, VitaSignal LLC
 NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine
 Adjunct Faculty, University of North Georgia
-alexis.collier@ung.edu | info@vitasignal.ai | vitasignal.ai
+info@vitasignal.ai | vitasignal.ai
 USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet

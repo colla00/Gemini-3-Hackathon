@@ -177,7 +177,7 @@ export function InvestigatorResources() {
               </p>
               <div className="flex flex-wrap gap-2">
                 <Button variant="outline" size="sm" asChild>
-                  <a href="mailto:alexis.collier@ung.edu">
+                  <a href="mailto:info@vitasignal.ai">
                     <Mail className="w-4 h-4 mr-2" />
                     Academic Inquiries
                   </a>

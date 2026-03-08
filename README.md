@@ -74,7 +74,7 @@ npm run dev
 **Dr. Alexis Collier, DHA, MHA**  
 Founder & CEO, VitaSignal LLC  
 🌐 [vitasignal.ai](https://vitasignal.ai) | [dralexis.ceo](https://dralexis.ceo)  
-📧 Alexis.Collier@ung.edu  
+📧 info@vitasignal.ai  
 NIH AIM-AHEAD CLINAQ Fellow | Adjunct Faculty, University of North Georgia
 
 ---

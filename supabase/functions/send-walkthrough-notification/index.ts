@@ -178,7 +178,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle approval notification
     if (notificationType === 'approved') {
       const approvalEmailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [data.email],
         subject: "Your Demo Access Has Been Approved! 🎉",
         html: `
@@ -219,7 +219,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial notification
     if (notificationType === 'denied') {
       const denialEmailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [data.email],
         subject: "Update on Your Demo Access Request",
         html: `
@@ -244,7 +244,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
-      from: "VitaSignal <cs@ezlearning.center>",
+      from: "VitaSignal <info@vitasignal.ai>",
       to: [adminEmail],
       subject: `New Demo Access Request from ${safeName}`,
       html: `
@@ -287,7 +287,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin notification sent:", adminEmailResponse);
 
     const confirmationResponse = await resend.emails.send({
-      from: "VitaSignal <cs@ezlearning.center>",
+      from: "VitaSignal <info@vitasignal.ai>",
       to: [data.email],
       subject: "Your Demo Access Request Has Been Received",
       html: `

@@ -137,7 +137,7 @@ serve(async (req: Request) => {
 
       try {
         await resend.emails.send({
-          from: "VitaSignal <cs@ezlearning.center>",
+          from: "VitaSignal <info@vitasignal.ai>",
           to: ["info@vitasignal.ai"],
           reply_to: body.email.trim(),
           subject: `[${typeLabels[body.inquiry_type]}] ${body.name.trim()}`,
@@ -162,7 +162,7 @@ serve(async (req: Request) => {
         try {
           const siteUrl = "https://vitasignal.ai";
           await resend.emails.send({
-            from: "VitaSignal <cs@ezlearning.center>",
+            from: "VitaSignal <info@vitasignal.ai>",
             to: [body.email.trim()],
             subject: "VitaSignal Licensing Information & Executive Summary",
             html: `

@@ -11,7 +11,7 @@ serve(async (req: Request) => {
   const deckUrl = "https://vitasignal.ai/vitasignal-investor-deck.pdf";
 
   const { data, error } = await resend.emails.send({
-    from: "VitaSignal <cs@ezlearning.center>",
+    from: "VitaSignal <info@vitasignal.ai>",
     to: ["info@vitasignal.ai"],
     subject: "VitaSignal Vendor Deck — Executive Financial & Clinical Summary",
     html: `

@@ -191,7 +191,7 @@ const handler = async (req: Request): Promise<Response> => {
         : `<p style="color: #666;">You can log in with your existing account credentials.</p>`;
 
       const emailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [request.email],
         subject: "Your VitaSignal Demo Access Has Been Approved",
         html: `
@@ -249,7 +249,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial
     if (action === "denied") {
       const emailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [request.email],
         subject: "Update on Your Demo Access Request",
         html: `

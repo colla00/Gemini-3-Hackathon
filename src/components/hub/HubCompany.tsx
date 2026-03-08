@@ -37,7 +37,7 @@ const HubCompany = () => {
           <p>EIN: <span className="font-mono text-white/40">●●–●●●●●●●</span></p>
           <p>Domain: <T>vitasignal.ai</T></p>
           <p>Public email: info@vitasignal.ai</p>
-          <p>Author/contact: alexis.collier@ung.edu</p>
+          <p>Author/contact: info@vitasignal.ai</p>
           <p>Operating Agreement: v1.0 filed · v2.0 pending (Q2 2026)</p>
           <p>990-N: Filed</p>
           <p>FDA: Non-device CDS under §520(o)(1)(E) — exempt from 510(k)</p>
@@ -82,8 +82,8 @@ const HubCompany = () => {
 
       <InfoCard title="IP Clinic Outreach">
         <p>Georgia PATENTS (gapatents.org) — Applied ✅</p>
-        <p>GWU IP Clinic (iptl_uspto_intake@law.gwu.edu) — Emailed ✅</p>
-        <p>Howard IP Clinic (howardpatentipclinic@gmail.com) — Emailed ✅</p>
+        <p>GWU IP Clinic — Emailed ✅</p>
+        <p>Howard IP Clinic — Emailed ✅</p>
         <p>USPTO 2020–2025 Clinic Expansion — Closed (form obsolete)</p>
       </InfoCard>
     </div>

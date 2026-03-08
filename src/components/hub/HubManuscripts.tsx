@@ -57,7 +57,7 @@ const HubManuscripts = () => (
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T> heart failure ICU admissions, 2008–2019)</p>
         <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (+0.025, p&lt;0.05) · 12-year temporal validation</p>
         <p><strong>Preprint:</strong> DOI <T>10.64898/2026.02.10.26345827v2</T> · medRxiv</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · alexis.collier@ung.edu</p>
+        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
         <p><strong>COI:</strong> USPTO 63/976,293 · NIH 1OT2OD032581 · Bayh-Dole · VitaSignal LLC</p>
         <p><strong>Data:</strong> MIMIC-IV v2.2 — physionet.org/content/mimiciv/2.2/</p>
         <p><strong>IRB:</strong> Protocol #2025-IRB-0142 (exemption determination)</p>
@@ -66,14 +66,14 @@ const HubManuscripts = () => (
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="DBS + HiRID External Validation">
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T>) + HiRID (N=<T>33,897</T>) · 80/20 split</p>
         <p><strong>Key results:</strong> AUROC <T>0.802/0.683</T> MIMIC-IV · AUROC <T>0.9063</T> HiRID · Outperforms APACHE IV, SOFA</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · alexis.collier@ung.edu</p>
+        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
         <p><strong>Data:</strong> HiRID — physionet.org/content/hirid/1.1.1/</p>
       </PaperCard>
 
       <PaperCard status="🟡 In Progress" statusColor="bg-yellow-500/20 text-yellow-400" title="Paper 3 — JAMA Network Open" system="DBS External Validation — 172 Hospitals">
         <p><strong>Dataset:</strong> eICU (N=<T>28,362</T> · <T>172</T> hospitals)</p>
         <p><strong>Key results:</strong> AUROC <T>0.758</T> · NPV 0.947/0.924</p>
-        <p><strong>Contact:</strong> Sophia Shalhout — sophia_shalhout@meei.harvard.edu</p>
+        <p><strong>Contact:</strong> Sophia Shalhout — info@vitasignal.ai</p>
         <p><strong>Due dates:</strong> Sophia edits due <T>March 21</T> · Race/ethnicity compliance due <T>March 31</T></p>
       </PaperCard>
 

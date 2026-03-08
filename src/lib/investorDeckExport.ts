@@ -265,7 +265,7 @@ export const generateInvestorDeck = () => {
   const bio = [
     'NIH AIM-AHEAD CLINAQ Fellow',
     'Adjunct Faculty, University of North Georgia',
-    'Alexis.Collier@ung.edu | info@vitasignal.ai',
+    'info@vitasignal.ai',
   ];
   bio.forEach((b, i) => doc.text(b, margin + 40, 400 + i * 36));
   // Co-I
@@ -283,8 +283,7 @@ export const generateInvestorDeck = () => {
   doc.text('vitasignal.ai', W / 2, 400, { align: 'center' });
   doc.setFontSize(24);
   doc.setTextColor(203, 213, 225);
-  doc.text('Alexis.Collier@ung.edu', W / 2, 460, { align: 'center' });
-  doc.text('info@vitasignal.ai', W / 2, 500, { align: 'center' });
+  doc.text('info@vitasignal.ai', W / 2, 460, { align: 'center' });
   // Patent notice
   doc.setFillColor(30, 41, 59);
   doc.roundedRect(W / 2 - 500, 560, 1000, 80, 12, 12, 'F');
