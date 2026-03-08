@@ -207,12 +207,12 @@ function Licensing() {
                     </div>
                     <Badge variant="secondary" className="text-[10px]">Academic</Badge>
                   </div>
-                  <CardTitle className="text-xl">Research Collaboration</CardTitle>
-                  <CardDescription>Academic / research institutions</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">MTA/DUA required</p>
-                  <p className="text-xs text-muted-foreground mb-6">Material Transfer / Data Use Agreement</p>
+                   <CardTitle className="text-xl">Research Partner</CardTitle>
+                   <CardDescription>Academic & research institution access</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">Contact for Terms</p>
+                   <p className="text-xs text-muted-foreground mb-6">MTA/DUA required · IRB support available</p>
                   <Button className="w-full gap-2 mt-auto" variant="outline" asChild>
                     <a href="mailto:info@vitasignal.ai?subject=Research%20Collaboration%20Inquiry">
                       <GraduationCap className="w-4 h-4" />
