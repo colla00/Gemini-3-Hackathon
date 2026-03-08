@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 interface SyncState {
   currentSlide: string;
@@ -8,18 +9,17 @@ interface SyncState {
 }
 
 const SYNC_CHANNEL = 'nso-presenter-sync';
-const STORAGE_KEY = 'presenter-sync';
+const STORAGE_KEY = 'presenter_sync_state';
 const POLL_INTERVAL = 300; // Faster polling for reliability
 
 const getInitialState = (isPresenter: boolean): SyncState => {
   // For audience, try to restore from localStorage immediately
   if (!isPresenter) {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = getWithExpiry<SyncState>(STORAGE_KEY);
       if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('[AudienceSync] Restored initial state:', parsed.currentSlide);
-        return parsed;
+        console.log('[AudienceSync] Restored initial state:', stored.currentSlide);
+        return stored;
       }
     } catch (e) {
       console.warn('[AudienceSync] Failed to restore state:', e);
@@ -64,12 +64,14 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
 
     // Also listen to localStorage for fallback (works across tabs)
     const handleStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY && !isPresenter && e.newValue) {
+      if ((e.key === STORAGE_KEY || e.key === `__sm_${STORAGE_KEY}`) && !isPresenter && e.newValue) {
         try {
-          const parsed = JSON.parse(e.newValue);
-          console.log('[AudienceSync] Received localStorage update:', parsed.currentSlide);
-          setSyncState(parsed);
-          setConnectionStatus('connected');
+          const fresh = getWithExpiry<SyncState>(STORAGE_KEY);
+          if (fresh) {
+            console.log('[AudienceSync] Received localStorage update:', fresh.currentSlide);
+            setSyncState(fresh);
+            setConnectionStatus('connected');
+          }
         } catch (err) {
           console.warn('[AudienceSync] Failed to parse storage event:', err);
         }
@@ -83,15 +85,14 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
       setConnectionStatus('connecting');
       pollInterval = setInterval(() => {
         try {
-          const stored = localStorage.getItem(STORAGE_KEY);
+          const stored = getWithExpiry<SyncState>(STORAGE_KEY);
           if (stored) {
-            const parsed = JSON.parse(stored);
             // Only update if timestamp is newer
             setSyncState(prev => {
-              if (parsed.timestamp > prev.timestamp) {
-                console.log('[AudienceSync] Poll detected update:', parsed.currentSlide);
+              if (stored.timestamp > prev.timestamp) {
+                console.log('[AudienceSync] Poll detected update:', stored.currentSlide);
                 setConnectionStatus('connected');
-                return parsed;
+                return stored;
               }
               return prev;
             });
@@ -136,7 +137,7 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
     
     // Also update localStorage for fallback
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+      setWithExpiry(STORAGE_KEY, newState);
     } catch (e) {
       console.warn('[PresenterSync] localStorage save failed:', e);
     }

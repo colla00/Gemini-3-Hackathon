@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, createContext, useContext } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 export interface SessionEvent {
   timestamp: string;
@@ -52,8 +53,8 @@ const generateSessionId = (): string => {
 
 const getStoredSessions = (): SessionData[] => {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const stored = getWithExpiry<SessionData[]>(STORAGE_KEY);
+    return stored || [];
   } catch {
     return [];
   }
@@ -72,7 +73,7 @@ const saveSession = (session: SessionData) => {
     
     // Keep last 100 sessions for evidence
     const trimmed = sessions.slice(-100);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+    setWithExpiry(STORAGE_KEY, trimmed);
   } catch (e) {
     console.warn('Failed to save session data:', e);
   }
@@ -123,7 +124,7 @@ export const useSessionTracking = () => {
         const ipInfo = await fetchIPAddress();
         
         // Get stored email if exists
-        const storedEmail = localStorage.getItem('demo_auth_email');
+        const storedEmail = getWithExpiry<string>('demo_auth_email');
         
         const newSession: SessionData = {
           sessionId: generateSessionId(),

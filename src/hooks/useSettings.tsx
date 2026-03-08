@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 export interface SettingsState {
   theme: 'dark' | 'light' | 'system';
@@ -16,7 +17,7 @@ export interface SettingsState {
   };
 }
 
-const SETTINGS_STORAGE_KEY = 'nso-dashboard-settings';
+const SETTINGS_STORAGE_KEY = 'vitasignal_settings';
 
 const defaultSettings: SettingsState = {
   theme: 'dark',
@@ -36,9 +37,9 @@ const defaultSettings: SettingsState = {
 
 const loadSettings = (): SettingsState => {
   try {
-    const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    const stored = getWithExpiry<SettingsState>(SETTINGS_STORAGE_KEY);
     if (stored) {
-      return { ...defaultSettings, ...JSON.parse(stored) };
+      return { ...defaultSettings, ...stored };
     }
   } catch (e) {
     console.warn('Failed to load settings from localStorage');
@@ -48,7 +49,7 @@ const loadSettings = (): SettingsState => {
 
 const saveSettings = (settings: SettingsState): void => {
   try {
-    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+    setWithExpiry(SETTINGS_STORAGE_KEY, settings);
   } catch (e) {
     console.warn('Failed to save settings to localStorage');
   }

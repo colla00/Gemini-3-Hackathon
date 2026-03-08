@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 import { Cookie, X, Settings, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -33,17 +34,13 @@ export const CookieConsent = () => {
   useEffect(() => {
     if (!isClient) return;
     
-    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    const consent = getWithExpiry<string>(COOKIE_CONSENT_KEY);
     if (!consent) {
       setShowBanner(true);
     } else {
-      const storedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY);
+      const storedPrefs = getWithExpiry<CookiePreferences>(COOKIE_PREFERENCES_KEY);
       if (storedPrefs) {
-        try {
-          setPreferences(JSON.parse(storedPrefs));
-        } catch (e) {
-          console.error('Failed to parse cookie preferences:', e);
-        }
+        setPreferences(storedPrefs);
       }
     }
   }, [isClient]);
@@ -55,8 +52,8 @@ export const CookieConsent = () => {
       functional: true,
     };
     setPreferences(allAccepted);
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(allAccepted));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'accepted');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, allAccepted);
     setShowBanner(false);
   };
 
@@ -67,14 +64,14 @@ export const CookieConsent = () => {
       functional: false,
     };
     setPreferences(essentialOnly);
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(essentialOnly));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'rejected');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, essentialOnly);
     setShowBanner(false);
   };
 
   const handleSavePreferences = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'custom');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(preferences));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'custom');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, preferences);
     setShowBanner(false);
     setShowSettings(false);
   };

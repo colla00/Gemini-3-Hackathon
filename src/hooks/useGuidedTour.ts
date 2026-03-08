@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 
-const TOUR_COMPLETED_KEY = 'nso-dashboard-tour-completed';
+const TOUR_COMPLETED_KEY = 'nso_guided_tour_completed';
 
 export interface TourStep {
   id: string;
@@ -99,7 +100,7 @@ export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
 
   // Check localStorage on mount for first-time visitor detection
   useEffect(() => {
-    const tourCompleted = localStorage.getItem(TOUR_COMPLETED_KEY);
+    const tourCompleted = getWithExpiry<string>(TOUR_COMPLETED_KEY);
     const seen = tourCompleted === 'true';
     setHasSeenTour(seen);
     
@@ -147,12 +148,12 @@ export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
     setCurrentStepIndex(0);
     setTargetRect(null);
     // Mark tour as completed in localStorage
-    localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+    setWithExpiry(TOUR_COMPLETED_KEY, 'true');
     setHasSeenTour(true);
   }, []);
 
   const resetTourHistory = useCallback(() => {
-    localStorage.removeItem(TOUR_COMPLETED_KEY);
+    removeManaged(TOUR_COMPLETED_KEY);
     setHasSeenTour(false);
   }, []);
 

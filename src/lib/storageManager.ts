@@ -28,6 +28,7 @@ const KEY_REGISTRY: Record<string, number | null> = {
   'lighthouse_history': TTL.MEDIUM,
   'lighthouse_prod_history': TTL.MEDIUM,
   'perf_regression_baseline': TTL.MEDIUM,
+  'patent_evidence_sessions': TTL.MEDIUM,
   
   // User preference (7 days)
   'nso_remember_email': TTL.LONG,
