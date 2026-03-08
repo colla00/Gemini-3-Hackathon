@@ -112,77 +112,26 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
   if (!user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <main className="w-full max-w-md space-y-8">
-          <div className="text-center space-y-2">
+        <Card className="w-full max-w-md border-border/50 bg-card/50 backdrop-blur text-center">
+          <CardHeader className="pb-4">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Activity className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></h1>
+              <span className="text-2xl font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
             </div>
-            <p className="text-muted-foreground">Sign in to access the dashboard</p>
-          </div>
-
-          <Card className="border-border/50 bg-card/50 backdrop-blur">
-            <form onSubmit={handleLogin}>
-              <CardHeader>
-                <CardTitle>Welcome Back</CardTitle>
-                <CardDescription>
-                  Sign in with credentials provided by your administrator
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="gate-email">Email</Label>
-                  <Input
-                    id="gate-email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="gate-password">Password</Label>
-                  <PasswordInput
-                    id="gate-password"
-                    value={loginPassword}
-                    onChange={setLoginPassword}
-                    required
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="gate-remember"
-                    checked={rememberMe}
-                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                  />
-                  <Label htmlFor="gate-remember" className="text-sm font-normal cursor-pointer">
-                    Remember me
-                  </Label>
-                </div>
-              </CardContent>
-              <CardFooter className="flex flex-col gap-3">
-                <Button type="submit" className="w-full" disabled={isSigningIn}>
-                  {isSigningIn ? 'Signing in...' : 'Sign In'}
-                </Button>
-                <p className="text-xs text-center text-muted-foreground">
-                  Don't have an account?{' '}
-                  <Link to="/#request-demo" className="text-primary hover:underline">
-                    Request demo access
-                  </Link>
-                </p>
-              </CardFooter>
-            </form>
-          </Card>
-
-          <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Shield className="h-3 w-3" />
-              <span>Secure Authentication</span>
-            </div>
-            <Link to="/" className="text-primary hover:underline">← Back to Home</Link>
-          </div>
-        </main>
+            <CardTitle className="text-xl">Clinical Dashboard — Access Restricted</CardTitle>
+            <CardDescription className="text-sm mt-2">
+              This dashboard is available to licensed partners and credentialed researchers. To request access, please contact us.
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="flex flex-col gap-3 pt-0">
+            <Button className="w-full" asChild>
+              <a href="mailto:info@vitasignal.ai">Request Dashboard Access</a>
+            </Button>
+            <Button variant="outline" className="w-full" asChild>
+              <Link to="/">Return to Home</Link>
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     );
   }

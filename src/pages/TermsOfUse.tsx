@@ -69,7 +69,7 @@ export const TermsOfUse = () => {
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-4 leading-[1.05]">
             Terms of <span className="text-primary">Use</span>
           </h1>
-          <p className="text-sm opacity-60">Last Updated: February 2026</p>
+          <p className="text-sm opacity-60">Effective: March 1, 2026</p>
           <Button
             variant="ghost"
             size="sm"
@@ -148,6 +148,9 @@ export const TermsOfUse = () => {
                 By accessing or using VitaSignal™ ("Software"), you agree to be bound by these Terms of Use. 
                 If you do not agree to these terms, you may not access or use the Software.
               </p>
+              <p className="text-muted-foreground mt-2">
+                <strong>Entity:</strong> VitaSignal LLC, registered in the State of Georgia, EIN on file.
+              </p>
             </section>
 
             {/* Research Prototype Notice */}
@@ -158,7 +161,10 @@ export const TermsOfUse = () => {
               </h2>
               <div className="space-y-3 text-muted-foreground">
                 <p className="font-medium text-foreground">
-                  THIS SOFTWARE IS A RESEARCH PROTOTYPE PROVIDED FOR EDUCATIONAL AND DEMONSTRATION PURPOSES ONLY.
+                   THIS SOFTWARE IS A RESEARCH PROTOTYPE PROVIDED FOR EDUCATIONAL AND DEMONSTRATION PURPOSES ONLY.
+                </p>
+                <p className="font-medium text-foreground mt-2">
+                  VitaSignal™ software is pre-market and not cleared or approved by the FDA. It is not a medical device and does not constitute clinical advice.
                 </p>
                 <ul className="list-disc list-inside space-y-2">
                   <li><strong>Not FDA Cleared or Approved:</strong> This software has not been cleared or approved by the U.S. Food and Drug Administration (FDA) or any other regulatory body.</li>

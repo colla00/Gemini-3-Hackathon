@@ -14,11 +14,11 @@ const systems = [
   },
   {
     icon: Shield,
-    name: "ChartMinder™ - Trust-Based Alerts",
+    name: "Trust-Based Alert Governance",
     patent: "#2",
     desc: "Mobile alert governance with trust scoring, equity monitoring, explainable AI, and cognitive load optimization.",
     status: "Patent Application Filed",
-    metric: "Target: 87% alert reduction",
+    metric: "Patent #2 · Target: 87% alert reduction",
   },
   {
     icon: Brain,
