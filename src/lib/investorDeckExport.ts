@@ -84,7 +84,7 @@ export const generateInvestorDeck = () => {
   const pillars = [
     { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: '65,157 patients' },
     { title: 'DBS Score', desc: 'Documentation Burden Score — quantifies\nnurse documentation workload', metric: '28,362 patients' },
-    { title: 'ChartMinder™', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
+    { title: 'Trust-Based Alerts', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
   ];
   pillars.forEach((p, i) => {
     const x = margin + i * 560;
