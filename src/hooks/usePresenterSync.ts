@@ -9,7 +9,7 @@ interface SyncState {
 }
 
 const SYNC_CHANNEL = 'nso-presenter-sync';
-const STORAGE_KEY = 'presenter-sync';
+const STORAGE_KEY = 'presenter_sync_state';
 const POLL_INTERVAL = 300; // Faster polling for reliability
 
 const getInitialState = (isPresenter: boolean): SyncState => {
