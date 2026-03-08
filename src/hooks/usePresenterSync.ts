@@ -16,11 +16,10 @@ const getInitialState = (isPresenter: boolean): SyncState => {
   // For audience, try to restore from localStorage immediately
   if (!isPresenter) {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = getWithExpiry<SyncState>(STORAGE_KEY);
       if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('[AudienceSync] Restored initial state:', parsed.currentSlide);
-        return parsed;
+        console.log('[AudienceSync] Restored initial state:', stored.currentSlide);
+        return stored;
       }
     } catch (e) {
       console.warn('[AudienceSync] Failed to restore state:', e);
