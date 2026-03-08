@@ -251,9 +251,14 @@ export default function PatentTracker() {
               </h1>
               <p className="text-xs text-muted-foreground">Confidential — VitaSignal LLC IP Portfolio</p>
             </div>
-            <Button variant="outline" size="sm" onClick={() => setAuthenticated(false)}>
-              Lock
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => exportPDF()}>
+                <Download className="w-3.5 h-3.5 mr-1" /> PDF
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => setAuthenticated(false)}>
+                Lock
+              </Button>
+            </div>
           </div>
 
           {/* Next Critical Deadline */}
