@@ -34,17 +34,13 @@ export const CookieConsent = () => {
   useEffect(() => {
     if (!isClient) return;
     
-    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    const consent = getWithExpiry<string>(COOKIE_CONSENT_KEY);
     if (!consent) {
       setShowBanner(true);
     } else {
-      const storedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY);
+      const storedPrefs = getWithExpiry<CookiePreferences>(COOKIE_PREFERENCES_KEY);
       if (storedPrefs) {
-        try {
-          setPreferences(JSON.parse(storedPrefs));
-        } catch (e) {
-          console.error('Failed to parse cookie preferences:', e);
-        }
+        setPreferences(storedPrefs);
       }
     }
   }, [isClient]);
