@@ -37,9 +37,9 @@ const defaultSettings: SettingsState = {
 
 const loadSettings = (): SettingsState => {
   try {
-    const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    const stored = getWithExpiry<SettingsState>(SETTINGS_STORAGE_KEY);
     if (stored) {
-      return { ...defaultSettings, ...JSON.parse(stored) };
+      return { ...defaultSettings, ...stored };
     }
   } catch (e) {
     console.warn('Failed to load settings from localStorage');
