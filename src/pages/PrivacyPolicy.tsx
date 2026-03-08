@@ -203,18 +203,30 @@ export const PrivacyPolicy = () => {
               </ul>
             </section>
 
-            {/* Data Sharing */}
+            {/* Data Sharing / Third-Party Services */}
             <section id="data-sharing" className="scroll-mt-24 p-6 rounded-xl bg-card border border-border">
               <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
                 <Globe className="w-5 h-5 text-primary" />
-                4. Data Sharing
+                4. Third-Party Services & Data Sharing
               </h2>
-              <p className="text-muted-foreground">We do not sell your personal information. We may share data only in these circumstances:</p>
+              <p className="text-muted-foreground">We do not sell your personal information. We use the following third-party services:</p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground mt-4">
-                <li><strong>Service Providers:</strong> With trusted third parties who help operate our service (e.g., email delivery)</li>
+                <li><strong>Google Analytics:</strong> For aggregated site usage analytics (anonymized)</li>
+                <li><strong>Service Providers:</strong> Trusted third parties who help operate our service (e.g., email delivery)</li>
                 <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
                 <li><strong>Patent Proceedings:</strong> Attestation data may be used in patent applications and proceedings</li>
               </ul>
+            </section>
+
+            {/* HIPAA Notice */}
+            <section className="scroll-mt-24 p-6 rounded-xl bg-primary/5 border border-primary/30">
+              <h2 className="text-xl font-semibold text-foreground flex items-center gap-2 mt-0">
+                <Shield className="w-5 h-5 text-primary" />
+                HIPAA Notice
+              </h2>
+              <p className="text-muted-foreground">
+                VitaSignal LLC does not collect, process, or store Protected Health Information (PHI) through this public website. All patient data displayed in the dashboard is simulated and does not represent real patients.
+              </p>
             </section>
 
             {/* Data Retention */}

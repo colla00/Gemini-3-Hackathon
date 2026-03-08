@@ -34,7 +34,7 @@ export const LandingFooter = () => (
         </div>
 
         <div className="text-[10px] text-muted-foreground/60 max-w-lg">
-          <p>VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of VitaSignal LLC.</p>
+          <p>VitaSignal™, Documentation Burden Score™, and IDI™ are trademarks of VitaSignal LLC. All rights reserved.</p>
           <p className="mt-1">
             Research supported by NIH fellowship and grant programs
           </p>
