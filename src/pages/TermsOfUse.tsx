@@ -148,6 +148,9 @@ export const TermsOfUse = () => {
                 By accessing or using VitaSignal™ ("Software"), you agree to be bound by these Terms of Use. 
                 If you do not agree to these terms, you may not access or use the Software.
               </p>
+              <p className="text-muted-foreground mt-2">
+                <strong>Entity:</strong> VitaSignal LLC, registered in the State of Georgia, EIN on file.
+              </p>
             </section>
 
             {/* Research Prototype Notice */}
