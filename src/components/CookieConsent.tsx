@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 import { Cookie, X, Settings, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
