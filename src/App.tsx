@@ -15,6 +15,9 @@ import AdminRoute from "@/components/AdminRoute";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
+import { usePageViewTracker } from "@/hooks/usePageViewTracker";
+
+function PageViewTracker() { usePageViewTracker(); return null; }
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
