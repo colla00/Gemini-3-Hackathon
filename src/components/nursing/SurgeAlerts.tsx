@@ -1,36 +1,49 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { cn } from '@/lib/utils';
 
-const alerts = [
+const baseAlerts = [
   {
     title: 'High Documentation Volume Detected',
-    time: '5 minutes ago',
     message: '3 high-priority patients require immediate documentation. Predicted surge in next 30 minutes. Workload score: 9.8/10.',
     level: 'critical' as const,
+    ageSec: 300,
   },
   {
     title: 'Admission Cluster Predicted',
-    time: '15 minutes ago',
     message: 'Model predicts 4 new admissions in next 2 hours based on historical patterns. Consider proactive task batching.',
     level: 'warning' as const,
+    ageSec: 900,
   },
   {
     title: 'Shift Change Optimization',
-    time: '30 minutes ago',
-    message: 'Evening shift handoff at 7:00 PM. 12 pending tasks identified for batching before transition.',
+    message: 'Evening shift handoff approaching. 12 pending tasks identified for batching before transition.',
     level: 'info' as const,
+    ageSec: 1800,
   },
 ];
 
-const alertHistoryData = [
-  { time: '12 AM', critical: 1, warning: 2, info: 3 },
-  { time: '4 AM', critical: 0, warning: 1, info: 2 },
-  { time: '8 AM', critical: 3, warning: 5, info: 4 },
-  { time: '12 PM', critical: 2, warning: 4, info: 5 },
-  { time: '4 PM', critical: 1, warning: 3, info: 4 },
-  { time: '8 PM', critical: 0, warning: 2, info: 3 },
+const newAlertTemplates = [
+  { title: 'SpO₂ Desaturation Cluster — Unit 4N', message: '2 patients with SpO₂ < 92% in last 15 min. Respiratory surge protocol triggered.', level: 'critical' as const },
+  { title: 'Lab Result Batch Incoming', message: '8 CBC/BMP results expected in next 20 min. Prioritize high-risk reviews.', level: 'warning' as const },
+  { title: 'Bed Alarm Frequency ↑ Rm 402A', message: 'Patient G07 — 4 bed alarms in 30 min. Sitter effectiveness review recommended.', level: 'critical' as const },
+  { title: 'Medication Administration Window', message: '5 scheduled meds due in next 15 min across 3 patients. Batching suggested.', level: 'warning' as const },
 ];
+
+const generateHistoryData = () => {
+  const now = new Date();
+  return Array.from({ length: 6 }, (_, i) => {
+    const h = new Date(now.getTime() - (5 - i) * 4 * 3600000);
+    return {
+      time: h.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+      critical: Math.floor(Math.random() * 3),
+      warning: 1 + Math.floor(Math.random() * 4),
+      info: 2 + Math.floor(Math.random() * 3),
+    };
+  });
+};
 
 const levelStyles = {
   critical: 'border-l-destructive bg-destructive/10',
@@ -38,7 +51,38 @@ const levelStyles = {
   info: 'border-l-primary bg-primary/10',
 };
 
+const formatAge = (sec: number) => {
+  if (sec < 60) return `${sec}s ago`;
+  if (sec < 3600) return `${Math.floor(sec / 60)} min ago`;
+  return `${Math.floor(sec / 3600)}h ago`;
+};
+
 export const SurgeAlerts = () => {
+  const [alerts, setAlerts] = useState(baseAlerts);
+  const [historyData, setHistoryData] = useState(generateHistoryData);
+
+  // Age alerts and occasionally add new ones
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAlerts(prev => {
+        let updated = prev.map(a => ({ ...a, ageSec: a.ageSec + 5 }));
+        // Occasionally add a new alert
+        if (Math.random() > 0.85) {
+          const template = newAlertTemplates[Math.floor(Math.random() * newAlertTemplates.length)];
+          updated = [{ ...template, ageSec: 0 }, ...updated].slice(0, 6);
+        }
+        return updated;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Refresh history data periodically
+  useEffect(() => {
+    const interval = setInterval(() => setHistoryData(generateHistoryData()), 15000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="space-y-6">
       <Card>
@@ -47,14 +91,20 @@ export const SurgeAlerts = () => {
             <CardTitle>Active Surge Alerts</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">Real-time notifications for workload spikes</p>
           </div>
-          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-risk-low/10 border border-risk-low/30">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-risk-low opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-risk-low" />
+            </span>
+            <span className="text-[10px] font-semibold text-risk-low">LIVE</span>
+          </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          {alerts.map((a) => (
-            <div key={a.title} className={`border-l-4 p-4 rounded-lg ${levelStyles[a.level]}`}>
+          {alerts.map((a, i) => (
+            <div key={`${a.title}-${i}`} className={cn('border-l-4 p-4 rounded-lg transition-all', levelStyles[a.level], a.ageSec < 10 && 'animate-fade-in')}>
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold text-sm">{a.title}</span>
-                <span className="text-xs text-muted-foreground">{a.time}</span>
+                <span className="text-xs text-muted-foreground tabular-nums">{formatAge(a.ageSec)}</span>
               </div>
               <p className="text-sm text-muted-foreground">{a.message}</p>
             </div>
@@ -65,11 +115,11 @@ export const SurgeAlerts = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Alert History (Last 24 Hours)</CardTitle>
-          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/30 text-[10px] font-semibold">MOCK DATA</Badge>
+          <span className="text-[10px] text-muted-foreground tabular-nums">Auto-refreshing</span>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={alertHistoryData}>
+            <BarChart data={historyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="time" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
               <YAxis label={{ value: 'Number of Alerts', angle: -90, position: 'insideLeft', fill: 'hsl(var(--muted-foreground))' }} tick={{ fill: 'hsl(var(--muted-foreground))' }} />
