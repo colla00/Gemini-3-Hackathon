@@ -6,7 +6,7 @@ const infoRows = [
   { label: 'Patent #1', value: 'U.S. Provisional Patent Application Filed (2026)' },
   { label: 'Manuscript', value: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study' },
   { label: 'Status', value: 'Manuscripts under review' },
-  { label: 'Funding', value: 'NIH-funded research' },
+  { label: 'Funding', value: 'Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)' },
   { label: 'Inventor', value: 'Dr. Alexis Collier, DHA. University of North Georgia' },
 ];
 
@@ -23,7 +23,7 @@ export const PatentPublicationInfo = () => {
         </h2>
         <p className="text-primary-foreground/70 mb-8 leading-relaxed">
           VitaSignal™'s intellectual property portfolio is grounded in rigorous academic
-          research and NIH-funded validation studies, with publications targeting
+          research conducted during an NIH AIM-AHEAD fellowship, with publications targeting
           top-tier critical care journals.
         </p>
         <div className="flex flex-wrap gap-3">

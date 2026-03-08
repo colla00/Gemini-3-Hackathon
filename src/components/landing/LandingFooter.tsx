@@ -14,7 +14,7 @@ export const LandingFooter = () => (
             © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            NIH Research Fellow | NIH-Funded AI Researcher
+            NIH AIM-AHEAD CLINAQ Fellow | Health Informaticist & AI Researcher
           </p>
           <p className="text-xs text-primary font-medium mt-1">
             11 U.S. Provisional Patent Applications Filed
@@ -36,7 +36,7 @@ export const LandingFooter = () => (
         <div className="text-[10px] text-muted-foreground/60 max-w-lg">
           <p>VitaSignal™, Documentation Burden Score™, and IDI™ are trademarks of VitaSignal LLC. All rights reserved.</p>
           <p className="mt-1">
-            Research supported by NIH fellowship and grant programs
+            Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)
           </p>
         </div>
       </div>

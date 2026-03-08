@@ -79,7 +79,7 @@ export const PressRelease = () => (
                 <FileText className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <div>
                   <p className="font-medium text-foreground">Abstract #185</p>
-                  <p className="text-muted-foreground text-xs">Peer-reviewed acceptance</p>
+                  <p className="text-muted-foreground text-xs">Accepted abstract</p>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@ export const PressRelease = () => (
             <li>Quantifies documentation burden using clinical variables available in any EHR</li>
             <li>Produces quartile-based staffing recommendations for charge nurse workflow</li>
             <li>Equipment-independent: requires no additional hardware or sensors</li>
-            <li>NIH-funded research through a federal clinical AI training program</li>
+            <li>Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)</li>
           </ul>
         </div>
       </motion.section>
@@ -251,7 +251,7 @@ export const PressRelease = () => (
       <div className="mt-16 pt-6 border-t border-border/30">
         <p className="text-[10px] text-muted-foreground/60 text-center leading-relaxed">
           VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier. 
-          Pre-market research prototype. Not FDA cleared. Not a medical device. All validation metrics are from peer-reviewed manuscripts submitted for publication.
+          Pre-market research prototype. Not FDA cleared. Not a medical device. All validation metrics are from manuscripts submitted for publication.
           © 2025–2026 Dr. Alexis Collier, DHA. All rights reserved.
         </p>
       </div>

@@ -36,7 +36,7 @@ export const ResearchValidationSection = () => (
             <div>
               <CardTitle className="text-base font-bold">ICU Mortality Prediction via Documentation Rhythm</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Manuscripts Under Review · MIMIC-IV + HiRID Databases · NIH-Funded Research
+                Manuscripts Under Review · MIMIC-IV + HiRID Databases · NIH Award No. 1OT2OD032581
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export const ResearchValidationSection = () => (
     <div className="bg-muted/40 rounded-xl p-4 border border-border/30 text-xs text-muted-foreground leading-relaxed">
       <strong className="text-foreground">Methodology:</strong> Retrospective cohort studies of heart failure ICU admissions using MIMIC-IV v2.2 (PhysioNet, MIT) 
       and HiRID (University Hospital Bern, Switzerland). 
-      NIH-funded research (1OT2OD032581). Detailed statistical methods and cohort demographics available under NDA.
+      Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD). Detailed statistical methods and cohort demographics available under NDA.
     </div>
   </div>
 );

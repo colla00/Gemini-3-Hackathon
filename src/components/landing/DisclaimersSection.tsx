@@ -41,7 +41,7 @@ export const DisclaimersSection = () => (
         <div className="p-4 rounded-lg bg-card border border-border/50">
           <p className="font-semibold text-foreground mb-2">Government Rights</p>
           <p>
-            Research supported by NIH federal grants.
+            Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD).
             The U.S. Government retains certain non-commercial use rights under the Bayh-Dole Act.
           </p>
         </div>

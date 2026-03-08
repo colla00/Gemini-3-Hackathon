@@ -343,7 +343,7 @@ function Licensing() {
                   { icon: Shield, text: "Validation datasets summary (N=357,080 patients)" },
                   { icon: Briefcase, text: "Integration specs and API documentation" },
                   { icon: CheckCircle2, text: "Regulatory overview (FDA §520(o)(1)(E) non-device CDS)" },
-                  { icon: GraduationCap, text: "NIH grant context (Award 1OT2OD032581)" },
+                  { icon: GraduationCap, text: "NIH award context (Award No. 1OT2OD032581, AIM-AHEAD)" },
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <item.icon className="w-5 h-5 mt-0.5 shrink-0" style={{ color: "#00c8b4" }} />
