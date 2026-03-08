@@ -152,12 +152,12 @@ function Licensing() {
                     </div>
                     <Badge variant="outline" className="text-[10px]">Enterprise</Badge>
                   </div>
-                  <CardTitle className="text-xl">EHR Integration License</CardTitle>
-                  <CardDescription>For EHR vendors embedding IDI/DBS into their platform</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">Contact for pricing</p>
-                  <p className="text-xs text-muted-foreground mb-6">Enterprise licensing terms</p>
+                   <CardTitle className="text-xl">Enterprise License</CardTitle>
+                   <CardDescription>Multi-hospital deployment with white-label option</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">Custom Pricing</p>
+                   <p className="text-xs text-muted-foreground mb-6">Multi-site · White-label · Dedicated support</p>
                   <Button className="w-full gap-2 mt-auto" asChild>
                     <a href="mailto:info@vitasignal.ai?subject=EHR%20Integration%20License%20Inquiry">
                       <Mail className="w-4 h-4" />
@@ -178,12 +178,12 @@ function Licensing() {
                     </div>
                     <Badge style={{ background: "#00c8b4", color: "#0f1729" }} className="text-[10px] font-bold">Most Popular</Badge>
                   </div>
-                  <CardTitle className="text-xl">Hospital System Pilot</CardTitle>
-                  <CardDescription>6-month supervised pilot for health systems</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">$15,000</p>
-                  <p className="text-xs text-muted-foreground mb-6">One-time pilot fee · 6 months</p>
+                   <CardTitle className="text-xl">Pilot License</CardTitle>
+                   <CardDescription>1 hospital · Full IDI + DBS · 90-day implementation</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">$15,000<span className="text-sm font-normal text-muted-foreground">/yr</span></p>
+                   <p className="text-xs text-muted-foreground mb-6">Single site · Full platform · 90-day onboarding</p>
                   <Button
                     className="w-full gap-2 mt-auto"
                     style={{ background: "#00c8b4", color: "#0f1729" }}
@@ -207,12 +207,12 @@ function Licensing() {
                     </div>
                     <Badge variant="secondary" className="text-[10px]">Academic</Badge>
                   </div>
-                  <CardTitle className="text-xl">Research Collaboration</CardTitle>
-                  <CardDescription>Academic / research institutions</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">MTA/DUA required</p>
-                  <p className="text-xs text-muted-foreground mb-6">Material Transfer / Data Use Agreement</p>
+                   <CardTitle className="text-xl">Research Partner</CardTitle>
+                   <CardDescription>Academic & research institution access</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">Contact for Terms</p>
+                   <p className="text-xs text-muted-foreground mb-6">MTA/DUA required · IRB support available</p>
                   <Button className="w-full gap-2 mt-auto" variant="outline" asChild>
                     <a href="mailto:info@vitasignal.ai?subject=Research%20Collaboration%20Inquiry">
                       <GraduationCap className="w-4 h-4" />
@@ -356,13 +356,14 @@ function Licensing() {
         </div>
       </section>
 
-      {/* Footer Note */}
-      <section className="py-8 px-6 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs text-muted-foreground">
-            VitaSignal™ systems are pre-market. Not FDA-cleared. Not a medical device. Patent-pending (11 U.S. provisional applications filed).
-          </p>
-        </div>
+      {/* Disclaimer */}
+      <section className="py-6 px-6 border-t">
+        <p className="max-w-4xl mx-auto text-center text-xs text-muted-foreground leading-relaxed">
+          Pre-Market · Patent Pending · Not FDA-cleared · Not a Medical Device.
+          VitaSignal™ technology is classified under §520(o)(1)(E) as non-device CDS.
+          11 U.S. provisional patent applications filed. All licensing discussions conducted under mutual NDA.
+          © {new Date().getFullYear()} VitaSignal LLC. All rights reserved.
+        </p>
       </section>
     </SiteLayout>
   );
