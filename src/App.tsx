@@ -47,6 +47,7 @@ const QRCodeDownload = lazy(() => import("./pages/QRCodeDownload"));
 const PressRelease = lazy(() => import("./pages/PressRelease"));
 const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 const AudienceView = lazy(() => import("./pages/AudienceView"));
+const PatentTracker = lazy(() => import("./pages/PatentTracker"));
 
 
 const queryClient = new QueryClient();
@@ -182,6 +183,11 @@ const App = () => {
                   <Route path="/audience" element={
                     <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
                       <AudienceView />
+                    </Suspense>
+                  } />
+                  <Route path="/patents/tracker" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <PatentTracker />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
