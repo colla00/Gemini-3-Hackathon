@@ -125,7 +125,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const safeName = escapeHtml(request.name);
-    const dashboardUrl = "https://clinicaldashboard.lovable.app";
+    const dashboardUrl = "https://vitasignal.ai";
 
     if (action === "approved") {
       // Check if user already exists

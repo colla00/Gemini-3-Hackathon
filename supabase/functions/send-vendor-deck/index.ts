@@ -8,7 +8,7 @@ serve(async (req: Request) => {
   }
 
   const resend = new Resend(resendKey);
-  const deckUrl = "https://clinicaldashboard.lovable.app/vitasignal-investor-deck.pdf";
+  const deckUrl = "https://vitasignal.ai/vitasignal-investor-deck.pdf";
 
   const { data, error } = await resend.emails.send({
     from: "VitaSignal <cs@ezlearning.center>",

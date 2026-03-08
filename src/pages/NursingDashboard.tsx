@@ -147,7 +147,7 @@ const patentGroups: PatentGroup[] = [
     tabs: [
       { value: 'alert-optimization', label: 'Alert Optimization', icon: Shield },
       { value: 'risk-stratification', label: 'Risk Stratification', icon: Layers },
-      { value: 'chartminder', label: 'ChartMinder™', icon: Gauge },
+      { value: 'chartminder', label: 'Alert Engine', icon: Gauge },
     ],
   },
   {

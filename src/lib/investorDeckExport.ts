@@ -187,7 +187,7 @@ export const generateInvestorDeck = () => {
   doc.roundedRect(margin, 400, W - margin * 2, 380, 16, 16, 'F');
   const patents = [
     'Core Platform — IDI Scoring, DBS Scoring, Clinical Risk Intelligence',
-    'ChartMinder™ — Neural Reasoning, Cognitive Load Optimization',
+    'Trust-Based Alerts — Neural Reasoning, Cognitive Load Optimization',
     'Trust-Based Alert System — Adaptive Thresholds, Equity Monitoring',
     'Performance Benchmarking — Cross-Institution Comparison Engine',
     'Digital Twin — Patient Simulation & Forecasting',
