@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
+import { setWithExpiry, getWithExpiry, removeManaged } from '@/lib/storageManager';
 
-const TOUR_COMPLETED_KEY = 'nso-dashboard-tour-completed';
+const TOUR_COMPLETED_KEY = 'nso_guided_tour_completed';
 
 export interface TourStep {
   id: string;
