@@ -178,7 +178,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle approval notification
     if (notificationType === 'approved') {
       const approvalEmailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [data.email],
         subject: "Your Demo Access Has Been Approved! 🎉",
         html: `
