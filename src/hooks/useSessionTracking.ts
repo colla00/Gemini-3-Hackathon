@@ -73,7 +73,7 @@ const saveSession = (session: SessionData) => {
     
     // Keep last 100 sessions for evidence
     const trimmed = sessions.slice(-100);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+    setWithExpiry(STORAGE_KEY, trimmed);
   } catch (e) {
     console.warn('Failed to save session data:', e);
   }
