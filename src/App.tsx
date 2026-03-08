@@ -50,6 +50,7 @@ const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
 const DataRoom = lazy(() => import("./pages/DataRoom"));
 const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
+const Investors = lazy(() => import("./pages/Investors"));
 
 
 const queryClient = new QueryClient();
