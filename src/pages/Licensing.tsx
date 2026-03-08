@@ -178,12 +178,12 @@ function Licensing() {
                     </div>
                     <Badge style={{ background: "#00c8b4", color: "#0f1729" }} className="text-[10px] font-bold">Most Popular</Badge>
                   </div>
-                  <CardTitle className="text-xl">Hospital System Pilot</CardTitle>
-                  <CardDescription>6-month supervised pilot for health systems</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">$15,000</p>
-                  <p className="text-xs text-muted-foreground mb-6">One-time pilot fee · 6 months</p>
+                   <CardTitle className="text-xl">Pilot License</CardTitle>
+                   <CardDescription>1 hospital · Full IDI + DBS · 90-day implementation</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">$15,000<span className="text-sm font-normal text-muted-foreground">/yr</span></p>
+                   <p className="text-xs text-muted-foreground mb-6">Single site · Full platform · 90-day onboarding</p>
                   <Button
                     className="w-full gap-2 mt-auto"
                     style={{ background: "#00c8b4", color: "#0f1729" }}
