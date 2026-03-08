@@ -49,6 +49,7 @@ const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
 const DataRoom = lazy(() => import("./pages/DataRoom"));
+const ProjectHub = lazy(() => import("./pages/ProjectHub"));
 
 
 const queryClient = new QueryClient();
@@ -195,6 +196,13 @@ const App = () => {
                     <ProtectedRoute>
                       <Suspense fallback={<PageSkeleton />}>
                         <DataRoom />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/hub" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <ProjectHub />
                       </Suspense>
                     </ProtectedRoute>
                   } />
