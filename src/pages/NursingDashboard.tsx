@@ -41,6 +41,8 @@ import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
 import { SEDRCommandCenter } from '@/components/dashboard/SEDRCommandCenter';
 import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
+import { ClinicalClock } from '@/components/dashboard/ClinicalClock';
+import { AmbientActivityFeed } from '@/components/dashboard/AmbientActivityFeed';
 import heroBg from '@/assets/hero-bg.jpg';
 
 /* ───────── Animated Counter ───────── */
