@@ -520,6 +520,51 @@ export type Database = {
         }
         Relationships: []
       }
+      patents: {
+        Row: {
+          attorney_assigned: boolean
+          bundle_group: string | null
+          created_at: string
+          description: string | null
+          filing_date: string | null
+          id: string
+          nickname: string
+          notes: string | null
+          np_deadline: string
+          patent_number: string
+          priority_level: string
+          status: string
+        }
+        Insert: {
+          attorney_assigned?: boolean
+          bundle_group?: string | null
+          created_at?: string
+          description?: string | null
+          filing_date?: string | null
+          id?: string
+          nickname: string
+          notes?: string | null
+          np_deadline: string
+          patent_number: string
+          priority_level?: string
+          status?: string
+        }
+        Update: {
+          attorney_assigned?: boolean
+          bundle_group?: string | null
+          created_at?: string
+          description?: string | null
+          filing_date?: string | null
+          id?: string
+          nickname?: string
+          notes?: string | null
+          np_deadline?: string
+          patent_number?: string
+          priority_level?: string
+          status?: string
+        }
+        Relationships: []
+      }
       poll_responses: {
         Row: {
           created_at: string
