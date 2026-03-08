@@ -6,7 +6,7 @@ import {
   Activity, TrendingUp, AlertTriangle, CheckSquare, Heart,
   BarChart3, FileText, DollarSign, Link2, Sparkles, HeartPulse,
   FlaskConical, Shield, Layers, Gauge, Award, ChevronRight, ChevronDown, Menu,
-  CheckCircle2, Clock, Zap
+  CheckCircle2, Clock, Zap, Users, BedDouble
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -41,6 +41,8 @@ import { SEDRDemo } from '@/components/dashboard/SEDRDemo';
 import { SEDRCommandCenter } from '@/components/dashboard/SEDRCommandCenter';
 import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo';
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
+import { ClinicalClock } from '@/components/dashboard/ClinicalClock';
+import { AmbientActivityFeed } from '@/components/dashboard/AmbientActivityFeed';
 import heroBg from '@/assets/hero-bg.jpg';
 
 /* ───────── Animated Counter ───────── */
@@ -325,6 +327,17 @@ const stats = [
   { value: '175+', label: 'Claims', detail: '11 Patent Applications Filed', delay: 800 },
 ];
 
+/* ───────── Census Strip Item ───────── */
+const CensusItem = ({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color?: string }) => (
+  <div className="flex items-center gap-2">
+    {icon}
+    <div className="flex flex-col">
+      <span className={cn('text-xs font-bold tabular-nums', color || 'text-foreground')}>{value}</span>
+      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{label}</span>
+    </div>
+  </div>
+);
+
 export const NursingDashboard = () => {
   const [activeTab, setActiveTab] = useState('icu-mortality');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -395,6 +408,9 @@ export const NursingDashboard = () => {
             <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[9px] md:text-[10px] font-semibold gap-1">
               <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 & #5 VALIDATED
             </Badge>
+            <div className="hidden md:block ml-auto">
+              <ClinicalClock />
+            </div>
           </div>
 
           {/* Stats grid */}
@@ -422,6 +438,29 @@ export const NursingDashboard = () => {
       {/* ──── DISCLAIMER ──── */}
       <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium">
         Development Prototype. Patent #1 (ICU Mortality) and Patent #5 (DBS) are validated. Other components are design phase. Mock data only.
+      </div>
+
+      {/* ──── LIVE CENSUS STRIP ──── */}
+      <div className="hidden md:flex items-center justify-center gap-6 bg-card/60 border-b border-border/30 py-2.5 px-4">
+        <CensusItem icon={<Users className="w-3.5 h-3.5" />} label="Census" value="18" />
+        <div className="w-px h-5 bg-border/30" />
+        <CensusItem icon={<BedDouble className="w-3.5 h-3.5" />} label="Beds Available" value="6/24" />
+        <div className="w-px h-5 bg-border/30" />
+        <CensusItem icon={<AlertTriangle className="w-3.5 h-3.5 text-risk-high" />} label="High Risk" value="5" color="text-risk-high" />
+        <div className="w-px h-5 bg-border/30" />
+        <CensusItem icon={<Activity className="w-3.5 h-3.5 text-risk-medium" />} label="Moderate" value="5" color="text-risk-medium" />
+        <div className="w-px h-5 bg-border/30" />
+        <CensusItem icon={<CheckCircle2 className="w-3.5 h-3.5 text-risk-low" />} label="Low Risk" value="8" color="text-risk-low" />
+        <div className="w-px h-5 bg-border/30" />
+        <CensusItem icon={<Clock className="w-3.5 h-3.5" />} label="Avg LOS" value="4.2d" />
+        <div className="w-px h-5 bg-border/30" />
+        <div className="flex items-center gap-1.5">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-risk-low opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-risk-low" />
+          </span>
+          <span className="text-[10px] font-semibold text-risk-low">EHR Connected</span>
+        </div>
       </div>
 
       {/* ──── MAIN CONTENT ──── */}
@@ -612,6 +651,11 @@ export const NursingDashboard = () => {
                     </div>
                   );
                 })}
+
+                {/* Activity Feed */}
+                <div className="px-3 py-3 border-t border-border/30">
+                  <AmbientActivityFeed />
+                </div>
 
                 {/* Footer */}
                 <div className="px-4 py-3 border-t border-border/30 bg-muted/20">
