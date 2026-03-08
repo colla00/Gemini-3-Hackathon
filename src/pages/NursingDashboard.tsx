@@ -652,6 +652,11 @@ export const NursingDashboard = () => {
                   );
                 })}
 
+                {/* Activity Feed */}
+                <div className="px-3 py-3 border-t border-border/30">
+                  <AmbientActivityFeed />
+                </div>
+
                 {/* Footer */}
                 <div className="px-4 py-3 border-t border-border/30 bg-muted/20">
                   <div className="flex items-center gap-2">
