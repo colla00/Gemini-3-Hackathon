@@ -82,8 +82,8 @@ const HubCompany = () => {
 
       <InfoCard title="IP Clinic Outreach">
         <p>Georgia PATENTS (gapatents.org) — Applied ✅</p>
-        <p>GWU IP Clinic (iptl_uspto_intake@law.gwu.edu) — Emailed ✅</p>
-        <p>Howard IP Clinic (howardpatentipclinic@gmail.com) — Emailed ✅</p>
+        <p>GWU IP Clinic — Emailed ✅</p>
+        <p>Howard IP Clinic — Emailed ✅</p>
         <p>USPTO 2020–2025 Clinic Expansion — Closed (form obsolete)</p>
       </InfoCard>
     </div>

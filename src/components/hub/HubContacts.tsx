@@ -84,7 +84,7 @@ const HubContacts = () => (
 Founder & CEO, VitaSignal LLC
 NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine
 Adjunct Faculty, University of North Georgia
-alexis.collier@ung.edu | info@vitasignal.ai | vitasignal.ai
+info@vitasignal.ai | vitasignal.ai
 USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet

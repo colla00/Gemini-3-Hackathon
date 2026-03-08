@@ -58,7 +58,7 @@ const HubDashboard = () => (
           ['Savings/patient', '$2,847'],
           ['ROI', '1,240%'],
           ['Payback period', '7.5 months'],
-          ['Author email', 'alexis.collier@ung.edu'],
+          ['Author email', 'info@vitasignal.ai'],
           ['Licensing', 'info@vitasignal.ai'],
           ['NIH Award', '1OT2OD032581'],
         ].map(([k, v]) => (

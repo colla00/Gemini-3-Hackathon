@@ -210,7 +210,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Patent System <cs@ezlearning.center>",
+        from: "VitaSignal Patents <info@vitasignal.ai>",
         to: [PATENT_ATTORNEY_EMAIL],
         subject,
         html: emailHtml,

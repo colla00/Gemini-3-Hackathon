@@ -287,7 +287,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin notification sent:", adminEmailResponse);
 
     const confirmationResponse = await resend.emails.send({
-      from: "VitaSignal <cs@ezlearning.center>",
+      from: "VitaSignal <info@vitasignal.ai>",
       to: [data.email],
       subject: "Your Demo Access Request Has Been Received",
       html: `
