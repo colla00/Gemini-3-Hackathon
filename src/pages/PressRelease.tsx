@@ -251,7 +251,7 @@ export const PressRelease = () => (
       <div className="mt-16 pt-6 border-t border-border/30">
         <p className="text-[10px] text-muted-foreground/60 text-center leading-relaxed">
           VitaSignal™, ChartMinder™, and Documentation Burden Score™ are trademarks of Dr. Alexis M. Collier. 
-          Pre-market research prototype. Not FDA cleared. Not a medical device. All validation metrics are from peer-reviewed manuscripts submitted for publication.
+          Pre-market research prototype. Not FDA cleared. Not a medical device. All validation metrics are from manuscripts submitted for publication.
           © 2025–2026 Dr. Alexis Collier, DHA. All rights reserved.
         </p>
       </div>
