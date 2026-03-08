@@ -85,15 +85,14 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
       setConnectionStatus('connecting');
       pollInterval = setInterval(() => {
         try {
-          const stored = localStorage.getItem(STORAGE_KEY);
+          const stored = getWithExpiry<SyncState>(STORAGE_KEY);
           if (stored) {
-            const parsed = JSON.parse(stored);
             // Only update if timestamp is newer
             setSyncState(prev => {
-              if (parsed.timestamp > prev.timestamp) {
-                console.log('[AudienceSync] Poll detected update:', parsed.currentSlide);
+              if (stored.timestamp > prev.timestamp) {
+                console.log('[AudienceSync] Poll detected update:', stored.currentSlide);
                 setConnectionStatus('connected');
-                return parsed;
+                return stored;
               }
               return prev;
             });
