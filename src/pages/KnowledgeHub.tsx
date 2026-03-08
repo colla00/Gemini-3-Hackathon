@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap } from 'lucide-react';
+import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap, BarChart3 } from 'lucide-react';
 import HubDashboard from '@/components/hub/HubDashboard';
 import HubPatents from '@/components/hub/HubPatents';
 import HubManuscripts from '@/components/hub/HubManuscripts';
