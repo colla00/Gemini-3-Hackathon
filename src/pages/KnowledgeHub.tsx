@@ -22,6 +22,7 @@ const SECTIONS = [
   { id: 'qa', label: 'Q&A Prep', icon: HelpCircle },
   { id: 'contacts', label: 'Contacts', icon: Contact },
   { id: 'kanban', label: 'Project Tracker', icon: KanbanSquare },
+  { id: 'scripts', label: 'Practice Scripts', icon: Mic },
 ] as const;
 
 type SectionId = typeof SECTIONS[number]['id'];
