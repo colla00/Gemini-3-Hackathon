@@ -107,6 +107,7 @@ const KnowledgeHub = () => {
       case 'kanban': return <HubKanban />;
       case 'scripts': return <HubScripts />;
       case 'ipclinic': return <HubIPClinic />;
+      case 'analytics': return <HubAnalytics />;
     }
   };
 
