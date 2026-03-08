@@ -49,7 +49,7 @@ const loadSettings = (): SettingsState => {
 
 const saveSettings = (settings: SettingsState): void => {
   try {
-    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+    setWithExpiry(SETTINGS_STORAGE_KEY, settings);
   } catch (e) {
     console.warn('Failed to save settings to localStorage');
   }

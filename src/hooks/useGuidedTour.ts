@@ -153,7 +153,7 @@ export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
   }, []);
 
   const resetTourHistory = useCallback(() => {
-    localStorage.removeItem(TOUR_COMPLETED_KEY);
+    removeManaged(TOUR_COMPLETED_KEY);
     setHasSeenTour(false);
   }, []);
 

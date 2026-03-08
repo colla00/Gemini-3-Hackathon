@@ -137,7 +137,7 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
     
     // Also update localStorage for fallback
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+      setWithExpiry(STORAGE_KEY, newState);
     } catch (e) {
       console.warn('[PresenterSync] localStorage save failed:', e);
     }

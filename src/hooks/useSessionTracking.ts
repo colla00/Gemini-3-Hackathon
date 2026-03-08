@@ -124,7 +124,7 @@ export const useSessionTracking = () => {
         const ipInfo = await fetchIPAddress();
         
         // Get stored email if exists
-        const storedEmail = localStorage.getItem('demo_auth_email');
+        const storedEmail = getWithExpiry<string>('demo_auth_email');
         
         const newSession: SessionData = {
           sessionId: generateSessionId(),

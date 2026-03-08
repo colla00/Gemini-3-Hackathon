@@ -70,8 +70,8 @@ export const CookieConsent = () => {
   };
 
   const handleSavePreferences = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'custom');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(preferences));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'custom');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, preferences);
     setShowBanner(false);
     setShowSettings(false);
   };
