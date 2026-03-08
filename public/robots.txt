@@ -11,6 +11,13 @@ User-agent: facebookexternalhit
 Allow: /
 
 User-agent: *
+Disallow: /admin
+Disallow: /patent-attestations
+Disallow: /investor-deck
+Disallow: /audience
+Disallow: /dataroom
+Disallow: /hub
+Disallow: /patents/tracker
 Allow: /
 
-Sitemap: https://clinicaldashboard.lovable.app/sitemap.xml
+Sitemap: https://vitasignal.ai/sitemap.xml

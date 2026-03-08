@@ -2,7 +2,7 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 
-const TARGET_URL = 'https://clinicaldashboard.lovable.app/ania2026';
+const TARGET_URL = 'https://vitasignal.ai/ania2026';
 
 const QRCodeDownload = () => {
   const handleDownload = () => {

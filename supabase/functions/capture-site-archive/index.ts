@@ -6,11 +6,11 @@ const corsHeaders = {
 };
 
 const PAGES_TO_ARCHIVE = [
-  { url: 'https://clinicaldashboard.lovable.app/', label: 'Landing Page' },
-  { url: 'https://clinicaldashboard.lovable.app/about', label: 'About' },
-  { url: 'https://clinicaldashboard.lovable.app/patents', label: 'Patents' },
-  { url: 'https://clinicaldashboard.lovable.app/licensing', label: 'Licensing' },
-  { url: 'https://clinicaldashboard.lovable.app/contact', label: 'Contact' },
+  { url: 'https://vitasignal.ai/', label: 'Landing Page' },
+  { url: 'https://vitasignal.ai/about', label: 'About' },
+  { url: 'https://vitasignal.ai/patents', label: 'Patents' },
+  { url: 'https://vitasignal.ai/licensing', label: 'Licensing' },
+  { url: 'https://vitasignal.ai/contact', label: 'Contact' },
 ];
 
 const BRAND_NAMES = ['VitaSignal', 'ChartMinder', 'Documentation Burden Score'];

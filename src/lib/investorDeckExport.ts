@@ -84,7 +84,7 @@ export const generateInvestorDeck = () => {
   const pillars = [
     { title: 'IDI Score', desc: 'Intervention Delay Index — predicts mortality\nfrom nursing documentation timestamps', metric: '65,157 patients' },
     { title: 'DBS Score', desc: 'Documentation Burden Score — quantifies\nnurse documentation workload', metric: '28,362 patients' },
-    { title: 'ChartMinder™', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
+    { title: 'Trust-Based Alerts', desc: 'AI copilot for clinical decision support\nwith cognitive load optimization', metric: '90 min/shift saved' },
   ];
   pillars.forEach((p, i) => {
     const x = margin + i * 560;
@@ -187,7 +187,7 @@ export const generateInvestorDeck = () => {
   doc.roundedRect(margin, 400, W - margin * 2, 380, 16, 16, 'F');
   const patents = [
     'Core Platform — IDI Scoring, DBS Scoring, Clinical Risk Intelligence',
-    'ChartMinder™ — Neural Reasoning, Cognitive Load Optimization',
+    'Trust-Based Alerts — Neural Reasoning, Cognitive Load Optimization',
     'Trust-Based Alert System — Adaptive Thresholds, Equity Monitoring',
     'Performance Benchmarking — Cross-Institution Comparison Engine',
     'Digital Twin — Patient Simulation & Forecasting',

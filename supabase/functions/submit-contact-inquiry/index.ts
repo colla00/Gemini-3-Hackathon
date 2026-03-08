@@ -160,7 +160,7 @@ serve(async (req: Request) => {
       // Send auto-reply with investor deck for licensing inquiries
       if (body.inquiry_type === "licensing") {
         try {
-          const siteUrl = "https://clinicaldashboard.lovable.app";
+          const siteUrl = "https://vitasignal.ai";
           await resend.emails.send({
             from: "VitaSignal <cs@ezlearning.center>",
             to: [body.email.trim()],

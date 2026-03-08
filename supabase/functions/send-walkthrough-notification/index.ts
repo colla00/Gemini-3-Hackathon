@@ -173,7 +173,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeReason = escapeHtml(data.reason);
 
     const adminEmail = "info@vitasignal.ai";
-    const dashboardUrl = "https://clinicaldashboard.lovable.app";
+    const dashboardUrl = "https://vitasignal.ai";
 
     // Handle approval notification
     if (notificationType === 'approved') {
