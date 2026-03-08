@@ -191,6 +191,13 @@ const App = () => {
                       <PatentTracker />
                     </Suspense>
                   } />
+                  <Route path="/dataroom" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <DataRoom />
+                      </Suspense>
+                    </ProtectedRoute>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
