@@ -10,6 +10,7 @@ import HubContacts from '@/components/hub/HubContacts';
 import HubKanban from '@/components/hub/HubKanban';
 import HubScripts from '@/components/hub/HubScripts';
 import HubIPClinic from '@/components/hub/HubIPClinic';
+import HubAnalytics from '@/components/hub/HubAnalytics';
 
 const HUB_PASSWORD = 'VitaSignal2026!';
 const HUB_AUTH_KEY = 'vitasignal_hub_auth';
