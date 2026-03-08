@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Activity, Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
+import { SkipLink } from "@/components/SkipLink";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -41,6 +42,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SkipLink />
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
@@ -208,7 +210,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       </header>
 
       {/* Content */}
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1">{children}</main>
 
       <ScrollToTopButton />
 
@@ -251,7 +253,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Company</p>
               <div className="space-y-2">
                 <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">About</Link>
-                
+                <Link to="/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Investors</Link>
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
               </div>
