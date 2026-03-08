@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X } from 'lucide-react';
+import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare } from 'lucide-react';
 import HubDashboard from '@/components/hub/HubDashboard';
 import HubPatents from '@/components/hub/HubPatents';
 import HubManuscripts from '@/components/hub/HubManuscripts';
@@ -7,6 +7,7 @@ import HubCompany from '@/components/hub/HubCompany';
 import HubPresentations from '@/components/hub/HubPresentations';
 import HubQA from '@/components/hub/HubQA';
 import HubContacts from '@/components/hub/HubContacts';
+import HubKanban from '@/components/hub/HubKanban';
 
 const HUB_PASSWORD = 'VitaSignal2026!';
 const HUB_AUTH_KEY = 'vitasignal_hub_auth';
