@@ -64,8 +64,8 @@ export const CookieConsent = () => {
       functional: false,
     };
     setPreferences(essentialOnly);
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(essentialOnly));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'rejected');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, essentialOnly);
     setShowBanner(false);
   };
 
