@@ -152,12 +152,12 @@ function Licensing() {
                     </div>
                     <Badge variant="outline" className="text-[10px]">Enterprise</Badge>
                   </div>
-                  <CardTitle className="text-xl">EHR Integration License</CardTitle>
-                  <CardDescription>For EHR vendors embedding IDI/DBS into their platform</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-2xl font-bold text-foreground mb-1">Contact for pricing</p>
-                  <p className="text-xs text-muted-foreground mb-6">Enterprise licensing terms</p>
+                   <CardTitle className="text-xl">Enterprise License</CardTitle>
+                   <CardDescription>Multi-hospital deployment with white-label option</CardDescription>
+                 </CardHeader>
+                 <CardContent className="flex-1 flex flex-col">
+                   <p className="text-2xl font-bold text-foreground mb-1">Custom Pricing</p>
+                   <p className="text-xs text-muted-foreground mb-6">Multi-site · White-label · Dedicated support</p>
                   <Button className="w-full gap-2 mt-auto" asChild>
                     <a href="mailto:info@vitasignal.ai?subject=EHR%20Integration%20License%20Inquiry">
                       <Mail className="w-4 h-4" />
