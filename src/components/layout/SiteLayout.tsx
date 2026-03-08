@@ -169,20 +169,28 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               ))}
               <div className="pt-2 mt-1 border-t border-border/30">
                 {user ? (
-                  <div className="space-y-2">
-                    {user.email === ADMIN_EMAIL && (
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pt-1">Internal Tools</p>
+                    {[
+                      { to: '/hub', label: 'Project Hub' },
+                      { to: '/dataroom', label: 'Data Room' },
+                      { to: '/patents/tracker', label: 'Patent Tracker' },
+                      { to: '/licensing', label: 'Licensing Portal' },
+                      ...(user.email === ADMIN_EMAIL ? [{ to: '/investor-deck', label: 'Investor Deck' }] : []),
+                    ].map((link) => (
                       <Link
-                        to="/investor-deck"
+                        key={link.to}
+                        to={link.to}
                         onClick={() => setMobileOpen(false)}
                         className={`block text-sm py-2.5 px-3 rounded-lg transition-colors ${
-                          location.pathname === "/investor-deck"
+                          location.pathname === link.to
                             ? "text-primary font-medium bg-primary/10"
                             : "text-muted-foreground hover:text-primary hover:bg-muted"
                         }`}
                       >
-                        Investor Deck
+                        {link.label}
                       </Link>
-                    )}
+                    ))}
                     <Button variant="outline" size="sm" className="w-full gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
                       <LogOut className="w-4 h-4" />
                       Sign Out
