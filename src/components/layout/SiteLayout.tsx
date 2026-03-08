@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Activity, Menu, X, Linkedin, LogOut } from "lucide-react";
+import { Activity, Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
