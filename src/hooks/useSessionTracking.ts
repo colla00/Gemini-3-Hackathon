@@ -53,8 +53,8 @@ const generateSessionId = (): string => {
 
 const getStoredSessions = (): SessionData[] => {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    const stored = getWithExpiry<SessionData[]>(STORAGE_KEY);
+    return stored || [];
   } catch {
     return [];
   }
