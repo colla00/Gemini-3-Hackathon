@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 export interface SettingsState {
   theme: 'dark' | 'light' | 'system';
