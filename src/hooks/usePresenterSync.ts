@@ -64,12 +64,14 @@ export const usePresenterSync = (isPresenter: boolean = true) => {
 
     // Also listen to localStorage for fallback (works across tabs)
     const handleStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY && !isPresenter && e.newValue) {
+      if ((e.key === STORAGE_KEY || e.key === `__sm_${STORAGE_KEY}`) && !isPresenter && e.newValue) {
         try {
-          const parsed = JSON.parse(e.newValue);
-          console.log('[AudienceSync] Received localStorage update:', parsed.currentSlide);
-          setSyncState(parsed);
-          setConnectionStatus('connected');
+          const fresh = getWithExpiry<SyncState>(STORAGE_KEY);
+          if (fresh) {
+            console.log('[AudienceSync] Received localStorage update:', fresh.currentSlide);
+            setSyncState(fresh);
+            setConnectionStatus('connected');
+          }
         } catch (err) {
           console.warn('[AudienceSync] Failed to parse storage event:', err);
         }
