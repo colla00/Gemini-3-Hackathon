@@ -219,7 +219,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Handle denial notification
     if (notificationType === 'denied') {
       const denialEmailResponse = await resend.emails.send({
-        from: "VitaSignal <cs@ezlearning.center>",
+        from: "VitaSignal <info@vitasignal.ai>",
         to: [data.email],
         subject: "Update on Your Demo Access Request",
         html: `
