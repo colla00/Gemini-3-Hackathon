@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://clinicaldashboard.lovable.app/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/about</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/dashboard</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/patents</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/licensing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/contact</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/press</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/publications</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://clinicaldashboard.lovable.app/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/about</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/dashboard</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/patents</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/licensing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/contact</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/press</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
 </urlset>
