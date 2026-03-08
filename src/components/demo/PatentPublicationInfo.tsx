@@ -6,7 +6,7 @@ const infoRows = [
   { label: 'Patent #1', value: 'U.S. Provisional Patent Application Filed (2026)' },
   { label: 'Manuscript', value: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study' },
   { label: 'Status', value: 'Manuscripts under review' },
-  { label: 'Funding', value: 'NIH-funded research' },
+  { label: 'Funding', value: 'Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)' },
   { label: 'Inventor', value: 'Dr. Alexis Collier, DHA. University of North Georgia' },
 ];
 
