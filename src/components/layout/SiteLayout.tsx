@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Activity, Menu, X, Linkedin, LogOut } from "lucide-react";
+import { Activity, Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -89,24 +90,50 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <ThemeToggle />
               {user ? (
                 <>
-                  {user.email === ADMIN_EMAIL && (
-                    <Link
-                      to="/investor-deck"
-                      className={`text-sm transition-colors ${
-                        location.pathname === "/investor-deck"
-                          ? "text-primary font-medium"
-                          : "text-muted-foreground hover:text-primary"
-                      }`}
-                    >
-                      Investor Deck
-                    </Link>
-                  )}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="gap-1.5">
+                        <LayoutGrid className="w-3.5 h-3.5" />
+                        Tools
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuLabel className="text-xs text-muted-foreground">Internal Tools</DropdownMenuLabel>
+                      <DropdownMenuItem asChild>
+                        <Link to="/hub" className="gap-2 cursor-pointer">
+                          <Target className="w-3.5 h-3.5" /> Project Hub
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/dataroom" className="gap-2 cursor-pointer">
+                          <FolderLock className="w-3.5 h-3.5" /> Data Room
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/patents/tracker" className="gap-2 cursor-pointer">
+                          <Activity className="w-3.5 h-3.5" /> Patent Tracker
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      {user.email === ADMIN_EMAIL && (
+                        <DropdownMenuItem asChild>
+                          <Link to="/investor-deck" className="gap-2 cursor-pointer">
+                            <Presentation className="w-3.5 h-3.5" /> Investor Deck
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem asChild>
+                        <Link to="/licensing" className="gap-2 cursor-pointer">
+                          <LayoutGrid className="w-3.5 h-3.5" /> Licensing Portal
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                   <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
                     <LogOut className="w-4 h-4" />
                     Sign Out
                   </Button>
                 </>
-              
               ) : (
                 <Button variant="outline" size="sm" asChild>
                   <Link to="/contact">Contact</Link>
@@ -142,20 +169,28 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               ))}
               <div className="pt-2 mt-1 border-t border-border/30">
                 {user ? (
-                  <div className="space-y-2">
-                    {user.email === ADMIN_EMAIL && (
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pt-1">Internal Tools</p>
+                    {[
+                      { to: '/hub', label: 'Project Hub' },
+                      { to: '/dataroom', label: 'Data Room' },
+                      { to: '/patents/tracker', label: 'Patent Tracker' },
+                      { to: '/licensing', label: 'Licensing Portal' },
+                      ...(user.email === ADMIN_EMAIL ? [{ to: '/investor-deck', label: 'Investor Deck' }] : []),
+                    ].map((link) => (
                       <Link
-                        to="/investor-deck"
+                        key={link.to}
+                        to={link.to}
                         onClick={() => setMobileOpen(false)}
                         className={`block text-sm py-2.5 px-3 rounded-lg transition-colors ${
-                          location.pathname === "/investor-deck"
+                          location.pathname === link.to
                             ? "text-primary font-medium bg-primary/10"
                             : "text-muted-foreground hover:text-primary hover:bg-muted"
                         }`}
                       >
-                        Investor Deck
+                        {link.label}
                       </Link>
-                    )}
+                    ))}
                     <Button variant="outline" size="sm" className="w-full gap-1.5" onClick={() => { setMobileOpen(false); handleSignOut(); }}>
                       <LogOut className="w-4 h-4" />
                       Sign Out
