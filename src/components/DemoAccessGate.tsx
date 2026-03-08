@@ -119,6 +119,7 @@ const DemoAccessGate = ({ children }: DemoAccessGateProps) => {
             <Button variant="outline" className="w-full" asChild>
               <Link to="/">Return to Home</Link>
             </Button>
+            <p className="text-xs text-muted-foreground">Pre-Market · Patent Pending · Not a Medical Device</p>
           </CardFooter>
         </Card>
       </div>

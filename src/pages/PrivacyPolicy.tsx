@@ -36,8 +36,8 @@ export const PrivacyPolicy = () => {
             <div>
               <h2 className="text-lg font-semibold text-foreground">4. Third-Party Services</h2>
               <p>
-                We may use Lovable Cloud for form data storage. Data is stored securely and not shared
-                with third parties.
+                We may use Supabase for form data storage. Data is stored securely and not shared with
+                third parties.
               </p>
             </div>
 
