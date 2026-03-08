@@ -36,7 +36,7 @@ export const ResearchValidationSection = () => (
             <div>
               <CardTitle className="text-base font-bold">ICU Mortality Prediction via Documentation Rhythm</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Manuscripts Under Review · MIMIC-IV + HiRID Databases · NIH-Funded Research
+                Manuscripts Under Review · MIMIC-IV + HiRID Databases · NIH Award No. 1OT2OD032581
               </p>
             </div>
           </div>
