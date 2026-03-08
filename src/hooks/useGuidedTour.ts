@@ -100,7 +100,7 @@ export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
 
   // Check localStorage on mount for first-time visitor detection
   useEffect(() => {
-    const tourCompleted = localStorage.getItem(TOUR_COMPLETED_KEY);
+    const tourCompleted = getWithExpiry<string>(TOUR_COMPLETED_KEY);
     const seen = tourCompleted === 'true';
     setHasSeenTour(seen);
     
