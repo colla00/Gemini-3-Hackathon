@@ -48,6 +48,7 @@ const PressRelease = lazy(() => import("./pages/PressRelease"));
 const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
+const DataRoom = lazy(() => import("./pages/DataRoom"));
 
 
 const queryClient = new QueryClient();
@@ -189,6 +190,13 @@ const App = () => {
                     <Suspense fallback={<PageSkeleton />}>
                       <PatentTracker />
                     </Suspense>
+                  } />
+                  <Route path="/dataroom" element={
+                    <ProtectedRoute>
+                      <Suspense fallback={<PageSkeleton />}>
+                        <DataRoom />
+                      </Suspense>
+                    </ProtectedRoute>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />

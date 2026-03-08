@@ -215,6 +215,89 @@ export type Database = {
         }
         Relationships: []
       }
+      dataroom_access_logs: {
+        Row: {
+          action: string
+          created_at: string
+          document_id: string
+          id: string
+          ip_address: string | null
+          user_email: string | null
+          user_id: string
+        }
+        Insert: {
+          action?: string
+          created_at?: string
+          document_id: string
+          id?: string
+          ip_address?: string | null
+          user_email?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          document_id?: string
+          id?: string
+          ip_address?: string | null
+          user_email?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dataroom_access_logs_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "dataroom_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dataroom_documents: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          file_name: string | null
+          file_path: string | null
+          file_size: number | null
+          id: string
+          is_confidential: boolean
+          sort_order: number
+          title: string
+          uploaded_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_confidential?: boolean
+          sort_order?: number
+          title: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_confidential?: boolean
+          sort_order?: number
+          title?: string
+          uploaded_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       encryption_keys: {
         Row: {
           created_at: string
