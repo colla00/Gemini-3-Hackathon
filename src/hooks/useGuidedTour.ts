@@ -148,7 +148,7 @@ export const useGuidedTour = (autoStartForNewVisitors: boolean = true) => {
     setCurrentStepIndex(0);
     setTargetRect(null);
     // Mark tour as completed in localStorage
-    localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+    setWithExpiry(TOUR_COMPLETED_KEY, 'true');
     setHasSeenTour(true);
   }, []);
 
