@@ -244,7 +244,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Default: Handle new request notification
     const adminEmailResponse = await resend.emails.send({
-      from: "VitaSignal <cs@ezlearning.center>",
+      from: "VitaSignal <info@vitasignal.ai>",
       to: [adminEmail],
       subject: `New Demo Access Request from ${safeName}`,
       html: `
