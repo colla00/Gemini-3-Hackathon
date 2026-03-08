@@ -15,6 +15,9 @@ import AdminRoute from "@/components/AdminRoute";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
+import { usePageViewTracker } from "@/hooks/usePageViewTracker";
+
+function PageViewTracker() { usePageViewTracker(); return null; }
 import { 
   DashboardSkeleton, 
   PageSkeleton, 
@@ -50,6 +53,7 @@ const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
 const DataRoom = lazy(() => import("./pages/DataRoom"));
 const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
+const Investors = lazy(() => import("./pages/Investors"));
 
 
 const queryClient = new QueryClient();
@@ -91,6 +95,7 @@ const App = () => {
               
               <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <CookieConsent />
+                <PageViewTracker />
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/auth" element={<Auth />} />
@@ -202,6 +207,11 @@ const App = () => {
                   <Route path="/hub" element={
                     <Suspense fallback={<PageSkeleton />}>
                       <KnowledgeHub />
+                    </Suspense>
+                  } />
+                  <Route path="/investors" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Investors />
                     </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
