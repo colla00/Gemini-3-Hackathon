@@ -137,7 +137,7 @@ serve(async (req: Request) => {
 
       try {
         await resend.emails.send({
-          from: "VitaSignal <cs@ezlearning.center>",
+          from: "VitaSignal <info@vitasignal.ai>",
           to: ["info@vitasignal.ai"],
           reply_to: body.email.trim(),
           subject: `[${typeLabels[body.inquiry_type]}] ${body.name.trim()}`,
