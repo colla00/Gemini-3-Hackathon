@@ -158,6 +158,13 @@ export const ICUMortalityPrediction = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-risk-low/10 border border-risk-low/30">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-risk-low opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-risk-low" />
+              </span>
+              <span className="text-[10px] font-semibold text-risk-low">LIVE</span>
+            </div>
             <Badge variant="outline" className="bg-chart-4/10 border-chart-4/30 text-chart-4 text-[10px]">
               99 Claims
             </Badge>
