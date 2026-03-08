@@ -140,7 +140,7 @@ const patentGroups: PatentGroup[] = [
   {
     id: 'patent-2',
     patent: 'Patent #2',
-    title: 'ChartMinder™ Alert Governance',
+    title: 'Trust-Based Alert Governance',
     validated: false,
     color: 'text-risk-low',
     activeBg: 'bg-risk-low',
