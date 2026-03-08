@@ -49,7 +49,7 @@ const InvestorDeck = lazy(() => import("./pages/InvestorDeck"));
 const AudienceView = lazy(() => import("./pages/AudienceView"));
 const PatentTracker = lazy(() => import("./pages/PatentTracker"));
 const DataRoom = lazy(() => import("./pages/DataRoom"));
-const ProjectHub = lazy(() => import("./pages/ProjectHub"));
+const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
 
 
 const queryClient = new QueryClient();
@@ -200,11 +200,9 @@ const App = () => {
                     </ProtectedRoute>
                   } />
                   <Route path="/hub" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageSkeleton />}>
-                        <ProjectHub />
-                      </Suspense>
-                    </ProtectedRoute>
+                    <Suspense fallback={<PageSkeleton />}>
+                      <KnowledgeHub />
+                    </Suspense>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
