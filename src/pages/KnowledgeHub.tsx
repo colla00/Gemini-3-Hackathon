@@ -8,6 +8,7 @@ import HubPresentations from '@/components/hub/HubPresentations';
 import HubQA from '@/components/hub/HubQA';
 import HubContacts from '@/components/hub/HubContacts';
 import HubKanban from '@/components/hub/HubKanban';
+import HubScripts from '@/components/hub/HubScripts';
 
 const HUB_PASSWORD = 'VitaSignal2026!';
 const HUB_AUTH_KEY = 'vitasignal_hub_auth';
