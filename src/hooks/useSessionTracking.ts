@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, createContext, useContext } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 export interface SessionEvent {
   timestamp: string;
