@@ -90,24 +90,50 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <ThemeToggle />
               {user ? (
                 <>
-                  {user.email === ADMIN_EMAIL && (
-                    <Link
-                      to="/investor-deck"
-                      className={`text-sm transition-colors ${
-                        location.pathname === "/investor-deck"
-                          ? "text-primary font-medium"
-                          : "text-muted-foreground hover:text-primary"
-                      }`}
-                    >
-                      Investor Deck
-                    </Link>
-                  )}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="gap-1.5">
+                        <LayoutGrid className="w-3.5 h-3.5" />
+                        Tools
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuLabel className="text-xs text-muted-foreground">Internal Tools</DropdownMenuLabel>
+                      <DropdownMenuItem asChild>
+                        <Link to="/hub" className="gap-2 cursor-pointer">
+                          <Target className="w-3.5 h-3.5" /> Project Hub
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/dataroom" className="gap-2 cursor-pointer">
+                          <FolderLock className="w-3.5 h-3.5" /> Data Room
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/patents/tracker" className="gap-2 cursor-pointer">
+                          <Activity className="w-3.5 h-3.5" /> Patent Tracker
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      {user.email === ADMIN_EMAIL && (
+                        <DropdownMenuItem asChild>
+                          <Link to="/investor-deck" className="gap-2 cursor-pointer">
+                            <Presentation className="w-3.5 h-3.5" /> Investor Deck
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem asChild>
+                        <Link to="/licensing" className="gap-2 cursor-pointer">
+                          <LayoutGrid className="w-3.5 h-3.5" /> Licensing Portal
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                   <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1.5">
                     <LogOut className="w-4 h-4" />
                     Sign Out
                   </Button>
                 </>
-              
               ) : (
                 <Button variant="outline" size="sm" asChild>
                   <Link to="/contact">Contact</Link>
