@@ -79,7 +79,7 @@ export const PressRelease = () => (
                 <FileText className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <div>
                   <p className="font-medium text-foreground">Abstract #185</p>
-                  <p className="text-muted-foreground text-xs">Peer-reviewed acceptance</p>
+                  <p className="text-muted-foreground text-xs">Accepted abstract</p>
                 </div>
               </div>
             </div>
