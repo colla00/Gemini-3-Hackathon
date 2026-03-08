@@ -69,7 +69,7 @@ export const PrivacyPolicy = () => {
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-4 leading-[1.05]">
             Privacy <span className="text-primary">Policy</span>
           </h1>
-          <p className="text-sm opacity-60">Last Updated: February 2026</p>
+          <p className="text-sm opacity-60">Effective: March 1, 2026</p>
           <Button
             variant="ghost"
             size="sm"
