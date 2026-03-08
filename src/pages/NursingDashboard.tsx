@@ -327,6 +327,17 @@ const stats = [
   { value: '175+', label: 'Claims', detail: '11 Patent Applications Filed', delay: 800 },
 ];
 
+/* ───────── Census Strip Item ───────── */
+const CensusItem = ({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color?: string }) => (
+  <div className="flex items-center gap-2">
+    {icon}
+    <div className="flex flex-col">
+      <span className={cn('text-xs font-bold tabular-nums', color || 'text-foreground')}>{value}</span>
+      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{label}</span>
+    </div>
+  </div>
+);
+
 export const NursingDashboard = () => {
   const [activeTab, setActiveTab] = useState('icu-mortality');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
