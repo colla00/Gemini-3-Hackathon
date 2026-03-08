@@ -205,6 +205,11 @@ const App = () => {
                       <KnowledgeHub />
                     </Suspense>
                   } />
+                  <Route path="/investors" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Investors />
+                    </Suspense>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
