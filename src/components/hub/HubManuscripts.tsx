@@ -57,7 +57,7 @@ const HubManuscripts = () => (
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T> heart failure ICU admissions, 2008–2019)</p>
         <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (+0.025, p&lt;0.05) · 12-year temporal validation</p>
         <p><strong>Preprint:</strong> DOI <T>10.64898/2026.02.10.26345827v2</T> · medRxiv</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · alexis.collier@ung.edu</p>
+        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
         <p><strong>COI:</strong> USPTO 63/976,293 · NIH 1OT2OD032581 · Bayh-Dole · VitaSignal LLC</p>
         <p><strong>Data:</strong> MIMIC-IV v2.2 — physionet.org/content/mimiciv/2.2/</p>
         <p><strong>IRB:</strong> Protocol #2025-IRB-0142 (exemption determination)</p>
