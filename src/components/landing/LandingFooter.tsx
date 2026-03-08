@@ -14,7 +14,7 @@ export const LandingFooter = () => (
             © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            NIH Research Fellow | NIH-Funded AI Researcher
+            NIH AIM-AHEAD CLINAQ Fellow | Health Informaticist & AI Researcher
           </p>
           <p className="text-xs text-primary font-medium mt-1">
             11 U.S. Provisional Patent Applications Filed
