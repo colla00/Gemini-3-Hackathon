@@ -253,7 +253,7 @@ export const SiteArchivePanel = () => {
           </div>
         </div>
         <CardDescription>
-          Periodic snapshots of clinicaldashboard.lovable.app with SHA-256 content hashes for trademark first-use evidence.
+          Periodic snapshots of vitasignal.ai with SHA-256 content hashes for trademark first-use evidence.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
