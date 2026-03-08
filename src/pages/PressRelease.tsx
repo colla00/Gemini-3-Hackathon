@@ -116,7 +116,7 @@ export const PressRelease = () => (
             <li>Quantifies documentation burden using clinical variables available in any EHR</li>
             <li>Produces quartile-based staffing recommendations for charge nurse workflow</li>
             <li>Equipment-independent: requires no additional hardware or sensors</li>
-            <li>NIH-funded research through a federal clinical AI training program</li>
+            <li>Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)</li>
           </ul>
         </div>
       </motion.section>

@@ -35,7 +35,7 @@ const DEFAULT_NOTES: Record<number, string> = {
   13: `Financial Impact\n• $2,847 savings per patient (reduced LOS, fewer adverse events).\n• 1,240% projected ROI for a 500-bed hospital.\n• 90 minutes saved per nursing shift from reduced documentation burden.`,
   14: `Intellectual Property\n• 11 U.S. provisional patent applications filed February 28, 2026.\n• Covers: IDI, DBS, Trust-Based Alerts, Equity Monitoring, Digital Twins.\n• Strong defensible moat — temporal documentation analysis is novel.`,
   15: `Regulatory Strategy\n• FDA: pursuing De Novo pathway for clinical decision support.\n• ISO 14971 risk management framework documented.\n• HIPAA-compliant architecture — all data de-identified for research.`,
-  16: `Research Validation\n• Multi-database validation: MIMIC-IV, eICU, HiRID.\n• 357K+ total patients across 208+ hospitals.\n• Peer review in progress at top-tier journals.`,
+  16: `Research Validation\n• Multi-database validation: MIMIC-IV, eICU, HiRID.\n• 357K+ total patients across 208+ hospitals.\n• Manuscripts under review at target journals.`,
   17: `NIH Funding & Recognition\n• NIH AIM-AHEAD CLINAQ Fellow — Award No. 1OT2OD032581.\n• ANIA 2026 conference presentation (Boston, March 26-28).\n• Stanford AI+Health Symposium (December 2025).`,
   18: `Equity & Fairness\n• Built-in bias detection across demographic subgroups.\n• Fairness metrics monitored in real-time.\n• Addresses known disparities in existing clinical scoring systems.`,
   19: `Digital Twins Vision\n• Future roadmap: patient digital twins for predictive simulation.\n• "What if" scenarios for staffing and intervention planning.\n• Patent applications cover this forward-looking capability.`,

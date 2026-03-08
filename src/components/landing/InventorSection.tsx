@@ -15,8 +15,8 @@ const credentials = [
   },
   {
     icon: BookOpen,
-    title: "NIH-Funded Research",
-    detail: "NIH fellowship & consortium research grants",
+    title: "NIH AIM-AHEAD Fellow",
+    detail: "Research supported in part by NIH Award No. 1OT2OD032581",
   },
 ];
 

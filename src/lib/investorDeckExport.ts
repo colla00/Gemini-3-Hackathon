@@ -265,7 +265,7 @@ export const generateInvestorDeck = () => {
   const bio = [
     'NIH AIM-AHEAD CLINAQ Fellow',
     'Adjunct Faculty, University of North Georgia',
-    'Alexis.Collier@ung.edu',
+    'Alexis.Collier@ung.edu | info@vitasignal.ai',
   ];
   bio.forEach((b, i) => doc.text(b, margin + 40, 400 + i * 36));
   // Co-I

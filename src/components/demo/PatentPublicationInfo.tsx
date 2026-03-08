@@ -23,7 +23,7 @@ export const PatentPublicationInfo = () => {
         </h2>
         <p className="text-primary-foreground/70 mb-8 leading-relaxed">
           VitaSignal™'s intellectual property portfolio is grounded in rigorous academic
-          research and NIH-funded validation studies, with publications targeting
+          research conducted during an NIH AIM-AHEAD fellowship, with publications targeting
           top-tier critical care journals.
         </p>
         <div className="flex flex-wrap gap-3">

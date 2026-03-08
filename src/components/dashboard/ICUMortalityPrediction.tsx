@@ -169,7 +169,7 @@ export const ICUMortalityPrediction = () => {
               99 Claims
             </Badge>
             <Badge variant="outline" className="bg-risk-low/10 border-risk-low/30 text-risk-low text-[10px]">
-              NIH Funded
+              NIH Award 1OT2OD032581
             </Badge>
           </div>
         </div>
