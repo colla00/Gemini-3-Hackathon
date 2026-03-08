@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { setWithExpiry, getWithExpiry } from '@/lib/storageManager';
 
 interface SyncState {
   currentSlide: string;
