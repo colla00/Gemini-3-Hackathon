@@ -119,14 +119,28 @@ const PIPELINE_STEPS = [
 export const ICUMortalityPrediction = () => {
   const [selectedPhenotype, setSelectedPhenotype] = useState<string | null>(null);
   const [animateStep, setAnimateStep] = useState(0);
+  const [liveAdmissions, setLiveAdmissions] = useState(65157);
+  const [livePhenotypeShifts, setLivePhenotypeShifts] = useState(PHENOTYPES.map(p => p.mortality));
 
   // Animate pipeline on mount
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setAnimateStep(prev => (prev < 4 ? prev + 1 : prev));
     }, 600);
     return () => clearInterval(interval);
-  });
+  }, []);
+
+  // Simulate live phenotype classification
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveAdmissions(prev => prev + Math.floor(Math.random() * 3));
+      setLivePhenotypeShifts(prev => prev.map((m, i) => {
+        const drift = (Math.random() - 0.48) * 0.15;
+        return parseFloat(Math.max(1, Math.min(30, m + drift)).toFixed(1));
+      }));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Card className="border-border/40">
