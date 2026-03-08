@@ -52,8 +52,8 @@ export const CookieConsent = () => {
       functional: true,
     };
     setPreferences(allAccepted);
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(allAccepted));
+    setWithExpiry(COOKIE_CONSENT_KEY, 'accepted');
+    setWithExpiry(COOKIE_PREFERENCES_KEY, allAccepted);
     setShowBanner(false);
   };
 
