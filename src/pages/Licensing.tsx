@@ -356,13 +356,14 @@ function Licensing() {
         </div>
       </section>
 
-      {/* Footer Note */}
-      <section className="py-8 px-6 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs text-muted-foreground">
-            VitaSignal™ systems are pre-market. Not FDA-cleared. Not a medical device. Patent-pending (11 U.S. provisional applications filed).
-          </p>
-        </div>
+      {/* Disclaimer */}
+      <section className="py-6 px-6 border-t">
+        <p className="max-w-4xl mx-auto text-center text-xs text-muted-foreground leading-relaxed">
+          Pre-Market · Patent Pending · Not FDA-cleared · Not a Medical Device.
+          VitaSignal™ technology is classified under §520(o)(1)(E) as non-device CDS.
+          11 U.S. provisional patent applications filed. All licensing discussions conducted under mutual NDA.
+          © {new Date().getFullYear()} VitaSignal LLC. All rights reserved.
+        </p>
       </section>
     </SiteLayout>
   );
