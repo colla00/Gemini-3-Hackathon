@@ -77,15 +77,16 @@ const performanceMetrics: PerformanceMetric[] = [
   },
 ];
 
+// DESIGN TARGETS — no prospective study conducted
 const validationStats = {
-  providers: 3247,
-  hospitals: 12,
-  academicCenters: 8,
-  communityHospitals: 4,
-  deploymentMonths: 18,
-  expertAgreement: 94,
-  trustCorrelation: 96,
-  timeSaved: 2.3,
+  providers: '—',
+  hospitals: '—',
+  academicCenters: '—',
+  communityHospitals: '—',
+  deploymentMonths: '—',
+  expertAgreement: '—',
+  trustCorrelation: '—',
+  timeSaved: 2.3, // design target
 };
 
 export const PerformanceComparisonTable = () => {
@@ -101,34 +102,21 @@ export const PerformanceComparisonTable = () => {
               <div>
                 <CardTitle className="text-base">Performance vs. Baseline EHR</CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Multi-site clinical validation · Statistical significance p&lt;0.001
+                  Design targets based on published literature (no prospective study conducted)
                 </p>
               </div>
             </div>
-            <Badge variant="outline" className="text-[10px] bg-risk-low/10 border-risk-low/30 text-risk-low">
-              Cohen's d: 1.8-3.4
+            <Badge variant="outline" className="text-[10px] bg-amber-500/10 border-amber-500/30 text-amber-500">
+              Design Target
             </Badge>
           </div>
         </CardHeader>
 
         <CardContent className="space-y-4">
           {/* Validation Overview */}
-          <div className="grid grid-cols-4 gap-2">
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.providers.toLocaleString()}</div>
-              <div className="text-[9px] text-muted-foreground">Providers</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.hospitals}</div>
-              <div className="text-[9px] text-muted-foreground">Hospital Sites</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.deploymentMonths}</div>
-              <div className="text-[9px] text-muted-foreground">Months Deployed</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-risk-low">{validationStats.expertAgreement}%</div>
-              <div className="text-[9px] text-muted-foreground">Expert Agreement</div>
+          <div className="grid grid-cols-1 gap-2">
+            <div className="bg-amber-500/10 rounded-lg p-2.5 text-center border border-amber-500/20">
+              <div className="text-xs text-amber-600 font-medium">⚠️ No prospective study conducted — metrics below are design targets</div>
             </div>
           </div>
 
@@ -218,30 +206,30 @@ export const PerformanceComparisonTable = () => {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-gradient-to-br from-chart-1/10 to-chart-2/10 rounded-xl p-3 text-center border border-chart-1/20">
               <TrendingUp className="w-4 h-4 text-chart-1 mx-auto mb-1" />
-              <div className="text-lg font-bold text-foreground">{validationStats.trustCorrelation}%</div>
+              <div className="text-lg font-bold text-foreground">Target</div>
               <div className="text-[9px] text-muted-foreground">Trust Score Correlation</div>
-              <div className="text-[8px] text-chart-1">Pearson r = 0.96</div>
+              <div className="text-[8px] text-chart-1">Design goal (not measured)</div>
             </div>
             <div className="bg-gradient-to-br from-primary/10 to-chart-2/10 rounded-xl p-3 text-center border border-primary/20">
               <Users className="w-4 h-4 text-primary mx-auto mb-1" />
               <div className="text-lg font-bold text-foreground">{validationStats.timeSaved}m</div>
               <div className="text-[9px] text-muted-foreground">Time Saved/Decision</div>
-              <div className="text-[8px] text-primary">437 hrs/100-bed/mo</div>
+              <div className="text-[8px] text-primary">Projected (simulated)</div>
             </div>
             <div className="bg-gradient-to-br from-risk-low/10 to-chart-1/10 rounded-xl p-3 text-center border border-risk-low/20">
               <CheckCircle className="w-4 h-4 text-risk-low mx-auto mb-1" />
-              <div className="text-lg font-bold text-foreground">100%</div>
+              <div className="text-lg font-bold text-foreground">Target</div>
               <div className="text-[9px] text-muted-foreground">Critical Sensitivity</div>
-              <div className="text-[8px] text-risk-low">Zero missed events</div>
+              <div className="text-[8px] text-risk-low">Design goal</div>
             </div>
           </div>
 
           {/* Methodology Note */}
           <div className="bg-secondary/20 rounded-lg p-2.5 text-center border border-border/30">
             <p className="text-[9px] text-muted-foreground">
-              Prospective before-after study at {validationStats.academicCenters} academic + {validationStats.communityHospitals} community hospitals. 
-              IRB approved. Adjudicated by 8 board-certified intensivists. 
-              Effect sizes (Cohen's d) 1.8-3.4 indicate large practical significance.
+              ⚠️ Illustrative comparison based on published literature benchmarks. 
+              No prospective study has been conducted. IRB submission planned. 
+              Effect sizes are design targets, not empirical results.
             </p>
           </div>
         </CardContent>

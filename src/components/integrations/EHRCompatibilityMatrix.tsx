@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 interface EHRVendor {
   name: string;
   marketShare: string;
-  fhirR4: 'certified' | 'supported' | 'planned';
-  smartOnFhir: 'certified' | 'supported' | 'planned';
-  cdsHooks: 'certified' | 'supported' | 'planned';
-  bulkExport: 'certified' | 'supported' | 'planned';
+  fhirR4: 'ready' | 'in-progress' | 'planned';
+  smartOnFhir: 'ready' | 'in-progress' | 'planned';
+  cdsHooks: 'ready' | 'in-progress' | 'planned';
+  bulkExport: 'ready' | 'in-progress' | 'planned';
   marketplace: string | null;
   certificationDate: string | null;
   notes: string;
@@ -27,90 +27,90 @@ const ehrVendors: EHRVendor[] = [
   {
     name: 'Epic',
     marketShare: '38%',
-    fhirR4: 'certified',
-    smartOnFhir: 'certified',
-    cdsHooks: 'certified',
-    bulkExport: 'certified',
+    fhirR4: 'ready',
+    smartOnFhir: 'ready',
+    cdsHooks: 'in-progress',
+    bulkExport: 'ready',
     marketplace: 'App Orchard',
-    certificationDate: '2025-11',
-    notes: 'Full integration with MyChart, Hyperspace, and Beaker modules',
+    certificationDate: null,
+    notes: 'Planned integration with MyChart, Hyperspace, and Beaker modules via FHIR R4',
   },
   {
     name: 'Oracle Health (Cerner)',
     marketShare: '25%',
-    fhirR4: 'certified',
-    smartOnFhir: 'certified',
-    cdsHooks: 'supported',
-    bulkExport: 'certified',
+    fhirR4: 'ready',
+    smartOnFhir: 'in-progress',
+    cdsHooks: 'in-progress',
+    bulkExport: 'in-progress',
     marketplace: 'CODE Program',
-    certificationDate: '2025-09',
-    notes: 'Millennium and Oracle Cloud Health integration paths',
+    certificationDate: null,
+    notes: 'Millennium and Oracle Cloud Health integration paths planned',
   },
   {
     name: 'MEDITECH',
     marketShare: '16%',
-    fhirR4: 'certified',
-    smartOnFhir: 'supported',
+    fhirR4: 'in-progress',
+    smartOnFhir: 'planned',
     cdsHooks: 'planned',
-    bulkExport: 'supported',
+    bulkExport: 'planned',
     marketplace: null,
-    certificationDate: '2026-01',
-    notes: 'Expanse platform fully supported; legacy systems via adapter',
+    certificationDate: null,
+    notes: 'Expanse platform targeted; legacy systems via adapter layer',
   },
   {
     name: 'Allscripts / Veradigm',
     marketShare: '5%',
-    fhirR4: 'supported',
-    smartOnFhir: 'supported',
+    fhirR4: 'in-progress',
+    smartOnFhir: 'planned',
     cdsHooks: 'planned',
-    bulkExport: 'supported',
+    bulkExport: 'planned',
     marketplace: 'Open API',
     certificationDate: null,
-    notes: 'TouchWorks and Sunrise via REST APIs',
+    notes: 'TouchWorks and Sunrise via REST APIs (planned)',
   },
   {
     name: 'athenahealth',
     marketShare: '4%',
-    fhirR4: 'supported',
-    smartOnFhir: 'supported',
+    fhirR4: 'planned',
+    smartOnFhir: 'planned',
     cdsHooks: 'planned',
     bulkExport: 'planned',
     marketplace: 'Marketplace',
     certificationDate: null,
-    notes: 'Cloud-native integration; ambulatory focus',
+    notes: 'Cloud-native integration planned; ambulatory focus',
   },
   {
     name: 'eClinicalWorks',
     marketShare: '3%',
-    fhirR4: 'supported',
+    fhirR4: 'planned',
     smartOnFhir: 'planned',
     cdsHooks: 'planned',
     bulkExport: 'planned',
     marketplace: null,
     certificationDate: null,
-    notes: 'V12 supports FHIR R4; SMART planned for 2026',
+    notes: 'V12 FHIR R4 support targeted for future integration',
   },
   {
     name: 'NextGen Healthcare',
     marketShare: '2%',
-    fhirR4: 'supported',
-    smartOnFhir: 'supported',
+    fhirR4: 'planned',
+    smartOnFhir: 'planned',
     cdsHooks: 'planned',
     bulkExport: 'planned',
     marketplace: 'Partner Portal',
     certificationDate: null,
-    notes: 'Enterprise and Office platforms supported',
+    notes: 'Enterprise and Office platforms on roadmap',
   },
   {
     name: 'Evident (CPSI)',
     marketShare: '2%',
-    fhirR4: 'supported',
+    fhirR4: 'planned',
     smartOnFhir: 'planned',
     cdsHooks: 'planned',
     bulkExport: 'planned',
     marketplace: null,
     certificationDate: null,
-    notes: 'Thrive EHR community hospital focus',
+    notes: 'Thrive EHR community hospital focus (roadmap)',
   },
 ];
 
@@ -122,24 +122,24 @@ export const EHRCompatibilityMatrix = () => {
     v.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getStatusIcon = (status: 'certified' | 'supported' | 'planned') => {
+  const getStatusIcon = (status: 'ready' | 'in-progress' | 'planned') => {
     switch (status) {
-      case 'certified':
+      case 'ready':
         return (
           <Tooltip>
             <TooltipTrigger>
               <CheckCircle2 className="w-4 h-4 text-green-500" />
             </TooltipTrigger>
-            <TooltipContent>Certified & Production Ready</TooltipContent>
+            <TooltipContent>Integration Design Ready (Not Yet Certified)</TooltipContent>
           </Tooltip>
         );
-      case 'supported':
+      case 'in-progress':
         return (
           <Tooltip>
             <TooltipTrigger>
               <AlertCircle className="w-4 h-4 text-yellow-500" />
             </TooltipTrigger>
-            <TooltipContent>Supported (Non-Certified)</TooltipContent>
+            <TooltipContent>Integration In Development</TooltipContent>
           </Tooltip>
         );
       case 'planned':
@@ -154,7 +154,7 @@ export const EHRCompatibilityMatrix = () => {
     }
   };
 
-  const certifiedCount = ehrVendors.filter(v => v.fhirR4 === 'certified').length;
+  const readyCount = ehrVendors.filter(v => v.fhirR4 === 'ready').length;
   const totalMarketCoverage = ehrVendors
     .filter(v => v.fhirR4 !== 'planned')
     .reduce((sum, v) => sum + parseInt(v.marketShare), 0);
@@ -169,7 +169,7 @@ export const EHRCompatibilityMatrix = () => {
               EHR Compatibility Matrix
             </CardTitle>
             <p className="text-xs text-muted-foreground mt-1">
-              Integration status across major EHR platforms
+              Planned integration roadmap across major EHR platforms (pre-market)
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -188,8 +188,8 @@ export const EHRCompatibilityMatrix = () => {
         {/* Summary stats */}
         <div className="grid grid-cols-3 gap-3 mt-4">
           <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/30">
-            <p className="text-2xl font-bold text-green-600">{certifiedCount}</p>
-            <p className="text-xs text-muted-foreground">Certified EHRs</p>
+            <p className="text-2xl font-bold text-green-600">{readyCount}</p>
+            <p className="text-xs text-muted-foreground">Design Ready</p>
           </div>
           <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
             <p className="text-2xl font-bold text-primary">{totalMarketCoverage}%</p>
@@ -274,9 +274,9 @@ export const EHRCompatibilityMatrix = () => {
             <div className="flex items-start justify-between">
               <div>
                 <h4 className="font-semibold text-foreground">{selectedVendor.name}</h4>
-                {selectedVendor.certificationDate && (
+              {selectedVendor.certificationDate && (
                   <p className="text-xs text-muted-foreground">
-                    Certified: {selectedVendor.certificationDate}
+                    Target date: {selectedVendor.certificationDate}
                   </p>
                 )}
               </div>
@@ -293,10 +293,10 @@ export const EHRCompatibilityMatrix = () => {
         {/* Legend */}
         <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Certified
+            <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Design Ready
           </span>
           <span className="flex items-center gap-1.5">
-            <AlertCircle className="w-3.5 h-3.5 text-yellow-500" /> Supported
+            <AlertCircle className="w-3.5 h-3.5 text-yellow-500" /> In Development
           </span>
           <span className="flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-muted-foreground" /> Planned
