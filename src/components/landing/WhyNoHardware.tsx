@@ -81,5 +81,5 @@ export const WhyNoHardware = () => (
         </div>
       </motion.div>
     </div>
-  </section>
+  </motion.section>
 );

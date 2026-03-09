@@ -111,5 +111,5 @@ export const ValidationSection = () => (
         </div>
       </div>
     </div>
-  </section>
+  </motion.section>
 );
