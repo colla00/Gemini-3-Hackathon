@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Building2, Briefcase, GraduationCap, CheckCircle2, Mail, FileText, Shield, CreditCard, Loader2, ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import heroBg from "@/assets/hero-bg.jpg";
