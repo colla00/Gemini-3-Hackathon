@@ -112,6 +112,7 @@ export const Landing = () => {
       </Helmet>
       <LandingHero />
       <WhyNoHardware />
+      <ComparisonSlider />
       <ValidationSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
