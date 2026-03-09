@@ -169,7 +169,7 @@ export const EHRCompatibilityMatrix = () => {
               EHR Compatibility Matrix
             </CardTitle>
             <p className="text-xs text-muted-foreground mt-1">
-              Integration status across major EHR platforms
+              Planned integration roadmap across major EHR platforms (pre-market)
             </p>
           </div>
           <div className="flex items-center gap-3">
