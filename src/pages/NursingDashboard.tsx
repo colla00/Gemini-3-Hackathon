@@ -43,6 +43,8 @@ import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo'
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import { ClinicalClock } from '@/components/dashboard/ClinicalClock';
 import { AmbientActivityFeed } from '@/components/dashboard/AmbientActivityFeed';
+import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
+import { useGuidedTour } from '@/hooks/useGuidedTour';
 import heroBg from '@/assets/hero-bg.jpg';
 
 /* ───────── Animated Counter ───────── */
@@ -346,6 +348,7 @@ export const NursingDashboard = () => {
     patentGroups.forEach((g) => (initial[g.id] = true));
     return initial;
   });
+  const tour = useGuidedTour(true);
 
   const toggleGroup = (groupId: string) => {
     const wasExpanded = expandedGroups[groupId];
@@ -369,7 +372,21 @@ export const NursingDashboard = () => {
     >
       <WatermarkOverlay />
 
-      {/* ──── HERO ──── */}
+      {/* Guided Tour */}
+      <GuidedTour
+        isActive={tour.isActive}
+        currentStep={tour.currentStep}
+        currentStepIndex={tour.currentStepIndex}
+        totalSteps={tour.totalSteps}
+        isFirstStep={tour.isFirstStep}
+        isLastStep={tour.isLastStep}
+        targetRect={tour.targetRect}
+        onNext={tour.nextStep}
+        onPrev={tour.prevStep}
+        onEnd={tour.endTour}
+        onGoToStep={tour.goToStep}
+      />
+
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
@@ -384,7 +401,7 @@ export const NursingDashboard = () => {
           className="relative max-w-6xl mx-auto px-4 md:px-6 pt-8 pb-6 md:pt-20 md:pb-16"
         >
           {/* Title row */}
-          <div className="flex items-center gap-4 mb-5">
+          <div className="flex items-center gap-4 mb-5" data-tour="hero">
             <motion.div
               animate={{ boxShadow: ['0 0 0 0 hsl(var(--primary) / 0.3)', '0 0 20px 4px hsl(var(--primary) / 0.15)', '0 0 0 0 hsl(var(--primary) / 0.3)'] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -399,7 +416,7 @@ export const NursingDashboard = () => {
           </div>
 
           {/* Status badges */}
-          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-8">
+          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-8" data-tour="status-badges">
             <Badge className="bg-primary/20 text-primary border border-primary/30 text-[9px] md:text-[10px] font-semibold gap-1">
               <Zap className="h-2.5 w-2.5 md:h-3 md:w-3" /> LIVE DEMO
             </Badge>
@@ -408,13 +425,14 @@ export const NursingDashboard = () => {
             <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[9px] md:text-[10px] font-semibold gap-1">
               <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 & #5 VALIDATED
             </Badge>
-            <div className="hidden md:block ml-auto">
+            <div className="hidden md:flex items-center gap-2 ml-auto">
+              <TourButton onClick={tour.startTour} />
               <ClinicalClock />
             </div>
           </div>
 
           {/* Stats grid */}
-          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4" data-tour="stats">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
@@ -436,12 +454,12 @@ export const NursingDashboard = () => {
       </section>
 
       {/* ──── DISCLAIMER ──── */}
-      <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium">
+      <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium" data-tour="disclaimer">
         Development Prototype. Patent #1 (ICU Mortality) and Patent #5 (DBS) are validated. Other components are design phase. Mock data only.
       </div>
 
       {/* ──── LIVE CENSUS STRIP ──── */}
-      <div className="hidden md:flex items-center justify-center gap-6 bg-card/60 border-b border-border/30 py-2.5 px-4">
+      <div className="hidden md:flex items-center justify-center gap-6 bg-card/60 border-b border-border/30 py-2.5 px-4" data-tour="census-strip">
         <CensusItem icon={<Users className="w-3.5 h-3.5" />} label="Census" value="18" />
         <div className="w-px h-5 bg-border/30" />
         <CensusItem icon={<BedDouble className="w-3.5 h-3.5" />} label="Beds Available" value="6/24" />
@@ -557,7 +575,7 @@ export const NursingDashboard = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="hidden lg:block lg:w-[280px] shrink-0"
             >
-              <div className="patent-sidebar rounded-2xl overflow-hidden lg:sticky lg:top-24">
+              <div className="patent-sidebar rounded-2xl overflow-hidden lg:sticky lg:top-24" data-tour="sidebar">
                 {/* Sidebar header */}
                 <div className="px-4 py-3 border-b border-border/30">
                   <p className="text-[10px] uppercase tracking-widest text-foreground/70 font-bold">Patent Portfolio</p>
@@ -674,7 +692,7 @@ export const NursingDashboard = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
-              className="flex-1 min-w-0"
+              className="flex-1 min-w-0" data-tour="content-area"
             >
               {/* Breadcrumb */}
               {activeGroup && activeTabMeta && (

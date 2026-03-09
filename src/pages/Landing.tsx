@@ -8,6 +8,7 @@ import { WhyNoHardware } from "@/components/landing/WhyNoHardware";
 import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
+import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
 import { Helmet } from "react-helmet-async";
 
 const orgJsonLd = {
@@ -111,6 +112,7 @@ export const Landing = () => {
       </Helmet>
       <LandingHero />
       <WhyNoHardware />
+      <ComparisonSlider />
       <ValidationSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
