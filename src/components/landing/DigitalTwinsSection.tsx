@@ -33,8 +33,8 @@ const containerVariants = {
 };
 
 const layerVariants = {
-  hidden: { opacity: 0, x: -30, filter: "blur(4px)" },
-  visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+  hidden: { opacity: 0, x: -30, filter: "blur(4px)" } as const,
+  visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } } as const,
 };
 
 export const DigitalTwinsSection = () => {
