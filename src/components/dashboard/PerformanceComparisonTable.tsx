@@ -102,7 +102,7 @@ export const PerformanceComparisonTable = () => {
               <div>
                 <CardTitle className="text-base">Performance vs. Baseline EHR</CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Multi-site clinical validation · Statistical significance p&lt;0.001
+                  Design targets based on published literature (no prospective study conducted)
                 </p>
               </div>
             </div>
