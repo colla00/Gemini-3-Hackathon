@@ -58,6 +58,7 @@ const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
 const Investors = lazy(() => import("./pages/Investors"));
 const Integrations = lazy(() => import("./pages/Integrations"));
 const NonprovisionalToolsPage = lazy(() => import("./pages/NonprovisionalTools"));
+const IntegrationGuide = lazy(() => import("./pages/IntegrationGuide"));
 
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
@@ -100,6 +101,7 @@ const AppRoutes = () => {
           <Route path="/investors" element={<Suspense fallback={<PageSkeleton />}><Investors /></Suspense>} />
           <Route path="/integrations" element={<Suspense fallback={<PageSkeleton />}><Integrations /></Suspense>} />
           <Route path="/patents/nonprovisional" element={<Suspense fallback={<PageSkeleton />}><NonprovisionalToolsPage /></Suspense>} />
+          <Route path="/integration-guide" element={<Suspense fallback={<PageSkeleton />}><IntegrationGuide /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
