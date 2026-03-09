@@ -247,6 +247,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/regulatory" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Regulatory Readiness</Link>
                 <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
                 <Link to="/integration-guide" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integration Guide</Link>
+                <Link to="/developer-tools" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Developer Tools</Link>
               </div>
             </div>
 
