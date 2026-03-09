@@ -95,14 +95,33 @@ const systems = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.06 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -25, filter: "blur(4px)" },
+  visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
 export const TechnologyPortfolio = () => (
-  <motion.section aria-labelledby="tech-portfolio-heading" className="py-24 px-6" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}>
+  <motion.section
+    aria-labelledby="tech-portfolio-heading"
+    className="py-24 px-6"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.6 }}
+  >
     <div className="max-w-5xl mx-auto">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.7 }}
         className="text-center mb-16"
       >
         <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
@@ -117,21 +136,32 @@ export const TechnologyPortfolio = () => (
         </p>
       </motion.div>
 
-      <div className="space-y-3">
-        {systems.map((s, i) => (
+      <motion.div
+        className="space-y-3"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
+        {systems.map((s) => (
           <motion.div
             key={s.name}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ delay: i * 0.08, duration: 0.5 }}
-            className={`group flex items-start gap-5 p-5 rounded-xl border transition-all hover:shadow-md ${
+            variants={itemVariants}
+            whileHover={{
+              x: 6,
+              boxShadow: s.highlight
+                ? "0 4px 20px -4px hsl(173 58% 39% / 0.2)"
+                : "0 4px 16px -4px hsl(var(--border) / 0.3)",
+              transition: { duration: 0.2 },
+            }}
+            className={`group flex items-start gap-5 p-5 rounded-xl border transition-all cursor-default ${
               s.highlight
                 ? "border-primary/30 bg-primary/[0.04]"
                 : "border-border/50 bg-card hover:border-primary/20"
             }`}
           >
-            <div
+            <motion.div
+              whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.4 } }}
               className={`w-11 h-11 rounded-lg flex items-center justify-center shrink-0 ${
                 s.highlight
                   ? "bg-primary/15 text-primary"
@@ -139,7 +169,7 @@ export const TechnologyPortfolio = () => (
               }`}
             >
               <s.icon className="w-5 h-5" aria-hidden="true" />
-            </div>
+            </motion.div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
                 <h3 className="font-semibold text-foreground">{s.name}</h3>
@@ -164,7 +194,7 @@ export const TechnologyPortfolio = () => (
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </motion.section>
 );
