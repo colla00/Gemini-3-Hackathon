@@ -21,7 +21,20 @@ interface FHIRMessage {
   latencyMs: number;
   patientId?: string;
   summary: string;
+  vendor?: string;
 }
+
+type EHRVendor = 'all' | 'epic' | 'cerner' | 'meditech' | 'allscripts';
+
+const vendorLabels: Record<EHRVendor, string> = {
+  all: 'All Systems',
+  epic: 'Epic',
+  cerner: 'Oracle Health',
+  meditech: 'MEDITECH',
+  allscripts: 'Allscripts',
+};
+
+const vendorList: EHRVendor[] = ['epic', 'cerner', 'meditech', 'allscripts'];
 
 const resourceColors: Record<FHIRResourceType, string> = {
   Patient: 'text-chart-1 bg-chart-1/10 border-chart-1/30',
