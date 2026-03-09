@@ -416,7 +416,7 @@ export const NursingDashboard = () => {
           </div>
 
           {/* Status badges */}
-          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-8">
+          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-8" data-tour="status-badges">
             <Badge className="bg-primary/20 text-primary border border-primary/30 text-[9px] md:text-[10px] font-semibold gap-1">
               <Zap className="h-2.5 w-2.5 md:h-3 md:w-3" /> LIVE DEMO
             </Badge>
