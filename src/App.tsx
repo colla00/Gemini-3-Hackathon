@@ -4,7 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { HelmetProvider } from "react-helmet-async";
 import { SettingsProvider } from "@/hooks/useSettings";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -58,6 +59,53 @@ const Investors = lazy(() => import("./pages/Investors"));
 const Integrations = lazy(() => import("./pages/Integrations"));
 const NonprovisionalToolsPage = lazy(() => import("./pages/NonprovisionalTools"));
 
+const pageTransition = {
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -4 },
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        {...pageTransition}
+        transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/reset-password" element={<Suspense fallback={<PageSkeleton />}><ResetPassword /></Suspense>} />
+          <Route path="/dashboard" element={<DemoAccessGate><Suspense fallback={<DashboardSkeleton />}><NursingDashboard /></Suspense></DemoAccessGate>} />
+          <Route path="/ai-tools" element={<Suspense fallback={<AIToolsSkeleton />}><AITools /></Suspense>} />
+          <Route path="/admin" element={<ProtectedRoute><Suspense fallback={<AdminSkeleton />}><AdminPanel /></Suspense></ProtectedRoute>} />
+          <Route path="/about" element={<Suspense fallback={<PageSkeleton />}><About /></Suspense>} />
+          <Route path="/contact" element={<Suspense fallback={<PageSkeleton />}><Contact /></Suspense>} />
+          <Route path="/patents" element={<Suspense fallback={<PageSkeleton />}><Patents /></Suspense>} />
+          <Route path="/licensing" element={<Suspense fallback={<PageSkeleton />}><Licensing /></Suspense>} />
+          <Route path="/patent-attestations" element={<ProtectedRoute><Suspense fallback={<AdminSkeleton />}><PatentAttestationsAdmin /></Suspense></ProtectedRoute>} />
+          <Route path="/terms" element={<Suspense fallback={<PageSkeleton />}><TermsOfUse /></Suspense>} />
+          <Route path="/privacy" element={<Suspense fallback={<PageSkeleton />}><PrivacyPolicy /></Suspense>} />
+          <Route path="/regulatory" element={<Suspense fallback={<PageSkeleton />}><Regulatory /></Suspense>} />
+          <Route path="/ania2026" element={<Suspense fallback={<PageSkeleton />}><ANIA2026Poster /></Suspense>} />
+          <Route path="/ania2026/qr" element={<Suspense fallback={<PageSkeleton />}><QRCodeDownload /></Suspense>} />
+          <Route path="/press" element={<Suspense fallback={<PageSkeleton />}><PressRelease /></Suspense>} />
+          <Route path="/investor-deck" element={<AdminRoute><Suspense fallback={<PageSkeleton />}><InvestorDeck /></Suspense></AdminRoute>} />
+          <Route path="/audience" element={<Suspense fallback={<div className="fixed inset-0 bg-black" />}><AudienceView /></Suspense>} />
+          <Route path="/patents/tracker" element={<Suspense fallback={<PageSkeleton />}><PatentTracker /></Suspense>} />
+          <Route path="/dataroom" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DataRoom /></Suspense></ProtectedRoute>} />
+          <Route path="/hub" element={<Suspense fallback={<PageSkeleton />}><KnowledgeHub /></Suspense>} />
+          <Route path="/investors" element={<Suspense fallback={<PageSkeleton />}><Investors /></Suspense>} />
+          <Route path="/integrations" element={<Suspense fallback={<PageSkeleton />}><Integrations /></Suspense>} />
+          <Route path="/patents/nonprovisional" element={<Suspense fallback={<PageSkeleton />}><NonprovisionalToolsPage /></Suspense>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
 
 const queryClient = new QueryClient();
 
@@ -100,137 +148,7 @@ const App = () => {
                 <CookieConsent />
                 <PageViewTracker />
                 <GlobalDisclaimer />
-                <Routes>
-                  <Route path="/" element={<Landing />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/reset-password" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <ResetPassword />
-                    </Suspense>
-                  } />
-                  <Route path="/dashboard" element={
-                    <DemoAccessGate>
-                      <Suspense fallback={<DashboardSkeleton />}>
-                        <NursingDashboard />
-                      </Suspense>
-                    </DemoAccessGate>
-                  } />
-                  <Route path="/ai-tools" element={
-                    <Suspense fallback={<AIToolsSkeleton />}>
-                      <AITools />
-                    </Suspense>
-                  } />
-                  <Route path="/admin" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<AdminSkeleton />}>
-                        <AdminPanel />
-                      </Suspense>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/about" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <About />
-                    </Suspense>
-                  } />
-                  <Route path="/contact" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Contact />
-                    </Suspense>
-                  } />
-                  <Route path="/patents" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Patents />
-                    </Suspense>
-                  } />
-                  <Route path="/licensing" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Licensing />
-                    </Suspense>
-                  } />
-                  <Route path="/patent-attestations" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<AdminSkeleton />}>
-                        <PatentAttestationsAdmin />
-                      </Suspense>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/terms" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <TermsOfUse />
-                    </Suspense>
-                  } />
-                  <Route path="/privacy" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <PrivacyPolicy />
-                    </Suspense>
-                  } />
-                  <Route path="/regulatory" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Regulatory />
-                    </Suspense>
-                  } />
-                  <Route path="/ania2026" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <ANIA2026Poster />
-                    </Suspense>
-                  } />
-                  <Route path="/ania2026/qr" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <QRCodeDownload />
-                    </Suspense>
-                  } />
-                  <Route path="/press" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <PressRelease />
-                    </Suspense>
-                  } />
-                  <Route path="/investor-deck" element={
-                    <AdminRoute>
-                      <Suspense fallback={<PageSkeleton />}>
-                        <InvestorDeck />
-                      </Suspense>
-                    </AdminRoute>
-                  } />
-                  <Route path="/audience" element={
-                    <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
-                      <AudienceView />
-                    </Suspense>
-                  } />
-                  <Route path="/patents/tracker" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <PatentTracker />
-                    </Suspense>
-                  } />
-                  <Route path="/dataroom" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageSkeleton />}>
-                        <DataRoom />
-                      </Suspense>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/hub" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <KnowledgeHub />
-                    </Suspense>
-                  } />
-                  <Route path="/investors" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Investors />
-                    </Suspense>
-                  } />
-                  <Route path="/integrations" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <Integrations />
-                    </Suspense>
-                  } />
-                  <Route path="/patents/nonprovisional" element={
-                    <Suspense fallback={<PageSkeleton />}>
-                      <NonprovisionalToolsPage />
-                    </Suspense>
-                  } />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <AppRoutes />
               </BrowserRouter>
               </ErrorBoundary>
             </TooltipProvider>
