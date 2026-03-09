@@ -367,6 +367,48 @@ export type Database = {
           },
         ]
       }
+      fhir_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          patient_id: string | null
+          payload: Json
+          processed_at: string | null
+          resource_id: string | null
+          resource_type: string
+          signature_valid: boolean | null
+          source_ip: string | null
+          vendor: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          patient_id?: string | null
+          payload?: Json
+          processed_at?: string | null
+          resource_id?: string | null
+          resource_type: string
+          signature_valid?: boolean | null
+          source_ip?: string | null
+          vendor?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          patient_id?: string | null
+          payload?: Json
+          processed_at?: string | null
+          resource_id?: string | null
+          resource_type?: string
+          signature_valid?: boolean | null
+          source_ip?: string | null
+          vendor?: string | null
+        }
+        Relationships: []
+      }
       handoff_reports: {
         Row: {
           created_at: string
