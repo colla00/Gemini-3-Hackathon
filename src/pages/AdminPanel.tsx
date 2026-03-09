@@ -481,6 +481,12 @@ const AdminPanel = () => {
         {/* Walkthrough Access Requests */}
         <WalkthroughRequestsPanel />
 
+        {/* Vendor API Key Management */}
+        <VendorKeyManagement />
+
+        {/* SLA Monitoring & Webhook Delivery */}
+        <SLAMonitoringDashboard />
+
         {/* Rate Limit Monitoring */}
         <RateLimitMonitoringPanel />
 
