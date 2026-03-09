@@ -70,6 +70,7 @@ const generateMessage = (id: number): FHIRMessage => {
     Encounter: ['ICU admission initiated', 'Transfer to Med-Surg', 'Discharge planning started', 'ED visit documented'],
     Condition: ['Sepsis risk flagged', 'Fall risk assessment updated', 'Pressure injury stage II noted', 'CAUTI screening completed'],
   };
+  const vendor = vendorList[Math.floor(Math.random() * vendorList.length)];
   return {
     id: `MSG-${String(id).padStart(5, '0')}`,
     timestamp: new Date().toISOString(),
@@ -79,6 +80,7 @@ const generateMessage = (id: number): FHIRMessage => {
     latencyMs: Math.floor(Math.random() * 200) + 15,
     patientId: `PT-${Math.floor(Math.random() * 9000) + 1000}`,
     summary: summaries[type][Math.floor(Math.random() * summaries[type].length)],
+    vendor: vendorLabels[vendor],
   };
 };
 
