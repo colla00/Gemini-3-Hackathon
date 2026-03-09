@@ -335,21 +335,32 @@ function Licensing() {
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">What's Included</h2>
             <p className="text-gray-400">Every licensing engagement includes the following resources.</p>
           </div>
-          <Card className="bg-white/5 border-white/10">
+          <Card className="bg-white/5 border-white/10 mb-6">
             <CardContent className="pt-6">
               <ul className="space-y-4">
                 {[
-                  { icon: FileText, text: "Full system documentation under NDA" },
-                  { icon: Shield, text: "Validation datasets summary (N=357,080 patients)" },
-                  { icon: Briefcase, text: "Integration specs and API documentation" },
-                  { icon: CheckCircle2, text: "Regulatory overview (FDA §520(o)(1)(E) non-device CDS)" },
+                  { icon: FileText, text: "Real AI inference engine (Gemini 2.5 Pro IDI + DBS scoring — deployed and tested)" },
+                  { icon: Shield, text: "Production FHIR R4 integration architecture (HAPI server connected, Epic/Cerner documented)" },
+                  { icon: CheckCircle2, text: "Full system documentation under NDA (11 patent applications, 175+ claims)" },
+                  { icon: Briefcase, text: "Validation datasets summary (N=357,080 patients, MIMIC-IV)" },
                   { icon: GraduationCap, text: "NIH award context (Award No. 1OT2OD032581, AIM-AHEAD)" },
+                  { icon: CheckCircle2, text: "Regulatory overview (FDA §520(o)(1)(E) non-device CDS)" },
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <item.icon className="w-5 h-5 mt-0.5 shrink-0" style={{ color: "#00c8b4" }} />
                     <span className="text-gray-200">{item.text}</span>
                   </li>
                 ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <Card className="bg-amber-500/10 border-amber-500/30">
+            <CardContent className="pt-6">
+              <h3 className="font-bold text-amber-200 mb-2">What Licensees Co-Develop</h3>
+              <ul className="space-y-2 text-sm text-amber-100/80">
+                <li>• <strong>Proprietary training data:</strong> The demo uses real AI (Gemini) processing structured inputs. Licensees provide their own de-identified EHR data for model fine-tuning if needed.</li>
+                <li>• <strong>EHR vendor credentials:</strong> Epic/Cerner OAuth requires registration at open.epic.com or code.cerner.com. VitaSignal provides integration architecture; licensees bring vendor access.</li>
+                <li>• <strong>FDA clearance path:</strong> The current classification is §520(o)(1)(E) non-device CDS. If the licensee pursues Class II SaMD designation, that regulatory work is co-funded.</li>
               </ul>
             </CardContent>
           </Card>
