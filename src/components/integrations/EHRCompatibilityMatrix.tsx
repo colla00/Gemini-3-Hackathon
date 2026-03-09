@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 interface EHRVendor {
   name: string;
   marketShare: string;
-  fhirR4: 'certified' | 'supported' | 'planned';
-  smartOnFhir: 'certified' | 'supported' | 'planned';
-  cdsHooks: 'certified' | 'supported' | 'planned';
-  bulkExport: 'certified' | 'supported' | 'planned';
+  fhirR4: 'ready' | 'in-progress' | 'planned';
+  smartOnFhir: 'ready' | 'in-progress' | 'planned';
+  cdsHooks: 'ready' | 'in-progress' | 'planned';
+  bulkExport: 'ready' | 'in-progress' | 'planned';
   marketplace: string | null;
   certificationDate: string | null;
   notes: string;
