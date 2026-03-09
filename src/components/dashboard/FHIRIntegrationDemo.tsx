@@ -21,7 +21,20 @@ interface FHIRMessage {
   latencyMs: number;
   patientId?: string;
   summary: string;
+  vendor?: string;
 }
+
+type EHRVendor = 'all' | 'epic' | 'cerner' | 'meditech' | 'allscripts';
+
+const vendorLabels: Record<EHRVendor, string> = {
+  all: 'All Systems',
+  epic: 'Epic',
+  cerner: 'Oracle Health',
+  meditech: 'MEDITECH',
+  allscripts: 'Allscripts',
+};
+
+const vendorList: EHRVendor[] = ['epic', 'cerner', 'meditech', 'allscripts'];
 
 const resourceColors: Record<FHIRResourceType, string> = {
   Patient: 'text-chart-1 bg-chart-1/10 border-chart-1/30',
@@ -57,6 +70,7 @@ const generateMessage = (id: number): FHIRMessage => {
     Encounter: ['ICU admission initiated', 'Transfer to Med-Surg', 'Discharge planning started', 'ED visit documented'],
     Condition: ['Sepsis risk flagged', 'Fall risk assessment updated', 'Pressure injury stage II noted', 'CAUTI screening completed'],
   };
+  const vendor = vendorList[Math.floor(Math.random() * vendorList.length)];
   return {
     id: `MSG-${String(id).padStart(5, '0')}`,
     timestamp: new Date().toISOString(),
@@ -66,6 +80,7 @@ const generateMessage = (id: number): FHIRMessage => {
     latencyMs: Math.floor(Math.random() * 200) + 15,
     patientId: `PT-${Math.floor(Math.random() * 9000) + 1000}`,
     summary: summaries[type][Math.floor(Math.random() * summaries[type].length)],
+    vendor: vendorLabels[vendor],
   };
 };
 
@@ -78,6 +93,11 @@ export const FHIRIntegrationDemo = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState(0);
   const [apiResponse, setApiResponse] = useState<string | null>(null);
   const [apiLoading, setApiLoading] = useState(false);
+  const [vendorFilter, setVendorFilter] = useState<EHRVendor>('all');
+
+  const filteredMessages = vendorFilter === 'all'
+    ? messages
+    : messages.filter(m => m.vendor === vendorLabels[vendorFilter]);
 
   // Live message streaming
   useEffect(() => {
@@ -219,16 +239,31 @@ export const FHIRIntegrationDemo = () => {
         <TabsContent value="stream">
           <Card className="border-border/40">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <RefreshCw className={cn("h-4 w-4 text-chart-1", isStreaming && "animate-spin")} />
-                HL7 FHIR R4 Message Stream
-                <Badge variant="outline" className="text-[9px] ml-auto tabular-nums">{totalProcessed.toLocaleString()} total</Badge>
-              </CardTitle>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <RefreshCw className={cn("h-4 w-4 text-chart-1", isStreaming && "animate-spin")} />
+                  HL7 FHIR R4 Message Stream
+                  <Badge variant="outline" className="text-[9px] ml-2 tabular-nums">{totalProcessed.toLocaleString()} total</Badge>
+                </CardTitle>
+                <div className="flex gap-1">
+                  {(['all', ...vendorList] as EHRVendor[]).map((v) => (
+                    <Button
+                      key={v}
+                      variant={vendorFilter === v ? 'default' : 'outline'}
+                      size="sm"
+                      className="text-[9px] h-6 px-2"
+                      onClick={() => setVendorFilter(v)}
+                    >
+                      {vendorLabels[v]}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
                 <AnimatePresence initial={false}>
-                  {messages.map((msg) => (
+                  {filteredMessages.map((msg) => (
                     <motion.div
                       key={msg.id}
                       initial={{ opacity: 0, height: 0, y: -10 }}
@@ -242,6 +277,7 @@ export const FHIRIntegrationDemo = () => {
                         <div className="flex items-center gap-2">
                           <Badge variant="outline" className={cn("text-[8px] font-mono", resourceColors[msg.resourceType])}>{msg.resourceType}</Badge>
                           <Badge variant="outline" className="text-[8px]">{msg.action}</Badge>
+                          {msg.vendor && <Badge variant="outline" className="text-[8px] bg-primary/5 text-primary border-primary/20">{msg.vendor}</Badge>}
                           <span className="text-[9px] text-muted-foreground font-mono">{msg.patientId}</span>
                         </div>
                         <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{msg.summary}</p>
