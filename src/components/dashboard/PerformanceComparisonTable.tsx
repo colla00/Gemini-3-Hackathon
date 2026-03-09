@@ -106,8 +106,8 @@ export const PerformanceComparisonTable = () => {
                 </p>
               </div>
             </div>
-            <Badge variant="outline" className="text-[10px] bg-risk-low/10 border-risk-low/30 text-risk-low">
-              Cohen's d: 1.8-3.4
+            <Badge variant="outline" className="text-[10px] bg-amber-500/10 border-amber-500/30 text-amber-500">
+              Design Target
             </Badge>
           </div>
         </CardHeader>
