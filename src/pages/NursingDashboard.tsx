@@ -425,7 +425,8 @@ export const NursingDashboard = () => {
             <Badge className="validated-badge bg-risk-low/20 text-risk-low border border-risk-low/30 text-[9px] md:text-[10px] font-semibold gap-1">
               <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 & #5 VALIDATED
             </Badge>
-            <div className="hidden md:block ml-auto">
+            <div className="hidden md:flex items-center gap-2 ml-auto">
+              <TourButton onClick={tour.startTour} />
               <ClinicalClock />
             </div>
           </div>
