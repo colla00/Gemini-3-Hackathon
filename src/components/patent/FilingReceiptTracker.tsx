@@ -78,7 +78,7 @@ export function FilingReceiptTracker() {
     }
     setSaving(true);
 
-    const { error } = await supabase.from("patent_filing_receipts").insert({
+    const { error } = await supabase.from("patent_filing_receipts").insert([{
       patent_id: form.patent_id,
       filing_type: form.filing_type,
       confirmation_number: form.confirmation_number || null,
@@ -90,7 +90,7 @@ export function FilingReceiptTracker() {
       claims_count: form.claims_count ? parseInt(form.claims_count) : null,
       independent_claims_count: form.independent_claims_count ? parseInt(form.independent_claims_count) : null,
       notes: form.notes || null,
-    } as Record<string, unknown>);
+    }] as never);
 
     setSaving(false);
     if (error) {

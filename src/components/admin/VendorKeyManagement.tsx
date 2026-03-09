@@ -94,7 +94,7 @@ export function VendorKeyManagement() {
     const keyHash = await hashApiKey(rawKey);
     const keyPrefix = rawKey.slice(0, 10) + "...";
 
-    const { error } = await supabase.from("vendor_api_keys").insert({
+    const { error } = await supabase.from("vendor_api_keys").insert([{
       vendor_name: form.vendor_name,
       vendor_id: form.vendor_id.toLowerCase().replace(/\s+/g, "-"),
       api_key_hash: keyHash,
@@ -105,7 +105,7 @@ export function VendorKeyManagement() {
       contact_email: form.contact_email || null,
       baa_signed: form.baa_signed,
       nda_signed: form.nda_signed,
-    } as Record<string, unknown>);
+    }] as never);
 
     setCreating(false);
 
