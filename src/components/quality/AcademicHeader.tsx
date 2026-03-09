@@ -77,7 +77,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-equity': {
     title: 'Real-Time Equity Monitoring Engine',
     subtitle: 'U.S. Patent Application Filed · Demographic Bias Auditing',
-    citation: '<0.5% disparity threshold maintained',
+    citation: '<0.5% disparity threshold (design target)',
   },
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
