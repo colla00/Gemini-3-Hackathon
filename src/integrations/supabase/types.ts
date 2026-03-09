@@ -538,6 +538,71 @@ export type Database = {
         }
         Relationships: []
       }
+      office_actions: {
+        Row: {
+          action_type: string
+          art_unit: string | null
+          cited_references: string[] | null
+          created_at: string
+          created_by: string | null
+          examiner_name: string | null
+          id: string
+          mailing_date: string | null
+          patent_id: string
+          rejection_types: string[] | null
+          responded_at: string | null
+          response_deadline: string | null
+          response_notes: string | null
+          status: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          action_type?: string
+          art_unit?: string | null
+          cited_references?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          examiner_name?: string | null
+          id?: string
+          mailing_date?: string | null
+          patent_id: string
+          rejection_types?: string[] | null
+          responded_at?: string | null
+          response_deadline?: string | null
+          response_notes?: string | null
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          action_type?: string
+          art_unit?: string | null
+          cited_references?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          examiner_name?: string | null
+          id?: string
+          mailing_date?: string | null
+          patent_id?: string
+          rejection_types?: string[] | null
+          responded_at?: string | null
+          response_deadline?: string | null
+          response_notes?: string | null
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "office_actions_patent_id_fkey"
+            columns: ["patent_id"]
+            isOneToOne: false
+            referencedRelation: "patents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_views: {
         Row: {
           country: string | null
