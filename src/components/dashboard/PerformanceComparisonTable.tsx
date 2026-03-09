@@ -77,15 +77,16 @@ const performanceMetrics: PerformanceMetric[] = [
   },
 ];
 
+// DESIGN TARGETS — no prospective study conducted
 const validationStats = {
-  providers: 3247,
-  hospitals: 12,
-  academicCenters: 8,
-  communityHospitals: 4,
-  deploymentMonths: 18,
-  expertAgreement: 94,
-  trustCorrelation: 96,
-  timeSaved: 2.3,
+  providers: '—',
+  hospitals: '—',
+  academicCenters: '—',
+  communityHospitals: '—',
+  deploymentMonths: '—',
+  expertAgreement: '—',
+  trustCorrelation: '—',
+  timeSaved: 2.3, // design target
 };
 
 export const PerformanceComparisonTable = () => {
