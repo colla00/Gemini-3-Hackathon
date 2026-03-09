@@ -454,7 +454,7 @@ export const NursingDashboard = () => {
       </section>
 
       {/* ──── DISCLAIMER ──── */}
-      <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium">
+      <div className="bg-destructive/5 border-b border-destructive/20 py-2 px-4 text-center text-[11px] text-destructive font-medium" data-tour="disclaimer">
         Development Prototype. Patent #1 (ICU Mortality) and Patent #5 (DBS) are validated. Other components are design phase. Mock data only.
       </div>
 
