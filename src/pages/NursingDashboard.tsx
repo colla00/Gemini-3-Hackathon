@@ -401,7 +401,7 @@ export const NursingDashboard = () => {
           className="relative max-w-6xl mx-auto px-4 md:px-6 pt-8 pb-6 md:pt-20 md:pb-16"
         >
           {/* Title row */}
-          <div className="flex items-center gap-4 mb-5">
+          <div className="flex items-center gap-4 mb-5" data-tour="hero">
             <motion.div
               animate={{ boxShadow: ['0 0 0 0 hsl(var(--primary) / 0.3)', '0 0 20px 4px hsl(var(--primary) / 0.15)', '0 0 0 0 hsl(var(--primary) / 0.3)'] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
