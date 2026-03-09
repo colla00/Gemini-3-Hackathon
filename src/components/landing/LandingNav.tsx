@@ -29,6 +29,14 @@ export const LandingNav = () => {
             <Home className="w-3 h-3" />
             <span className="hidden sm:inline">Home</span>
           </Link>
+          <Link to="/integrations" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
+            <span className="hidden sm:inline">Integrations</span>
+            <span className="sm:hidden">INT</span>
+          </Link>
+          <Link to="/patents/nonprovisional" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors font-medium">
+            <span className="hidden sm:inline">NP Tools</span>
+            <span className="sm:hidden">NP</span>
+          </Link>
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-colors"
