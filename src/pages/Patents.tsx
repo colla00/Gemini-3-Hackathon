@@ -136,6 +136,23 @@ function Patents() {
 
   return (
     <SiteLayout title="Technology Portfolio" description="11 U.S. provisional patent applications covering equipment-independent clinical AI for ICU mortality prediction and nursing workflow optimization.">
+      <Helmet>
+        <meta property="og:image" content="https://vitasignal.ai/og-patents.png" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta name="twitter:image" content="https://vitasignal.ai/og-patents.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "VitaSignal Patent Portfolio",
+          "description": "11 U.S. provisional patent applications for equipment-independent clinical AI",
+          "numberOfItems": 11,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ICU Mortality Prediction System", "description": "Predicts ICU mortality from documentation rhythm patterns. Validated on 65,157 patients." },
+            { "@type": "ListItem", "position": 5, "name": "Documentation Burden Score (DBS)", "description": "ML-powered documentation burden quantification. Validated across 172 hospitals (N=28,362)." }
+          ]
+        })}</script>
+      </Helmet>
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
