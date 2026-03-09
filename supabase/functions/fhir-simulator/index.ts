@@ -117,8 +117,15 @@ serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { resourceType, patientId, action } = body;
+    const { resourceType, patientId, action, vendor } = body;
     const pid = patientId || 'PT-4821';
+
+    const vendorMeta: Record<string, object> = {
+      epic: { source: 'Epic FHIR R4', endpoint: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4' },
+      cerner: { source: 'Oracle Health FHIR R4', endpoint: 'https://fhir-open.cerner.com/r4/ec2458f2-1e24-41c8-b71b-0e701af7583d' },
+      meditech: { source: 'MEDITECH Expanse FHIR R4', endpoint: 'https://fhir.meditech.com/r4' },
+      allscripts: { source: 'Allscripts/Veradigm FHIR R4', endpoint: 'https://open.allscripts.com/fhir/r4' },
+    };
 
     let responseData: unknown;
 
@@ -137,6 +144,15 @@ serve(async (req) => {
         break;
       default:
         responseData = { resourceType: 'OperationOutcome', issue: [{ severity: 'error', code: 'not-supported', diagnostics: `Resource type '${resourceType}' not supported in simulator` }] };
+    }
+
+    // Inject vendor metadata if specified
+    if (vendor && vendorMeta[vendor] && typeof responseData === 'object' && responseData !== null) {
+      (responseData as Record<string, unknown>).meta = {
+        ...((responseData as Record<string, unknown>).meta as object || {}),
+        ...vendorMeta[vendor],
+        tag: [{ system: 'https://vitasignal.ai/fhir/vendor', code: vendor }],
+      };
     }
 
     return new Response(JSON.stringify(responseData), {
