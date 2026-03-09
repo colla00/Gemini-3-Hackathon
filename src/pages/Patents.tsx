@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { FileText, AlertCircle, CheckCircle2, Mail, ChevronDown, ChevronUp, TrendingUp, Shield, Brain, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Helmet } from "react-helmet-async";
 import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
 
