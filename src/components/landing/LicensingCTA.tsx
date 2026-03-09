@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export const LicensingCTA = () => (
-  <section aria-labelledby="licensing-cta-heading" className="py-20 px-6 bg-primary">
+  <motion.section aria-labelledby="licensing-cta-heading" className="py-20 px-6 bg-primary" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}>
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -34,5 +34,5 @@ export const LicensingCTA = () => (
         </Button>
       </div>
     </motion.div>
-  </section>
+  </motion.section>
 );
