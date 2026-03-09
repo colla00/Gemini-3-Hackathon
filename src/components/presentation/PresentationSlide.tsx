@@ -640,7 +640,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     notes: [
       'ChartMinder innovation',
       '6-stage clinical reasoning chain',
-      '94% expert agreement rate',
+      '6-stage reasoning chain (design phase)',
       'Transparent decision path',
     ],
     keyPoints: [
