@@ -93,6 +93,11 @@ export const FHIRIntegrationDemo = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState(0);
   const [apiResponse, setApiResponse] = useState<string | null>(null);
   const [apiLoading, setApiLoading] = useState(false);
+  const [vendorFilter, setVendorFilter] = useState<EHRVendor>('all');
+
+  const filteredMessages = vendorFilter === 'all'
+    ? messages
+    : messages.filter(m => m.vendor === vendorLabels[vendorFilter]);
 
   // Live message streaming
   useEffect(() => {
