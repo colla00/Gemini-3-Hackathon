@@ -114,22 +114,9 @@ export const PerformanceComparisonTable = () => {
 
         <CardContent className="space-y-4">
           {/* Validation Overview */}
-          <div className="grid grid-cols-4 gap-2">
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.providers.toLocaleString()}</div>
-              <div className="text-[9px] text-muted-foreground">Providers</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.hospitals}</div>
-              <div className="text-[9px] text-muted-foreground">Hospital Sites</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-foreground">{validationStats.deploymentMonths}</div>
-              <div className="text-[9px] text-muted-foreground">Months Deployed</div>
-            </div>
-            <div className="bg-secondary/30 rounded-lg p-2.5 text-center">
-              <div className="text-lg font-bold text-risk-low">{validationStats.expertAgreement}%</div>
-              <div className="text-[9px] text-muted-foreground">Expert Agreement</div>
+          <div className="grid grid-cols-1 gap-2">
+            <div className="bg-amber-500/10 rounded-lg p-2.5 text-center border border-amber-500/20">
+              <div className="text-xs text-amber-600 font-medium">⚠️ No prospective study conducted — metrics below are design targets</div>
             </div>
           </div>
 
