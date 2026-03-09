@@ -49,5 +49,5 @@ export const RecognitionSection = () => (
         ))}
       </div>
     </div>
-  </section>
+  </motion.section>
 );

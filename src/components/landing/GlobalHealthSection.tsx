@@ -86,5 +86,5 @@ export const GlobalHealthSection = () => (
         </motion.div>
       </div>
     </div>
-  </section>
+  </motion.section>
 );

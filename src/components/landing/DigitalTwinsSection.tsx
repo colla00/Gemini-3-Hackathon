@@ -106,5 +106,5 @@ export const DigitalTwinsSection = () => (
         </p>
       </motion.div>
     </div>
-  </section>
+  </motion.section>
 );

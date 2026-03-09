@@ -166,5 +166,5 @@ export const TechnologyPortfolio = () => (
         ))}
       </div>
     </div>
-  </section>
+  </motion.section>
 );
