@@ -55,6 +55,7 @@ const DataRoom = lazy(() => import("./pages/DataRoom"));
 const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
 const Investors = lazy(() => import("./pages/Investors"));
 const Integrations = lazy(() => import("./pages/Integrations"));
+const NonprovisionalToolsPage = lazy(() => import("./pages/NonprovisionalTools"));
 
 
 const queryClient = new QueryClient();
