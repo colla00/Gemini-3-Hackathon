@@ -43,6 +43,8 @@ import { FHIRIntegrationDemo } from '@/components/dashboard/FHIRIntegrationDemo'
 import { InvestorMetricsProvider } from '@/hooks/useInvestorMetrics';
 import { ClinicalClock } from '@/components/dashboard/ClinicalClock';
 import { AmbientActivityFeed } from '@/components/dashboard/AmbientActivityFeed';
+import { GuidedTour, TourButton } from '@/components/quality/GuidedTour';
+import { useGuidedTour } from '@/hooks/useGuidedTour';
 import heroBg from '@/assets/hero-bg.jpg';
 
 /* ───────── Animated Counter ───────── */
