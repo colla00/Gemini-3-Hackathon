@@ -188,8 +188,8 @@ export const EHRCompatibilityMatrix = () => {
         {/* Summary stats */}
         <div className="grid grid-cols-3 gap-3 mt-4">
           <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/30">
-            <p className="text-2xl font-bold text-green-600">{certifiedCount}</p>
-            <p className="text-xs text-muted-foreground">Certified EHRs</p>
+            <p className="text-2xl font-bold text-green-600">{readyCount}</p>
+            <p className="text-xs text-muted-foreground">Design Ready</p>
           </div>
           <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
             <p className="text-2xl font-bold text-primary">{totalMarketCoverage}%</p>
