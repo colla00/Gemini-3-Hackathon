@@ -357,6 +357,25 @@ export const Integrations = () => (
       </div>
     </motion.section>
 
+    {/* Vendor Onboarding */}
+    <motion.section
+      className="py-16 px-6 bg-secondary/30"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-2 text-center">
+          Integration Onboarding
+        </h2>
+        <p className="text-muted-foreground text-center mb-8 max-w-xl mx-auto text-sm">
+          Complete vendor onboarding checklist with sandbox access, SMART on FHIR authorization, and NDA/BAA framework.
+        </p>
+        <VendorOnboardingChecklist />
+      </div>
+    </motion.section>
+
     {/* CTA */}
     <section className="py-16 px-6">
       <div className="max-w-3xl mx-auto text-center">
