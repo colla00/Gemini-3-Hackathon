@@ -274,9 +274,9 @@ export const EHRCompatibilityMatrix = () => {
             <div className="flex items-start justify-between">
               <div>
                 <h4 className="font-semibold text-foreground">{selectedVendor.name}</h4>
-                {selectedVendor.certificationDate && (
+              {selectedVendor.certificationDate && (
                   <p className="text-xs text-muted-foreground">
-                    Certified: {selectedVendor.certificationDate}
+                    Target date: {selectedVendor.certificationDate}
                   </p>
                 )}
               </div>
