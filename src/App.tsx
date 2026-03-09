@@ -99,6 +99,7 @@ const App = () => {
               <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <CookieConsent />
                 <PageViewTracker />
+                <GlobalDisclaimer />
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/auth" element={<Auth />} />
