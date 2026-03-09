@@ -206,21 +206,21 @@ export const PerformanceComparisonTable = () => {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-gradient-to-br from-chart-1/10 to-chart-2/10 rounded-xl p-3 text-center border border-chart-1/20">
               <TrendingUp className="w-4 h-4 text-chart-1 mx-auto mb-1" />
-              <div className="text-lg font-bold text-foreground">{validationStats.trustCorrelation}%</div>
+              <div className="text-lg font-bold text-foreground">Target</div>
               <div className="text-[9px] text-muted-foreground">Trust Score Correlation</div>
-              <div className="text-[8px] text-chart-1">Pearson r = 0.96</div>
+              <div className="text-[8px] text-chart-1">Design goal (not measured)</div>
             </div>
             <div className="bg-gradient-to-br from-primary/10 to-chart-2/10 rounded-xl p-3 text-center border border-primary/20">
               <Users className="w-4 h-4 text-primary mx-auto mb-1" />
               <div className="text-lg font-bold text-foreground">{validationStats.timeSaved}m</div>
               <div className="text-[9px] text-muted-foreground">Time Saved/Decision</div>
-              <div className="text-[8px] text-primary">437 hrs/100-bed/mo</div>
+              <div className="text-[8px] text-primary">Projected (simulated)</div>
             </div>
             <div className="bg-gradient-to-br from-risk-low/10 to-chart-1/10 rounded-xl p-3 text-center border border-risk-low/20">
               <CheckCircle className="w-4 h-4 text-risk-low mx-auto mb-1" />
-              <div className="text-lg font-bold text-foreground">100%</div>
+              <div className="text-lg font-bold text-foreground">Target</div>
               <div className="text-[9px] text-muted-foreground">Critical Sensitivity</div>
-              <div className="text-[8px] text-risk-low">Zero missed events</div>
+              <div className="text-[8px] text-risk-low">Design goal</div>
             </div>
           </div>
 
