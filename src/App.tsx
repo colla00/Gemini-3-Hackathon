@@ -215,6 +215,11 @@ const App = () => {
                       <Investors />
                     </Suspense>
                   } />
+                  <Route path="/integrations" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <Integrations />
+                    </Suspense>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

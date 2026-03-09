@@ -39,6 +39,7 @@ export const Landing = () => {
       <LandingHero />
       <WhyNoHardware />
       <ValidationSection />
+      <EHRCompatibilitySection />
       <GlobalHealthSection />
       <TechnologyPortfolio />
       <DigitalTwinsSection />
