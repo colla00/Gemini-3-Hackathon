@@ -7,6 +7,7 @@ import { LicensingCTA } from "@/components/landing/LicensingCTA";
 import { WhyNoHardware } from "@/components/landing/WhyNoHardware";
 import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
+import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { Helmet } from "react-helmet-async";
 
 const jsonLd = {
