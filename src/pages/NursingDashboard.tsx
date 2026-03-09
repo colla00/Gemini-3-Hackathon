@@ -432,7 +432,7 @@ export const NursingDashboard = () => {
           </div>
 
           {/* Stats grid */}
-          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4" data-tour="stats">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
