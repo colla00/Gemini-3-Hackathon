@@ -575,7 +575,7 @@ export const NursingDashboard = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="hidden lg:block lg:w-[280px] shrink-0"
             >
-              <div className="patent-sidebar rounded-2xl overflow-hidden lg:sticky lg:top-24">
+              <div className="patent-sidebar rounded-2xl overflow-hidden lg:sticky lg:top-24" data-tour="sidebar">
                 {/* Sidebar header */}
                 <div className="px-4 py-3 border-b border-border/30">
                   <p className="text-[10px] uppercase tracking-widest text-foreground/70 font-bold">Patent Portfolio</p>
