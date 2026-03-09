@@ -372,7 +372,21 @@ export const NursingDashboard = () => {
     >
       <WatermarkOverlay />
 
-      {/* ──── HERO ──── */}
+      {/* Guided Tour */}
+      <GuidedTour
+        isActive={tour.isActive}
+        currentStep={tour.currentStep}
+        currentStepIndex={tour.currentStepIndex}
+        totalSteps={tour.totalSteps}
+        isFirstStep={tour.isFirstStep}
+        isLastStep={tour.isLastStep}
+        targetRect={tour.targetRect}
+        onNext={tour.nextStep}
+        onPrev={tour.prevStep}
+        onEnd={tour.endTour}
+        onGoToStep={tour.goToStep}
+      />
+
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
