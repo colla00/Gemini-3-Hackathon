@@ -717,6 +717,83 @@ export type Database = {
         }
         Relationships: []
       }
+      patent_filing_receipts: {
+        Row: {
+          application_number: string | null
+          claims_count: number | null
+          confirmation_number: string | null
+          created_at: string
+          created_by: string | null
+          entity_type: string
+          examination_fee_paid: number | null
+          excess_claims_fee: number | null
+          filing_date: string | null
+          filing_fee_paid: number | null
+          filing_type: string
+          id: string
+          independent_claims_count: number | null
+          notes: string | null
+          patent_id: string | null
+          receipt_date: string | null
+          receipt_document_path: string | null
+          search_fee_paid: number | null
+          total_fees_paid: number | null
+          updated_at: string
+        }
+        Insert: {
+          application_number?: string | null
+          claims_count?: number | null
+          confirmation_number?: string | null
+          created_at?: string
+          created_by?: string | null
+          entity_type?: string
+          examination_fee_paid?: number | null
+          excess_claims_fee?: number | null
+          filing_date?: string | null
+          filing_fee_paid?: number | null
+          filing_type?: string
+          id?: string
+          independent_claims_count?: number | null
+          notes?: string | null
+          patent_id?: string | null
+          receipt_date?: string | null
+          receipt_document_path?: string | null
+          search_fee_paid?: number | null
+          total_fees_paid?: number | null
+          updated_at?: string
+        }
+        Update: {
+          application_number?: string | null
+          claims_count?: number | null
+          confirmation_number?: string | null
+          created_at?: string
+          created_by?: string | null
+          entity_type?: string
+          examination_fee_paid?: number | null
+          excess_claims_fee?: number | null
+          filing_date?: string | null
+          filing_fee_paid?: number | null
+          filing_type?: string
+          id?: string
+          independent_claims_count?: number | null
+          notes?: string | null
+          patent_id?: string | null
+          receipt_date?: string | null
+          receipt_document_path?: string | null
+          search_fee_paid?: number | null
+          total_fees_paid?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patent_filing_receipts_patent_id_fkey"
+            columns: ["patent_id"]
+            isOneToOne: false
+            referencedRelation: "patents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       patents: {
         Row: {
           attorney_assigned: boolean
@@ -1010,6 +1087,45 @@ export type Database = {
         }
         Relationships: []
       }
+      sla_metrics: {
+        Row: {
+          check_type: string
+          checked_at: string
+          created_at: string
+          endpoint: string
+          error_message: string | null
+          http_status: number | null
+          id: string
+          response_time_ms: number | null
+          status: string
+          vendor_id: string | null
+        }
+        Insert: {
+          check_type?: string
+          checked_at?: string
+          created_at?: string
+          endpoint: string
+          error_message?: string | null
+          http_status?: number | null
+          id?: string
+          response_time_ms?: number | null
+          status?: string
+          vendor_id?: string | null
+        }
+        Update: {
+          check_type?: string
+          checked_at?: string
+          created_at?: string
+          endpoint?: string
+          error_message?: string | null
+          http_status?: number | null
+          id?: string
+          response_time_ms?: number | null
+          status?: string
+          vendor_id?: string | null
+        }
+        Relationships: []
+      }
       slide_analytics: {
         Row: {
           created_at: string
@@ -1064,6 +1180,59 @@ export type Database = {
           },
         ]
       }
+      smart_apps: {
+        Row: {
+          client_id: string
+          client_name: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          launch_url: string | null
+          logo_url: string | null
+          redirect_uris: string[]
+          scopes: string[]
+          updated_at: string
+          vendor_id: string | null
+        }
+        Insert: {
+          client_id: string
+          client_name: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          launch_url?: string | null
+          logo_url?: string | null
+          redirect_uris?: string[]
+          scopes?: string[]
+          updated_at?: string
+          vendor_id?: string | null
+        }
+        Update: {
+          client_id?: string
+          client_name?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          launch_url?: string | null
+          logo_url?: string | null
+          redirect_uris?: string[]
+          scopes?: string[]
+          updated_at?: string
+          vendor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "smart_apps_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendor_api_keys"
+            referencedColumns: ["vendor_id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -1082,6 +1251,75 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      vendor_api_keys: {
+        Row: {
+          allowed_ips: string[] | null
+          api_key_hash: string
+          api_key_prefix: string
+          baa_signed: boolean
+          contact_email: string | null
+          contact_name: string | null
+          created_at: string
+          created_by: string | null
+          environment: string
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          last_used_at: string | null
+          nda_signed: boolean
+          notes: string | null
+          rate_limit_per_min: number
+          scopes: string[] | null
+          total_requests: number
+          vendor_id: string
+          vendor_name: string
+        }
+        Insert: {
+          allowed_ips?: string[] | null
+          api_key_hash: string
+          api_key_prefix: string
+          baa_signed?: boolean
+          contact_email?: string | null
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          environment?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          nda_signed?: boolean
+          notes?: string | null
+          rate_limit_per_min?: number
+          scopes?: string[] | null
+          total_requests?: number
+          vendor_id: string
+          vendor_name: string
+        }
+        Update: {
+          allowed_ips?: string[] | null
+          api_key_hash?: string
+          api_key_prefix?: string
+          baa_signed?: boolean
+          contact_email?: string | null
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          environment?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          nda_signed?: boolean
+          notes?: string | null
+          rate_limit_per_min?: number
+          scopes?: string[] | null
+          total_requests?: number
+          vendor_id?: string
+          vendor_name?: string
         }
         Relationships: []
       }
@@ -1171,6 +1409,65 @@ export type Database = {
           status?: string
         }
         Relationships: []
+      }
+      webhook_delivery_log: {
+        Row: {
+          attempt_count: number
+          created_at: string
+          delivered_at: string | null
+          error_message: string | null
+          fhir_event_id: string | null
+          http_status: number | null
+          id: string
+          last_attempt_at: string | null
+          max_attempts: number
+          next_retry_at: string | null
+          response_body: string | null
+          status: string
+          target_url: string
+          vendor_id: string | null
+        }
+        Insert: {
+          attempt_count?: number
+          created_at?: string
+          delivered_at?: string | null
+          error_message?: string | null
+          fhir_event_id?: string | null
+          http_status?: number | null
+          id?: string
+          last_attempt_at?: string | null
+          max_attempts?: number
+          next_retry_at?: string | null
+          response_body?: string | null
+          status?: string
+          target_url: string
+          vendor_id?: string | null
+        }
+        Update: {
+          attempt_count?: number
+          created_at?: string
+          delivered_at?: string | null
+          error_message?: string | null
+          fhir_event_id?: string | null
+          http_status?: number | null
+          id?: string
+          last_attempt_at?: string | null
+          max_attempts?: number
+          next_retry_at?: string | null
+          response_body?: string | null
+          status?: string
+          target_url?: string
+          vendor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_delivery_log_fhir_event_id_fkey"
+            columns: ["fhir_event_id"]
+            isOneToOne: false
+            referencedRelation: "fhir_events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       witness_invitations: {
         Row: {

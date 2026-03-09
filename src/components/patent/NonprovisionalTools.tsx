@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { USPTOFeeCalculator } from "./USPTOFeeCalculator";
+import { FilingReceiptTracker } from "./FilingReceiptTracker";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -426,6 +428,12 @@ export function NonprovisionalTools() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* USPTO Fee Calculator */}
+      <USPTOFeeCalculator />
+
+      {/* Filing Receipt Tracker */}
+      <FilingReceiptTracker />
     </div>
   );
 }

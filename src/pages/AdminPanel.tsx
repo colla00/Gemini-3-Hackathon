@@ -14,6 +14,8 @@ import { Users, Shield, Settings, RotateCcw, FileText, Search, Download, Chevron
 import { WalkthroughRequestsPanel } from '@/components/admin/WalkthroughRequestsPanel';
 import { SiteArchivePanel } from '@/components/admin/SiteArchivePanel';
 import { RateLimitMonitoringPanel } from '@/components/admin/RateLimitMonitoringPanel';
+import { VendorKeyManagement } from '@/components/admin/VendorKeyManagement';
+import { SLAMonitoringDashboard } from '@/components/admin/SLAMonitoringDashboard';
 import { Header } from '@/components/dashboard/Header';
 import {
   Pagination,
@@ -478,6 +480,12 @@ const AdminPanel = () => {
 
         {/* Walkthrough Access Requests */}
         <WalkthroughRequestsPanel />
+
+        {/* Vendor API Key Management */}
+        <VendorKeyManagement />
+
+        {/* SLA Monitoring & Webhook Delivery */}
+        <SLAMonitoringDashboard />
 
         {/* Rate Limit Monitoring */}
         <RateLimitMonitoringPanel />
