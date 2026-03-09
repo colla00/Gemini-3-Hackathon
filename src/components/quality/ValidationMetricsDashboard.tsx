@@ -44,7 +44,7 @@ const calibrationData = [
   { predicted: 0.9, observed: 0.88 },
 ];
 
-// Temporal stability data
+// Temporal stability data (SIMULATED — illustrative design targets, not from validated study)
 const temporalStabilityData = [
   { week: 'W1', auc: 0.842, sensitivity: 0.81, specificity: 0.85 },
   { week: 'W2', auc: 0.848, sensitivity: 0.82, specificity: 0.84 },

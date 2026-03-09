@@ -53,8 +53,8 @@ export const PatentFeaturesView = () => {
               <Brain className="w-4 h-4 text-chart-2" />
               <span className="text-xs font-semibold text-foreground">Neural Reasoning</span>
             </div>
-            <p className="text-2xl font-bold text-chart-2">94%</p>
-            <p className="text-[10px] text-muted-foreground">Expert agreement</p>
+            <p className="text-2xl font-bold text-chart-2">6-Stage</p>
+            <p className="text-[10px] text-muted-foreground">Reasoning chain (design)</p>
           </div>
           <div className="bg-card/60 backdrop-blur-sm rounded-xl p-4 border border-border/40">
             <div className="flex items-center gap-2 mb-2">
@@ -62,7 +62,7 @@ export const PatentFeaturesView = () => {
               <span className="text-xs font-semibold text-foreground">Equity Engine</span>
             </div>
             <p className="text-2xl font-bold text-chart-1">&lt;0.5%</p>
-            <p className="text-[10px] text-muted-foreground">Demographic disparity</p>
+            <p className="text-[10px] text-muted-foreground">Disparity target (design goal)</p>
           </div>
           <div className="bg-card/60 backdrop-blur-sm rounded-xl p-4 border border-border/40">
             <div className="flex items-center gap-2 mb-2">

@@ -192,9 +192,9 @@ export const InvestorModePanel = ({ isActive, onNavigateToCalculator }: Investor
       styles: chartMinderMetrics.alertReduction,
     },
     {
-      label: 'Expert Agreement',
-      value: '94%',
-      trend: 'Neural Reasoning',
+      label: 'Reasoning Transparency',
+      value: '6-Stage',
+      trend: 'Neural Reasoning (design)',
       icon: Award,
       styles: chartMinderMetrics.expertAgreement,
     },

@@ -77,7 +77,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-equity': {
     title: 'Real-Time Equity Monitoring Engine',
     subtitle: 'U.S. Patent Application Filed · Demographic Bias Auditing',
-    citation: '<0.5% disparity threshold maintained',
+    citation: '<0.5% disparity threshold (design target)',
   },
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
@@ -92,7 +92,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-neural-reasoning': {
     title: 'Neural Reasoning Engine',
     subtitle: 'U.S. Patent Application Filed · Chain-of-Thought Clinical AI',
-    citation: '94% expert agreement rate',
+    citation: '6-stage chain-of-thought reasoning (design phase)',
   },
   'patent-cognitive-load': {
     title: 'Cognitive Load Optimizer',

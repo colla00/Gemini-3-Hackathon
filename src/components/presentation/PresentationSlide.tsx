@@ -640,14 +640,14 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
     notes: [
       'ChartMinder innovation',
       '6-stage clinical reasoning chain',
-      '94% expert agreement rate',
+      '6-stage reasoning chain (design phase)',
       'Transparent decision path',
     ],
     keyPoints: [
       'Chain-of-thought reasoning visualization',
       'BioBERT literature correlation',
       'Counterfactual what-if analysis',
-      '94% agreement with clinical experts',
+      'Designed for clinical expert validation',
       'Transformer attention weight display',
     ],
     talkingPoints: [

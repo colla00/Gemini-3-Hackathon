@@ -42,13 +42,13 @@ const narrationScripts: NarrationScript[] = [
     Click any patient row for detailed risk factors and recommended interventions.`,
     academicText: `The Patient Worklist view implements individual-level risk stratification, a key component of precision nursing care.
     
-    Each patient row displays calibrated probability estimates for the three nurse-sensitive outcomes. Our model validation, conducted on a cohort of 2,847 patients, achieved sensitivity of 0.84 and specificity of 0.91 for high-risk classifications.
+    Each patient row displays calibrated probability estimates for the three nurse-sensitive outcomes. This worklist design is in the validation planning phase; prospective sensitivity and specificity studies have not yet been conducted.
     
-    The 24-hour trend sparklines provide temporal context essential for clinical interpretation. Research shows that risk trajectory, not just point-in-time values, strongly predicts adverse events within 48 hours.
+    The 24-hour trend sparklines provide temporal context essential for clinical interpretation. Research suggests that risk trajectory, not just point-in-time values, may predict adverse events within 48 hours.
     
     The confidence indicators reflect model uncertainty, derived from dropout-based Bayesian approximation. This transparency helps nurses calibrate their trust in predictions, particularly for edge cases where model confidence is lower.
     
-    Importantly, the interface design was developed through participatory design sessions with 12 bedside nurses, ensuring alignment with existing clinical workflows.`,
+    The interface design follows human-factors engineering principles aligned with existing clinical workflows.`,
   },
   {
     view: 'shap',
