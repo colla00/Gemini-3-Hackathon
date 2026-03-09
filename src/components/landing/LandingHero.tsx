@@ -129,11 +129,11 @@ export const LandingHero = () => (
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 + i * 0.05 }}
-            className="bg-background/70 backdrop-blur-sm p-5 text-center"
+            className="bg-background/95 backdrop-blur-md p-5 text-center"
           >
-            <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-sm">{s.value}</p>
-            <p className="text-sm font-semibold text-foreground">{s.label}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{s.detail}</p>
+            <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">{s.value}</p>
+            <p className="text-sm font-bold text-foreground">{s.label}</p>
+            <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>
           </motion.div>
         ))}
         </div>
