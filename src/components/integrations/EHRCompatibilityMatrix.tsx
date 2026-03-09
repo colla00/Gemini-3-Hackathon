@@ -122,24 +122,24 @@ export const EHRCompatibilityMatrix = () => {
     v.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getStatusIcon = (status: 'certified' | 'supported' | 'planned') => {
+  const getStatusIcon = (status: 'ready' | 'in-progress' | 'planned') => {
     switch (status) {
-      case 'certified':
+      case 'ready':
         return (
           <Tooltip>
             <TooltipTrigger>
               <CheckCircle2 className="w-4 h-4 text-green-500" />
             </TooltipTrigger>
-            <TooltipContent>Certified & Production Ready</TooltipContent>
+            <TooltipContent>Integration Design Ready (Not Yet Certified)</TooltipContent>
           </Tooltip>
         );
-      case 'supported':
+      case 'in-progress':
         return (
           <Tooltip>
             <TooltipTrigger>
               <AlertCircle className="w-4 h-4 text-yellow-500" />
             </TooltipTrigger>
-            <TooltipContent>Supported (Non-Certified)</TooltipContent>
+            <TooltipContent>Integration In Development</TooltipContent>
           </Tooltip>
         );
       case 'planned':
