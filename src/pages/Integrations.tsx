@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { FHIRWebhookFeed } from "@/components/integrations/FHIRWebhookFeed";
+import { VendorOnboardingChecklist } from "@/components/integrations/VendorOnboardingChecklist";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
