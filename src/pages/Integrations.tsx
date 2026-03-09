@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { FHIRWebhookFeed } from "@/components/integrations/FHIRWebhookFeed";
 import { VendorOnboardingChecklist } from "@/components/integrations/VendorOnboardingChecklist";
 import { FHIRPatientLoader } from "@/components/integrations/FHIRPatientLoader";
+import { APIStatusDashboard } from "@/components/integrations/APIStatusDashboard";
+import { EHRCompatibilityMatrix } from "@/components/integrations/EHRCompatibilityMatrix";
+import { SMARTLaunchDemo } from "@/components/integrations/SMARTLaunchDemo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -159,9 +162,57 @@ export const Integrations = () => (
       </div>
     </section>
 
-    {/* Architecture overview */}
+    {/* API Status Dashboard */}
     <motion.section
       className="py-16 px-6"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-8 text-center">
+          System Status
+        </h2>
+        <APIStatusDashboard />
+      </div>
+    </motion.section>
+
+    {/* EHR Compatibility Matrix */}
+    <motion.section
+      className="py-16 px-6 bg-secondary/30"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-8 text-center">
+          EHR Compatibility
+        </h2>
+        <EHRCompatibilityMatrix />
+      </div>
+    </motion.section>
+
+    {/* SMART on FHIR Launch Demo */}
+    <motion.section
+      className="py-16 px-6"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-8 text-center">
+          SMART on FHIR Launch
+        </h2>
+        <SMARTLaunchDemo />
+      </div>
+    </motion.section>
+
+    {/* Architecture overview */}
+    <motion.section
+      className="py-16 px-6 bg-secondary/30"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
