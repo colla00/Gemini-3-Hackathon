@@ -41,14 +41,28 @@ export const LandingHero = () => (
 
       {/* Main headline */}
       <motion.h1
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.08 }}
+        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 leading-[1.05] max-w-4xl"
       >
-        Clinical Intelligence
+        <motion.span
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="inline-block"
+        >
+          Clinical Intelligence
+        </motion.span>
         <br />
-        <span className="text-primary">Without Equipment</span>
+        <motion.span
+          initial={{ opacity: 0, x: 20, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+          className="text-primary inline-block"
+        >
+          Without Equipment
+        </motion.span>
       </motion.h1>
 
       {/* One-liner tagline */}
