@@ -459,7 +459,7 @@ export const NursingDashboard = () => {
       </div>
 
       {/* ──── LIVE CENSUS STRIP ──── */}
-      <div className="hidden md:flex items-center justify-center gap-6 bg-card/60 border-b border-border/30 py-2.5 px-4">
+      <div className="hidden md:flex items-center justify-center gap-6 bg-card/60 border-b border-border/30 py-2.5 px-4" data-tour="census-strip">
         <CensusItem icon={<Users className="w-3.5 h-3.5" />} label="Census" value="18" />
         <div className="w-px h-5 bg-border/30" />
         <CensusItem icon={<BedDouble className="w-3.5 h-3.5" />} label="Beds Available" value="6/24" />
