@@ -264,9 +264,11 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
             <div>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Legal</p>
               <div className="space-y-2">
-                <Link to="/terms" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Terms of Use</Link>
+                <Link to="/terms" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Terms of Service</Link>
                 <Link to="/privacy" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
+                <Link to="/regulatory" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Regulatory Readiness</Link>
                 <span className="block text-sm text-primary-foreground/50">11 U.S. Patents Pending</span>
+                <span className="block text-[11px] text-primary-foreground/30">We do not sell personal data.</span>
               </div>
             </div>
           </div>
@@ -277,7 +279,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               &copy; 2025-2026 VitaSignal LLC. All Rights Reserved.
             </p>
             <p className="text-[10px] text-primary-foreground/30">
-              VitaSignal™, Documentation Burden Score™, and IDI™ are trademarks of VitaSignal LLC.
+              VitaSignal™, ChartMinder™, Documentation Burden Score™, and IDI™ are trademarks of VitaSignal LLC.
             </p>
             <p className="text-[10px] text-primary-foreground/30 mt-1">
               Pre-Market Research Prototype. Not FDA Cleared. Not a Medical Device.
