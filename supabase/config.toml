@@ -74,3 +74,19 @@ verify_jwt = false
 
 [functions.submit-licensing-inquiry]
 verify_jwt = false
+
+[functions.vitasignal-inference]
+verify_jwt = false
+
+[functions.fhir-patient-loader]
+verify_jwt = false
+
+[functions.smart-launch]
+verify_jwt = false
+
+[functions.webhook-retry]
+verify_jwt = false
+
+[functions.patent-deadline-alerts]
+verify_jwt = false
+
