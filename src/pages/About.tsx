@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart, FileText, Shield, ExternalLink, BarChart3, Users, DollarSign, Calendar } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import heroBg from "@/assets/hero-bg.jpg";
 import alexisPhoto from "@/assets/alexis-collier.png";
 import { WalkthroughScheduleModal } from "@/components/WalkthroughScheduleModal";
