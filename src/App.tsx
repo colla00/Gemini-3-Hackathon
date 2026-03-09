@@ -221,6 +221,11 @@ const App = () => {
                       <Integrations />
                     </Suspense>
                   } />
+                  <Route path="/patents/nonprovisional" element={
+                    <Suspense fallback={<PageSkeleton />}>
+                      <NonprovisionalToolsPage />
+                    </Suspense>
+                  } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
