@@ -239,16 +239,31 @@ export const FHIRIntegrationDemo = () => {
         <TabsContent value="stream">
           <Card className="border-border/40">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <RefreshCw className={cn("h-4 w-4 text-chart-1", isStreaming && "animate-spin")} />
-                HL7 FHIR R4 Message Stream
-                <Badge variant="outline" className="text-[9px] ml-auto tabular-nums">{totalProcessed.toLocaleString()} total</Badge>
-              </CardTitle>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <RefreshCw className={cn("h-4 w-4 text-chart-1", isStreaming && "animate-spin")} />
+                  HL7 FHIR R4 Message Stream
+                  <Badge variant="outline" className="text-[9px] ml-2 tabular-nums">{totalProcessed.toLocaleString()} total</Badge>
+                </CardTitle>
+                <div className="flex gap-1">
+                  {(['all', ...vendorList] as EHRVendor[]).map((v) => (
+                    <Button
+                      key={v}
+                      variant={vendorFilter === v ? 'default' : 'outline'}
+                      size="sm"
+                      className="text-[9px] h-6 px-2"
+                      onClick={() => setVendorFilter(v)}
+                    >
+                      {vendorLabels[v]}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-1.5 max-h-[400px] overflow-y-auto pr-1">
                 <AnimatePresence initial={false}>
-                  {messages.map((msg) => (
+                  {filteredMessages.map((msg) => (
                     <motion.div
                       key={msg.id}
                       initial={{ opacity: 0, height: 0, y: -10 }}
