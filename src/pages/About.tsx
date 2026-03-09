@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { GraduationCap, Award, Building2, Mail, Linkedin, BookOpen, Microscope, Heart, FileText, Shield, ExternalLink, BarChart3, Users, DollarSign, Calendar } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import heroBg from "@/assets/hero-bg.jpg";
 import alexisPhoto from "@/assets/alexis-collier.png";
 import { WalkthroughScheduleModal } from "@/components/WalkthroughScheduleModal";
@@ -14,6 +15,22 @@ function About() {
 
   return (
     <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
+      <Helmet>
+        <meta property="og:image" content="https://vitasignal.ai/og-about.png" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta name="twitter:image" content="https://vitasignal.ai/og-about.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Dr. Alexis Collier",
+          "jobTitle": "DHA",
+          "description": "Health Informaticist, AI Researcher, and Founder of VitaSignal LLC. Inventor of 11 patent-pending clinical AI systems.",
+          "url": "https://vitasignal.ai/about",
+          "worksFor": { "@type": "Organization", "name": "VitaSignal LLC" },
+          "knowsAbout": ["Clinical Informatics", "Healthcare AI", "ICU Mortality Prediction", "Nursing Documentation"]
+        })}</script>
+      </Helmet>
       {/* Hero - biographical focus */}
       <section className="relative overflow-hidden bg-foreground text-primary-foreground">
         <div className="absolute inset-0">

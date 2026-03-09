@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Building2, Briefcase, GraduationCap, CheckCircle2, Mail, FileText, Shield, CreditCard, Loader2, ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -95,6 +96,25 @@ function Licensing() {
       title="Licensing Portal | VitaSignal™ Clinical AI Systems"
       description="License VitaSignal's patent-pending clinical AI technology. EHR integration, hospital pilot programs, and research collaboration."
     >
+      <Helmet>
+        <meta property="og:image" content="https://vitasignal.ai/og-licensing.png" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta name="twitter:image" content="https://vitasignal.ai/og-licensing.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "VitaSignal Technology Licensing",
+          "description": "License VitaSignal's patent-pending clinical AI technology for EHR integration, hospital pilot programs, and research collaboration.",
+          "url": "https://vitasignal.ai/licensing",
+          "specialty": "Clinical Informatics",
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/PreOrder",
+            "description": "Pre-market research prototype. Available for licensing to EHR vendors and hospital systems."
+          }
+        })}</script>
+      </Helmet>
       {/* Payment status banner */}
       {paymentStatus === "success" && (
         <div className="bg-emerald-600 text-white text-center py-3 text-sm font-medium">
