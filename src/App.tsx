@@ -15,6 +15,7 @@ import AdminRoute from "@/components/AdminRoute";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
+import { GlobalDisclaimer } from "@/components/GlobalDisclaimer";
 import { usePageViewTracker } from "@/hooks/usePageViewTracker";
 
 function PageViewTracker() { usePageViewTracker(); return null; }
@@ -98,6 +99,7 @@ const App = () => {
               <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <CookieConsent />
                 <PageViewTracker />
+                <GlobalDisclaimer />
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/auth" element={<Auth />} />
