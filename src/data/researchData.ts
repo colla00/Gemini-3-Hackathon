@@ -161,15 +161,9 @@ export const TIMELINE: TimelineItem[] = [
     icon: '🎓',
   },
   {
-    year: 'Dec 2025',
-    title: 'Patent Filings #1 & #2',
-    description: 'Trust-Based Alert System & Clinical Risk Intelligence patent applications filed',
-    icon: '⚖️',
-  },
-  {
     year: '2024',
     title: 'Clinical AI Fellowship',
-    description: 'Focus on AI for clinical decision support',
+    description: 'NIH AIM-AHEAD CLINAQ Fellowship — AI for clinical decision support',
     icon: '🏆',
   },
   {
@@ -185,9 +179,9 @@ export const TIMELINE: TimelineItem[] = [
     icon: '🎯',
   },
   {
-    year: '2025 Dec',
-    title: 'Patent Filing #2',
-    description: 'Trust-Based Alert System (U.S. Patent Application Filed)',
+    year: '2025 Dec–2026 Feb',
+    title: '11 Patent Applications Filed',
+    description: '11 U.S. provisional patent applications with 175+ claims',
     icon: '⚖️',
   },
   {
@@ -199,7 +193,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: '2026+',
     title: 'Platform Launch',
-    description: 'Full DRALEXIS Clinical Intelligence Platform deployment',
+    description: 'Full VitaSignal™ Clinical Intelligence Platform deployment',
     icon: '🚀',
   },
 ];

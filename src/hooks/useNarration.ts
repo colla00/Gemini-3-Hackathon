@@ -27,7 +27,7 @@ const narrationScripts: NarrationScript[] = [
     
     Our methodology integrates validated clinical assessment tools, including the Morse Fall Scale and Braden Scale, with machine learning predictions derived from real-time EHR data streams.
     
-    The architecture achieves sub-5-minute data latency through HL7 FHIR integration, enabling truly real-time risk monitoring. Initial validation shows an aggregate AUC-ROC of 0.89 across all three outcome categories.
+    The architecture is designed for sub-5-minute data latency through HL7 FHIR integration, enabling real-time risk monitoring. The design target is an aggregate AUC-ROC of 0.89 across all three outcome categories (not yet validated).
     
     The priority queue implements a composite risk ranking algorithm that considers not just current risk magnitude, but also trend velocity and time since last nursing assessment.`,
   },

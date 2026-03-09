@@ -239,9 +239,9 @@ export const PerformanceComparisonTable = () => {
           {/* Methodology Note */}
           <div className="bg-secondary/20 rounded-lg p-2.5 text-center border border-border/30">
             <p className="text-[9px] text-muted-foreground">
-              Prospective before-after study at {validationStats.academicCenters} academic + {validationStats.communityHospitals} community hospitals. 
-              IRB approved. Adjudicated by 8 board-certified intensivists. 
-              Effect sizes (Cohen's d) 1.8-3.4 indicate large practical significance.
+              ⚠️ Illustrative comparison based on published literature benchmarks. 
+              No prospective study has been conducted. IRB submission planned. 
+              Effect sizes are design targets, not empirical results.
             </p>
           </div>
         </CardContent>

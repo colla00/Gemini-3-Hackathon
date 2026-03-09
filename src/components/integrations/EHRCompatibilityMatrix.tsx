@@ -293,10 +293,10 @@ export const EHRCompatibilityMatrix = () => {
         {/* Legend */}
         <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Certified
+            <CheckCircle2 className="w-3.5 h-3.5 text-green-500" /> Design Ready
           </span>
           <span className="flex items-center gap-1.5">
-            <AlertCircle className="w-3.5 h-3.5 text-yellow-500" /> Supported
+            <AlertCircle className="w-3.5 h-3.5 text-yellow-500" /> In Development
           </span>
           <span className="flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-muted-foreground" /> Planned
