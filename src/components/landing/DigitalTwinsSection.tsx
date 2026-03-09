@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Activity, Brain, FileText, ArrowRight, Layers } from "lucide-react";
+import { useRef } from "react";
 
 const layers = [
   {
@@ -26,85 +27,124 @@ const layers = [
   },
 ];
 
-export const DigitalTwinsSection = () => (
-  <motion.section aria-labelledby="digital-twins-heading" className="relative py-24 px-6 overflow-hidden" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}>
-    <div className="absolute inset-0 bg-foreground" aria-hidden="true" />
-    <div
-      className="absolute inset-0 opacity-10"
-      aria-hidden="true"
-      style={{
-        backgroundImage: `radial-gradient(circle at 25% 40%, hsl(173 58% 29% / 0.5) 0%, transparent 50%),
-                         radial-gradient(circle at 75% 60%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
-      }}
-    />
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+};
 
-    <div className="relative max-w-5xl mx-auto">
+const layerVariants = {
+  hidden: { opacity: 0, x: -30, filter: "blur(4px)" } as const,
+  visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } } as const,
+};
+
+export const DigitalTwinsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const bgY = useSpring(useTransform(scrollYProgress, [0, 1], [50, -50]), { stiffness: 100, damping: 30 });
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      aria-labelledby="digital-twins-heading"
+      className="relative py-24 px-6 overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="absolute inset-0 bg-foreground" aria-hidden="true" />
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-14"
-      >
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Badge variant="outline" className="text-xs gap-1.5 border-primary/30 text-primary">
-            <Layers className="w-3 h-3" />
-            Digital Twin Architecture
-          </Badge>
-        </div>
-        <h2 id="digital-twins-heading" className="font-display text-3xl md:text-4xl text-primary-foreground mb-4">
-          The Care Process Signal Layer
-        </h2>
-        <p className="text-primary-foreground/70 max-w-2xl mx-auto leading-relaxed">
-          Patient digital twins need more than vitals and labs. VitaSignal™ provides the
-          missing layer — <span className="text-primary-foreground font-semibold">the signal embedded in how care is documented</span>,
-          not just what's documented.
-        </p>
-      </motion.div>
+        className="absolute inset-0 opacity-10"
+        aria-hidden="true"
+        style={{
+          y: bgY,
+          backgroundImage: `radial-gradient(circle at 25% 40%, hsl(173 58% 29% / 0.5) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 60%, hsl(217 91% 35% / 0.3) 0%, transparent 50%)`,
+        }}
+      />
 
-      <div className="space-y-4">
-        {layers.map((layer, i) => (
-          <motion.div
-            key={layer.patent}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.5 }}
-            className="flex items-start gap-5 p-5 rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 backdrop-blur-sm"
-          >
-            <div className="w-11 h-11 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
-              <layer.icon className="w-5 h-5 text-primary" aria-hidden="true" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap mb-1">
-                <h3 className="font-semibold text-primary-foreground">{layer.name}</h3>
-                <Badge variant="outline" className="text-[10px] border-primary/30 text-primary">
-                  Patent {layer.patent}
-                </Badge>
+      <div className="relative max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14"
+        >
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Badge variant="outline" className="text-xs gap-1.5 border-primary/30 text-primary">
+              <Layers className="w-3 h-3" />
+              Digital Twin Architecture
+            </Badge>
+          </div>
+          <h2 id="digital-twins-heading" className="font-display text-3xl md:text-4xl text-primary-foreground mb-4">
+            The Care Process Signal Layer
+          </h2>
+          <p className="text-primary-foreground/70 max-w-2xl mx-auto leading-relaxed">
+            Patient digital twins need more than vitals and labs. VitaSignal™ provides the
+            missing layer — <span className="text-primary-foreground font-semibold">the signal embedded in how care is documented</span>,
+            not just what's documented.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          {layers.map((layer) => (
+            <motion.div
+              key={layer.patent}
+              variants={layerVariants}
+              whileHover={{
+                x: 8,
+                boxShadow: "0 6px 24px -6px hsl(173 58% 39% / 0.2)",
+                transition: { duration: 0.2 },
+              }}
+              className="flex items-start gap-5 p-5 rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 backdrop-blur-sm cursor-default transition-colors hover:border-primary/30"
+            >
+              <motion.div
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                className="w-11 h-11 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+              >
+                <layer.icon className="w-5 h-5 text-primary" aria-hidden="true" />
+              </motion.div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <h3 className="font-semibold text-primary-foreground">{layer.name}</h3>
+                  <Badge variant="outline" className="text-[10px] border-primary/30 text-primary">
+                    Patent {layer.patent}
+                  </Badge>
+                </div>
+                <p className="text-sm text-primary-foreground/60">{layer.desc}</p>
               </div>
-              <p className="text-sm text-primary-foreground/60">{layer.desc}</p>
-            </div>
-            <div className="text-right shrink-0 hidden sm:block">
-              <span className="text-xs font-semibold text-primary">{layer.metric}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+              <div className="text-right shrink-0 hidden sm:block">
+                <span className="text-xs font-semibold text-primary">{layer.metric}</span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-        className="mt-10 p-6 rounded-xl bg-primary/10 border border-primary/20 max-w-3xl mx-auto text-center"
-      >
-        <p className="text-sm text-primary-foreground/80 leading-relaxed">
-          <span className="font-semibold text-primary-foreground">Why this matters:</span> Existing
-          digital twin platforms model anatomy and physiology. VitaSignal™ models the
-          <span className="text-primary font-medium"> care delivery process itself</span> —
-          creating a complete picture that includes the human element of nursing workflow.
-        </p>
-      </motion.div>
-    </div>
-  </motion.section>
-);
+        <motion.div
+          initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mt-10 p-6 rounded-xl bg-primary/10 border border-primary/20 max-w-3xl mx-auto text-center"
+        >
+          <p className="text-sm text-primary-foreground/80 leading-relaxed">
+            <span className="font-semibold text-primary-foreground">Why this matters:</span> Existing
+            digital twin platforms model anatomy and physiology. VitaSignal™ models the
+            <span className="text-primary font-medium"> care delivery process itself</span> —
+            creating a complete picture that includes the human element of nursing workflow.
+          </p>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
