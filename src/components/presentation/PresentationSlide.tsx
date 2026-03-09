@@ -647,7 +647,7 @@ export const PRESENTATION_SLIDES: SlideConfig[] = [
       'Chain-of-thought reasoning visualization',
       'BioBERT literature correlation',
       'Counterfactual what-if analysis',
-      '94% agreement with clinical experts',
+      'Designed for clinical expert validation',
       'Transformer attention weight display',
     ],
     talkingPoints: [
