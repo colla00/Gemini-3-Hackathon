@@ -428,6 +428,12 @@ export function NonprovisionalTools() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* USPTO Fee Calculator */}
+      <USPTOFeeCalculator />
+
+      {/* Filing Receipt Tracker */}
+      <FilingReceiptTracker />
     </div>
   );
 }
