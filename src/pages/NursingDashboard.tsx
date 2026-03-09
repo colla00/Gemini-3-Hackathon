@@ -348,6 +348,7 @@ export const NursingDashboard = () => {
     patentGroups.forEach((g) => (initial[g.id] = true));
     return initial;
   });
+  const tour = useGuidedTour(true);
 
   const toggleGroup = (groupId: string) => {
     const wasExpanded = expandedGroups[groupId];
