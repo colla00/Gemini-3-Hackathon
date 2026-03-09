@@ -101,7 +101,7 @@ const App = () => {
                 <CookieConsent />
                 <PageViewTracker />
                 <GlobalDisclaimer />
-                <Routes>
+                <AppRoutes />
                   <Route path="/" element={<Landing />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/reset-password" element={
