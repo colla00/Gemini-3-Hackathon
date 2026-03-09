@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { FHIRWebhookFeed } from "@/components/integrations/FHIRWebhookFeed";
+import { VendorOnboardingChecklist } from "@/components/integrations/VendorOnboardingChecklist";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -353,6 +354,25 @@ export const Integrations = () => (
   }]
 }`}
         </pre>
+      </div>
+    </motion.section>
+
+    {/* Vendor Onboarding */}
+    <motion.section
+      className="py-16 px-6 bg-secondary/30"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-2 text-center">
+          Integration Onboarding
+        </h2>
+        <p className="text-muted-foreground text-center mb-8 max-w-xl mx-auto text-sm">
+          Complete vendor onboarding checklist with sandbox access, SMART on FHIR authorization, and NDA/BAA framework.
+        </p>
+        <VendorOnboardingChecklist />
       </div>
     </motion.section>
 
