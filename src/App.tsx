@@ -58,6 +58,7 @@ const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
 const Investors = lazy(() => import("./pages/Investors"));
 const Integrations = lazy(() => import("./pages/Integrations"));
 const NonprovisionalToolsPage = lazy(() => import("./pages/NonprovisionalTools"));
+const IntegrationGuide = lazy(() => import("./pages/IntegrationGuide"));
 
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
