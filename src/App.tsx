@@ -15,6 +15,7 @@ import AdminRoute from "@/components/AdminRoute";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
+import { GlobalDisclaimer } from "@/components/GlobalDisclaimer";
 import { usePageViewTracker } from "@/hooks/usePageViewTracker";
 
 function PageViewTracker() { usePageViewTracker(); return null; }
