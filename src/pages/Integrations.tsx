@@ -358,6 +358,25 @@ export const Integrations = () => (
       </div>
     </motion.section>
 
+    {/* Real FHIR Patient Loader */}
+    <motion.section
+      className="py-16 px-6"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-2 text-center">
+          Real FHIR R4 Integration Demo
+        </h2>
+        <p className="text-muted-foreground text-center mb-8 max-w-xl mx-auto text-sm">
+          Live connection to HAPI FHIR R4 public test server. Load real patient data and run VitaSignal AI inference.
+        </p>
+        <FHIRPatientLoader />
+      </div>
+    </motion.section>
+
     {/* Vendor Onboarding */}
     <motion.section
       className="py-16 px-6 bg-secondary/30"
