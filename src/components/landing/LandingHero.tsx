@@ -108,18 +108,18 @@ export const LandingHero = () => (
         <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
           11 Patent Applications Filed · ICU Mortality & Documentation Burden Systems
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary-foreground/10 rounded-xl overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary/20 rounded-xl overflow-hidden">
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 + i * 0.05 }}
-            className="bg-foreground/80 backdrop-blur-sm p-5 text-center"
+            className="bg-background/70 backdrop-blur-sm p-5 text-center"
           >
-            <p className="font-display text-2xl md:text-3xl text-primary mb-1">{s.value}</p>
-            <p className="text-sm font-semibold opacity-90">{s.label}</p>
-            <p className="text-xs opacity-50 mt-0.5">{s.detail}</p>
+            <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-sm">{s.value}</p>
+            <p className="text-sm font-semibold text-foreground">{s.label}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{s.detail}</p>
           </motion.div>
         ))}
         </div>
