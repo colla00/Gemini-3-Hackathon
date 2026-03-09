@@ -277,6 +277,7 @@ export const FHIRIntegrationDemo = () => {
                         <div className="flex items-center gap-2">
                           <Badge variant="outline" className={cn("text-[8px] font-mono", resourceColors[msg.resourceType])}>{msg.resourceType}</Badge>
                           <Badge variant="outline" className="text-[8px]">{msg.action}</Badge>
+                          {msg.vendor && <Badge variant="outline" className="text-[8px] bg-primary/5 text-primary border-primary/20">{msg.vendor}</Badge>}
                           <span className="text-[9px] text-muted-foreground font-mono">{msg.patientId}</span>
                         </div>
                         <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{msg.summary}</p>
