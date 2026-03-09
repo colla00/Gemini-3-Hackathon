@@ -1,10 +1,36 @@
 import { ArrowRight, Presentation } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
+
+const AnimatedNumber = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const motionVal = useMotionValue(0);
+  const rounded = useTransform(motionVal, (v) => Math.round(v).toLocaleString());
+
+  useEffect(() => {
+    if (inView) {
+      animate(motionVal, value, { duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] });
+    }
+  }, [inView, motionVal, value]);
+
+  return (
+    <span ref={ref}>
+      <motion.span>{rounded}</motion.span>{suffix}
+    </span>
+  );
+};
+
+const parseStatValue = (val: string): { num: number; suffix: string } => {
+  const match = val.match(/^([\d,]+)(.*)$/);
+  if (!match) return { num: 0, suffix: val };
+  return { num: parseInt(match[1].replace(/,/g, ""), 10), suffix: match[2] };
+};
 
 const stats = [
   { value: "11", label: "Applications Filed", detail: "U.S. Provisional Patents" },
@@ -131,7 +157,9 @@ export const LandingHero = () => (
             transition={{ delay: 0.35 + i * 0.05 }}
             className="bg-background/95 backdrop-blur-md p-5 text-center"
           >
-            <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">{s.value}</p>
+            <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">
+              {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} />; })()}
+            </p>
             <p className="text-sm font-bold text-foreground">{s.label}</p>
             <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>
           </motion.div>
