@@ -154,7 +154,7 @@ export const EHRCompatibilityMatrix = () => {
     }
   };
 
-  const certifiedCount = ehrVendors.filter(v => v.fhirR4 === 'certified').length;
+  const readyCount = ehrVendors.filter(v => v.fhirR4 === 'ready').length;
   const totalMarketCoverage = ehrVendors
     .filter(v => v.fhirR4 !== 'planned')
     .reduce((sum, v) => sum + parseInt(v.marketShare), 0);
