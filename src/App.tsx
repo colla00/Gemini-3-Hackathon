@@ -62,6 +62,9 @@ const IntegrationGuide = lazy(() => import("./pages/IntegrationGuide"));
 const PatentWorkbench = lazy(() => import("./pages/PatentWorkbench"));
 const DeveloperTools = lazy(() => import("./pages/DeveloperTools"));
 const PilotDemo = lazy(() => import("./pages/PilotDemo"));
+const WedgeICUBundle = lazy(() => import("./pages/WedgeICUBundle"));
+const WedgeNurseDashboard = lazy(() => import("./pages/WedgeNurseDashboard"));
+const WedgeCMSCompliance = lazy(() => import("./pages/WedgeCMSCompliance"));
 
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
