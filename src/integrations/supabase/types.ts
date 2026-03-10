@@ -173,6 +173,81 @@ export type Database = {
         }
         Relationships: []
       }
+      breach_incidents: {
+        Row: {
+          affected_individuals: number | null
+          containment_date: string | null
+          corrective_actions: string | null
+          created_at: string
+          description: string | null
+          discovery_date: string
+          eradication_date: string | null
+          id: string
+          incident_number: string
+          lessons_learned: string | null
+          notification_deadline: string | null
+          phi_involved: boolean
+          recovery_date: string | null
+          reported_by: string | null
+          reported_to_hhs: boolean | null
+          reported_to_individuals: boolean | null
+          reported_to_media: boolean | null
+          root_cause: string | null
+          severity: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          affected_individuals?: number | null
+          containment_date?: string | null
+          corrective_actions?: string | null
+          created_at?: string
+          description?: string | null
+          discovery_date?: string
+          eradication_date?: string | null
+          id?: string
+          incident_number?: string
+          lessons_learned?: string | null
+          notification_deadline?: string | null
+          phi_involved?: boolean
+          recovery_date?: string | null
+          reported_by?: string | null
+          reported_to_hhs?: boolean | null
+          reported_to_individuals?: boolean | null
+          reported_to_media?: boolean | null
+          root_cause?: string | null
+          severity?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          affected_individuals?: number | null
+          containment_date?: string | null
+          corrective_actions?: string | null
+          created_at?: string
+          description?: string | null
+          discovery_date?: string
+          eradication_date?: string | null
+          id?: string
+          incident_number?: string
+          lessons_learned?: string | null
+          notification_deadline?: string | null
+          phi_involved?: boolean
+          recovery_date?: string | null
+          reported_by?: string | null
+          reported_to_hhs?: boolean | null
+          reported_to_individuals?: boolean | null
+          reported_to_media?: boolean | null
+          root_cause?: string | null
+          severity?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_inquiries: {
         Row: {
           created_at: string
@@ -212,6 +287,90 @@ export type Database = {
           role?: string | null
           status?: string
           timeline?: string | null
+        }
+        Relationships: []
+      }
+      data_deletion_requests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          reason: string | null
+          request_type: string
+          requester_email: string
+          requester_name: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          reason?: string | null
+          request_type?: string
+          requester_email: string
+          requester_name: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          reason?: string | null
+          request_type?: string
+          requester_email?: string
+          requester_name?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      data_retention_policies: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          last_cleanup_at: string | null
+          retention_days: number
+          rows_deleted_last_run: number | null
+          table_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          last_cleanup_at?: string | null
+          retention_days?: number
+          rows_deleted_last_run?: number | null
+          table_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          last_cleanup_at?: string | null
+          retention_days?: number
+          rows_deleted_last_run?: number | null
+          table_name?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -442,6 +601,92 @@ export type Database = {
           report_data?: Json
           shift_type?: string
           unit_name?: string | null
+        }
+        Relationships: []
+      }
+      hipaa_training_completions: {
+        Row: {
+          certificate_number: string | null
+          completed_at: string
+          created_at: string
+          expires_at: string
+          id: string
+          module_id: string
+          passed: boolean
+          score: number | null
+          user_id: string
+        }
+        Insert: {
+          certificate_number?: string | null
+          completed_at?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          module_id: string
+          passed?: boolean
+          score?: number | null
+          user_id: string
+        }
+        Update: {
+          certificate_number?: string | null
+          completed_at?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          module_id?: string
+          passed?: boolean
+          score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hipaa_training_completions_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "hipaa_training_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hipaa_training_modules: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          id: string
+          is_active: boolean
+          is_required: boolean
+          passing_score: number
+          title: string
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          is_required?: boolean
+          passing_score?: number
+          title: string
+          updated_at?: string
+          version?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          is_required?: boolean
+          passing_score?: number
+          title?: string
+          updated_at?: string
+          version?: string
         }
         Relationships: []
       }
@@ -1152,6 +1397,75 @@ export type Database = {
         }
         Relationships: []
       }
+      security_risk_assessments: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          assessment_type: string
+          assessment_year: number
+          assessor_name: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          critical_findings: number | null
+          findings_count: number | null
+          high_findings: number | null
+          id: string
+          low_findings: number | null
+          medium_findings: number | null
+          next_review_date: string | null
+          overall_risk_level: string | null
+          recommendations: string | null
+          status: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_type?: string
+          assessment_year: number
+          assessor_name?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          critical_findings?: number | null
+          findings_count?: number | null
+          high_findings?: number | null
+          id?: string
+          low_findings?: number | null
+          medium_findings?: number | null
+          next_review_date?: string | null
+          overall_risk_level?: string | null
+          recommendations?: string | null
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_type?: string
+          assessment_year?: number
+          assessor_name?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          critical_findings?: number | null
+          findings_count?: number | null
+          high_findings?: number | null
+          id?: string
+          low_findings?: number | null
+          medium_findings?: number | null
+          next_review_date?: string | null
+          overall_risk_level?: string | null
+          recommendations?: string | null
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_archives: {
         Row: {
           captured_at: string
@@ -1339,6 +1653,60 @@ export type Database = {
             referencedColumns: ["vendor_id"]
           },
         ]
+      }
+      tabletop_exercises: {
+        Row: {
+          action_items: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          duration_minutes: number | null
+          exercise_date: string
+          facilitator_name: string | null
+          findings: string | null
+          id: string
+          next_exercise_date: string | null
+          participants: string[] | null
+          scenario_description: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          action_items?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          exercise_date: string
+          facilitator_name?: string | null
+          findings?: string | null
+          id?: string
+          next_exercise_date?: string | null
+          participants?: string[] | null
+          scenario_description: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          action_items?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          exercise_date?: string
+          facilitator_name?: string | null
+          findings?: string | null
+          id?: string
+          next_exercise_date?: string | null
+          participants?: string[] | null
+          scenario_description?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
