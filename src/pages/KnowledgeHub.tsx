@@ -21,6 +21,7 @@ const SECTIONS = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: '90day', label: '90-Day Tracker', icon: Target },
   { id: 'gaps', label: 'Strategic Gaps', icon: AlertTriangle },
+  { id: 'roadmap', label: 'Path to 10/10', icon: Rocket },
   { id: 'patents', label: 'Patent Portfolio', icon: Scale },
   { id: 'manuscripts', label: 'Manuscripts', icon: FileText },
   { id: 'company', label: 'Company & Legal', icon: Building2 },
