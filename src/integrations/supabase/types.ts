@@ -478,6 +478,42 @@ export type Database = {
         }
         Relationships: []
       }
+      fda_presub_documents: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          document_type: string
+          id: string
+          sections: Json
+          status: string
+          title: string
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          document_type?: string
+          id?: string
+          sections?: Json
+          status?: string
+          title: string
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          document_type?: string
+          id?: string
+          sections?: Json
+          status?: string
+          title?: string
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           created_at: string
@@ -1188,6 +1224,66 @@ export type Database = {
           patent_number?: string
           priority_level?: string
           status?: string
+        }
+        Relationships: []
+      }
+      pilot_engagements: {
+        Row: {
+          bed_count: number | null
+          contact_email: string
+          contact_name: string
+          created_at: string
+          created_by: string | null
+          ehr_system: string | null
+          facility_type: string | null
+          icu_beds: number | null
+          id: string
+          metrics: Json | null
+          notes: string | null
+          organization_name: string
+          pilot_end_date: string | null
+          pilot_start_date: string | null
+          status: string
+          unit_deployed: string | null
+          updated_at: string
+        }
+        Insert: {
+          bed_count?: number | null
+          contact_email: string
+          contact_name: string
+          created_at?: string
+          created_by?: string | null
+          ehr_system?: string | null
+          facility_type?: string | null
+          icu_beds?: number | null
+          id?: string
+          metrics?: Json | null
+          notes?: string | null
+          organization_name: string
+          pilot_end_date?: string | null
+          pilot_start_date?: string | null
+          status?: string
+          unit_deployed?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bed_count?: number | null
+          contact_email?: string
+          contact_name?: string
+          created_at?: string
+          created_by?: string | null
+          ehr_system?: string | null
+          facility_type?: string | null
+          icu_beds?: number | null
+          id?: string
+          metrics?: Json | null
+          notes?: string | null
+          organization_name?: string
+          pilot_end_date?: string | null
+          pilot_start_date?: string | null
+          status?: string
+          unit_deployed?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
