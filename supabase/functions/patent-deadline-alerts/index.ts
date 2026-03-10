@@ -155,6 +155,7 @@ serve(async (req) => {
             <table style="width:100%;border-collapse:collapse;font-size:13px">
               <thead>
                 <tr style="border-bottom:2px solid #e5e7eb">
+                  <th style="padding:8px;text-align:left">Type</th>
                   <th style="padding:8px;text-align:left">Patent</th>
                   <th style="padding:8px;text-align:left">Deadline</th>
                   <th style="padding:8px;text-align:left">Remaining</th>
