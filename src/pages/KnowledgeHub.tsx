@@ -13,6 +13,7 @@ import HubIPClinic from '@/components/hub/HubIPClinic';
 import HubAnalytics from '@/components/hub/HubAnalytics';
 import Hub90DayTracker from '@/components/hub/Hub90DayTracker';
 import HubStrategicGaps from '@/components/hub/HubStrategicGaps';
+import HubRoadmap from '@/components/hub/HubRoadmap';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
