@@ -111,6 +111,9 @@ const AppRoutes = () => {
           <Route path="/patents/workbench" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PatentWorkbench /></Suspense></ProtectedRoute>} />
           <Route path="/developer-tools" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DeveloperTools /></Suspense></ProtectedRoute>} />
           <Route path="/pilot" element={<Suspense fallback={<PageSkeleton />}><PilotDemo /></Suspense>} />
+          <Route path="/solutions/icu-mortality" element={<Suspense fallback={<PageSkeleton />}><WedgeICUBundle /></Suspense>} />
+          <Route path="/solutions/nurse-workload" element={<Suspense fallback={<PageSkeleton />}><WedgeNurseDashboard /></Suspense>} />
+          <Route path="/solutions/cms-compliance" element={<Suspense fallback={<PageSkeleton />}><WedgeCMSCompliance /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
