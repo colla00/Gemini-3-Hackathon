@@ -422,10 +422,9 @@ export const APIPlayground = () => {
 
                   <TabsContent value="body" className="mt-0">
                     <ScrollArea className="h-[380px] rounded-md">
-                      <pre
-                        className="bg-[#0d1117] text-[#e6edf3] rounded-md p-4 text-xs font-mono leading-5 overflow-x-auto"
-                        dangerouslySetInnerHTML={{ __html: highlightedBody }}
-                      />
+                      <pre className="bg-[#0d1117] text-[#e6edf3] rounded-md p-4 text-xs font-mono leading-5 overflow-x-auto whitespace-pre-wrap">
+                        {response.body}
+                      </pre>
                     </ScrollArea>
                   </TabsContent>
 
