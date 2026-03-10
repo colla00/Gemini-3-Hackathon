@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap, BarChart3 } from 'lucide-react';
+import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap, BarChart3, Target, AlertTriangle } from 'lucide-react';
 import HubDashboard from '@/components/hub/HubDashboard';
 import HubPatents from '@/components/hub/HubPatents';
 import HubManuscripts from '@/components/hub/HubManuscripts';
@@ -11,11 +11,15 @@ import HubKanban from '@/components/hub/HubKanban';
 import HubScripts from '@/components/hub/HubScripts';
 import HubIPClinic from '@/components/hub/HubIPClinic';
 import HubAnalytics from '@/components/hub/HubAnalytics';
+import Hub90DayTracker from '@/components/hub/Hub90DayTracker';
+import HubStrategicGaps from '@/components/hub/HubStrategicGaps';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const SECTIONS = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: '90day', label: '90-Day Tracker', icon: Target },
+  { id: 'gaps', label: 'Strategic Gaps', icon: AlertTriangle },
   { id: 'patents', label: 'Patent Portfolio', icon: Scale },
   { id: 'manuscripts', label: 'Manuscripts', icon: FileText },
   { id: 'company', label: 'Company & Legal', icon: Building2 },
