@@ -227,15 +227,26 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
                 Equipment-independent clinical AI. Patent-pending technology for ICU mortality prediction and nursing workflow optimization.
               </p>
-              <a
-                href="https://www.linkedin.com/in/alexiscollier/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-                Dr. Alexis Collier
-              </a>
+              <div className="flex flex-col gap-1.5">
+                <a
+                  href="https://www.linkedin.com/company/vitasignal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                >
+                  <Linkedin className="w-3.5 h-3.5" />
+                  VitaSignal on LinkedIn
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/alexiscollier/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary-foreground/50 hover:text-primary transition-colors"
+                >
+                  <Linkedin className="w-3.5 h-3.5" />
+                  Dr. Alexis Collier
+                </a>
+              </div>
             </div>
 
             {/* Technology */}

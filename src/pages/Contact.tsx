@@ -124,9 +124,9 @@ function Contact() {
               <Clock className="w-4 h-4" />
               Typical response: 2-3 business days
             </div>
-            <a href="https://www.linkedin.com/in/alexiscollier/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
+            <a href="https://www.linkedin.com/company/vitasignal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
               <Linkedin className="w-4 h-4" />
-              LinkedIn
+              VitaSignal on LinkedIn
             </a>
           </div>
         </div>
