@@ -1,9 +1,11 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Code2, Send, Activity } from "lucide-react";
+import { Code2, Send, Activity, Play, UserPlus } from "lucide-react";
 import { SDKCodeGenerator } from "@/components/integration/SDKCodeGenerator";
 import { WebhookTestConsole } from "@/components/integration/WebhookTestConsole";
 import { IntegrationHealthDashboard } from "@/components/integration/IntegrationHealthDashboard";
+import { APIPlayground } from "@/components/integration/APIPlayground";
+import { LicenseeOnboardingPortal } from "@/components/integration/LicenseeOnboardingPortal";
 
 export default function DeveloperTools() {
   return (
@@ -25,20 +27,30 @@ export default function DeveloperTools() {
       <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
           <Tabs defaultValue="health" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="health" className="flex items-center gap-2">
-                <Activity className="w-4 h-4" /> Health Dashboard
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="health" className="flex items-center gap-1.5 text-xs">
+                <Activity className="w-3.5 h-3.5" /> Health
               </TabsTrigger>
-              <TabsTrigger value="sdk" className="flex items-center gap-2">
-                <Code2 className="w-4 h-4" /> SDK Generator
+              <TabsTrigger value="playground" className="flex items-center gap-1.5 text-xs">
+                <Play className="w-3.5 h-3.5" /> API Playground
               </TabsTrigger>
-              <TabsTrigger value="webhook" className="flex items-center gap-2">
-                <Send className="w-4 h-4" /> Webhook Testing
+              <TabsTrigger value="sdk" className="flex items-center gap-1.5 text-xs">
+                <Code2 className="w-3.5 h-3.5" /> SDK
+              </TabsTrigger>
+              <TabsTrigger value="webhook" className="flex items-center gap-1.5 text-xs">
+                <Send className="w-3.5 h-3.5" /> Webhooks
+              </TabsTrigger>
+              <TabsTrigger value="onboarding" className="flex items-center gap-1.5 text-xs">
+                <UserPlus className="w-3.5 h-3.5" /> Onboarding
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="health">
               <IntegrationHealthDashboard />
+            </TabsContent>
+
+            <TabsContent value="playground">
+              <APIPlayground />
             </TabsContent>
 
             <TabsContent value="sdk">
@@ -47,6 +59,10 @@ export default function DeveloperTools() {
 
             <TabsContent value="webhook">
               <WebhookTestConsole />
+            </TabsContent>
+
+            <TabsContent value="onboarding">
+              <LicenseeOnboardingPortal />
             </TabsContent>
           </Tabs>
         </div>
