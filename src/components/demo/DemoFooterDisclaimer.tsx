@@ -12,8 +12,8 @@ export const DemoFooterDisclaimer = () => {
           <p className="text-sm text-muted-foreground leading-relaxed">
             This demonstration uses simulated/de-identified data for educational purposes only. VitaSignal
             is classified as Non-Device CDS under §520(o)(1)(E), NOT approved for clinical use. All clinical
-            decisions require qualified healthcare professionals. Patent #1 (ICU Mortality, n=65,157) and
-            Patent #5 (DBS, N=28,362) have completed validation.
+            decisions require qualified healthcare professionals. Patents #1 and #5 have completed multi-site
+            external validation. Performance metrics available under NDA.
           </p>
         </div>
       </div>
