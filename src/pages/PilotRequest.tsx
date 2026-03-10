@@ -94,6 +94,7 @@ const PilotRequest = () => {
 
   const inputClass = "bg-white/5 border-white/10 text-white placeholder:text-white/30";
 
+  return (
     <SiteLayout
       title="Request a Pilot | VitaSignal — Start Your Clinical AI Assessment"
       description="Apply for a VitaSignal pilot program. We'll assess your hospital's needs and provide a tailored implementation plan with projected ROI."
