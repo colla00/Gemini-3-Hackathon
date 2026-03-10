@@ -97,15 +97,15 @@ const AppRoutes = () => {
           <Route path="/press" element={<Suspense fallback={<PageSkeleton />}><PressRelease /></Suspense>} />
           <Route path="/investor-deck" element={<AdminRoute><Suspense fallback={<PageSkeleton />}><InvestorDeck /></Suspense></AdminRoute>} />
           <Route path="/audience" element={<Suspense fallback={<div className="fixed inset-0 bg-black" />}><AudienceView /></Suspense>} />
-          <Route path="/patents/tracker" element={<Suspense fallback={<PageSkeleton />}><PatentTracker /></Suspense>} />
+          <Route path="/patents/tracker" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PatentTracker /></Suspense></ProtectedRoute>} />
           <Route path="/dataroom" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DataRoom /></Suspense></ProtectedRoute>} />
-          <Route path="/hub" element={<Suspense fallback={<PageSkeleton />}><KnowledgeHub /></Suspense>} />
+          <Route path="/hub" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><KnowledgeHub /></Suspense></ProtectedRoute>} />
           <Route path="/investors" element={<Suspense fallback={<PageSkeleton />}><Investors /></Suspense>} />
           <Route path="/integrations" element={<Suspense fallback={<PageSkeleton />}><Integrations /></Suspense>} />
-          <Route path="/patents/nonprovisional" element={<Suspense fallback={<PageSkeleton />}><NonprovisionalToolsPage /></Suspense>} />
+          <Route path="/patents/nonprovisional" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><NonprovisionalToolsPage /></Suspense></ProtectedRoute>} />
           <Route path="/integration-guide" element={<Suspense fallback={<PageSkeleton />}><IntegrationGuide /></Suspense>} />
           <Route path="/patents/workbench" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PatentWorkbench /></Suspense></ProtectedRoute>} />
-          <Route path="/developer-tools" element={<Suspense fallback={<PageSkeleton />}><DeveloperTools /></Suspense>} />
+          <Route path="/developer-tools" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DeveloperTools /></Suspense></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
