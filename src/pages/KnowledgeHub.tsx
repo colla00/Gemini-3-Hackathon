@@ -52,6 +52,7 @@ const KnowledgeHub = () => {
       case 'dashboard': return <HubDashboard />;
       case '90day': return <Hub90DayTracker />;
       case 'gaps': return <HubStrategicGaps />;
+      case 'roadmap': return <HubRoadmap />;
       case 'patents': return <HubPatents />;
       case 'manuscripts': return <HubManuscripts />;
       case 'company': return <HubCompany />;
