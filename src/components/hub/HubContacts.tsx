@@ -36,8 +36,8 @@ const CopySnippet = ({ title, text }: { title: string; text: string }) => {
   return (
     <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase">{title}</h3>
-        <button onClick={copy} className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border border-white/10 hover:bg-white/10 transition-colors text-white/50">
+        <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase">{title}</h3>
+        <button onClick={copy} className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border border-white/20 hover:bg-white/15 transition-colors text-white/70 font-medium">
           {copied ? <><Check className="w-3 h-3 text-green-400" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
         </button>
       </div>
