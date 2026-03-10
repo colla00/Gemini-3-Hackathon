@@ -221,7 +221,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-3">
-                <Activity className="w-5 h-5 text-primary" />
+                <img src={vitasignalIcon} alt="VitaSignal" className="w-6 h-6 rounded object-cover" />
                 <span className="font-display text-lg text-primary-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
               </div>
               <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
