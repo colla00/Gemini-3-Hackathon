@@ -366,7 +366,7 @@ const HubScripts = () => {
                       {copiedId === script.id ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedId === script.id ? 'Copied!' : 'Copy Full Script'}
                     </button>
-                    <span className="text-[10px] text-white/20">Paste into notes or teleprompter</span>
+                    <span className="text-[10px] text-white/40">Paste into notes or teleprompter</span>
                   </div>
 
                   {/* Script text */}

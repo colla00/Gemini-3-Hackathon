@@ -60,7 +60,7 @@ const NotFound = () => {
             <Button asChild variant="default" size="lg">
               <Link to="/"><ArrowLeft className="w-4 h-4 mr-2" />Back to Home</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary/50 text-white bg-primary/20 hover:bg-primary/30 hover:border-primary">
+            <Button asChild variant="outline" size="lg" className="border-primary text-white bg-primary/25 hover:bg-primary/40 font-semibold">
               <Link to="/dashboard">View Dashboard</Link>
             </Button>
           </div>

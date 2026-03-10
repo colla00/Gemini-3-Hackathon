@@ -76,7 +76,7 @@ const HubContacts = () => (
     </div>
 
     <div className="space-y-4">
-      <h2 className="text-xs font-semibold tracking-wider text-white/40 uppercase">Copy-Paste Snippets</h2>
+      <h2 className="text-xs font-semibold tracking-wider text-white/60 uppercase">Copy-Paste Snippets</h2>
 
       <CopySnippet
         title="Organization Signature Block"
