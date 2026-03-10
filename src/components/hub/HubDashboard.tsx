@@ -11,7 +11,7 @@ const HubDashboard = () => (
   <div className="space-y-8">
     <div>
       <h1 className="text-2xl md:text-3xl font-bold text-white">VitaSignal Command Center</h1>
-      <p className="text-sm text-white/50 mt-1">Dr. Alexis Collier, DHA · Founder & CEO · Updated March 2026</p>
+      <p className="text-sm text-white/60 mt-1">Dr. Alexis Collier, DHA · Founder & CEO · Updated March 2026</p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
