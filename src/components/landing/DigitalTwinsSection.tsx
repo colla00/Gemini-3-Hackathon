@@ -8,7 +8,7 @@ const layers = [
     patent: "#1",
     icon: Activity,
     name: "Mortality Signal Layer",
-    desc: "Temporal documentation patterns predict ICU mortality risk — the foundational vital sign of the care process digital twin.",
+    desc: "Proprietary clinical documentation analysis predicts ICU mortality risk — the foundational vital sign of the care process digital twin.",
     metric: "Outperforms established acuity scores",
   },
   {
@@ -23,7 +23,7 @@ const layers = [
     icon: FileText,
     name: "Workload Signal Layer",
     desc: "Documentation Burden Score™ quantifies and predicts nursing workload before each shift — the operational twin of patient complexity.",
-    metric: "AUROC 0.758",
+    metric: "Externally validated",
   },
 ];
 

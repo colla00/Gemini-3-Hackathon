@@ -150,10 +150,10 @@ const ANIA2026Poster = () => {
         <div className="max-w-5xl mx-auto px-4 -mt-4 relative z-10">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { icon: BarChart3, label: 'Internal AUROC', value: '0.802', sub: 'MIMIC-IV · N=24,689' },
-              { icon: BarChart3, label: 'External AUROC', value: '0.758', sub: 'eICU · N=3,673' },
+              { icon: BarChart3, label: 'Internal', value: 'Validated', sub: 'Academic medical center cohort' },
+              { icon: BarChart3, label: 'External', value: 'Validated', sub: 'Multi-center replication' },
               { icon: Building2, label: 'Hospitals', value: '172', sub: 'Multi-center validation' },
-              { icon: Users, label: 'NPV', value: '0.947', sub: 'Superior safety profile' },
+              { icon: Users, label: 'Safety Profile', value: 'Superior', sub: 'High negative predictive value' },
             ].map((m) => (
               <Card key={m.label} className="border-border/40 bg-card/80 backdrop-blur-sm">
                 <CardContent className="p-4 text-center">
