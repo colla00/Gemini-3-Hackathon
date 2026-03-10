@@ -250,8 +250,8 @@ const ProductDemo = () => {
                   Next <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               ) : (
-                <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
-                  <a href="/pilot-request">Request a Pilot <ChevronRight className="w-4 h-4 ml-1" /></a>
+                <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white">
+                  <a href="/pilot-request">Explore a Pilot <ChevronRight className="w-4 h-4 ml-1" /></a>
                 </Button>
               )}
             </div>

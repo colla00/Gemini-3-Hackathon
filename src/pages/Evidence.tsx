@@ -130,14 +130,14 @@ const Evidence = () => (
       {/* CTA */}
       <section className="px-4 pb-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Ready to See the Data Behind the Claims?</h2>
-          <p className="text-white/60 mb-6">Request access to our full validation report, including methodology, statistical analysis, and subgroup performance data.</p>
+          <h2 className="text-2xl font-bold text-white mb-4 font-['DM_Serif_Display']">Want the Full Methodology?</h2>
+          <p className="text-white/60 mb-6">We share our complete validation report — including statistical methodology, subgroup analyses, and fairness audit results — with prospective clinical partners.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
-              <a href="/pilot-request">Request Validation Report <ArrowRight className="w-4 h-4 ml-2" /></a>
+              <a href="/pilot-request">Request Full Report <ArrowRight className="w-4 h-4 ml-2" /></a>
             </Button>
             <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
-              <a href="/demo">Try the Interactive Demo <ExternalLink className="w-4 h-4 ml-2" /></a>
+              <a href="/demo">Explore the Interactive Demo <ExternalLink className="w-4 h-4 ml-2" /></a>
             </Button>
           </div>
         </div>
