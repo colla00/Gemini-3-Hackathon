@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Activity, Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
+import { Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
+import vitasignalIcon from "@/assets/vitasignal-icon.jpg";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { SkipLink } from "@/components/SkipLink";
 import { Link, useLocation } from "react-router-dom";
