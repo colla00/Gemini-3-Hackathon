@@ -1,8 +1,9 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Brain, FileText, Gavel } from "lucide-react";
+import { Brain, FileText, ImageIcon } from "lucide-react";
 import { AIClaimDrafter } from "@/components/patent/AIClaimDrafter";
 import { SpecificationGenerator } from "@/components/patent/SpecificationGenerator";
+import { PatentFigureManager } from "@/components/patent/PatentFigureManager";
 
 export default function PatentWorkbench() {
   return (
@@ -24,12 +25,15 @@ export default function PatentWorkbench() {
       <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
           <Tabs defaultValue="claims" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="claims" className="flex items-center gap-2">
                 <Brain className="w-4 h-4" /> AI Claim Drafter
               </TabsTrigger>
               <TabsTrigger value="spec" className="flex items-center gap-2">
                 <FileText className="w-4 h-4" /> Specification Generator
+              </TabsTrigger>
+              <TabsTrigger value="figures" className="flex items-center gap-2">
+                <ImageIcon className="w-4 h-4" /> Figure Manager
               </TabsTrigger>
             </TabsList>
 
@@ -39,6 +43,10 @@ export default function PatentWorkbench() {
 
             <TabsContent value="spec">
               <SpecificationGenerator />
+            </TabsContent>
+
+            <TabsContent value="figures">
+              <PatentFigureManager />
             </TabsContent>
           </Tabs>
         </div>
