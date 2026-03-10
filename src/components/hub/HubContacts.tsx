@@ -24,9 +24,9 @@ const LinkItem = ({ label, url }: { label: string; url: string }) => (
     className="flex items-center justify-between py-2 border-b border-white/5 group hover:bg-white/5 -mx-2 px-2 rounded">
     <div>
       <p className="text-sm text-white/80">{label}</p>
-      <p className="text-xs text-white/30 font-mono">{url}</p>
+      <p className="text-xs text-white/50 font-mono">{url}</p>
     </div>
-    <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/50 shrink-0" />
+    <ExternalLink className="w-3.5 h-3.5 text-white/40 group-hover:text-white/70 shrink-0" />
   </a>
 );
 
