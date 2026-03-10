@@ -83,12 +83,10 @@ const ROICalculator = () => {
   ] : [];
 
   return (
-    <>
-      <Helmet>
-        <title>ROI Calculator | VitaSignal — Project Your Hospital Savings</title>
-        <meta name="description" content="Calculate projected savings from VitaSignal's clinical AI platform. Enter your hospital metrics to see HAI reduction, nurse time saved, and payback period." />
-      </Helmet>
-      <Navbar />
+    <SiteLayout
+      title="ROI Calculator | VitaSignal — Project Your Hospital Savings"
+      description="Calculate projected savings from VitaSignal's clinical AI platform. Enter your hospital metrics to see HAI reduction, nurse time saved, and payback period."
+    >
       <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
         {/* Hero */}
         <section className="pt-28 pb-16 px-4">
