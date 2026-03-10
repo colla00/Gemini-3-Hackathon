@@ -113,7 +113,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link to="/patents/tracker" className="gap-2 cursor-pointer">
-                          <Activity className="w-3.5 h-3.5" /> Patent Tracker
+                          <Target className="w-3.5 h-3.5" /> Patent Tracker
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
