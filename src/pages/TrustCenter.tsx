@@ -176,7 +176,7 @@ const TrustCenter = () => (
               <a href="/pilot-request">Request Security Documentation <ArrowRight className="w-4 h-4 ml-2" /></a>
             </Button>
             <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
-              <a href="/regulatory">View Regulatory Readiness <FileCheck className="w-4 h-4 ml-2" /></a>
+              <a href="/contact">Contact Our Team <FileCheck className="w-4 h-4 ml-2" /></a>
             </Button>
           </div>
         </div>
