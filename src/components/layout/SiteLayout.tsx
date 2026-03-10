@@ -254,9 +254,9 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Technology</p>
               <div className="space-y-2">
                 <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patent Portfolio</Link>
-                <Link to="/regulatory" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Regulatory Readiness</Link>
+                <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust & Compliance</Link>
                 <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
-                <Link to="/integration-guide" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integration Guide</Link>
+                <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integration Hub</Link>
                 <Link to="/developer-tools" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Developer Tools</Link>
               </div>
             </div>

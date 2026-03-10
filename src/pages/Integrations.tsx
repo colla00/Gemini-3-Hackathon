@@ -447,6 +447,45 @@ export const Integrations = () => (
       </div>
     </motion.section>
 
+    {/* Integration Tracks (consolidated from Integration Guide) */}
+    <motion.section
+      className="py-16 px-6 bg-secondary/30"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-3 text-center">
+          Integration Tracks
+        </h2>
+        <p className="text-muted-foreground text-center mb-8 max-w-xl mx-auto text-sm">
+          Each track includes dedicated onboarding support, sandbox access, and a named integration engineer.
+        </p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { title: "EHR Vendors", subtitle: "Exclusive Integration", desc: "Embed VitaSignal directly into your EHR platform. White-label mortality prediction and DBS™ as native features.", benefits: ["First-mover advantage", "White-label ready", "Joint patent protection"] },
+            { title: "Hospital Systems", subtitle: "Enterprise Deployment", desc: "Deploy across your ICUs with existing EHR infrastructure via standard FHIR R4 interfaces.", benefits: ["90-day implementation", "$0 hardware cost", "Nurse-centered design"] },
+            { title: "Global Health", subtitle: "Resource-Limited Access", desc: "Bring ICU-grade clinical intelligence to settings where bedside monitors aren't available.", benefits: ["No infrastructure needed", "Offline-capable scoring", "Grant-eligible"] },
+          ].map((t) => (
+            <Card key={t.title} className="p-6 hover:border-primary/30 transition-colors">
+              <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">{t.subtitle}</p>
+              <h3 className="text-lg font-bold text-foreground mb-2">{t.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t.desc}</p>
+              <div className="space-y-2">
+                {t.benefits.map((b) => (
+                  <div key={b} className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                    <span className="text-xs text-foreground/80">{b}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+
     {/* CTA */}
     <section className="py-16 px-6">
       <div className="max-w-3xl mx-auto text-center">
