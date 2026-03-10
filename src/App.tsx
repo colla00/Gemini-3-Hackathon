@@ -65,7 +65,10 @@ const PilotDemo = lazy(() => import("./pages/PilotDemo"));
 const WedgeICUBundle = lazy(() => import("./pages/WedgeICUBundle"));
 const WedgeNurseDashboard = lazy(() => import("./pages/WedgeNurseDashboard"));
 const WedgeCMSCompliance = lazy(() => import("./pages/WedgeCMSCompliance"));
-
+const ROICalculator = lazy(() => import("./pages/ROICalculator"));
+const ProductDemoPage = lazy(() => import("./pages/ProductDemo"));
+const Evidence = lazy(() => import("./pages/Evidence"));
+const PilotRequest = lazy(() => import("./pages/PilotRequest"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
