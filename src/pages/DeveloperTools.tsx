@@ -1,8 +1,9 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Code2, Send } from "lucide-react";
+import { Code2, Send, Activity } from "lucide-react";
 import { SDKCodeGenerator } from "@/components/integration/SDKCodeGenerator";
 import { WebhookTestConsole } from "@/components/integration/WebhookTestConsole";
+import { IntegrationHealthDashboard } from "@/components/integration/IntegrationHealthDashboard";
 
 export default function DeveloperTools() {
   return (
@@ -23,15 +24,22 @@ export default function DeveloperTools() {
 
       <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
-          <Tabs defaultValue="sdk" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
+          <Tabs defaultValue="health" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="health" className="flex items-center gap-2">
+                <Activity className="w-4 h-4" /> Health Dashboard
+              </TabsTrigger>
               <TabsTrigger value="sdk" className="flex items-center gap-2">
-                <Code2 className="w-4 h-4" /> SDK Code Generator
+                <Code2 className="w-4 h-4" /> SDK Generator
               </TabsTrigger>
               <TabsTrigger value="webhook" className="flex items-center gap-2">
                 <Send className="w-4 h-4" /> Webhook Testing
               </TabsTrigger>
             </TabsList>
+
+            <TabsContent value="health">
+              <IntegrationHealthDashboard />
+            </TabsContent>
 
             <TabsContent value="sdk">
               <SDKCodeGenerator />
