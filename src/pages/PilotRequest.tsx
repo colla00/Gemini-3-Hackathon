@@ -94,13 +94,10 @@ const PilotRequest = () => {
 
   const inputClass = "bg-white/5 border-white/10 text-white placeholder:text-white/30";
 
-  return (
-    <>
-      <Helmet>
-        <title>Request a Pilot | VitaSignal — Start Your Clinical AI Assessment</title>
-        <meta name="description" content="Apply for a VitaSignal pilot program. We'll assess your hospital's needs and provide a tailored implementation plan with projected ROI." />
-      </Helmet>
-      <Navbar />
+    <SiteLayout
+      title="Request a Pilot | VitaSignal — Start Your Clinical AI Assessment"
+      description="Apply for a VitaSignal pilot program. We'll assess your hospital's needs and provide a tailored implementation plan with projected ROI."
+    >
       <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
         <section className="pt-28 pb-8 px-4">
           <div className="max-w-3xl mx-auto text-center">
