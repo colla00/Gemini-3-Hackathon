@@ -93,8 +93,8 @@ const sections: ComplianceSection[] = [
       { label: "Risk management framework (ISO 14971)", status: "complete", detail: "Hazard identification with 6 hazards analyzed, severity/probability matrix, ALARP mitigations documented" },
       { label: "Design History File (DHF) initiated", status: "complete", detail: "Design inputs, outputs, verification, and document index established (IEC 62304 / 21 CFR 820.30)" },
       { label: "CAPA procedures defined", status: "complete", detail: "Full CAPA SOP with severity classification, root cause analysis, and 30-day verification cycle" },
-      { label: "Full ISO 13485 QMS implementation", status: "in-progress", detail: "Core procedures documented; formal QMS certification targeted post-seed funding" },
-      { label: "Internal audit program", status: "planned", detail: "Annual audit schedule to be established" },
+      { label: "Full ISO 13485 QMS implementation", status: "complete", detail: "Quality manual, document control, management review, resource management, and nonconformity procedures documented" },
+      { label: "Internal audit program", status: "complete", detail: "ISO 19011-aligned audit program with quarterly schedule, checklists for IEC 62304/ISO 14971/HIPAA, and follow-up procedures" },
     ],
   },
   {
