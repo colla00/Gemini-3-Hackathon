@@ -88,8 +88,7 @@ const PilotRequest = () => {
             </div>
           </motion.div>
         </main>
-        <Footer />
-      </>
+      </SiteLayout>
     );
   }
 
