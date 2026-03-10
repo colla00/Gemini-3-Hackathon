@@ -25,7 +25,7 @@ const navLinks = [
   { to: "/patents", label: "Patents" },
   { to: "/investors", label: "Investors" },
   { to: "/licensing", label: "Licensing" },
-  { to: "/contact", label: "Contact" },
+  
 ];
 
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
