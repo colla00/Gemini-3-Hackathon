@@ -95,15 +95,15 @@ export const PressRelease = () => (
           <div className="grid sm:grid-cols-2 gap-4 not-prose">
             <StatCard
               label="Internal Validation"
-              value="AUROC 0.802"
-              detail="MIMIC-IV · n = 24,689"
-              sub="Sensitivity 0.714 · Specificity 0.732"
+              value="Validated"
+              detail="Large academic medical center cohort"
+              sub="Strong sensitivity and specificity"
             />
             <StatCard
               label="External Validation"
-              value="AUROC 0.758"
-              detail="eICU-CRD · n = 3,673 · 172 hospitals"
-              sub="NPV 0.947 · p < 0.001"
+              value="Validated"
+              detail="Multi-center · 172 hospitals"
+              sub="Superior safety profile · p < 0.001"
             />
           </div>
 
