@@ -12,8 +12,8 @@ const CopyEmail = ({ label, email }: { label: string; email: string }) => {
         <p className="text-sm text-white/80">{label}</p>
         <p className="text-xs font-mono" style={{ color: '#00c8b4' }}>{email}</p>
       </div>
-      <button onClick={copy} className="p-1.5 rounded hover:bg-white/10 transition-colors opacity-50 group-hover:opacity-100">
-        {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-white/40" />}
+      <button onClick={copy} className="p-1.5 rounded hover:bg-white/15 transition-colors opacity-70 group-hover:opacity-100">
+        {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-white/60" />}
       </button>
     </div>
   );
