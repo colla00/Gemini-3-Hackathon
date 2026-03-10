@@ -69,6 +69,9 @@ const ROICalculator = lazy(() => import("./pages/ROICalculator"));
 const ProductDemoPage = lazy(() => import("./pages/ProductDemo"));
 const Evidence = lazy(() => import("./pages/Evidence"));
 const PilotRequest = lazy(() => import("./pages/PilotRequest"));
+const TrustCenter = lazy(() => import("./pages/TrustCenter"));
+const Careers = lazy(() => import("./pages/Careers"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -121,6 +124,9 @@ const AppRoutes = () => {
           <Route path="/demo" element={<Suspense fallback={<PageSkeleton />}><ProductDemoPage /></Suspense>} />
           <Route path="/evidence" element={<Suspense fallback={<PageSkeleton />}><Evidence /></Suspense>} />
           <Route path="/pilot-request" element={<Suspense fallback={<PageSkeleton />}><PilotRequest /></Suspense>} />
+          <Route path="/trust" element={<Suspense fallback={<PageSkeleton />}><TrustCenter /></Suspense>} />
+          <Route path="/careers" element={<Suspense fallback={<PageSkeleton />}><Careers /></Suspense>} />
+          <Route path="/pricing" element={<Suspense fallback={<PageSkeleton />}><Pricing /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
