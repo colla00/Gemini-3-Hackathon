@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { motion, AnimatePresence } from 'framer-motion';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Activity, Users, ShieldCheck, BarChart3, AlertTriangle, ChevronRight, ChevronLeft, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';

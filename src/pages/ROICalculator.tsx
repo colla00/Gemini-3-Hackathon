@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { Calculator, Download, TrendingUp, DollarSign, Clock, Users, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
