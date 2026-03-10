@@ -72,6 +72,10 @@ const PilotRequest = lazy(() => import("./pages/PilotRequest"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const Careers = lazy(() => import("./pages/Careers"));
 const Pricing = lazy(() => import("./pages/Pricing"));
+const LeadPipeline = lazy(() => import("./pages/LeadPipeline"));
+const PilotProposal = lazy(() => import("./pages/PilotProposal"));
+const FDAPreSubBuilder = lazy(() => import("./pages/FDAPreSubBuilder"));
+const ClientPortal = lazy(() => import("./pages/ClientPortal"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -127,6 +131,10 @@ const AppRoutes = () => {
           <Route path="/trust" element={<Suspense fallback={<PageSkeleton />}><TrustCenter /></Suspense>} />
           <Route path="/careers" element={<Suspense fallback={<PageSkeleton />}><Careers /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<PageSkeleton />}><Pricing /></Suspense>} />
+          <Route path="/leads" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><LeadPipeline /></Suspense></ProtectedRoute>} />
+          <Route path="/proposal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PilotProposal /></Suspense></ProtectedRoute>} />
+          <Route path="/fda-builder" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><FDAPreSubBuilder /></Suspense></ProtectedRoute>} />
+          <Route path="/client-portal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><ClientPortal /></Suspense></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
