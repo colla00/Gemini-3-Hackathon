@@ -48,6 +48,8 @@ const KnowledgeHub = () => {
   const renderSection = () => {
     switch (activeSection) {
       case 'dashboard': return <HubDashboard />;
+      case '90day': return <Hub90DayTracker />;
+      case 'gaps': return <HubStrategicGaps />;
       case 'patents': return <HubPatents />;
       case 'manuscripts': return <HubManuscripts />;
       case 'company': return <HubCompany />;
