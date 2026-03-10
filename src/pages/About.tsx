@@ -341,7 +341,7 @@ function About() {
             even at the research prototype stage.
           </p>
           <div className="max-w-lg">
-            <Link to="/regulatory" className="group">
+            <Link to="/trust" className="group">
               <Card className="h-full transition-colors group-hover:border-primary/40">
                 <CardContent className="pt-6 flex items-start gap-3">
                   <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
