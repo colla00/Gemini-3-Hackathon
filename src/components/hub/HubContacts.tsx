@@ -62,7 +62,7 @@ const HubContacts = () => (
       </div>
 
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
-        <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase mb-3">Critical URLs</h3>
+        <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase mb-3">Critical URLs</h3>
         <LinkItem label="VitaSignal" url="https://vitasignal.ai" />
         <LinkItem label="USPTO Patent Center" url="https://patentcenter.uspto.gov" />
         <LinkItem label="MIMIC-IV" url="https://physionet.org/content/mimiciv/2.2/" />
