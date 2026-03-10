@@ -268,7 +268,6 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <div className="space-y-2">
                 <Link to="/terms" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Terms of Service</Link>
                 <Link to="/privacy" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
-                <Link to="/regulatory" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Regulatory Readiness</Link>
                 <span className="block text-sm text-primary-foreground/50">11 U.S. Patents Pending</span>
                 <span className="block text-[11px] text-primary-foreground/30">We do not sell personal data.</span>
               </div>
