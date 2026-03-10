@@ -1,9 +1,10 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Brain, FileText, ImageIcon } from "lucide-react";
+import { Brain, FileText, ImageIcon, Gavel } from "lucide-react";
 import { AIClaimDrafter } from "@/components/patent/AIClaimDrafter";
 import { SpecificationGenerator } from "@/components/patent/SpecificationGenerator";
 import { PatentFigureManager } from "@/components/patent/PatentFigureManager";
+import { OfficeActionTracker } from "@/components/patent/OfficeActionTracker";
 
 export default function PatentWorkbench() {
   return (
@@ -25,15 +26,18 @@ export default function PatentWorkbench() {
       <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
           <Tabs defaultValue="claims" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="claims" className="flex items-center gap-2">
-                <Brain className="w-4 h-4" /> AI Claim Drafter
+                <Brain className="w-4 h-4" /> Claims
               </TabsTrigger>
               <TabsTrigger value="spec" className="flex items-center gap-2">
-                <FileText className="w-4 h-4" /> Specification Generator
+                <FileText className="w-4 h-4" /> Spec Gen
               </TabsTrigger>
               <TabsTrigger value="figures" className="flex items-center gap-2">
-                <ImageIcon className="w-4 h-4" /> Figure Manager
+                <ImageIcon className="w-4 h-4" /> Figures
+              </TabsTrigger>
+              <TabsTrigger value="actions" className="flex items-center gap-2">
+                <Gavel className="w-4 h-4" /> Office Actions
               </TabsTrigger>
             </TabsList>
 
@@ -47,6 +51,10 @@ export default function PatentWorkbench() {
 
             <TabsContent value="figures">
               <PatentFigureManager />
+            </TabsContent>
+
+            <TabsContent value="actions">
+              <OfficeActionTracker />
             </TabsContent>
           </Tabs>
         </div>
