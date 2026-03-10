@@ -2,8 +2,8 @@ const T = ({ children }: { children: React.ReactNode }) => <span style={{ color:
 
 const StatusCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="rounded-xl border border-white/10 p-5 space-y-2" style={{ background: '#151f35' }}>
-    <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase">{title}</h3>
-    <div className="text-sm text-white/80 leading-relaxed">{children}</div>
+    <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase">{title}</h3>
+    <div className="text-sm text-white/85 leading-relaxed">{children}</div>
   </div>
 );
 
@@ -11,7 +11,7 @@ const HubDashboard = () => (
   <div className="space-y-8">
     <div>
       <h1 className="text-2xl md:text-3xl font-bold text-white">VitaSignal Command Center</h1>
-      <p className="text-sm text-white/50 mt-1">Dr. Alexis Collier, DHA · Founder & CEO · Updated March 2026</p>
+      <p className="text-sm text-white/60 mt-1">Dr. Alexis Collier, DHA · Founder & CEO · Updated March 2026</p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -63,7 +63,7 @@ const HubDashboard = () => (
           ['NIH Award', '1OT2OD032581'],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between py-1 border-b border-white/5">
-            <span className="text-white/40">{k}</span>
+            <span className="text-white/60">{k}</span>
             <span className="font-medium" style={{ color: '#00c8b4' }}>{v}</span>
           </div>
         ))}

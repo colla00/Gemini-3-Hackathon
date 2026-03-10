@@ -361,12 +361,12 @@ const HubScripts = () => {
                   <div className="px-5 pt-3 flex items-center gap-2">
                     <button
                       onClick={() => copyToClipboard(script.content, script.id)}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 text-white/50 hover:text-white hover:border-white/20 transition-colors"
+                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/20 text-white/70 hover:text-white hover:border-white/30 transition-colors font-medium"
                     >
                       {copiedId === script.id ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedId === script.id ? 'Copied!' : 'Copy Full Script'}
                     </button>
-                    <span className="text-[10px] text-white/20">Paste into notes or teleprompter</span>
+                    <span className="text-[10px] text-white/40">Paste into notes or teleprompter</span>
                   </div>
 
                   {/* Script text */}

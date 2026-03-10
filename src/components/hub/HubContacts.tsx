@@ -12,8 +12,8 @@ const CopyEmail = ({ label, email }: { label: string; email: string }) => {
         <p className="text-sm text-white/80">{label}</p>
         <p className="text-xs font-mono" style={{ color: '#00c8b4' }}>{email}</p>
       </div>
-      <button onClick={copy} className="p-1.5 rounded hover:bg-white/10 transition-colors opacity-50 group-hover:opacity-100">
-        {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-white/40" />}
+      <button onClick={copy} className="p-1.5 rounded hover:bg-white/15 transition-colors opacity-70 group-hover:opacity-100">
+        {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-white/60" />}
       </button>
     </div>
   );
@@ -24,9 +24,9 @@ const LinkItem = ({ label, url }: { label: string; url: string }) => (
     className="flex items-center justify-between py-2 border-b border-white/5 group hover:bg-white/5 -mx-2 px-2 rounded">
     <div>
       <p className="text-sm text-white/80">{label}</p>
-      <p className="text-xs text-white/30 font-mono">{url}</p>
+      <p className="text-xs text-white/50 font-mono">{url}</p>
     </div>
-    <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/50 shrink-0" />
+    <ExternalLink className="w-3.5 h-3.5 text-white/40 group-hover:text-white/70 shrink-0" />
   </a>
 );
 
@@ -36,12 +36,12 @@ const CopySnippet = ({ title, text }: { title: string; text: string }) => {
   return (
     <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase">{title}</h3>
-        <button onClick={copy} className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border border-white/10 hover:bg-white/10 transition-colors text-white/50">
+        <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase">{title}</h3>
+        <button onClick={copy} className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border border-white/20 hover:bg-white/15 transition-colors text-white/70 font-medium">
           {copied ? <><Check className="w-3 h-3 text-green-400" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
         </button>
       </div>
-      <pre className="text-xs text-white/60 font-mono whitespace-pre-wrap leading-relaxed">{text}</pre>
+      <pre className="text-xs text-white/70 font-mono whitespace-pre-wrap leading-relaxed">{text}</pre>
     </div>
   );
 };
@@ -52,7 +52,7 @@ const HubContacts = () => (
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
-        <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase mb-3">Key Contacts</h3>
+        <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase mb-3">Key Contacts</h3>
         <CopyEmail label="Dr. Alexis Collier" email="info@vitasignal.ai" />
         <CopyEmail label="VitaSignal Licensing" email="info@vitasignal.ai" />
         <div className="py-2">
@@ -62,7 +62,7 @@ const HubContacts = () => (
       </div>
 
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
-        <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase mb-3">Critical URLs</h3>
+        <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase mb-3">Critical URLs</h3>
         <LinkItem label="VitaSignal" url="https://vitasignal.ai" />
         <LinkItem label="USPTO Patent Center" url="https://patentcenter.uspto.gov" />
         <LinkItem label="MIMIC-IV" url="https://physionet.org/content/mimiciv/2.2/" />
@@ -76,7 +76,7 @@ const HubContacts = () => (
     </div>
 
     <div className="space-y-4">
-      <h2 className="text-xs font-semibold tracking-wider text-white/40 uppercase">Copy-Paste Snippets</h2>
+      <h2 className="text-xs font-semibold tracking-wider text-white/60 uppercase">Copy-Paste Snippets</h2>
 
       <CopySnippet
         title="Organization Signature Block"
