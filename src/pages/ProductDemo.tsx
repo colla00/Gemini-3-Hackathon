@@ -37,12 +37,10 @@ const ProductDemo = () => {
   const [selectedPatient, setSelectedPatient] = useState(syntheticPatients[0]);
 
   return (
-    <>
-      <Helmet>
-        <title>Product Demo | VitaSignal — See Clinical AI in Action</title>
-        <meta name="description" content="Explore VitaSignal's clinical AI platform with synthetic patient data. See real-time risk scoring, nurse workload optimization, and equity monitoring." />
-      </Helmet>
-      <Navbar />
+    <SiteLayout
+      title="Product Demo | VitaSignal — See Clinical AI in Action"
+      description="Explore VitaSignal's clinical AI platform with synthetic patient data. See real-time risk scoring, nurse workload optimization, and equity monitoring."
+    >
       <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
         {/* Hero */}
         <section className="pt-28 pb-12 px-4">
