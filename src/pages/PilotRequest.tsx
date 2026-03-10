@@ -330,8 +330,7 @@ const PilotRequest = () => {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </SiteLayout>
   );
 };
 

@@ -263,8 +263,7 @@ const ProductDemo = () => {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </SiteLayout>
   );
 };
 

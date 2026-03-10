@@ -208,8 +208,7 @@ const ROICalculator = () => {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </SiteLayout>
   );
 };
 

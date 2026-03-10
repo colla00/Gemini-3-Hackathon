@@ -144,8 +144,7 @@ const Evidence = () => (
         </div>
       </section>
     </main>
-    <Footer />
-  </>
+  </SiteLayout>
 );
 
 export default Evidence;
