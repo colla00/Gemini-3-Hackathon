@@ -41,7 +41,7 @@ const CopySnippet = ({ title, text }: { title: string; text: string }) => {
           {copied ? <><Check className="w-3 h-3 text-green-400" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
         </button>
       </div>
-      <pre className="text-xs text-white/60 font-mono whitespace-pre-wrap leading-relaxed">{text}</pre>
+      <pre className="text-xs text-white/70 font-mono whitespace-pre-wrap leading-relaxed">{text}</pre>
     </div>
   );
 };
