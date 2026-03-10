@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap, BarChart3, Target, AlertTriangle, Rocket } from 'lucide-react';
+import { Lock, Unlock, LayoutDashboard, Scale, FileText, Building2, Presentation, HelpCircle, Contact, Menu, X, KanbanSquare, Mic, GraduationCap, BarChart3, Target, AlertTriangle, Rocket, Users, Shield, Briefcase } from 'lucide-react';
 import HubDashboard from '@/components/hub/HubDashboard';
 import HubPatents from '@/components/hub/HubPatents';
 import HubManuscripts from '@/components/hub/HubManuscripts';
@@ -14,6 +14,9 @@ import HubAnalytics from '@/components/hub/HubAnalytics';
 import Hub90DayTracker from '@/components/hub/Hub90DayTracker';
 import HubStrategicGaps from '@/components/hub/HubStrategicGaps';
 import HubRoadmap from '@/components/hub/HubRoadmap';
+import HubCRM from '@/components/hub/HubCRM';
+import HubPatentConversion from '@/components/hub/HubPatentConversion';
+import HubHiring from '@/components/hub/HubHiring';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,6 +25,9 @@ const SECTIONS = [
   { id: '90day', label: '90-Day Tracker', icon: Target },
   { id: 'gaps', label: 'Strategic Gaps', icon: AlertTriangle },
   { id: 'roadmap', label: 'Path to 10/10', icon: Rocket },
+  { id: 'crm', label: 'Customer Discovery', icon: Users },
+  { id: 'hiring', label: 'Hiring Toolkit', icon: Briefcase },
+  { id: 'patent_conversion', label: 'Patent Conversion', icon: Shield },
   { id: 'patents', label: 'Patent Portfolio', icon: Scale },
   { id: 'manuscripts', label: 'Manuscripts', icon: FileText },
   { id: 'company', label: 'Company & Legal', icon: Building2 },
@@ -53,6 +59,9 @@ const KnowledgeHub = () => {
       case '90day': return <Hub90DayTracker />;
       case 'gaps': return <HubStrategicGaps />;
       case 'roadmap': return <HubRoadmap />;
+      case 'crm': return <HubCRM />;
+      case 'hiring': return <HubHiring />;
+      case 'patent_conversion': return <HubPatentConversion />;
       case 'patents': return <HubPatents />;
       case 'manuscripts': return <HubManuscripts />;
       case 'company': return <HubCompany />;
