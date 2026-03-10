@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Activity } from 'lucide-react';
+import vitasignalIcon from '@/assets/vitasignal-icon.jpg';
 
 export const LandingFooter = () => (
   <footer className="py-10 px-6 border-t border-border/30 bg-secondary/30" role="contentinfo">
@@ -7,7 +7,7 @@ export const LandingFooter = () => (
       <div className="flex flex-col items-center text-center gap-6">
         <div>
           <div className="flex items-center gap-2 justify-center mb-2">
-            <Activity className="w-4 h-4 text-primary" aria-hidden="true" />
+            <img src={vitasignalIcon} alt="VitaSignal" className="w-5 h-5 rounded object-cover" />
             <span className="font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
           </div>
           <p className="text-xs text-muted-foreground">
