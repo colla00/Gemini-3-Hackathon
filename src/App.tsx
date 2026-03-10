@@ -131,6 +131,10 @@ const AppRoutes = () => {
           <Route path="/trust" element={<Suspense fallback={<PageSkeleton />}><TrustCenter /></Suspense>} />
           <Route path="/careers" element={<Suspense fallback={<PageSkeleton />}><Careers /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<PageSkeleton />}><Pricing /></Suspense>} />
+          <Route path="/leads" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><LeadPipeline /></Suspense></ProtectedRoute>} />
+          <Route path="/proposal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PilotProposal /></Suspense></ProtectedRoute>} />
+          <Route path="/fda-builder" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><FDAPreSubBuilder /></Suspense></ProtectedRoute>} />
+          <Route path="/client-portal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><ClientPortal /></Suspense></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
