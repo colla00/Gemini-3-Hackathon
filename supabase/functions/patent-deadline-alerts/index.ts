@@ -149,7 +149,7 @@ serve(async (req) => {
         <div style="font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:0 auto">
           <div style="background:#0f172a;color:white;padding:24px;border-radius:8px 8px 0 0">
             <h1 style="margin:0;font-size:20px">VitaSignal™ Patent Portfolio</h1>
-            <p style="margin:4px 0 0;opacity:0.8;font-size:14px">Nonprovisional Conversion Deadline Alert</p>
+            <p style="margin:4px 0 0;opacity:0.8;font-size:14px">Patent Deadline Alert — NP Conversions & Office Actions</p>
           </div>
           <div style="padding:24px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px">
             <table style="width:100%;border-collapse:collapse;font-size:13px">
