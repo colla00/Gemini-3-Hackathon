@@ -189,18 +189,27 @@ const ROICalculator = () => {
                   </div>
                 </div>
 
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5 space-y-3">
+                  <h3 className="text-sm font-semibold text-white/70">How We Calculate These Estimates</h3>
+                  <p className="text-xs text-white/40 leading-relaxed">
+                    Savings projections use peer-reviewed benchmarks: CDC-published HAI costs ($28,400 avg per event), 
+                    CMS readmission penalty data, and nurse labor rates from BLS. Reduction percentages (23% HAI, 15% mortality, 12% readmission) 
+                    reflect ranges from published clinical decision support literature — not guaranteed VitaSignal outcomes. 
+                    Your actual results will depend on baseline performance, implementation scope, and clinical workflow integration.
+                  </p>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    <Download className="w-4 h-4 mr-2" /> Download PDF Report
+                  <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <a href="/evidence">Review Our Clinical Evidence</a>
                   </Button>
                   <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
-                    <a href="/pilot-request">Request a Pilot Assessment <ArrowRight className="w-4 h-4 ml-2" /></a>
+                    <a href="/pilot-request">Discuss a Pilot Assessment <ArrowRight className="w-4 h-4 ml-2" /></a>
                   </Button>
                 </div>
 
                 <p className="text-[11px] text-white/30 text-center max-w-2xl mx-auto">
-                  Projections are estimates based on published literature and VitaSignal's validated research models. Actual results may vary by institution. 
-                  VitaSignal is a pre-market research prototype — not FDA cleared or approved.
+                  VitaSignal is a pre-market research prototype — not FDA cleared or approved. These projections are illustrative estimates, not guarantees.
                 </p>
               </motion.div>
             )}
