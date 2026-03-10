@@ -69,9 +69,7 @@ const PilotRequest = () => {
 
   if (submitted) {
     return (
-      <>
-        <Helmet><title>Pilot Request Submitted | VitaSignal</title></Helmet>
-        <Navbar />
+      <SiteLayout title="Pilot Request Submitted | VitaSignal">
         <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)] flex items-center justify-center px-4">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-lg text-center">
             <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
