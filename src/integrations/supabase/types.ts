@@ -782,6 +782,48 @@ export type Database = {
         }
         Relationships: []
       }
+      patent_figures: {
+        Row: {
+          caption: string | null
+          created_at: string
+          figure_number: number
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          patent_id: string
+          sort_order: number
+          updated_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          figure_number: number
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          patent_id: string
+          sort_order?: number
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          figure_number?: number
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          patent_id?: string
+          sort_order?: number
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       patent_filing_receipts: {
         Row: {
           application_number: string | null
