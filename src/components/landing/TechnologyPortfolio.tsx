@@ -81,7 +81,7 @@ const systems = [
     icon: FileText,
     name: "CTCI – Clinical Trial Intelligence",
     patent: "#10",
-    desc: "AI-driven clinical trial matching and cohort identification leveraging EHR documentation patterns for automated eligibility screening.",
+    desc: "AI-driven clinical trial matching and cohort identification leveraging EHR data for automated eligibility screening.",
     status: "Patent Application Filed",
     metric: "Automated screening",
   },
