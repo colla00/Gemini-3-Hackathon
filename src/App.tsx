@@ -61,6 +61,7 @@ const NonprovisionalToolsPage = lazy(() => import("./pages/NonprovisionalTools")
 const IntegrationGuide = lazy(() => import("./pages/IntegrationGuide"));
 const PatentWorkbench = lazy(() => import("./pages/PatentWorkbench"));
 const DeveloperTools = lazy(() => import("./pages/DeveloperTools"));
+const PilotDemo = lazy(() => import("./pages/PilotDemo"));
 
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
@@ -106,6 +107,7 @@ const AppRoutes = () => {
           <Route path="/integration-guide" element={<Suspense fallback={<PageSkeleton />}><IntegrationGuide /></Suspense>} />
           <Route path="/patents/workbench" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PatentWorkbench /></Suspense></ProtectedRoute>} />
           <Route path="/developer-tools" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DeveloperTools /></Suspense></ProtectedRoute>} />
+          <Route path="/pilot" element={<Suspense fallback={<PageSkeleton />}><PilotDemo /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>

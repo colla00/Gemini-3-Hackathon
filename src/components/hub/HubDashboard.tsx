@@ -69,6 +69,37 @@ const HubDashboard = () => (
         ))}
       </div>
     </div>
+
+    {/* Strategic Position Summary */}
+    <div className="rounded-xl border border-amber-500/20 p-6 space-y-4" style={{ background: 'rgba(245,158,11,0.05)' }}>
+      <h2 className="text-sm font-semibold text-amber-400 flex items-center gap-2">
+        ⚠️ Strategic Position (March 2026)
+      </h2>
+      <p className="text-xs text-white/60 leading-relaxed">
+        "Top 20% of healthcare AI <span className="text-emerald-400">research projects</span>, bottom 50% of actual healthcare AI <span className="text-amber-400">companies</span>."
+        The gap is execution, not science.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        {[
+          { label: 'Product', status: 'Not deployable', color: '#ef4444' },
+          { label: 'Revenue', status: 'Zero', color: '#ef4444' },
+          { label: 'Team', status: 'Solo founder', color: '#f59e0b' },
+          { label: 'Patent Cliff', status: 'Dec 2026', color: '#f59e0b' },
+        ].map(g => (
+          <div key={g.label} className="rounded-lg border border-white/10 p-3 text-center" style={{ background: '#151f35' }}>
+            <div className="text-[10px] text-white/40 uppercase tracking-wider">{g.label}</div>
+            <div className="text-xs font-semibold mt-1" style={{ color: g.color }}>{g.status}</div>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-3 text-[10px] text-white/40">
+        <span>Commercial Success: <span className="text-emerald-400 font-medium">30%</span></span>
+        <span>·</span>
+        <span>IP/Consulting: <span className="text-amber-400 font-medium">40%</span></span>
+        <span>·</span>
+        <span>Remains Research: <span className="text-red-400 font-medium">30%</span></span>
+      </div>
+    </div>
   </div>
 );
 
