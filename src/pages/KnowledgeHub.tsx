@@ -59,6 +59,9 @@ const KnowledgeHub = () => {
       case '90day': return <Hub90DayTracker />;
       case 'gaps': return <HubStrategicGaps />;
       case 'roadmap': return <HubRoadmap />;
+      case 'crm': return <HubCRM />;
+      case 'hiring': return <HubHiring />;
+      case 'patent_conversion': return <HubPatentConversion />;
       case 'patents': return <HubPatents />;
       case 'manuscripts': return <HubManuscripts />;
       case 'company': return <HubCompany />;
