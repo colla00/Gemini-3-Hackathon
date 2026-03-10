@@ -494,6 +494,9 @@ const AdminPanel = () => {
         {/* Site Archive - Trademark Evidence */}
         <SiteArchivePanel />
 
+        {/* HIPAA Compliance Management */}
+        <HIPAACompliancePanel />
+
         {/* Testing Tools */}
         <Card className="border-dashed">
           <CardHeader>
