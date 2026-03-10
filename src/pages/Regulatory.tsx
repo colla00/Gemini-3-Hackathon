@@ -51,6 +51,11 @@ const sections: ComplianceSection[] = [
       { label: "Input validation & sanitization", status: "complete", detail: "Zod schemas for all forms, HTML escaping in edge functions" },
       { label: "BAA framework for deployment", status: "complete", detail: "BAA template with safeguards matrix, breach notification terms, and subcontractor inventory" },
       { label: "Privacy Impact Assessment", status: "complete", detail: "PIA covering data inventory, risk assessment, and privacy controls for research and future clinical phases" },
+      { label: "Data retention & deletion policy", status: "complete", detail: "Operational retention schedule with automated cleanup and individual deletion request workflow" },
+      { label: "Staff HIPAA training program", status: "complete", detail: "6-module training curriculum with completion tracking, certificates, and annual renewal" },
+      { label: "Security Risk Assessment (NIST)", status: "complete", detail: "Full SRA per NIST SP 800-30 with threat/vulnerability matrix and annual review schedule" },
+      { label: "Breach notification procedures", status: "complete", detail: "4-factor breach assessment, notification timeline, and tabletop exercise program" },
+      { label: "BAA & infrastructure checklist", status: "in-progress", detail: "Comprehensive pre-deployment checklist for BAA execution and HIPAA-eligible tier activation" },
     ],
   },
   {

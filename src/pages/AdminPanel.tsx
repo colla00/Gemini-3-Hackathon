@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { Users, Shield, Settings, RotateCcw, FileText, Search, Download, ChevronLeft, ChevronRight, Trash2, UserCog } from 'lucide-react';
 import { WalkthroughRequestsPanel } from '@/components/admin/WalkthroughRequestsPanel';
+import { HIPAACompliancePanel } from '@/components/admin/HIPAACompliancePanel';
 import { SiteArchivePanel } from '@/components/admin/SiteArchivePanel';
 import { RateLimitMonitoringPanel } from '@/components/admin/RateLimitMonitoringPanel';
 import { VendorKeyManagement } from '@/components/admin/VendorKeyManagement';
@@ -492,6 +493,9 @@ const AdminPanel = () => {
 
         {/* Site Archive - Trademark Evidence */}
         <SiteArchivePanel />
+
+        {/* HIPAA Compliance Management */}
+        <HIPAACompliancePanel />
 
         {/* Testing Tools */}
         <Card className="border-dashed">
