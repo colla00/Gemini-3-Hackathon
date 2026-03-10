@@ -12,26 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 // ── Syntax highlighting (JSON) ──────────────────────────────────────
-const highlightJSON = (json: string): string => {
-  return json.replace(
-    /("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
-    (match) => {
-      let cls = 'text-amber-600 dark:text-amber-400'; // number
-      if (/^"/.test(match)) {
-        if (/:$/.test(match)) {
-          cls = 'text-sky-600 dark:text-sky-400'; // key
-        } else {
-          cls = 'text-emerald-600 dark:text-emerald-400'; // string
-        }
-      } else if (/true|false/.test(match)) {
-        cls = 'text-violet-600 dark:text-violet-400'; // boolean
-      } else if (/null/.test(match)) {
-        cls = 'text-rose-500 dark:text-rose-400'; // null
-      }
-      return `<span class="${cls}">${match}</span>`;
-    }
-  );
-};
+// JSON is rendered as plain preformatted text for security (no dangerouslySetInnerHTML)
 
 // ── Sample payloads ─────────────────────────────────────────────────
 const SAMPLE_PAYLOADS: Record<string, { label: string; method: string; endpoint: string; body: string; description: string }> = {
