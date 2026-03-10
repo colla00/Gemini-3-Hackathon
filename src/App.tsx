@@ -69,6 +69,9 @@ const ROICalculator = lazy(() => import("./pages/ROICalculator"));
 const ProductDemoPage = lazy(() => import("./pages/ProductDemo"));
 const Evidence = lazy(() => import("./pages/Evidence"));
 const PilotRequest = lazy(() => import("./pages/PilotRequest"));
+const TrustCenter = lazy(() => import("./pages/TrustCenter"));
+const Careers = lazy(() => import("./pages/Careers"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
