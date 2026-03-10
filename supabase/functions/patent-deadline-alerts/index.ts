@@ -119,8 +119,11 @@ serve(async (req) => {
         ? `⚠️ URGENT: ${urgentCount} Patent Deadline(s) Approaching`
         : `📋 Patent Deadline Reminder: ${alerts.length} upcoming`;
 
-      const alertRows = alerts.map(a => 
+      const alertRows = alerts
+        .sort((a, b) => a.daysRemaining - b.daysRemaining)
+        .map(a => 
         `<tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:8px;font-size:11px;color:#6b7280">${a.type}</td>
           <td style="padding:8px;font-weight:600">${a.patent}</td>
           <td style="padding:8px">${a.deadline}</td>
           <td style="padding:8px;color:${
