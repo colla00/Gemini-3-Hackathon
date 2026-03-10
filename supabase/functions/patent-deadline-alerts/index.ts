@@ -50,7 +50,7 @@ serve(async (req) => {
     }
 
     const now = new Date();
-    const alerts: Array<{ patent: string; deadline: string; daysRemaining: number; urgency: string }> = [];
+    const alerts: Array<{ patent: string; deadline: string; daysRemaining: number; urgency: string; type: string }> = [];
 
     for (const patent of patents) {
       const deadline = new Date(patent.np_deadline);
@@ -70,6 +70,40 @@ serve(async (req) => {
           deadline: patent.np_deadline,
           daysRemaining,
           urgency,
+          type: "NP Conversion",
+        });
+      }
+    }
+
+    // Fetch office actions with pending/in_progress status and approaching deadlines
+    const { data: officeActions, error: oaError } = await supabase
+      .from("office_actions")
+      .select("*, patents(nickname, patent_number)")
+      .in("status", ["pending", "in_progress"])
+      .not("response_deadline", "is", null);
+
+    if (oaError) {
+      console.error("[Deadline] Office action fetch error:", oaError.message);
+    }
+
+    for (const oa of officeActions || []) {
+      if (!oa.response_deadline) continue;
+      const deadline = new Date(oa.response_deadline);
+      const daysRemaining = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+      if (daysRemaining <= 14) {
+        const patentInfo = oa.patents as any;
+        const patentLabel = patentInfo ? `${patentInfo.nickname} (${patentInfo.patent_number})` : oa.patent_id;
+        const urgency = daysRemaining <= 0 ? "EXPIRED" :
+                       daysRemaining <= 3 ? "CRITICAL" :
+                       daysRemaining <= 7 ? "URGENT" : "WARNING";
+
+        alerts.push({
+          patent: `${patentLabel}: ${oa.action_type}`,
+          deadline: oa.response_deadline,
+          daysRemaining,
+          urgency,
+          type: "Office Action",
         });
       }
     }
@@ -85,8 +119,11 @@ serve(async (req) => {
         ? `⚠️ URGENT: ${urgentCount} Patent Deadline(s) Approaching`
         : `📋 Patent Deadline Reminder: ${alerts.length} upcoming`;
 
-      const alertRows = alerts.map(a => 
+      const alertRows = alerts
+        .sort((a, b) => a.daysRemaining - b.daysRemaining)
+        .map(a => 
         `<tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:8px;font-size:11px;color:#6b7280">${a.type}</td>
           <td style="padding:8px;font-weight:600">${a.patent}</td>
           <td style="padding:8px">${a.deadline}</td>
           <td style="padding:8px;color:${
@@ -112,12 +149,13 @@ serve(async (req) => {
         <div style="font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:0 auto">
           <div style="background:#0f172a;color:white;padding:24px;border-radius:8px 8px 0 0">
             <h1 style="margin:0;font-size:20px">VitaSignal™ Patent Portfolio</h1>
-            <p style="margin:4px 0 0;opacity:0.8;font-size:14px">Nonprovisional Conversion Deadline Alert</p>
+            <p style="margin:4px 0 0;opacity:0.8;font-size:14px">Patent Deadline Alert — NP Conversions & Office Actions</p>
           </div>
           <div style="padding:24px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px">
             <table style="width:100%;border-collapse:collapse;font-size:13px">
               <thead>
                 <tr style="border-bottom:2px solid #e5e7eb">
+                  <th style="padding:8px;text-align:left">Type</th>
                   <th style="padding:8px;text-align:left">Patent</th>
                   <th style="padding:8px;text-align:left">Deadline</th>
                   <th style="padding:8px;text-align:left">Remaining</th>
