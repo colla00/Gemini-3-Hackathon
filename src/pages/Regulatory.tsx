@@ -121,8 +121,8 @@ const sections: ComplianceSection[] = [
       { label: "Model drift detection designed", status: "complete", detail: "Data and concept drift monitoring architecture" },
       { label: "Alert fatigue metrics tracked", status: "complete", detail: "Trust-based alert system with fatigue reduction" },
       { label: "Adaptive threshold visualization", status: "complete", detail: "Dynamic threshold adjustment with clinical context" },
-      { label: "MDR (Medical Device Reporting) procedures", status: "planned", detail: "To be established pre-market clearance" },
-      { label: "PMCF plan", status: "planned", detail: "Post-market clinical follow-up protocol" },
+      { label: "MDR (Medical Device Reporting) procedures", status: "complete", detail: "21 CFR 803 procedures with event detection, investigation process, complaint handling, and trending analysis" },
+      { label: "PMCF plan", status: "complete", detail: "Post-market clinical follow-up with performance/safety/equity metrics, data collection methods, and reporting schedule" },
     ],
   },
 ];
