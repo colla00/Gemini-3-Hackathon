@@ -63,7 +63,7 @@ const HubDashboard = () => (
           ['NIH Award', '1OT2OD032581'],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between py-1 border-b border-white/5">
-            <span className="text-white/40">{k}</span>
+            <span className="text-white/60">{k}</span>
             <span className="font-medium" style={{ color: '#00c8b4' }}>{v}</span>
           </div>
         ))}
