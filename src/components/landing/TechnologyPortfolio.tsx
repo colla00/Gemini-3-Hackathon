@@ -40,10 +40,10 @@ const systems = [
     icon: FileText,
     name: "Documentation Burden Score™ (DBS)",
     patent: "#5",
-    desc: "ML-powered documentation burden quantification with multiple clinical variables. Externally validated across 172 hospitals (N=28,362).",
+    desc: "ML-powered documentation burden quantification. Externally validated across multiple hospitals.",
     status: "Validated",
     highlight: true,
-    metric: "28,362 patients · 172 hospitals",
+    metric: "Multi-site validated",
   },
   {
     icon: Activity,

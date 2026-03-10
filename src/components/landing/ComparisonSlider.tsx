@@ -10,11 +10,11 @@ interface ComparisonRow {
 }
 
 const comparisons: ComparisonRow[] = [
-  { icon: Brain, label: 'Data Source', traditional: 'Vital sign monitors, sensors, wearables', vitasignal: 'EHR timestamp patterns only — no hardware' },
-  { icon: Activity, label: 'Mortality Prediction', traditional: 'MEWS/NEWS: AUROC 0.65–0.72', vitasignal: 'VitaSignal: AUROC 0.906 (HiRID)' },
+  { icon: Brain, label: 'Data Source', traditional: 'Vital sign monitors, sensors, wearables', vitasignal: 'EHR documentation patterns only — no hardware' },
+  { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated)' },
   { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Weeks — integrates with existing EHR' },
   { icon: Shield, label: 'Cost Per Bed', traditional: '$8,000–$15,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
-  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'DBS quantified across 172 hospitals' },
+  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified and validated across multiple hospitals' },
   { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '85–99% false alarm rate', vitasignal: 'Trust-calibrated alert governance' },
 ];
 

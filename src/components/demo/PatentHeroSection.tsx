@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const metrics = [
-  { label: 'IDI Validated', value: '65,157', detail: 'Patients across databases' },
-  { label: 'HiRID AUROC', value: '0.906', detail: 'n=33,897 (Switzerland)' },
-  { label: 'Total Cohort', value: '65,157', detail: 'MIMIC-IV + HiRID' },
-  { label: 'IDI Features', value: '9', detail: 'Temporal extraction' },
+  { label: 'Validated', value: '✓', detail: 'Multi-database cohort' },
+  { label: 'External Validation', value: '✓', detail: 'International database' },
+  { label: 'Databases', value: '2+', detail: 'Independent cohorts' },
+  { label: 'Proprietary Features', value: 'Patent-Pending', detail: 'Novel extraction method' },
 ];
 
 const differentiators = [
@@ -29,14 +29,14 @@ export const PatentHeroSection = () => {
           VitaSignal™ Mortality
         </h2>
         <p className="text-muted-foreground mb-6 leading-relaxed">
-          ICU Mortality Prediction via the Intensive Documentation Index (IDI) with 9 temporal features.
-          Validated on 65,157 patients across MIMIC-IV and HiRID (Switzerland). IDI features
+          ICU Mortality Prediction via proprietary analysis of routine clinical documentation.
+          Validated across multiple international databases. Patent-pending features
           are automatically computable from existing EHR data — no additional hardware or sensors required.
         </p>
 
         <div className="flex flex-wrap items-center gap-2 mb-8">
           <Badge className="bg-primary/15 text-primary border border-primary/30 font-semibold">
-            Patent #1 Filed Feb 5, 2026
+            Patent Application Filed
           </Badge>
           <Badge className="bg-chart-2/15 text-chart-2 border border-chart-2/30 font-semibold gap-1">
             <CheckCircle2 className="h-3 w-3" />
@@ -60,8 +60,8 @@ export const PatentHeroSection = () => {
             <div>
               <p className="text-sm font-semibold text-foreground mb-1">Key Finding</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-               Documentation rhythm irregularity is the strongest predictor of ICU mortality,
-               while documentation volume alone is not independently predictive.
+               Proprietary documentation analysis methods outperform traditional approaches.
+               Technical details available under NDA.
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@ export const PatentHeroSection = () => {
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <Link to="/patents" className="gap-2">
-              View Technical Details
+              View Portfolio
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>

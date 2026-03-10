@@ -100,7 +100,7 @@ const AppRoutes = () => {
           <Route path="/patents/tracker" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PatentTracker /></Suspense></ProtectedRoute>} />
           <Route path="/dataroom" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><DataRoom /></Suspense></ProtectedRoute>} />
           <Route path="/hub" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><KnowledgeHub /></Suspense></ProtectedRoute>} />
-          <Route path="/investors" element={<Suspense fallback={<PageSkeleton />}><Investors /></Suspense>} />
+          <Route path="/investors" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><Investors /></Suspense></ProtectedRoute>} />
           <Route path="/integrations" element={<Suspense fallback={<PageSkeleton />}><Integrations /></Suspense>} />
           <Route path="/patents/nonprovisional" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><NonprovisionalToolsPage /></Suspense></ProtectedRoute>} />
           <Route path="/integration-guide" element={<Suspense fallback={<PageSkeleton />}><IntegrationGuide /></Suspense>} />
