@@ -2,8 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Award, BookOpen, ShieldCheck, Globe, Users, FileText, ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { SiteLayout } from '@/components/layout/SiteLayout';
 
 const publications = [
   { journal: 'JAMIA', title: 'Multi-Center Validation of Equipment-Independent ICU Mortality Prediction', status: 'Under Review', type: 'Original Research' },

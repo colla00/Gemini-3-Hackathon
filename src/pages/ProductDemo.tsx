@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Activity, Users, ShieldCheck, BarChart3, AlertTriangle, ChevronRight, ChevronLeft, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { SiteLayout } from '@/components/layout/SiteLayout';
 
 const syntheticPatients = [
   { id: 'PT-4821', name: 'Patient A', age: 67, unit: 'MICU', riskScore: 0.82, trend: 'rising', acuity: 'Critical', alerts: ['Sepsis risk elevated', 'Lactate trending ↑'], nurseLoad: 4.2 },

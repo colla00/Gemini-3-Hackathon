@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { SiteLayout } from '@/components/layout/SiteLayout';
 
 interface ROIResult {
   annualSavings: number;
