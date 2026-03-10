@@ -50,7 +50,7 @@ serve(async (req) => {
     }
 
     const now = new Date();
-    const alerts: Array<{ patent: string; deadline: string; daysRemaining: number; urgency: string }> = [];
+    const alerts: Array<{ patent: string; deadline: string; daysRemaining: number; urgency: string; type: string }> = [];
 
     for (const patent of patents) {
       const deadline = new Date(patent.np_deadline);
@@ -70,6 +70,40 @@ serve(async (req) => {
           deadline: patent.np_deadline,
           daysRemaining,
           urgency,
+          type: "NP Conversion",
+        });
+      }
+    }
+
+    // Fetch office actions with pending/in_progress status and approaching deadlines
+    const { data: officeActions, error: oaError } = await supabase
+      .from("office_actions")
+      .select("*, patents(nickname, patent_number)")
+      .in("status", ["pending", "in_progress"])
+      .not("response_deadline", "is", null);
+
+    if (oaError) {
+      console.error("[Deadline] Office action fetch error:", oaError.message);
+    }
+
+    for (const oa of officeActions || []) {
+      if (!oa.response_deadline) continue;
+      const deadline = new Date(oa.response_deadline);
+      const daysRemaining = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+      if (daysRemaining <= 14) {
+        const patentInfo = oa.patents as any;
+        const patentLabel = patentInfo ? `${patentInfo.nickname} (${patentInfo.patent_number})` : oa.patent_id;
+        const urgency = daysRemaining <= 0 ? "EXPIRED" :
+                       daysRemaining <= 3 ? "CRITICAL" :
+                       daysRemaining <= 7 ? "URGENT" : "WARNING";
+
+        alerts.push({
+          patent: `${patentLabel}: ${oa.action_type}`,
+          deadline: oa.response_deadline,
+          daysRemaining,
+          urgency,
+          type: "Office Action",
         });
       }
     }
