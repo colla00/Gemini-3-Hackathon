@@ -25,12 +25,10 @@ const fairnessMetrics = [
 ];
 
 const Evidence = () => (
-  <>
-    <Helmet>
-      <title>Clinical Evidence | VitaSignal — Validated Across 55,000+ Patients</title>
-      <meta name="description" content="VitaSignal's clinical AI is validated across 55,000+ patients with zero racial disparities. NIH-funded, peer-reviewed, and externally validated across 3 international datasets." />
-    </Helmet>
-    <Navbar />
+  <SiteLayout
+    title="Clinical Evidence | VitaSignal — Validated Across 55,000+ Patients"
+    description="VitaSignal's clinical AI is validated across 55,000+ patients with zero racial disparities. NIH-funded, peer-reviewed, and externally validated across 3 international datasets."
+  >
     <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
       {/* Hero */}
       <section className="pt-28 pb-16 px-4">
