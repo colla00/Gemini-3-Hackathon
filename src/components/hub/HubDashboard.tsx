@@ -2,8 +2,8 @@ const T = ({ children }: { children: React.ReactNode }) => <span style={{ color:
 
 const StatusCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="rounded-xl border border-white/10 p-5 space-y-2" style={{ background: '#151f35' }}>
-    <h3 className="text-xs font-semibold tracking-wider text-white/50 uppercase">{title}</h3>
-    <div className="text-sm text-white/80 leading-relaxed">{children}</div>
+    <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase">{title}</h3>
+    <div className="text-sm text-white/85 leading-relaxed">{children}</div>
   </div>
 );
 
