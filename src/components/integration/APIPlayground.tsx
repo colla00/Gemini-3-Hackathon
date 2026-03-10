@@ -263,10 +263,6 @@ export const APIPlayground = () => {
     }
   };
 
-  const highlightedBody = useMemo(() => {
-    if (!response) return '';
-    return highlightJSON(response.body);
-  }, [response]);
 
   const sampleDescription = SAMPLE_PAYLOADS[selectedSample]?.description || '';
 
