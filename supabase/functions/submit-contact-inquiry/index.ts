@@ -157,59 +157,27 @@ serve(async (req: Request) => {
       } catch (emailErr) {
         console.error("Email send failed (inquiry still saved):", emailErr);
       }
-      // Send auto-reply with investor deck for licensing inquiries
-      if (body.inquiry_type === "licensing") {
-        try {
-          const siteUrl = "https://vitasignal.ai";
-          await resend.emails.send({
-            from: "VitaSignal <info@vitasignal.ai>",
-            to: [body.email.trim()],
-            subject: "VitaSignal Licensing Information & Executive Summary",
-            html: `
-              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
-                <div style="text-align: center; margin-bottom: 24px;">
-                  <h2 style="color: #10b981; margin: 0;">VitaSignal</h2>
-                  <p style="color: #666; margin-top: 4px;">Clinical Intelligence Platform</p>
-                </div>
-                
-                <p>Hi ${escapeHtml(body.name)},</p>
-                <p>Thank you for your interest in licensing VitaSignal technology. We've attached our Executive Financial &amp; Clinical Summary for your review.</p>
-                
-                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
-                  <h3 style="color: #166534; margin: 0 0 8px 0;">Executive Summary &amp; ROI Analysis</h3>
-                  <p style="color: #333; margin: 0 0 16px 0;">357,080 patients validated across 3 international databases</p>
-                  <a href="${siteUrl}/vitasignal-investor-deck.pdf" 
-                     style="background-color: #10b981; color: white; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
-                    Download Executive Summary (PDF)
-                  </a>
-                </div>
-                
-                <p>Key highlights:</p>
-                <ul style="color: #333; line-height: 1.8;">
-                  <li><strong>AUROC 0.9063</strong> — outperforms APACHE IV &amp; SAPS III</li>
-                  <li><strong>7.5 month</strong> payback period</li>
-                  <li><strong>$12M</strong> 5-year cumulative value</li>
-                  <li><strong>11 U.S. Provisional Patents</strong> filed</li>
-                </ul>
-                
-                <p>Our team will review your inquiry and respond within 2 business days to discuss licensing options tailored to your organization.</p>
-                
-                <p style="margin-top: 30px;">Best regards,<br><strong>Dr. Alexis Collier</strong><br>Inventor &amp; Principal Investigator<br>
-                  <a href="mailto:info@vitasignal.ai" style="color: #10b981;">info@vitasignal.ai</a>
-                </p>
-                
-                <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
-                <p style="color: #999; font-size: 12px;">
-                  This is a research prototype. Not FDA cleared. Not for clinical use. 
-                  All information is confidential and shared under NDA consideration.
-                </p>
-              </div>
-            `,
-          });
-          console.log("Licensing auto-reply with investor deck sent to:", body.email);
-        } catch (autoReplyErr) {
-          console.error("Auto-reply email failed (inquiry still saved):", autoReplyErr);
+      // Send auto-reply to all inquiry types
+      try {
+        const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+        const leadNurtureRes = await fetch(`${supabaseUrl}/functions/v1/lead-nurture`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            record: {
+              name: body.name.trim(),
+              email: body.email.trim(),
+              inquiry_type: body.inquiry_type,
+            },
+          }),
+        });
+        if (!leadNurtureRes.ok) {
+          console.error("Lead nurture failed:", await leadNurtureRes.text());
+        } else {
+          console.log("Lead nurture email sent for:", body.inquiry_type);
         }
+      } catch (nurtureErr) {
+        console.error("Lead nurture call failed (inquiry still saved):", nurtureErr);
       }
     } else {
       console.warn("RESEND_API_KEY not set, skipping email notification");
