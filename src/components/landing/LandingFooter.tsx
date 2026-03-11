@@ -24,11 +24,13 @@ export const LandingFooter = () => (
         <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
           <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
           <span className="text-border">|</span>
-          <Link to="/integrations" className="text-muted-foreground hover:text-primary transition-colors">Integrations</Link>
+          <Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link>
           <span className="text-border">|</span>
-          <Link to="/patents/nonprovisional" className="text-muted-foreground hover:text-primary transition-colors">NP Tools</Link>
+          <Link to="/compare" className="text-muted-foreground hover:text-primary transition-colors">Compare</Link>
           <span className="text-border">|</span>
-          <Link to="/presentation" className="text-muted-foreground hover:text-primary transition-colors">Walkthrough</Link>
+          <Link to="/press-kit" className="text-muted-foreground hover:text-primary transition-colors">Press Kit</Link>
+          <span className="text-border">|</span>
+          <Link to="/changelog" className="text-muted-foreground hover:text-primary transition-colors">Changelog</Link>
           <span className="text-border">|</span>
           <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
           <span className="text-border">|</span>

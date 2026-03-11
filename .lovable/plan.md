@@ -1,64 +1,98 @@
 
+# VitaSignal Platform — Security & Infrastructure Status
 
-# High-Value Features Audit
+## Executive Summary
 
-After reviewing all 44 pages and the full infrastructure, here are the gaps that would most increase VitaSignal's value — organized by impact.
-
----
-
-## Already Strong
-Landing funnel, investor deck, patent tools, trust center, pricing, careers, ROI calculator, demo, lead pipeline, FDA builder, client portal, evidence portal, integrations page.
-
-## What's Missing (Ranked by Value)
-
-### 1. Blog / Insights Section (`/blog`)
-**Why it matters**: No content engine = no organic traffic = no inbound leads. Every competitor publishes. This is the single highest-ROI marketing asset you don't have.
-- List page with article cards (title, date, category, read time)
-- Article detail page with rich text rendering
-- Categories: Clinical AI, Regulatory, Nursing Informatics, Company News
-- Database table `blog_posts` with admin-only authoring
-- SEO metadata per post (og:image, description, structured data)
-
-### 2. Competitor Comparison Page (`/compare`)
-**Why it matters**: Hospital buyers always ask "why not Epic Sepsis Model / Cerner / CLEW?" — this page answers before they ask.
-- Side-by-side matrix: VitaSignal vs. Epic vs. CLEW vs. Philips
-- Axes: hardware required, validation size, bias testing, cost, deployment time
-- Highlight VitaSignal's unique differentiators (equipment-independent, equity-preserving)
-- Static page, no database needed
-
-### 3. Press Kit & Media Page (`/press`)
-**Why it matters**: Journalists, conference organizers, and partners need assets fast. No press kit = missed coverage.
-- Downloadable logos (SVG/PNG), headshots, product screenshots
-- Approved boilerplate (50-word, 100-word, 250-word)
-- Key facts sheet (auto-pulled from existing stats)
-- Media contact info
-- Uses existing `patent-screenshots` storage bucket for assets
-
-### 4. Automated Lead Nurture Emails (Edge Function)
-**Why it matters**: Leads submit forms and hear nothing. An auto-response within 60 seconds increases conversion 7x.
-- Edge function triggered on `contact_inquiries` insert (database webhook)
-- Sends branded confirmation email via Resend (already configured)
-- Different templates per inquiry type (licensing, pilot, career, general)
-- Includes relevant next-step links (ROI calculator, demo, pricing)
-
-### 5. Changelog / Product Updates (`/changelog`)
-**Why it matters**: Shows momentum. Investors check for activity signals. Hospital evaluators want to see the product is alive.
-- Reverse-chronological list of updates
-- Categories: Feature, Security, Regulatory, Research
-- Database table `changelog_entries` with admin authoring
-- Auto-linked from footer and investor page
+All critical security items resolved. Platform is production-ready with comprehensive automation.
 
 ---
 
-## Implementation Summary
+## ✅ Security Status (Clean)
 
-| Feature | New Pages | DB Tables | Edge Functions | Effort |
-|---------|-----------|-----------|----------------|--------|
-| Blog | 2 (list + detail) | `blog_posts` | None | Medium |
-| Competitor Comparison | 1 | None | None | Small |
-| Press Kit | 1 | None | None | Small |
-| Lead Nurture Emails | 0 | None | 1 (`lead-nurture`) | Medium |
-| Changelog | 1 | `changelog_entries` | None | Small |
+| Category | Status | Notes |
+|----------|--------|-------|
+| RLS Policies | ✅ All tables secured | 25+ tables with role-based access |
+| Edge Functions | ✅ JWT hardened | All AI functions require auth |
+| PII Encryption | ✅ At-rest encryption | pgcrypto for witness data |
+| Rate Limiting | ✅ IP-based + logging | 5/hr for public forms |
+| Audit Logging | ✅ Immutable | No UPDATE/DELETE allowed |
+| Storage | ✅ Private buckets | patent-screenshots, dataroom |
 
-Total: 5 new public pages, 2 new tables with RLS, 1 edge function. All routes added to App.tsx with lazy loading. Blog and Changelog get admin-only write access; public read access.
+### Accepted Warnings (Documented)
+1. **pg_net in public schema** — Postgres limitation, no data exposure
+2. **rate_limits INSERT `true`** — Service role only, required for RPC
+3. **fhir_events INSERT `true`** — Webhook endpoint, required for FHIR feeds
 
+---
+
+## ✅ Automated Jobs (6 Active Crons)
+
+| Job | Schedule | Function |
+|-----|----------|----------|
+| Abuse Alerts | Hourly | `check-abuse-alerts` |
+| Site Archive | Daily 6 AM UTC | `capture-site-archive` |
+| Weekly Archive | Mon 6 AM UTC | `capture-site-archive` (trademark evidence) |
+| Weekly Digest | Mon 8 AM UTC | `send-weekly-digest` |
+| Patent Deadlines | Daily 7 AM UTC | `patent-deadline-alerts` |
+| Webhook Retry | Every 5 min | `webhook-retry` |
+
+---
+
+## ✅ Performance Indexes (14 Added)
+
+- `patent_attestations` (document_hash, attested_at)
+- `site_archives` (page_url, captured_at)
+- `audit_logs` (created_at, user_id)
+- `fhir_events` (created_at, patient_id)
+- `licensing_inquiries` (status)
+- `contact_inquiries` (status)
+- `patents` (np_deadline, status)
+- `walkthrough_access_requests` (status)
+- `rate_limit_violations` (last_violation_at)
+
+---
+
+## ✅ Secrets Configured
+
+- RESEND_API_KEY — Email delivery
+- STRIPE_SECRET_KEY — Payment processing
+- LOVABLE_API_KEY — AI gateway
+- OPENAI_API_KEY — Legacy fallback
+- PATENT_ATTORNEY_EMAIL — Legal notifications
+- SUPABASE_SERVICE_ROLE_KEY — Backend operations
+
+---
+
+## ✅ Licensing Infrastructure
+
+- 3 licensing tracks (EHR, Hospital, Global Health)
+- 4 legal models (Exclusive, Non-Exclusive, Research, Evaluation)
+- Automated inquiry responses with investor deck
+- Vendor API key management + BAA/NDA tracking
+- Stripe pilot checkout integration
+
+---
+
+## ✅ Patent Portfolio Support
+
+- 11 provisional applications tracked
+- Witness attestation system with encryption
+- Filing receipt tracker
+- USPTO fee calculator
+- Claim screenshot evidence storage
+- Nonprovisional conversion tools
+
+---
+
+## External Requirements (Attorney/Legal)
+
+These items require human action outside the platform:
+1. Patent attorney for nonprovisional drafting
+2. Prior art search
+3. Formal USPTO drawings
+4. Signed declarations (37 CFR 1.63)
+5. Information Disclosure Statements (IDS)
+
+---
+
+Last Updated: 2026-03-09

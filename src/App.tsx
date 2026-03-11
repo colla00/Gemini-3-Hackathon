@@ -76,6 +76,11 @@ const LeadPipeline = lazy(() => import("./pages/LeadPipeline"));
 const PilotProposal = lazy(() => import("./pages/PilotProposal"));
 const FDAPreSubBuilder = lazy(() => import("./pages/FDAPreSubBuilder"));
 const ClientPortal = lazy(() => import("./pages/ClientPortal"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Compare = lazy(() => import("./pages/Compare"));
+const PressKit = lazy(() => import("./pages/PressKit"));
+const Changelog = lazy(() => import("./pages/Changelog"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -135,6 +140,11 @@ const AppRoutes = () => {
           <Route path="/proposal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><PilotProposal /></Suspense></ProtectedRoute>} />
           <Route path="/fda-builder" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><FDAPreSubBuilder /></Suspense></ProtectedRoute>} />
           <Route path="/client-portal" element={<ProtectedRoute><Suspense fallback={<PageSkeleton />}><ClientPortal /></Suspense></ProtectedRoute>} />
+          <Route path="/blog" element={<Suspense fallback={<PageSkeleton />}><Blog /></Suspense>} />
+          <Route path="/blog/:slug" element={<Suspense fallback={<PageSkeleton />}><BlogPost /></Suspense>} />
+          <Route path="/compare" element={<Suspense fallback={<PageSkeleton />}><Compare /></Suspense>} />
+          <Route path="/press-kit" element={<Suspense fallback={<PageSkeleton />}><PressKit /></Suspense>} />
+          <Route path="/changelog" element={<Suspense fallback={<PageSkeleton />}><Changelog /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
