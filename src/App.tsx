@@ -76,6 +76,11 @@ const LeadPipeline = lazy(() => import("./pages/LeadPipeline"));
 const PilotProposal = lazy(() => import("./pages/PilotProposal"));
 const FDAPreSubBuilder = lazy(() => import("./pages/FDAPreSubBuilder"));
 const ClientPortal = lazy(() => import("./pages/ClientPortal"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Compare = lazy(() => import("./pages/Compare"));
+const PressKit = lazy(() => import("./pages/PressKit"));
+const Changelog = lazy(() => import("./pages/Changelog"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
