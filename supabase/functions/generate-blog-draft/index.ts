@@ -178,6 +178,43 @@ Respond with ONLY valid JSON in this exact format (no markdown, no code blocks):
 
     console.log(`[BlogDraft] Draft created: ${post.title} (${post.id})`);
 
+    // Send notification email
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    const RECIPIENT = Deno.env.get("PATENT_ATTORNEY_EMAIL") || "info@vitasignal.ai";
+
+    if (RESEND_API_KEY) {
+      try {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "VitaSignal Blog <notifications@resend.dev>",
+            to: [RECIPIENT],
+            subject: `📝 New Blog Draft: ${post.title}`,
+            html: `
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:560px;margin:0 auto;">
+                <div style="background:#0f172a;padding:20px 24px;border-radius:8px 8px 0 0;">
+                  <h1 style="color:#fff;margin:0;font-size:18px;">New Blog Draft Ready for Review</h1>
+                </div>
+                <div style="padding:24px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+                  <p style="margin:0 0 8px;font-size:14px;color:#6b7280;">Category: <strong style="color:#0f172a;">${post.category}</strong></p>
+                  <h2 style="margin:0 0 16px;font-size:20px;color:#0f172a;">${post.title}</h2>
+                  <p style="margin:0 0 20px;font-size:14px;color:#6b7280;">A new AI-generated blog draft is waiting for your review. Log into the admin panel to edit and publish.</p>
+                  <a href="https://vitasignal.lovable.app/admin" style="display:inline-block;background:#0f172a;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;">Review Draft →</a>
+                  <p style="margin:24px 0 0;font-size:11px;color:#9ca3af;">Automated weekly blog draft from VitaSignal™</p>
+                </div>
+              </div>`,
+          }),
+        });
+        console.log("[BlogDraft] Notification email sent.");
+      } catch (emailErr) {
+        console.error("[BlogDraft] Email notification failed:", emailErr);
+      }
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
