@@ -2136,6 +2136,42 @@ export type Database = {
           },
         ]
       }
+      weekly_drafts: {
+        Row: {
+          content: string
+          created_at: string
+          draft_type: string
+          id: string
+          metadata: Json | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          draft_type: string
+          id?: string
+          metadata?: Json | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          draft_type?: string
+          id?: string
+          metadata?: Json | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
       witness_invitations: {
         Row: {
           attestation_id: string | null
