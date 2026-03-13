@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { WatermarkOverlay } from '@/components/WatermarkOverlay';
