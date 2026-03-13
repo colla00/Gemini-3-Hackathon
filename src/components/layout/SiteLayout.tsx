@@ -263,6 +263,17 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               </div>
             </div>
 
+            {/* Solutions */}
+            <div>
+              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Solutions</p>
+              <div className="space-y-2">
+                <Link to="/solutions/hospitals" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For Hospitals</Link>
+                <Link to="/solutions/ehr-vendors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For EHR Vendors</Link>
+                <Link to="/solutions/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For Investors</Link>
+                <Link to="/solutions/military" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">DoD & Military</Link>
+              </div>
+            </div>
+
             {/* Company */}
             <div>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Company</p>
