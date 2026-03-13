@@ -170,16 +170,6 @@ export const LandingHero = () => {
               className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
               asChild
             >
-              <Link to="/evidence">View Research</Link>
-            </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
-              asChild
-            >
               <Link to="/licensing">Talk Licensing</Link>
             </Button>
           </motion.div>
