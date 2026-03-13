@@ -3,11 +3,12 @@ import { CheckCircle2 } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-const AnimatedNumber = ({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) => {
+const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: number; suffix?: string; prefix?: string; fallback?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionVal = useMotionValue(0);
   const display = useTransform(motionVal, (v) => {
+    if (!inView && v === 0 && fallback) return fallback;
     if (value >= 1000) return Math.round(v).toLocaleString();
     if (value < 1) return v.toFixed(value < 0.01 ? 3 : value < 1 ? 4 : 0);
     return Math.round(v).toLocaleString();
