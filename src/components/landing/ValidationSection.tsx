@@ -3,11 +3,12 @@ import { CheckCircle2 } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-const AnimatedNumber = ({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) => {
+const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: number; suffix?: string; prefix?: string; fallback?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionVal = useMotionValue(0);
   const display = useTransform(motionVal, (v) => {
+    if (!inView && v === 0 && fallback) return fallback;
     if (value >= 1000) return Math.round(v).toLocaleString();
     if (value < 1) return v.toFixed(value < 0.01 ? 3 : value < 1 ? 4 : 0);
     return Math.round(v).toLocaleString();
@@ -131,7 +132,7 @@ export const ValidationSection = () => {
                 className="p-6 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 text-center cursor-default transition-colors hover:border-primary/30"
               >
                 <p className="font-display text-3xl text-primary mb-1">
-                  <AnimatedNumber value={m.value} prefix={m.prefix} suffix={m.suffix} />
+                  <AnimatedNumber value={m.value} prefix={m.prefix} suffix={m.suffix} fallback={m.display} />
                 </p>
                 <p className="text-sm font-semibold text-primary-foreground mb-0.5">{m.label}</p>
                 <p className="text-xs text-primary-foreground/50">{m.detail}</p>

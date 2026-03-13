@@ -7,11 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const AnimatedNumber = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
+const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionVal = useMotionValue(0);
-  const rounded = useTransform(motionVal, (v) => Math.round(v).toLocaleString());
+  const rounded = useTransform(motionVal, (v) => {
+    const r = Math.round(v);
+    return r === 0 && !inView ? (fallback ?? value.toLocaleString()) : r.toLocaleString();
+  });
 
   useEffect(() => {
     if (inView) {
@@ -196,7 +199,7 @@ export const LandingHero = () => {
               className="bg-background/95 backdrop-blur-md p-5 text-center transition-colors"
             >
               <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">
-                {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} />; })()}
+                {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} fallback={s.value} />; })()}
               </p>
               <p className="text-sm font-bold text-foreground">{s.label}</p>
               <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>

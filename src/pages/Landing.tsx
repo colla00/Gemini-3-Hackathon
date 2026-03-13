@@ -6,6 +6,7 @@ import { RecognitionSection } from "@/components/landing/RecognitionSection";
 import { LicensingCTA } from "@/components/landing/LicensingCTA";
 import { WhyNoHardware } from "@/components/landing/WhyNoHardware";
 import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
+import { FairnessCommitment } from "@/components/landing/FairnessCommitment";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
@@ -114,6 +115,7 @@ export const Landing = () => {
       <WhyNoHardware />
       <ComparisonSlider />
       <ValidationSection />
+      <FairnessCommitment />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <TechnologyPortfolio />
