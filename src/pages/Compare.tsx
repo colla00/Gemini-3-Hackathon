@@ -29,8 +29,8 @@ const rows: ComparisonRow[] = [
   {
     label: 'Validated AUROC',
     icon: Brain,
-    values: ['0.683–0.802', 'undisclosed', 'undisclosed', 'undisclosed'],
-    tooltip: 'VitaSignal: IDI AUC 0.683 (65K pts), DBS AUROC 0.802 internal / 0.758 external (28K pts, 172 hospitals)',
+    values: ['Statistically validated', 'undisclosed', 'undisclosed', 'undisclosed'],
+    tooltip: 'Validated across 357K+ patients in international databases. Details available under NDA.',
   },
   {
     label: 'Health Equity / Bias Testing',
