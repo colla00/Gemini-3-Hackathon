@@ -8,6 +8,7 @@ import { WhyNoHardware } from "@/components/landing/WhyNoHardware";
 import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
 import { FairnessCommitment } from "@/components/landing/FairnessCommitment";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
+import { MilitaryHealthSection } from "@/components/landing/MilitaryHealthSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
 import { Helmet } from "react-helmet-async";
