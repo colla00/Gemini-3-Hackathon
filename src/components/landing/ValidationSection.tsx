@@ -36,9 +36,11 @@ const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Two independently validated systems (Patent #1 & #5)",
   "External validation across 172 hospitals (eICU)",
-  "Multi-variable ML model + 9 temporal IDI features",
   "SHAP-based explainability for every prediction",
+  "NIH AIM-AHEAD CLINAQ Fellowship (Award No. 1OT2OD032581)",
   "ANIA 2026 presentation accepted — Boston, MA",
+  "Stanford AI+Health 2025 symposium presenter",
+  "SIIM 2025 selected abstract",
 ];
 
 export const ValidationSection = () => {
