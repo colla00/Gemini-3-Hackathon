@@ -31,6 +31,7 @@ export const LandingFooter = () => (
               <Link to="/compare" className="text-muted-foreground hover:text-primary transition-colors">Compare</Link>
               <Link to="/roi-calculator" className="text-muted-foreground hover:text-primary transition-colors">ROI Calculator</Link>
               <Link to="/integrations" className="text-muted-foreground hover:text-primary transition-colors">Integrations</Link>
+              <Link to="/pilot-request" className="text-muted-foreground hover:text-primary transition-colors">Pilot Request</Link>
               <Link to="/changelog" className="text-muted-foreground hover:text-primary transition-colors">Changelog</Link>
             </div>
           </div>
@@ -62,7 +63,6 @@ export const LandingFooter = () => (
               <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
               <Link to="/patents" className="text-muted-foreground hover:text-primary transition-colors">Patents</Link>
               <Link to="/licensing" className="text-muted-foreground hover:text-primary transition-colors">Licensing</Link>
-              <Link to="/pilot-request" className="text-muted-foreground hover:text-primary transition-colors">Pilot Request</Link>
             </div>
           </div>
         </div>
