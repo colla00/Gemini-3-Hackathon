@@ -90,3 +90,5 @@ verify_jwt = false
 [functions.patent-deadline-alerts]
 verify_jwt = false
 
+[functions.process-email-queue]
+verify_jwt = true
