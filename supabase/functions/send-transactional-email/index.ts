@@ -4,6 +4,12 @@ import ContactConfirmation from '../_shared/email-templates/contact-confirmation
 import Welcome from '../_shared/email-templates/welcome.tsx'
 import BookingConfirmation from '../_shared/email-templates/booking-confirmation.tsx'
 import LicensingConfirmation from '../_shared/email-templates/licensing-confirmation.tsx'
+import PilotRequestConfirmation from '../_shared/email-templates/pilot-request-confirmation.tsx'
+import DemoApproved from '../_shared/email-templates/demo-approved.tsx'
+import DemoDenied from '../_shared/email-templates/demo-denied.tsx'
+import CareerInterest from '../_shared/email-templates/career-interest.tsx'
+import WitnessInvitation from '../_shared/email-templates/witness-invitation.tsx'
+import AttorneyNotification from '../_shared/email-templates/attorney-notification.tsx'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -14,7 +20,17 @@ const SENDER_DOMAIN = 'notify.www.vitasignal.ai'
 const FROM_ADDRESS = `VitaSignal <info@${SENDER_DOMAIN}>`
 const SITE_URL = 'https://vitasignal.ai'
 
-type TemplateName = 'contact-confirmation' | 'welcome' | 'booking-confirmation' | 'licensing-confirmation'
+type TemplateName =
+  | 'contact-confirmation'
+  | 'welcome'
+  | 'booking-confirmation'
+  | 'licensing-confirmation'
+  | 'pilot-request-confirmation'
+  | 'demo-approved'
+  | 'demo-denied'
+  | 'career-interest'
+  | 'witness-invitation'
+  | 'attorney-notification'
 
 interface EmailRequest {
   template: TemplateName
@@ -56,7 +72,75 @@ function renderTemplate(template: TemplateName, data: Record<string, unknown>): 
         organizationType: (data.organizationType as string) || '',
         siteUrl: SITE_URL,
       }))
-      return { subject: `VitaSignal — Licensing Inquiry Received`, html }
+      return { subject: 'VitaSignal — Licensing Inquiry Received', html }
+    }
+    case 'pilot-request-confirmation': {
+      const html = render(PilotRequestConfirmation({
+        name: (data.name as string) || '',
+        organization: (data.organization as string) || '',
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'VitaSignal — Pilot Request Received', html }
+    }
+    case 'demo-approved': {
+      const html = render(DemoApproved({
+        name: (data.name as string) || '',
+        email: (data.email as string) || '',
+        tempPassword: (data.tempPassword as string) || null,
+        accountCreated: (data.accountCreated as boolean) || false,
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'Your VitaSignal Demo Access Has Been Approved', html }
+    }
+    case 'demo-denied': {
+      const html = render(DemoDenied({
+        name: (data.name as string) || '',
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'Update on Your Demo Access Request', html }
+    }
+    case 'career-interest': {
+      const html = render(CareerInterest({
+        name: (data.name as string) || '',
+        role: (data.role as string) || '',
+        email: (data.email as string) || '',
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'VitaSignal — We received your interest', html }
+    }
+    case 'witness-invitation': {
+      const html = render(WitnessInvitation({
+        witnessName: (data.witnessName as string) || '',
+        invitedBy: (data.invitedBy as string) || '',
+        inviteLink: (data.inviteLink as string) || '',
+        documentHash: (data.documentHash as string) || '',
+        expiresFormatted: (data.expiresFormatted as string) || '',
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'Witness Attestation Request — Patent Evidence Documentation', html }
+    }
+    case 'attorney-notification': {
+      const notifType = (data.notificationType as string) || 'new_attestation'
+      let subject = 'Patent Evidence Notification'
+      if (notifType === 'new_attestation') subject = `New Patent Attestation — ${data.witnessName || 'Unknown'}`
+      else if (notifType === 'multi_witness_complete') subject = `Multi-Witness Attestation Complete — ${data.witnessCount || 0} Witnesses`
+      else if (notifType === 'screenshot_upload') subject = `New Evidence Screenshot — Claim ${data.claimNumber || 0}`
+
+      const html = render(AttorneyNotification({
+        notificationType: notifType as 'new_attestation' | 'multi_witness_complete' | 'screenshot_upload',
+        witnessName: (data.witnessName as string) || undefined,
+        witnessTitle: (data.witnessTitle as string) || undefined,
+        organization: (data.organization as string) || null,
+        claimsCount: (data.claimsCount as number) || undefined,
+        formattedDate: (data.formattedDate as string) || new Date().toLocaleString(),
+        documentHash: (data.documentHash as string) || '',
+        groupId: (data.groupId as string) || undefined,
+        witnessCount: (data.witnessCount as number) || undefined,
+        claimNumber: (data.claimNumber as number) || undefined,
+        screenshotCount: (data.screenshotCount as number) || undefined,
+        siteUrl: SITE_URL,
+      }))
+      return { subject, html }
     }
     default:
       throw new Error(`Unknown template: ${template}`)
@@ -91,7 +175,6 @@ Deno.serve(async (req) => {
       .maybeSingle()
 
     if (suppressed) {
-      // Log suppression
       await supabase.from('email_send_log').insert({
         message_id: crypto.randomUUID(),
         template_name: template,
@@ -127,7 +210,6 @@ Deno.serve(async (req) => {
 
     // Render template
     const { subject, html: rawHtml } = renderTemplate(template, data)
-    // Replace unsubscribe placeholder
     const html = rawHtml.replace(/\{\{\{unsubscribeUrl\}\}\}/g, unsubscribeUrl)
 
     const messageId = crypto.randomUUID()
@@ -137,7 +219,7 @@ Deno.serve(async (req) => {
       queue_name: 'transactional_emails',
       payload: {
         message_id: messageId,
-        to: to,
+        to,
         from: FROM_ADDRESS,
         sender_domain: SENDER_DOMAIN,
         subject,
