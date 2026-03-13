@@ -23,7 +23,7 @@ export const DashboardPreview = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-20 px-6 bg-background">
+    <section id="dashboard-preview" ref={ref} className="py-20 px-6 bg-background">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -31,7 +31,7 @@ export const DashboardPreview = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Product Preview</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">Interactive Demo</p>
           <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
             Real-Time Patient Intelligence
           </h2>
@@ -128,11 +128,11 @@ export const DashboardPreview = () => {
           className="text-center mt-8"
         >
           <p className="text-sm text-muted-foreground mb-4">
-            Explore the full platform — patents, AI tools, pilot assessments, and more.
+            Like what you see? Request access to the full dashboard to evaluate fit and start a pilot conversation.
           </p>
           <Button asChild size="lg" className="gap-2">
             <Link to="/dashboard">
-              Enter the Dashboard <ArrowRight className="w-4 h-4" />
+              Request Dashboard Access <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </motion.div>

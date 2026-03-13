@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import { WorkloadPrediction } from '@/components/nursing/WorkloadPrediction';
 import { SurgeAlerts } from '@/components/nursing/SurgeAlerts';
 import { TaskPrioritization } from '@/components/nursing/TaskPrioritization';
@@ -426,6 +427,12 @@ export const NursingDashboard = () => {
               <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3" /> PATENT #1 & #5 VALIDATED
             </Badge>
             <div className="hidden md:flex items-center gap-2 ml-auto">
+              <Link
+                to="/pilot-request"
+                className="inline-flex items-center rounded-md border border-primary-foreground/20 bg-primary-foreground/5 px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
+              >
+                Start Pilot Request
+              </Link>
               <TourButton onClick={tour.startTour} />
               <ClinicalClock />
             </div>
