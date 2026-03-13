@@ -394,7 +394,7 @@ const TrustCenter = () => {
               <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
                 <a href="/pilot-request">Request Security Documentation <ArrowRight className="w-4 h-4 ml-2" /></a>
               </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <a href="/contact">Contact Our Team <FileCheck className="w-4 h-4 ml-2" /></a>
               </Button>
             </div>

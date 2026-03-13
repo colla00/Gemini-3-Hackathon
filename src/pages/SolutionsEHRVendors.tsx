@@ -125,7 +125,7 @@ const SolutionsEHRVendors = () => (
               <Button asChild>
                 <Link to="/licensing">Start Licensing Conversation</Link>
               </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/patents">View Patent Portfolio</Link>
               </Button>
             </div>

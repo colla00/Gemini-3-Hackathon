@@ -136,7 +136,7 @@ const Evidence = () => (
             <Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
               <a href="/pilot-request">Request Full Report <ArrowRight className="w-4 h-4 ml-2" /></a>
             </Button>
-            <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+            <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
               <a href="/demo">Explore the Interactive Demo <ExternalLink className="w-4 h-4 ml-2" /></a>
             </Button>
           </div>
