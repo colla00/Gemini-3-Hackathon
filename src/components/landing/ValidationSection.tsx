@@ -27,8 +27,8 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 
 const metrics = [
   { label: "Patent #1 IDI", value: 65157, display: "65,157", detail: "Patients validated", prefix: "", suffix: "" },
-  { label: "Patent #1 External", value: 0.9063, display: "0.9063", detail: "HiRID AUROC", prefix: "", suffix: "" },
-  { label: "Patent #5 DBS", value: 172, display: "172", detail: "Hospitals validated", prefix: "", suffix: "" },
+  { label: "External Validation", value: 172, display: "172", detail: "Hospitals (eICU)", prefix: "", suffix: "" },
+  { label: "Patent #5 DBS", value: 28362, display: "28,362", detail: "Patients validated", prefix: "", suffix: "" },
   { label: "Total Validated", value: 357, display: "357K+", detail: "Patients across both systems", prefix: "", suffix: "K+" },
 ];
 
