@@ -205,7 +205,7 @@ const LeadPipeline = () => {
                         ))}
                       </div>
                       {lead.inquiry_type === 'pilot_request' && (
-                        <Button asChild size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-xs">
+                        <Button asChild size="sm" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 text-xs">
                           <a href={`/proposal?lead=${lead.id}`}>
                             <Eye className="w-3 h-3 mr-1" /> Generate Proposal
                           </a>

@@ -205,7 +205,7 @@ const Pricing = () => (
             <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
               <a href="/roi-calculator">Calculate Your ROI <ArrowRight className="w-4 h-4 ml-2" /></a>
             </Button>
-            <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+            <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
               <a href="/contact">Talk to Our Team</a>
             </Button>
           </div>

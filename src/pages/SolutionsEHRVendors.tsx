@@ -48,7 +48,7 @@ const SolutionsEHRVendors = () => (
               <Button asChild size="lg">
                 <Link to="/licensing">Explore Licensing <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/integrations">View API Documentation</Link>
               </Button>
             </div>
@@ -125,7 +125,7 @@ const SolutionsEHRVendors = () => (
               <Button asChild>
                 <Link to="/licensing">Start Licensing Conversation</Link>
               </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/patents">View Patent Portfolio</Link>
               </Button>
             </div>

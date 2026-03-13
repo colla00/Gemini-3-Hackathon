@@ -78,7 +78,7 @@ const PilotRequest = () => {
             <p className="text-white/60 mb-2">Thank you, {form.contactName}. We've received your pilot request for <strong className="text-white">{form.orgName}</strong>.</p>
             <p className="text-white/50 text-sm mb-6">Our clinical team will prepare a tailored assessment and reach out within 2 business days.</p>
             <div className="flex gap-3 justify-center">
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <a href="/evidence">View Clinical Evidence</a>
               </Button>
               <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
@@ -311,7 +311,7 @@ const PilotRequest = () => {
               {/* Navigation */}
               <div className="flex items-center justify-between pt-4 border-t border-white/10">
                 <Button variant="outline" onClick={() => setCurrentStep(Math.max(0, currentStep - 1))} disabled={currentStep === 0}
-                  className="border-white/20 text-white hover:bg-white/10">Back</Button>
+                  className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">Back</Button>
                 {currentStep < 3 ? (
                   <Button onClick={() => setCurrentStep(currentStep + 1)} className="bg-purple-500 hover:bg-purple-600 text-white">
                     Continue <ArrowRight className="w-4 h-4 ml-1" />
