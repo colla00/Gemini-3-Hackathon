@@ -81,6 +81,10 @@ const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Compare = lazy(() => import("./pages/Compare"));
 const PressKit = lazy(() => import("./pages/PressKit"));
 const Changelog = lazy(() => import("./pages/Changelog"));
+const SolutionsHospitals = lazy(() => import("./pages/SolutionsHospitals"));
+const SolutionsEHRVendors = lazy(() => import("./pages/SolutionsEHRVendors"));
+const SolutionsInvestors = lazy(() => import("./pages/SolutionsInvestors"));
+const SolutionsMilitary = lazy(() => import("./pages/SolutionsMilitary"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
