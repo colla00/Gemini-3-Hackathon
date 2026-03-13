@@ -15,6 +15,7 @@ import { ROISection } from "@/components/landing/ROISection";
 import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
+import { RecognitionBar } from "@/components/landing/RecognitionBar";
 import { Helmet } from "react-helmet-async";
 
 const orgJsonLd = {
@@ -117,6 +118,7 @@ export const Landing = () => {
         <meta name="keywords" content="fairness-preserving clinical AI, documentation-driven intelligence, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing, equitable clinical AI" />
       </Helmet>
       <LandingHero />
+      <RecognitionBar />
       <WhyNoHardware />
       <ComparisonSlider />
       <DashboardPreview />
