@@ -124,7 +124,7 @@ export const Landing = () => {
       <ValidationSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
-      <SocialProofSection />
+      
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />
