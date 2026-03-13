@@ -229,10 +229,10 @@ const tabContent: Record<string, React.ReactNode> = {
 /* ───────── Live Clock ───────── */
 const LiveClock = () => {
   const [time, setTime] = useState(new Date());
-  useState(() => {
+  useEffect(() => {
     const id = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(id);
-  });
+  }, []);
   return (
     <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
       {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
