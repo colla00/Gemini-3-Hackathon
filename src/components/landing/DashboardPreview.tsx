@@ -128,11 +128,11 @@ export const DashboardPreview = () => {
           className="text-center mt-8"
         >
           <p className="text-sm text-muted-foreground mb-4">
-            Interested in seeing VitaSignal with your organization's data?
+            Explore the full platform — patents, AI tools, pilot assessments, and more.
           </p>
           <Button asChild size="lg" className="gap-2">
-            <Link to="/pilot-request">
-              Request a Pilot Assessment <ArrowRight className="w-4 h-4" />
+            <Link to="/dashboard">
+              Enter the Dashboard <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </motion.div>
