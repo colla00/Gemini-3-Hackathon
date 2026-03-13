@@ -21,22 +21,50 @@ export const LandingFooter = () => (
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-          <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
-          <span className="text-border">|</span>
-          <Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link>
-          <span className="text-border">|</span>
-          <Link to="/compare" className="text-muted-foreground hover:text-primary transition-colors">Compare</Link>
-          <span className="text-border">|</span>
-          <Link to="/press-kit" className="text-muted-foreground hover:text-primary transition-colors">Press Kit</Link>
-          <span className="text-border">|</span>
-          <Link to="/changelog" className="text-muted-foreground hover:text-primary transition-colors">Changelog</Link>
-          <span className="text-border">|</span>
-          <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
-          <span className="text-border">|</span>
-          <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
-          <span className="text-border">|</span>
-          <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+        {/* Product */}
+        <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-6 text-left text-sm">
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider">Product</h4>
+            <div className="flex flex-col gap-1.5">
+              <Link to="/demo" className="text-muted-foreground hover:text-primary transition-colors">Product Demo</Link>
+              <Link to="/pricing" className="text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
+              <Link to="/compare" className="text-muted-foreground hover:text-primary transition-colors">Compare</Link>
+              <Link to="/roi-calculator" className="text-muted-foreground hover:text-primary transition-colors">ROI Calculator</Link>
+              <Link to="/integrations" className="text-muted-foreground hover:text-primary transition-colors">Integrations</Link>
+              <Link to="/changelog" className="text-muted-foreground hover:text-primary transition-colors">Changelog</Link>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider">Solutions</h4>
+            <div className="flex flex-col gap-1.5">
+              <Link to="/solutions/icu-mortality" className="text-muted-foreground hover:text-primary transition-colors">ICU Mortality</Link>
+              <Link to="/solutions/nurse-workload" className="text-muted-foreground hover:text-primary transition-colors">Nurse Workload</Link>
+              <Link to="/solutions/cms-compliance" className="text-muted-foreground hover:text-primary transition-colors">CMS Compliance</Link>
+              <Link to="/evidence" className="text-muted-foreground hover:text-primary transition-colors">Evidence</Link>
+              <Link to="/trust" className="text-muted-foreground hover:text-primary transition-colors">Trust Center</Link>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider">Company</h4>
+            <div className="flex flex-col gap-1.5">
+              <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
+              <Link to="/careers" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link>
+              <Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+              <Link to="/press" className="text-muted-foreground hover:text-primary transition-colors">Press</Link>
+              <Link to="/press-kit" className="text-muted-foreground hover:text-primary transition-colors">Press Kit</Link>
+              <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider">Legal</h4>
+            <div className="flex flex-col gap-1.5">
+              <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
+              <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/patents" className="text-muted-foreground hover:text-primary transition-colors">Patents</Link>
+              <Link to="/licensing" className="text-muted-foreground hover:text-primary transition-colors">Licensing</Link>
+              <Link to="/pilot-request" className="text-muted-foreground hover:text-primary transition-colors">Pilot Request</Link>
+            </div>
+          </div>
         </div>
 
         <div className="text-[10px] text-muted-foreground/60 max-w-lg">
