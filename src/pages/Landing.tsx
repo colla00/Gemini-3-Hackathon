@@ -115,6 +115,7 @@ export const Landing = () => {
       <WhyNoHardware />
       <ComparisonSlider />
       <ValidationSection />
+      <FairnessCommitment />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <TechnologyPortfolio />
