@@ -31,7 +31,7 @@ export const DashboardPreview = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Product Preview</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">Interactive Demo</p>
           <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
             Real-Time Patient Intelligence
           </h2>
