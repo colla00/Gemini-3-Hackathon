@@ -217,14 +217,14 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       {/* Footer */}
       <footer aria-label="Site footer" className="py-14 px-6 border-t border-border/30 bg-foreground text-primary-foreground">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-10">
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-3">
-                <img src={vitasignalIcon} alt="VitaSignal" className="w-6 h-6 rounded object-cover" />
-                <span className="font-display text-lg text-primary-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></span>
+                <Zap className="w-5 h-5 text-primary" />
+                <span className="font-display text-lg">VitaSignal<sup className="text-[8px]">™</sup></span>
               </div>
-              <p className="text-xs text-primary-foreground/50 leading-relaxed mb-4">
+              <p className="text-xs text-primary-foreground/40 leading-relaxed mb-4">
                 Equipment-independent clinical AI. Patent-pending technology for ICU mortality prediction and nursing workflow optimization.
               </p>
               <div className="flex flex-col gap-1.5">
@@ -258,7 +258,6 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
                 <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
                 <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integrations</Link>
-                
                 <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust Center</Link>
               </div>
             </div>
@@ -283,7 +282,6 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/blog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Blog</Link>
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
                 <Link to="/press-kit" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press Kit</Link>
-                <Link to="/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Investors</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
                 <Link to="/changelog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Changelog</Link>
               </div>
@@ -298,7 +296,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patents</Link>
                 <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
                 <Link to="/pilot-request" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pilot Request</Link>
-                <span className="block text-[11px] text-primary-foreground/30">We do not sell personal data.</span>
+                <span className="block text-[11px] text-primary-foreground/30 pt-1">We do not sell personal data.</span>
               </div>
             </div>
           </div>
