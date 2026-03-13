@@ -105,7 +105,7 @@ export const LandingHero = () => {
           initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 leading-[1.05] max-w-4xl"
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-[1.05] max-w-4xl whitespace-nowrap"
         >
           <motion.span
             initial={{ opacity: 0, x: -20 }}
