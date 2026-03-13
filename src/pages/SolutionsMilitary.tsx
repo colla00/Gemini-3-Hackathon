@@ -54,7 +54,7 @@ const SolutionsMilitary = () => (
                 <a href="mailto:info@vitasignal.ai">Contact for DoD Evaluation <ArrowRight className="w-4 h-4 ml-2" /></a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/evidence">View Validation Data</Link>
+                <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
           </motion.div>

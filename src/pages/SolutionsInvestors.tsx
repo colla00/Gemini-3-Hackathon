@@ -146,7 +146,7 @@ const SolutionsInvestors = () => (
                 <a href="mailto:info@vitasignal.ai">Schedule a Call</a>
               </Button>
               <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/evidence">View Validation Data</Link>
+                <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
           </motion.div>

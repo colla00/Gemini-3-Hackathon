@@ -258,7 +258,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
                 <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
                 <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integrations</Link>
-                <Link to="/evidence" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Evidence</Link>
+                
                 <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust Center</Link>
               </div>
             </div>

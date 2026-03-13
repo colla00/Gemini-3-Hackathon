@@ -1,8 +1,6 @@
 import { ShieldCheck, FileText, Users, Scale } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 const pillars = [
   {
@@ -85,16 +83,6 @@ export const FairnessCommitment = () => {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="text-center"
-        >
-          <Button asChild variant="outline" size="sm">
-            <Link to="/evidence">View Full Validation &amp; Fairness Report</Link>
-          </Button>
-        </motion.div>
       </div>
     </section>
   );
