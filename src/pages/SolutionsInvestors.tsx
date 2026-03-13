@@ -9,7 +9,7 @@ const highlights = [
   { icon: FileText, stat: "11", label: "Patent Applications", detail: "U.S. Provisional — strong IP moat" },
   { icon: Brain, stat: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID, eICU databases" },
   { icon: Globe, stat: "172", label: "Hospitals", detail: "External validation cohort" },
-  { icon: DollarSign, stat: "$12B", label: "TAM", detail: "Clinical decision support market" },
+  { icon: DollarSign, stat: "—", label: "TAM", detail: "Clinical decision support market (est.)" },
 ];
 
 const investorReasons = [
