@@ -147,10 +147,10 @@ export const LandingHero = () => {
         >
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
             <Button size="lg" className="text-base px-6 h-12 shadow-lg" asChild>
-              <Link to="/demo" className="gap-2">
-                Request a Demo
+              <a href="#dashboard-preview" className="gap-2">
+                See Interactive Demo
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
@@ -160,7 +160,7 @@ export const LandingHero = () => {
               className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
               asChild
             >
-              <Link to="/dashboard">Explore the Platform</Link>
+              <Link to="/dashboard">Request Dashboard Access</Link>
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>

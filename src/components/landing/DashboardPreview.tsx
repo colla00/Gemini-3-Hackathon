@@ -128,11 +128,11 @@ export const DashboardPreview = () => {
           className="text-center mt-8"
         >
           <p className="text-sm text-muted-foreground mb-4">
-            Explore the full platform — patents, AI tools, pilot assessments, and more.
+            Like what you see? Request access to the full dashboard to evaluate fit and start a pilot conversation.
           </p>
           <Button asChild size="lg" className="gap-2">
             <Link to="/dashboard">
-              Enter the Dashboard <ArrowRight className="w-4 h-4" />
+              Request Dashboard Access <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </motion.div>
