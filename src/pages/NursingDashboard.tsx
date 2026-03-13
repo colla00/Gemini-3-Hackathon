@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import { WorkloadPrediction } from '@/components/nursing/WorkloadPrediction';
 import { SurgeAlerts } from '@/components/nursing/SurgeAlerts';
 import { TaskPrioritization } from '@/components/nursing/TaskPrioritization';
