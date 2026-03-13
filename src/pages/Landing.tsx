@@ -130,7 +130,7 @@ export const Landing = () => {
       <MilitaryHealthSection />
       <TechnologyPortfolio />
       <DigitalTwinsSection />
-      <RecognitionSection />
+      
       <LicensingCTA />
     </SiteLayout>
   );
