@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
+import { Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation, Twitter } from "lucide-react";
 import vitasignalIcon from "@/assets/vitasignal-icon.jpg";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { SkipLink } from "@/components/SkipLink";
@@ -236,6 +236,15 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 >
                   <Linkedin className="w-3.5 h-3.5" />
                   VitaSignal on LinkedIn
+                </a>
+                <a
+                  href="https://x.com/VitaSignalAI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                >
+                  <Twitter className="w-3.5 h-3.5" />
+                  VitaSignal on X
                 </a>
                 <a
                   href="https://www.linkedin.com/in/alexiscollier/"
