@@ -44,7 +44,7 @@ const SolutionsHospitals = () => (
               <Button asChild size="lg">
                 <Link to="/pilot-request">Request Pilot Assessment <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10">
+              <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/roi-calculator">Calculate Your ROI</Link>
               </Button>
             </div>
