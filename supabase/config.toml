@@ -1,100 +1,71 @@
 project_id = "itgnlmhypwufwrgguvav"
 
-[functions.analyze-unit-trends]
-verify_jwt = false
-
-[functions.generate-smart-alert]
-verify_jwt = false
-
-[functions.analyze-pressure-injury]
-verify_jwt = false
-
-[functions.assess-patient-risk]
-verify_jwt = false
-
-[functions.analyze-clinical-notes]
-verify_jwt = false
-
-[functions.generate-risk-narrative]
-verify_jwt = false
-
-[functions.suggest-interventions]
-verify_jwt = false
-
-[functions.analyze-health-equity]
-verify_jwt = false
-
-[functions.check-abuse-alerts]
-verify_jwt = false
-
-[functions.check-attestation-rate-limit]
-verify_jwt = false
-
-[functions.log-audit]
-verify_jwt = false
-
-[functions.methodology-chat]
-verify_jwt = false
-
-[functions.pagespeed-audit]
-verify_jwt = false
-
-[functions.send-attestation-notification]
-verify_jwt = false
-
-[functions.send-attorney-notification]
-verify_jwt = false
-
-[functions.send-regression-notification]
-verify_jwt = false
-
-[functions.send-walkthrough-notification]
-verify_jwt = false
-
-[functions.send-witness-confirmation]
-verify_jwt = false
-
-[functions.send-witness-invitation]
-verify_jwt = false
-
-[functions.text-to-speech]
-verify_jwt = false
-
-[functions.document-intervention]
-verify_jwt = false
-
-[functions.approve-demo-access]
-verify_jwt = false
-
-[functions.submit-contact-inquiry]
-verify_jwt = false
-
-[functions.create-pilot-checkout]
-verify_jwt = false
-
-[functions.submit-licensing-inquiry]
-verify_jwt = false
-
-[functions.vitasignal-inference]
-verify_jwt = false
-
-[functions.fhir-patient-loader]
-verify_jwt = false
-
-[functions.smart-launch]
-verify_jwt = false
-
-[functions.webhook-retry]
-verify_jwt = false
-
-[functions.patent-deadline-alerts]
-verify_jwt = false
-
-[functions.send-transactional-email]
-verify_jwt = false
-
-[functions.handle-email-unsubscribe]
-verify_jwt = false
-
-[functions.process-email-queue]
-verify_jwt = true
+[functions]
+  [functions.analyze-clinical-notes]
+    verify_jwt = false
+  [functions.analyze-health-equity]
+    verify_jwt = false
+  [functions.analyze-pressure-injury]
+    verify_jwt = false
+  [functions.analyze-unit-trends]
+    verify_jwt = false
+  [functions.approve-demo-access]
+    verify_jwt = false
+  [functions.assess-patient-risk]
+    verify_jwt = false
+  [functions.auth-email-hook]
+    verify_jwt = false
+  [functions.check-abuse-alerts]
+    verify_jwt = false
+  [functions.check-attestation-rate-limit]
+    verify_jwt = false
+  [functions.create-pilot-checkout]
+    verify_jwt = false
+  [functions.document-intervention]
+    verify_jwt = false
+  [functions.fhir-patient-loader]
+    verify_jwt = false
+  [functions.generate-risk-narrative]
+    verify_jwt = false
+  [functions.generate-smart-alert]
+    verify_jwt = false
+  [functions.handle-email-unsubscribe]
+    verify_jwt = false
+  [functions.log-audit]
+    verify_jwt = false
+  [functions.methodology-chat]
+    verify_jwt = false
+  [functions.pagespeed-audit]
+    verify_jwt = false
+  [functions.patent-deadline-alerts]
+    verify_jwt = false
+  [functions.process-email-queue]
+    verify_jwt = true
+  [functions.send-attestation-notification]
+    verify_jwt = false
+  [functions.send-attorney-notification]
+    verify_jwt = false
+  [functions.send-regression-notification]
+    verify_jwt = false
+  [functions.send-transactional-email]
+    verify_jwt = false
+  [functions.send-walkthrough-notification]
+    verify_jwt = false
+  [functions.send-witness-confirmation]
+    verify_jwt = false
+  [functions.send-witness-invitation]
+    verify_jwt = false
+  [functions.smart-launch]
+    verify_jwt = false
+  [functions.submit-contact-inquiry]
+    verify_jwt = false
+  [functions.submit-licensing-inquiry]
+    verify_jwt = false
+  [functions.suggest-interventions]
+    verify_jwt = false
+  [functions.text-to-speech]
+    verify_jwt = false
+  [functions.vitasignal-inference]
+    verify_jwt = false
+  [functions.webhook-retry]
+    verify_jwt = false
