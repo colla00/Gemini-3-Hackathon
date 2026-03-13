@@ -114,14 +114,16 @@ export const Landing = () => {
         <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
-        <meta name="keywords" content="equipment-independent clinical AI, nursing documentation AI, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing" />
+        <meta name="keywords" content="fairness-preserving clinical AI, documentation-driven intelligence, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing, equitable clinical AI" />
       </Helmet>
       <LandingHero />
       <WhyNoHardware />
       <ComparisonSlider />
       <DashboardPreview />
+      <ROISection />
       <ValidationSection />
       <FairnessCommitment />
+      <BuyerPersonaSection />
       <SocialProofSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
