@@ -149,6 +149,10 @@ const AppRoutes = () => {
           <Route path="/compare" element={<Suspense fallback={<PageSkeleton />}><Compare /></Suspense>} />
           <Route path="/press-kit" element={<Suspense fallback={<PageSkeleton />}><PressKit /></Suspense>} />
           <Route path="/changelog" element={<Suspense fallback={<PageSkeleton />}><Changelog /></Suspense>} />
+          <Route path="/solutions/hospitals" element={<Suspense fallback={<PageSkeleton />}><SolutionsHospitals /></Suspense>} />
+          <Route path="/solutions/ehr-vendors" element={<Suspense fallback={<PageSkeleton />}><SolutionsEHRVendors /></Suspense>} />
+          <Route path="/solutions/investors" element={<Suspense fallback={<PageSkeleton />}><SolutionsInvestors /></Suspense>} />
+          <Route path="/solutions/military" element={<Suspense fallback={<PageSkeleton />}><SolutionsMilitary /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
