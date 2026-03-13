@@ -199,7 +199,7 @@ export const LandingHero = () => {
               className="bg-background/95 backdrop-blur-md p-5 text-center transition-colors"
             >
               <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">
-                {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} />; })()}
+                {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} fallback={s.value} />; })()}
               </p>
               <p className="text-sm font-bold text-foreground">{s.label}</p>
               <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>

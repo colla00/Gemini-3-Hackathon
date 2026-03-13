@@ -132,7 +132,7 @@ export const ValidationSection = () => {
                 className="p-6 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 text-center cursor-default transition-colors hover:border-primary/30"
               >
                 <p className="font-display text-3xl text-primary mb-1">
-                  <AnimatedNumber value={m.value} prefix={m.prefix} suffix={m.suffix} />
+                  <AnimatedNumber value={m.value} prefix={m.prefix} suffix={m.suffix} fallback={m.display} />
                 </p>
                 <p className="text-sm font-semibold text-primary-foreground mb-0.5">{m.label}</p>
                 <p className="text-xs text-primary-foreground/50">{m.detail}</p>
