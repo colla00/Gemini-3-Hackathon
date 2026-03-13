@@ -15,6 +15,7 @@ import { ROISection } from "@/components/landing/ROISection";
 import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
+import { RecognitionBar } from "@/components/landing/RecognitionBar";
 import { Helmet } from "react-helmet-async";
 
 const orgJsonLd = {
