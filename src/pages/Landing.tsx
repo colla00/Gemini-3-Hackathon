@@ -117,15 +117,15 @@ export const Landing = () => {
       <LandingHero />
       <WhyNoHardware />
       <ComparisonSlider />
+      <DashboardPreview />
       <ValidationSection />
       <FairnessCommitment />
+      <SocialProofSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />
       <TechnologyPortfolio />
       <DigitalTwinsSection />
-      <RecognitionSection />
-      <LicensingCTA />
       <RecognitionSection />
       <LicensingCTA />
     </SiteLayout>
