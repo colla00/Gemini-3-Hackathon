@@ -105,13 +105,12 @@ const SolutionsInvestors = () => (
           <h2 className="text-2xl font-bold text-white text-center mb-8 font-['DM_Serif_Display']">Traction & Milestones</h2>
           <div className="space-y-3">
             {[
-              "11 U.S. provisional patent applications filed (Feb 2026)",
+              "11 U.S. provisional patent applications filed (2025–2026)",
               "NIH AIM-AHEAD CLINAQ Fellowship (Award No. 1OT2OD032581)",
               "ANIA 2026 presentation accepted — Boston, MA (March 26–28)",
               "Stanford AI+Health 2025 symposium presentation",
-              "3 manuscripts under peer review at tier-1 medical journals",
+              "Manuscripts submitted to peer-reviewed journals",
               "Live interactive prototype with synthetic patient demonstrations",
-              "Active pilot conversations with health systems",
             ].map((item, i) => (
               <motion.div
                 key={i}

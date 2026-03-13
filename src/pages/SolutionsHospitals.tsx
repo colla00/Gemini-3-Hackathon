@@ -109,11 +109,11 @@ const SolutionsHospitals = () => (
           <div className="space-y-3">
             {[
               "Zero capital expenditure — uses existing EHR data only",
-              "4–6 week deployment timeline, not 12+ months",
-              "Fairness-preserving AI audited across demographic subgroups",
-              "HIPAA-compliant, SOC 2 architecture with encryption at rest",
-              "11 patent applications filed — strong defensible moat",
-              "NIH-funded research (Award No. 1OT2OD032581)",
+              "Software-only deployment — no new hardware or sensors",
+              "Fairness-preserving AI with equity monitoring across demographic subgroups",
+              "HIPAA-aware architecture with encryption at rest and in transit",
+              "11 patent applications filed — strong defensible IP moat",
+              "NIH-supported research (Award No. 1OT2OD032581)",
             ].map((item, i) => (
               <motion.div
                 key={i}

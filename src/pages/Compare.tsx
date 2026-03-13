@@ -29,8 +29,8 @@ const rows: ComparisonRow[] = [
   {
     label: 'Validated AUROC',
     icon: Brain,
-    values: ['0.683–0.802', '~0.63*', 'undisclosed', 'undisclosed'],
-    tooltip: 'VitaSignal: IDI 0.683 (65K pts), DBS 0.802 internal / 0.758 external (28K pts). *Epic Sepsis: Wong et al. 2021',
+    values: ['0.683–0.802', 'undisclosed', 'undisclosed', 'undisclosed'],
+    tooltip: 'VitaSignal: IDI AUC 0.683 (65K pts), DBS AUROC 0.802 internal / 0.758 external (28K pts, 172 hospitals)',
   },
   {
     label: 'Health Equity / Bias Testing',
