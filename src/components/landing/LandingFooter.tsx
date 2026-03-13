@@ -63,7 +63,6 @@ export const LandingFooter = () => (
               <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
               <Link to="/patents" className="text-muted-foreground hover:text-primary transition-colors">Patents</Link>
               <Link to="/licensing" className="text-muted-foreground hover:text-primary transition-colors">Licensing</Link>
-              <Link to="/pilot-request" className="text-muted-foreground hover:text-primary transition-colors">Pilot Request</Link>
             </div>
           </div>
         </div>
