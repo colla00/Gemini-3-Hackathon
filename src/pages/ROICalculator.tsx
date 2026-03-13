@@ -201,7 +201,7 @@ const ROICalculator = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                   <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                    <a href="/evidence">Review Our Clinical Evidence</a>
+                    <a href="/contact">Contact Our Team</a>
                   </Button>
                   <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
                     <a href="/pilot-request">Discuss a Pilot Assessment <ArrowRight className="w-4 h-4 ml-2" /></a>

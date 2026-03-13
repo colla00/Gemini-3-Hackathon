@@ -79,7 +79,7 @@ const PilotRequest = () => {
             <p className="text-white/50 text-sm mb-6">Our clinical team will prepare a tailored assessment and reach out within 2 business days.</p>
             <div className="flex gap-3 justify-center">
               <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                <a href="/evidence">View Clinical Evidence</a>
+                <a href="/dashboard">Explore the Platform</a>
               </Button>
               <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white">
                 <a href="/roi-calculator">Calculate Your ROI</a>

@@ -135,7 +135,7 @@ const AppRoutes = () => {
           <Route path="/solutions/cms-compliance" element={<Suspense fallback={<PageSkeleton />}><WedgeCMSCompliance /></Suspense>} />
           <Route path="/roi-calculator" element={<Suspense fallback={<PageSkeleton />}><ROICalculator /></Suspense>} />
           <Route path="/demo" element={<Suspense fallback={<PageSkeleton />}><ProductDemoPage /></Suspense>} />
-          <Route path="/evidence" element={<Suspense fallback={<PageSkeleton />}><Evidence /></Suspense>} />
+          
           <Route path="/pilot-request" element={<Suspense fallback={<PageSkeleton />}><PilotRequest /></Suspense>} />
           <Route path="/trust" element={<Suspense fallback={<PageSkeleton />}><TrustCenter /></Suspense>} />
           <Route path="/careers" element={<Suspense fallback={<PageSkeleton />}><Careers /></Suspense>} />

@@ -45,7 +45,7 @@ export const LandingFooter = () => (
               <Link to="/solutions/icu-mortality" className="text-muted-foreground hover:text-primary transition-colors">ICU Mortality</Link>
               <Link to="/solutions/nurse-workload" className="text-muted-foreground hover:text-primary transition-colors">Nurse Workload</Link>
               <Link to="/solutions/cms-compliance" className="text-muted-foreground hover:text-primary transition-colors">CMS Compliance</Link>
-              <Link to="/evidence" className="text-muted-foreground hover:text-primary transition-colors">Evidence</Link>
+              
               <Link to="/trust" className="text-muted-foreground hover:text-primary transition-colors">Trust Center</Link>
             </div>
           </div>
