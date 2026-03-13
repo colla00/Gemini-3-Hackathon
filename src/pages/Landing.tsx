@@ -103,8 +103,8 @@ const medicalWebPageJsonLd = {
 export const Landing = () => {
   return (
     <SiteLayout
-      title="Equipment-Independent Clinical AI | Nursing Documentation AI"
-      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 11 U.S. patent applications, 357K+ patients validated."
+      title="VitaSignal | Fairness-Preserving Clinical AI"
+      description="VitaSignal develops documentation-driven clinical AI for patient risk prediction, workflow visibility, and equitable clinical decision support. 11 U.S. patent applications, 357K+ patients validated."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />
