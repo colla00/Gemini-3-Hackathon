@@ -238,6 +238,15 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   VitaSignal on LinkedIn
                 </a>
                 <a
+                  href="https://x.com/VitaSignalAI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                >
+                  <Twitter className="w-3.5 h-3.5" />
+                  VitaSignal on X
+                </a>
+                <a
                   href="https://www.linkedin.com/in/alexiscollier/"
                   target="_blank"
                   rel="noopener noreferrer"
