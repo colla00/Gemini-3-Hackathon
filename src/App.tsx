@@ -67,7 +67,7 @@ const WedgeNurseDashboard = lazy(() => import("./pages/WedgeNurseDashboard"));
 const WedgeCMSCompliance = lazy(() => import("./pages/WedgeCMSCompliance"));
 const ROICalculator = lazy(() => import("./pages/ROICalculator"));
 const ProductDemoPage = lazy(() => import("./pages/ProductDemo"));
-const Evidence = lazy(() => import("./pages/Evidence"));
+
 const PilotRequest = lazy(() => import("./pages/PilotRequest"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const Careers = lazy(() => import("./pages/Careers"));
