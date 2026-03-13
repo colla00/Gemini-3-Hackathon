@@ -19,7 +19,7 @@ const personas = [
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
-    desc: "Zero capital expenditure. $2,847 projected savings per patient from reduced LOS and adverse events. 1,240% modeled ROI.",
+    desc: "Zero capital expenditure. Software-only deployment. No new hardware procurement — ROI driven by existing EHR data utilization.",
     link: "/roi-calculator",
   },
   {

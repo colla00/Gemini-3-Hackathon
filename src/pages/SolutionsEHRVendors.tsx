@@ -18,8 +18,7 @@ const techSpecs = [
   "CDS Hooks integration for real-time alerts",
   "Bulk FHIR export support for retrospective analysis",
   "Sandbox environment with synthetic patient data",
-  "SOC 2 Type II architecture, HIPAA BAA available",
-  "99.9% uptime SLA for production deployments",
+  "HIPAA-aware architecture with encryption at rest and in transit",
   "Dedicated integration engineering support",
 ];
 

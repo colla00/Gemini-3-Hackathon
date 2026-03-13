@@ -1,33 +1,21 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Quote, Star } from "lucide-react";
+import { Award } from "lucide-react";
 
-const testimonials = [
-  {
-    quote: "This is the first clinical AI approach I've seen that doesn't require us to buy a single piece of new equipment. It works with what every hospital already has — nurses and an EHR.",
-    author: "Chief Nursing Officer",
-    org: "400-bed Academic Medical Center",
-    context: "Pilot evaluation feedback",
-  },
-  {
-    quote: "The documentation burden concept is compelling. We spend millions on bedside monitors, but the real signal might be in the charting patterns our nurses are already producing.",
-    author: "VP of Clinical Informatics",
-    org: "Regional Health System",
-    context: "Product demo response",
-  },
-  {
-    quote: "What differentiates this from other AI vendors we've evaluated is the fairness-preserving design. CMS is pushing hard on equity and this bakes it in from the start.",
-    author: "Chief Medical Information Officer",
-    org: "Integrated Delivery Network",
-    context: "Competitive evaluation",
-  },
-];
-
-const logos = [
+const recognitions = [
   { label: "NIH AIM-AHEAD", detail: "Research Fellowship" },
   { label: "ANIA 2026", detail: "Accepted Presentation" },
   { label: "Stanford AI+Health", detail: "Symposium Speaker" },
   { label: "SIIM 2025", detail: "Selected Abstract" },
+];
+
+const highlights = [
+  "Equipment-independent design — no new hardware, sensors, or wearables required",
+  "Two independently validated systems across 357K+ patients and 172 hospitals",
+  "Fairness-preserving AI with equity monitoring across demographic subgroups",
+  "11 U.S. provisional patent applications filed (2025–2026)",
+  "NIH-supported research (Award No. 1OT2OD032581)",
+  "FHIR R4 native architecture designed for EHR integration",
 ];
 
 export const SocialProofSection = () => {
@@ -46,7 +34,7 @@ export const SocialProofSection = () => {
         >
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-6">Recognized By</p>
           <div className="flex flex-wrap justify-center gap-6">
-            {logos.map((l) => (
+            {recognitions.map((l) => (
               <div key={l.label} className="text-center">
                 <p className="text-sm font-semibold text-foreground">{l.label}</p>
                 <p className="text-xs text-muted-foreground">{l.detail}</p>
@@ -55,32 +43,26 @@ export const SocialProofSection = () => {
           </div>
         </motion.div>
 
-        {/* Testimonials */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15 + i * 0.1, duration: 0.5 }}
-              className="rounded-xl border border-border/50 bg-card p-6 flex flex-col"
-            >
-              <Quote className="w-5 h-5 text-primary/40 mb-3 shrink-0" />
-              <p className="text-sm text-foreground/80 leading-relaxed flex-1 italic">
-                "{t.quote}"
-              </p>
-              <div className="mt-4 pt-4 border-t border-border/30">
-                <p className="text-sm font-semibold text-foreground">{t.author}</p>
-                <p className="text-xs text-muted-foreground">{t.org}</p>
-                <p className="text-[10px] text-muted-foreground/60 mt-1">{t.context}</p>
-              </div>
-            </motion.div>
-          ))}
+        {/* Key differentiators */}
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground text-center mb-8">
+            Why VitaSignal Is Different
+          </h2>
+          <div className="space-y-3">
+            {highlights.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -15 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.15 + i * 0.06, duration: 0.4 }}
+                className="flex items-start gap-3"
+              >
+                <Award className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <p className="text-sm text-foreground/80 leading-relaxed">{item}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-
-        <p className="text-[10px] text-muted-foreground/50 text-center mt-6">
-          Quotes are representative of feedback received during product demonstrations. Names and organizations withheld per NDA.
-        </p>
       </div>
     </section>
   );

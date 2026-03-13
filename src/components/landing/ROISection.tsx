@@ -1,12 +1,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { DollarSign, TrendingUp, PiggyBank, ShieldCheck } from "lucide-react";
+import { DollarSign, TrendingDown, ShieldCheck, FileText } from "lucide-react";
 
 const stats = [
-  { icon: DollarSign, value: "$2,847", label: "Saved per Patient", detail: "From reduced LOS & adverse events" },
-  { icon: PiggyBank, value: "$2.1M", label: "Saved per Hospital", detail: "Annualized projected savings" },
-  { icon: TrendingUp, value: "1,240%", label: "Return on Investment", detail: "Based on implementation model" },
-  { icon: ShieldCheck, value: "0.947", label: "NPV", detail: "Negative predictive value (DBS)" },
+  { icon: FileText, value: "11", label: "Patent Applications", detail: "U.S. Provisional — filed 2025–2026" },
+  { icon: TrendingDown, value: "0.758", label: "External AUROC", detail: "DBS validated across 172 hospitals" },
+  { icon: ShieldCheck, value: "0.947", label: "NPV", detail: "Negative predictive value (DBS, eICU)" },
+  { icon: DollarSign, value: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
 ];
 
 export const ROISection = () => {
@@ -22,12 +22,13 @@ export const ROISection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Financial Impact</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">Value Proposition</p>
           <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-3">
-            Measurable Value, Minimal Investment
+            Zero Hardware. Validated Results.
           </h2>
           <p className="text-primary-foreground/60 max-w-xl mx-auto text-sm">
-            Zero hardware cost. Software-only deployment. Projected ROI based on validated workload reduction and adverse event prevention models.
+            No capital expenditure. No new sensors. Software-only deployment using existing EHR documentation data,
+            validated across multiple international databases.
           </p>
         </motion.div>
 
@@ -49,7 +50,7 @@ export const ROISection = () => {
         </div>
 
         <p className="text-[10px] text-primary-foreground/30 text-center mt-6">
-          Projections based on published literature and implementation modeling. Not based on clinical trial results. VitaSignal is a pre-market research prototype.
+          All metrics from validated research. VitaSignal is a pre-market research prototype — not FDA cleared or approved.
         </p>
       </div>
     </section>
