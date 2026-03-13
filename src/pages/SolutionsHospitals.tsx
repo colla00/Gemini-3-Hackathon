@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { Building2, TrendingDown, Clock, ShieldCheck, DollarSign, ArrowRight, CheckCircle2, Users } from "lucide-react";
 
 const outcomes = [
-  { icon: TrendingDown, stat: "35–55%", label: "HAI Reduction", detail: "Projected from documentation pattern analysis" },
-  { icon: Clock, stat: "90 min", label: "Time Saved / Shift", detail: "Reduced documentation burden per nurse" },
-  { icon: DollarSign, stat: "$2,847", label: "Savings / Patient", detail: "From reduced LOS and adverse events" },
-  { icon: Users, stat: "172", label: "Hospitals Validated", detail: "eICU external validation cohort" },
+  { icon: TrendingDown, stat: "0.758", label: "External AUROC (DBS)", detail: "Validated across 172 hospitals (eICU)" },
+  { icon: Clock, stat: "0.683", label: "IDI AUC", detail: "Equipment-independent mortality prediction" },
+  { icon: DollarSign, stat: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
+  { icon: Users, stat: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID, eICU databases" },
 ];
 
 const useCases = [
