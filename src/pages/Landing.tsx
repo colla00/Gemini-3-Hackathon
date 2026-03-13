@@ -119,8 +119,11 @@ export const Landing = () => {
       <FairnessCommitment />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
+      <MilitaryHealthSection />
       <TechnologyPortfolio />
       <DigitalTwinsSection />
+      <RecognitionSection />
+      <LicensingCTA />
       <RecognitionSection />
       <LicensingCTA />
     </SiteLayout>
