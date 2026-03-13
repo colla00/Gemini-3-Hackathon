@@ -38,6 +38,10 @@ export const LandingFooter = () => (
           <div>
             <h4 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider">Solutions</h4>
             <div className="flex flex-col gap-1.5">
+              <Link to="/solutions/hospitals" className="text-muted-foreground hover:text-primary transition-colors">For Hospitals</Link>
+              <Link to="/solutions/ehr-vendors" className="text-muted-foreground hover:text-primary transition-colors">For EHR Vendors</Link>
+              <Link to="/solutions/investors" className="text-muted-foreground hover:text-primary transition-colors">For Investors</Link>
+              <Link to="/solutions/military" className="text-muted-foreground hover:text-primary transition-colors">DoD & Military</Link>
               <Link to="/solutions/icu-mortality" className="text-muted-foreground hover:text-primary transition-colors">ICU Mortality</Link>
               <Link to="/solutions/nurse-workload" className="text-muted-foreground hover:text-primary transition-colors">Nurse Workload</Link>
               <Link to="/solutions/cms-compliance" className="text-muted-foreground hover:text-primary transition-colors">CMS Compliance</Link>
