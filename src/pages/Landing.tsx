@@ -9,7 +9,7 @@ import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
 import { FairnessCommitment } from "@/components/landing/FairnessCommitment";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
 import { MilitaryHealthSection } from "@/components/landing/MilitaryHealthSection";
-import { SocialProofSection } from "@/components/landing/SocialProofSection";
+
 import { DashboardPreview } from "@/components/landing/DashboardPreview";
 import { ROISection } from "@/components/landing/ROISection";
 import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
@@ -124,7 +124,7 @@ export const Landing = () => {
       <ValidationSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
-      <SocialProofSection />
+      
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />
