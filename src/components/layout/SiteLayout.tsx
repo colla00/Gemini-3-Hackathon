@@ -249,15 +249,17 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               </div>
             </div>
 
-            {/* Technology */}
+            {/* Product */}
             <div>
-              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Technology</p>
+              <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Product</p>
               <div className="space-y-2">
-                <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patent Portfolio</Link>
-                <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust & Compliance</Link>
-                <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
-                <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integration Hub</Link>
-                <Link to="/developer-tools" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Developer Tools</Link>
+                <Link to="/demo" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Product Demo</Link>
+                <Link to="/pricing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pricing</Link>
+                <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
+                <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
+                <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integrations</Link>
+                <Link to="/evidence" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Evidence</Link>
+                <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust Center</Link>
               </div>
             </div>
 
@@ -266,9 +268,13 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Company</p>
               <div className="space-y-2">
                 <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">About</Link>
-                <Link to="/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Investors</Link>
+                <Link to="/careers" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Careers</Link>
+                <Link to="/blog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Blog</Link>
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
+                <Link to="/press-kit" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press Kit</Link>
+                <Link to="/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Investors</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
+                <Link to="/changelog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Changelog</Link>
               </div>
             </div>
 
@@ -278,7 +284,9 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <div className="space-y-2">
                 <Link to="/terms" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Terms of Service</Link>
                 <Link to="/privacy" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
-                <span className="block text-sm text-primary-foreground/50">11 U.S. Patents Pending</span>
+                <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patents</Link>
+                <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
+                <Link to="/pilot-request" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pilot Request</Link>
                 <span className="block text-[11px] text-primary-foreground/30">We do not sell personal data.</span>
               </div>
             </div>
