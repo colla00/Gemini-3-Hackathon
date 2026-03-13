@@ -1,10 +1,9 @@
-import { ArrowRight, Presentation } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, useInView, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
@@ -114,7 +113,7 @@ export const LandingHero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block"
           >
-            Clinical Intelligence
+            Fairness-Preserving Clinical AI
           </motion.span>
           <br />
           <motion.span
@@ -123,7 +122,7 @@ export const LandingHero = () => {
             transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
             className="text-primary inline-block"
           >
-            Without Equipment
+            for Safer, Smarter Care
           </motion.span>
         </motion.h1>
 
@@ -132,19 +131,11 @@ export const LandingHero = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.12 }}
-          className="text-base md:text-lg font-semibold text-primary mb-4 max-w-2xl tracking-tight"
-        >
-          The only validated clinical AI that works with nothing but a nurse and an EHR.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: 0.18 }}
           className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed"
         >
-          Patent-pending AI that predicts ICU mortality and documentation burden
-          from EHR patterns alone. No sensors. No wearables. No added cost.
+          VitaSignal develops documentation-driven intelligence systems that transform routine
+          EHR activity into actionable insight for patient risk, workflow visibility, and more
+          equitable clinical decision support.
         </motion.p>
 
         {/* CTAs */}
@@ -152,30 +143,46 @@ export const LandingHero = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.22 }}
-          className="flex flex-col sm:flex-row gap-3 mb-16"
+          className="flex flex-wrap gap-3 mb-16"
         >
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Button size="lg" className="text-base px-8 h-12 shadow-lg" asChild>
-              <Link to="/licensing" className="gap-2">
-                Explore Licensing
+            <Button size="lg" className="text-base px-6 h-12 shadow-lg" asChild>
+              <Link to="/demo" className="gap-2">
+                Request a Demo
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
           </motion.div>
-          <DemoAccessModal
-            trigger={
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base px-8 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
-                >
-                  <Presentation className="w-4 h-4 mr-2" />
-                  Request Dashboard Access
-                </Button>
-              </motion.div>
-            }
-          />
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+              asChild
+            >
+              <Link to="/dashboard">Explore the Platform</Link>
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+              asChild
+            >
+              <Link to="/evidence">View Research</Link>
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+              asChild
+            >
+              <Link to="/licensing">Talk Licensing</Link>
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Stats bar */}

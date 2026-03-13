@@ -11,6 +11,8 @@ import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
 import { MilitaryHealthSection } from "@/components/landing/MilitaryHealthSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
 import { DashboardPreview } from "@/components/landing/DashboardPreview";
+import { ROISection } from "@/components/landing/ROISection";
+import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
 import { Helmet } from "react-helmet-async";
@@ -101,8 +103,8 @@ const medicalWebPageJsonLd = {
 export const Landing = () => {
   return (
     <SiteLayout
-      title="Equipment-Independent Clinical AI | Nursing Documentation AI"
-      description="The only validated clinical AI that works with nothing but a nurse and an EHR. Equipment-independent ICU mortality prediction and documentation burden scoring. 11 U.S. patent applications, 357K+ patients validated."
+      title="VitaSignal | Fairness-Preserving Clinical AI"
+      description="VitaSignal develops documentation-driven clinical AI for patient risk prediction, workflow visibility, and equitable clinical decision support. 11 U.S. patent applications, 357K+ patients validated."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />
@@ -112,14 +114,16 @@ export const Landing = () => {
         <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
-        <meta name="keywords" content="equipment-independent clinical AI, nursing documentation AI, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing" />
+        <meta name="keywords" content="fairness-preserving clinical AI, documentation-driven intelligence, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing, equitable clinical AI" />
       </Helmet>
       <LandingHero />
       <WhyNoHardware />
       <ComparisonSlider />
       <DashboardPreview />
+      <ROISection />
       <ValidationSection />
       <FairnessCommitment />
+      <BuyerPersonaSection />
       <SocialProofSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
