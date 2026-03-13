@@ -1,10 +1,9 @@
-import { ArrowRight, Presentation } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, useInView, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { DemoAccessModal } from "@/components/WalkthroughRequestModal";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
