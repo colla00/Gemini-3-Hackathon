@@ -64,7 +64,7 @@ export default function Investors() {
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/15 font-semibold" asChild>
-              <a href="mailto:info@vitasignal.ai">Contact Us</a>
+              <a href="mailto:licensing@vitasignal.ai">Contact Us</a>
             </Button>
           </div>
         </div>
