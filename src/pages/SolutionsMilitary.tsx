@@ -51,7 +51,7 @@ const SolutionsMilitary = () => (
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg">
-                <a href="mailto:info@vitasignal.ai">Contact for DoD Evaluation <ArrowRight className="w-4 h-4 ml-2" /></a>
+                <a href="mailto:licensing@vitasignal.ai">Contact for DoD Evaluation <ArrowRight className="w-4 h-4 ml-2" /></a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/contact">Contact Us</Link>
