@@ -64,7 +64,7 @@ export default function Investors() {
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/15 font-semibold" asChild>
-              <a href="mailto:info@vitasignal.ai">Contact Us</a>
+              <a href="mailto:licensing@vitasignal.ai">Contact Us</a>
             </Button>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function Investors() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" asChild style={{ background: "#0f1729" }}>
-              <a href="mailto:info@vitasignal.ai?subject=Investor%20Deck%20Request">Request Investor Deck</a>
+              <a href="mailto:licensing@vitasignal.ai?subject=Investor%20Deck%20Request">Request Investor Deck</a>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link to="/licensing">View Licensing Portal</Link>
