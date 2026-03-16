@@ -85,7 +85,7 @@ serve(async (req) => {
               <h2>Thank you for your interest in VitaSignal™</h2>
               <p>Dear ${contact_name},</p>
               <p>We have received your licensing inquiry from ${organization_name}. Our team will review your request and respond within 2 business days.</p>
-              <p>If your inquiry requires immediate attention, please reply to this email or contact us at info@vitasignal.ai.</p>
+              <p>If your inquiry requires immediate attention, please reply to this email or contact us at licensing@vitasignal.ai.</p>
               <br/>
               <p>Best regards,<br/>VitaSignal LLC</p>
               <hr/>

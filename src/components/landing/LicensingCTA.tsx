@@ -21,7 +21,7 @@ export const LicensingCTA = () => (
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Button variant="secondary" size="lg" className="text-base" asChild>
-          <a href="mailto:info@vitasignal.ai" className="gap-2">
+          <a href="mailto:licensing@vitasignal.ai" className="gap-2">
             <Mail className="w-5 h-5" />
             Licensing Inquiries
           </a>
