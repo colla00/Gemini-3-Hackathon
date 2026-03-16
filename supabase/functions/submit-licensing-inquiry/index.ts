@@ -78,7 +78,7 @@ serve(async (req) => {
             Authorization: `Bearer ${resendKey}`,
           },
           body: JSON.stringify({
-            from: "VitaSignal <info@vitasignal.ai>",
+            from: "VitaSignal Licensing <licensing@vitasignal.ai>",
             to: [email],
             subject: "VitaSignal Licensing Inquiry Received",
             html: `
