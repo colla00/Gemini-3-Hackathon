@@ -23,10 +23,9 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/about", label: "About" },
+  { to: "/research", label: "Research" },
   { to: "/patents", label: "Patents" },
-  { to: "/investors", label: "Investors" },
   { to: "/licensing", label: "Licensing" },
-  
 ];
 
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
