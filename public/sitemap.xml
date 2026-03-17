@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Core Pages -->
   <url>
     <loc>https://vitasignal.ai/</loc>
     <priority>1.0</priority>
@@ -10,48 +12,53 @@
       <image:title>VitaSignal Clinical Intelligence Platform</image:title>
     </image:image>
   </url>
-  <url>
-    <loc>https://vitasignal.ai/about</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://vitasignal.ai/og-about.png</image:loc>
-      <image:title>Dr. Alexis Collier - VitaSignal Founder</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://vitasignal.ai/dashboard</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-    <image:image>
-      <image:loc>https://vitasignal.ai/og-dashboard.png</image:loc>
-      <image:title>VitaSignal Clinical Dashboard</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://vitasignal.ai/patents</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://vitasignal.ai/og-patents.png</image:loc>
-      <image:title>VitaSignal Patent Portfolio</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://vitasignal.ai/licensing</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://vitasignal.ai/og-licensing.png</image:loc>
-      <image:title>VitaSignal Technology Licensing</image:title>
-    </image:image>
-  </url>
+  <url><loc>https://vitasignal.ai/about</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/research</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/patents</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/licensing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/contact</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://vitasignal.ai/press</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://vitasignal.ai/investors</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Product -->
+  <url><loc>https://vitasignal.ai/demo</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/dashboard</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/pricing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/compare</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/roi-calculator</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/integrations</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/security</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/trust</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/watch</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Solutions -->
+  <url><loc>https://vitasignal.ai/solutions/hospitals</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/ehr-vendors</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/investors</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/military</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/icu-mortality</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/nurse-workload</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/solutions/cms-compliance</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/for-leaders</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Content -->
+  <url><loc>https://vitasignal.ai/blog</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/news</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/press</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/press-kit</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/changelog</loc><priority>0.5</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://vitasignal.ai/careers</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/ania2026</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://vitasignal.ai/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+
+  <!-- Blog Posts -->
+  <url><loc>https://vitasignal.ai/blog/why-equipment-independent-ai-matters</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/blog/understanding-documentation-burden-172-hospitals</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/blog/fhir-r4-clinical-ai-integration</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/blog/fairness-preserving-ai-cms-equity</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/blog/stanford-to-icu-research-journey</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Legal -->
   <url><loc>https://vitasignal.ai/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/conflict-of-interest</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/pilot-request</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
 </urlset>
