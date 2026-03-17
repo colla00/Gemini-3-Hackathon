@@ -10,7 +10,7 @@ interface PatentEntry {
   name: string;
   tagline: string;
   icon: React.ReactNode;
-  status: 'filed' | 'pending' | 'preparation';
+  status: 'filed' | 'pending' | 'preparation' | 'validated';
   filingDate: string;
   validated?: boolean;
   color: string;
