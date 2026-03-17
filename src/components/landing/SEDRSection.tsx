@@ -55,7 +55,7 @@ export const SEDRSection = () => (
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <BarChart3 className="w-5 h-5 text-primary" />
-              <h3 className="text-sm font-bold text-foreground">Temporal Validation</h3>
+              <h3 className="text-sm font-bold text-foreground">Temporal Validation Results</h3>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
               94,444 ICU stays · MIMIC-IV · Five held-out three-year periods
