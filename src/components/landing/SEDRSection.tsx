@@ -21,7 +21,7 @@ export const SEDRSection = () => (
       </div>
 
       <h2 id="sedr-heading" className="font-display text-2xl md:text-3xl text-foreground mb-2">
-        Shift-End Documentation Burden Index (SEDR)
+        SEDR – Syndromic Surveillance
       </h2>
       <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8">
         A validated measure of shift-end documentation burden that demonstrates VitaSignal's ability to
