@@ -6,7 +6,7 @@ export default function TermsOfUse() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto space-y-8">
           <h1 className="text-3xl font-bold text-foreground">Terms of Service</h1>
-          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 9, 2026</p>
+          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 17, 2026</p>
 
           <div className="space-y-6 text-muted-foreground text-sm leading-relaxed">
 
