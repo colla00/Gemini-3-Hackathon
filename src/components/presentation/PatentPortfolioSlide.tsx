@@ -10,7 +10,7 @@ interface PatentEntry {
   name: string;
   tagline: string;
   icon: React.ReactNode;
-  status: 'filed' | 'pending' | 'preparation';
+  status: 'filed' | 'pending' | 'preparation' | 'validated';
   filingDate: string;
   validated?: boolean;
   color: string;
@@ -123,9 +123,9 @@ const allPatents: PatentEntry[] = [
     id: 'sedr',
     number: 11,
     name: 'SEDR',
-    tagline: 'Syndromic early detection & response',
+    tagline: 'Shift-end documentation burden index — validated',
     icon: <Radio className="w-4 h-4" />,
-    status: 'filed',
+    status: 'validated',
     filingDate: 'Feb 2026',
     color: 'text-rose-400',
   },
