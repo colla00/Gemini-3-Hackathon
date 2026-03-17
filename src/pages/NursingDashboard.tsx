@@ -166,7 +166,8 @@ const patentGroups: PatentGroup[] = [
     id: 'patent-11',
     patent: 'Patent #11',
     title: 'SEDR – Syndromic Surveillance',
-    validated: false,
+    validated: true,
+    statusLabel: 'validated',
     tabs: [
       { value: 'sedr', label: 'Syndromic Trends', icon: Activity },
       { value: 'sedr-command', label: 'Command Center', icon: AlertTriangle },
