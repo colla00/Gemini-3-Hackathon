@@ -47,18 +47,19 @@ export const HeroSection = () => (
 
         {/* Tagline */}
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-          Detecting Life-Saving Signals
-          <span className="text-primary"> Before Crisis</span>
+          Documentation-Driven Intelligence
+          <span className="text-primary"> for Safer Care</span>
         </h2>
 
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-3">
-          Equipment-Independent AI for ICU Mortality Prediction, Nursing Optimization,
-          and Real-Time Risk Intelligence
+          VitaSignal turns routine EHR activity into actionable insight for risk prediction,
+          workflow visibility, and equitable decision support — without requiring new hardware
+          or adding burden to care teams.
         </p>
 
         <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-8">
-          {PATENTS_FILED_COUNT} U.S. provisional patent applications covering novel analytical methods
-          for clinical documentation pattern analysis.
+          {PATENTS_FILED_COUNT} U.S. patent applications. Informed by NIH-supported research.
+          Three independently validated systems.
         </p>
 
         {/* CTA Buttons */}
