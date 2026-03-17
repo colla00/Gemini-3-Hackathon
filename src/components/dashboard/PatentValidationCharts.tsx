@@ -262,10 +262,10 @@ export const PatentValidationCharts = () => {
                 <p className="text-xs text-muted-foreground">DBS-Guided Staffing Impact by Quartile</p>
                 <div className="flex gap-2">
                   <Badge className="bg-risk-low/20 text-risk-low border-risk-low/30 text-[10px]">
-                    15-20% Overtime ↓
+                    Overtime ↓ (design target)
                   </Badge>
                   <Badge className="bg-chart-1/20 text-chart-1 border-chart-1/30 text-[10px]">
-                    $180K-$360K ROI
+                    ROI (projected)
                   </Badge>
                 </div>
               </div>

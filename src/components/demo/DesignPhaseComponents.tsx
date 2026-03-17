@@ -14,7 +14,7 @@ const COMPONENTS = [
     name: 'VitaSignal™ DBS',
     description: 'Documentation Burden & Staffing Intelligence',
     icon: FileText,
-    metric: '15-20% overtime reduction',
+    metric: 'Overtime reduction (design target)',
   },
   {
     patent: '#4',

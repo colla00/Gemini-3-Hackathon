@@ -68,10 +68,10 @@ const performanceMetrics: PerformanceMetric[] = [
   { 
     id: 'satisfaction', 
     name: 'Clinician Satisfaction', 
-    baseline: '32%', 
-    chartminder: '88%', 
-    improvement: '175% improvement',
-    improvementValue: 175,
+    baseline: 'Baseline', 
+    chartminder: 'Target: Improved', 
+    improvement: 'Design target',
+    improvementValue: 0,
     icon: Smile,
     isReduction: false
   },

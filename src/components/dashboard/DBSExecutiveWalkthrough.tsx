@@ -228,10 +228,10 @@ const StepImpact = () => (
       cut overtime costs, and improve patient safety — with measurable ROI.
     </p>
     <div className="grid grid-cols-2 gap-3">
-      <MetricCard icon={DollarSign} label="Annual Savings" value="$2.1M" detail="200-bed hospital estimate" color="text-chart-3" />
-      <MetricCard icon={TrendingDown} label="Burnout Reduction" value="35%" detail="Projected improvement" color="text-risk-low" />
-      <MetricCard icon={Clock} label="Time Reclaimed" value="90 min" detail="Per nurse per shift" color="text-primary" />
-      <MetricCard icon={BarChart3} label="5-Year ROI" value="1,240%" detail="7.5-month payback" color="text-chart-4" />
+      <MetricCard icon={DollarSign} label="Annual Savings" value="TBD" detail="Economic modeling in progress" color="text-chart-3" />
+      <MetricCard icon={TrendingDown} label="Burnout Reduction" value="TBD" detail="Design target" color="text-risk-low" />
+      <MetricCard icon={Clock} label="Time Reclaimed" value="TBD" detail="Prospective study needed" color="text-primary" />
+      <MetricCard icon={BarChart3} label="ROI" value="TBD" detail="Projections under NDA" color="text-chart-4" />
     </div>
     <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 flex items-center gap-3">
       <Sparkles className="w-5 h-5 text-primary shrink-0" />
