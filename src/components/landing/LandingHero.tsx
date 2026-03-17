@@ -36,7 +36,7 @@ const parseStatValue = (val: string): { num: number; suffix: string } => {
 const stats = [
   { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · Dec 2025–Feb 2026" },
   { value: "175+", label: "Total Claims", detail: "Across all filings" },
-  { value: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
+  { value: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
   { value: "172", label: "Hospitals", detail: "External validation (eICU)" },
 ];
 
