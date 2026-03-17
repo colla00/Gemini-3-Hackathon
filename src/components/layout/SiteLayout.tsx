@@ -253,6 +253,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Product</p>
               <div className="space-y-2">
                 <Link to="/demo" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Product Demo</Link>
+                <Link to="/watch" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Watch</Link>
                 <Link to="/pricing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pricing</Link>
                 <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
                 <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
