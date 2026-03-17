@@ -1,8 +1,8 @@
 # Privacy Impact Assessment (PIA)
 ## VitaSignal Clinical Intelligence Platform
 **Document ID:** HIPAA-PIA-001  
-**Version:** 1.0  
-**Date:** 2026-02-13  
+**Version:** 1.1  
+**Date:** 2026-03-17  
 **Standard:** 45 CFR Part 164 / NIST SP 800-122
 
 ---
