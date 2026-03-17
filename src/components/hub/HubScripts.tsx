@@ -288,7 +288,7 @@ A: "Three publicly available databases through PhysioNet. MIMIC-IV from Beth Isr
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Can you explain the 9 IDI features?"
 
-A: "All 9 are derived from nursing documentation timestamps in the first 24 hours. Documentation volume — events per 24 hours and events per hour. Surveillance gaps — maximum gap, count of gaps over 60 minutes, count over 120 minutes. Rhythm analysis — mean inter-event time, standard deviation, and the coefficient of variation, which is our strongest predictor. And burstiness — a measure of how clustered versus regular the documentation pattern is. No clinical content is analyzed — only the timing."
+A: "All features are derived from nursing documentation timestamps in the first 24 hours. They cover documentation volume, surveillance gaps, rhythm analysis, and burstiness patterns. No clinical content is analyzed — only the timing. Detailed feature specifications are available under NDA."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Who funds this work?"
