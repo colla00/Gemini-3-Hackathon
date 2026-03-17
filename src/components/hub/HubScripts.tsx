@@ -70,7 +70,7 @@ We asked: can we quantify that signal? Can we use the rhythm of documentation to
 [SLIDE: The IDI — Intensive Documentation Index]
 The answer is the IDI — 9 temporal features extracted from nursing documentation timestamps during the first 24 hours of ICU stay. These include documentation rate, surveillance gaps, inter-event variability, and burstiness.
 
-Our strongest predictor is idi_cv_interevent — the coefficient of variation of time between documentation events. An odds ratio of 1.53 per standard deviation. It's not how much nurses document — it's how irregular the rhythm is.
+Our strongest predictor captures the variability in timing between documentation events. It's not how much nurses document — it's how irregular the rhythm is.
 
 [SLIDE: Validation — MIMIC-IV]
 We validated on 26,153 heart failure ICU admissions from MIMIC-IV, 2008 to 2019. Using temporal validation — training on 2008 through 2018, testing on 2019 — our IDI-enhanced model improved AUC from 0.658 to 0.683, a statistically significant gain by DeLong test, p less than 0.05.
