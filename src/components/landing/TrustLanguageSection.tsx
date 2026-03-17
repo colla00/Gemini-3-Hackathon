@@ -22,7 +22,7 @@ const trustPillars = [
   {
     icon: FileCheck,
     title: "Externally Validated",
-    desc: "Core algorithms validated on 357K+ patients across international multi-site databases including MIMIC-IV, eICU, and HiRID.",
+    desc: "Core algorithms validated on 65,157 patients (IDI) and 28,362 patients (DBS) across international multi-site databases including MIMIC-IV, eICU, and HiRID.",
   },
   {
     icon: Eye,

@@ -22,7 +22,7 @@ const investorReasons = [
 const SolutionsInvestors = () => (
   <SiteLayout
     title="For Investors | VitaSignal — Clinical AI Investment Opportunity"
-    description="VitaSignal: 11 patent applications, 357K+ patients validated, $12B TAM. Equipment-independent clinical AI platform seeking strategic partners and investors."
+    description="VitaSignal: 11 patent applications, 93K+ patients validated across two studies. Equipment-independent clinical AI platform seeking strategic partners and investors."
   >
     <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
       {/* Hero */}

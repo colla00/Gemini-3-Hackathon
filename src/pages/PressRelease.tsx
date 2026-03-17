@@ -13,7 +13,7 @@ const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 export const PressRelease = () => (
   <SiteLayout
     title="Press Release — ANIA 2026 & Stanford AI+Health"
-    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research validated on 357K+ patients."
+    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research validated on 28,362 patients across 172 hospitals."
   >
     <Helmet>
       <meta name="robots" content="index, follow" />

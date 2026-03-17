@@ -5,7 +5,7 @@ import { DollarSign, TrendingDown, ShieldCheck, FileText } from "lucide-react";
 const stats = [
   { icon: FileText, value: "11", label: "Patent Applications", detail: "U.S. Provisional — filed 2025–2026" },
   { icon: TrendingDown, value: "172", label: "Hospitals Validated", detail: "External validation (eICU)" },
-  { icon: ShieldCheck, value: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
+  { icon: ShieldCheck, value: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
   { icon: DollarSign, value: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
 ];
 

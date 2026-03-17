@@ -82,7 +82,7 @@ const sectionMeta: Record<ViewType, SectionMeta> = {
   'patent-dbs-breakdown': {
     title: 'DBS Calculation Breakdown',
     subtitle: 'U.S. Patent Application Filed · Weighted Feature Analysis',
-    citation: 'DBS validated on 321,719 patients, 208 hospitals',
+    citation: 'DBS validated on 28,362 patients, 172 hospitals (eICU)',
   },
   'patent-validation-charts': {
     title: 'Research Validation Visualizations',

@@ -128,7 +128,7 @@ const personas = [
     ],
     cta: { label: "Explore EHR Partnership", link: "/solutions/ehr-vendors" },
     metrics: [
-      { value: "357K+", label: "Patients Validated" },
+      { value: "93K+", label: "Patients Validated" },
       { value: "FHIR R4", label: "Native" },
       { value: "White-Label", label: "Licensing" },
     ],

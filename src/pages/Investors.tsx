@@ -41,7 +41,7 @@ export default function Investors() {
   return (
     <SiteLayout
       title="Investor Overview | VitaSignal™ Clinical AI"
-      description="VitaSignal: 11 patent-pending clinical AI systems validated on 357,000+ patients. Equipment-independent, EHR-native intelligence."
+      description="VitaSignal: 11 patent-pending clinical AI systems validated on 93K+ patients across two studies. Equipment-independent, EHR-native intelligence."
     >
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "#0f1729" }}>
