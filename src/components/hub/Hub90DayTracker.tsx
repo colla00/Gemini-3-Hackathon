@@ -106,7 +106,7 @@ const Hub90DayTracker = () => {
           <Target className="w-7 h-7" style={{ color: '#00c8b4' }} />
           90-Day Critical Path
         </h1>
-        <p className="text-sm text-white/60 mt-1">March 10 – June 10, 2026 · Updated March 10, 2026</p>
+        <p className="text-sm text-white/60 mt-1">March 17 – June 17, 2026 · Updated March 17, 2026</p>
       </div>
 
       {/* Summary bar */}
