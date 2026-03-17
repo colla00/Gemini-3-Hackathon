@@ -246,6 +246,7 @@ Deno.serve(async (req) => {
         sender_domain: SENDER_DOMAIN,
         subject,
         html,
+        text,
         purpose: 'transactional',
         label: template,
         idempotency_key: `${template}-${to}-${Date.now()}`,
