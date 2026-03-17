@@ -91,6 +91,8 @@ const NewsEvents = lazy(() => import("./pages/NewsEvents"));
 const Watch = lazy(() => import("./pages/Watch"));
 const ForLeaders = lazy(() => import("./pages/ForLeaders"));
 const ConflictOfInterest = lazy(() => import("./pages/ConflictOfInterest"));
+const FinancialModel = lazy(() => import("./pages/FinancialModel"));
+const GlobalHealth = lazy(() => import("./pages/GlobalHealth"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
