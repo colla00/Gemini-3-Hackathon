@@ -299,6 +299,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/privacy" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
                 <Link to="/patents" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Patents</Link>
                 <Link to="/licensing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Licensing</Link>
+                <Link to="/conflict-of-interest" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">COI Policy</Link>
                 <Link to="/pilot-request" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pilot Request</Link>
                 <span className="block text-[11px] text-primary-foreground/30 pt-1">We do not sell personal data.</span>
               </div>

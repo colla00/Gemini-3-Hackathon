@@ -90,6 +90,7 @@ const Research = lazy(() => import("./pages/Research"));
 const NewsEvents = lazy(() => import("./pages/NewsEvents"));
 const Watch = lazy(() => import("./pages/Watch"));
 const ForLeaders = lazy(() => import("./pages/ForLeaders"));
+const ConflictOfInterest = lazy(() => import("./pages/ConflictOfInterest"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -163,6 +164,7 @@ const AppRoutes = () => {
           <Route path="/news" element={<Suspense fallback={<PageSkeleton />}><NewsEvents /></Suspense>} />
           <Route path="/watch" element={<Suspense fallback={<PageSkeleton />}><Watch /></Suspense>} />
           <Route path="/for-leaders" element={<Suspense fallback={<PageSkeleton />}><ForLeaders /></Suspense>} />
+          <Route path="/conflict-of-interest" element={<Suspense fallback={<PageSkeleton />}><ConflictOfInterest /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
