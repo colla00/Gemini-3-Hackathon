@@ -118,12 +118,17 @@ const patentSystems = [
   },
   {
     number: 11,
-    title: "Shift-End Documentation Burden Index (SEDR)",
+    title: "SEDR – Syndromic Surveillance",
     icon: Activity,
     status: "validated" as const,
-    oneLiner: "Validated shift-end documentation burden quantification — pooled AUROC 0.805",
+    oneLiner: "Syndromic early detection and response using aggregated EHR documentation patterns — patent application filed",
     validated: true,
-    innovation: "Shift-end documentation burden quantification validated on 94,444 ICU stays (MIMIC-IV) across five held-out three-year periods. Pooled AUROC 0.805, mean AUROC 0.782. Enriched temporal validation with Elixhauser comorbidity burden, ICU type, and admission variables.",
+    metrics: [
+      "Validated on 94,444 ICU stays (MIMIC-IV)",
+      "Pooled AUROC 0.805 across five temporal periods",
+      "Patent application filed",
+    ],
+    innovation: "Syndromic surveillance system leveraging aggregated clinical documentation patterns for early outbreak detection and response coordination. Validated on 94,444 ICU stays across five held-out three-year periods. Pooled AUROC 0.805, mean AUROC 0.782.",
   },
 ];
 

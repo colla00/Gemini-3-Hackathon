@@ -17,16 +17,16 @@ export const SEDRSection = () => (
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center gap-2 mb-3">
         <Badge variant="outline" className="text-xs">Validated</Badge>
-        <Badge className="text-xs bg-primary/10 text-primary border-primary/20">New</Badge>
+        <Badge className="text-xs bg-primary/10 text-primary border-primary/20">Patent Application Filed</Badge>
       </div>
 
       <h2 id="sedr-heading" className="font-display text-2xl md:text-3xl text-foreground mb-2">
-        Shift-End Documentation Burden Index (SEDR)
+        SEDR – Syndromic Surveillance
       </h2>
       <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8">
-        A validated measure of shift-end documentation burden that demonstrates VitaSignal's ability to
-        extract operational intelligence from routine EHR activity — turning documentation patterns into
-        workforce-level insight.
+        A validated syndromic surveillance system that demonstrates VitaSignal's ability to
+        extract population-level intelligence from routine EHR documentation patterns — enabling
+        early outbreak detection and response coordination. Patent application filed.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8 mb-8">
@@ -35,16 +35,15 @@ export const SEDRSection = () => (
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">The Problem</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Shift-end documentation burden is a known contributor to nurse fatigue, charting backlogs,
-              and care quality risk — but it has historically been invisible to health system operations.
-              There has been no systematic, data-driven way to quantify when documentation workload
-              concentrates at the end of shifts.
+              Traditional syndromic surveillance relies on lagging indicators — lab confirmations,
+              case reports, and manual signal detection. By the time conventional systems flag an
+              emerging outbreak, critical response time has already been lost.
             </p>
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">What SEDR Measures</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SEDR quantifies shift-end documentation burden using enriched temporal features from EHR
+              SEDR detects syndromic patterns using enriched temporal features from EHR documentation
               timestamps, combined with Elixhauser comorbidity burden, ICU type, and admission variables.
               Modeled with LightGBM across five held-out three-year validation periods.
             </p>
@@ -93,9 +92,9 @@ export const SEDRSection = () => (
       {/* Significance */}
       <div className="grid md:grid-cols-3 gap-4 mb-8">
         {[
-          { title: "Operational Signal", text: "Demonstrates that VitaSignal can extract workforce-level intelligence — not just patient-level risk — from routine EHR activity." },
+          { title: "Population-Level Signal", text: "Demonstrates that VitaSignal can extract syndromic intelligence — not just patient-level risk — from routine EHR documentation patterns." },
           { title: "Implementation Proof", text: "SEDR uses data already embedded in care delivery. No new hardware, no new documentation requirements, no added clinician burden." },
-          { title: "Platform Credibility", text: "Validates the documentation-driven intelligence thesis across a third independent system, strengthening the case for the broader VitaSignal platform." },
+          { title: "Patent-Pending", text: "Patent application filed. Validates the documentation-driven intelligence thesis across a third independent system, strengthening the broader VitaSignal platform." },
         ].map((item) => (
           <div key={item.title} className="p-4 rounded-lg border border-border/50 bg-card">
             <h4 className="text-sm font-bold text-foreground mb-1.5">{item.title}</h4>
