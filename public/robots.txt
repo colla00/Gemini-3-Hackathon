@@ -11,6 +11,9 @@ User-agent: facebookexternalhit
 Allow: /
 
 User-agent: *
+Allow: /
+
+# Protected/internal routes
 Disallow: /admin
 Disallow: /patent-attestations
 Disallow: /investor-deck
@@ -18,6 +21,15 @@ Disallow: /audience
 Disallow: /dataroom
 Disallow: /hub
 Disallow: /patents/tracker
-Allow: /
+Disallow: /patents/workbench
+Disallow: /patents/nonprovisional
+Disallow: /developer-tools
+Disallow: /investors
+Disallow: /leads
+Disallow: /proposal
+Disallow: /fda-builder
+Disallow: /client-portal
+
+Crawl-delay: 1
 
 Sitemap: https://vitasignal.ai/sitemap.xml
