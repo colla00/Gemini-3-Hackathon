@@ -34,7 +34,7 @@ const metrics = [
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
-  "Two independently validated systems (Patent #1 & #5)",
+  "Three independently validated systems (IDI, DBS & SEDR)",
   "External validation across 172 hospitals (eICU)",
   "SHAP-based explainability for every prediction",
   "NIH-funded research fellowship",
