@@ -40,7 +40,7 @@ The opportunity is clear: any hospital that has nurses and an EHR already has ev
 
 I'd love to discuss how VitaSignal fits your portfolio. Thank you.`,
     tips: [
-      'Pause after "357,000 patients" — let the number land',
+      'Pause after the patient counts — let the numbers land',
       'Make eye contact when saying "every hospital on earth"',
       'Have the one-pager and NDA ready to hand out immediately after',
       'If asked about competition, pivot to "complementary, not competitive"',
