@@ -11,23 +11,28 @@ const stats = [
   { value: "357,080", label: "Patients Validated", icon: Activity },
   { value: "11", label: "Patent Applications Filed", icon: FileText },
   { value: "175+", label: "Patent Claims", icon: Shield },
-  { value: "$2,847", label: "Savings Per Patient (Projected)", icon: TrendingUp },
+  { value: "3", label: "Validated Systems", icon: TrendingUp },
 ];
 
 const highlights = [
   {
-    title: "ICU Mortality Prediction (Patent #1)",
-    desc: "9 temporal features from routine EHR timestamps. AUC 0.683 validated on 65,157 patients across MIMIC-IV and HiRID.",
+    title: "ICU Mortality Prediction (Patent #1 · IDI)",
+    desc: "9 temporal features from routine EHR timestamps. AUC 0.683 validated on 65,157 patients across MIMIC-IV and HiRID. Equipment-independent — no bedside monitors.",
     badge: "Externally Validated",
   },
   {
-    title: "Documentation Burden Score™ (Patent #5)",
-    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362).",
+    title: "Documentation Burden Score™ (Patent #5 · DBS)",
+    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.",
     badge: "Externally Validated",
+  },
+  {
+    title: "Shift-End Documentation Burden Index (SEDR)",
+    desc: "Shift-end documentation burden quantification. Pooled AUROC 0.805 across 94,444 ICU stays (MIMIC-IV). Enriched temporal validation across five held-out periods.",
+    badge: "Validated",
   },
   {
     title: "Trust-Based Alert Governance (Patent #2)",
-    desc: "Mobile alert governance with trust scoring, equity monitoring, and cognitive load optimization. Target: 87% alert reduction.",
+    desc: "Mobile alert governance with trust scoring, equity monitoring, and cognitive load optimization.",
     badge: "Design Phase",
   },
 ];
