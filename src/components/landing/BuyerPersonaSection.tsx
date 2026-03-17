@@ -32,7 +32,7 @@ const personas = [
     icon: Code2,
     title: "EHR Vendors & Partners",
     desc: "White-label license 11 patent-pending algorithms. FHIR R4 native, SMART on FHIR ready. Add clinical AI without building it.",
-    link: "/solutions/ehr-vendors",
+    link: "/for-leaders#ehr-vendors",
   },
   {
     icon: Shield,
