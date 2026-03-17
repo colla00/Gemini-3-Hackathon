@@ -86,7 +86,7 @@ Results: AUROC 0.758. Negative predictive value: 0.947 at one threshold, 0.924 a
 For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model demonstrated strong discriminative performance — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
 
 [SLIDE: Health Equity]
-Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. AUC range: 0.673 to 0.691. No statistically significant differences — p equals 0.82 for interaction. Calibration slopes near-ideal across all groups.
+Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. No statistically significant differences in performance. Calibration was near-ideal across all groups.
 
 This matters because our system requires no additional hardware — making it deployable in resource-limited settings where health disparities are greatest.
 
