@@ -278,7 +278,7 @@ A: "Our system qualifies as non-device clinical decision support under Section 5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What about algorithmic bias?"
 
-A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity across all MIMIC-IV groups. AUC range: 0.673 to 0.691. No significant differences — p equals 0.82 for interaction. Calibration slopes 0.96 to 1.01 across all groups. The IDI improvement was consistent — plus 0.025 to plus 0.028 delta AUC. This equity validation is central to our value proposition and directly aligns with our NIH AIM-AHEAD funding."
+A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity across all MIMIC-IV groups. No statistically significant differences in performance across demographic subgroups. Calibration was near-ideal across all groups. The IDI improvement was consistent across demographics. This equity validation is central to our value proposition and directly aligns with our NIH funding."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What datasets did you use?"
