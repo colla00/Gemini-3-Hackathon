@@ -78,7 +78,7 @@ export const SEDRSection = () => (
                 <span className="text-muted-foreground">Outperforms baseline &amp; IDI</span>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1">
-                Statistically significant in 5/5 periods · CHITA 2026 · Metrics available under NDA
+                Statistically significant in 5/5 periods · Metrics available under NDA
               </p>
             </div>
           </CardContent>

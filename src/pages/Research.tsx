@@ -56,7 +56,7 @@ const validatedSystems = [
     details: [
       "94,444 ICU stays from MIMIC-IV (2008–2022)",
       "Five held-out three-year validation periods (LOPO-CV)",
-      "Statistically significant discrimination across all periods (CHITA 2026)",
+      "Statistically significant discrimination across all periods",
       "Enriched temporal validation with Elixhauser comorbidity burden",
     ],
   },
