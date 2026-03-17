@@ -17,7 +17,7 @@ export const SEDRSection = () => (
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center gap-2 mb-3">
         <Badge variant="outline" className="text-xs">Validated</Badge>
-        <Badge className="text-xs bg-primary/10 text-primary border-primary/20">New</Badge>
+        <Badge className="text-xs bg-primary/10 text-primary border-primary/20">Patent Application Filed</Badge>
       </div>
 
       <h2 id="sedr-heading" className="font-display text-2xl md:text-3xl text-foreground mb-2">
