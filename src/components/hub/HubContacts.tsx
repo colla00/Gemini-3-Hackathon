@@ -85,7 +85,7 @@ const HubContacts = () => (
 Founder & CEO, VitaSignal LLC
 NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine
 Adjunct Faculty, University of North Georgia
-info@vitasignal.ai | vitasignal.ai
+info@vitasignal.ai | vitasignal.ai | (888) 346-8206
 USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet
