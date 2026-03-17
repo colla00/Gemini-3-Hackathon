@@ -118,12 +118,12 @@ const patentSystems = [
   },
   {
     number: 11,
-    title: "Syndromic Early Detection & Response (SEDR)",
+    title: "Shift-End Documentation Burden Index (SEDR)",
     icon: Activity,
-    status: "design" as const,
-    oneLiner: "Population-level syndromic surveillance for early outbreak detection",
-    validated: false,
-    innovation: "Population-level syndromic scoring with automated public health alerting and cross-facility pattern aggregation.",
+    status: "validated" as const,
+    oneLiner: "Validated shift-end documentation burden quantification — pooled AUROC 0.805",
+    validated: true,
+    innovation: "Shift-end documentation burden quantification validated on 94,444 ICU stays (MIMIC-IV) across five held-out three-year periods. Pooled AUROC 0.805, mean AUROC 0.782. Enriched temporal validation with Elixhauser comorbidity burden, ICU type, and admission variables.",
   },
 ];
 
