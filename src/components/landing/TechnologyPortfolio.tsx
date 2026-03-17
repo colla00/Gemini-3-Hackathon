@@ -91,6 +91,7 @@ const systems = [
     patent: "#11",
     desc: "Population-level syndromic surveillance using aggregated clinical data for early outbreak detection and response coordination.",
     status: "Validated",
+    highlight: true,
     metric: "Population-level detection",
   },
 ];
