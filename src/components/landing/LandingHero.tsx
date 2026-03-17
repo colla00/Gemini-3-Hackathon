@@ -109,7 +109,7 @@ export const LandingHero = () => {
           transition={{ duration: 0.3, delay: 0.22 }}
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
-          Informed by NIH-supported research associated with Award No. 1OT2OD032581.
+          Informed by NIH-supported research.
           Validated on 93,000+ patients across international ICU databases.
         </motion.p>
 
