@@ -26,7 +26,7 @@ const personas = [
     icon: Building2,
     title: "CEOs & COOs",
     desc: "Meet CMS equity requirements, differentiate your system with patent-pending clinical AI, and deploy in weeks — not months.",
-    link: "/solutions/hospitals",
+    link: "/for-leaders#ceos",
   },
   {
     icon: Code2,
