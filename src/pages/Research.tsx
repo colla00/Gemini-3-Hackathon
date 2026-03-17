@@ -51,7 +51,7 @@ const validatedSystems = [
     ],
   },
   {
-    name: "Shift-End Documentation Burden Index (SEDR)",
+    name: "SEDR – Syndromic Surveillance",
     status: "Validated",
     details: [
       "94,444 ICU stays from real MIMIC-IV cohort",
