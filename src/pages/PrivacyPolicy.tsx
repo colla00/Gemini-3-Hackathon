@@ -185,9 +185,23 @@ export const PrivacyPolicy = () => {
               </p>
             </div>
 
-            {/* 14. Contact */}
+            {/* 14. Governance & Ethical Standards */}
             <div>
-              <h2 className="text-lg font-semibold text-foreground">14. Contact Us</h2>
+              <h2 className="text-lg font-semibold text-foreground">14. Governance & Ethical Standards</h2>
+              <p>
+                VitaSignal maintains organizational governance policies that complement this Privacy Policy, including:
+              </p>
+              <ul className="list-disc list-inside space-y-1.5 ml-2 mt-2">
+                <li><strong>Conflict of Interest Policy:</strong> Establishes disclosure requirements and recusal procedures for employees, contractors, and affiliates involved in clinical AI research, patent prosecution, and commercial partnerships. See our <a href="/conflict-of-interest" className="text-primary hover:underline">Conflict of Interest Policy</a>.</li>
+                <li><strong>Data Governance:</strong> All personal data processing activities are subject to internal review, documented in our Privacy Impact Assessment, and aligned with NIST SP 800-122 guidelines.</li>
+                <li><strong>Responsible AI:</strong> Model development follows fairness-preserving principles, with SHAP-based explainability and demographic subgroup performance monitoring planned for clinical deployment.</li>
+                <li><strong>Regulatory Alignment:</strong> Our data practices are designed for compatibility with HIPAA, FDA SaMD guidance, and applicable state privacy laws.</li>
+              </ul>
+            </div>
+
+            {/* 15. Contact */}
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">15. Contact Us</h2>
               <p>For privacy-related inquiries, requests, or complaints:</p>
               <div className="mt-2 p-4 rounded-lg bg-muted/50 border border-border/30">
                 <p><strong>VitaSignal LLC</strong></p>
