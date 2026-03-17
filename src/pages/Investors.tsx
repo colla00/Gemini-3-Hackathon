@@ -8,7 +8,7 @@ import { Activity, FileText, Shield, BarChart3, TrendingUp, ArrowRight, Building
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "357,080", label: "Patients Validated", icon: Activity },
+  { value: "93,519", label: "Patients Validated", icon: Activity },
   { value: "11", label: "Patent Applications Filed", icon: FileText },
   { value: "175+", label: "Patent Claims", icon: Shield },
   { value: "3", label: "Validated Systems", icon: TrendingUp },
@@ -41,7 +41,7 @@ export default function Investors() {
   return (
     <SiteLayout
       title="Investor Overview | VitaSignal™ Clinical AI"
-      description="VitaSignal: 11 patent-pending clinical AI systems validated on 357,000+ patients. Equipment-independent, EHR-native intelligence."
+      description="VitaSignal: 11 patent-pending clinical AI systems validated on 93K+ patients across two studies. Equipment-independent, EHR-native intelligence."
     >
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "#0f1729" }}>

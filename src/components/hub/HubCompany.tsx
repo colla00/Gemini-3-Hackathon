@@ -48,12 +48,7 @@ const HubCompany = () => {
           <div className="space-y-1">
             {[
               ['Seed ask', '$3–5M'],
-              ['5-yr NPV', '$12M'],
-              ['Year-5 ARR', '$32.5M'],
-              ['Exit target', '$50–150M'],
-              ['Savings/patient', '$2,847'],
-              ['ROI', '1,240%'],
-              ['Payback period', '7.5 months'],
+              ['Financial projections', 'Available under NDA'],
             ].map(([k, v]) => (
               <div key={k} className="flex justify-between border-b border-white/5 py-1">
                 <span className="text-white/40">{k}</span>

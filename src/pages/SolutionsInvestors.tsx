@@ -7,7 +7,7 @@ import { TrendingUp, ArrowRight, Shield, Brain, DollarSign, Globe, FileText, Che
 
 const highlights = [
   { icon: FileText, stat: "11", label: "Patent Applications", detail: "U.S. Provisional — strong IP moat" },
-  { icon: Brain, stat: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID, eICU databases" },
+  { icon: Brain, stat: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
   { icon: Globe, stat: "172", label: "Hospitals", detail: "External validation cohort" },
   { icon: DollarSign, stat: "—", label: "TAM", detail: "Clinical decision support market (est.)" },
 ];
@@ -22,7 +22,7 @@ const investorReasons = [
 const SolutionsInvestors = () => (
   <SiteLayout
     title="For Investors | VitaSignal — Clinical AI Investment Opportunity"
-    description="VitaSignal: 11 patent applications, 357K+ patients validated, $12B TAM. Equipment-independent clinical AI platform seeking strategic partners and investors."
+    description="VitaSignal: 11 patent applications, 93K+ patients validated across two studies. Equipment-independent clinical AI platform seeking strategic partners and investors."
   >
     <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
       {/* Hero */}

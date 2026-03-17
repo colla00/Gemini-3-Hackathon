@@ -9,7 +9,7 @@ const outcomes = [
   { icon: TrendingDown, stat: "0.758", label: "External AUROC (DBS)", detail: "Validated across 172 hospitals (eICU)" },
   { icon: Clock, stat: "0.683", label: "IDI AUC", detail: "Equipment-independent mortality prediction" },
   { icon: DollarSign, stat: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
-  { icon: Users, stat: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID, eICU databases" },
+  { icon: Users, stat: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS across MIMIC-IV, HiRID, eICU" },
 ];
 
 const useCases = [

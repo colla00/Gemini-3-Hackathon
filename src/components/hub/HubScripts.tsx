@@ -28,11 +28,11 @@ VitaSignal is a clinical AI platform that predicts ICU mortality using nothing b
 
 Our flagship system, the Intensive Documentation Index — or IDI — extracts 9 temporal features from EHR timestamps. Our strongest predictor is the coefficient of variation of inter-event intervals, with an odds ratio of 1.53 per standard deviation. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
 
-The validation is robust. We've tested across 357,000 patients in three international databases — MIMIC-IV, HiRID, and eICU — spanning 172 hospitals across three countries. On the HiRID dataset, our model achieved an AUROC of 0.9063, outperforming APACHE IV and SOFA — using zero physiological data.
+The validation is robust. We've tested across two separate studies: 65,157 patients in MIMIC-IV and HiRID for the IDI system, and 28,362 patients across 172 hospitals in the eICU database for the Documentation Burden Score.
 
 We've filed 11 U.S. provisional patent applications with over 175 claims. We classify as non-device CDS under the 21st Century Cures Act — meaning no 510(k) required.
 
-The business model is three-tier: EHR integration licenses for vendors like Epic and Cerner, hospital system pilots at $15,000 per 6-month engagement, and research collaborations under MTA. Our 5-year projections show $32.5 million in ARR with a net present value of $12 million. Per-patient savings average $2,847 with an ROI of 1,240% and payback in 7.5 months.
+The business model is three-tier: EHR integration licenses for vendors like Epic and Cerner, hospital system pilots, and research collaborations under MTA. We're developing detailed financial projections as part of our commercialization strategy.
 
 We're NIH-funded through the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. We're pre-market, pre-revenue, and seeking a $3 to $5 million seed round to fund non-provisional patent filings, FDA pre-submission, and our first three hospital pilots.
 
@@ -40,7 +40,7 @@ The opportunity is clear: any hospital that has nurses and an EHR already has ev
 
 I'd love to discuss how VitaSignal fits your portfolio. Thank you.`,
     tips: [
-      'Pause after "357,000 patients" — let the number land',
+      'Pause after the patient counts — let the numbers land',
       'Make eye contact when saying "every hospital on earth"',
       'Have the one-pager and NDA ready to hand out immediately after',
       'If asked about competition, pivot to "complementary, not competitive"',
@@ -83,7 +83,7 @@ Building on the IDI, we developed the Documentation Burden Score — a system th
 Results: AUROC 0.758. Negative predictive value: 0.947 at one threshold, 0.924 at another. This means we can reliably identify patients who will NOT experience high documentation burden — enabling proactive staffing decisions before each shift.
 
 [SLIDE: External Validation — HiRID]
-For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model achieved an AUROC of 0.9063 — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
+For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model demonstrated strong discriminative performance — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
 
 [SLIDE: Health Equity]
 Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. AUC range: 0.673 to 0.691. No statistically significant differences — p equals 0.82 for interaction. Calibration slopes near-ideal across all groups.
@@ -159,9 +159,9 @@ The claims are supported by extensive validation:
 — MIMIC-IV: 26,153 heart failure ICU patients, 2008–2019
 — HiRID: 33,897 patients, Bern University Hospital, Switzerland
 — eICU: 28,362 patients across 172 U.S. hospitals
-— Total validated: 357,080 patients
+— Total validated: 88,412 patients across both studies
 
-Key performance: AUROC 0.9063 on HiRID (outperforms APACHE IV, SOFA). AUC improvement 0.658 → 0.683 on MIMIC-IV (p<0.05).
+Key performance: Strong discriminative performance on HiRID external validation. AUC improvement 0.658 → 0.683 on MIMIC-IV (p<0.05). DBS AUROC 0.758 across 172 hospitals.
 
 [FUNDING & BAYH-DOLE]
 This research is supported by NIH Agreement 1OT2OD032581 — the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. We need to ensure all filings include proper government rights notices.
@@ -204,7 +204,7 @@ Your nurses spend 30 to 40 percent of their shift on documentation. Meanwhile, e
 [OUR SOLUTION]
 VitaSignal extracts temporal features from existing EHR documentation timestamps. No new hardware. No new sensors. No additional workflow for your clinical staff. We analyze the rhythm of documentation — how frequently nurses document, how regular or irregular the intervals are, where surveillance gaps occur.
 
-Our flagship model, the Intensive Documentation Index, uses 9 timestamp-derived features to predict ICU mortality. On external validation across 357,000 patients in three international databases — including 172 hospitals in the eICU dataset — our model achieved an AUROC of 0.758 to 0.9063 depending on the cohort.
+Our flagship model, the Intensive Documentation Index, uses 9 timestamp-derived features to predict ICU mortality. The IDI was validated on 65,157 patients across MIMIC-IV and HiRID, achieving an external AUROC of 0.758 on the DBS system across 172 hospitals in the eICU dataset.
 
 [WHY THIS MATTERS TO YOU]
 Three value propositions:
@@ -213,7 +213,7 @@ First — patient safety. Earlier identification of deteriorating patients. Our 
 
 Second — staffing optimization. Our Documentation Burden Score provides quartile-based staffing recommendations before each nursing shift. We've validated this across 172 hospitals.
 
-Third — cost savings. Our analysis shows average savings of $2,847 per patient from reduced ICU length of stay, with an ROI of 1,240% and payback in 7.5 months.
+Third — cost savings. We're developing detailed economic models to quantify per-patient savings from reduced ICU length of stay and improved resource allocation.
 
 [INTEGRATION]
 We're designed for EHR integration. We read from the chartevents table — or whatever your EHR calls timestamped documentation entries. We don't require HL7 FHIR, though we support it. We don't require real-time vital sign feeds. We need one data source: documentation timestamps.
@@ -283,7 +283,7 @@ A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What datasets did you use?"
 
-A: "Three publicly available databases through PhysioNet. MIMIC-IV version 2.2 from Beth Israel Deaconess — our primary development cohort. HiRID from Bern University Hospital in Switzerland — our external validation with AUROC 0.9063. And the eICU Collaborative Research Database — 172 hospitals for the DBS external validation. Total: 357,080 patients."
+A: "Three publicly available databases through PhysioNet. MIMIC-IV version 2.2 from Beth Israel Deaconess — our primary development cohort with 26,153 heart failure ICU patients. HiRID from Bern University Hospital in Switzerland — our external validation with 33,897 patients. And the eICU Collaborative Research Database — 172 hospitals with 28,362 patients for the DBS external validation. Total validated cohort: approximately 88,000 patients across both studies."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Can you explain the 9 IDI features?"
@@ -297,7 +297,7 @@ A: "NIH AIM-AHEAD CLINAQ Fellowship, Agreement 1OT2OD032581, through Morehouse S
     tips: [
       'Practice each answer with a timer — target 30-45 seconds max',
       'Start every answer by acknowledging the question positively',
-      'Have specific numbers memorized: 0.9063, 357,080, 172 hospitals, 1.53 OR',
+      'Have specific numbers memorized: 65,157 IDI patients, 28,362 DBS patients, 172 hospitals, 1.53 OR',
       'If you don\'t know an answer, say "That\'s a great question — I\'d love to follow up with you after with the specific data"',
       'Keep a "parking lot" notepad for questions you want to address later',
     ],

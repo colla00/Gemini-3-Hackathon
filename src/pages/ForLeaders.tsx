@@ -124,11 +124,11 @@ const personas = [
       "White-label licensing of validated clinical AI algorithms",
       "FHIR R4 native — designed for EHR integration",
       "SMART on FHIR compliant launch framework",
-      "Pre-validated on 357K+ patients — reduces regulatory burden",
+      "Pre-validated on 93K+ patients across two studies — reduces regulatory burden",
     ],
     cta: { label: "Explore EHR Partnership", link: "/solutions/ehr-vendors" },
     metrics: [
-      { value: "357K+", label: "Patients Validated" },
+      { value: "93K+", label: "Patients Validated" },
       { value: "FHIR R4", label: "Native" },
       { value: "White-Label", label: "Licensing" },
     ],

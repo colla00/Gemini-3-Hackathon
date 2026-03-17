@@ -148,7 +148,7 @@ function Licensing() {
           </p>
           <p className="text-lg md:text-xl max-w-2xl opacity-80 leading-relaxed text-gray-300">
             Three licensing tiers for EHR vendors, health systems, and research institutions.
-            Validated on 357,000+ patients. 11 patent applications filed.
+            Validated on 93,000+ patients across two studies. 11 patent applications filed.
           </p>
         </div>
       </section>
@@ -362,7 +362,7 @@ function Licensing() {
                   { icon: FileText, text: "Real AI inference engine (Gemini 2.5 Pro IDI + DBS scoring — deployed and tested)" },
                   { icon: Shield, text: "Production FHIR R4 integration architecture (HAPI server connected, Epic/Cerner documented)" },
                   { icon: CheckCircle2, text: "Full system documentation under NDA (11 patent applications, 175+ claims)" },
-                  { icon: Briefcase, text: "Validation datasets summary (N=357,080 patients, MIMIC-IV)" },
+                  { icon: Briefcase, text: "Validation datasets summary (IDI: 65,157 patients + DBS: 28,362 patients)" },
                   { icon: GraduationCap, text: "NIH award context (Award No. 1OT2OD032581, AIM-AHEAD)" },
                   { icon: CheckCircle2, text: "Regulatory overview (FDA §520(o)(1)(E) non-device CDS)" },
                 ].map((item, i) => (

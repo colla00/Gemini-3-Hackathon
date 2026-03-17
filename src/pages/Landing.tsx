@@ -25,7 +25,7 @@ const orgJsonLd = {
   "@type": "Organization",
   "name": "VitaSignal",
   "url": "https://vitasignal.ai",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 357K+ patients across 172 hospitals.",
+  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 65K+ patients (IDI) and 28K+ patients (DBS) across international databases.",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
