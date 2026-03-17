@@ -75,8 +75,8 @@ export const SEDRDemo = () => {
                 <Radio className="w-5 h-5 text-destructive" />
               </div>
               <div>
-                <CardTitle className="text-lg">Syndromic Early Detection & Response</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">Population-level surveillance using documentation rhythm patterns for outbreak detection</p>
+                <CardTitle className="text-lg">Shift-End Documentation Rate (SEDR)</CardTitle>
+                <p className="text-xs text-muted-foreground mt-0.5">Documentation-derived workflow burden measurement · Validated on 94,444 ICU stays across five temporal periods</p>
               </div>
             </div>
             <div className="flex gap-2 items-center">
@@ -96,10 +96,10 @@ export const SEDRDemo = () => {
       {/* Enterprise KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Facilities Monitored', value: liveFacilities.toString(), sub: 'cross-facility network', icon: <MapPin className="h-4 w-4" />, color: 'text-destructive' },
-          { label: 'Alerts Generated', value: liveAlerts.toString(), sub: 'automated responses', icon: <Bell className="h-4 w-4" />, color: 'text-warning' },
-          { label: 'Detection Lead', value: '72h', sub: 'before traditional surveillance', icon: <Clock className="h-4 w-4" />, color: 'text-chart-1' },
-          { label: 'Outbreak Prevention', value: '$4.2M', sub: 'estimated savings/outbreak', icon: <DollarSign className="h-4 w-4" />, color: 'text-risk-low' },
+          { label: 'ICU Stays Validated', value: '94,444', sub: 'MIMIC-IV (2008–2022)', icon: <MapPin className="h-4 w-4" />, color: 'text-destructive' },
+          { label: 'Temporal Periods', value: '5', sub: 'LOPO cross-validation', icon: <Bell className="h-4 w-4" />, color: 'text-warning' },
+          { label: 'Detection Lead', value: 'Strong', sub: 'vs. enriched baseline', icon: <Clock className="h-4 w-4" />, color: 'text-chart-1' },
+          { label: 'Significance', value: '5/5', sub: 'periods (p<0.05)', icon: <DollarSign className="h-4 w-4" />, color: 'text-risk-low' },
         ].map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 + i * 0.08 }}>
             <Card className="border-border/40 bg-gradient-to-b from-background to-muted/20 hover:shadow-md transition-shadow">
@@ -246,19 +246,19 @@ export const SEDRDemo = () => {
               <Shield className="w-5 h-5 text-destructive" />
             </div>
             <div className="flex-1">
-              <p className="text-xs font-bold text-foreground">Enterprise & Public Health Value</p>
+              <p className="text-xs font-bold text-foreground">Validation Summary</p>
               <p className="text-[10px] text-muted-foreground">
-                SEDR detects outbreaks 72 hours before traditional syndromic surveillance using EHR documentation patterns.
-                A single prevented outbreak saves an estimated $4.2M* in containment costs.
-                Cross-facility aggregation creates a network effect — each connected hospital strengthens detection for all.
+                SEDR captures shift-end documentation patterns from routine EHR activity, validated on 94,444 MIMIC-IV ICU stays
+                across five held-out three-year periods (2008–2022). SEDR-enhanced models outperformed enriched baseline and IDI comparators
+                across all temporal periods with statistical significance. Detailed metrics available under NDA.
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-lg font-bold text-destructive">$4.2M</p>
-              <p className="text-[9px] text-muted-foreground">per outbreak*</p>
+              <p className="text-lg font-bold text-destructive">5/5</p>
+              <p className="text-[9px] text-muted-foreground">periods significant</p>
             </div>
           </div>
-          <p className="text-[8px] text-muted-foreground/60 mt-2">*Design-phase estimates. Not clinically validated. For illustration only.</p>
+          <p className="text-[8px] text-muted-foreground/60 mt-2">*Simulated visualization. Actual performance metrics under NDA. Not for clinical use.</p>
         </CardContent>
       </Card>
     </div>
