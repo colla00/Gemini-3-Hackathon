@@ -59,7 +59,7 @@ const faqJsonLd = {
       "name": "Has VitaSignal been validated?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The ICU Mortality Prediction system has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score has been validated on 28K+ patients across 172 hospitals in the eICU database. VitaSignal is a pre-market research prototype and is not FDA cleared."
+        "text": "Yes. The ICU Mortality Prediction system (IDI) has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score (DBS) has been validated on 28K+ patients across 172 hospitals in the eICU database. The Shift-End Documentation Rate (SEDR) has been validated on 94K+ ICU stays across five temporal periods. VitaSignal is a pre-market research prototype and is not FDA cleared."
       }
     },
     {
