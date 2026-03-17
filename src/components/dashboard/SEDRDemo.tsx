@@ -246,19 +246,19 @@ export const SEDRDemo = () => {
               <Shield className="w-5 h-5 text-destructive" />
             </div>
             <div className="flex-1">
-              <p className="text-xs font-bold text-foreground">Enterprise & Public Health Value</p>
+              <p className="text-xs font-bold text-foreground">Validation Summary</p>
               <p className="text-[10px] text-muted-foreground">
-                SEDR detects outbreaks 72 hours before traditional syndromic surveillance using EHR documentation patterns.
-                A single prevented outbreak saves an estimated $4.2M* in containment costs.
-                Cross-facility aggregation creates a network effect — each connected hospital strengthens detection for all.
+                SEDR captures shift-end documentation patterns from routine EHR activity, validated on 94,444 MIMIC-IV ICU stays
+                across five held-out three-year periods (2008–2022). SEDR-enhanced models outperformed enriched baseline and IDI comparators
+                across all temporal periods with statistical significance. Detailed metrics available under NDA.
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-lg font-bold text-destructive">$4.2M</p>
-              <p className="text-[9px] text-muted-foreground">per outbreak*</p>
+              <p className="text-lg font-bold text-destructive">5/5</p>
+              <p className="text-[9px] text-muted-foreground">periods significant</p>
             </div>
           </div>
-          <p className="text-[8px] text-muted-foreground/60 mt-2">*Design-phase estimates. Not clinically validated. For illustration only.</p>
+          <p className="text-[8px] text-muted-foreground/60 mt-2">*Simulated visualization. Actual performance metrics under NDA. Not for clinical use.</p>
         </CardContent>
       </Card>
     </div>
