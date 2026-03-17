@@ -92,9 +92,9 @@ export const SEDRSection = () => (
       {/* Significance */}
       <div className="grid md:grid-cols-3 gap-4 mb-8">
         {[
-          { title: "Operational Signal", text: "Demonstrates that VitaSignal can extract workforce-level intelligence — not just patient-level risk — from routine EHR activity." },
+          { title: "Population-Level Signal", text: "Demonstrates that VitaSignal can extract syndromic intelligence — not just patient-level risk — from routine EHR documentation patterns." },
           { title: "Implementation Proof", text: "SEDR uses data already embedded in care delivery. No new hardware, no new documentation requirements, no added clinician burden." },
-          { title: "Platform Credibility", text: "Validates the documentation-driven intelligence thesis across a third independent system, strengthening the case for the broader VitaSignal platform." },
+          { title: "Patent-Pending", text: "Patent application filed. Validates the documentation-driven intelligence thesis across a third independent system, strengthening the broader VitaSignal platform." },
         ].map((item) => (
           <div key={item.title} className="p-4 rounded-lg border border-border/50 bg-card">
             <h4 className="text-sm font-bold text-foreground mb-1.5">{item.title}</h4>
