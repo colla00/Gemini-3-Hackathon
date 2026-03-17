@@ -75,8 +75,8 @@ export const SEDRDemo = () => {
                 <Radio className="w-5 h-5 text-destructive" />
               </div>
               <div>
-                <CardTitle className="text-lg">Syndromic Early Detection & Response</CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">Population-level surveillance using documentation rhythm patterns for outbreak detection</p>
+                <CardTitle className="text-lg">Shift-End Documentation Rate (SEDR)</CardTitle>
+                <p className="text-xs text-muted-foreground mt-0.5">Documentation-derived workflow burden measurement · Validated on 94,444 ICU stays across five temporal periods</p>
               </div>
             </div>
             <div className="flex gap-2 items-center">
