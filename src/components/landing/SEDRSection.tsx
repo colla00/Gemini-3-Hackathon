@@ -70,15 +70,19 @@ export const SEDRSection = () => (
             </div>
             <div className="pt-3 border-t border-border/30 space-y-1.5">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Performance</span>
-                <span className="font-bold text-primary text-lg">Statistically validated</span>
+                <span className="text-muted-foreground">Mean AUROC</span>
+                <span className="font-bold text-primary text-lg">0.782</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">vs. Comparator</span>
-                <span className="text-muted-foreground">Outperforms baseline</span>
+                <span className="text-muted-foreground">Pooled AUROC (P3–5)</span>
+                <span className="font-bold text-primary text-lg">0.805</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Comparator Pooled</span>
+                <span className="text-muted-foreground">≈0.753</span>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1">
-                Detailed metrics available under NDA
+                One-sided DeLong testing significant in 5/5 periods (p&lt;0.05) · CHITA 2026
               </p>
             </div>
           </CardContent>

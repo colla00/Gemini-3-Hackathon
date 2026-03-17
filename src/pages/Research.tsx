@@ -54,10 +54,10 @@ const validatedSystems = [
     name: "SEDR – Syndromic Surveillance",
     status: "Validated",
     details: [
-      "Large-scale ICU cohort from real MIMIC-IV data",
-      "Five held-out three-year validation periods (2008–2022)",
-      "Statistically validated with strong discrimination",
-      "Enriched temporal validation with comorbidity burden features",
+      "94,444 ICU stays from MIMIC-IV (2008–2022, 12.0% mortality)",
+      "Five held-out three-year validation periods (LOPO-CV)",
+      "Mean AUROC 0.782, pooled AUROC 0.805 — outperforms baseline (≈0.753)",
+      "Enriched temporal validation with Elixhauser comorbidity burden (CHITA 2026)",
     ],
   },
 ];
