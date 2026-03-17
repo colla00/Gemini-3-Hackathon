@@ -35,16 +35,15 @@ export const SEDRSection = () => (
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">The Problem</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Shift-end documentation burden is a known contributor to nurse fatigue, charting backlogs,
-              and care quality risk — but it has historically been invisible to health system operations.
-              There has been no systematic, data-driven way to quantify when documentation workload
-              concentrates at the end of shifts.
+              Traditional syndromic surveillance relies on lagging indicators — lab confirmations,
+              case reports, and manual signal detection. By the time conventional systems flag an
+              emerging outbreak, critical response time has already been lost.
             </p>
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">What SEDR Measures</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SEDR quantifies shift-end documentation burden using enriched temporal features from EHR
+              SEDR detects syndromic patterns using enriched temporal features from EHR documentation
               timestamps, combined with Elixhauser comorbidity burden, ICU type, and admission variables.
               Modeled with LightGBM across five held-out three-year validation periods.
             </p>
