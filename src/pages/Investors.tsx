@@ -54,13 +54,14 @@ export default function Investors() {
             Pre-Seed · Patent Pending
           </Badge>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-[1.1]">
-            Clinical AI That Works
+            Documentation-Driven Clinical Intelligence
             <br />
-            <span style={{ color: "#00c8b4" }}>Without New Hardware</span>
+            <span style={{ color: "#00c8b4" }}>Implementation-Ready · Patent-Pending</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-            VitaSignal extracts predictive intelligence from existing EHR documentation patterns —
-            no sensors, no wearables, no integration burden.
+            VitaSignal turns routine EHR activity into actionable insight for risk prediction,
+            workflow visibility, and equitable decision support — without requiring new hardware
+            or adding burden to care teams. Three independently validated systems. 11 patent applications.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" className="gap-2" style={{ background: "#00c8b4", color: "#0f1729" }} asChild>
