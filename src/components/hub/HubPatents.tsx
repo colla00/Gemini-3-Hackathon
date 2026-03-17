@@ -99,7 +99,7 @@ const HubPatents = () => (
       <ul className="list-disc pl-5 space-y-2">
         <li>"We predict ICU mortality from nothing but the RHYTHM of nursing documentation — not vital signs, not labs, not any additional equipment."</li>
         <li>"When a patient is deteriorating, nurses instinctively document more frequently and more erratically. That behavior leaves a timestamp signature in the EHR — 4–6 hours before vitals change."</li>
-        <li>"We've validated this in 357,000+ patients across MIMIC-IV, HiRID, and eICU — three different countries, 172 hospitals."</li>
+        <li>"We've validated this across 65,157 patients (IDI) and 28,362 patients (DBS) in MIMIC-IV, HiRID, and eICU — three different countries, 172 hospitals."</li>
         <li>"Our strongest predictor is the coefficient of variation of inter-event intervals — essentially, how irregular the rhythm of documentation is. An OR of 1.53 per SD."</li>
         <li>"No hardware. No sensors. No additional workflow. Any hospital that has nurses and an EHR already has everything our system needs."</li>
         <li>"We filed 11 provisional patents. The foundational system is the IDI — USPTO 63/976,293. The NP deadline for our two most critical patents is December 2026."</li>

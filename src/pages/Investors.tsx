@@ -8,7 +8,7 @@ import { Activity, FileText, Shield, BarChart3, TrendingUp, ArrowRight, Building
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "357,080", label: "Patients Validated", icon: Activity },
+  { value: "93,519", label: "Patients Validated", icon: Activity },
   { value: "11", label: "Patent Applications Filed", icon: FileText },
   { value: "175+", label: "Patent Claims", icon: Shield },
   { value: "3", label: "Validated Systems", icon: TrendingUp },

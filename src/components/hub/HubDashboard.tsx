@@ -41,7 +41,7 @@ const HubDashboard = () => (
       <h2 className="text-sm font-semibold text-white mb-4">Quick Reference</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1.5 text-sm text-white/70">
         {[
-          ['Total patients validated', '357,080'],
+          ['Total patients validated', '93,519 (combined IDI + DBS)'],
           ['IDI cohort (Paper 1)', '26,153 (MIMIC-IV HF, 2008–2019)'],
           ['Full IDI validation cohort', '65,157 (MIMIC-IV + HiRID)'],
           ['DBS cohort (Paper 2)', '28,362 patients · 172 hospitals (eICU)'],

@@ -118,7 +118,7 @@ const SolutionsEHRVendors = () => (
             <h2 className="text-xl font-bold text-white mb-3 font-['DM_Serif_Display']">IP-Protected Partnership</h2>
             <p className="text-sm text-white/60 mb-4 max-w-xl mx-auto">
               11 U.S. patent applications protect the underlying algorithms. White-label licensing gives you competitive differentiation
-              without R&D risk — backed by NIH-funded validation across 357K+ patients.
+              without R&D risk — backed by NIH-funded validation across 93K+ patients.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild>

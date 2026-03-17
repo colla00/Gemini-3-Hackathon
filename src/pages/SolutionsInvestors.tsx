@@ -7,7 +7,7 @@ import { TrendingUp, ArrowRight, Shield, Brain, DollarSign, Globe, FileText, Che
 
 const highlights = [
   { icon: FileText, stat: "11", label: "Patent Applications", detail: "U.S. Provisional — strong IP moat" },
-  { icon: Brain, stat: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID, eICU databases" },
+  { icon: Brain, stat: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
   { icon: Globe, stat: "172", label: "Hospitals", detail: "External validation cohort" },
   { icon: DollarSign, stat: "—", label: "TAM", detail: "Clinical decision support market (est.)" },
 ];
