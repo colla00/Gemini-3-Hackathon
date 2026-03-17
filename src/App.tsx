@@ -164,6 +164,7 @@ const AppRoutes = () => {
           <Route path="/news" element={<Suspense fallback={<PageSkeleton />}><NewsEvents /></Suspense>} />
           <Route path="/watch" element={<Suspense fallback={<PageSkeleton />}><Watch /></Suspense>} />
           <Route path="/for-leaders" element={<Suspense fallback={<PageSkeleton />}><ForLeaders /></Suspense>} />
+          <Route path="/conflict-of-interest" element={<Suspense fallback={<PageSkeleton />}><ConflictOfInterest /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
