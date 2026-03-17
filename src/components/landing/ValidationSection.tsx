@@ -94,8 +94,8 @@ export const ValidationSection = () => {
             </h2>
             <p className="text-primary-foreground/70 mb-8 leading-relaxed">
              Two patent systems have been validated on large-scale
-              clinical datasets with research supported in part by NIH Award No. 1OT2OD032581: ICU Mortality Prediction (65,157 patients across international databases)
-              and DBS (28,362 patients across 172 hospitals).
+              clinical datasets with NIH-supported research: ICU Mortality Prediction (65K+ patients across international databases)
+              and DBS (28K+ patients across 172 hospitals). Performance metrics available under NDA.
             </p>
 
             <div className="space-y-3">

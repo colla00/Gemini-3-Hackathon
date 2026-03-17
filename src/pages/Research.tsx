@@ -44,9 +44,9 @@ const validatedSystems = [
     name: "Documentation Burden Score™ (Patent #5 · DBS)",
     status: "Externally Validated",
     details: [
-      "28,362 patients validated across 172 hospitals (eICU)",
+      "28K+ patients validated across 172 hospitals (eICU)",
       "ML-powered documentation burden quantification",
-      "AUROC 0.802 internal, 0.758 external validation",
+      "Statistically validated with strong discrimination",
       "ANIA 2026 presentation accepted — Boston, MA",
     ],
   },
