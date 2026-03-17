@@ -125,6 +125,7 @@ export const Landing = () => {
       <DashboardPreview />
       <ROISection />
       <ValidationSection />
+      <SEDRSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
       
