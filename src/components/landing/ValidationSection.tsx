@@ -27,14 +27,14 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 
 const metrics = [
   { label: "IDI System", value: 65, display: "65K+", detail: "Patients validated", prefix: "", suffix: "K+" },
-  { label: "External Validation", value: 172, display: "172", detail: "Hospitals (eICU)", prefix: "", suffix: "" },
-  { label: "DBS System", value: 28, display: "28K+", detail: "Patients validated", prefix: "", suffix: "K+" },
-  { label: "Total Validated", value: 93, display: "93K+", detail: "Combined across both studies", prefix: "", suffix: "K+" },
+  { label: "DBS System", value: 28, display: "28K+", detail: "Patients · 172 hospitals", prefix: "", suffix: "K+" },
+  { label: "SEDR System", value: 94, display: "94K+", detail: "ICU stays validated", prefix: "", suffix: "K+" },
+  { label: "Total Validated", value: 187, display: "187K+", detail: "Combined across all studies", prefix: "", suffix: "K+" },
 ];
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
-  "Two independently validated systems (Patent #1 & #5)",
+  "Three independently validated systems (IDI, DBS & SEDR)",
   "External validation across 172 hospitals (eICU)",
   "SHAP-based explainability for every prediction",
   "NIH-funded research fellowship",
@@ -93,9 +93,9 @@ export const ValidationSection = () => {
               Research-Backed Results
             </h2>
             <p className="text-primary-foreground/70 mb-8 leading-relaxed">
-             Two patent systems have been validated on large-scale
-              clinical datasets with NIH-supported research: ICU Mortality Prediction (65K+ patients across international databases)
-              and DBS (28K+ patients across 172 hospitals). Performance metrics available under NDA.
+             Three patent systems have been validated on large-scale
+              clinical datasets with NIH-supported research: IDI (65K+ patients across international databases),
+              DBS (28K+ patients across 172 hospitals), and SEDR (94K+ ICU stays, CHITA 2026). Performance metrics available under NDA.
             </p>
 
             <div className="space-y-3">

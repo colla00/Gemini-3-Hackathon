@@ -25,7 +25,7 @@ const orgJsonLd = {
   "@type": "Organization",
   "name": "VitaSignal",
   "url": "https://vitasignal.ai",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction and nursing documentation burden scoring. Validated on 65K+ patients (IDI) and 28K+ patients (DBS) across international databases.",
+  "description": "Equipment-independent clinical AI for ICU mortality prediction, nursing documentation burden scoring, and syndromic surveillance. Three validated systems: IDI (65K+ patients), DBS (28K+ patients, 172 hospitals), and SEDR (94K+ ICU stays).",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
@@ -59,7 +59,7 @@ const faqJsonLd = {
       "name": "Has VitaSignal been validated?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The ICU Mortality Prediction system has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score has been validated on 28K+ patients across 172 hospitals in the eICU database. VitaSignal is a pre-market research prototype and is not FDA cleared."
+        "text": "Yes. The ICU Mortality Prediction system (IDI) has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score (DBS) has been validated on 28K+ patients across 172 hospitals in the eICU database. The Shift-End Documentation Rate (SEDR) has been validated on 94K+ ICU stays across five temporal periods. VitaSignal is a pre-market research prototype and is not FDA cleared."
       }
     },
     {
