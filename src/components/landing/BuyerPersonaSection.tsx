@@ -20,7 +20,7 @@ const personas = [
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
     desc: "Zero capital expenditure. Software-only deployment. No new hardware procurement — ROI driven by existing EHR data utilization.",
-    link: "/roi-calculator",
+    link: "/for-leaders#cfos",
   },
   {
     icon: Building2,
