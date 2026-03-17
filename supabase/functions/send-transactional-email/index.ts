@@ -16,7 +16,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 }
 
-const SENDER_DOMAIN = 'notify.www.vitasignal.ai'
+const SENDER_DOMAIN = 'notify.vitasignal.ai'
 const FROM_ADDRESS = `VitaSignal <info@${SENDER_DOMAIN}>`
 const SITE_URL = 'https://vitasignal.ai'
 
