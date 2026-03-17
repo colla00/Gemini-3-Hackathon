@@ -26,7 +26,7 @@ We've solved this.
 
 VitaSignal is a clinical AI platform that predicts ICU mortality using nothing but the timing patterns of routine nursing documentation — no sensors, no wearables, no additional equipment. The insight is simple but powerful: when a patient deteriorates, nurses instinctively document more frequently and more erratically. That behavioral signature appears in the EHR 4 to 6 hours before vital signs change.
 
-Our flagship system, the Intensive Documentation Index — or IDI — extracts 9 temporal features from EHR timestamps. Our strongest predictor is the coefficient of variation of inter-event intervals, with an odds ratio of 1.53 per standard deviation. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
+Our flagship system, the Intensive Documentation Index — or IDI — extracts temporal features from EHR timestamps. Our strongest predictor captures the variability of documentation rhythm. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
 
 The validation is robust. We've tested across two separate studies: 65,157 patients in MIMIC-IV and HiRID for the IDI system, and 28,362 patients across 172 hospitals in the eICU database for the Documentation Burden Score.
 
