@@ -32,7 +32,7 @@ const DEFAULT_NOTES: Record<number, string> = {
   10: `Market Opportunity\n• Large and growing clinical decision support market.\n• 6,000+ US hospitals, 105K+ ICU beds.\n• No competitor offers equipment-independent mortality prediction.`,
   11: `Competitive Landscape\n• Epic Sepsis Model: requires proprietary ecosystem, poor external validation.\n• APACHE/SAPS: requires manual data entry, not real-time.\n• VitaSignal: works across ANY EHR, real-time, no extra hardware.`,
   12: `Business Model\n• SaaS licensing to health systems — per-bed pricing.\n• Implementation: 4-6 week deployment timeline.\n• Revenue streams: software licenses, integration services, analytics.`,
-  13: `Financial Impact\n• $2,847 savings per patient (reduced LOS, fewer adverse events).\n• 1,240% projected ROI for a 500-bed hospital.\n• 90 minutes saved per nursing shift from reduced documentation burden.`,
+  13: `Financial Impact\n• Economic modeling in progress — projections available under NDA.\n• Target: reduced ICU length of stay and fewer adverse events.\n• Documentation burden reduction targets improved nurse efficiency.`,
   14: `Intellectual Property\n• 11 U.S. provisional patent applications filed February 28, 2026.\n• Covers: IDI, DBS, Trust-Based Alerts, Equity Monitoring, Digital Twins.\n• Strong defensible moat — temporal documentation analysis is novel.`,
   15: `Regulatory Strategy\n• FDA: pursuing De Novo pathway for clinical decision support.\n• ISO 14971 risk management framework documented.\n• HIPAA-compliant architecture — all data de-identified for research.`,
   16: `Research Validation\n• Multi-database validation: MIMIC-IV, eICU, HiRID.\n• 357K+ total patients across 172 hospitals.\n• Manuscripts under review at target journals.`,
