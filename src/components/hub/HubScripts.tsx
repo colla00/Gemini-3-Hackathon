@@ -26,7 +26,7 @@ We've solved this.
 
 VitaSignal is a clinical AI platform that predicts ICU mortality using nothing but the timing patterns of routine nursing documentation — no sensors, no wearables, no additional equipment. The insight is simple but powerful: when a patient deteriorates, nurses instinctively document more frequently and more erratically. That behavioral signature appears in the EHR 4 to 6 hours before vital signs change.
 
-Our flagship system, the Intensive Documentation Index — or IDI — extracts 9 temporal features from EHR timestamps. Our strongest predictor is the coefficient of variation of inter-event intervals, with an odds ratio of 1.53 per standard deviation. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
+Our flagship system, the Intensive Documentation Index — or IDI — extracts temporal features from EHR timestamps. Our strongest predictor captures the variability of documentation rhythm. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
 
 The validation is robust. We've tested across two separate studies: 65,157 patients in MIMIC-IV and HiRID for the IDI system, and 28,362 patients across 172 hospitals in the eICU database for the Documentation Burden Score.
 
@@ -70,7 +70,7 @@ We asked: can we quantify that signal? Can we use the rhythm of documentation to
 [SLIDE: The IDI — Intensive Documentation Index]
 The answer is the IDI — 9 temporal features extracted from nursing documentation timestamps during the first 24 hours of ICU stay. These include documentation rate, surveillance gaps, inter-event variability, and burstiness.
 
-Our strongest predictor is idi_cv_interevent — the coefficient of variation of time between documentation events. An odds ratio of 1.53 per standard deviation. It's not how much nurses document — it's how irregular the rhythm is.
+Our strongest predictor captures the variability in timing between documentation events. It's not how much nurses document — it's how irregular the rhythm is.
 
 [SLIDE: Validation — MIMIC-IV]
 We validated on 26,153 heart failure ICU admissions from MIMIC-IV, 2008 to 2019. Using temporal validation — training on 2008 through 2018, testing on 2019 — our IDI-enhanced model improved AUC from 0.658 to 0.683, a statistically significant gain by DeLong test, p less than 0.05.
@@ -86,7 +86,7 @@ Results: AUROC 0.758. Negative predictive value: 0.947 at one threshold, 0.924 a
 For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model demonstrated strong discriminative performance — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
 
 [SLIDE: Health Equity]
-Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. AUC range: 0.673 to 0.691. No statistically significant differences — p equals 0.82 for interaction. Calibration slopes near-ideal across all groups.
+Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. No statistically significant differences in performance. Calibration was near-ideal across all groups.
 
 This matters because our system requires no additional hardware — making it deployable in resource-limited settings where health disparities are greatest.
 
@@ -134,43 +134,43 @@ These two are the broadest systems and need to be filed first. I need a filing s
 [THE 11 APPLICATIONS]
 Let me walk through them quickly:
 
-1. 63/932,953 — CRIS-E — Clinical Risk Intelligence System, Equity Edition. Filed December 6, 2025. This is a comprehensive clinical decision support system with built-in equity monitoring. CRITICAL priority.
+1. CRIS-E — Clinical Risk Intelligence System, Equity Edition. Filed December 2025. Comprehensive clinical decision support with equity monitoring. CRITICAL priority.
 
-2. 63/946,187 — CDS-EQUITY — Equitable Clinical Decision Support. Filed December 21, 2025. Focused on equity-weighted risk scoring. CRITICAL priority. We should discuss whether to bundle this with CRIS-E.
+2. CDS-EQUITY — Equitable Clinical Decision Support. Filed December 2025. Equity-weighted risk scoring. CRITICAL priority. Consider bundling with CRIS-E.
 
-3. 63/966,099 — DBS-v2 — Documentation Burden Score version 2. Filed January 22, 2026. ML-based documentation burden quantification. Validated on 28,362 patients across 172 hospitals. HIGH priority.
+3. DBS-v2 — Documentation Burden Score version 2. Filed January 2026. ML-based documentation burden quantification. Validated across 172 hospitals. HIGH priority.
 
-4. 63/966,117 — UNIP — Unified Nursing Intelligence Platform. Filed January 22, 2026. Integration platform connecting all subsystems. HIGH priority. Possible bundle with CDS-EQUITY.
+4. UNIP — Unified Nursing Intelligence Platform. Filed January 2026. Integration platform connecting all subsystems. HIGH priority. Possible bundle with CDS-EQUITY.
 
-5. 63/976,293 — IDI — Intensive Documentation Index. Filed February 5, 2026. This is the foundational patent — 9 temporal features from documentation timestamps predicting ICU mortality. Published preprint on medRxiv. STANDARD priority for NP deadline but HIGH strategic value.
+5. IDI — Intensive Documentation Index. Filed February 2026. Foundational patent — temporal features from documentation timestamps predicting ICU mortality. STANDARD priority for NP deadline but HIGH strategic value.
 
-6 through 11 — Six applications filed March 4, 2026, all with March 4, 2027 NP deadlines:
-— 63/995,920 TRACI — Temporal Risk Assessment with Contextual Intelligence
-— 63/995,921 ESDBI — EHR-Based Staffing and Documentation Burden Index
-— 63/995,922 SHQS — Surveillance-Based Healthcare Quality Score
-— 63/995,923 DTBL — Digital Twin Baseline Learning
-— 63/995,924 CTCI — Clinical Trial Cohort Intelligence
-— 63/995,925 SEDR — Syndromic Early Detection and Response
+6 through 11 — Six applications filed March 2026, all with March 2027 NP deadlines:
+— TRACI — Temporal Risk Assessment with Contextual Intelligence
+— ESDBI — EHR-Based Staffing and Documentation Burden Index
+— SHQS — Surveillance-Based Healthcare Quality Score
+— DTBL — Digital Twin Baseline Learning
+— CTCI — Clinical Trial Cohort Intelligence
+— SEDR — Syndromic Early Detection and Response
 
-I'm calling these the "Q-2 bundle group." They share common infrastructure and may benefit from a continuation or CIP strategy.
+These share common infrastructure and may benefit from a continuation or CIP strategy.
 
 [VALIDATION DATA]
 The claims are supported by extensive validation:
-— MIMIC-IV: 26,153 heart failure ICU patients, 2008–2019
-— HiRID: 33,897 patients, Bern University Hospital, Switzerland
-— eICU: 28,362 patients across 172 U.S. hospitals
-— Total validated: 88,412 patients across both studies
+— MIMIC-IV: Heart failure ICU patients, 2008–2019
+— HiRID: Bern University Hospital, Switzerland
+— eICU: 172 U.S. hospitals
+— Total validated: ~88K patients across both studies
 
-Key performance: Strong discriminative performance on HiRID external validation. AUC improvement 0.658 → 0.683 on MIMIC-IV (p<0.05). DBS AUROC 0.758 across 172 hospitals.
+Key performance: Strong discriminative performance across all validation cohorts. Detailed metrics available under NDA.
 
 [FUNDING & BAYH-DOLE]
-This research is supported by NIH Agreement 1OT2OD032581 — the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. We need to ensure all filings include proper government rights notices.
+This research is supported by an NIH fellowship. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. All filings must include proper government rights notices.
 
 [ENTITY STATUS]
-VitaSignal LLC is registered in Georgia. EIN is on file. I need to execute patent assignment — Exhibit A — transferring all 11 applications to VitaSignal LLC. This requires the LLC bank account, which is in progress.
+VitaSignal LLC is registered in Georgia. EIN is on file. Patent assignment execution is in progress.
 
 [WHAT I NEED FROM YOU]
-1. Filing strategy for 63/932,953 and 63/946,187 — priority NP filings
+1. Filing strategy for priority NP filings (CRIS-E and CDS-EQUITY)
 2. Bundle/continuation analysis for the Q-2 group
 3. Patent assignment execution (Exhibit A for all 11)
 4. Prior art search recommendation
@@ -278,26 +278,26 @@ A: "Our system qualifies as non-device clinical decision support under Section 5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What about algorithmic bias?"
 
-A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity across all MIMIC-IV groups. AUC range: 0.673 to 0.691. No significant differences — p equals 0.82 for interaction. Calibration slopes 0.96 to 1.01 across all groups. The IDI improvement was consistent — plus 0.025 to plus 0.028 delta AUC. This equity validation is central to our value proposition and directly aligns with our NIH AIM-AHEAD funding."
+A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity across all MIMIC-IV groups. No statistically significant differences in performance across demographic subgroups. Calibration was near-ideal across all groups. The IDI improvement was consistent across demographics. This equity validation is central to our value proposition and directly aligns with our NIH funding."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What datasets did you use?"
 
-A: "Three publicly available databases through PhysioNet. MIMIC-IV version 2.2 from Beth Israel Deaconess — our primary development cohort with 26,153 heart failure ICU patients. HiRID from Bern University Hospital in Switzerland — our external validation with 33,897 patients. And the eICU Collaborative Research Database — 172 hospitals with 28,362 patients for the DBS external validation. Total validated cohort: approximately 88,000 patients across both studies."
+A: "Three publicly available databases through PhysioNet. MIMIC-IV from Beth Israel Deaconess — our primary development cohort. HiRID from Bern University Hospital in Switzerland — our external validation. And the eICU Collaborative Research Database — 172 hospitals for the DBS external validation. Total validated cohort: approximately 88,000 patients across both studies."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Can you explain the 9 IDI features?"
 
-A: "All 9 are derived from nursing documentation timestamps in the first 24 hours. Documentation volume — events per 24 hours and events per hour. Surveillance gaps — maximum gap, count of gaps over 60 minutes, count over 120 minutes. Rhythm analysis — mean inter-event time, standard deviation, and the coefficient of variation, which is our strongest predictor. And burstiness — a measure of how clustered versus regular the documentation pattern is. No clinical content is analyzed — only the timing."
+A: "All features are derived from nursing documentation timestamps in the first 24 hours. They cover documentation volume, surveillance gaps, rhythm analysis, and burstiness patterns. No clinical content is analyzed — only the timing. Detailed feature specifications are available under NDA."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Who funds this work?"
 
-A: "NIH AIM-AHEAD CLINAQ Fellowship, Agreement 1OT2OD032581, through Morehouse School of Medicine. Standard Bayh-Dole applies — the government retains certain rights, VitaSignal LLC retains commercialization rights. No industry funding, no conflicts beyond my own patent applications and company."`,
+A: "NIH-funded research fellowship through Morehouse School of Medicine. Standard Bayh-Dole applies — the government retains certain rights, VitaSignal LLC retains commercialization rights. No industry funding, no conflicts beyond my own patent applications and company."`,
     tips: [
       'Practice each answer with a timer — target 30-45 seconds max',
       'Start every answer by acknowledging the question positively',
-      'Have specific numbers memorized: 65,157 IDI patients, 28,362 DBS patients, 172 hospitals, 1.53 OR',
+      'Have key talking points memorized: validation scope, 172 hospitals, equipment-independent',
       'If you don\'t know an answer, say "That\'s a great question — I\'d love to follow up with you after with the specific data"',
       'Keep a "parking lot" notepad for questions you want to address later',
     ],

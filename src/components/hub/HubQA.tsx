@@ -48,7 +48,7 @@ const qaItems = [
   },
   {
     q: 'Tell me about your patent portfolio.',
-    a: `11 U.S. provisional patent applications filed between December 2025 and February 2026. Sole inventor: Dr. Alexis Collier. Total claims: 175+. The two most critical NP deadlines are December 6 and December 21, 2026 (USPTO 63/932,953 and 63/946,187). The foundational IDI patent is 63/976,293, filed February 5, 2026. We are currently engaging a patent attorney for non-provisional filing strategy. Under NDA, we provide full claim summaries, filing dates, and technical specifications.`,
+    a: `11 U.S. provisional patent applications filed between December 2025 and February 2026. Sole inventor: Dr. Alexis Collier. Total claims: 175+. The two most critical NP deadlines are December 6 and December 21, 2026. We are currently engaging a patent attorney for non-provisional filing strategy. Under NDA, we provide full claim summaries, filing dates, and technical specifications.`,
   },
   {
     q: 'Who funds this research?',

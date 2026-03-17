@@ -119,9 +119,9 @@ info@vitasignal.ai | vitasignal.ai`,
     ],
     outreachTemplate: `Hi [Name],
 
-VitaSignal is hiring a Lead ML Engineer to build production inference pipelines for our clinical AI platform. We predict ICU patient deterioration from EHR documentation patterns — validated on 55K+ patients, 11 patents filed.
+VitaSignal is hiring a Lead ML Engineer to build production inference pipelines for our clinical AI platform. We predict ICU patient deterioration from EHR documentation patterns — validated across international databases, 11 patents filed.
 
-Role: Build real-time inference, model monitoring, and multi-hospital scalability. $160K-$190K + 1-3% equity. Series A trajectory.
+Role: Build real-time inference, model monitoring, and multi-hospital scalability. Competitive compensation + equity. Series A trajectory.
 
 Interested in learning more?
 

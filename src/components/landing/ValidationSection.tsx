@@ -26,9 +26,9 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 };
 
 const metrics = [
-  { label: "Patent #1 IDI", value: 65157, display: "65,157", detail: "Patients validated", prefix: "", suffix: "" },
+  { label: "IDI System", value: 65, display: "65K+", detail: "Patients validated", prefix: "", suffix: "K+" },
   { label: "External Validation", value: 172, display: "172", detail: "Hospitals (eICU)", prefix: "", suffix: "" },
-  { label: "Patent #5 DBS", value: 28362, display: "28,362", detail: "Patients validated", prefix: "", suffix: "" },
+  { label: "DBS System", value: 28, display: "28K+", detail: "Patients validated", prefix: "", suffix: "K+" },
   { label: "Total Validated", value: 93, display: "93K+", detail: "Combined across both studies", prefix: "", suffix: "K+" },
 ];
 
@@ -37,7 +37,7 @@ const differentiators = [
   "Two independently validated systems (Patent #1 & #5)",
   "External validation across 172 hospitals (eICU)",
   "SHAP-based explainability for every prediction",
-  "NIH AIM-AHEAD CLINAQ Fellowship (Award No. 1OT2OD032581)",
+  "NIH-funded research fellowship",
   "ANIA 2026 presentation accepted — Boston, MA",
   "Stanford AI+Health 2025 symposium presenter",
   "SIIM 2025 selected abstract",
@@ -94,8 +94,8 @@ export const ValidationSection = () => {
             </h2>
             <p className="text-primary-foreground/70 mb-8 leading-relaxed">
              Two patent systems have been validated on large-scale
-              clinical datasets with research supported in part by NIH Award No. 1OT2OD032581: ICU Mortality Prediction (65,157 patients across international databases)
-              and DBS (28,362 patients across 172 hospitals).
+              clinical datasets with NIH-supported research: ICU Mortality Prediction (65K+ patients across international databases)
+              and DBS (28K+ patients across 172 hospitals). Performance metrics available under NDA.
             </p>
 
             <div className="space-y-3">

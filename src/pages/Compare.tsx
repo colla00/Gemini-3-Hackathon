@@ -149,7 +149,7 @@ const Compare = () => (
         <div className="mt-8 p-6 rounded-xl bg-primary/5 border border-primary/20">
           <h2 className="text-lg font-bold text-foreground mb-2">Bottom Line</h2>
           <p className="text-sm text-muted-foreground">
-            VitaSignal is the only clinical AI platform that combines equipment-independent mortality prediction (AUROC &gt; 0.90), 
+            VitaSignal is the only clinical AI platform that combines equipment-independent mortality prediction (statistically validated), 
             built-in health equity bias testing, FHIR R4 native architecture, and nurse documentation burden reduction — 
             all at a fraction of the cost and deployment time of legacy systems. Backed by 11 U.S. patent applications.
           </p>

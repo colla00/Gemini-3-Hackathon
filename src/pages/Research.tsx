@@ -14,7 +14,7 @@ const researchThemes = [
   },
   {
     title: "Temporal Pattern Analysis",
-    description: "Novel feature engineering methods that extract nine distinct temporal domains from EHR timestamps: documentation density, inter-event intervals, circadian rhythmicity, burst detection, entropy measures, activity sequencing, shift-level patterns, temporal acceleration, and cross-system temporal correlation.",
+    description: "Novel feature engineering methods that extract multiple distinct temporal domains from EHR timestamps: documentation density, inter-event patterns, circadian rhythmicity, burst detection, entropy measures, activity sequencing, shift-level patterns, temporal acceleration, and cross-system temporal correlation.",
     badge: "Methodology",
   },
   {
@@ -34,8 +34,8 @@ const validatedSystems = [
     name: "ICU Mortality Prediction (Patent #1 · IDI)",
     status: "Externally Validated",
     details: [
-      "65,157 patients across MIMIC-IV and HiRID",
-      "Nine temporal features from EHR timestamps only",
+      "65K+ patients across MIMIC-IV and HiRID",
+      "Multiple temporal features from EHR timestamps only",
       "Equipment-independent design — no bedside monitors",
       "SHAP-based explainability for every prediction",
     ],
@@ -44,9 +44,9 @@ const validatedSystems = [
     name: "Documentation Burden Score™ (Patent #5 · DBS)",
     status: "Externally Validated",
     details: [
-      "28,362 patients validated across 172 hospitals (eICU)",
+      "28K+ patients validated across 172 hospitals (eICU)",
       "ML-powered documentation burden quantification",
-      "AUROC 0.802 internal, 0.758 external validation",
+      "Statistically validated with strong discrimination",
       "ANIA 2026 presentation accepted — Boston, MA",
     ],
   },
@@ -54,10 +54,10 @@ const validatedSystems = [
     name: "SEDR – Syndromic Surveillance",
     status: "Validated",
     details: [
-      "94,444 ICU stays from real MIMIC-IV cohort",
+      "Large-scale ICU cohort from real MIMIC-IV data",
       "Five held-out three-year validation periods (2008–2022)",
-      "Mean AUROC 0.782, pooled AUROC 0.805",
-      "Enriched temporal validation with Elixhauser comorbidity burden",
+      "Statistically validated with strong discrimination",
+      "Enriched temporal validation with comorbidity burden features",
     ],
   },
 ];

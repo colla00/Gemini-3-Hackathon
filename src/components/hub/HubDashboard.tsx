@@ -17,7 +17,7 @@ const HubDashboard = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       <StatusCard title="Patents">
         <T>11</T> Provisional Applications Filed · Dec 2025 – Feb 2026<br />
-        Next NP Deadline: <T>Dec 6 2026</T> (63/932,953)
+        Next NP Deadline: <T>Dec 6 2026</T> (CRIS-E)
       </StatusCard>
       <StatusCard title="Manuscripts">
         <T>3</T> Papers in Progress · JAMIA · npj Digital Medicine · JAMA Network Open<br />
@@ -45,10 +45,10 @@ const HubDashboard = () => (
           ['IDI cohort (Paper 1)', '26,153 (MIMIC-IV HF, 2008–2019)'],
           ['Full IDI validation cohort', '65,157 (MIMIC-IV + HiRID)'],
           ['DBS cohort (Paper 2)', '28,362 patients · 172 hospitals (eICU)'],
-          ['IDI AUC baseline → enhanced', '0.658 → 0.683 (Δ+0.025, p<0.05)'],
-          ['DBS AUROC', '0.758 (NPV 0.947/0.924)'],
+          ['IDI AUC baseline → enhanced', 'Statistically significant improvement (p<0.05)'],
+          ['DBS AUROC', 'Statistically validated (details under NDA)'],
           ['HiRID AUROC', 'Under review — details under NDA'],
-          ['IDI strongest predictor', 'idi_cv_interevent (OR 1.53/SD, p<0.001)'],
+          ['IDI strongest predictor', 'Temporal variability feature (details under NDA)'],
           ['IDI temporal features', '9'],
           ['Patents / Claims', '11 patents · 175+ total claims'],
           ['Financial projections', 'Available under NDA'],
