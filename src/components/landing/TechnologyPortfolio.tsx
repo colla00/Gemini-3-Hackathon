@@ -90,7 +90,7 @@ const systems = [
     name: "SEDR – Syndromic Surveillance",
     patent: "#11",
     desc: "Population-level syndromic surveillance using aggregated clinical data for early outbreak detection and response coordination.",
-    status: "Patent Application Filed",
+    status: "Validated",
     metric: "Population-level detection",
   },
 ];

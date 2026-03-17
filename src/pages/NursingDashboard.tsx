@@ -381,7 +381,7 @@ export const NursingDashboard = () => {
 
       {/* ──── DISCLAIMER ──── */}
       <div className="bg-muted/30 border-b border-border py-1.5 px-4 text-center text-[10px] text-muted-foreground" data-tour="disclaimer">
-        Development Prototype · Patent #1 (ICU Mortality) and Patent #5 (DBS) validated · Other modules in design phase · Simulated data only
+        Development Prototype · Patent #1 (ICU Mortality), Patent #5 (DBS), and Patent #11 (SEDR) validated · Other modules in design phase · Simulated data only
       </div>
 
       {/* ──── MAIN CONTENT ──── */}
