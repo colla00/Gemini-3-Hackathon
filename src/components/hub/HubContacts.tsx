@@ -89,7 +89,7 @@ USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet
         title="Short Bio for Conference Programs"
-        text={`Dr. Alexis Collier is a health informaticist, NIH-funded clinical AI researcher, and founder of VitaSignal LLC. Her research demonstrates that temporal patterns in routine nursing documentation predict ICU mortality with validated performance across 357,000+ patients in three international databases. She holds 11 U.S. provisional patent applications and is an NIH AIM-AHEAD CLINAQ Fellow at Morehouse School of Medicine.`}
+        text={`Dr. Alexis Collier is a health informaticist, NIH-funded clinical AI researcher, and founder of VitaSignal LLC. Her research demonstrates that temporal patterns in routine nursing documentation predict ICU mortality, validated across 65,157 patients (IDI) and 28,362 patients (DBS) in international databases. She holds 11 U.S. provisional patent applications and is an NIH AIM-AHEAD CLINAQ Fellow at Morehouse School of Medicine.`}
       />
       <CopySnippet
         title="VitaSignal One-Liner"
