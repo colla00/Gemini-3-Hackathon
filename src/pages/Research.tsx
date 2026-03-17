@@ -34,8 +34,8 @@ const validatedSystems = [
     name: "ICU Mortality Prediction (Patent #1 · IDI)",
     status: "Externally Validated",
     details: [
-      "65,157 patients across MIMIC-IV and HiRID",
-      "Nine temporal features from EHR timestamps only",
+      "65K+ patients across MIMIC-IV and HiRID",
+      "Multiple temporal features from EHR timestamps only",
       "Equipment-independent design — no bedside monitors",
       "SHAP-based explainability for every prediction",
     ],
