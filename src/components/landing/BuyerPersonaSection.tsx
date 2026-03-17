@@ -14,7 +14,7 @@ const personas = [
     icon: Brain,
     title: "CMIOs & Informatics Leaders",
     desc: "Equipment-independent AI that integrates via FHIR R4, works with existing EHR data, and provides SHAP-based explainability for every prediction.",
-    link: "/solutions/hospitals",
+    link: "/for-leaders#cmios",
   },
   {
     icon: DollarSign,
