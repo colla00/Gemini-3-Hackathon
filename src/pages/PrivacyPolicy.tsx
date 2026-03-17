@@ -6,7 +6,7 @@ export const PrivacyPolicy = () => {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto space-y-8">
           <h1 className="text-3xl font-bold text-foreground">Privacy Policy</h1>
-          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 9, 2026</p>
+          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 17, 2026</p>
 
           <div className="space-y-6 text-muted-foreground text-sm leading-relaxed">
 
@@ -185,9 +185,23 @@ export const PrivacyPolicy = () => {
               </p>
             </div>
 
-            {/* 14. Contact */}
+            {/* 14. Governance & Ethical Standards */}
             <div>
-              <h2 className="text-lg font-semibold text-foreground">14. Contact Us</h2>
+              <h2 className="text-lg font-semibold text-foreground">14. Governance & Ethical Standards</h2>
+              <p>
+                VitaSignal maintains organizational governance policies that complement this Privacy Policy, including:
+              </p>
+              <ul className="list-disc list-inside space-y-1.5 ml-2 mt-2">
+                <li><strong>Conflict of Interest Policy:</strong> Establishes disclosure requirements and recusal procedures for employees, contractors, and affiliates involved in clinical AI research, patent prosecution, and commercial partnerships. See our <a href="/conflict-of-interest" className="text-primary hover:underline">Conflict of Interest Policy</a>.</li>
+                <li><strong>Data Governance:</strong> All personal data processing activities are subject to internal review, documented in our Privacy Impact Assessment, and aligned with NIST SP 800-122 guidelines.</li>
+                <li><strong>Responsible AI:</strong> Model development follows fairness-preserving principles, with SHAP-based explainability and demographic subgroup performance monitoring planned for clinical deployment.</li>
+                <li><strong>Regulatory Alignment:</strong> Our data practices are designed for compatibility with HIPAA, FDA SaMD guidance, and applicable state privacy laws.</li>
+              </ul>
+            </div>
+
+            {/* 15. Contact */}
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">15. Contact Us</h2>
               <p>For privacy-related inquiries, requests, or complaints:</p>
               <div className="mt-2 p-4 rounded-lg bg-muted/50 border border-border/30">
                 <p><strong>VitaSignal LLC</strong></p>
@@ -198,7 +212,7 @@ export const PrivacyPolicy = () => {
           </div>
 
           <p className="text-xs text-muted-foreground pt-6 border-t border-border">
-            Last Updated: March 9, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
+            Last Updated: March 17, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
         </div>
       </section>

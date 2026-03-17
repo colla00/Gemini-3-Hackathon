@@ -55,10 +55,11 @@
   <url><loc>https://vitasignal.ai/blog/fairness-preserving-ai-cms-equity</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/blog/stanford-to-icu-research-journey</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
-  <!-- Legal -->
+  <!-- Legal & Governance -->
   <url><loc>https://vitasignal.ai/terms</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://vitasignal.ai/privacy</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://vitasignal.ai/conflict-of-interest</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://vitasignal.ai/global-health</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/pilot-request</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
 </urlset>
