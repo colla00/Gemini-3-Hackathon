@@ -232,6 +232,7 @@ Deno.serve(async (req) => {
     // Render template
     const { subject, html: rawHtml } = renderTemplate(template, data)
     const html = rawHtml.replace(/\{\{\{unsubscribeUrl\}\}\}/g, unsubscribeUrl)
+    const text = stripHtmlToText(html)
 
     const messageId = crypto.randomUUID()
 
