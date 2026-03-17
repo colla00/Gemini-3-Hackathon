@@ -137,7 +137,7 @@ export const InfoModal = ({ open, onOpenChange, showTrigger = true }: InfoModalP
                     The author(s) and affiliated institutions disclaim all liability for any use of this demonstration software.
                     <br /><br />
                     <strong>Intellectual Property:</strong> 11 U.S. Patent Applications Filed. 
-                    © 2024–2026 Dr. Alexis Collier. All rights reserved.
+                    © 2025–2026 VitaSignal LLC. All rights reserved.
                   </p>
                 </div>
               </div>
