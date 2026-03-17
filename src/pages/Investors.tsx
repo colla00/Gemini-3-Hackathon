@@ -11,23 +11,28 @@ const stats = [
   { value: "357,080", label: "Patients Validated", icon: Activity },
   { value: "11", label: "Patent Applications Filed", icon: FileText },
   { value: "175+", label: "Patent Claims", icon: Shield },
-  { value: "$2,847", label: "Savings Per Patient (Projected)", icon: TrendingUp },
+  { value: "3", label: "Validated Systems", icon: TrendingUp },
 ];
 
 const highlights = [
   {
-    title: "ICU Mortality Prediction (Patent #1)",
-    desc: "9 temporal features from routine EHR timestamps. AUC 0.683 validated on 65,157 patients across MIMIC-IV and HiRID.",
+    title: "ICU Mortality Prediction (Patent #1 · IDI)",
+    desc: "9 temporal features from routine EHR timestamps. AUC 0.683 validated on 65,157 patients across MIMIC-IV and HiRID. Equipment-independent — no bedside monitors.",
     badge: "Externally Validated",
   },
   {
-    title: "Documentation Burden Score™ (Patent #5)",
-    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362).",
+    title: "Documentation Burden Score™ (Patent #5 · DBS)",
+    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.",
     badge: "Externally Validated",
+  },
+  {
+    title: "Shift-End Documentation Burden Index (SEDR)",
+    desc: "Shift-end documentation burden quantification. Pooled AUROC 0.805 across 94,444 ICU stays (MIMIC-IV). Enriched temporal validation across five held-out periods.",
+    badge: "Validated",
   },
   {
     title: "Trust-Based Alert Governance (Patent #2)",
-    desc: "Mobile alert governance with trust scoring, equity monitoring, and cognitive load optimization. Target: 87% alert reduction.",
+    desc: "Mobile alert governance with trust scoring, equity monitoring, and cognitive load optimization.",
     badge: "Design Phase",
   },
 ];
@@ -49,13 +54,14 @@ export default function Investors() {
             Pre-Seed · Patent Pending
           </Badge>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-[1.1]">
-            Clinical AI That Works
+            Documentation-Driven Clinical Intelligence
             <br />
-            <span style={{ color: "#00c8b4" }}>Without New Hardware</span>
+            <span style={{ color: "#00c8b4" }}>Implementation-Ready · Patent-Pending</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-            VitaSignal extracts predictive intelligence from existing EHR documentation patterns —
-            no sensors, no wearables, no integration burden.
+            VitaSignal turns routine EHR activity into actionable insight for risk prediction,
+            workflow visibility, and equitable decision support — without requiring new hardware
+            or adding burden to care teams. Three independently validated systems. 11 patent applications.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" className="gap-2" style={{ background: "#00c8b4", color: "#0f1729" }} asChild>

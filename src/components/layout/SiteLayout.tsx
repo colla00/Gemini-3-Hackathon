@@ -23,10 +23,9 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/about", label: "About" },
+  { to: "/research", label: "Research" },
   { to: "/patents", label: "Patents" },
-  { to: "/investors", label: "Investors" },
   { to: "/licensing", label: "Licensing" },
-  
 ];
 
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
@@ -258,6 +257,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
                 <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
                 <Link to="/integrations" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Integrations</Link>
+                <Link to="/security" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Security</Link>
                 <Link to="/trust" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Trust Center</Link>
               </div>
             </div>
@@ -278,6 +278,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Company</p>
               <div className="space-y-2">
                 <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">About</Link>
+                <Link to="/research" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Research</Link>
                 <Link to="/careers" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Careers</Link>
                 <Link to="/blog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Blog</Link>
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>

@@ -10,7 +10,7 @@ export const AboutInventor = () => (
 
       <div className="p-8 rounded-2xl bg-card border border-border/50">
         <h4 className="text-xl font-bold text-foreground mb-4">
-          Dr. Alexis Collier, DHA
+          Dr. Alexis M. Collier, DHA
         </h4>
 
         <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
@@ -20,33 +20,34 @@ export const AboutInventor = () => (
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">NIH AIM-AHEAD CLINAQ Fellow</strong> · Morehouse School of Medicine</span>
+            <span><strong className="text-foreground">AIM-AHEAD CLINAQ Fellow</strong></span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">Adjunct Faculty</strong> · University of North Georgia</span>
+            <span><strong className="text-foreground">Adjunct Professor</strong> · Healthcare Services & Informatics Administration, University of North Georgia</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">Sole Inventor:</strong> 11 U.S. provisional patent applications filed (Feb 28, 2026)</span>
+            <span><strong className="text-foreground">Sole Inventor:</strong> 11 U.S. provisional patent applications filed (Dec 2025–Feb 2026)</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">•</span>
-            <span><strong className="text-foreground">Stanford AI+Health Presenter</strong> (December 2025)</span>
+            <span><strong className="text-foreground">Stanford AI+Health 2025 Presenter</strong></span>
           </li>
         </ul>
 
         <p className="text-sm text-muted-foreground mb-4">
-          Dr. Collier specializes in equipment-independent clinical AI systems validated
-          on large-scale datasets. Research focuses on temporal pattern analysis,
-          clinical phenotype discovery, and equity in algorithmic decision-making.
+          A clinical AI researcher working at the intersection of nursing informatics, health equity,
+          predictive analytics, and translational healthcare innovation. Her work is informed by
+          NIH-supported research associated with Award No. 1OT2OD032581, built in the context of
+          the AIM-AHEAD CLINAQ fellowship.
         </p>
 
         <div className="p-4 rounded-lg bg-secondary/50 border border-border/50 mb-4">
           <p className="text-xs font-semibold text-foreground mb-1">Affiliations:</p>
           <p className="text-xs text-muted-foreground">
             VitaSignal LLC · University of North Georgia, College of Health Sciences & Professions
-            <br />NIH AIM-AHEAD CLINAQ Consortium · Morehouse School of Medicine
+            <br />AIM-AHEAD CLINAQ Consortium · NIH Award No. 1OT2OD032581
           </p>
         </div>
 

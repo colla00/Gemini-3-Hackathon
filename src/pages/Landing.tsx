@@ -16,6 +16,7 @@ import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
 import { RecognitionBar } from "@/components/landing/RecognitionBar";
+import { SEDRSection } from "@/components/landing/SEDRSection";
 import { Helmet } from "react-helmet-async";
 
 const orgJsonLd = {
@@ -104,8 +105,8 @@ const medicalWebPageJsonLd = {
 export const Landing = () => {
   return (
     <SiteLayout
-      title="VitaSignal | Fairness-Preserving Clinical AI"
-      description="VitaSignal develops documentation-driven clinical AI for patient risk prediction, workflow visibility, and equitable clinical decision support. 11 U.S. patent applications, 357K+ patients validated."
+      title="VitaSignal | Documentation-Driven Clinical Intelligence"
+      description="VitaSignal builds documentation-driven clinical intelligence systems that turn routine EHR activity into actionable insight for risk prediction, workflow visibility, and equitable decision support — without requiring new hardware or adding burden to care teams."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />
@@ -124,6 +125,7 @@ export const Landing = () => {
       <DashboardPreview />
       <ROISection />
       <ValidationSection />
+      <SEDRSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
       

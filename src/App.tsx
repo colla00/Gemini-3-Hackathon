@@ -85,6 +85,8 @@ const SolutionsHospitals = lazy(() => import("./pages/SolutionsHospitals"));
 const SolutionsEHRVendors = lazy(() => import("./pages/SolutionsEHRVendors"));
 const SolutionsInvestors = lazy(() => import("./pages/SolutionsInvestors"));
 const SolutionsMilitary = lazy(() => import("./pages/SolutionsMilitary"));
+const Security = lazy(() => import("./pages/Security"));
+const Research = lazy(() => import("./pages/Research"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -153,6 +155,8 @@ const AppRoutes = () => {
           <Route path="/solutions/ehr-vendors" element={<Suspense fallback={<PageSkeleton />}><SolutionsEHRVendors /></Suspense>} />
           <Route path="/solutions/investors" element={<Suspense fallback={<PageSkeleton />}><SolutionsInvestors /></Suspense>} />
           <Route path="/solutions/military" element={<Suspense fallback={<PageSkeleton />}><SolutionsMilitary /></Suspense>} />
+          <Route path="/security" element={<Suspense fallback={<PageSkeleton />}><Security /></Suspense>} />
+          <Route path="/research" element={<Suspense fallback={<PageSkeleton />}><Research /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>

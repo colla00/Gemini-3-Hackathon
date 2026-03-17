@@ -45,19 +45,23 @@ function About() {
                 <span className="text-primary font-medium">Health Informaticist & AI Researcher</span>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-6 leading-[1.05]">
-                Dr. Alexis
+                Dr. Alexis M.
                 <br />
                 <span className="text-primary">Collier, DHA</span>
               </h1>
               <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
-                From clinical experience to AI research. 
-                A career dedicated to reducing the burden on frontline healthcare workers through intelligent systems.
+                A clinical AI researcher working at the intersection of nursing informatics,
+                health equity, predictive analytics, and translational healthcare innovation.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge className="bg-primary/20 border-primary/30 text-primary">Founder & CEO, VitaSignal LLC</Badge>
-                <Badge className="bg-primary/20 border-primary/30 text-primary">NIH AIM-AHEAD CLINAQ Fellow</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">AIM-AHEAD CLINAQ Fellow</Badge>
+                <Badge className="bg-primary/20 border-primary/30 text-primary">Adjunct Professor, UNG</Badge>
                 <Badge className="bg-primary/20 border-primary/30 text-primary">11 U.S. Patent Applications Filed</Badge>
               </div>
+              <p className="text-xs text-primary-foreground/50 mt-4">
+                Informed by NIH-supported research associated with Award No. 1OT2OD032581.
+              </p>
             </div>
             <div className="hidden md:block">
               <img
