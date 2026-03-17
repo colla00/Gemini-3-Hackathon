@@ -28,7 +28,7 @@ VitaSignal is a clinical AI platform that predicts ICU mortality using nothing b
 
 Our flagship system, the Intensive Documentation Index — or IDI — extracts 9 temporal features from EHR timestamps. Our strongest predictor is the coefficient of variation of inter-event intervals, with an odds ratio of 1.53 per standard deviation. In plain English: the more irregular the rhythm of documentation, the higher the mortality risk.
 
-The validation is robust. We've tested across 357,000 patients in three international databases — MIMIC-IV, HiRID, and eICU — spanning 172 hospitals across three countries. On the HiRID dataset, our model achieved an AUROC of 0.9063, outperforming APACHE IV and SOFA — using zero physiological data.
+The validation is robust. We've tested across two separate studies: 65,157 patients in MIMIC-IV and HiRID for the IDI system, and 28,362 patients across 172 hospitals in the eICU database for the Documentation Burden Score.
 
 We've filed 11 U.S. provisional patent applications with over 175 claims. We classify as non-device CDS under the 21st Century Cures Act — meaning no 510(k) required.
 
