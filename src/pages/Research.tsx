@@ -14,7 +14,7 @@ const researchThemes = [
   },
   {
     title: "Temporal Pattern Analysis",
-    description: "Novel feature engineering methods that extract nine distinct temporal domains from EHR timestamps: documentation density, inter-event intervals, circadian rhythmicity, burst detection, entropy measures, activity sequencing, shift-level patterns, temporal acceleration, and cross-system temporal correlation.",
+    description: "Novel feature engineering methods that extract multiple distinct temporal domains from EHR timestamps: documentation density, inter-event patterns, circadian rhythmicity, burst detection, entropy measures, activity sequencing, shift-level patterns, temporal acceleration, and cross-system temporal correlation.",
     badge: "Methodology",
   },
   {
