@@ -210,6 +210,7 @@ export default function TermsOfUse() {
                 constitute the entire agreement between you and VitaSignal LLC regarding your use of the Website and
                 supersede all prior agreements and understandings.
               </p>
+            </div>
 
             {/* 17. Contact */}
             <div>
