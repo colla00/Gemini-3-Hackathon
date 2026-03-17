@@ -56,11 +56,11 @@ const HubManuscripts = () => (
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 1 — JAMIA" system="IDI — Intensive Documentation Index">
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T> heart failure ICU admissions, 2008–2019)</p>
         <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (+0.025, p&lt;0.05) · 12-year temporal validation</p>
-        <p><strong>Preprint:</strong> DOI <T>10.64898/2026.02.10.26345827v2</T> · medRxiv</p>
+        <p><strong>Preprint:</strong> Available on medRxiv</p>
         <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
-        <p><strong>COI:</strong> USPTO 63/976,293 · NIH 1OT2OD032581 · Bayh-Dole · VitaSignal LLC</p>
-        <p><strong>Data:</strong> MIMIC-IV v2.2 — physionet.org/content/mimiciv/2.2/</p>
-        <p><strong>IRB:</strong> Protocol #2025-IRB-0142 (exemption determination)</p>
+        <p><strong>COI:</strong> Patent applications filed · NIH-funded · Bayh-Dole · VitaSignal LLC</p>
+        <p><strong>Data:</strong> MIMIC-IV — physionet.org</p>
+        <p><strong>IRB:</strong> Exemption determination on file</p>
       </PaperCard>
 
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="DBS + HiRID External Validation">
