@@ -48,7 +48,7 @@ const HubDashboard = () => (
           ['IDI AUC baseline → enhanced', 'Statistically significant improvement (p<0.05)'],
           ['DBS AUROC', 'Statistically validated (details under NDA)'],
           ['HiRID AUROC', 'Under review — details under NDA'],
-          ['IDI strongest predictor', 'idi_cv_interevent (OR 1.53/SD, p<0.001)'],
+          ['IDI strongest predictor', 'Temporal variability feature (details under NDA)'],
           ['IDI temporal features', '9'],
           ['Patents / Claims', '11 patents · 175+ total claims'],
           ['Financial projections', 'Available under NDA'],
