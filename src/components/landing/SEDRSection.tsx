@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const periods = [
-  { range: "2008–2010", auroc: "Validated" },
-  { range: "2011–2013", auroc: "Validated" },
-  { range: "2014–2016", auroc: "Validated" },
-  { range: "2017–2019", auroc: "Validated" },
-  { range: "2020–2022", auroc: "Validated" },
+  { range: "2008–2010", auroc: "0.741" },
+  { range: "2011–2013", auroc: "0.749" },
+  { range: "2014–2016", auroc: "0.782" },
+  { range: "2017–2019", auroc: "0.818" },
+  { range: "2020–2022", auroc: "0.821" },
 ];
 
 export const SEDRSection = () => (
@@ -55,7 +55,7 @@ export const SEDRSection = () => (
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <BarChart3 className="w-5 h-5 text-primary" />
-              <h3 className="text-sm font-bold text-foreground">Temporal Validation</h3>
+              <h3 className="text-sm font-bold text-foreground">Temporal Validation Results</h3>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
               94,444 ICU stays · MIMIC-IV · Five held-out three-year periods
@@ -70,15 +70,19 @@ export const SEDRSection = () => (
             </div>
             <div className="pt-3 border-t border-border/30 space-y-1.5">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Performance</span>
-                <span className="font-bold text-primary text-lg">Statistically validated</span>
+                <span className="text-muted-foreground">Mean AUROC</span>
+                <span className="font-bold text-primary text-lg">0.782</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">vs. Comparator</span>
-                <span className="text-muted-foreground">Outperforms baseline</span>
+                <span className="text-muted-foreground">Pooled AUROC (P3–5)</span>
+                <span className="font-bold text-primary text-lg">0.805</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Comparator Pooled</span>
+                <span className="text-muted-foreground">≈0.753</span>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1">
-                Detailed metrics available under NDA
+                One-sided DeLong testing significant in 5/5 periods (p&lt;0.05) · CHITA 2026
               </p>
             </div>
           </CardContent>
