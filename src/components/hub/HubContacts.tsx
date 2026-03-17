@@ -55,6 +55,7 @@ const HubContacts = () => (
         <h3 className="text-xs font-semibold tracking-wider text-white/60 uppercase mb-3">Key Contacts</h3>
         <CopyEmail label="Dr. Alexis Collier" email="info@vitasignal.ai" />
         <CopyEmail label="VitaSignal Licensing" email="licensing@vitasignal.ai" />
+        <CopyEmail label="VitaSignal Phone" email="(888) 346-8206" />
         <div className="py-2">
           <p className="text-sm text-white/80">Georgia PATENTS</p>
           <p className="text-xs font-mono" style={{ color: '#00c8b4' }}>gapatents.org</p>
@@ -84,7 +85,7 @@ const HubContacts = () => (
 Founder & CEO, VitaSignal LLC
 NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine
 Adjunct Faculty, University of North Georgia
-info@vitasignal.ai | vitasignal.ai
+info@vitasignal.ai | vitasignal.ai | (888) 346-8206
 USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet

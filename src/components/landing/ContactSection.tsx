@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 const contacts = [
   { label: 'For Licensing Inquiries', email: 'licensing@vitasignal.ai' },
@@ -29,7 +29,11 @@ export const ContactSection = () => (
           </div>
         ))}
       </div>
-      <p className="text-xs text-muted-foreground text-center mt-6">
+      <div className="flex items-center justify-center gap-2 mt-8 text-sm text-muted-foreground">
+        <Phone className="w-4 h-4 text-primary" />
+        <a href="tel:+18883468206" className="font-semibold text-primary hover:underline">(888) 346-8206</a>
+      </div>
+      <p className="text-xs text-muted-foreground text-center mt-3">
         Response Time: 2-3 business days
       </p>
     </div>
