@@ -37,7 +37,7 @@ const differentiators = [
   "Two independently validated systems (Patent #1 & #5)",
   "External validation across 172 hospitals (eICU)",
   "SHAP-based explainability for every prediction",
-  "NIH AIM-AHEAD CLINAQ Fellowship (Award No. 1OT2OD032581)",
+  "NIH-funded research fellowship",
   "ANIA 2026 presentation accepted — Boston, MA",
   "Stanford AI+Health 2025 symposium presenter",
   "SIIM 2025 selected abstract",
