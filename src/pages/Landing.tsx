@@ -9,6 +9,7 @@ import { GlobalHealthSection } from "@/components/landing/GlobalHealthSection";
 import { FairnessCommitment } from "@/components/landing/FairnessCommitment";
 import { DigitalTwinsSection } from "@/components/landing/DigitalTwinsSection";
 import { MilitaryHealthSection } from "@/components/landing/MilitaryHealthSection";
+import { TrustLanguageSection } from "@/components/landing/TrustLanguageSection";
 
 import { DashboardPreview } from "@/components/landing/DashboardPreview";
 import { ROISection } from "@/components/landing/ROISection";
@@ -128,7 +129,7 @@ export const Landing = () => {
       <SEDRSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
-      
+      <TrustLanguageSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />

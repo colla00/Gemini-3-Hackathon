@@ -8,37 +8,37 @@ const personas = [
     icon: Heart,
     title: "Chief Nursing Officers",
     desc: "Quantify documentation burden, reduce alert fatigue, and give your nurses back time at the bedside — with data they're already generating.",
-    link: "/solutions/hospitals",
+    link: "/for-leaders#cnos",
   },
   {
     icon: Brain,
     title: "CMIOs & Informatics Leaders",
     desc: "Equipment-independent AI that integrates via FHIR R4, works with existing EHR data, and provides SHAP-based explainability for every prediction.",
-    link: "/solutions/hospitals",
+    link: "/for-leaders#cmios",
   },
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
     desc: "Zero capital expenditure. Software-only deployment. No new hardware procurement — ROI driven by existing EHR data utilization.",
-    link: "/roi-calculator",
+    link: "/for-leaders#cfos",
   },
   {
     icon: Building2,
     title: "CEOs & COOs",
     desc: "Meet CMS equity requirements, differentiate your system with patent-pending clinical AI, and deploy in weeks — not months.",
-    link: "/solutions/hospitals",
+    link: "/for-leaders#ceos",
   },
   {
     icon: Code2,
     title: "EHR Vendors & Partners",
     desc: "White-label license 11 patent-pending algorithms. FHIR R4 native, SMART on FHIR ready. Add clinical AI without building it.",
-    link: "/solutions/ehr-vendors",
+    link: "/for-leaders#ehr-vendors",
   },
   {
     icon: Shield,
     title: "VA & DoD Health Leaders",
     desc: "Equipment-independent design works in garrison and deployed settings. Compatible with VistA, MHS GENESIS, and Cerner Millennium.",
-    link: "/solutions/military",
+    link: "/for-leaders#military",
   },
 ];
 

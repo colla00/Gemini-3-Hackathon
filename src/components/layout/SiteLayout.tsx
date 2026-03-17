@@ -253,6 +253,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <p className="text-xs font-semibold text-primary-foreground/70 uppercase tracking-wider mb-3">Product</p>
               <div className="space-y-2">
                 <Link to="/demo" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Product Demo</Link>
+                <Link to="/watch" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Watch</Link>
                 <Link to="/pricing" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Pricing</Link>
                 <Link to="/compare" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Compare</Link>
                 <Link to="/roi-calculator" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">ROI Calculator</Link>
@@ -270,6 +271,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/solutions/ehr-vendors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For EHR Vendors</Link>
                 <Link to="/solutions/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For Investors</Link>
                 <Link to="/solutions/military" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">DoD & Military</Link>
+                <Link to="/for-leaders" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">By Role</Link>
               </div>
             </div>
 
@@ -281,6 +283,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/research" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Research</Link>
                 <Link to="/careers" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Careers</Link>
                 <Link to="/blog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Blog</Link>
+                <Link to="/news" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">News & Events</Link>
                 <Link to="/press" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press</Link>
                 <Link to="/press-kit" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Press Kit</Link>
                 <Link to="/contact" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Contact</Link>
