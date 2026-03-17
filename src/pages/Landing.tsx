@@ -16,6 +16,7 @@ import { BuyerPersonaSection } from "@/components/landing/BuyerPersonaSection";
 import { EHRCompatibilitySection } from "@/components/landing/EHRCompatibilitySection";
 import { ComparisonSlider } from "@/components/landing/ComparisonSlider";
 import { RecognitionBar } from "@/components/landing/RecognitionBar";
+import { SEDRSection } from "@/components/landing/SEDRSection";
 import { Helmet } from "react-helmet-async";
 
 const orgJsonLd = {
