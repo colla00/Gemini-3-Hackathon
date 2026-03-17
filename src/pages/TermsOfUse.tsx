@@ -6,7 +6,7 @@ export default function TermsOfUse() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto space-y-8">
           <h1 className="text-3xl font-bold text-foreground">Terms of Service</h1>
-          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 9, 2026</p>
+          <p className="text-muted-foreground">Effective Date: March 1, 2026 · Last Updated: March 17, 2026</p>
 
           <div className="space-y-6 text-muted-foreground text-sm leading-relaxed">
 
@@ -205,7 +205,8 @@ export default function TermsOfUse() {
             <div>
               <h2 className="text-lg font-semibold text-foreground">16. Entire Agreement</h2>
               <p>
-                These Terms, together with the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>,
+                These Terms, together with the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a> and
+                the <a href="/conflict-of-interest" className="text-primary hover:underline">Conflict of Interest Policy</a>,
                 constitute the entire agreement between you and VitaSignal LLC regarding your use of the Website and
                 supersede all prior agreements and understandings.
               </p>
@@ -224,7 +225,7 @@ export default function TermsOfUse() {
           </div>
 
           <p className="text-xs text-muted-foreground pt-6 border-t border-border">
-            Last Updated: March 9, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
+            Last Updated: March 17, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
         </div>
       </section>
