@@ -204,7 +204,7 @@ Your nurses spend 30 to 40 percent of their shift on documentation. Meanwhile, e
 [OUR SOLUTION]
 VitaSignal extracts temporal features from existing EHR documentation timestamps. No new hardware. No new sensors. No additional workflow for your clinical staff. We analyze the rhythm of documentation — how frequently nurses document, how regular or irregular the intervals are, where surveillance gaps occur.
 
-Our flagship model, the Intensive Documentation Index, uses 9 timestamp-derived features to predict ICU mortality. On external validation across 357,000 patients in three international databases — including 172 hospitals in the eICU dataset — our model achieved an AUROC of 0.758 to 0.9063 depending on the cohort.
+Our flagship model, the Intensive Documentation Index, uses 9 timestamp-derived features to predict ICU mortality. The IDI was validated on 65,157 patients across MIMIC-IV and HiRID, achieving an external AUROC of 0.758 on the DBS system across 172 hospitals in the eICU dataset.
 
 [WHY THIS MATTERS TO YOU]
 Three value propositions:
