@@ -297,7 +297,7 @@ A: "NIH-funded research fellowship through Morehouse School of Medicine. Standar
     tips: [
       'Practice each answer with a timer — target 30-45 seconds max',
       'Start every answer by acknowledging the question positively',
-      'Have specific numbers memorized: 65,157 IDI patients, 28,362 DBS patients, 172 hospitals, 1.53 OR',
+      'Have key talking points memorized: validation scope, 172 hospitals, equipment-independent',
       'If you don\'t know an answer, say "That\'s a great question — I\'d love to follow up with you after with the specific data"',
       'Keep a "parking lot" notepad for questions you want to address later',
     ],
