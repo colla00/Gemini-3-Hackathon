@@ -213,7 +213,7 @@ First — patient safety. Earlier identification of deteriorating patients. Our 
 
 Second — staffing optimization. Our Documentation Burden Score provides quartile-based staffing recommendations before each nursing shift. We've validated this across 172 hospitals.
 
-Third — cost savings. Our analysis shows average savings of $2,847 per patient from reduced ICU length of stay, with an ROI of 1,240% and payback in 7.5 months.
+Third — cost savings. We're developing detailed economic models to quantify per-patient savings from reduced ICU length of stay and improved resource allocation.
 
 [INTEGRATION]
 We're designed for EHR integration. We read from the chartevents table — or whatever your EHR calls timestamped documentation entries. We don't require HL7 FHIR, though we support it. We don't require real-time vital sign feeds. We need one data source: documentation timestamps.
