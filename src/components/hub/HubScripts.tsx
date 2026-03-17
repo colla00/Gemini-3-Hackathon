@@ -164,10 +164,10 @@ The claims are supported by extensive validation:
 Key performance: Strong discriminative performance across all validation cohorts. Detailed metrics available under NDA.
 
 [FUNDING & BAYH-DOLE]
-This research is supported by NIH Agreement 1OT2OD032581 — the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. We need to ensure all filings include proper government rights notices.
+This research is supported by an NIH fellowship. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. All filings must include proper government rights notices.
 
 [ENTITY STATUS]
-VitaSignal LLC is registered in Georgia. EIN is on file. I need to execute patent assignment — Exhibit A — transferring all 11 applications to VitaSignal LLC. This requires the LLC bank account, which is in progress.
+VitaSignal LLC is registered in Georgia. EIN is on file. Patent assignment execution is in progress.
 
 [WHAT I NEED FROM YOU]
 1. Filing strategy for 63/932,953 and 63/946,187 — priority NP filings
