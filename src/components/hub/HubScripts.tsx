@@ -293,7 +293,7 @@ A: "All features are derived from nursing documentation timestamps in the first 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Who funds this work?"
 
-A: "NIH AIM-AHEAD CLINAQ Fellowship, Agreement 1OT2OD032581, through Morehouse School of Medicine. Standard Bayh-Dole applies — the government retains certain rights, VitaSignal LLC retains commercialization rights. No industry funding, no conflicts beyond my own patent applications and company."`,
+A: "NIH-funded research fellowship through Morehouse School of Medicine. Standard Bayh-Dole applies — the government retains certain rights, VitaSignal LLC retains commercialization rights. No industry funding, no conflicts beyond my own patent applications and company."`,
     tips: [
       'Practice each answer with a timer — target 30-45 seconds max',
       'Start every answer by acknowledging the question positively',
