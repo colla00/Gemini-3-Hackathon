@@ -72,13 +72,24 @@ VitaSignal is a clinical intelligence platform that analyzes temporal documentat
 | Consent management | ✅ Complete | Cookie consent + terms acceptance |
 | Breach notification | ✅ Complete | IRP with 24-hour notification commitment |
 
-## 5. Recommendations
+## 5. Governance Cross-References
+
+| Document | Location | Last Updated |
+|----------|----------|-------------|
+| Privacy Policy | /privacy | March 17, 2026 |
+| Terms of Service | /terms | March 17, 2026 |
+| Conflict of Interest Policy | /conflict-of-interest | March 17, 2026 |
+| Trust Center | /trust | Active |
+| Security & Compliance | /security | Active |
+
+## 6. Recommendations
 
 1. Conduct updated PIA prior to any clinical deployment with PHI
 2. Implement data retention and deletion policies
 3. Establish data processing agreements with clinical partners
 4. Perform annual PIA reviews
+5. Review COI disclosures annually for research integrity alignment
 
 ---
 
-*This PIA covers the current research prototype phase. A comprehensive update will be performed prior to clinical deployment involving PHI.*
+*This PIA covers the current research prototype phase. A comprehensive update will be performed prior to clinical deployment involving PHI. Version 1.1 updated to reflect governance cross-references and COI policy integration.*
