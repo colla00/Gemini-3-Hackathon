@@ -38,7 +38,7 @@ const personas = [
     icon: Shield,
     title: "VA & DoD Health Leaders",
     desc: "Equipment-independent design works in garrison and deployed settings. Compatible with VistA, MHS GENESIS, and Cerner Millennium.",
-    link: "/solutions/military",
+    link: "/for-leaders#military",
   },
 ];
 

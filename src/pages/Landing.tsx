@@ -129,7 +129,7 @@ export const Landing = () => {
       <SEDRSection />
       <FairnessCommitment />
       <BuyerPersonaSection />
-      
+      <TrustLanguageSection />
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />
