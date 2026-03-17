@@ -32,7 +32,7 @@ The validation is robust. We've tested across two separate studies: 65,157 patie
 
 We've filed 11 U.S. provisional patent applications with over 175 claims. We classify as non-device CDS under the 21st Century Cures Act — meaning no 510(k) required.
 
-The business model is three-tier: EHR integration licenses for vendors like Epic and Cerner, hospital system pilots at $15,000 per 6-month engagement, and research collaborations under MTA. Our 5-year projections show $32.5 million in ARR with a net present value of $12 million. Per-patient savings average $2,847 with an ROI of 1,240% and payback in 7.5 months.
+The business model is three-tier: EHR integration licenses for vendors like Epic and Cerner, hospital system pilots, and research collaborations under MTA. We're developing detailed financial projections as part of our commercialization strategy.
 
 We're NIH-funded through the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. We're pre-market, pre-revenue, and seeking a $3 to $5 million seed round to fund non-provisional patent filings, FDA pre-submission, and our first three hospital pilots.
 
