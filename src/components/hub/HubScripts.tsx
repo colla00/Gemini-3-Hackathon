@@ -283,7 +283,7 @@ A: "Equity was pre-specified, not post-hoc. We stratified by race and ethnicity 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "What datasets did you use?"
 
-A: "Three publicly available databases through PhysioNet. MIMIC-IV version 2.2 from Beth Israel Deaconess — our primary development cohort with 26,153 heart failure ICU patients. HiRID from Bern University Hospital in Switzerland — our external validation with 33,897 patients. And the eICU Collaborative Research Database — 172 hospitals with 28,362 patients for the DBS external validation. Total validated cohort: approximately 88,000 patients across both studies."
+A: "Three publicly available databases through PhysioNet. MIMIC-IV from Beth Israel Deaconess — our primary development cohort. HiRID from Bern University Hospital in Switzerland — our external validation. And the eICU Collaborative Research Database — 172 hospitals for the DBS external validation. Total validated cohort: approximately 88,000 patients across both studies."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Q: "Can you explain the 9 IDI features?"
