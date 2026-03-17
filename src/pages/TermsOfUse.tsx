@@ -205,11 +205,11 @@ export default function TermsOfUse() {
             <div>
               <h2 className="text-lg font-semibold text-foreground">16. Entire Agreement</h2>
               <p>
-                These Terms, together with the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>,
+                These Terms, together with the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a> and
+                the <a href="/conflict-of-interest" className="text-primary hover:underline">Conflict of Interest Policy</a>,
                 constitute the entire agreement between you and VitaSignal LLC regarding your use of the Website and
                 supersede all prior agreements and understandings.
               </p>
-            </div>
 
             {/* 17. Contact */}
             <div>
