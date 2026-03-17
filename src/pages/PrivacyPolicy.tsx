@@ -212,7 +212,7 @@ export const PrivacyPolicy = () => {
           </div>
 
           <p className="text-xs text-muted-foreground pt-6 border-t border-border">
-            Last Updated: March 9, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
+            Last Updated: March 17, 2026 · © 2025–2026 VitaSignal LLC. All Rights Reserved.
           </p>
         </div>
       </section>

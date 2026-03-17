@@ -65,6 +65,7 @@ export const LandingFooter = () => (
             <div className="flex flex-col gap-1.5">
               <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
               <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/conflict-of-interest" className="text-muted-foreground hover:text-primary transition-colors">COI Policy</Link>
               <Link to="/patents" className="text-muted-foreground hover:text-primary transition-colors">Patents</Link>
               <Link to="/licensing" className="text-muted-foreground hover:text-primary transition-colors">Licensing</Link>
             </div>
