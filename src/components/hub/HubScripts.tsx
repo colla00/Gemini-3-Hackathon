@@ -159,9 +159,9 @@ The claims are supported by extensive validation:
 — MIMIC-IV: 26,153 heart failure ICU patients, 2008–2019
 — HiRID: 33,897 patients, Bern University Hospital, Switzerland
 — eICU: 28,362 patients across 172 U.S. hospitals
-— Total validated: 357,080 patients
+— Total validated: 88,412 patients across both studies
 
-Key performance: AUROC 0.9063 on HiRID (outperforms APACHE IV, SOFA). AUC improvement 0.658 → 0.683 on MIMIC-IV (p<0.05).
+Key performance: Strong discriminative performance on HiRID external validation. AUC improvement 0.658 → 0.683 on MIMIC-IV (p<0.05). DBS AUROC 0.758 across 172 hospitals.
 
 [FUNDING & BAYH-DOLE]
 This research is supported by NIH Agreement 1OT2OD032581 — the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. Under the Bayh-Dole Act, the U.S. Government retains certain rights. VitaSignal LLC retains commercialization rights as the small business entity. We need to ensure all filings include proper government rights notices.
