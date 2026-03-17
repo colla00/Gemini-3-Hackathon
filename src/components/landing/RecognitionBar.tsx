@@ -2,9 +2,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const recognitions = [
-  { label: "NIH AIM-AHEAD", detail: "Research Fellowship" },
-  { label: "ANIA 2026", detail: "Accepted Presentation" },
-  { label: "Stanford AI+Health", detail: "Symposium Speaker" },
+  { label: "NIH AIM-AHEAD", detail: "CLINAQ Fellowship" },
+  { label: "NIH Award", detail: "No. 1OT2OD032581" },
+  { label: "ANIA 2026", detail: "Accepted · Boston, MA" },
+  { label: "Stanford AI+Health", detail: "2025 Presenter" },
   { label: "SIIM 2025", detail: "Selected Abstract" },
   { label: "11 Patents", detail: "U.S. Provisional Filed" },
 ];
@@ -22,7 +23,7 @@ export const RecognitionBar = () => {
           transition={{ duration: 0.4 }}
           className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground text-center mb-5"
         >
-          Recognized By
+          Research & Recognition
         </motion.p>
         <div className="flex flex-wrap justify-center gap-6 md:gap-10">
           {recognitions.map((r, i) => (

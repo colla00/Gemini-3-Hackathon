@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { motion, useInView, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
@@ -35,10 +34,10 @@ const parseStatValue = (val: string): { num: number; suffix: string } => {
 };
 
 const stats = [
-  { value: "11", label: "Applications Filed", detail: "U.S. Provisional Patents" },
+  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · Dec 2025–Feb 2026" },
   { value: "175+", label: "Total Claims", detail: "Across all filings" },
   { value: "357K+", label: "Patients Validated", detail: "MIMIC-IV, HiRID & eICU" },
-  { value: "172", label: "Hospitals", detail: "External validation" },
+  { value: "172", label: "Hospitals", detail: "External validation (eICU)" },
 ];
 
 export const LandingHero = () => {
@@ -54,154 +53,120 @@ export const LandingHero = () => {
     <section ref={sectionRef} aria-label="Hero" className="relative overflow-hidden bg-foreground text-primary-foreground">
       {/* Parallax background image */}
       <motion.div className="absolute inset-0" aria-hidden="true" style={{ y: imgY, scale: imgScale }}>
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 via-foreground/60 to-foreground" aria-hidden="true" />
 
-      {/* Floating ambient orbs */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl"
-        animate={{ x: [0, 30, -20, 0], y: [0, -20, 15, 0], scale: [1, 1.1, 0.95, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full bg-accent/10 blur-3xl"
-        animate={{ x: [0, -25, 15, 0], y: [0, 25, -10, 0], scale: [1, 0.9, 1.1, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-
       <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-        {/* Credential badges */}
+        {/* Credential strip — minimal, tasteful */}
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex flex-col sm:flex-row items-center gap-2 mb-8"
+          className="flex flex-wrap items-center gap-2 mb-8 text-xs text-primary-foreground/60"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.1, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-sm"
-          >
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true" />
-            <span className="text-primary font-medium">Presented at Stanford AI+Health 2025</span>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-sm"
-          >
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
-            <span className="text-primary font-medium">ANIA 2026 — Boston, MA · March 26–28</span>
-          </motion.div>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary/15 border border-primary/20 text-primary font-medium">
+            NIH AIM-AHEAD CLINAQ Fellow
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-foreground/5 border border-primary-foreground/10">
+            Stanford AI+Health 2025
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-foreground/5 border border-primary-foreground/10">
+            ANIA 2026 · Boston, MA
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-foreground/5 border border-primary-foreground/10">
+            11 U.S. Patent Applications Filed
+          </span>
         </motion.div>
 
         {/* Main headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-[1.05] max-w-4xl whitespace-nowrap"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] mb-5 leading-[1.08] max-w-4xl"
         >
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block"
-          >
-            Fairness-Preserving Clinical AI
-          </motion.span>
+          Documentation-Driven Clinical Intelligence
           <br />
-          <motion.span
-            initial={{ opacity: 0, x: 20, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-            className="text-primary inline-block"
-          >
-            for Safer, Smarter Care
-          </motion.span>
+          <span className="text-primary">for Safer, More Equitable Care</span>
         </motion.h1>
 
-        {/* Taglines */}
+        {/* Subhero — the core differentiator */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: 0.12 }}
-          className="text-lg md:text-xl max-w-2xl mb-8 opacity-80 leading-relaxed"
+          transition={{ duration: 0.35, delay: 0.15 }}
+          className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal develops documentation-driven intelligence systems that transform routine
-          EHR activity into actionable insight for patient risk, workflow visibility, and more
-          equitable clinical decision support.
+          VitaSignal turns routine EHR activity into actionable insight for risk prediction,
+          workflow visibility, and equitable decision support — without requiring new hardware
+          or adding burden to care teams.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.22 }}
+          className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
+        >
+          Informed by NIH-supported research associated with Award No. 1OT2OD032581.
+          Validated on 357,000+ patients across international ICU databases.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: 0.22 }}
+          transition={{ duration: 0.35, delay: 0.28 }}
           className="flex flex-wrap gap-3 mb-16"
         >
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Button size="lg" className="text-base px-6 h-12 shadow-lg" asChild>
-              <a href="#dashboard-preview" className="gap-2">
-                See Interactive Demo
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
-              asChild
-            >
-              <Link to="/dashboard">Request Dashboard Access</Link>
-            </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
-              asChild
-            >
-              <Link to="/licensing">Talk Licensing</Link>
-            </Button>
-          </motion.div>
+          <Button size="lg" className="text-base px-6 h-12 shadow-lg" asChild>
+            <a href="#dashboard-preview" className="gap-2">
+              See Interactive Demo
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+            asChild
+          >
+            <Link to="/pilot-request">Request Pilot Assessment</Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
+            asChild
+          >
+            <Link to="/licensing">Licensing Inquiries</Link>
+          </Button>
         </motion.div>
 
         {/* Stats bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
           className="space-y-2"
         >
-          <p className="text-[11px] uppercase tracking-wider text-primary-foreground/50 font-semibold text-center">
-            11 Patent Applications Filed · ICU Mortality & Documentation Burden Systems
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary/20 rounded-xl overflow-hidden">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + i * 0.08, duration: 0.5, type: "spring", stiffness: 150 }}
-              whileHover={{ backgroundColor: "hsl(var(--primary) / 0.08)" }}
-              className="bg-background/95 backdrop-blur-md p-5 text-center transition-colors"
-            >
-              <p className="font-display text-2xl md:text-3xl text-primary mb-1 drop-shadow-md font-bold">
-                {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} fallback={s.value} />; })()}
-              </p>
-              <p className="text-sm font-bold text-foreground">{s.label}</p>
-              <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-primary/15 rounded-xl overflow-hidden">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.06, duration: 0.4 }}
+                className="bg-background/95 backdrop-blur-md p-5 text-center"
+              >
+                <p className="font-display text-2xl md:text-3xl text-primary mb-1 font-bold">
+                  {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} fallback={s.value} />; })()}
+                </p>
+                <p className="text-sm font-bold text-foreground">{s.label}</p>
+                <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
