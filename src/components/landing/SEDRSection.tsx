@@ -24,9 +24,9 @@ export const SEDRSection = () => (
         SEDR – Syndromic Surveillance
       </h2>
       <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8">
-        A validated measure of shift-end documentation burden that demonstrates VitaSignal's ability to
-        extract operational intelligence from routine EHR activity — turning documentation patterns into
-        workforce-level insight.
+        A validated syndromic surveillance system that demonstrates VitaSignal's ability to
+        extract population-level intelligence from routine EHR documentation patterns — enabling
+        early outbreak detection and response coordination. Patent application filed.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8 mb-8">
