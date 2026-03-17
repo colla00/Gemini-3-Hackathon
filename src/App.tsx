@@ -85,6 +85,8 @@ const SolutionsHospitals = lazy(() => import("./pages/SolutionsHospitals"));
 const SolutionsEHRVendors = lazy(() => import("./pages/SolutionsEHRVendors"));
 const SolutionsInvestors = lazy(() => import("./pages/SolutionsInvestors"));
 const SolutionsMilitary = lazy(() => import("./pages/SolutionsMilitary"));
+const Security = lazy(() => import("./pages/Security"));
+const Research = lazy(() => import("./pages/Research"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
