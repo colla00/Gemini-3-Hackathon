@@ -96,10 +96,10 @@ export const SEDRDemo = () => {
       {/* Enterprise KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Facilities Monitored', value: liveFacilities.toString(), sub: 'cross-facility network', icon: <MapPin className="h-4 w-4" />, color: 'text-destructive' },
-          { label: 'Alerts Generated', value: liveAlerts.toString(), sub: 'automated responses', icon: <Bell className="h-4 w-4" />, color: 'text-warning' },
-          { label: 'Detection Lead', value: '72h', sub: 'before traditional surveillance', icon: <Clock className="h-4 w-4" />, color: 'text-chart-1' },
-          { label: 'Outbreak Prevention', value: '$4.2M', sub: 'estimated savings/outbreak', icon: <DollarSign className="h-4 w-4" />, color: 'text-risk-low' },
+          { label: 'ICU Stays Validated', value: '94,444', sub: 'MIMIC-IV (2008–2022)', icon: <MapPin className="h-4 w-4" />, color: 'text-destructive' },
+          { label: 'Temporal Periods', value: '5', sub: 'LOPO cross-validation', icon: <Bell className="h-4 w-4" />, color: 'text-warning' },
+          { label: 'Detection Lead', value: 'Strong', sub: 'vs. enriched baseline', icon: <Clock className="h-4 w-4" />, color: 'text-chart-1' },
+          { label: 'Significance', value: '5/5', sub: 'periods (p<0.05)', icon: <DollarSign className="h-4 w-4" />, color: 'text-risk-low' },
         ].map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 + i * 0.08 }}>
             <Card className="border-border/40 bg-gradient-to-b from-background to-muted/20 hover:shadow-md transition-shadow">
