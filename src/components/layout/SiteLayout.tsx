@@ -271,6 +271,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                 <Link to="/solutions/ehr-vendors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For EHR Vendors</Link>
                 <Link to="/solutions/investors" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">For Investors</Link>
                 <Link to="/solutions/military" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">DoD & Military</Link>
+                <Link to="/for-leaders" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">By Role</Link>
               </div>
             </div>
 
