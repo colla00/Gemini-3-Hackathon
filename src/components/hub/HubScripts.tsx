@@ -170,7 +170,7 @@ This research is supported by an NIH fellowship. Under the Bayh-Dole Act, the U.
 VitaSignal LLC is registered in Georgia. EIN is on file. Patent assignment execution is in progress.
 
 [WHAT I NEED FROM YOU]
-1. Filing strategy for 63/932,953 and 63/946,187 — priority NP filings
+1. Filing strategy for priority NP filings (CRIS-E and CDS-EQUITY)
 2. Bundle/continuation analysis for the Q-2 group
 3. Patent assignment execution (Exhibit A for all 11)
 4. Prior art search recommendation
