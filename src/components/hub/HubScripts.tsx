@@ -83,7 +83,7 @@ Building on the IDI, we developed the Documentation Burden Score — a system th
 Results: AUROC 0.758. Negative predictive value: 0.947 at one threshold, 0.924 at another. This means we can reliably identify patients who will NOT experience high documentation burden — enabling proactive staffing decisions before each shift.
 
 [SLIDE: External Validation — HiRID]
-For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model achieved an AUROC of 0.9063 — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
+For the strongest evidence, we turned to HiRID — the Bern University Hospital dataset. On 33,897 patients, our model demonstrated strong discriminative performance — outperforming APACHE IV and SOFA. Using zero physiological data. Only EHR documentation timestamps.
 
 [SLIDE: Health Equity]
 Equity was not an afterthought. We conducted pre-specified stratified analysis across racial and ethnic groups. AUC range: 0.673 to 0.691. No statistically significant differences — p equals 0.82 for interaction. Calibration slopes near-ideal across all groups.
