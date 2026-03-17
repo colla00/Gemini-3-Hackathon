@@ -110,7 +110,7 @@ export const LandingHero = () => {
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
           Informed by NIH-supported research associated with Award No. 1OT2OD032581.
-          Validated on 357,000+ patients across international ICU databases.
+          Validated on 93,000+ patients across international ICU databases.
         </motion.p>
 
         {/* CTAs */}

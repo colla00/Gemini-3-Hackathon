@@ -148,7 +148,7 @@ function Licensing() {
           </p>
           <p className="text-lg md:text-xl max-w-2xl opacity-80 leading-relaxed text-gray-300">
             Three licensing tiers for EHR vendors, health systems, and research institutions.
-            Validated on 357,000+ patients. 11 patent applications filed.
+            Validated on 93,000+ patients across two studies. 11 patent applications filed.
           </p>
         </div>
       </section>

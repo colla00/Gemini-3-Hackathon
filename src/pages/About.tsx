@@ -122,9 +122,9 @@ function About() {
           {/* Impact Metrics */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             {[
-              { icon: DollarSign, value: "$2,847", label: "Savings / Patient" },
-              { icon: BarChart3, value: "1,240%", label: "ROI" },
-              { icon: Calendar, value: "90 min", label: "Saved / Shift" },
+              { icon: DollarSign, value: "93K+", label: "Patients Validated" },
+              { icon: BarChart3, value: "172", label: "Hospitals (eICU)" },
+              { icon: Calendar, value: "11", label: "Patent Applications" },
             ].map((m) => (
               <Card key={m.label} className="border-border/40">
                 <CardContent className="p-4 text-center">

@@ -93,7 +93,7 @@ USPTO Patent Applications: 63/976,293 and 10 additional provisional filings`}
       />
       <CopySnippet
         title="VitaSignal One-Liner"
-        text={`VitaSignal™ is an equipment-independent clinical AI platform that predicts ICU mortality and nursing documentation burden from EHR timestamp patterns alone — no sensors, no wearables, validated on 357,080 patients across 172 hospitals.`}
+        text={`VitaSignal™ is an equipment-independent clinical AI platform that predicts ICU mortality and nursing documentation burden from EHR timestamp patterns alone — no sensors, no wearables, validated on 93,000+ patients across 172 hospitals.`}
       />
     </div>
   </div>
