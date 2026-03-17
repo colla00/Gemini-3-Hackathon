@@ -27,9 +27,9 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 
 const metrics = [
   { label: "IDI System", value: 65, display: "65K+", detail: "Patients validated", prefix: "", suffix: "K+" },
-  { label: "External Validation", value: 172, display: "172", detail: "Hospitals (eICU)", prefix: "", suffix: "" },
-  { label: "DBS System", value: 28, display: "28K+", detail: "Patients validated", prefix: "", suffix: "K+" },
-  { label: "Total Validated", value: 93, display: "93K+", detail: "Combined across both studies", prefix: "", suffix: "K+" },
+  { label: "DBS System", value: 28, display: "28K+", detail: "Patients · 172 hospitals", prefix: "", suffix: "K+" },
+  { label: "SEDR System", value: 94, display: "94K+", detail: "ICU stays validated", prefix: "", suffix: "K+" },
+  { label: "Total Validated", value: 187, display: "187K+", detail: "Combined across all studies", prefix: "", suffix: "K+" },
 ];
 
 const differentiators = [
