@@ -88,7 +88,7 @@ const HubManuscripts = () => (
     <div className="space-y-3">
       <CopyBlock
         title="📋 COI Block Template (copy-paste ready)"
-        text={`Dr. Collier is the Founder and CEO of VitaSignal LLC. Dr. Collier has filed 11 U.S. provisional patent applications related to methods described in this work, including USPTO Application Nos. 63/932,953, 63/946,187, 63/966,099, 63/966,117, 63/976,293, 63/995,920, 63/995,921, 63/995,922, 63/995,923, 63/995,924, and 63/995,925. This research was supported in part by the National Institutes of Health (NIH) Agreement No. 1OT2OD032581. The U.S. Government retains certain rights under the Bayh-Dole Act. No other conflicts of interest are declared.`}
+        text={`Dr. Collier is the Founder and CEO of VitaSignal LLC. Dr. Collier has filed 11 U.S. provisional patent applications related to methods described in this work. This research was supported in part by the National Institutes of Health (NIH). The U.S. Government retains certain rights under the Bayh-Dole Act. No other conflicts of interest are declared.`}
       />
       <CopyBlock
         title="📋 Funding Statement Template (copy-paste ready)"

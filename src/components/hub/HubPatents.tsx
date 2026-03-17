@@ -4,17 +4,17 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 const T = ({ children }: { children: React.ReactNode }) => <span style={{ color: '#00c8b4' }}>{children}</span>;
 
 const patents = [
-  { n: 1, no: '63/932,953', nick: 'CRIS-E', title: 'Clinical Risk Intelligence System – Equity Edition', np: 'Dec 6 2026', p: 'CRITICAL', notes: 'Brief attorney immediately' },
-  { n: 2, no: '63/946,187', nick: 'CDS-EQUITY', title: 'Equitable Clinical Decision Support System', np: 'Dec 21 2026', p: 'CRITICAL', notes: 'Bundle decision pending' },
-  { n: 3, no: '63/966,099', nick: 'DBS-v2', title: 'Documentation Burden Score v2', np: 'Jan 22 2027', p: 'HIGH', notes: '' },
-  { n: 4, no: '63/966,117', nick: 'UNIP', title: 'Unified Nursing Intelligence Platform', np: 'Jan 22 2027', p: 'HIGH', notes: 'Bundle with #2?' },
-  { n: 5, no: '63/976,293', nick: 'IDI', title: 'Intensive Documentation Index', np: 'Feb 5 2027', p: 'STANDARD', notes: 'Core paper patent' },
-  { n: 6, no: '63/995,920', nick: 'TRACI', title: 'Temporal Risk Assessment with Contextual Intelligence', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
-  { n: 7, no: '63/995,921', nick: 'ESDBI', title: 'EHR-Based Staffing and Documentation Burden Index', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
-  { n: 8, no: '63/995,922', nick: 'SHQS', title: 'Surveillance-Based Healthcare Quality Score', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
-  { n: 9, no: '63/995,923', nick: 'DTBL', title: 'Digital Twin Baseline Learning', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
-  { n: 10, no: '63/995,924', nick: 'CTCI', title: 'Clinical Trial Cohort Intelligence', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
-  { n: 11, no: '63/995,925', nick: 'SEDR', title: 'Syndromic Early Detection and Response', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 1, no: '[REDACTED]', nick: 'CRIS-E', title: 'Clinical Risk Intelligence System – Equity Edition', np: 'Dec 6 2026', p: 'CRITICAL', notes: 'Brief attorney immediately' },
+  { n: 2, no: '[REDACTED]', nick: 'CDS-EQUITY', title: 'Equitable Clinical Decision Support System', np: 'Dec 21 2026', p: 'CRITICAL', notes: 'Bundle decision pending' },
+  { n: 3, no: '[REDACTED]', nick: 'DBS-v2', title: 'Documentation Burden Score v2', np: 'Jan 22 2027', p: 'HIGH', notes: '' },
+  { n: 4, no: '[REDACTED]', nick: 'UNIP', title: 'Unified Nursing Intelligence Platform', np: 'Jan 22 2027', p: 'HIGH', notes: 'Bundle with #2?' },
+  { n: 5, no: '[REDACTED]', nick: 'IDI', title: 'Intensive Documentation Index', np: 'Feb 5 2027', p: 'STANDARD', notes: 'Core paper patent' },
+  { n: 6, no: '[REDACTED]', nick: 'TRACI', title: 'Temporal Risk Assessment with Contextual Intelligence', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 7, no: '[REDACTED]', nick: 'ESDBI', title: 'EHR-Based Staffing and Documentation Burden Index', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 8, no: '[REDACTED]', nick: 'SHQS', title: 'Surveillance-Based Healthcare Quality Score', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 9, no: '[REDACTED]', nick: 'DTBL', title: 'Digital Twin Baseline Learning', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 10, no: '[REDACTED]', nick: 'CTCI', title: 'Clinical Trial Cohort Intelligence', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
+  { n: 11, no: '[REDACTED]', nick: 'SEDR', title: 'Syndromic Early Detection and Response', np: 'Mar 4 2027', p: 'STANDARD', notes: 'Bundle group Q-2' },
 ];
 
 const prColor = (p: string) => p === 'CRITICAL' ? 'text-red-400' : p === 'HIGH' ? 'text-orange-400' : 'text-yellow-400';

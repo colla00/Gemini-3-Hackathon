@@ -17,7 +17,7 @@ const HubDashboard = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       <StatusCard title="Patents">
         <T>11</T> Provisional Applications Filed · Dec 2025 – Feb 2026<br />
-        Next NP Deadline: <T>Dec 6 2026</T> (63/932,953)
+        Next NP Deadline: <T>Dec 6 2026</T> (CRIS-E)
       </StatusCard>
       <StatusCard title="Manuscripts">
         <T>3</T> Papers in Progress · JAMIA · npj Digital Medicine · JAMA Network Open<br />

@@ -72,9 +72,9 @@ const GAPS: GapData[] = [
     status: 'ON TRACK',
     color: '#10b981',
     actions: [
-      'Convert CRIS-E (63/932,953) — Due Dec 6, 2026',
-      'Convert CDS-EQUITY (63/946,187) — Due Dec 21, 2026',
-      'Convert IDI (63/976,293) — Due Feb 5, 2027',
+      'Convert CRIS-E — Due Dec 6, 2026',
+      'Convert CDS-EQUITY — Due Dec 21, 2026',
+      'Convert IDI — Due Feb 5, 2027',
       'Select 1 workflow patent based on commercial traction',
     ],
     keyMetric: '$20K-$30K legal fees secured by Oct 2026',
