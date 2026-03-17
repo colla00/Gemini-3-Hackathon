@@ -134,25 +134,25 @@ These two are the broadest systems and need to be filed first. I need a filing s
 [THE 11 APPLICATIONS]
 Let me walk through them quickly:
 
-1. 63/932,953 — CRIS-E — Clinical Risk Intelligence System, Equity Edition. Filed December 6, 2025. This is a comprehensive clinical decision support system with built-in equity monitoring. CRITICAL priority.
+1. CRIS-E — Clinical Risk Intelligence System, Equity Edition. Filed December 2025. Comprehensive clinical decision support with equity monitoring. CRITICAL priority.
 
-2. 63/946,187 — CDS-EQUITY — Equitable Clinical Decision Support. Filed December 21, 2025. Focused on equity-weighted risk scoring. CRITICAL priority. We should discuss whether to bundle this with CRIS-E.
+2. CDS-EQUITY — Equitable Clinical Decision Support. Filed December 2025. Equity-weighted risk scoring. CRITICAL priority. Consider bundling with CRIS-E.
 
-3. 63/966,099 — DBS-v2 — Documentation Burden Score version 2. Filed January 22, 2026. ML-based documentation burden quantification. Validated on 28,362 patients across 172 hospitals. HIGH priority.
+3. DBS-v2 — Documentation Burden Score version 2. Filed January 2026. ML-based documentation burden quantification. Validated across 172 hospitals. HIGH priority.
 
-4. 63/966,117 — UNIP — Unified Nursing Intelligence Platform. Filed January 22, 2026. Integration platform connecting all subsystems. HIGH priority. Possible bundle with CDS-EQUITY.
+4. UNIP — Unified Nursing Intelligence Platform. Filed January 2026. Integration platform connecting all subsystems. HIGH priority. Possible bundle with CDS-EQUITY.
 
-5. 63/976,293 — IDI — Intensive Documentation Index. Filed February 5, 2026. This is the foundational patent — 9 temporal features from documentation timestamps predicting ICU mortality. Published preprint on medRxiv. STANDARD priority for NP deadline but HIGH strategic value.
+5. IDI — Intensive Documentation Index. Filed February 2026. Foundational patent — temporal features from documentation timestamps predicting ICU mortality. STANDARD priority for NP deadline but HIGH strategic value.
 
-6 through 11 — Six applications filed March 4, 2026, all with March 4, 2027 NP deadlines:
-— 63/995,920 TRACI — Temporal Risk Assessment with Contextual Intelligence
-— 63/995,921 ESDBI — EHR-Based Staffing and Documentation Burden Index
-— 63/995,922 SHQS — Surveillance-Based Healthcare Quality Score
-— 63/995,923 DTBL — Digital Twin Baseline Learning
-— 63/995,924 CTCI — Clinical Trial Cohort Intelligence
-— 63/995,925 SEDR — Syndromic Early Detection and Response
+6 through 11 — Six applications filed March 2026, all with March 2027 NP deadlines:
+— TRACI — Temporal Risk Assessment with Contextual Intelligence
+— ESDBI — EHR-Based Staffing and Documentation Burden Index
+— SHQS — Surveillance-Based Healthcare Quality Score
+— DTBL — Digital Twin Baseline Learning
+— CTCI — Clinical Trial Cohort Intelligence
+— SEDR — Syndromic Early Detection and Response
 
-I'm calling these the "Q-2 bundle group." They share common infrastructure and may benefit from a continuation or CIP strategy.
+These share common infrastructure and may benefit from a continuation or CIP strategy.
 
 [VALIDATION DATA]
 The claims are supported by extensive validation:
