@@ -86,7 +86,7 @@ const HubManuscripts = () => (
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
         <h3 className="text-base font-semibold text-white mb-2">Preprint — medRxiv / ESDBI</h3>
         <p className="text-sm text-white/70">DOI: <T>10.64898/2026.02.10.26345827v3</T></p>
-        <p className="text-sm text-white/70">Version: v3 (updated credentials: DHA, MHA; contact: info@alexiscollier.com)</p>
+        <p className="text-sm text-white/70">Version: v3 (updated credentials: DHA, MHA; co-author: Sophia Z. Shalhout, PhD)</p>
         <p className="text-sm text-white/70">Note: ESDBI mentioned — cite decision pending</p>
       </div>
     </div>

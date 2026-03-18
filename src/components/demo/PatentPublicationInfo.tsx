@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 
 const infoRows = [
   { label: 'Patent #1', value: 'U.S. Provisional Patent Application Filed (2026)' },
-  { label: 'Manuscript', value: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study' },
+  { label: 'Manuscript 1', value: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction (JAMIA)' },
+  { label: 'Manuscript 2', value: 'Multinational Validation of the Intensive Documentation Index for ICU Mortality Prediction (npj Digital Medicine)' },
   { label: 'Status', value: 'Manuscripts under review' },
   { label: 'Funding', value: 'Research supported in part by NIH Award No. 1OT2OD032581 (AIM-AHEAD)' },
-  { label: 'Inventor', value: 'Dr. Alexis Collier, DHA. University of North Georgia' },
+  { label: 'Authors', value: 'Alexis M. Collier, DHA, MHA; Sophia Z. Shalhout, PhD — University of North Georgia / Harvard Medical School' },
 ];
 
 export const PatentPublicationInfo = () => {
