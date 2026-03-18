@@ -272,9 +272,15 @@ export const PATENTS: PatentInfo[] = [
 
 export const PUBLICATIONS: PublicationInfo[] = [
   {
-    title: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction: A Temporal Validation Study',
-    venue: 'medRxiv (Preprint)',
+    title: 'Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction',
+    venue: 'JAMIA (under review) / medRxiv Preprint v3',
     date: 'February 2026',
+    type: 'Manuscript',
+  },
+  {
+    title: 'Multinational Validation of the Intensive Documentation Index for ICU Mortality Prediction: Temporal Resolution and ICU Mortality',
+    venue: 'npj Digital Medicine (under review)',
+    date: 'March 2026',
     type: 'Manuscript',
   },
   {
