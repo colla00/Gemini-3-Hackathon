@@ -79,7 +79,7 @@ const HubManuscripts = () => (
       <PaperCard status="🟡 In Progress" statusColor="bg-yellow-500/20 text-yellow-400" title="Paper 3 — JAMA Network Open" system="DBS External Validation — 172 Hospitals">
         <p><strong>Dataset:</strong> eICU (N=<T>28,362</T> · <T>172</T> hospitals)</p>
         <p><strong>Key results:</strong> AUROC <T>0.758</T> · NPV 0.947/0.924</p>
-        <p><strong>Contact:</strong> Sophia Shalhout — info@vitasignal.ai</p>
+        <p><strong>Contact:</strong> Sophia Z. Shalhout, PhD — Sophia_shalhout@meei.harvard.edu</p>
         <p><strong>Due dates:</strong> Sophia edits due <T>March 21</T> · Race/ethnicity compliance due <T>March 31</T></p>
       </PaperCard>
 
