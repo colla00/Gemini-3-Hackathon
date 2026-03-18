@@ -44,9 +44,10 @@ export const SEDRSection = () => (
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">What SEDR Measures</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SEDR detects syndromic patterns using enriched temporal features from EHR documentation
-              timestamps, combined with Elixhauser comorbidity burden, ICU type, and admission variables.
-              Modeled with LightGBM across five held-out three-year validation periods.
+              SEDR captures the temporal rhythm of nursing EHR interactions relative to 12-hour shift
+              boundaries — nine features including shift-end acceleration, documentation velocity,
+              event-type entropy, and intervention-assessment variance. Modeled with LightGBM across
+              five leave-one-period-out cross-validation folds.
             </p>
           </div>
         </div>
