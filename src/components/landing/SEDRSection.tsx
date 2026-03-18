@@ -26,7 +26,8 @@ export const SEDRSection = () => (
       <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8">
         A validated syndromic surveillance system that demonstrates VitaSignal's ability to
         extract population-level intelligence from routine EHR documentation patterns — enabling
-        early outbreak detection and response coordination. Patent application filed.
+        early outbreak detection and response coordination. Validated across 131,901 ICU stays
+        (MIMIC-IV + eICU-CRD, 208 ICUs). Patent application filed.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8 mb-8">
