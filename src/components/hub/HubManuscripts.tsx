@@ -83,6 +83,17 @@ const HubManuscripts = () => (
         <p><strong>Due dates:</strong> Sophia edits due <T>March 21</T> · Race/ethnicity compliance due <T>March 31</T></p>
       </PaperCard>
 
+      <PaperCard status="🟡 Under Review" statusColor="bg-yellow-500/20 text-yellow-400" title="Paper 4 — MLHC 2026" system="SEDR — Shift-End Documentation Rate">
+        <p><strong>Title:</strong> Shift-End Documentation Rate: Timestamped EHR Events as a Mortality Predictor in Intensive Care Units</p>
+        <p><strong>Submission:</strong> MLHC 2026 Research Track · Double-blind</p>
+        <p><strong>Dataset:</strong> MIMIC-IV (N=<T>94,444</T>) + eICU-CRD (N=<T>37,457</T>, <T>208</T> ICUs) · Total <T>131,901</T> patient-stays</p>
+        <p><strong>Key results (MIMIC-IV):</strong> Pooled AUROC <T>0.805</T> vs IDI baseline 0.781 (Δ+0.024, p&lt;0.001) · Consistent gains in all 5 LOPO-CV folds</p>
+        <p><strong>Key results (eICU-CRD):</strong> APACHE+SEDR AUROC <T>0.841</T> vs APACHE-only 0.768 (Δ+0.073, p&lt;0.001) · Brier score −11.0%</p>
+        <p><strong>Notable:</strong> SEDR-only matches APACHE-only (AUROC <T>0.768</T>, p=0.91) — no severity score required</p>
+        <p><strong>SHAP:</strong> 14 of top 15 features are SEDR-derived · Event-type entropy ranks #2 (SHAP 0.377)</p>
+        <p><strong>Subgroups:</strong> Gains in all 8 ICU types (Δ+0.054 to +0.144) · Window-robust (30–120 min, spread 0.0017)</p>
+      </PaperCard>
+
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
         <h3 className="text-base font-semibold text-white mb-2">Preprint — medRxiv / ESDBI</h3>
         <p className="text-sm text-white/70">DOI: <T>10.64898/2026.02.10.26345827v3</T></p>

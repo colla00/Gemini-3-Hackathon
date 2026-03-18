@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const periods = [
-  { range: "2008–2010", auroc: "✓" },
-  { range: "2011–2013", auroc: "✓" },
-  { range: "2014–2016", auroc: "✓" },
-  { range: "2017–2019", auroc: "✓" },
-  { range: "2020–2022", auroc: "✓" },
+  { range: "2008–2010", auroc: "0.741" },
+  { range: "2011–2013", auroc: "0.749" },
+  { range: "2014–2016", auroc: "0.782" },
+  { range: "2017–2019", auroc: "0.818" },
+  { range: "2020–2022", auroc: "0.821" },
 ];
 
 export const SEDRSection = () => (
@@ -26,7 +26,8 @@ export const SEDRSection = () => (
       <p className="text-muted-foreground max-w-2xl leading-relaxed mb-8">
         A validated syndromic surveillance system that demonstrates VitaSignal's ability to
         extract population-level intelligence from routine EHR documentation patterns — enabling
-        early outbreak detection and response coordination. Patent application filed.
+        early outbreak detection and response coordination. Validated across 131,901 ICU stays
+        (MIMIC-IV + eICU-CRD, 208 ICUs). Patent application filed.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8 mb-8">
@@ -43,9 +44,10 @@ export const SEDRSection = () => (
           <div>
             <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-2">What SEDR Measures</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SEDR detects syndromic patterns using enriched temporal features from EHR documentation
-              timestamps, combined with Elixhauser comorbidity burden, ICU type, and admission variables.
-              Modeled with LightGBM across five held-out three-year validation periods.
+              SEDR captures the temporal rhythm of nursing EHR interactions relative to 12-hour shift
+              boundaries — nine features including shift-end acceleration, documentation velocity,
+              event-type entropy, and intervention-assessment variance. Modeled with LightGBM across
+              five leave-one-period-out cross-validation folds.
             </p>
           </div>
         </div>
@@ -58,7 +60,7 @@ export const SEDRSection = () => (
               <h3 className="text-sm font-bold text-foreground">Temporal Validation Results</h3>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
-              94,444 ICU stays · MIMIC-IV · Five held-out three-year periods
+              94,444 ICU stays · MIMIC-IV · Five LOPO-CV folds (SEDR-LGBM AUROC)
             </p>
             <div className="space-y-2 mb-4">
               {periods.map((p) => (
@@ -70,15 +72,19 @@ export const SEDRSection = () => (
             </div>
             <div className="pt-3 border-t border-border/30 space-y-1.5">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Discrimination</span>
-                <span className="font-bold text-primary text-lg">Strong</span>
+                <span className="text-muted-foreground">Pooled AUROC</span>
+                <span className="font-bold text-primary text-lg">0.805</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">vs. Comparators</span>
-                <span className="text-muted-foreground">Outperforms baseline &amp; IDI</span>
+                <span className="text-muted-foreground">eICU-CRD (external)</span>
+                <span className="font-bold text-foreground">0.841</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">vs. APACHE-only</span>
+                <span className="text-muted-foreground">Δ+0.073, p&lt;0.001</span>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1">
-                Statistically significant in 5/5 periods · Metrics available under NDA
+                All 5 folds significant · SEDR-only matches APACHE (0.768) · Under double-blind review at MLHC 2026
               </p>
             </div>
           </CardContent>
