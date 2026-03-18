@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const periods = [
-  { range: "2008–2010", auroc: "0.741" },
-  { range: "2011–2013", auroc: "0.749" },
-  { range: "2014–2016", auroc: "0.782" },
-  { range: "2017–2019", auroc: "0.818" },
-  { range: "2020–2022", auroc: "0.821" },
+  { range: "2008–2010", auroc: "✓" },
+  { range: "2011–2013", auroc: "✓" },
+  { range: "2014–2016", auroc: "✓" },
+  { range: "2017–2019", auroc: "✓" },
+  { range: "2020–2022", auroc: "✓" },
 ];
 
 export const SEDRSection = () => (
@@ -60,7 +60,7 @@ export const SEDRSection = () => (
               <h3 className="text-sm font-bold text-foreground">Temporal Validation Results</h3>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
-              94,444 ICU stays · MIMIC-IV · Five LOPO-CV folds (SEDR-LGBM AUROC)
+              131,901 ICU stays · MIMIC-IV + eICU-CRD · 208 ICUs
             </p>
             <div className="space-y-2 mb-4">
               {periods.map((p) => (
@@ -72,19 +72,19 @@ export const SEDRSection = () => (
             </div>
             <div className="pt-3 border-t border-border/30 space-y-1.5">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Pooled AUROC</span>
-                <span className="font-bold text-primary text-lg">0.805</span>
+                <span className="text-muted-foreground">Discrimination</span>
+                <span className="font-bold text-primary text-lg">Strong</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">eICU-CRD (external)</span>
-                <span className="font-bold text-foreground">0.841</span>
+                <span className="text-muted-foreground">External Validation</span>
+                <span className="text-muted-foreground">Outperforms APACHE baseline</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">vs. APACHE-only</span>
-                <span className="text-muted-foreground">Δ+0.073, p&lt;0.001</span>
+                <span className="text-muted-foreground">Consistency</span>
+                <span className="text-muted-foreground">All folds statistically significant</span>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1">
-                All 5 folds significant · SEDR-only matches APACHE (0.768) · Under double-blind review at MLHC 2026
+                Validated across 5 temporal periods · Metrics available under NDA
               </p>
             </div>
           </CardContent>
