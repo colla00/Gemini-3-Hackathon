@@ -66,7 +66,7 @@ const HubManuscripts = () => (
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="DBS + HiRID External Validation">
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T>) + HiRID (N=<T>33,897</T>) · 80/20 split</p>
         <p><strong>Key results:</strong> Statistically validated across MIMIC-IV and HiRID · Outperforms established scoring systems</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
+        <p><strong>Author:</strong> Alexis M. Collier, DHA, MHA · info@alexiscollier.com</p>
         <p><strong>Data:</strong> HiRID — physionet.org/content/hirid/1.1.1/</p>
       </PaperCard>
 
