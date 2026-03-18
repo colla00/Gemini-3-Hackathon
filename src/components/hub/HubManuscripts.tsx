@@ -54,20 +54,26 @@ const HubManuscripts = () => (
 
     <div className="space-y-4">
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 1 — JAMIA" system="IDI — Intensive Documentation Index">
+        <p><strong>Title:</strong> Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction</p>
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T> heart failure ICU admissions, 2008–2019)</p>
-        <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (+0.025, p&lt;0.05) · 12-year temporal validation</p>
+        <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (ΔAUC +0.025, p=0.015, DeLong) · Temporal validation (train 2008–2018, test 2019)</p>
+        <p><strong>Mortality:</strong> 15.99% (n=<T>4,181</T>/26,153) · Strongest predictor: idi_cv_interevent (OR=1.53, p&lt;0.001)</p>
         <p><strong>Preprint:</strong> Available on medRxiv</p>
-        <p><strong>Author:</strong> Alexis M. Collier, DHA, MHA · info@alexiscollier.com</p>
+        <p><strong>Authors:</strong> Alexis M. Collier, DHA, MHA; Sophia Z. Shalhout, PhD</p>
+        <p><strong>Contact:</strong> alexis.collier@ung.edu</p>
         <p><strong>COI:</strong> Patent applications filed · NIH-funded · Bayh-Dole · VitaSignal LLC</p>
-        <p><strong>Data:</strong> MIMIC-IV — physionet.org</p>
+        <p><strong>Data:</strong> MIMIC-IV v2.2 — physionet.org</p>
         <p><strong>IRB:</strong> Exemption determination on file</p>
       </PaperCard>
 
-      <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="DBS + HiRID External Validation">
-        <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T>) + HiRID (N=<T>33,897</T>) · 80/20 split</p>
-        <p><strong>Key results:</strong> Statistically validated across MIMIC-IV and HiRID · Outperforms established scoring systems</p>
-        <p><strong>Author:</strong> Alexis M. Collier, DHA, MHA · info@alexiscollier.com</p>
-        <p><strong>Data:</strong> HiRID — physionet.org/content/hirid/1.1.1/</p>
+      <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="IDI — Multinational Validation (MIMIC-IV + HiRID)">
+        <p><strong>Title:</strong> Multinational Validation of the Intensive Documentation Index for ICU Mortality Prediction: Temporal Resolution and ICU Mortality</p>
+        <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T>, US) + HiRID (N=<T>33,897</T>, Switzerland) · 80/20 split</p>
+        <p><strong>Key results:</strong> MIMIC-IV AUROC <T>0.6491</T> (leakage-corrected) · HiRID AUROC <T>0.9063</T> (95% CI 0.89–0.92) · Exceeds APACHE IV (0.80–0.85) &amp; SAPS III (0.75–0.82)</p>
+        <p><strong>Insight:</strong> 750× documentation latency difference (15 hrs vs 1.2 min) explains AUROC gap</p>
+        <p><strong>Authors:</strong> Alexis M. Collier, DHA, MHA; Sophia Z. Shalhout, PhD</p>
+        <p><strong>Contact:</strong> alexis.collier@ung.edu</p>
+        <p><strong>Data:</strong> HiRID v1.1.1 — physionet.org/content/hirid/1.1.1/</p>
       </PaperCard>
 
       <PaperCard status="🟡 In Progress" statusColor="bg-yellow-500/20 text-yellow-400" title="Paper 3 — JAMA Network Open" system="DBS External Validation — 172 Hospitals">
