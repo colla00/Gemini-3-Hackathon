@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const periods = [
-  { range: "2008–2010", auroc: "✓" },
-  { range: "2011–2013", auroc: "✓" },
-  { range: "2014–2016", auroc: "✓" },
-  { range: "2017–2019", auroc: "✓" },
-  { range: "2020–2022", auroc: "✓" },
+  { range: "2008–2010", auroc: "0.741" },
+  { range: "2011–2013", auroc: "0.749" },
+  { range: "2014–2016", auroc: "0.782" },
+  { range: "2017–2019", auroc: "0.818" },
+  { range: "2020–2022", auroc: "0.821" },
 ];
 
 export const SEDRSection = () => (
