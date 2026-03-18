@@ -57,7 +57,7 @@ const HubManuscripts = () => (
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T> heart failure ICU admissions, 2008–2019)</p>
         <p><strong>Key result:</strong> AUC <T>0.658 → 0.683</T> (+0.025, p&lt;0.05) · 12-year temporal validation</p>
         <p><strong>Preprint:</strong> Available on medRxiv</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
+        <p><strong>Author:</strong> Alexis M. Collier, DHA, MHA · info@alexiscollier.com</p>
         <p><strong>COI:</strong> Patent applications filed · NIH-funded · Bayh-Dole · VitaSignal LLC</p>
         <p><strong>Data:</strong> MIMIC-IV — physionet.org</p>
         <p><strong>IRB:</strong> Exemption determination on file</p>
@@ -66,7 +66,7 @@ const HubManuscripts = () => (
       <PaperCard status="🔵 Submission Ready" statusColor="bg-blue-500/20 text-blue-400" title="Paper 2 — npj Digital Medicine" system="DBS + HiRID External Validation">
         <p><strong>Dataset:</strong> MIMIC-IV (N=<T>26,153</T>) + HiRID (N=<T>33,897</T>) · 80/20 split</p>
         <p><strong>Key results:</strong> Statistically validated across MIMIC-IV and HiRID · Outperforms established scoring systems</p>
-        <p><strong>Author:</strong> Alexis Collier, DHA · info@vitasignal.ai</p>
+        <p><strong>Author:</strong> Alexis M. Collier, DHA, MHA · info@alexiscollier.com</p>
         <p><strong>Data:</strong> HiRID — physionet.org/content/hirid/1.1.1/</p>
       </PaperCard>
 
@@ -79,8 +79,8 @@ const HubManuscripts = () => (
 
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#151f35' }}>
         <h3 className="text-base font-semibold text-white mb-2">Preprint — medRxiv / ESDBI</h3>
-        <p className="text-sm text-white/70">DOI: <T>10.64898/2026.02.10.26345827v2</T></p>
-        <p className="text-sm text-white/70">Version: v2 (corrected affiliation: University of North Georgia; NIH disclaimer added)</p>
+        <p className="text-sm text-white/70">DOI: <T>10.64898/2026.02.10.26345827v3</T></p>
+        <p className="text-sm text-white/70">Version: v3 (updated credentials: DHA, MHA; contact: info@alexiscollier.com)</p>
         <p className="text-sm text-white/70">Note: ESDBI mentioned — cite decision pending</p>
       </div>
     </div>
