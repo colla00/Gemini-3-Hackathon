@@ -64,15 +64,15 @@ export const DashboardPreview = () => {
           className="rounded-lg border border-border bg-card shadow-sm overflow-hidden"
         >
           {/* Application bar — EHR style */}
-          <div className="flex items-center justify-between px-4 py-2 bg-muted/60 border-b border-border text-xs">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 py-2 bg-muted/60 border-b border-border text-xs gap-1">
+            <div className="flex items-center gap-2 sm:gap-4">
               <span className="font-semibold text-foreground">VitaSignal™ · Patient Risk Monitor</span>
-              <span className="text-muted-foreground">Unit: MICU-4 · Floor 3</span>
+              <span className="text-muted-foreground hidden sm:inline">Unit: MICU-4 · Floor 3</span>
             </div>
-            <div className="flex items-center gap-4 text-muted-foreground">
+            <div className="flex items-center gap-3 sm:gap-4 text-muted-foreground">
               <span>Census: <strong className="text-foreground">12</strong></span>
               <span>High Risk: <strong className="text-red-600 dark:text-red-400">3</strong></span>
-              <span>Last Refresh: {timestamp}</span>
+              <span className="hidden sm:inline">Last Refresh: {timestamp}</span>
             </div>
           </div>
 
