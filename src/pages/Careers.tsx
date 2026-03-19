@@ -78,6 +78,24 @@ const roles = [
     ],
     compensation: 'Base + commission + equity. Funded position.',
   },
+  {
+    id: 'hipaa-compliance',
+    title: 'HIPAA Compliance Officer',
+    type: 'Early Team',
+    location: 'Remote (U.S.)',
+    equity: '2–4%',
+    timing: 'Q3 2026',
+    priority: 'high',
+    description: 'Own VitaSignal\'s HIPAA compliance program end-to-end — from policies and risk assessments to staff training and breach response. Ensure our clinical AI platform meets the highest standards of patient data protection.',
+    requirements: [
+      'CHPC, CHPS, or equivalent healthcare compliance certification',
+      'Experience building HIPAA compliance programs at health tech or digital health companies',
+      'Deep knowledge of the HIPAA Privacy Rule, Security Rule, and Breach Notification Rule',
+      'Familiarity with FDA SaMD regulatory requirements and their intersection with HIPAA',
+      'Experience conducting security risk assessments and managing BAAs with vendors',
+    ],
+    compensation: 'Below-market salary + meaningful equity. Full market rate post-Series A.',
+  },
 ];
 
 const values = [
