@@ -199,7 +199,7 @@ export const TRACIDemo = () => {
             <CardContent>
               <AnimatePresence mode="wait">
                 <motion.div key={selectedPatient.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                  <ResponsiveContainer width="100%" height={280}>
+                  <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={timelineData}>
                       <defs>
                         <linearGradient id="riskGradient" x1="0" y1="0" x2="0" y2="1">
