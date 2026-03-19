@@ -69,8 +69,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       </div>
 
       {/* Header */}
-      <header className="border-b border-border/40 bg-card sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      <header className={`border-b sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'border-border/40 bg-card/95 backdrop-blur-lg shadow-sm' : 'border-border/20 bg-card'}`}>
+        <div className="max-w-6xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img src={vitasignalIcon} alt="VitaSignal" className="w-10 h-10 rounded-lg object-cover" />
