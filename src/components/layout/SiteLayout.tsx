@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Linkedin, LogOut, LayoutGrid, FolderLock, Target, Presentation, ChevronDown } from "lucide-react";
 import vitasignalIcon from "@/assets/vitasignal-icon.jpg";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { SkipLink } from "@/components/SkipLink";
@@ -21,17 +21,24 @@ interface SiteLayoutProps {
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/about", label: "About" },
+  { to: "/demo", label: "Platform" },
   { to: "/research", label: "Research" },
-  { to: "/patents", label: "Patents" },
-  { to: "/licensing", label: "Licensing" },
+  { to: "/security", label: "Security" },
+  { to: "/for-leaders", label: "Use Cases" },
+  { to: "/about", label: "About" },
 ];
 
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user, signOut } = useAuth();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
@@ -62,8 +69,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
       </div>
 
       {/* Header */}
-      <header className="border-b border-border/40 bg-card sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      <header className={`border-b sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'border-border/40 bg-card/95 backdrop-blur-lg shadow-sm' : 'border-border/20 bg-card'}`}>
+        <div className="max-w-6xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img src={vitasignalIcon} alt="VitaSignal" className="w-10 h-10 rounded-lg object-cover" />
@@ -136,8 +143,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   </Button>
                 </>
               ) : (
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/contact">Contact</Link>
+                <Button size="sm" className="shadow-sm" asChild>
+                  <Link to="/pilot-request">Request a Pilot</Link>
                 </Button>
               )}
             </nav>
@@ -198,8 +205,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                     </Button>
                   </div>
                 ) : (
-                  <Button variant="outline" size="sm" className="w-full" asChild>
-                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+                  <Button size="sm" className="w-full shadow-sm" asChild>
+                    <Link to="/pilot-request" onClick={() => setMobileOpen(false)}>Request a Pilot</Link>
                   </Button>
                 )}
               </div>

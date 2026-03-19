@@ -64,27 +64,27 @@ export const DashboardPreview = () => {
           className="rounded-lg border border-border bg-card shadow-sm overflow-hidden"
         >
           {/* Application bar — EHR style */}
-          <div className="flex items-center justify-between px-4 py-2 bg-muted/60 border-b border-border text-xs">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 py-2 bg-muted/60 border-b border-border text-xs gap-1">
+            <div className="flex items-center gap-2 sm:gap-4">
               <span className="font-semibold text-foreground">VitaSignal™ · Patient Risk Monitor</span>
-              <span className="text-muted-foreground">Unit: MICU-4 · Floor 3</span>
+              <span className="text-muted-foreground hidden sm:inline">Unit: MICU-4 · Floor 3</span>
             </div>
-            <div className="flex items-center gap-4 text-muted-foreground">
+            <div className="flex items-center gap-3 sm:gap-4 text-muted-foreground">
               <span>Census: <strong className="text-foreground">12</strong></span>
               <span>High Risk: <strong className="text-red-600 dark:text-red-400">3</strong></span>
-              <span>Last Refresh: {timestamp}</span>
+              <span className="hidden sm:inline">Last Refresh: {timestamp}</span>
             </div>
           </div>
 
           {/* Summary strip */}
-          <div className="grid grid-cols-4 border-b border-border text-xs">
+          <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border text-xs">
             {[
               { label: "Avg Mortality Risk", value: "54.6%", sub: "Unit baseline: 38%" },
               { label: "Avg DBS™ Score", value: "9.2", sub: "Threshold: 8.0" },
               { label: "Trending Up", value: "3 patients", sub: "Past 4 hours" },
               { label: "Active Alerts", value: "6", sub: "4 high priority" },
             ].map((s, i) => (
-              <div key={s.label} className={`px-4 py-3 ${i < 3 ? 'border-r border-border' : ''}`}>
+              <div key={s.label} className={`px-4 py-3 border-b md:border-b-0 ${i % 2 === 0 ? 'border-r border-border' : ''} ${i < 2 ? 'md:border-r' : ''}`}>
                 <p className="text-muted-foreground text-[10px] uppercase tracking-wider mb-0.5">{s.label}</p>
                 <p className="text-sm font-semibold text-foreground">{s.value}</p>
                 <p className="text-[10px] text-muted-foreground">{s.sub}</p>
@@ -93,7 +93,8 @@ export const DashboardPreview = () => {
           </div>
 
           {/* Patient table */}
-          <table className="w-full text-xs">
+          <div className="overflow-x-auto">
+          <table className="w-full text-xs min-w-[640px]">
             <thead>
               <tr className="bg-muted/40 border-b border-border">
                 {["Patient ID", "Age/Sex", "Unit", "LOS", "Mortality Risk", "DBS™ Score", "Trend (4h)", "Status"].map((h) => (
@@ -156,6 +157,7 @@ export const DashboardPreview = () => {
               ))}
             </tbody>
           </table>
+          </div>
 
           {/* Status bar */}
           <div className="flex items-center justify-between px-4 py-1.5 bg-muted/40 border-t border-border text-[10px] text-muted-foreground">
