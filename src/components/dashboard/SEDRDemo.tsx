@@ -54,7 +54,7 @@ export const SEDRDemo = () => {
   const shiftData = useMemo(() => generateShiftTimeline(selectedPatient), [selectedPatient.id]);
 
   const radarData = useMemo(() => sedrFeatures.slice(0, 6).map(f => ({
-    feature: f.name.replace(/\(.*\)/, '').trim(),
+    feature: f.key === 'doc_velocity_full' ? 'Doc Velocity' : f.key === 'doc_velocity_last4h' ? 'Velocity (4h)' : f.key === 'velocity_ratio' ? 'Velocity Ratio' : f.name.replace(/\(.*\)/, '').trim(),
     patient: 30 + Math.random() * 70,
     cohortAvg: 40 + Math.random() * 20,
   })), [selectedPatient.id]);
