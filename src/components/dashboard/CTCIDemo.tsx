@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FlaskConical, Search, CheckCircle2, XCircle, Clock, Users, FileText, DollarSign, Shield, Zap, TrendingUp } from 'lucide-react';
+import { FlaskConical, Search, CheckCircle2, XCircle, Clock, Users, FileText, DollarSign, Shield, Zap, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const trials = [
@@ -73,14 +74,40 @@ export const CTCIDemo = () => {
   const [selectedTrial, setSelectedTrial] = useState(trials[0]);
   const [liveScreened, setLiveScreened] = useState(441);
   const [liveMatched, setLiveMatched] = useState(78);
+  const [screening, setScreening] = useState(false);
+  const [criteriaRevealed, setCriteriaRevealed] = useState<number>(0);
+  const [matchEvent, setMatchEvent] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setLiveScreened(prev => prev + Math.floor(Math.random() * 3));
-      if (Math.random() > 0.7) setLiveMatched(prev => prev + 1);
+      if (Math.random() > 0.7) {
+        setLiveMatched(prev => {
+          const newVal = prev + 1;
+          setMatchEvent(`✓ New patient matched to ${selectedTrial.id} — eligibility confirmed`);
+          setTimeout(() => setMatchEvent(null), 3500);
+          return newVal;
+        });
+      }
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedTrial.id]);
+
+  // Animated screening: reveal criteria one by one
+  const runScreening = () => {
+    setScreening(true);
+    setCriteriaRevealed(0);
+    selectedTrial.criteria.forEach((_, i) => {
+      setTimeout(() => setCriteriaRevealed(i + 1), 400 + i * 600);
+    });
+    setTimeout(() => setScreening(false), 400 + selectedTrial.criteria.length * 600 + 300);
+  };
+
+  // Reset screening when trial changes
+  useEffect(() => {
+    setCriteriaRevealed(selectedTrial.criteria.length);
+    setScreening(false);
+  }, [selectedTrial.id]);
 
   const totalRevenue = trials.reduce((acc, t) => acc + t.matchedPatients * t.revenuePerPatient, 0);
 
@@ -112,6 +139,18 @@ export const CTCIDemo = () => {
           </div>
         </CardHeader>
       </Card>
+
+      {/* Match Event Banner */}
+      <AnimatePresence>
+        {matchEvent && (
+          <motion.div initial={{ opacity: 0, y: -10, height: 0 }} animate={{ opacity: 1, y: 0, height: 'auto' }} exit={{ opacity: 0, y: -10, height: 0 }}>
+            <div className="p-3 rounded-lg border border-risk-low/40 bg-risk-low/10 flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-risk-low shrink-0" />
+              <p className="text-sm font-semibold text-risk-low">{matchEvent}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Enterprise KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -170,15 +209,20 @@ export const CTCIDemo = () => {
           </Card>
         </motion.div>
 
-        {/* Trial Detail */}
+        {/* Trial Detail with Screening Animation */}
         <AnimatePresence mode="wait">
           <motion.div key={selectedTrial.id} className="lg:col-span-2" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
             <Card className="border-border/40 h-full">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-warning" />
-                  {selectedTrial.title}
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-warning" />
+                    {selectedTrial.title}
+                  </CardTitle>
+                  <Button variant="outline" size="sm" onClick={runScreening} disabled={screening} className="text-[10px] h-7 gap-1.5">
+                    {screening ? <><Loader2 className="h-3 w-3 animate-spin" /> Screening...</> : <><Zap className="h-3 w-3" /> Run Screening</>}
+                  </Button>
+                </div>
                 <div className="flex gap-2 mt-1">
                   <Badge variant="outline" className="text-[10px]">{selectedTrial.phase}</Badge>
                   <Badge variant="outline" className="text-[10px]">{selectedTrial.sponsor}</Badge>
@@ -202,25 +246,37 @@ export const CTCIDemo = () => {
                   ))}
                 </div>
 
-                {/* Eligibility Criteria */}
+                {/* Eligibility Criteria — animated reveal */}
                 <div>
                   <p className="text-xs font-semibold text-foreground mb-3">Automated Eligibility Screening</p>
                   <div className="space-y-2">
-                    {selectedTrial.criteria.map((c, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -5 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.06 }}
-                        className={cn('flex items-center gap-3 p-2.5 rounded-lg border', c.met ? 'border-risk-low/20 bg-risk-low/5' : 'border-destructive/20 bg-destructive/5')}
-                      >
-                        {c.met ? <CheckCircle2 className="h-4 w-4 text-risk-low shrink-0" /> : <XCircle className="h-4 w-4 text-destructive shrink-0" />}
-                        <span className="text-sm text-foreground flex-1">{c.label}</span>
-                        <Badge variant="outline" className={cn('text-[9px]', c.met ? 'text-risk-low border-risk-low/30' : 'text-destructive border-destructive/30')}>
-                          {c.met ? 'MET' : 'NOT MET'}
-                        </Badge>
-                      </motion.div>
-                    ))}
+                    {selectedTrial.criteria.map((c, i) => {
+                      const revealed = i < criteriaRevealed;
+                      return (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -5 }}
+                          animate={{ opacity: revealed ? 1 : 0.3, x: 0 }}
+                          transition={{ delay: screening ? 0.1 : 0, duration: 0.3 }}
+                          className={cn('flex items-center gap-3 p-2.5 rounded-lg border transition-all',
+                            !revealed ? 'border-border/20 bg-muted/10' :
+                            c.met ? 'border-risk-low/20 bg-risk-low/5' : 'border-destructive/20 bg-destructive/5'
+                          )}
+                        >
+                          {revealed ? (
+                            c.met ? <CheckCircle2 className="h-4 w-4 text-risk-low shrink-0" /> : <XCircle className="h-4 w-4 text-destructive shrink-0" />
+                          ) : (
+                            screening ? <Loader2 className="h-4 w-4 text-muted-foreground shrink-0 animate-spin" /> : <Clock className="h-4 w-4 text-muted-foreground shrink-0" />
+                          )}
+                          <span className="text-sm text-foreground flex-1">{c.label}</span>
+                          {revealed && (
+                            <Badge variant="outline" className={cn('text-[9px]', c.met ? 'text-risk-low border-risk-low/30' : 'text-destructive border-destructive/30')}>
+                              {c.met ? 'MET' : 'NOT MET'}
+                            </Badge>
+                          )}
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
 

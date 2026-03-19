@@ -1,26 +1,30 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers, Activity, ArrowRight, TrendingUp, AlertTriangle, RefreshCw, Heart, DollarSign, Shield, Zap } from 'lucide-react';
+import { Layers, Activity, TrendingUp, AlertTriangle, RefreshCw, Heart, DollarSign, Shield, Zap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { AreaChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const patients = [
-  { id: 'DT-001', name: 'E. Ramirez', age: 72, baseline: { hr: 78, bp: '128/82', rr: 16, temp: 98.4, spo2: 96 }, current: { hr: 92, bp: '142/90', rr: 20, temp: 99.1, spo2: 94 }, deviation: 34, status: 'drifting' },
-  { id: 'DT-002', name: 'K. Patel', age: 58, baseline: { hr: 68, bp: '118/72', rr: 14, temp: 98.6, spo2: 98 }, current: { hr: 70, bp: '120/74', rr: 14, temp: 98.5, spo2: 97 }, deviation: 5, status: 'stable' },
-  { id: 'DT-003', name: 'L. Johnson', age: 84, baseline: { hr: 82, bp: '135/88', rr: 18, temp: 98.2, spo2: 93 }, current: { hr: 110, bp: '98/60', rr: 26, temp: 100.4, spo2: 88 }, deviation: 72, status: 'critical' },
+  { id: 'DT-001', name: 'E. Ramirez', age: 72, baseline: { hr: 78, bp: '128/82', rr: 16, temp: 98.4, spo2: 96 }, current: { hr: 92, bp: '142/90', rr: 20, temp: 99.1, spo2: 94 }, deviation: 34, status: 'drifting', hrProfile: { base: 78, drift: 0.6, volatility: 3, onset: 14 } },
+  { id: 'DT-002', name: 'K. Patel', age: 58, baseline: { hr: 68, bp: '118/72', rr: 14, temp: 98.6, spo2: 98 }, current: { hr: 70, bp: '120/74', rr: 14, temp: 98.5, spo2: 97 }, deviation: 5, status: 'stable', hrProfile: { base: 68, drift: 0.05, volatility: 1.5, onset: 24 } },
+  { id: 'DT-003', name: 'L. Johnson', age: 84, baseline: { hr: 82, bp: '135/88', rr: 18, temp: 98.2, spo2: 93 }, current: { hr: 110, bp: '98/60', rr: 26, temp: 100.4, spo2: 88 }, deviation: 72, status: 'critical', hrProfile: { base: 82, drift: 1.8, volatility: 6, onset: 10 } },
 ];
 
-const generateTimeline = () => Array.from({ length: 24 }, (_, i) => ({
-  hour: `${i}:00`,
-  actual: 78 + Math.sin(i / 4) * 8 + (i > 16 ? (i - 16) * 2.5 : 0) + Math.random() * 3,
-  baseline: 78 + Math.sin(i / 4) * 3,
-  upper: 78 + Math.sin(i / 4) * 3 + 12,
-  lower: 78 + Math.sin(i / 4) * 3 - 12,
-}));
+const generateTimeline = (profile: typeof patients[0]['hrProfile']) =>
+  Array.from({ length: 24 }, (_, i) => {
+    const baseline = profile.base + Math.sin(i / 4) * 3;
+    const driftAmount = i > profile.onset ? (i - profile.onset) * profile.drift : 0;
+    return {
+      hour: `${i}:00`,
+      actual: baseline + driftAmount + (Math.random() - 0.5) * profile.volatility * 2,
+      baseline,
+      upper: baseline + 12,
+      lower: baseline - 12,
+    };
+  });
 
 const statusColors: Record<string, string> = {
   stable: 'text-risk-low bg-risk-low/10 border-risk-low/30',
@@ -30,9 +34,15 @@ const statusColors: Record<string, string> = {
 
 export const DTBLDemo = () => {
   const [selectedPatient, setSelectedPatient] = useState(patients[2]);
-  const [twinTimeline] = useState(generateTimeline);
   const [liveDeviation, setLiveDeviation] = useState(selectedPatient.deviation);
   const [falsePosReduction, setFalsePosReduction] = useState(62);
+  const [driftAlert, setDriftAlert] = useState<string | null>(null);
+
+  // Regenerate timeline when patient changes
+  const twinTimeline = useMemo(
+    () => generateTimeline(selectedPatient.hrProfile),
+    [selectedPatient.id]
+  );
 
   useEffect(() => {
     setLiveDeviation(selectedPatient.deviation);
@@ -40,11 +50,19 @@ export const DTBLDemo = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLiveDeviation(prev => parseFloat((prev + (Math.random() - 0.47) * 0.8).toFixed(0)));
+      setLiveDeviation(prev => {
+        const newVal = parseFloat((prev + (Math.random() - 0.47) * 0.8).toFixed(0));
+        // Fire drift alert when crossing threshold
+        if (newVal > 60 && prev <= 60) {
+          setDriftAlert(`⚠ ${selectedPatient.name}: Baseline deviation ${newVal}% — exceeds 60% threshold`);
+          setTimeout(() => setDriftAlert(null), 5000);
+        }
+        return newVal;
+      });
       if (Math.random() > 0.9) setFalsePosReduction(prev => Math.min(68, prev + 1));
     }, 3500);
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedPatient.name]);
 
   return (
     <div className="space-y-6">
@@ -75,12 +93,24 @@ export const DTBLDemo = () => {
         </CardHeader>
       </Card>
 
+      {/* Drift Alert */}
+      <AnimatePresence>
+        {driftAlert && (
+          <motion.div initial={{ opacity: 0, y: -10, height: 0 }} animate={{ opacity: 1, y: 0, height: 'auto' }} exit={{ opacity: 0, y: -10, height: 0 }}>
+            <div className="p-3 rounded-lg border border-destructive/40 bg-destructive/10 flex items-center gap-3">
+              <AlertTriangle className="h-4 w-4 text-destructive shrink-0 animate-pulse" />
+              <p className="text-sm font-semibold text-destructive">{driftAlert}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Enterprise KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
           { label: 'Active Twins', value: '3', sub: 'patient models running', icon: <Heart className="h-4 w-4" />, color: 'text-primary' },
           { label: 'False + Reduction', value: `${falsePosReduction}%`, sub: 'vs. static thresholds', icon: <Zap className="h-4 w-4" />, color: 'text-chart-1' },
-          { label: 'Drift Alerts', value: '2', sub: 'baseline deviations detected', icon: <AlertTriangle className="h-4 w-4" />, color: 'text-warning' },
+          { label: 'Drift Alerts', value: patients.filter(p => p.deviation > 30).length.toString(), sub: 'baseline deviations detected', icon: <AlertTriangle className="h-4 w-4" />, color: 'text-warning' },
           { label: 'Est. Annual Value', value: '$890K', sub: 'per 300-bed facility', icon: <DollarSign className="h-4 w-4" />, color: 'text-risk-low' },
         ].map((k, i) => (
           <motion.div key={k.label} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 + i * 0.08 }}>
@@ -131,7 +161,7 @@ export const DTBLDemo = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Twin Timeline */}
+        {/* Twin Timeline — regenerates per patient */}
         <motion.div className="lg:col-span-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
           <Card className="border-border/40 h-full">
             <CardHeader className="pb-2">
@@ -141,24 +171,28 @@ export const DTBLDemo = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={280}>
-                <AreaChart data={twinTimeline}>
-                  <defs>
-                    <linearGradient id="twinBand" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.12} />
-                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.02} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="hour" tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} interval={3} />
-                  <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} domain={[55, 120]} />
-                  <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: 12 }} />
-                  <Area type="monotone" dataKey="upper" stroke="none" fill="url(#twinBand)" name="Upper Bound" />
-                  <Area type="monotone" dataKey="lower" stroke="none" fill="hsl(var(--background))" name="Lower Bound" />
-                  <Line type="monotone" dataKey="baseline" stroke="hsl(var(--primary))" strokeDasharray="5 5" dot={false} name="Baseline" strokeWidth={1.5} />
-                  <Line type="monotone" dataKey="actual" stroke="hsl(var(--destructive))" dot={false} name="Actual" strokeWidth={2.5} />
-                </AreaChart>
-              </ResponsiveContainer>
+              <AnimatePresence mode="wait">
+                <motion.div key={selectedPatient.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                  <ResponsiveContainer width="100%" height={280}>
+                    <AreaChart data={twinTimeline}>
+                      <defs>
+                        <linearGradient id="twinBand" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.12} />
+                          <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.02} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="hour" tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} interval={3} />
+                      <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} domain={[55, 130]} />
+                      <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: 12 }} />
+                      <Area type="monotone" dataKey="upper" stroke="none" fill="url(#twinBand)" name="Upper Bound" />
+                      <Area type="monotone" dataKey="lower" stroke="none" fill="hsl(var(--background))" name="Lower Bound" />
+                      <Line type="monotone" dataKey="baseline" stroke="hsl(var(--primary))" strokeDasharray="5 5" dot={false} name="Baseline" strokeWidth={1.5} />
+                      <Line type="monotone" dataKey="actual" stroke="hsl(var(--destructive))" dot={false} name="Actual" strokeWidth={2.5} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </motion.div>
+              </AnimatePresence>
             </CardContent>
           </Card>
         </motion.div>
