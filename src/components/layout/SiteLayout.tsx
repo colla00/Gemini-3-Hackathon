@@ -205,8 +205,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                     </Button>
                   </div>
                 ) : (
-                  <Button variant="outline" size="sm" className="w-full" asChild>
-                    <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+                  <Button size="sm" className="w-full shadow-sm" asChild>
+                    <Link to="/pilot-request" onClick={() => setMobileOpen(false)}>Request a Pilot</Link>
                   </Button>
                 )}
               </div>

@@ -157,6 +157,7 @@ export const DashboardPreview = () => {
               ))}
             </tbody>
           </table>
+          </div>
 
           {/* Status bar */}
           <div className="flex items-center justify-between px-4 py-1.5 bg-muted/40 border-t border-border text-[10px] text-muted-foreground">
