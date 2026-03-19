@@ -199,7 +199,7 @@ export const TRACIDemo = () => {
             <CardContent>
               <AnimatePresence mode="wait">
                 <motion.div key={selectedPatient.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                  <ResponsiveContainer width="100%" height={280}>
+                  <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={timelineData}>
                       <defs>
                         <linearGradient id="riskGradient" x1="0" y1="0" x2="0" y2="1">
@@ -208,7 +208,7 @@ export const TRACIDemo = () => {
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="hour" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} label={{ value: 'Hours', position: 'bottom', fontSize: 10 }} />
+                      <XAxis dataKey="hour" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} interval={5} label={{ value: 'Hours', position: 'bottom', fontSize: 10 }} />
                       <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} domain={[0, 1]} tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`} />
                       <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: 12 }} formatter={(v: number) => `${(v * 100).toFixed(1)}%`} />
                       <ReferenceLine y={0.6} stroke="hsl(var(--destructive))" strokeDasharray="5 5" label={{ value: 'Alert Threshold', fontSize: 10, fill: 'hsl(var(--destructive))' }} />

@@ -161,7 +161,7 @@ export const SHQSDemo = () => {
               <ResponsiveContainer width="100%" height={280}>
                 <RadarChart data={radarData}>
                   <PolarGrid stroke="hsl(var(--border))" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} />
+                  <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: 'hsl(var(--foreground))' }} />
                   <PolarRadiusAxis angle={30} domain={[70, 100]} tick={{ fontSize: 9 }} />
                   <Radar name="Current" dataKey="Current" stroke="hsl(var(--chart-5))" fill="hsl(var(--chart-5))" fillOpacity={0.2} strokeWidth={2} />
                   <Radar name="Benchmark" dataKey="Benchmark" stroke="hsl(var(--muted-foreground))" fill="none" strokeDasharray="5 5" />
