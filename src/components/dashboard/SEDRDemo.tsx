@@ -180,7 +180,7 @@ export const SEDRDemo = () => {
                     <ResponsiveContainer width="100%" height={300}>
                       <RadarChart data={radarData}>
                         <PolarGrid stroke="hsl(var(--border))" />
-                        <PolarAngleAxis dataKey="feature" tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} />
+                        <PolarAngleAxis dataKey="feature" tick={{ fontSize: 10, fill: 'hsl(var(--foreground))' }} />
                         <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} />
                         <Radar name="Patient" dataKey="patient" stroke="hsl(var(--destructive))" fill="hsl(var(--destructive))" fillOpacity={0.2} strokeWidth={2} />
                         <Radar name="Cohort Avg" dataKey="cohortAvg" stroke="hsl(var(--muted-foreground))" fill="none" strokeDasharray="5 5" />

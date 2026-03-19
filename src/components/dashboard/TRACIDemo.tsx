@@ -208,7 +208,7 @@ export const TRACIDemo = () => {
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="hour" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} label={{ value: 'Hours', position: 'bottom', fontSize: 10 }} />
+                      <XAxis dataKey="hour" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} interval={5} label={{ value: 'Hours', position: 'bottom', fontSize: 10 }} />
                       <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} domain={[0, 1]} tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`} />
                       <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: 12 }} formatter={(v: number) => `${(v * 100).toFixed(1)}%`} />
                       <ReferenceLine y={0.6} stroke="hsl(var(--destructive))" strokeDasharray="5 5" label={{ value: 'Alert Threshold', fontSize: 10, fill: 'hsl(var(--destructive))' }} />
