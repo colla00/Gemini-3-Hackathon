@@ -93,7 +93,8 @@ export const DashboardPreview = () => {
           </div>
 
           {/* Patient table */}
-          <table className="w-full text-xs">
+          <div className="overflow-x-auto">
+          <table className="w-full text-xs min-w-[640px]">
             <thead>
               <tr className="bg-muted/40 border-b border-border">
                 {["Patient ID", "Age/Sex", "Unit", "LOS", "Mortality Risk", "DBS™ Score", "Trend (4h)", "Status"].map((h) => (
