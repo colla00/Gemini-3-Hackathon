@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { BarChart3, Users, Clock, TrendingUp, ArrowUpDown, Calendar, Zap, DollarSign, Shield } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BarChart3, Users, Clock, ArrowUpDown, Calendar, Zap, DollarSign, Shield, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -32,11 +32,11 @@ const forecastData = [
   { day: 'Sun', burden: 5.8, staffing: 8, optimal: 9 },
 ];
 
-const unitRebalancing = [
-  { unit: 'ICU-A', load: 92, status: 'overloaded', suggestion: 'Transfer 1 RN from Med-Surg B', urgency: 'high' },
-  { unit: 'ICU-B', load: 78, status: 'balanced', suggestion: 'No changes needed', urgency: 'none' },
-  { unit: 'Med-Surg A', load: 85, status: 'high', suggestion: 'Request float pool RN for 3-7 PM', urgency: 'medium' },
-  { unit: 'Med-Surg B', load: 54, status: 'low', suggestion: 'Available to send 1 RN to ICU-A', urgency: 'low' },
+const initialUnits = [
+  { unit: 'ICU-A', load: 92, status: 'overloaded', suggestion: 'Transfer 1 RN from Med-Surg B', urgency: 'high' as const },
+  { unit: 'ICU-B', load: 78, status: 'balanced', suggestion: 'No changes needed', urgency: 'none' as const },
+  { unit: 'Med-Surg A', load: 85, status: 'high', suggestion: 'Request float pool RN for 3-7 PM', urgency: 'medium' as const },
+  { unit: 'Med-Surg B', load: 54, status: 'low', suggestion: 'Available to send 1 RN to ICU-A', urgency: 'low' as const },
 ];
 
 const loadColors: Record<string, string> = {
@@ -50,6 +50,8 @@ export const ESDBIDemo = () => {
   const [activeView, setActiveView] = useState<'staffing' | 'forecast'>('staffing');
   const [liveOT, setLiveOT] = useState(18.3);
   const [liveSaved, setLiveSaved] = useState(504);
+  const [units, setUnits] = useState(initialUnits);
+  const [deployEvent, setDeployEvent] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,6 +60,16 @@ export const ESDBIDemo = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleDeploy = (unitName: string) => {
+    setUnits(prev => prev.map(u => {
+      if (u.unit === unitName) return { ...u, load: Math.max(60, u.load - 15), status: 'balanced', urgency: 'none' as const, suggestion: 'Rebalanced — RN deployed' };
+      if (u.unit === 'Med-Surg B') return { ...u, load: u.load + 12, status: 'balanced', suggestion: 'RN transferred to ' + unitName };
+      return u;
+    }));
+    setDeployEvent(`✓ RN deployed from Med-Surg B → ${unitName} — workload rebalanced`);
+    setTimeout(() => setDeployEvent(null), 4000);
+  };
 
   return (
     <div className="space-y-6">
@@ -88,10 +100,22 @@ export const ESDBIDemo = () => {
         </CardHeader>
       </Card>
 
+      {/* Deploy Event */}
+      <AnimatePresence>
+        {deployEvent && (
+          <motion.div initial={{ opacity: 0, y: -10, height: 0 }} animate={{ opacity: 1, y: 0, height: 'auto' }} exit={{ opacity: 0, y: -10, height: 0 }}>
+            <div className="p-3 rounded-lg border border-risk-low/40 bg-risk-low/10 flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-risk-low shrink-0" />
+              <p className="text-sm font-semibold text-risk-low">{deployEvent}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Enterprise KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Staffing Gap', value: '+6 RNs', sub: 'Across all shifts today', color: 'text-destructive', icon: <Users className="h-4 w-4" /> },
+          { label: 'Staffing Gap', value: `+${units.reduce((sum, u) => sum + (u.urgency !== 'none' ? 1 : 0), 0) * 2} RNs`, sub: 'Across all shifts today', color: 'text-destructive', icon: <Users className="h-4 w-4" /> },
           { label: 'Overtime Reduction', value: `${liveOT}%`, sub: 'vs. manual scheduling', color: 'text-chart-2', icon: <Clock className="h-4 w-4" /> },
           { label: 'Hours Rebalanced', value: liveSaved.toString(), sub: 'this month', color: 'text-primary', icon: <ArrowUpDown className="h-4 w-4" /> },
           { label: 'Annual ROI', value: '$504K', sub: 'per 400-bed hospital', color: 'text-risk-low', icon: <DollarSign className="h-4 w-4" /> },
@@ -145,7 +169,7 @@ export const ESDBIDemo = () => {
           </Card>
         </motion.div>
 
-        {/* Unit Rebalancing */}
+        {/* Unit Rebalancing — now interactive */}
         <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
           <Card className="border-border/40 h-full">
             <CardHeader className="pb-2">
@@ -155,28 +179,30 @@ export const ESDBIDemo = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              {unitRebalancing.map((u) => (
-                <div key={u.unit} className={cn(
-                  'p-3 rounded-lg border transition-all',
-                  u.urgency === 'high' ? 'border-destructive/30 bg-destructive/5' : 'border-border/30 bg-muted/20'
-                )}>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm font-bold text-foreground">{u.unit}</span>
-                    <Badge variant="outline" className={cn('text-[9px]', loadColors[u.status])}>{u.status}</Badge>
-                  </div>
-                  <Progress value={u.load} className="h-2 mb-1.5" />
-                  <div className="flex items-center justify-between">
-                    <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                      <Zap className="h-2.5 w-2.5 text-chart-2" />
-                      {u.suggestion}
-                    </p>
-                    {u.urgency === 'high' && (
-                      <Button variant="outline" size="sm" className="h-5 text-[9px] px-2 border-destructive/30 text-destructive">
-                        Deploy
-                      </Button>
-                    )}
-                  </div>
-                </div>
+              {units.map((u) => (
+                <AnimatePresence mode="wait" key={u.unit}>
+                  <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={cn(
+                    'p-3 rounded-lg border transition-all',
+                    u.urgency === 'high' ? 'border-destructive/30 bg-destructive/5' : 'border-border/30 bg-muted/20'
+                  )}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-sm font-bold text-foreground">{u.unit}</span>
+                      <Badge variant="outline" className={cn('text-[9px]', loadColors[u.status])}>{u.status}</Badge>
+                    </div>
+                    <Progress value={u.load} className="h-2 mb-1.5" />
+                    <div className="flex items-center justify-between">
+                      <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                        <Zap className="h-2.5 w-2.5 text-chart-2" />
+                        {u.suggestion}
+                      </p>
+                      {u.urgency === 'high' && (
+                        <Button variant="outline" size="sm" className="h-5 text-[9px] px-2 border-destructive/30 text-destructive hover:bg-destructive/10" onClick={() => handleDeploy(u.unit)}>
+                          Deploy
+                        </Button>
+                      )}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               ))}
             </CardContent>
           </Card>

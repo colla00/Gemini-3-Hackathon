@@ -1,22 +1,21 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Shield, AlertTriangle, CheckCircle2, TrendingDown, TrendingUp, Target, BarChart3, DollarSign, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, AlertTriangle, CheckCircle2, TrendingDown, TrendingUp, Target, BarChart3, DollarSign, Zap, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-const qualityDimensions = [
-  { dimension: 'Hand Hygiene', score: 94, benchmark: 95, trend: 'stable' },
-  { dimension: 'Falls Prevention', score: 88, benchmark: 90, trend: 'improving' },
-  { dimension: 'CAUTI Rate', score: 96, benchmark: 92, trend: 'stable' },
-  { dimension: 'CLABSI Rate', score: 91, benchmark: 90, trend: 'declining' },
-  { dimension: 'Pressure Injury', score: 82, benchmark: 88, trend: 'declining' },
-  { dimension: 'Med Errors', score: 97, benchmark: 95, trend: 'improving' },
+const initialDimensions = [
+  { dimension: 'Hand Hygiene', score: 94, benchmark: 95, trend: 'stable' as const },
+  { dimension: 'Falls Prevention', score: 88, benchmark: 90, trend: 'improving' as const },
+  { dimension: 'CAUTI Rate', score: 96, benchmark: 92, trend: 'stable' as const },
+  { dimension: 'CLABSI Rate', score: 91, benchmark: 90, trend: 'declining' as const },
+  { dimension: 'Pressure Injury', score: 82, benchmark: 88, trend: 'declining' as const },
+  { dimension: 'Med Errors', score: 97, benchmark: 95, trend: 'improving' as const },
 ];
-
-const radarData = qualityDimensions.map(d => ({ subject: d.dimension, Current: d.score, Benchmark: d.benchmark }));
 
 const trendData = [
   { month: 'Jul', composite: 88, benchmark: 90 },
@@ -28,10 +27,10 @@ const trendData = [
   { month: 'Jan', composite: 91, benchmark: 91 },
 ];
 
-const deviations = [
-  { id: 1, metric: 'Pressure Injury Rate', severity: 'high' as const, value: '82%', benchmark: '88%', gap: '-6%', action: 'Triggered: Skin assessment protocol reinforcement', timeDetected: '2h ago' },
-  { id: 2, metric: 'Falls (Unit 3B)', severity: 'medium' as const, value: '3 events', benchmark: '≤1/month', gap: '+2', action: 'Triggered: Fall risk reassessment for all patients', timeDetected: '6h ago' },
-  { id: 3, metric: 'CLABSI (ICU-A)', severity: 'low' as const, value: '91%', benchmark: '90%', gap: '+1%', action: 'Monitoring: Within acceptable variance', timeDetected: '1d ago' },
+const initialDeviations = [
+  { id: 1, metric: 'Pressure Injury Rate', severity: 'high' as const, value: '82%', benchmark: '88%', gap: '-6%', action: 'Triggered: Skin assessment protocol reinforcement', timeDetected: '2h ago', resolved: false },
+  { id: 2, metric: 'Falls (Unit 3B)', severity: 'medium' as const, value: '3 events', benchmark: '≤1/month', gap: '+2', action: 'Triggered: Fall risk reassessment for all patients', timeDetected: '6h ago', resolved: false },
+  { id: 3, metric: 'CLABSI (ICU-A)', severity: 'low' as const, value: '91%', benchmark: '90%', gap: '+1%', action: 'Monitoring: Within acceptable variance', timeDetected: '1d ago', resolved: false },
 ];
 
 const sevColors: Record<string, string> = {
@@ -41,16 +40,43 @@ const sevColors: Record<string, string> = {
 };
 
 export const SHQSDemo = () => {
+  const [dimensions, setDimensions] = useState(initialDimensions);
   const [compositeScore, setCompositeScore] = useState(91.3);
   const [autoActions, setAutoActions] = useState(4);
+  const [deviations, setDeviations] = useState(initialDeviations);
+  const [improvementEvent, setImprovementEvent] = useState<string | null>(null);
+
+  const radarData = dimensions.map(d => ({ subject: d.dimension, Current: d.score, Benchmark: d.benchmark }));
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCompositeScore(prev => parseFloat((prev + (Math.random() - 0.48) * 0.15).toFixed(1)));
+      // Simulate quality dimension fluctuations
+      setDimensions(prev => prev.map(d => ({
+        ...d,
+        score: Math.min(100, Math.max(70, d.score + (Math.random() - 0.48) * 0.3)),
+      })));
       if (Math.random() > 0.85) setAutoActions(prev => prev + 1);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const resolveDeviation = (id: number) => {
+    const deviation = deviations.find(d => d.id === id);
+    setDeviations(prev => prev.map(d => d.id === id ? { ...d, resolved: true, action: 'Resolved — corrective action completed' } : d));
+    // Improve the related quality dimension
+    if (deviation) {
+      setDimensions(prev => prev.map(d => {
+        if (deviation.metric.includes(d.dimension) || (deviation.metric.includes('Pressure') && d.dimension === 'Pressure Injury')) {
+          return { ...d, score: Math.min(100, d.score + 3), trend: 'improving' as const };
+        }
+        return d;
+      }));
+      setCompositeScore(prev => parseFloat((prev + 0.5).toFixed(1)));
+      setImprovementEvent(`✓ ${deviation.metric}: Corrective action applied — quality score improved`);
+      setTimeout(() => setImprovementEvent(null), 4000);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -81,6 +107,18 @@ export const SHQSDemo = () => {
         </CardHeader>
       </Card>
 
+      {/* Improvement Event */}
+      <AnimatePresence>
+        {improvementEvent && (
+          <motion.div initial={{ opacity: 0, y: -10, height: 0 }} animate={{ opacity: 1, y: 0, height: 'auto' }} exit={{ opacity: 0, y: -10, height: 0 }}>
+            <div className="p-3 rounded-lg border border-risk-low/40 bg-risk-low/10 flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-risk-low shrink-0" />
+              <p className="text-sm font-semibold text-risk-low">{improvementEvent}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Composite Score + KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 }}>
@@ -93,7 +131,7 @@ export const SHQSDemo = () => {
           </Card>
         </motion.div>
         {[
-          { label: 'Active Deviations', value: '2', color: 'text-warning', icon: <AlertTriangle className="h-4 w-4" /> },
+          { label: 'Active Deviations', value: deviations.filter(d => !d.resolved).length.toString(), color: 'text-warning', icon: <AlertTriangle className="h-4 w-4" /> },
           { label: 'Auto-Actions', value: autoActions.toString(), color: 'text-chart-5', icon: <Zap className="h-4 w-4" /> },
           { label: 'Penalty Avoidance', value: '$1.8M', color: 'text-risk-low', icon: <DollarSign className="h-4 w-4" /> },
         ].map((k, i) => (
@@ -110,7 +148,7 @@ export const SHQSDemo = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Radar */}
+        {/* Radar — live updates */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
           <Card className="border-border/40 h-full">
             <CardHeader className="pb-2">
@@ -164,7 +202,7 @@ export const SHQSDemo = () => {
         </motion.div>
       </div>
 
-      {/* Deviations */}
+      {/* Deviations — now actionable */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <Card className="border-border/40">
           <CardHeader className="pb-2">
@@ -176,20 +214,29 @@ export const SHQSDemo = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {deviations.map((d, i) => (
-              <motion.div key={d.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.1 }}>
-                <div className={cn('p-4 rounded-xl border', sevColors[d.severity])}>
+              <motion.div key={d.id} layout initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.1 }}>
+                <div className={cn('p-4 rounded-xl border transition-all', d.resolved ? 'border-risk-low/20 bg-risk-low/5' : sevColors[d.severity])}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      {d.severity === 'high' && <AlertTriangle className="h-3.5 w-3.5 text-destructive animate-pulse" />}
+                      {d.resolved ? <CheckCircle2 className="h-3.5 w-3.5 text-risk-low" /> : d.severity === 'high' && <AlertTriangle className="h-3.5 w-3.5 text-destructive animate-pulse" />}
                       <span className="font-bold text-sm text-foreground">{d.metric}</span>
-                      <Badge variant="outline" className={cn('text-[9px]', sevColors[d.severity])}>{d.severity}</Badge>
+                      <Badge variant="outline" className={cn('text-[9px]', d.resolved ? 'text-risk-low border-risk-low/30' : sevColors[d.severity])}>
+                        {d.resolved ? 'RESOLVED' : d.severity}
+                      </Badge>
                     </div>
-                    <span className="text-[10px] text-muted-foreground">{d.timeDetected}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-muted-foreground">{d.timeDetected}</span>
+                      {!d.resolved && d.severity !== 'low' && (
+                        <Button variant="outline" size="sm" className="h-5 text-[9px] px-2" onClick={() => resolveDeviation(d.id)}>
+                          Resolve <ArrowRight className="h-2.5 w-2.5 ml-1" />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                   <div className="flex gap-4 text-[11px] text-muted-foreground mb-2">
                     <span>Current: <strong className="text-foreground">{d.value}</strong></span>
                     <span>Benchmark: {d.benchmark}</span>
-                    <span>Gap: <strong className={d.severity === 'high' ? 'text-destructive' : ''}>{d.gap}</strong></span>
+                    <span>Gap: <strong className={!d.resolved && d.severity === 'high' ? 'text-destructive' : ''}>{d.gap}</strong></span>
                   </div>
                   <p className="text-[10px] text-muted-foreground flex items-center gap-1">
                     <CheckCircle2 className="h-3 w-3 text-chart-5" />
