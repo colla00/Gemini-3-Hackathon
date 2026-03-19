@@ -77,14 +77,14 @@ export const DashboardPreview = () => {
           </div>
 
           {/* Summary strip */}
-          <div className="grid grid-cols-4 border-b border-border text-xs">
+          <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border text-xs">
             {[
               { label: "Avg Mortality Risk", value: "54.6%", sub: "Unit baseline: 38%" },
               { label: "Avg DBS™ Score", value: "9.2", sub: "Threshold: 8.0" },
               { label: "Trending Up", value: "3 patients", sub: "Past 4 hours" },
               { label: "Active Alerts", value: "6", sub: "4 high priority" },
             ].map((s, i) => (
-              <div key={s.label} className={`px-4 py-3 ${i < 3 ? 'border-r border-border' : ''}`}>
+              <div key={s.label} className={`px-4 py-3 border-b md:border-b-0 ${i % 2 === 0 ? 'border-r border-border' : ''} ${i < 2 ? 'md:border-r' : ''}`}>
                 <p className="text-muted-foreground text-[10px] uppercase tracking-wider mb-0.5">{s.label}</p>
                 <p className="text-sm font-semibold text-foreground">{s.value}</p>
                 <p className="text-[10px] text-muted-foreground">{s.sub}</p>
