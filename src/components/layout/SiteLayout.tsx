@@ -21,11 +21,11 @@ interface SiteLayoutProps {
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/about", label: "About" },
+  { to: "/demo", label: "Platform" },
   { to: "/research", label: "Research" },
-  { to: "/patents", label: "Patents" },
-  { to: "/licensing", label: "Licensing" },
+  { to: "/security", label: "Security" },
+  { to: "/for-leaders", label: "Use Cases" },
+  { to: "/about", label: "About" },
 ];
 
 export const SiteLayout = ({ children, title, description }: SiteLayoutProps) => {
