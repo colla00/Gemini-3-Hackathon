@@ -143,8 +143,8 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                   </Button>
                 </>
               ) : (
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/contact">Contact</Link>
+                <Button size="sm" className="shadow-sm" asChild>
+                  <Link to="/pilot-request">Request a Pilot</Link>
                 </Button>
               )}
             </nav>
