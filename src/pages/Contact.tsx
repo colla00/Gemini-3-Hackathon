@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2, Loader2, Phone } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
