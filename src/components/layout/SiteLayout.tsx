@@ -315,10 +315,15 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
           </div>
 
           {/* Bottom bar */}
-          <div className="pt-6 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-primary-foreground/40">
-              &copy; 2025-2026 VitaSignal LLC. All Rights Reserved.
-            </p>
+          <div className="pt-6 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <p className="text-xs text-primary-foreground/40">
+                &copy; 2025-2026 VitaSignal LLC. All Rights Reserved.
+              </p>
+              <a href="tel:+18883468206" className="text-xs text-primary-foreground/50 hover:text-primary transition-colors">
+                (888) 346-8206
+              </a>
+            </div>
             <p className="text-[10px] text-primary-foreground/30">
               VitaSignal™, ChartMinder™, Documentation Burden Score™, and IDI™ are trademarks of VitaSignal LLC.
             </p>
