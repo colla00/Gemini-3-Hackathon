@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { Briefcase, Microscope, Newspaper, HelpCircle, Clock, Linkedin, Send, CheckCircle2, Loader2, Phone } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import heroBg from "@/assets/hero-bg.jpg";
 import { cn } from "@/lib/utils";
@@ -119,11 +119,15 @@ function Contact() {
           <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
             Select the inquiry type that best describes your interest, and we'll route your message to the right channel.
           </p>
-          <div className="flex items-center gap-4 text-sm opacity-70">
+          <div className="flex flex-wrap items-center gap-4 text-sm opacity-70">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
               Typical response: 2-3 business days
             </div>
+            <a href="tel:+18883468206" className="flex items-center gap-1.5 text-primary hover:underline">
+              <Phone className="w-4 h-4" />
+              (888) 346-8206
+            </a>
             <a href="https://www.linkedin.com/company/vitasignal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
               <Linkedin className="w-4 h-4" />
               VitaSignal on LinkedIn
