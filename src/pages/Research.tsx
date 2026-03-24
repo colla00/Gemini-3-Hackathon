@@ -51,13 +51,15 @@ const validatedSystems = [
     ],
   },
   {
-    name: "SEDR – Syndromic Surveillance",
-    status: "Validated",
+    name: "SEDR – Syndromic Surveillance (Patent #11)",
+    status: "Externally Validated",
     details: [
-      "94,444 ICU stays from MIMIC-IV (2008–2022)",
-      "Five held-out three-year validation periods (LOPO-CV)",
-      "Statistically significant discrimination across all periods",
+      "131,420 ICU stays validated across MIMIC-IV and eICU databases",
+      "9-feature temporal signal model for population-level surveillance",
+      "Five held-out three-year validation periods (LOPO-CV) + multi-site external validation",
+      "Statistically significant discrimination across all periods and sites",
       "Enriched temporal validation with Elixhauser comorbidity burden",
+      "MLHC 2026 manuscript submitted — March 2026",
     ],
   },
 ];
@@ -65,7 +67,7 @@ const validatedSystems = [
 const portfolioConcepts = [
   { name: "IDI", full: "ICU Documentation Index", status: "Validated" },
   { name: "DBS", full: "Documentation Burden Score", status: "Validated" },
-  { name: "SEDR", full: "Shift-End Documentation Burden Index", status: "Validated" },
+  { name: "SEDR", full: "Shift-End Documentation Rate", status: "Externally Validated" },
   { name: "CRIS-E", full: "Clinical Risk Intelligence System", status: "Design Phase" },
   { name: "NurseRhythm", full: "Temporal Nursing Intelligence", status: "Design Phase" },
   { name: "UNIP", full: "Unified Nursing Intelligence Platform", status: "Design Phase" },
@@ -239,7 +241,7 @@ export default function Research() {
               },
               {
                 title: "SEDR: Shift-End Documentation Rate for ICU Syndromic Surveillance",
-                venue: "MLHC 2026 (submitted)",
+                venue: "MLHC 2026 (submitted) · 131K+ ICU stays across MIMIC-IV & eICU",
                 date: "March 2026",
               },
               {
