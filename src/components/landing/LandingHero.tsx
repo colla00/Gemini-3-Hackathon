@@ -5,12 +5,13 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
+const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: number; suffix?: string; prefix?: string; fallback?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionVal = useMotionValue(0);
   const rounded = useTransform(motionVal, (v) => {
     const r = Math.round(v);
+    if (value === 0) return "0";
     return r === 0 ? (fallback ?? value.toLocaleString()) : r.toLocaleString();
   });
 
@@ -22,15 +23,15 @@ const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffi
 
   return (
     <span ref={ref}>
-      <motion.span>{rounded}</motion.span>{suffix}
+      {prefix}<motion.span>{rounded}</motion.span>{suffix}
     </span>
   );
 };
 
-const parseStatValue = (val: string): { num: number; suffix: string } => {
-  const match = val.match(/^([\d,]+)(.*)$/);
-  if (!match) return { num: 0, suffix: val };
-  return { num: parseInt(match[1].replace(/,/g, ""), 10), suffix: match[2] };
+const parseStatValue = (val: string): { num: number; suffix: string; prefix: string } => {
+  const match = val.match(/^([^0-9]*?)([\d,]+)(.*)$/);
+  if (!match) return { num: 0, suffix: val, prefix: "" };
+  return { prefix: match[1], num: parseInt(match[2].replace(/,/g, ""), 10), suffix: match[3] };
 };
 
 const stats = [
@@ -161,7 +162,7 @@ export const LandingHero = () => {
                 className="bg-background/95 backdrop-blur-md p-5 text-center"
               >
                 <p className="font-display text-2xl md:text-3xl text-primary mb-1 font-bold">
-                  {(() => { const { num, suffix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} fallback={s.value} />; })()}
+                  {(() => { const { num, suffix, prefix } = parseStatValue(s.value); return <AnimatedNumber value={num} suffix={suffix} prefix={prefix} fallback={s.value} />; })()}
                 </p>
                 <p className="text-sm font-bold text-foreground">{s.label}</p>
                 <p className="text-xs text-muted-foreground/90 mt-0.5">{s.detail}</p>
