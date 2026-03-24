@@ -86,9 +86,9 @@ export const LandingHero = () => {
           transition={{ duration: 0.5, delay: 0.08 }}
           className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] mb-5 leading-[1.08] max-w-4xl"
         >
-          Documentation-Driven Clinical Intelligence
+          Fairness-Aware Clinical AI
           <br />
-          <span className="text-primary">for Safer, More Equitable Care</span>
+          <span className="text-primary">for Safer Bedside Decisions</span>
         </motion.h1>
 
         {/* Subhero — the core differentiator */}
@@ -98,9 +98,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal turns routine EHR activity into actionable insight for risk prediction,
-          workflow visibility, and equitable decision support — without requiring new hardware
-          or adding burden to care teams.
+          VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
+          for safer bedside and operational decisions — no new hardware required.
         </motion.p>
 
         <motion.p
