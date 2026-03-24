@@ -21,7 +21,7 @@ interface SiteLayoutProps {
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/demo", label: "Platform" },
+  { to: "/dashboard", label: "Platform" },
   { to: "/research", label: "Research" },
   { to: "/security", label: "Security" },
   { to: "/for-leaders", label: "Use Cases" },
