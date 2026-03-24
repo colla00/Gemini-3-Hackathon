@@ -93,9 +93,9 @@ export const ValidationSection = () => {
               Research-Backed Results
             </h2>
             <p className="text-primary-foreground/70 mb-8 leading-relaxed">
-             Three patent systems have been validated on large-scale
-              clinical datasets with NIH-supported research: IDI (65K+ patients across international databases),
-              DBS (28K+ patients across 172 hospitals), and SEDR (94K+ ICU stays). Performance metrics available under NDA.
+             Three patented systems have been validated on 225,420 patients across large-scale
+              international clinical datasets with NIH-supported research: IDI (65K+ patients, multi-center),
+              DBS (28K+ patients across 172 hospitals), and SEDR (131K+ ICU stays across 2 databases). Performance metrics available under NDA.
             </p>
 
             <div className="space-y-3">

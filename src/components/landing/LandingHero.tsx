@@ -98,7 +98,7 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
+         VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
           for safer bedside and operational decisions — no new hardware required.
         </motion.p>
 
@@ -109,7 +109,8 @@ export const LandingHero = () => {
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
           Informed by NIH-supported research.
-          Validated on 93,000+ patients across international ICU databases.
+          Validated on 225,000+ patients across international ICU databases.
+          Deploys in weeks — not months.
         </motion.p>
 
         {/* CTAs */}
