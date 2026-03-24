@@ -34,10 +34,10 @@ const parseStatValue = (val: string): { num: number; suffix: string } => {
 };
 
 const stats = [
-  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · Dec 2025–Feb 2026" },
-  { value: "175+", label: "Total Claims", detail: "Across all filings" },
-  { value: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
-  { value: "172", label: "Hospitals", detail: "External validation (eICU)" },
+  { value: "225K+", label: "Patients Validated", detail: "Across 3 international databases" },
+  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · 2025–2026" },
+  { value: "172", label: "Hospitals Validated", detail: "Multi-center external validation" },
+  { value: "$0", label: "Hardware Cost", detail: "Software-only · uses existing EHR data" },
 ];
 
 export const LandingHero = () => {
