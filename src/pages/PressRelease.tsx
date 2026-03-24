@@ -188,14 +188,14 @@ export const PressRelease = () => (
           <div className="not-prose grid sm:grid-cols-2 gap-4">
             <StatCard
               label="IDI Validation"
-              value="65,157 Patients"
-              detail="Across international databases"
+              value="Validated"
+              detail="Multi-center international databases"
               sub="Outperforms established acuity scores"
             />
             <StatCard
               label="DBS Validation"
-              value="28,362 Patients"
-              detail="172 hospitals · External validation"
+              value="Validated"
+              detail="Multi-center external validation"
               sub="ANIA 2026 presentation accepted"
             />
           </div>
