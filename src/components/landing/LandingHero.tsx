@@ -11,6 +11,7 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
   const motionVal = useMotionValue(0);
   const rounded = useTransform(motionVal, (v) => {
     const r = Math.round(v);
+    if (value === 0) return "0";
     return r === 0 ? (fallback ?? value.toLocaleString()) : r.toLocaleString();
   });
 
