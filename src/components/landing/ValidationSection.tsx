@@ -26,21 +26,21 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 };
 
 const metrics = [
-  { label: "IDI System", value: 65, display: "65K+", detail: "Patients validated", prefix: "", suffix: "K+" },
-  { label: "DBS System", value: 28, display: "28K+", detail: "Patients · 172 hospitals", prefix: "", suffix: "K+" },
-  { label: "SEDR System", value: 94, display: "94K+", detail: "ICU stays validated", prefix: "", suffix: "K+" },
-  { label: "Total Validated", value: 187, display: "187K+", detail: "Combined across all studies", prefix: "", suffix: "K+" },
+  { label: "IDI System", value: 65, display: "65K+", detail: "ICU mortality prediction", prefix: "", suffix: "K+" },
+  { label: "DBS System", value: 28, display: "28K+", detail: "172 hospitals · burden scoring", prefix: "", suffix: "K+" },
+  { label: "SEDR System", value: 131, display: "131K+", detail: "ICU stays · shift-end analysis", prefix: "", suffix: "K+" },
+  { label: "Total Validated", value: 225, display: "225K+", detail: "Across 3 international databases", prefix: "", suffix: "K+" },
 ];
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Three independently validated systems (IDI, DBS & SEDR)",
+  "225,420 patients validated across international databases",
   "External validation across 172 hospitals (eICU)",
   "SHAP-based explainability for every prediction",
-  "NIH-funded research fellowship",
-  "ANIA 2026 presentation accepted — Boston, MA",
-  "Stanford AI+Health 2025 symposium presenter",
-  "SIIM 2025 selected abstract",
+  "Deploys in under 4 weeks — no hardware procurement",
+  "NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine",
+  "ANIA 2026 · Stanford AI+Health 2025 · SIIM 2025",
 ];
 
 export const ValidationSection = () => {
