@@ -51,13 +51,15 @@ const validatedSystems = [
     ],
   },
   {
-    name: "SEDR – Syndromic Surveillance",
-    status: "Validated",
+    name: "SEDR – Syndromic Surveillance (Patent #11)",
+    status: "Externally Validated",
     details: [
-      "94,444 ICU stays from MIMIC-IV (2008–2022)",
-      "Five held-out three-year validation periods (LOPO-CV)",
-      "Statistically significant discrimination across all periods",
+      "131,420 ICU stays validated across MIMIC-IV and eICU databases",
+      "9-feature temporal signal model for population-level surveillance",
+      "Five held-out three-year validation periods (LOPO-CV) + multi-site external validation",
+      "Statistically significant discrimination across all periods and sites",
       "Enriched temporal validation with Elixhauser comorbidity burden",
+      "MLHC 2026 manuscript submitted — March 2026",
     ],
   },
 ];
