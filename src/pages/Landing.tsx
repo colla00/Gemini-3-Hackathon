@@ -123,6 +123,7 @@ export const Landing = () => {
       </Helmet>
       <LandingHero />
       <RecognitionBar />
+      <ProblemSection />
       <HowItWorksSection />
       <WhyNoHardware />
       <ComparisonSlider />
