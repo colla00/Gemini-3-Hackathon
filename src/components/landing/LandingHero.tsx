@@ -27,10 +27,10 @@ const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffi
   );
 };
 
-const parseStatValue = (val: string): { num: number; suffix: string } => {
-  const match = val.match(/^([\d,]+)(.*)$/);
-  if (!match) return { num: 0, suffix: val };
-  return { num: parseInt(match[1].replace(/,/g, ""), 10), suffix: match[2] };
+const parseStatValue = (val: string): { num: number; suffix: string; prefix: string } => {
+  const match = val.match(/^([^0-9]*?)([\d,]+)(.*)$/);
+  if (!match) return { num: 0, suffix: val, prefix: "" };
+  return { prefix: match[1], num: parseInt(match[2].replace(/,/g, ""), 10), suffix: match[3] };
 };
 
 const stats = [
