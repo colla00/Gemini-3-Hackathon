@@ -19,7 +19,7 @@ const personas = [
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
-    desc: "Zero capital expenditure. Software-only deployment. No new hardware procurement — ROI driven by existing EHR data utilization.",
+    desc: "Zero capital expenditure. Software-only deployment under 4 weeks. No hardware procurement — eliminate $10K–$50K per-bed sensor costs.",
     link: "/for-leaders#cfos",
   },
   {
