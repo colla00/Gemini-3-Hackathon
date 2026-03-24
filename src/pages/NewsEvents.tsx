@@ -34,7 +34,7 @@ const timelineEvents = [
     date: "January 2026",
     category: "milestone",
     title: "Documentation Burden Score™ Validated (Patent #5)",
-    description: "DBS validated on 28,362 patients across 172 hospitals in the eICU Collaborative Research Database, demonstrating equipment-independent nursing workload quantification.",
+    description: "DBS externally validated across international multi-center ICU databases, demonstrating equipment-independent nursing workload quantification with strong discrimination.",
     badge: "Validated",
     badgeColor: "bg-emerald-500/20 text-emerald-600 border-emerald-500/30",
   },
