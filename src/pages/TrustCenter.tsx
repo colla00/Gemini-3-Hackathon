@@ -73,7 +73,7 @@ const regulatorySections: { title: string; icon: React.ElementType; standard: st
     items: [
       { label: "Intended use statement defined", status: "complete", detail: "ICU mortality risk prediction from documentation patterns" },
       { label: "SaMD categorization (IMDRF)", status: "complete", detail: "Category IIb — informs clinical management for serious conditions" },
-      { label: "Clinical validation (retrospective)", status: "complete", detail: "IDI: 65K+ patients · DBS: 28K+ across 172 hospitals · SEDR: 94K+ ICU stays" },
+      { label: "Clinical validation (retrospective)", status: "complete", detail: "IDI: 65K+ patients · DBS: 28K+ across 172 hospitals · SEDR: 131K+ ICU stays" },
       { label: "Research disclaimers & regulatory boundaries", status: "complete", detail: "Comprehensive disclaimers on every page with acknowledgment gate" },
       { label: "Software documentation (IEC 62304)", status: "complete", detail: "Full software lifecycle documentation: safety classification (Class B), requirements, architecture, testing, and configuration management" },
       { label: "Predetermined change control plan", status: "complete", detail: "FDA PCCP with 6 modification types, performance guardrails, validation protocols, rollback procedures, and CCB governance" },
