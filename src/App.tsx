@@ -93,6 +93,7 @@ const ForLeaders = lazy(() => import("./pages/ForLeaders"));
 const ConflictOfInterest = lazy(() => import("./pages/ConflictOfInterest"));
 const FinancialModel = lazy(() => import("./pages/FinancialModel"));
 const GlobalHealth = lazy(() => import("./pages/GlobalHealth"));
+const GovernanceFramework = lazy(() => import("./pages/GovernanceFramework"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
