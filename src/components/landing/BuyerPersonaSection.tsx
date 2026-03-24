@@ -7,7 +7,7 @@ const personas = [
   {
     icon: Heart,
     title: "Chief Nursing Officers",
-    desc: "Quantify documentation burden, reduce alert fatigue, and give your nurses back time at the bedside — with data they're already generating.",
+    desc: "Quantify documentation burden, reduce 87% alert fatigue rates, and give your nurses back 90 minutes per shift — with data they're already generating.",
     link: "/for-leaders#cnos",
   },
   {
