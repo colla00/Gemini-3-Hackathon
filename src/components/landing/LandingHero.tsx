@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffix?: string; fallback?: string }) => {
+const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: number; suffix?: string; prefix?: string; fallback?: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const motionVal = useMotionValue(0);
@@ -22,7 +22,7 @@ const AnimatedNumber = ({ value, suffix = "", fallback }: { value: number; suffi
 
   return (
     <span ref={ref}>
-      <motion.span>{rounded}</motion.span>{suffix}
+      {prefix}<motion.span>{rounded}</motion.span>{suffix}
     </span>
   );
 };
