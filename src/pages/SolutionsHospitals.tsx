@@ -14,7 +14,7 @@ const outcomes = [
 
 const useCases = [
   { title: "ICU Mortality Prediction", desc: "Identify deteriorating patients earlier — from documentation timing alone. No new equipment, sensors, or workflow changes.", link: "/solutions/icu-mortality" },
-  { title: "Nursing Documentation Burden", desc: "Quantify and reduce documentation load with the DBS™ system — validated across 28,362 patients in 172 hospitals.", link: "/solutions/nurse-workload" },
+  { title: "Nursing Documentation Burden", desc: "Quantify and reduce documentation load with the DBS™ system — externally validated across multiple international hospitals.", link: "/solutions/nurse-workload" },
   { title: "CMS Compliance & Health Equity", desc: "Meet CMS equity requirements with built-in fairness monitoring and disparity detection across demographic subgroups.", link: "/solutions/cms-compliance" },
   { title: "Alert Fatigue Reduction", desc: "Trust-based alert filtering replaces alarm floods with clinically actionable notifications — patent-pending technology.", link: "/demo" },
 ];

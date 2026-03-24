@@ -241,7 +241,7 @@ export default function Research() {
               },
               {
                 title: "SEDR: Shift-End Documentation Rate for ICU Syndromic Surveillance",
-                venue: "MLHC 2026 (submitted) · 131K+ ICU stays across MIMIC-IV & eICU",
+                venue: "MLHC 2026 (submitted)",
                 date: "March 2026",
               },
               {

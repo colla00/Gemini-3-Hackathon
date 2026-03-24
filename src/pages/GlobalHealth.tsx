@@ -65,7 +65,7 @@ const equityPrinciples = [
   {
     icon: Globe,
     title: "Cross-Cultural Validation",
-    desc: "Validated across MIMIC-IV (U.S.), HiRID (Switzerland), and eICU (172 U.S. hospitals) — demonstrating robustness across diverse patient populations and care settings.",
+    desc: "Validated across multiple international ICU databases — demonstrating robustness across diverse patient populations, care settings, and documentation practices.",
   },
   {
     icon: Stethoscope,

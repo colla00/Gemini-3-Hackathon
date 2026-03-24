@@ -50,7 +50,7 @@ const timelineEvents = [
     date: "December 2025",
     category: "milestone",
     title: "ICU Mortality Prediction Validated (Patent #1)",
-    description: "Core mortality prediction system validated on 65,157 patients across MIMIC-IV and HiRID international databases, achieving AUROC >0.80 using only EHR timestamp data.",
+    description: "Core mortality prediction system externally validated across international ICU databases, demonstrating strong discriminative performance using only EHR timestamp data.",
     badge: "Validated",
     badgeColor: "bg-emerald-500/20 text-emerald-600 border-emerald-500/30",
   },

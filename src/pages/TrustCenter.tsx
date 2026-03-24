@@ -87,7 +87,7 @@ const regulatorySections: { title: string; icon: React.ElementType; standard: st
     icon: Lock,
     standard: "45 CFR Parts 160, 164",
     items: [
-      { label: "De-identified data only (research phase)", status: "complete", detail: "MIMIC-IV PhysioNet credentialed access" },
+      { label: "De-identified data only (research phase)", status: "complete", detail: "PhysioNet credentialed access · de-identified datasets" },
       { label: "Encryption at rest & in transit", status: "complete", detail: "AES-256 storage, TLS 1.3 transport" },
       { label: "Role-based access control (RBAC)", status: "complete", detail: "Admin, Staff, Viewer roles with has_role() security definer" },
       { label: "Audit logging with IP tracking", status: "complete", detail: "Comprehensive audit trail with user, action, resource, and IP" },

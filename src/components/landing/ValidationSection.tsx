@@ -27,16 +27,16 @@ const AnimatedNumber = ({ value, suffix = "", prefix = "", fallback }: { value: 
 
 const metrics = [
   { label: "IDI System", value: 65, display: "65K+", detail: "ICU mortality prediction", prefix: "", suffix: "K+" },
-  { label: "DBS System", value: 28, display: "28K+", detail: "172 hospitals · burden scoring", prefix: "", suffix: "K+" },
+  { label: "DBS System", value: 28, display: "28K+", detail: "Multi-center · burden scoring", prefix: "", suffix: "K+" },
   { label: "SEDR System", value: 131, display: "131K+", detail: "ICU stays · shift-end analysis", prefix: "", suffix: "K+" },
-  { label: "Total Validated", value: 225, display: "225K+", detail: "Across 3 international databases", prefix: "", suffix: "K+" },
+  { label: "Total Validated", value: 225, display: "225K+", detail: "Across international databases", prefix: "", suffix: "K+" },
 ];
 
 const differentiators = [
   "Zero hardware cost — uses existing EHR data only",
   "Three independently validated systems (IDI, DBS & SEDR)",
-  "225,420 patients validated across international databases",
-  "External validation across 172 hospitals (eICU)",
+  "225K+ patients validated across international ICU databases",
+  "Multi-center external validation across diverse populations",
   "SHAP-based explainability for every prediction",
   "Deploys in under 4 weeks — no hardware procurement",
   "NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine",
