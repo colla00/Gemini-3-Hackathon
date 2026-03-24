@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { LandingHero } from "@/components/landing/LandingHero";
 import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
+import { ProblemSection } from "@/components/landing/ProblemSection";
 
 import { LicensingCTA } from "@/components/landing/LicensingCTA";
 import { WhyNoHardware } from "@/components/landing/WhyNoHardware";
@@ -122,6 +123,7 @@ export const Landing = () => {
       </Helmet>
       <LandingHero />
       <RecognitionBar />
+      <ProblemSection />
       <HowItWorksSection />
       <WhyNoHardware />
       <ComparisonSlider />
