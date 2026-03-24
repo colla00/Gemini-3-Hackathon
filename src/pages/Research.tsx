@@ -1,4 +1,4 @@
-import { BookOpen, Microscope, Award, ArrowRight, FileText, Activity, Brain, CheckCircle2 } from "lucide-react";
+import { BookOpen, Microscope, Award, ArrowRight, FileText, Activity, Brain, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -214,6 +214,85 @@ export default function Research() {
               </Button>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Publications & Preprints */}
+      <section className="py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground mb-3">Publications & Preprints</h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl">
+            Peer-reviewed manuscripts, conference presentations, and publicly available preprints.
+          </p>
+          <div className="space-y-4">
+            {[
+              {
+                title: "Development and Validation of the Intensive Documentation Index for ICU Mortality Prediction",
+                venue: "JAMIA (under review) · medRxiv Preprint v3",
+                date: "February 2026",
+                url: "https://www.medrxiv.org/content/10.1101/2026.02.15.345827v3",
+              },
+              {
+                title: "Multinational Validation of the Intensive Documentation Index: Temporal Resolution and ICU Mortality",
+                venue: "npj Digital Medicine (under review)",
+                date: "March 2026",
+              },
+              {
+                title: "SEDR: Shift-End Documentation Rate for ICU Syndromic Surveillance",
+                venue: "MLHC 2026 (submitted)",
+                date: "March 2026",
+              },
+              {
+                title: "Documentation Burden Score System — ANIA 2026",
+                venue: "ANIA Annual Conference · Abstract #185",
+                date: "February 2026",
+              },
+              {
+                title: "AI-Assisted Clinical Judgment Framework",
+                venue: "Stanford AI+Health Conference",
+                date: "December 2025",
+              },
+              {
+                title: "IT Governance in Healthcare AI",
+                venue: "ISACA Journal",
+                date: "2025",
+              },
+            ].map((pub) => (
+              <div key={pub.title} className="p-4 rounded-lg border border-border/50 bg-card flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold text-foreground mb-1 leading-snug">{pub.title}</h3>
+                  <p className="text-xs text-muted-foreground">{pub.venue} · {pub.date}</p>
+                </div>
+                {pub.url && (
+                  <a
+                    href={pub.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline shrink-0"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Preprint
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Governance Framework */}
+      <section className="py-16 px-6 bg-muted/20 border-y border-border/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground mb-4">Clinical AI Governance</h2>
+          <p className="text-muted-foreground mb-6 max-w-2xl leading-relaxed">
+            VitaSignal has developed a practical evaluation framework for assessing whether ambient and
+            workflow AI changes documentation completeness, escalation timing, signal quality, and subgroup fairness.
+          </p>
+          <Button variant="outline" asChild>
+            <Link to="/governance-framework" className="gap-2">
+              View Governance Framework <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </section>
 

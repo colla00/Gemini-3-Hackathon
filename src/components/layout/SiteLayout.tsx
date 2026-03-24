@@ -205,7 +205,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
                     </Button>
                   </div>
                 ) : (
-                  <Button size="sm" className="w-full shadow-sm" asChild>
+                  <Button size="default" className="w-full shadow-md font-semibold text-sm py-3" asChild>
                     <Link to="/pilot-request" onClick={() => setMobileOpen(false)}>Request a Pilot</Link>
                   </Button>
                 )}
@@ -289,6 +289,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
               <div className="space-y-2">
                 <Link to="/about" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">About</Link>
                 <Link to="/research" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Research</Link>
+                <Link to="/governance-framework" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Governance Framework</Link>
                 <Link to="/careers" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Careers</Link>
                 <Link to="/blog" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">Blog</Link>
                 <Link to="/news" className="block text-sm text-primary-foreground/50 hover:text-primary transition-colors">News & Events</Link>
