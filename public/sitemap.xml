@@ -62,4 +62,5 @@
   <url><loc>https://vitasignal.ai/global-health</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/pilot-request</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://vitasignal.ai/regulatory</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://vitasignal.ai/governance-framework</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 </urlset>
