@@ -133,8 +133,47 @@ export default function Security() {
         </div>
       </section>
 
+      {/* AI Deployment & Cyber Resilience */}
+      <section className="py-16 px-6 bg-muted/20 border-y border-border/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <Brain className="w-5 h-5 text-primary" />
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl text-foreground">AI Deployment as a Security Discipline</h2>
+          </div>
+          <p className="text-muted-foreground leading-relaxed mb-6 max-w-3xl">
+            Clinical AI deployment without governance and cyber resilience is not transformation — it is unmanaged risk.
+            Every new AI integration, data flow, and automation layer creates additional governance and security obligations.
+            VitaSignal treats AI deployment readiness as inseparable from security maturity.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              "AI model provenance tracking and version control",
+              "Input validation and adversarial robustness monitoring",
+              "Model drift detection with automated alerting",
+              "Third-party AI supply chain risk assessment",
+              "Audit-ready documentation of AI decision pathways",
+              "Incident response procedures specific to AI failure modes",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground">{item}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/governance-framework" className="gap-2">
+                View Governance Framework <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="py-16 px-6 bg-muted/30 border-t border-border/30">
+      <section className="py-16 px-6 border-t border-border/30">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-2xl md:text-3xl text-foreground mb-4">
             Questions About Security or Partnerships?

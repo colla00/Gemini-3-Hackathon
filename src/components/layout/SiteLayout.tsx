@@ -46,7 +46,7 @@ export const SiteLayout = ({ children, title, description }: SiteLayoutProps) =>
   };
 
   const pageTitle = title ? `${title} | VitaSignal™` : "VitaSignal™ | Clinical Intelligence";
-  const pageDescription = description || "Equipment-independent AI for ICU mortality prediction. 11 U.S. patent applications filed. Available for licensing.";
+  const pageDescription = description || "Fairness-aware clinical AI that turns routine EHR documentation into safer bedside and operational decisions — no new hardware required.";
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
