@@ -67,7 +67,7 @@ const validatedSystems = [
 const portfolioConcepts = [
   { name: "IDI", full: "ICU Documentation Index", status: "Validated" },
   { name: "DBS", full: "Documentation Burden Score", status: "Validated" },
-  { name: "SEDR", full: "Shift-End Documentation Burden Index", status: "Validated" },
+  { name: "SEDR", full: "Shift-End Documentation Rate", status: "Externally Validated" },
   { name: "CRIS-E", full: "Clinical Risk Intelligence System", status: "Design Phase" },
   { name: "NurseRhythm", full: "Temporal Nursing Intelligence", status: "Design Phase" },
   { name: "UNIP", full: "Unified Nursing Intelligence Platform", status: "Design Phase" },
