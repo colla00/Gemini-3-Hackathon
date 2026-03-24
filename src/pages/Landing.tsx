@@ -122,6 +122,7 @@ export const Landing = () => {
       </Helmet>
       <LandingHero />
       <RecognitionBar />
+      <HowItWorksSection />
       <WhyNoHardware />
       <ComparisonSlider />
       <DashboardPreview />

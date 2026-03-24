@@ -170,6 +170,7 @@ const AppRoutes = () => {
           <Route path="/conflict-of-interest" element={<Suspense fallback={<PageSkeleton />}><ConflictOfInterest /></Suspense>} />
           <Route path="/financial-model" element={<Suspense fallback={<PageSkeleton />}><FinancialModel /></Suspense>} />
           <Route path="/global-health" element={<Suspense fallback={<PageSkeleton />}><GlobalHealth /></Suspense>} />
+          <Route path="/governance-framework" element={<Suspense fallback={<PageSkeleton />}><GovernanceFramework /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
