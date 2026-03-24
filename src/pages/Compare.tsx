@@ -30,7 +30,7 @@ const rows: ComparisonRow[] = [
     label: 'Validated AUROC',
     icon: Brain,
     values: ['Statistically validated', 'undisclosed', 'undisclosed', 'undisclosed'],
-    tooltip: 'Validated across 65K+ patients (IDI) and 28K+ patients (DBS) in international databases. Details available under NDA.',
+    tooltip: 'Validated across 225K+ patients in international ICU databases. Detailed metrics available under NDA.',
   },
   {
     label: 'Health Equity / Bias Testing',

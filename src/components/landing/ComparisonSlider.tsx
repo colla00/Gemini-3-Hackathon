@@ -14,7 +14,7 @@ const comparisons: ComparisonRow[] = [
   { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated on 225K+ patients)' },
   { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Under 4 weeks — integrates with existing EHR' },
   { icon: Shield, label: 'Cost Per Bed', traditional: '$10,000–$50,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
-  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified across 172 hospitals · 90 min saved per nurse per shift' },
+  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified across multi-center validation · 90 min saved per nurse per shift' },
   { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '87% false positive rate', vitasignal: 'Trust-calibrated, explainable alert governance' },
 ];
 

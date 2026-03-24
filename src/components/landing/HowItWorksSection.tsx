@@ -11,8 +11,8 @@ const steps = [
   {
     icon: Waves,
     label: "Signal Extraction",
-    title: "15 Documentation Rhythm Features",
-    description: "Proprietary algorithms extract documentation density, circadian rhythmicity, burst detection, shift-end patterns, and temporal correlation across systems.",
+    title: "Proprietary Feature Extraction",
+    description: "Proprietary algorithms extract documentation rhythm features — density, circadian patterns, burst detection, shift-end patterns, and temporal correlation across systems.",
   },
   {
     icon: Brain,

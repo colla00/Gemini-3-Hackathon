@@ -13,7 +13,7 @@ const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 export const PressRelease = () => (
   <SiteLayout
     title="Press Release — ANIA 2026 & Stanford AI+Health"
-    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research validated on 28,362 patients across 172 hospitals."
+    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research externally validated across international multi-center ICU databases."
   >
     <Helmet>
       <meta name="robots" content="index, follow" />
@@ -43,7 +43,7 @@ export const PressRelease = () => (
           VitaSignal™ DBS Research Accepted for Presentation at ANIA 2026 Annual Conference
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Documentation Burden Score system validated on 28,362 ICU patients across 172 hospitals with NPV of 0.947.
+          Documentation Burden Score system externally validated across international multi-center ICU databases with strong discriminative and safety performance.
         </p>
       </motion.header>
 
@@ -102,8 +102,8 @@ export const PressRelease = () => (
             <StatCard
               label="External Validation"
               value="Validated"
-              detail="Multi-center · 172 hospitals"
-              sub="Superior safety profile · p < 0.001"
+              detail="Multi-center international hospitals"
+              sub="Strong safety profile · statistically significant"
             />
           </div>
 
@@ -188,14 +188,14 @@ export const PressRelease = () => (
           <div className="not-prose grid sm:grid-cols-2 gap-4">
             <StatCard
               label="IDI Validation"
-              value="65,157 Patients"
-              detail="Across international databases"
+              value="Validated"
+              detail="Multi-center international databases"
               sub="Outperforms established acuity scores"
             />
             <StatCard
               label="DBS Validation"
-              value="28,362 Patients"
-              detail="172 hospitals · External validation"
+              value="Validated"
+              detail="Multi-center external validation"
               sub="ANIA 2026 presentation accepted"
             />
           </div>

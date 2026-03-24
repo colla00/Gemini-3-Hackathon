@@ -6,15 +6,15 @@ import { motion } from "framer-motion";
 import { Building2, TrendingDown, Clock, ShieldCheck, DollarSign, ArrowRight, CheckCircle2, Users } from "lucide-react";
 
 const outcomes = [
-  { icon: TrendingDown, stat: "Validated", label: "External DBS Performance", detail: "Statistically validated across 172 hospitals (eICU)" },
+  { icon: TrendingDown, stat: "Validated", label: "External DBS Performance", detail: "Multi-center external validation" },
   { icon: Clock, stat: "Validated", label: "IDI Performance", detail: "Equipment-independent mortality prediction" },
   { icon: DollarSign, stat: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
-  { icon: Users, stat: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS across MIMIC-IV, HiRID, eICU" },
+  { icon: Users, stat: "225K+", label: "Patients Validated", detail: "Across 3 systems and international databases" },
 ];
 
 const useCases = [
   { title: "ICU Mortality Prediction", desc: "Identify deteriorating patients earlier — from documentation timing alone. No new equipment, sensors, or workflow changes.", link: "/solutions/icu-mortality" },
-  { title: "Nursing Documentation Burden", desc: "Quantify and reduce documentation load with the DBS™ system — validated across 28,362 patients in 172 hospitals.", link: "/solutions/nurse-workload" },
+  { title: "Nursing Documentation Burden", desc: "Quantify and reduce documentation load with the DBS™ system — externally validated across multiple international hospitals.", link: "/solutions/nurse-workload" },
   { title: "CMS Compliance & Health Equity", desc: "Meet CMS equity requirements with built-in fairness monitoring and disparity detection across demographic subgroups.", link: "/solutions/cms-compliance" },
   { title: "Alert Fatigue Reduction", desc: "Trust-based alert filtering replaces alarm floods with clinically actionable notifications — patent-pending technology.", link: "/demo" },
 ];

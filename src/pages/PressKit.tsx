@@ -31,9 +31,8 @@ Headquartered in the U.S., VitaSignal is backed by research supported in part by
 
 const keyFacts = [
   { label: 'Patent Applications Filed', value: '11 U.S. Provisional' },
-  { label: 'DBS External AUROC', value: '0.758' },
-  { label: 'DBS Validation', value: '28,362 patients · 172 hospitals' },
-  { label: 'IDI Validation', value: '65,157 patients · MIMIC-IV + HiRID' },
+  { label: 'Total Patients Validated', value: '225K+ across 3 systems' },
+  { label: 'External Validation', value: 'Multi-center, international databases' },
   { label: 'Architecture', value: 'FHIR R4 Native' },
 ];
 

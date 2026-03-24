@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 const stats = [
   { value: "47%", label: "of ICU beds globally lack continuous monitoring", source: "WHO" },
   { value: "4.5B", label: "people lack access to essential health services", source: "World Bank" },
-  { value: "172", label: "hospitals validated VitaSignal's DBS system", source: "eICU Database" },
+  { value: "Multi-site", label: "external validation across international hospitals", source: "VitaSignal Research" },
   { value: "0", label: "additional hardware required for deployment", source: "VitaSignal" },
 ];
 
@@ -65,7 +65,7 @@ const equityPrinciples = [
   {
     icon: Globe,
     title: "Cross-Cultural Validation",
-    desc: "Validated across MIMIC-IV (U.S.), HiRID (Switzerland), and eICU (172 U.S. hospitals) — demonstrating robustness across diverse patient populations and care settings.",
+    desc: "Validated across multiple international ICU databases — demonstrating robustness across diverse patient populations, care settings, and documentation practices.",
   },
   {
     icon: Stethoscope,

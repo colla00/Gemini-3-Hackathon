@@ -23,7 +23,7 @@ const personas = [
     solutions: [
       "Documentation Burden Score™ quantifies workload per nurse, per shift",
       "ChartMinder™ flags at-risk patients without adding alerts",
-      "Validated on 28,362 patients across 172 hospitals",
+      "Externally validated across international ICU databases",
       "Zero additional devices or workflow changes required",
     ],
     cta: { label: "See Nurse Workload Solution", link: "/solutions/nurse-workload" },

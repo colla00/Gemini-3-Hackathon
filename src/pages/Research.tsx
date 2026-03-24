@@ -31,35 +31,35 @@ const researchThemes = [
 
 const validatedSystems = [
   {
-    name: "ICU Mortality Prediction (Patent #1 · IDI)",
+    name: "ICU Mortality Prediction (IDI)",
     status: "Externally Validated",
     details: [
-      "65K+ patients across MIMIC-IV and HiRID",
-      "Multiple temporal features from EHR timestamps only",
+      "Validated across multiple international ICU databases",
+      "Temporal feature extraction from EHR timestamps only",
       "Equipment-independent design — no bedside monitors",
       "SHAP-based explainability for every prediction",
+      "Detailed metrics available under NDA",
     ],
   },
   {
-    name: "Documentation Burden Score™ (Patent #5 · DBS)",
+    name: "Documentation Burden Score™ (DBS)",
     status: "Externally Validated",
     details: [
-      "28K+ patients validated across 172 hospitals (eICU)",
+      "Multi-center external validation across international hospitals",
       "ML-powered documentation burden quantification",
       "Statistically validated with strong discrimination",
       "ANIA 2026 presentation accepted — Boston, MA",
     ],
   },
   {
-    name: "SEDR – Syndromic Surveillance (Patent #11)",
+    name: "SEDR – Syndromic Surveillance",
     status: "Externally Validated",
     details: [
-      "131,420 ICU stays validated across MIMIC-IV and eICU databases",
-      "9-feature temporal signal model for population-level surveillance",
-      "Five held-out three-year validation periods (LOPO-CV) + multi-site external validation",
-      "Statistically significant discrimination across all periods and sites",
-      "Enriched temporal validation with Elixhauser comorbidity burden",
+      "Validated across multiple ICU databases with 131K+ stays",
+      "Temporal signal model for population-level surveillance",
+      "Multi-site external validation with strong discrimination",
       "MLHC 2026 manuscript submitted — March 2026",
+      "Detailed methodology available under NDA",
     ],
   },
 ];
@@ -241,7 +241,7 @@ export default function Research() {
               },
               {
                 title: "SEDR: Shift-End Documentation Rate for ICU Syndromic Surveillance",
-                venue: "MLHC 2026 (submitted) · 131K+ ICU stays across MIMIC-IV & eICU",
+                venue: "MLHC 2026 (submitted)",
                 date: "March 2026",
               },
               {
