@@ -102,8 +102,8 @@ export const PressRelease = () => (
             <StatCard
               label="External Validation"
               value="Validated"
-              detail="Multi-center · 172 hospitals"
-              sub="Superior safety profile · p < 0.001"
+              detail="Multi-center international hospitals"
+              sub="Strong safety profile · statistically significant"
             />
           </div>
 
