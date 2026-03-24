@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { Building2, TrendingDown, Clock, ShieldCheck, DollarSign, ArrowRight, CheckCircle2, Users } from "lucide-react";
 
 const outcomes = [
-  { icon: TrendingDown, stat: "Validated", label: "External DBS Performance", detail: "Statistically validated across 172 hospitals (eICU)" },
+  { icon: TrendingDown, stat: "Validated", label: "External DBS Performance", detail: "Multi-center external validation" },
   { icon: Clock, stat: "Validated", label: "IDI Performance", detail: "Equipment-independent mortality prediction" },
   { icon: DollarSign, stat: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
-  { icon: Users, stat: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS across MIMIC-IV, HiRID, eICU" },
+  { icon: Users, stat: "225K+", label: "Patients Validated", detail: "Across 3 systems and international databases" },
 ];
 
 const useCases = [
