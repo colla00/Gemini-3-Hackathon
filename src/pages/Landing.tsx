@@ -26,7 +26,7 @@ const orgJsonLd = {
   "@type": "Organization",
   "name": "VitaSignal",
   "url": "https://vitasignal.ai",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction, nursing documentation burden scoring, and syndromic surveillance. Three validated systems: IDI (65K+ patients), DBS (28K+ patients, 172 hospitals), and SEDR (94K+ ICU stays).",
+  "description": "Equipment-independent clinical AI for ICU mortality prediction, nursing documentation burden scoring, and shift-end documentation analysis. Three validated systems: IDI (65K+ patients), DBS (28K+ patients, 172 hospitals), and SEDR (131K+ ICU stays).",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
@@ -60,7 +60,7 @@ const faqJsonLd = {
       "name": "Has VitaSignal been validated?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The ICU Mortality Prediction system (IDI) has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score (DBS) has been validated on 28K+ patients across 172 hospitals in the eICU database. The Shift-End Documentation Rate (SEDR) has been validated on 94K+ ICU stays across five temporal periods. VitaSignal is a pre-market research prototype and is not FDA cleared."
+        "text": "Yes. The ICU Mortality Prediction system (IDI) has been validated on 65K+ patients across international databases including MIMIC-IV and HiRID. The Documentation Burden Score (DBS) has been validated on 28K+ patients across 172 hospitals in the eICU database. The Shift-End Documentation Rate (SEDR) has been validated on 131K+ ICU stays across MIMIC-IV and eICU databases. Total: 225,420 patients. VitaSignal is a pre-market research prototype and is not FDA cleared."
       }
     },
     {
@@ -108,7 +108,7 @@ export const Landing = () => {
   return (
     <SiteLayout
       title="VitaSignal | Fairness-Aware Clinical AI for Safer Bedside Decisions"
-      description="VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence for safer bedside and operational decisions — no new hardware required. Validated on 187K+ patient-stays."
+      description="VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence for safer bedside and operational decisions — no new hardware required. Validated on 225K+ patient-stays across 3 international databases."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />

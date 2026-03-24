@@ -7,7 +7,7 @@ const personas = [
   {
     icon: Heart,
     title: "Chief Nursing Officers",
-    desc: "Quantify documentation burden, reduce alert fatigue, and give your nurses back time at the bedside — with data they're already generating.",
+    desc: "Quantify documentation burden, reduce 87% alert fatigue rates, and give your nurses back 90 minutes per shift — with data they're already generating.",
     link: "/for-leaders#cnos",
   },
   {
@@ -19,7 +19,7 @@ const personas = [
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
-    desc: "Zero capital expenditure. Software-only deployment. No new hardware procurement — ROI driven by existing EHR data utilization.",
+    desc: "Zero capital expenditure. Software-only deployment under 4 weeks. No hardware procurement — eliminate $10K–$50K per-bed sensor costs.",
     link: "/for-leaders#cfos",
   },
   {

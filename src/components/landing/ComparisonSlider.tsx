@@ -11,11 +11,11 @@ interface ComparisonRow {
 
 const comparisons: ComparisonRow[] = [
   { icon: Brain, label: 'Data Source', traditional: 'Vital sign monitors, sensors, wearables', vitasignal: 'EHR documentation patterns only — no hardware' },
-  { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated)' },
-  { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Weeks — integrates with existing EHR' },
-  { icon: Shield, label: 'Cost Per Bed', traditional: '$8,000–$15,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
-  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified and validated across multiple hospitals' },
-  { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '85–99% false alarm rate', vitasignal: 'Trust-calibrated alert governance' },
+  { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated on 225K+ patients)' },
+  { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Under 4 weeks — integrates with existing EHR' },
+  { icon: Shield, label: 'Cost Per Bed', traditional: '$10,000–$50,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
+  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified across 172 hospitals · 90 min saved per nurse per shift' },
+  { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '87% false positive rate', vitasignal: 'Trust-calibrated, explainable alert governance' },
 ];
 
 export const ComparisonSlider = () => {

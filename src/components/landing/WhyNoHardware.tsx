@@ -3,8 +3,8 @@ import { Cpu, Server, Stethoscope, FileText, ArrowRight, Zap } from "lucide-reac
 
 const comparisons = [
   { traditional: "Bedside monitors & sensors", vitasignal: "Existing EHR timestamps", icon: Cpu },
-  { traditional: "Proprietary hardware install", vitasignal: "Software-only deployment", icon: Server },
-  { traditional: "$50K–$200K per unit rollout", vitasignal: "Zero incremental hardware cost", icon: Stethoscope },
+  { traditional: "Proprietary hardware ($10K–$50K/bed)", vitasignal: "Software-only deployment", icon: Server },
+  { traditional: "87% alert false positive rate", vitasignal: "Explainable, trust-calibrated signals", icon: Stethoscope },
 ];
 
 export const WhyNoHardware = () => (

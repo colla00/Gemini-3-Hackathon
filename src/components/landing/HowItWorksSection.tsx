@@ -5,20 +5,20 @@ const steps = [
   {
     icon: Database,
     label: "EHR Data",
-    title: "Routine Documentation",
-    description: "Timestamps, entry frequency, and workflow patterns already captured in your EHR — no new hardware or sensors.",
+    title: "Behavioral Data Ingestion",
+    description: "Ingests timestamps, entry frequency, and workflow patterns already captured in your EHR — no new hardware, sensors, or data entry required.",
   },
   {
     icon: Waves,
     label: "Signal Extraction",
-    title: "Temporal Pattern Analysis",
-    description: "Proprietary algorithms extract documentation density, circadian rhythmicity, burst detection, and cross-system temporal correlation.",
+    title: "15 Documentation Rhythm Features",
+    description: "Proprietary algorithms extract documentation density, circadian rhythmicity, burst detection, shift-end patterns, and temporal correlation across systems.",
   },
   {
     icon: Brain,
     label: "Clinical Intelligence",
-    title: "Actionable Insight",
-    description: "Mortality risk prediction, documentation burden scoring, and syndromic surveillance — with SHAP explainability and equity monitoring.",
+    title: "Actionable Behavioral Intelligence",
+    description: "Mortality risk prediction, documentation burden scoring, and shift-end analysis — with SHAP explainability, equity monitoring, and HL7/FHIR integration.",
   },
 ];
 

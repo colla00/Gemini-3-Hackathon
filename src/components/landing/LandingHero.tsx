@@ -34,10 +34,10 @@ const parseStatValue = (val: string): { num: number; suffix: string } => {
 };
 
 const stats = [
-  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · Dec 2025–Feb 2026" },
-  { value: "175+", label: "Total Claims", detail: "Across all filings" },
-  { value: "93K+", label: "Patients Validated", detail: "65K IDI + 28K DBS" },
-  { value: "172", label: "Hospitals", detail: "External validation (eICU)" },
+  { value: "225K+", label: "Patients Validated", detail: "Across 3 international databases" },
+  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · 2025–2026" },
+  { value: "172", label: "Hospitals Validated", detail: "Multi-center external validation" },
+  { value: "$0", label: "Hardware Cost", detail: "Software-only · uses existing EHR data" },
 ];
 
 export const LandingHero = () => {
@@ -98,7 +98,7 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
+         VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
           for safer bedside and operational decisions — no new hardware required.
         </motion.p>
 
@@ -109,7 +109,8 @@ export const LandingHero = () => {
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
           Informed by NIH-supported research.
-          Validated on 93,000+ patients across international ICU databases.
+          Validated on 225,000+ patients across international ICU databases.
+          Deploys in weeks — not months.
         </motion.p>
 
         {/* CTAs */}
