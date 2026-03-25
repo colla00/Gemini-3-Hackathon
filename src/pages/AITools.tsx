@@ -201,34 +201,7 @@ const AITools = () => {
               </li>
             </ul>
           </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-primary" />
-              Architecture Overview
-            </h3>
-            <ul className="text-xs text-muted-foreground space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
-                <span><strong className="text-foreground">Frontend:</strong> React + TypeScript + Tailwind CSS (Vite)</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
-                <span><strong className="text-foreground">Backend:</strong> 8 Supabase Edge Functions (Deno runtime)</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
-                <span><strong className="text-foreground">AI:</strong> Gemini 3 via Lovable AI Gateway (Flash + Pro models)</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
-                <span><strong className="text-foreground">Data:</strong> FHIR R4 integration, PostgreSQL, real-time SSE streaming</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
-                <span><strong className="text-foreground">Compliance:</strong> HIPAA-ready, audit logging, end-to-end encryption</span>
-              </li>
-            </ul>
-          </div>
+          <ArchitectureDiagram />
         </div>
       </section>
 
