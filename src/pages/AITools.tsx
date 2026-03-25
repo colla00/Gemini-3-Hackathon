@@ -180,8 +180,32 @@ const AITools = () => {
           <div className="rounded-xl border border-border bg-card p-6">
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
-              How Gemini 3 Is Used
+              Why Gemini 3 Specifically
             </h3>
+            <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+              VitaSignal chose Gemini 3 over alternatives for three capabilities critical to clinical AI:
+            </p>
+            <ul className="text-xs text-muted-foreground space-y-2 mb-4">
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">1M+ Token Context Window</strong> — Processes an entire 12-hour nursing shift of documentation in a single pass, enabling holistic pattern detection no other model supports at this scale</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Native Multimodal Reasoning</strong> — Simultaneously analyzes structured vitals, free-text notes, and temporal patterns without separate embedding pipelines</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Sub-3s Flash Inference</strong> — Gemini 3 Flash enables real-time triage scoring at the bedside, while Pro handles deep clinical reasoning server-side</span>
+              </li>
+            </ul>
+            <div className="rounded-lg bg-primary/5 border border-primary/15 px-3 py-2">
+              <p className="text-[10px] text-primary font-semibold">
+                💡 Bottom line: Gemini 3's combination of speed, context length, and multimodal reasoning is what makes equipment-free clinical AI viable — no other model delivers all three.
+              </p>
+            </div>
+            <div className="border-t border-border/30 mt-4 pt-3">
+            <h4 className="text-xs font-bold text-foreground mb-2">How It's Used Across Modules</h4>
             <ul className="text-xs text-muted-foreground space-y-2">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
