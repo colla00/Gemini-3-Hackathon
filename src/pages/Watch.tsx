@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const videos = [
   {
-    id: "DA5pwKx5o0s",
+    id: "Z1Jhb_mGRnM",
     title: "AI-Powered Clinical Decision Support Demo",
     subtitle: "Gemini 3 Hackathon 2026 Submission",
     description: "VitaSignal demonstrates real-time clinical decision support using Gemini 3 for risk narratives, clinical notes analysis, intervention suggestions, and health equity insights.",
@@ -17,9 +17,16 @@ const videos = [
     badge: "Hackathon",
     badgeIcon: Sparkles,
     featured: true,
+    timestamps: [
+      { time: "0:00", label: "Introduction & Problem Statement" },
+      { time: "0:30", label: "IDI & DBS Scoring Engine" },
+      { time: "1:15", label: "Gemini 3 AI Modules Demo" },
+      { time: "2:00", label: "Health Equity & Fairness" },
+      { time: "2:30", label: "Architecture & Patent Portfolio" },
+    ],
   },
   {
-    id: "Md5Pw-_stanford", // placeholder — replace with real Stanford video ID
+    id: "Md5Pw-_stanford",
     title: "EHR-Driven Quality Dashboard for Nurse-Sensitive Outcomes",
     subtitle: "Stanford AI+HEALTH 2025",
     description: "Dr. Alexis Collier presents VitaSignal's documentation-driven clinical intelligence platform at Stanford's inaugural AI+Health conference.",
@@ -28,6 +35,7 @@ const videos = [
     badge: "Conference",
     badgeIcon: GraduationCap,
     featured: false,
+    timestamps: [],
   },
 ];
 
