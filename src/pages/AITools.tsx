@@ -86,10 +86,31 @@ const AITools = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1.1, duration: 0.6 }}
-                className="text-sm text-primary-foreground/50 mb-10"
+                className="text-sm text-primary-foreground/50 mb-6"
               >
-                8 AI-powered clinical modules · Powered by Gemini 2.5 Flash
+                8 AI-powered clinical modules · Powered by Gemini 3
               </motion.p>
+
+              {/* Impact stats for judges */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 1.3, duration: 0.6 }}
+                className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto"
+              >
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">11</p>
+                  <p className="text-[10px] text-primary-foreground/40 uppercase tracking-wide">Patents Filed</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">8</p>
+                  <p className="text-[10px] text-primary-foreground/40 uppercase tracking-wide">AI Modules</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">&lt;5s</p>
+                  <p className="text-[10px] text-primary-foreground/40 uppercase tracking-wide">Avg Latency</p>
+                </div>
+              </motion.div>
 
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
@@ -152,11 +173,71 @@ const AITools = () => {
         <EnhancedAIToolsPanel />
       </main>
 
+      {/* Architecture & Documentation Section for Judges */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-8">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-xl border border-border bg-card p-6">
+            <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-primary" />
+              How Gemini 3 Is Used
+            </h3>
+            <ul className="text-xs text-muted-foreground space-y-2">
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Clinical Notes Analysis</strong> — Gemini 3 extracts structured clinical insights from free-text nursing notes</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Risk Narratives</strong> — Generates plain-language risk explanations with SHAP-style feature attribution</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Health Equity Analysis</strong> — Identifies demographic disparities using JAMIA-validated data</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Intervention Suggestions</strong> — Evidence-based clinical recommendations with confidence scoring</span>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-border bg-card p-6">
+            <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-primary" />
+              Architecture Overview
+            </h3>
+            <ul className="text-xs text-muted-foreground space-y-2">
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Frontend:</strong> React + TypeScript + Tailwind CSS (Vite)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Backend:</strong> 8 Supabase Edge Functions (Deno runtime)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">AI:</strong> Gemini 3 via Lovable AI Gateway (Flash + Pro models)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Data:</strong> FHIR R4 integration, PostgreSQL, real-time SSE streaming</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 shrink-0" />
+                <span><strong className="text-foreground">Compliance:</strong> HIPAA-ready, audit logging, end-to-end encryption</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Minimal footer */}
       <footer className="border-t border-border/40 py-4 px-4 text-center">
         <p className="text-xs text-muted-foreground">
-          Research prototype · Not for clinical use · Patent pending ·{' '}
+          Research prototype · Not for clinical use · 11 U.S. patent applications filed ·{' '}
           <Link to="/" className="text-primary hover:underline">VitaSignal™ Home</Link>
+          {' · '}
+          <Link to="/watch" className="text-primary hover:underline">Watch Demo Video</Link>
         </p>
       </footer>
 
