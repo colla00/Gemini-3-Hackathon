@@ -224,6 +224,7 @@ const AITools = () => {
                 <span><strong className="text-foreground">Intervention Suggestions</strong> — Evidence-based clinical recommendations with confidence scoring</span>
               </li>
             </ul>
+            </div>
           </div>
           <ArchitectureDiagram />
         </div>
