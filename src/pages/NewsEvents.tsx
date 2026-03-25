@@ -18,7 +18,7 @@ const timelineEvents = [
     date: "March 2026",
     category: "event",
     title: "Gemini 3 Hackathon 2026 Submission",
-    description: "VitaSignal demonstrates AI-powered clinical decision support using Gemini 2.5 Flash dual-model integration for risk narratives, clinical notes analysis, and health equity insights.",
+    description: "VitaSignal demonstrates AI-powered clinical decision support using Gemini 3 dual-model integration for risk narratives, clinical notes analysis, and health equity insights.",
     link: "/watch",
     linkLabel: "Watch the demo",
   },

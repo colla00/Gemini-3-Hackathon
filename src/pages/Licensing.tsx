@@ -359,7 +359,7 @@ function Licensing() {
             <CardContent className="pt-6">
               <ul className="space-y-4">
                 {[
-                  { icon: FileText, text: "Real AI inference engine (Gemini 2.5 Pro IDI + DBS scoring — deployed and tested)" },
+                  { icon: FileText, text: "Real AI inference engine (Gemini 3 IDI + DBS scoring — deployed and tested)" },
                   { icon: Shield, text: "Production FHIR R4 integration architecture (HAPI server connected, Epic/Cerner documented)" },
                   { icon: CheckCircle2, text: "Full system documentation under NDA (11 patent applications, 175+ claims)" },
                   { icon: Briefcase, text: "Validation datasets summary (IDI: 65,157 patients + DBS: 28,362 patients)" },

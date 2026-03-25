@@ -11,7 +11,7 @@ const videos = [
     id: "DA5pwKx5o0s",
     title: "AI-Powered Clinical Decision Support Demo",
     subtitle: "Gemini 3 Hackathon 2026 Submission",
-    description: "VitaSignal demonstrates real-time clinical decision support using Gemini 2.5 Flash for risk narratives, clinical notes analysis, intervention suggestions, and health equity insights.",
+    description: "VitaSignal demonstrates real-time clinical decision support using Gemini 3 for risk narratives, clinical notes analysis, intervention suggestions, and health equity insights.",
     duration: "3 min",
     date: "March 2026",
     badge: "Hackathon",

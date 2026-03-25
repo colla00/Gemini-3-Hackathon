@@ -2,7 +2,7 @@
  * Real AI Clinical Inference Engine Demo
  * 
  * This component demonstrates VitaSignal's IDI and DBS real-time AI inference
- * using Gemini 2.5 Pro — NOT simulated data.
+ * using Gemini 3 — NOT simulated data.
  */
 
 import { useState } from "react";
@@ -214,7 +214,7 @@ export function ClinicalAIEngine() {
                 </Badge>
               </CardTitle>
               <CardDescription>
-                Gemini 2.5 Pro IDI + DBS scoring — NOT simulated
+                Gemini 3 IDI + DBS scoring — NOT simulated
               </CardDescription>
             </div>
           </div>
@@ -224,7 +224,7 @@ export function ClinicalAIEngine() {
             <Cpu className="w-4 h-4" />
             <AlertTitle>Real AI Processing</AlertTitle>
             <AlertDescription className="text-sm">
-              This demo sends structured clinical data to Google Gemini 2.5 Pro via Lovable AI Gateway. 
+              This demo sends structured clinical data to Google Gemini 3 via Lovable AI Gateway. 
               The model analyzes inputs using VitaSignal's patent-pending IDI and DBS methodologies, 
               returning risk scores with SHAP-style feature attribution. Not a simulation.
             </AlertDescription>
