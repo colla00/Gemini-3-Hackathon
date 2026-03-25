@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { EnhancedAIToolsPanel } from '@/components/ai/EnhancedAIToolsPanel';
+import { ArchitectureDiagram } from '@/components/ai/ArchitectureDiagram';
 import { ResearchDisclaimer } from '@/components/ResearchDisclaimer';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
