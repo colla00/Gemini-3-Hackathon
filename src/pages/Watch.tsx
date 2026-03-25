@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const videos = [
   {
-    id: "DA5pwKx5o0s",
+    id: "Z1Jhb_mGRnM",
     title: "AI-Powered Clinical Decision Support Demo",
     subtitle: "Gemini 3 Hackathon 2026 Submission",
     description: "VitaSignal demonstrates real-time clinical decision support using Gemini 3 for risk narratives, clinical notes analysis, intervention suggestions, and health equity insights.",
@@ -17,9 +17,16 @@ const videos = [
     badge: "Hackathon",
     badgeIcon: Sparkles,
     featured: true,
+    timestamps: [
+      { time: "0:00", label: "Introduction & Problem Statement" },
+      { time: "0:30", label: "IDI & DBS Scoring Engine" },
+      { time: "1:15", label: "Gemini 3 AI Modules Demo" },
+      { time: "2:00", label: "Health Equity & Fairness" },
+      { time: "2:30", label: "Architecture & Patent Portfolio" },
+    ],
   },
   {
-    id: "Md5Pw-_stanford", // placeholder — replace with real Stanford video ID
+    id: "Md5Pw-_stanford",
     title: "EHR-Driven Quality Dashboard for Nurse-Sensitive Outcomes",
     subtitle: "Stanford AI+HEALTH 2025",
     description: "Dr. Alexis Collier presents VitaSignal's documentation-driven clinical intelligence platform at Stanford's inaugural AI+Health conference.",
@@ -28,6 +35,7 @@ const videos = [
     badge: "Conference",
     badgeIcon: GraduationCap,
     featured: false,
+    timestamps: [],
   },
 ];
 
@@ -84,16 +92,44 @@ const Watch = () => {
                   </div>
                   <h2 className="text-xl font-bold text-foreground mb-1">{featured.title}</h2>
                   <p className="text-sm text-muted-foreground mb-3">{featured.subtitle}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{featured.description}</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-4"
-                    onClick={() => window.open(`https://youtu.be/${featured.id}`, '_blank')}
-                  >
-                    <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                    Watch on YouTube
-                  </Button>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{featured.description}</p>
+                  
+                  {/* Video Timestamps */}
+                  {featured.timestamps && featured.timestamps.length > 0 && (
+                    <div className="mb-4 p-3 rounded-lg bg-muted/50 border border-border/50">
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-2">Chapters</p>
+                      <div className="flex flex-wrap gap-2">
+                        {featured.timestamps.map((ts) => (
+                          <button
+                            key={ts.time}
+                            onClick={() => window.open(`https://youtu.be/${featured.id}?t=${ts.time.replace(':', 'm')}s`, '_blank')}
+                            className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            <span className="font-mono text-primary/70">{ts.time}</span>
+                            <span>{ts.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(`https://youtu.be/${featured.id}`, '_blank')}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
+                      Watch on YouTube
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => window.open('https://www.vitasignal.ai/ai-tools', '_blank')}
+                    >
+                      <Play className="w-3.5 h-3.5 mr-1.5" />
+                      Try Live Demo
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
