@@ -1,5 +1,5 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { HackathonBanner } from "@/components/landing/HackathonBanner";
+
 import { LandingHero } from "@/components/landing/LandingHero";
 import { TechnologyPortfolio } from "@/components/landing/TechnologyPortfolio";
 import { ValidationSection } from "@/components/landing/ValidationSection";
@@ -122,7 +122,7 @@ export const Landing = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <meta name="keywords" content="fairness-preserving clinical AI, documentation-driven intelligence, EHR mortality prediction, documentation burden score, ICU patient safety, clinical decision support, healthcare AI licensing, equitable clinical AI" />
       </Helmet>
-      <HackathonBanner />
+      
       <LandingHero />
       <RecognitionBar />
       <ProblemSection />
