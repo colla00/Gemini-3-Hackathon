@@ -319,6 +319,30 @@ const audienceTypes = [
   "Interoperability and platform partners",
 ];
 
+const ehrPartners = [
+  {
+    name: "Oracle Health (Cerner)",
+    status: "Integrated",
+    statusColor: "bg-emerald-100 text-emerald-700",
+    desc: "Live FHIR R4 system integration via SMART v2. Confidential OAuth2 client_credentials flow with offline access for patient, observation, condition, and encounter resources.",
+    capabilities: ["FHIR R4", "SMART v2", "System OAuth2", "Offline Access"],
+  },
+  {
+    name: "Epic",
+    status: "Design Ready",
+    statusColor: "bg-blue-100 text-blue-700",
+    desc: "SMART on FHIR R4 architecture validated. Licensees obtain their own client_id via open.epic.com for production deployment.",
+    capabilities: ["FHIR R4", "SMART App Launch", "PKCE"],
+  },
+  {
+    name: "MEDITECH",
+    status: "Planned",
+    statusColor: "bg-slate-100 text-slate-500",
+    desc: "FHIR R4 interoperability roadmap aligned with MEDITECH Expanse platform capabilities.",
+    capabilities: ["FHIR R4"],
+  },
+];
+
 const PartnershipsSection = () => (
   <section id="partnerships" className="py-20 md:py-28 bg-slate-50/60">
     <div className="max-w-5xl mx-auto px-6">
@@ -332,6 +356,37 @@ const PartnershipsSection = () => (
         VitaSignal is open to conversations with organizations interested in
         building the future of clinical intelligence together.
       </p>
+
+      {/* EHR Interoperability Partners */}
+      <div className="mb-14">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-5">
+          EHR Interoperability
+        </h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {ehrPartners.map((p) => (
+            <div
+              key={p.name}
+              className="group p-5 rounded-xl border border-slate-100 bg-white hover:border-[hsl(173,58%,29%)/20] hover:shadow-sm transition-all"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-semibold text-[hsl(222,47%,11%)] text-sm">{p.name}</h4>
+                <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full ${p.statusColor}`}>
+                  {p.status}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 leading-relaxed mb-3">{p.desc}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {p.capabilities.map((c) => (
+                  <span key={c} className="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-100 text-slate-500 font-medium">
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-2 gap-10">
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-4">

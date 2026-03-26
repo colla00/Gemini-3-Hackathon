@@ -26,6 +26,8 @@ interface FHIRMessage {
 
 type EHRVendor = 'all' | 'epic' | 'cerner' | 'meditech' | 'allscripts';
 
+type OracleHealthStatus = 'checking' | 'connected' | 'disconnected';
+
 const vendorLabels: Record<EHRVendor, string> = {
   all: 'All Systems',
   epic: 'Epic',
@@ -94,6 +96,37 @@ export const FHIRIntegrationDemo = () => {
   const [apiResponse, setApiResponse] = useState<string | null>(null);
   const [apiLoading, setApiLoading] = useState(false);
   const [vendorFilter, setVendorFilter] = useState<EHRVendor>('all');
+  const [oracleStatus, setOracleStatus] = useState<OracleHealthStatus>('checking');
+  const [oracleInfo, setOracleInfo] = useState<string | null>(null);
+
+  // Check Oracle Health connection status on mount
+  useEffect(() => {
+    const checkOracle = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('oracle-health-fhir', {
+          body: null,
+          method: 'GET',
+        });
+        // Use query param approach
+        const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+        const resp = await fetch(
+          `https://${projectId}.supabase.co/functions/v1/oracle-health-fhir?action=status`,
+          { headers: { 'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY } }
+        );
+        const result = await resp.json();
+        if (result.connected) {
+          setOracleStatus('connected');
+          setOracleInfo(`${result.serverSoftware} ${result.serverVersion} — FHIR ${result.fhirVersion}`);
+        } else {
+          setOracleStatus('disconnected');
+          setOracleInfo(result.error || 'Not connected');
+        }
+      } catch {
+        setOracleStatus('disconnected');
+      }
+    };
+    checkOracle();
+  }, []);
 
   const filteredMessages = vendorFilter === 'all'
     ? messages
@@ -188,7 +221,24 @@ export const FHIRIntegrationDemo = () => {
                 <p className="text-xs text-muted-foreground mt-0.5">HL7 FHIR R4 compliant data pipeline with live message streaming and API explorer</p>
               </div>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center flex-wrap">
+              {/* Oracle Health live badge */}
+              <div className={cn(
+                "flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold",
+                oracleStatus === 'connected' 
+                  ? "bg-risk-low/10 border-risk-low/30 text-risk-low"
+                  : oracleStatus === 'checking'
+                  ? "bg-warning/10 border-warning/30 text-warning"
+                  : "bg-muted border-border/40 text-muted-foreground"
+              )}>
+                <span className="relative flex h-2 w-2">
+                  {oracleStatus === 'connected' && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-risk-low opacity-75" />}
+                  <span className={cn("relative inline-flex rounded-full h-2 w-2", 
+                    oracleStatus === 'connected' ? 'bg-risk-low' : oracleStatus === 'checking' ? 'bg-warning animate-pulse' : 'bg-muted-foreground'
+                  )} />
+                </span>
+                Oracle Health {oracleStatus === 'connected' ? 'Live' : oracleStatus === 'checking' ? '…' : 'Offline'}
+              </div>
               <Button
                 variant="outline"
                 size="sm"

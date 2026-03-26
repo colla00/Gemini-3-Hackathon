@@ -301,6 +301,17 @@ serve(async (req) => {
             dataTypes: ["Patient", "Observation", "Condition", "MedicationRequest", "Encounter"]
           },
           {
+            name: "Oracle Health (Cerner)",
+            id: "oracle-health",
+            url: "https://fhir-ehr-code.cerner.com/r4",
+            authRequired: true,
+            status: "integrated",
+            description: "Oracle Health FHIR R4 via SMART v2 system OAuth2. Confidential client with offline access.",
+            authFlow: "OAuth2 Client Credentials (SMART v2)",
+            scopes: ["system/Patient.read", "system/Observation.read", "system/Condition.read", "system/Encounter.read"],
+            proxyFunction: "oracle-health-fhir"
+          },
+          {
             name: "Epic Production",
             id: "epic",
             url: EPIC_SANDBOX_BASE,
