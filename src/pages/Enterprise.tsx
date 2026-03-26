@@ -322,10 +322,10 @@ const audienceTypes = [
 const ehrPartners = [
   {
     name: "Oracle Health (Cerner)",
-    status: "Integrated",
+    status: "Sandbox Integrated",
     statusColor: "bg-emerald-100 text-emerald-700",
-    desc: "Live FHIR R4 system integration via SMART v2. Confidential OAuth2 client_credentials flow with offline access for patient, observation, condition, and encounter resources.",
-    capabilities: ["FHIR R4", "SMART v2", "System OAuth2", "Offline Access"],
+    desc: "FHIR R4 system integration via SMART v2 (sandbox/development). Confidential OAuth2 client_credentials flow with offline access. Production deployment pending BAA execution and tenant configuration.",
+    capabilities: ["FHIR R4", "SMART v2", "System OAuth2", "Sandbox"],
   },
   {
     name: "Epic",
