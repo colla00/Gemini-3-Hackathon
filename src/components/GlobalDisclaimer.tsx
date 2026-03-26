@@ -9,7 +9,7 @@ export const GlobalDisclaimer = () => (
         <span className="mx-1.5">·</span>
         Not FDA cleared or approved. Not a medical device. Not for clinical use. Simulated data only.
         <span className="mx-1.5">·</span>
-        © 2025–2026 VitaSignal LLC
+        © 2025–2026 VitaSignal LLC. All rights reserved.
       </span>
       <AlertTriangle className="w-3 h-3 text-warning flex-shrink-0 hidden sm:block" />
     </div>

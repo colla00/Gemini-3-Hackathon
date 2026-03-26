@@ -237,7 +237,7 @@ export const FHIRIntegrationDemo = () => {
                     oracleStatus === 'connected' ? 'bg-risk-low' : oracleStatus === 'checking' ? 'bg-warning animate-pulse' : 'bg-muted-foreground'
                   )} />
                 </span>
-                Oracle Health {oracleStatus === 'connected' ? 'Live' : oracleStatus === 'checking' ? '…' : 'Offline'}
+                Oracle Health {oracleStatus === 'connected' ? 'Sandbox' : oracleStatus === 'checking' ? '…' : 'Offline'}
               </div>
               <Button
                 variant="outline"
