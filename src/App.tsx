@@ -112,6 +112,7 @@ const AppRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Landing />} />
+          <Route path="/enterprise" element={<Suspense fallback={<PageSkeleton />}><Enterprise /></Suspense>} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<Suspense fallback={<PageSkeleton />}><ResetPassword /></Suspense>} />
           <Route path="/dashboard" element={<DemoAccessGate><Suspense fallback={<DashboardSkeleton />}><NursingDashboard /></Suspense></DemoAccessGate>} />
