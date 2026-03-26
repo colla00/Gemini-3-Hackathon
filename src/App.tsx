@@ -94,6 +94,7 @@ const ConflictOfInterest = lazy(() => import("./pages/ConflictOfInterest"));
 const FinancialModel = lazy(() => import("./pages/FinancialModel"));
 const GlobalHealth = lazy(() => import("./pages/GlobalHealth"));
 const GovernanceFramework = lazy(() => import("./pages/GovernanceFramework"));
+const Enterprise = lazy(() => import("./pages/Enterprise"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -111,6 +112,7 @@ const AppRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Landing />} />
+          <Route path="/enterprise" element={<Suspense fallback={<PageSkeleton />}><Enterprise /></Suspense>} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<Suspense fallback={<PageSkeleton />}><ResetPassword /></Suspense>} />
           <Route path="/dashboard" element={<DemoAccessGate><Suspense fallback={<DashboardSkeleton />}><NursingDashboard /></Suspense></DemoAccessGate>} />
