@@ -94,6 +94,7 @@ const ConflictOfInterest = lazy(() => import("./pages/ConflictOfInterest"));
 const FinancialModel = lazy(() => import("./pages/FinancialModel"));
 const GlobalHealth = lazy(() => import("./pages/GlobalHealth"));
 const GovernanceFramework = lazy(() => import("./pages/GovernanceFramework"));
+const Enterprise = lazy(() => import("./pages/Enterprise"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
