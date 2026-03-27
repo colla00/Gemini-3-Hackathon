@@ -32,7 +32,7 @@ const HubDashboard = () => (
         <T>vitasignal.ai</T> · info@vitasignal.ai
       </StatusCard>
       <StatusCard title="Events">
-        ANIA 2026 — Boston MA — <T>March 26–28, 2026</T><br />
+        ANIA 2026 — <T>Invited Webinar</T> · IRB Approved<br />
         Stanford AI+Health 2025 ✅ · SIIM 2025 ✅
       </StatusCard>
     </div>

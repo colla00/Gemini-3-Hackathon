@@ -285,9 +285,9 @@ export const PUBLICATIONS: PublicationInfo[] = [
   },
   {
     title: 'ANIA 2026 - Documentation Burden Score System',
-    venue: 'ANIA Annual Conference',
-    date: 'February 2026',
-    type: 'Conference Presentation',
+    venue: 'ANIA Invited Webinar',
+    date: '2026',
+    type: 'Invited Webinar',
   },
   {
     title: 'AI-Assisted Clinical Judgment Framework',

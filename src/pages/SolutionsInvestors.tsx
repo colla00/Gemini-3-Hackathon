@@ -107,7 +107,7 @@ const SolutionsInvestors = () => (
             {[
               "11 U.S. provisional patent applications filed (2025–2026)",
               "NIH AIM-AHEAD CLINAQ Fellowship (Award No. 1OT2OD032581)",
-              "ANIA 2026 presentation accepted — Boston, MA (March 26–28)",
+              "ANIA 2026 invited webinar · IRB approved",
               "Stanford AI+Health 2025 symposium presentation",
               "Manuscripts submitted to peer-reviewed journals",
               "Live interactive prototype with synthetic patient demonstrations",
