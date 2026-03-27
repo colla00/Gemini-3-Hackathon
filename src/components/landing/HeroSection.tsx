@@ -47,8 +47,8 @@ export const HeroSection = () => (
 
         {/* Tagline */}
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-          Documentation-Driven Intelligence
-          <span className="text-primary"> for Safer Care</span>
+          Documentation-Native Intelligence
+          <span className="text-primary"> for Measurable Outcomes</span>
         </h2>
 
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-3">

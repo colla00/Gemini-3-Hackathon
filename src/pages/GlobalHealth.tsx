@@ -60,7 +60,7 @@ const equityPrinciples = [
   {
     icon: Heart,
     title: "Designed for Underserved Populations",
-    desc: "Equipment-independent architecture ensures the same clinical AI available to well-resourced systems is accessible to safety-net hospitals, rural facilities, and global health contexts.",
+    desc: "Equipment-independent architecture ensures the same documentation-native intelligence available to well-resourced systems is accessible to safety-net hospitals, rural facilities, and global health contexts.",
   },
   {
     icon: Globe,
@@ -88,7 +88,7 @@ const useCases = [
   {
     region: "Military & Deployed Settings",
     context: "Field hospitals and garrison clinics with constrained equipment",
-    impact: "Clinical AI that works with MHS GENESIS / VistA without bedside monitors",
+    impact: "Documentation-native mortality prediction that works with MHS GENESIS / VistA without bedside monitors",
   },
   {
     region: "Southeast Asia & India",
@@ -118,10 +118,10 @@ const GlobalHealth = () => {
               <Globe className="w-3 h-3 mr-1" /> Global Impact
             </Badge>
             <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">
-              Clinical AI That Works Where It's Needed Most
+              Mortality Prediction That Works Where Monitors Don't
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Nearly half the world's ICU beds lack continuous monitoring. VitaSignal's equipment-independent AI brings clinical intelligence to every setting — not just the ones with the most resources.
+              Nearly half the world's ICU beds lack continuous monitoring. VitaSignal's documentation-native approach predicts deterioration from EHR timestamps alone — no bedside equipment required.
             </p>
           </motion.div>
         </div>

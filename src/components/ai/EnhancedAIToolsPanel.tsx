@@ -1424,7 +1424,7 @@ export const EnhancedAIToolsPanel = () => {
                   </Badge>
                 </h1>
                 <p className="text-primary-foreground/80 text-sm mt-1">
-                  Enterprise-grade AI-powered clinical decision support · Gemini 3 Flash + Pro
+                  Enterprise-grade documentation-native decision support · Gemini 3 Flash + Pro
                 </p>
               </div>
             </div>

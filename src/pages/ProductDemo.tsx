@@ -37,8 +37,8 @@ const ProductDemo = () => {
 
   return (
     <SiteLayout
-      title="Product Demo | VitaSignal — See Clinical AI in Action"
-      description="Explore VitaSignal's clinical AI platform with synthetic patient data. See real-time risk scoring, nurse workload optimization, and equity monitoring."
+      title="Product Demo | VitaSignal — Documentation-Native Intelligence"
+      description="Explore VitaSignal's documentation-native platform with synthetic patient data. See mortality risk scoring, documentation burden analysis, and equity monitoring."
     >
       <main className="min-h-screen bg-gradient-to-b from-[hsl(220,25%,8%)] via-[hsl(220,20%,12%)] to-[hsl(220,25%,8%)]">
         {/* Hero */}
@@ -49,7 +49,7 @@ const ProductDemo = () => {
                 <Play className="w-4 h-4" /> Interactive Demo — Synthetic Data Only
               </div>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 font-['DM_Serif_Display']">
-                Experience VitaSignal's <span className="text-cyan-400">Clinical Intelligence</span>
+                Experience VitaSignal's <span className="text-cyan-400">Documentation-Native Intelligence</span>
               </h1>
               <p className="text-white/60 text-lg max-w-2xl mx-auto">
                 Walk through our platform using simulated patient data. No login required. No real PHI involved.

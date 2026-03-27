@@ -125,14 +125,13 @@ const Hero = () => (
     />
     <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32 text-center">
       <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-[hsl(222,47%,11%)] leading-[1.12] mb-6 max-w-3xl mx-auto">
-        Clinical Intelligence for Safer,{" "}
-        <span className="text-[hsl(173,58%,29%)]">Smarter Healthcare</span>
+        Documentation-Native Intelligence for{" "}
+        <span className="text-[hsl(173,58%,29%)]">Health System Leaders</span>
       </h1>
       <p className="text-base md:text-lg text-slate-500 max-w-2xl mx-auto mb-8 leading-relaxed">
-        VitaSignal is being developed to translate patented healthcare innovations
-        into interoperable decision-support, risk stratification, workflow
-        intelligence, and analytics solutions for health systems and enterprise
-        partners.
+        VitaSignal extracts measurable clinical and operational signal from routine
+        EHR documentation — risk reduction, burden visibility, equity monitoring,
+        and governance-ready reporting for health systems and enterprise partners.
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
         <a
@@ -165,23 +164,23 @@ const Hero = () => (
 const featureCards = [
   {
     icon: Brain,
-    title: "Clinical Intelligence",
-    desc: "Surfacing actionable insight from routine clinical data to support safer, earlier decision-making at the bedside and beyond.",
+    title: "Documentation-Native Signal",
+    desc: "Extracts mortality risk, documentation burden, and shift-end patterns from EHR timestamps — signal that ambient scribes and generic copilots miss.",
   },
   {
     icon: BarChart3,
-    title: "Workflow-Aware Analytics",
-    desc: "Quantifying care-team workload and documentation patterns to improve staffing visibility and operational efficiency.",
+    title: "Operational Visibility",
+    desc: "Quantifies care-team workload and documentation patterns to give CNOs and unit managers staffing evidence they can act on.",
   },
   {
     icon: Layers,
-    title: "Interoperability-Ready Design",
-    desc: "Architected for seamless integration with existing EHR systems, FHIR standards, and enterprise data infrastructure.",
+    title: "Standards-Based Integration",
+    desc: "FHIR R4, SMART v2, HL7 — built to plug into your existing EHR stack without new hardware or workflow disruption.",
   },
   {
     icon: Shield,
-    title: "Responsible, Human-Centered AI",
-    desc: "Embedding fairness, transparency, and clinician oversight into every layer of the intelligence pipeline.",
+    title: "Governance by Design",
+    desc: "Auditability, subgroup fairness monitoring, human-in-the-loop controls, and committee-ready reporting built into every system.",
   },
 ];
 
@@ -195,13 +194,11 @@ const AboutSection = () => (
         What VitaSignal Is Building
       </h2>
       <p className="text-base text-slate-500 leading-relaxed max-w-3xl mb-14">
-        VitaSignal is a healthcare innovation company focused on developing
-        clinically informed, interoperable solutions that help organizations
-        surface risk earlier, support safer decisions, and improve visibility
-        across care and operational workflows. The company is being shaped around
-        a growing portfolio of patent-pending innovations spanning clinical
-        decision support, healthcare intelligence, workflow optimization, and
-        equitable AI-enabled care.
+        VitaSignal is a documentation-native intelligence company. We extract
+        clinical and operational signal from the EHR data hospitals already
+        generate — nursing documentation timestamps, shift-end patterns, and
+        documentation burden metrics. Three independently validated systems.
+        11 patent applications. Zero new hardware required.
       </p>
       <div className="grid sm:grid-cols-2 gap-6">
         {featureCards.map((f) => (

@@ -156,7 +156,7 @@ export const ClinicalNotesAnalyzer = ({
                 </Badge>
               </CardTitle>
               <CardDescription>
-                AI-powered analysis of nurse observations
+                Documentation-native analysis of nurse observations
               </CardDescription>
             </div>
           </div>
