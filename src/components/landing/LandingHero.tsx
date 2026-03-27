@@ -87,7 +87,7 @@ export const LandingHero = () => {
           transition={{ duration: 0.5, delay: 0.08 }}
           className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] mb-5 leading-[1.08] max-w-4xl"
         >
-          Fairness-Aware Clinical AI
+          Documentation-Native Intelligence
           <br />
           <span className="text-primary">for Safer Bedside Decisions</span>
         </motion.h1>
