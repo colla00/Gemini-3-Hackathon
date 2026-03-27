@@ -239,8 +239,8 @@ function About() {
                   </div>
                   <div>
                     <Badge className="mb-2 bg-primary/20 border-primary/30 text-primary text-[10px]">Upcoming</Badge>
-                    <p className="font-semibold text-foreground">ANIA 2026 Annual Conference</p>
-                    <p className="text-sm text-muted-foreground">Boston, MA — March 26–28, 2026</p>
+                    <p className="font-semibold text-foreground">ANIA 2026 Invited Webinar</p>
+                    <p className="text-sm text-muted-foreground">Virtual · IRB Approved</p>
                     <p className="text-sm text-muted-foreground mt-2 italic">
                       "Human-Centered AI to Reduce Nursing Workload: Two-Stage Validation of a Documentation Burden Score"
                     </p>

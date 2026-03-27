@@ -67,9 +67,9 @@ const patentSystems = [
     metrics: [
       "Validated internally and externally across multiple hospital systems",
       "Multi-site external validation cohort",
-      "ANIA 2026 Presentation — Boston, MA",
+      "ANIA 2026 Invited Webinar",
     ],
-    innovation: "ML-powered documentation burden quantification using proprietary clinical feature engineering. Validated internally and externally across multiple hospital systems. ANIA 2026 presentation accepted.",
+    innovation: "ML-powered documentation burden quantification using proprietary clinical feature engineering. Validated internally and externally across multiple hospital systems. IRB approved. ANIA 2026 invited webinar.",
   },
   {
     number: 6,

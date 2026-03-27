@@ -73,7 +73,7 @@ export const LandingHero = () => {
             Stanford AI+Health 2025
           </span>
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-foreground/5 border border-primary-foreground/10">
-            ANIA 2026 · Boston, MA
+            ANIA 2026 · Invited Webinar
           </span>
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-foreground/5 border border-primary-foreground/10">
             11 U.S. Patent Applications Filed

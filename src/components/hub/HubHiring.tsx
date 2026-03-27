@@ -93,7 +93,7 @@ Would you be open to a conversation?
 Best,
 Dr. Alexis Collier, DHA, MHA
 info@vitasignal.ai | vitasignal.ai`,
-    channels: ['ANIA 2026 conference (March 26-28)', 'AMIA Nursing Informatics', 'LinkedIn (nurse informaticists)', 'University faculty networks', 'AACN critical care communities'],
+    channels: ['ANIA 2026 invited webinar', 'AMIA Nursing Informatics', 'LinkedIn (nurse informaticists)', 'University faculty networks', 'AACN critical care communities'],
   },
   {
     id: 'ml',

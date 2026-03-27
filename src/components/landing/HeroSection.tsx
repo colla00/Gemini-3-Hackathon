@@ -20,10 +20,10 @@ export const HeroSection = () => (
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/30">
             <Award className="w-4 h-4 text-primary" aria-hidden="true" />
             <span className="text-sm font-medium text-primary">
-              Presenting at ANIA 2026 — Boston
+              ANIA 2026 Invited Webinar
             </span>
             <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
-              Mar 2026
+              IRB Approved
             </span>
           </div>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#8C1515]/10 to-[#8C1515]/5 border border-[#8C1515]/30">

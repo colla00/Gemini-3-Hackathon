@@ -40,7 +40,7 @@ const differentiators = [
   "SHAP-based explainability for every prediction",
   "Deploys in under 4 weeks — no hardware procurement",
   "NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine",
-  "ANIA 2026 · Stanford AI+Health 2025 · SIIM 2025",
+  "ANIA 2026 Webinar · Stanford AI+Health 2025 · SIIM 2025",
 ];
 
 export const ValidationSection = () => {

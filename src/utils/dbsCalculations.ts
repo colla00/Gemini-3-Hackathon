@@ -1,7 +1,7 @@
 // DBS (Documentation Burden Score) and ROI Calculation Utilities
 // Copyright © Dr. Alexis Collier - U.S. Patent Application Filed
 // Validated multi-variable ML model — details under NDA
-// ANIA 2026 Presentation — Boston, MA — March 26-28, 2026
+// ANIA 2026 Invited Webinar · IRB Approved
 
 export interface DBSFactors {
   apache: number;

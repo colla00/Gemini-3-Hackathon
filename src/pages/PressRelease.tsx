@@ -12,15 +12,15 @@ const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
 
 export const PressRelease = () => (
   <SiteLayout
-    title="Press Release — ANIA 2026 & Stanford AI+Health"
-    description="VitaSignal™ press release: ANIA 2026 presentation acceptance and Stanford AI+Health 2025 conference recap. Documentation Burden Score research externally validated across international multi-center ICU databases."
+    title="Press Release — ANIA 2026 Webinar & Stanford AI+Health"
+    description="VitaSignal™ press release: ANIA 2026 invited webinar and Stanford AI+Health 2025 conference recap. Documentation Burden Score research externally validated across international multi-center ICU databases. IRB approved."
   >
     <Helmet>
       <meta name="robots" content="index, follow" />
       <script type="application/ld+json">{JSON.stringify({
         "@context": "https://schema.org",
         "@type": "NewsArticle",
-        "headline": "VitaSignal™ DBS Research Accepted for ANIA 2026 Annual Conference",
+        "headline": "VitaSignal™ DBS Research Selected for ANIA 2026 Invited Webinar",
         "datePublished": "2026-01-15",
         "author": { "@type": "Person", "name": "Dr. Alexis Collier" },
         "publisher": { "@type": "Organization", "name": "VitaSignal™" }
@@ -40,7 +40,7 @@ export const PressRelease = () => (
           <Badge variant="outline" className="text-xs">January 2026</Badge>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
-          VitaSignal™ DBS Research Accepted for Presentation at ANIA 2026 Annual Conference
+          VitaSignal™ DBS Research Selected for ANIA 2026 Invited Webinar
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Documentation Burden Score system externally validated across international multi-center ICU databases with strong discriminative and safety performance.
@@ -55,7 +55,7 @@ export const PressRelease = () => (
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
             <Award className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="text-2xl font-bold text-foreground">ANIA 2026 — Boston, MA</h2>
+          <h2 className="text-2xl font-bold text-foreground">ANIA 2026 — Invited Webinar</h2>
         </div>
 
         <Card className="mb-6 border-primary/20 bg-primary/[0.03]">
@@ -64,15 +64,15 @@ export const PressRelease = () => (
               <div className="flex items-start gap-2">
                 <Calendar className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">March 26–28, 2026</p>
-                  <p className="text-muted-foreground text-xs">ANIA Annual Conference</p>
+                  <p className="font-medium text-foreground">2026</p>
+                  <p className="text-muted-foreground text-xs">ANIA Invited Webinar</p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">Boston, Massachusetts</p>
-                  <p className="text-muted-foreground text-xs">In-person presentation</p>
+                  <p className="font-medium text-foreground">Virtual</p>
+                  <p className="text-muted-foreground text-xs">Online webinar</p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
@@ -88,7 +88,7 @@ export const PressRelease = () => (
 
         <div className="prose prose-neutral dark:prose-invert max-w-none text-sm leading-relaxed space-y-4">
           <p>
-            <strong>Dr. Alexis Collier, DHA</strong>, has been accepted to present research on the <strong>Documentation Burden Score (DBS)</strong> system at the American Nursing Informatics Association (ANIA) 2026 Annual Conference in Boston. The presentation will detail an ML-powered approach to quantifying and predicting nursing documentation burden in intensive care settings.
+            <strong>Dr. Alexis Collier, DHA</strong>, has been invited to present research on the <strong>Documentation Burden Score (DBS)</strong> system as part of an ANIA 2026 invited webinar. The study has received IRB approval. The webinar will detail an ML-powered approach to quantifying and predicting nursing documentation burden in intensive care settings.
           </p>
 
           <h3 className="text-base font-semibold text-foreground mt-8 mb-3">Validated Performance</h3>
@@ -196,7 +196,7 @@ export const PressRelease = () => (
               label="DBS Validation"
               value="Validated"
               detail="Multi-center external validation"
-              sub="ANIA 2026 presentation accepted"
+              sub="ANIA 2026 invited webinar · IRB approved"
             />
           </div>
         </div>
@@ -242,7 +242,7 @@ export const PressRelease = () => (
             <Link to="/licensing">Licensing Information</Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link to="/ania2026">ANIA 2026 Poster</Link>
+            <Link to="/ania2026">ANIA 2026 Webinar Slides</Link>
           </Button>
         </div>
       </motion.div>

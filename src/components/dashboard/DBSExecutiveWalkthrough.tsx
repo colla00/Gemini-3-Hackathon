@@ -169,7 +169,7 @@ const StepValidation = () => (
     <div className="bg-risk-low/5 border border-risk-low/20 rounded-lg p-3">
       <p className="text-xs text-risk-low font-medium flex items-center gap-2">
         <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-        Accepted for presentation at ANIA 2026 — Boston, MA — March 26–28, 2026
+        IRB approved · Selected for ANIA 2026 invited webinar
       </p>
     </div>
   </div>

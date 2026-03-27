@@ -22,7 +22,7 @@ const highlights = [
   },
   {
     title: "Documentation Burden Score™ (Patent #5 · DBS)",
-    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362). ANIA 2026 presentation accepted.",
+    desc: "ML-powered documentation burden quantification. AUROC 0.802 internal, 0.758 external. Validated across 172 hospitals (N=28,362). IRB approved. ANIA 2026 invited webinar.",
     badge: "Externally Validated",
   },
   {

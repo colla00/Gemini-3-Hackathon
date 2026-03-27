@@ -49,10 +49,10 @@ I'd love to discuss how VitaSignal fits your portfolio. Thank you.`,
   },
   {
     id: 'ania-presentation',
-    title: 'ANIA 2026 Conference Presentation (15 min)',
+    title: 'ANIA 2026 Invited Webinar (15 min)',
     category: 'conference',
     duration: '15 minutes',
-    audience: 'Nursing Informatics Professionals, ANIA 2026 Boston',
+    audience: 'Nursing Informatics Professionals, ANIA 2026 Webinar',
     content: `Thank you. I'm Dr. Alexis Collier, and I'm here to present "Human-Centered AI to Reduce Nursing Workload: Two-Stage Validation of a Documentation Burden Score."
 
 Before I begin — a disclosure. I'm the founder of VitaSignal LLC. I've filed 11 U.S. provisional patent applications related to this work, and this research was supported by NIH Agreement 1OT2OD032581 through the AIM-AHEAD CLINAQ Fellowship at Morehouse School of Medicine. Full disclosures are on the handout.
