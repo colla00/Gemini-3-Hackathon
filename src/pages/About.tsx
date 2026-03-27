@@ -14,7 +14,7 @@ function About() {
   const [walkthroughOpen, setWalkthroughOpen] = useState(false);
 
   return (
-    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator of the VitaSignal™ Clinical Intelligence Platform.">
+    <SiteLayout title="About" description="Dr. Alexis Collier, DHA. Founder & CEO of VitaSignal LLC. Inventor and Principal Investigator — documentation-native intelligence for ICU risk reduction, documentation burden quantification, and equity monitoring.">
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-about.png" />
         <meta property="og:image:width" content="1920" />
@@ -50,8 +50,8 @@ function About() {
                 <span className="text-primary">Collier, DHA</span>
               </h1>
               <p className="text-lg md:text-xl max-w-2xl mb-6 opacity-80 leading-relaxed">
-                A clinical AI researcher working at the intersection of nursing informatics,
-                health equity, predictive analytics, and translational healthcare innovation.
+                Building documentation-native intelligence that extracts measurable
+                clinical and operational signal from the EHR data hospitals already collect.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge className="bg-primary/20 border-primary/30 text-primary">Founder & CEO, VitaSignal LLC</Badge>

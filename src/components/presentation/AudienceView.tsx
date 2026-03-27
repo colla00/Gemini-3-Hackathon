@@ -158,7 +158,7 @@ export const AudienceView = () => {
             </div>
             <div>
               <h1 className="text-sm font-bold text-primary-foreground">VitaSignal™</h1>
-              <p className="text-[10px] text-primary-foreground/70">AI-Powered Nurse-Sensitive Outcome Prediction</p>
+              <p className="text-[10px] text-primary-foreground/70">Documentation-Native Intelligence</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

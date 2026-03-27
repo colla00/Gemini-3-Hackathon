@@ -93,7 +93,7 @@ const StepProblem = () => (
 const StepSolution = () => (
   <div className="space-y-5">
     <p className="text-sm text-muted-foreground leading-relaxed">
-      The <span className="font-bold text-foreground">Documentation Burden Score (DBS)</span> is an AI-powered metric that 
+      The <span className="font-bold text-foreground">Documentation Burden Score (DBS)</span> is a validated metric that 
       predicts how much documentation work each patient will generate — <span className="font-bold text-foreground">before the shift starts</span>.
     </p>
     <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
