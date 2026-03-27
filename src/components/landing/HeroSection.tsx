@@ -41,7 +41,7 @@ export const HeroSection = () => (
           </div>
           <div className="text-left">
             <h1 className="text-2xl font-bold text-foreground">VitaSignal<sup className="text-[8px] align-super">™</sup></h1>
-            <span className="text-sm text-muted-foreground">Clinical Intelligence</span>
+            <span className="text-sm text-muted-foreground">Documentation-Native Intelligence</span>
           </div>
         </div>
 
@@ -52,9 +52,9 @@ export const HeroSection = () => (
         </h2>
 
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-3">
-          VitaSignal turns routine EHR activity into actionable insight for risk prediction,
-          workflow visibility, and equitable decision support — without requiring new hardware
-          or adding burden to care teams.
+          VitaSignal extracts operational and clinical signal from routine EHR documentation —
+          measurable risk reduction, workforce visibility, and equitable decision support.
+          No new hardware. No ambient scribes.
         </p>
 
         <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-8">

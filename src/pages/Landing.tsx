@@ -109,8 +109,8 @@ const medicalWebPageJsonLd = {
 export const Landing = () => {
   return (
     <SiteLayout
-      title="VitaSignal | Fairness-Aware Clinical AI for Safer Bedside Decisions"
-      description="VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence for safer bedside and operational decisions — no new hardware required. Validated on 225K+ patient-stays across 3 international databases."
+      title="VitaSignal | Documentation-Native Intelligence for Safer Bedside Decisions"
+      description="VitaSignal extracts clinical and operational signal from routine EHR documentation — measurable risk reduction, equity monitoring, and workflow intelligence. Validated on 225K+ patient-stays. No new hardware required."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />
