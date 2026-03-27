@@ -24,11 +24,11 @@ export const ROISection = () => {
         >
           <p className="text-xs uppercase tracking-widest text-primary mb-2">Value Proposition</p>
           <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-3">
-            Zero Hardware. Validated Results.
+            Zero Hardware. Measurable Outcomes.
           </h2>
           <p className="text-primary-foreground/60 max-w-xl mx-auto text-sm">
-            No capital expenditure. No new sensors. Software-only deployment using existing EHR documentation data,
-            validated across multiple international databases.
+            No capital expenditure. No ambient scribes. Software-only deployment that connects existing EHR
+            documentation patterns to quantifiable clinical and operational outcomes.
           </p>
         </motion.div>
 

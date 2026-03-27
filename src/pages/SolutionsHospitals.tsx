@@ -16,7 +16,7 @@ const useCases = [
   { title: "ICU Mortality Prediction", desc: "Identify deteriorating patients earlier — from documentation timing alone. No new equipment, sensors, or workflow changes.", link: "/solutions/icu-mortality" },
   { title: "Nursing Documentation Burden", desc: "Quantify and reduce documentation load with the DBS™ system — externally validated across multiple international hospitals.", link: "/solutions/nurse-workload" },
   { title: "CMS Compliance & Health Equity", desc: "Meet CMS equity requirements with built-in fairness monitoring and disparity detection across demographic subgroups.", link: "/solutions/cms-compliance" },
-  { title: "Alert Fatigue Reduction", desc: "Trust-based alert filtering replaces alarm floods with clinically actionable notifications — patent-pending technology.", link: "/demo" },
+  { title: "AI Governance & Oversight", desc: "Governance-ready reporting for hospital committees — auditability, bias surveillance, population-relevant validation, and human-in-the-loop controls built in.", link: "/governance-framework" },
 ];
 
 const SolutionsHospitals = () => (
@@ -33,12 +33,12 @@ const SolutionsHospitals = () => (
               <Building2 className="w-3 h-3 mr-1" /> For Hospitals & Health Systems
             </Badge>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 font-['DM_Serif_Display']">
-              Clinical Intelligence<br />
-              <span className="text-primary">From Data You Already Collect</span>
+              Documentation Exhaust →<br />
+              <span className="text-primary">Clinical Intelligence</span>
             </h1>
             <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
-              VitaSignal works with your existing EHR — no new hardware, no new sensors, no integration burden.
-              Deploy across your ICU in weeks, not months.
+              VitaSignal transforms routine EHR documentation patterns into measurable risk reduction
+              and operational outcomes — no new hardware, no ambient scribes, no integration burden.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg">
@@ -108,12 +108,13 @@ const SolutionsHospitals = () => (
           <h2 className="text-2xl font-bold text-white text-center mb-8 font-['DM_Serif_Display']">Why CNOs & CMOs Choose VitaSignal</h2>
           <div className="space-y-3">
             {[
-              "Zero capital expenditure — uses existing EHR data only",
-              "Software-only deployment — no new hardware or sensors",
+              "Zero capital expenditure — uses existing EHR documentation data only",
+              "Not an ambient scribe — connects documentation exhaust to clinical outcomes",
+              "Governance-ready: auditability, bias surveillance, and committee-ready reporting",
+              "Compact ROI proof package: baseline burden, target workflow, expected gain, measurement plan",
               "Fairness-preserving AI with equity monitoring across demographic subgroups",
-              "HIPAA-aware architecture with encryption at rest and in transit",
-              "11 patent applications filed — strong defensible IP moat",
-              "NIH-supported research (Award No. 1OT2OD032581)",
+              "11 patent applications filed — defensible IP moat against commoditization",
+              "NIH-supported research (Award No. 1OT2OD032581) · IRB Approved",
             ].map((item, i) => (
               <motion.div
                 key={i}
