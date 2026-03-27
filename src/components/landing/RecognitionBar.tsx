@@ -4,7 +4,7 @@ import { useRef } from "react";
 const recognitions = [
   { label: "NIH AIM-AHEAD", detail: "CLINAQ Fellowship" },
   { label: "NIH Award", detail: "No. 1OT2OD032581" },
-  { label: "ANIA 2026", detail: "Accepted · Boston, MA" },
+  { label: "ANIA 2026", detail: "Invited Webinar" },
   { label: "Stanford AI+Health", detail: "2025 Presenter" },
   { label: "SIIM 2025", detail: "Selected Abstract" },
   { label: "11 Patents", detail: "U.S. Provisional Filed" },

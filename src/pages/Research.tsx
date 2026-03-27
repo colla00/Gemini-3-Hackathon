@@ -48,7 +48,7 @@ const validatedSystems = [
       "Multi-center external validation across international hospitals",
       "ML-powered documentation burden quantification",
       "Statistically validated with strong discrimination",
-      "ANIA 2026 presentation accepted — Boston, MA",
+      "IRB approved · ANIA 2026 invited webinar",
     ],
   },
   {
@@ -245,9 +245,9 @@ export default function Research() {
                 date: "March 2026",
               },
               {
-                title: "Documentation Burden Score System — ANIA 2026",
-                venue: "ANIA Annual Conference · Abstract #185",
-                date: "February 2026",
+                title: "Documentation Burden Score System — ANIA 2026 Webinar",
+                venue: "ANIA Invited Webinar · Abstract #185",
+                date: "2026",
               },
               {
                 title: "AI-Assisted Clinical Judgment Framework",

@@ -43,11 +43,12 @@ const HubPresentations = () => (
 
     <div className="space-y-4">
       <h2 className="text-xs font-semibold tracking-wider text-white/40 uppercase">Upcoming</h2>
-      <EventCard badge="UPCOMING" badgeColor="bg-green-500/20 text-green-400" title="ANIA 2026 — Boston, MA">
-        <p>Date: <T>March 26–28, 2026</T></p>
+      <EventCard badge="UPCOMING" badgeColor="bg-green-500/20 text-green-400" title="ANIA 2026 — Invited Webinar">
+        <p>Format: <T>Webinar (Virtual)</T></p>
         <p>Title: "Human-Centered AI to Reduce Nursing Workload: Two-Stage Validation of a Documentation Burden Score"</p>
         <p>System: DBS (Patent #1) — <T>28,362</T> patients, <T>172</T> hospitals, AUROC <T>0.758</T></p>
-        <p>Prep: Prepare handout, verify DBS slides, confirm hotel/travel</p>
+        <p>IRB: <T>Approved</T></p>
+        <p>Prep: Finalize webinar slides, test virtual platform</p>
       </EventCard>
 
       <h2 className="text-xs font-semibold tracking-wider text-white/40 uppercase pt-4">Completed</h2>

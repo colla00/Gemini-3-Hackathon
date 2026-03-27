@@ -108,9 +108,9 @@ const ANIA2026Poster = () => {
   return (
     <>
       <Helmet>
-        <title>ANIA 2026 Poster — DBS System | VitaSignal™</title>
+        <title>ANIA 2026 Webinar — DBS System | VitaSignal™</title>
         <meta name="robots" content="noindex, nofollow" />
-        <meta name="description" content="ANIA 2026 conference poster for the Documentation Burden Score (DBS) System." />
+        <meta name="description" content="ANIA 2026 invited webinar slides for the Documentation Burden Score (DBS) System. IRB approved." />
       </Helmet>
 
       <div className="min-h-screen bg-background" onContextMenu={(e) => e.preventDefault()}>
@@ -126,7 +126,10 @@ const ANIA2026Poster = () => {
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <Badge className="bg-chart-2/10 text-chart-2 border-chart-2/30">
                     <Award className="w-3 h-3 mr-1" />
-                    ANIA 2026
+                    ANIA 2026 Webinar
+                  </Badge>
+                  <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/30 text-[10px]">
+                    IRB Approved
                   </Badge>
                   <Badge variant="outline" className="text-muted-foreground">
                     Patent #5 — Filed Jan 2026
