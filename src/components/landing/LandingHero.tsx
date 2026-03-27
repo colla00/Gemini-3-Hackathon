@@ -99,8 +99,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-         VitaSignal turns routine EHR documentation into fairness-aware clinical intelligence
-          for safer bedside and operational decisions — no new hardware required.
+          VitaSignal transforms routine EHR documentation exhaust into measurable clinical
+          intelligence — risk reduction, burden quantification, and equity monitoring. Not a scribe. Not ambient AI. Decision support with governance built in.
         </motion.p>
 
         <motion.p

@@ -33,13 +33,13 @@ const metrics = [
 ];
 
 const differentiators = [
-  "Zero hardware cost — uses existing EHR data only",
+  "Not an ambient scribe — transforms documentation exhaust into clinical intelligence",
   "Three independently validated systems (IDI, DBS & SEDR)",
   "225K+ patients validated across international ICU databases",
-  "Multi-center external validation across diverse populations",
+  "Governance-ready: auditability, bias surveillance, committee-ready reporting",
   "SHAP-based explainability for every prediction",
-  "Deploys in under 4 weeks — no hardware procurement",
-  "NIH AIM-AHEAD CLINAQ Fellow · Morehouse School of Medicine",
+  "Compact ROI proof: baseline → workflow → gain → measurement plan",
+  "NIH AIM-AHEAD CLINAQ Fellow · IRB Approved · Morehouse School of Medicine",
   "ANIA 2026 Webinar · Stanford AI+Health 2025 · SIIM 2025",
 ];
 
