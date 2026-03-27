@@ -13,9 +13,9 @@ const highlights = [
 ];
 
 const investorReasons = [
-  { title: "Equipment-Independent Moat", desc: "The only validated clinical AI that predicts ICU mortality from documentation patterns alone — zero hardware dependency. 11 patent applications protect this novel approach." },
+  { title: "Documentation-Native Moat", desc: "The only validated platform that extracts ICU mortality signal from documentation patterns alone — zero hardware dependency. 11 patent applications protect this novel approach." },
   { title: "Validated, Not Vaporware", desc: "Two systems independently validated on large-scale datasets. ICU Mortality: 65,157 patients. DBS™: 28,362 patients across 172 hospitals. Research supported by NIH." },
-  { title: "Platform, Not Point Solution", desc: "Four product lines (Mortality, Nursing, Alerts, Risk) from a single data source — nursing documentation timestamps. Each additional module has near-zero marginal cost." },
+  { title: "Platform, Not Point Solution", desc: "Four product lines (Mortality, Nursing, Alerts, Risk) from a single data source — nursing documentation timestamps. Each additional module has near-zero marginal cost. As ambient scribes commoditize, VitaSignal operates at the intelligence layer above." },
   { title: "Regulatory Clarity", desc: "Classified as Non-Device CDS under §520(o)(1)(E). No 510(k) required for initial market entry. ISO 14971, IEC 62304, and HIPAA compliance frameworks documented." },
 ];
 
@@ -37,8 +37,9 @@ const SolutionsInvestors = () => (
               <span className="text-amber-400">Needs No Equipment</span>
             </h1>
             <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
-              Patent-protected, NIH-validated clinical intelligence platform.
-              Every hospital has nurses and an EHR — that's our entire install base.
+              Patent-protected, documentation-native intelligence platform.
+              As ambient AI commoditizes, VitaSignal operates at the signal layer above —
+              extracting clinical and operational value others miss.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg">

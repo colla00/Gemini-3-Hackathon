@@ -33,12 +33,13 @@ const SolutionsHospitals = () => (
               <Building2 className="w-3 h-3 mr-1" /> For Hospitals & Health Systems
             </Badge>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 font-['DM_Serif_Display']">
-              Documentation Exhaust →<br />
-              <span className="text-primary">Clinical Intelligence</span>
+              Documentation-Native Intelligence<br />
+              <span className="text-primary">for Measurable Outcomes</span>
             </h1>
             <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
-              VitaSignal transforms routine EHR documentation patterns into measurable risk reduction
-              and operational outcomes — no new hardware, no ambient scribes, no integration burden.
+              VitaSignal extracts operational and clinical signal from routine EHR documentation —
+              quantifiable risk reduction, burden visibility, and equity monitoring.
+              No new hardware. No ambient scribes. Deploy in weeks.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg">
@@ -109,7 +110,7 @@ const SolutionsHospitals = () => (
           <div className="space-y-3">
             {[
               "Zero capital expenditure — uses existing EHR documentation data only",
-              "Not an ambient scribe — connects documentation exhaust to clinical outcomes",
+              "Documentation-native — not a scribe, but a clinical signal layer built from existing workflows",
               "Governance-ready: auditability, bias surveillance, and committee-ready reporting",
               "Compact ROI proof package: baseline burden, target workflow, expected gain, measurement plan",
               "Fairness-preserving AI with equity monitoring across demographic subgroups",

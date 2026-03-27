@@ -33,7 +33,7 @@ const metrics = [
 ];
 
 const differentiators = [
-  "Not an ambient scribe — transforms documentation exhaust into clinical intelligence",
+  "Documentation-native intelligence — extracts clinical signal others miss from existing workflows",
   "Three independently validated systems (IDI, DBS & SEDR)",
   "225K+ patients validated across international ICU databases",
   "Governance-ready: auditability, bias surveillance, committee-ready reporting",

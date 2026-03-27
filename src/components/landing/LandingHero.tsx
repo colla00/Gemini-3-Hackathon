@@ -99,8 +99,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal transforms routine EHR documentation exhaust into measurable clinical
-          intelligence — risk reduction, burden quantification, and equity monitoring. Not a scribe. Not ambient AI. Decision support with governance built in.
+          VitaSignal extracts clinical and operational signal from routine EHR documentation —
+          risk reduction, burden quantification, and equity monitoring. Not a scribe. Auditable, measurable, governance-ready.
         </motion.p>
 
         <motion.p
