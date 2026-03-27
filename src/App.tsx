@@ -95,6 +95,7 @@ const FinancialModel = lazy(() => import("./pages/FinancialModel"));
 const GlobalHealth = lazy(() => import("./pages/GlobalHealth"));
 const GovernanceFramework = lazy(() => import("./pages/GovernanceFramework"));
 const Enterprise = lazy(() => import("./pages/Enterprise"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
@@ -173,6 +174,7 @@ const AppRoutes = () => {
           <Route path="/financial-model" element={<Suspense fallback={<PageSkeleton />}><FinancialModel /></Suspense>} />
           <Route path="/global-health" element={<Suspense fallback={<PageSkeleton />}><GlobalHealth /></Suspense>} />
           <Route path="/governance-framework" element={<Suspense fallback={<PageSkeleton />}><GovernanceFramework /></Suspense>} />
+          <Route path="/case-studies" element={<Suspense fallback={<PageSkeleton />}><CaseStudies /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
