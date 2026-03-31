@@ -46,7 +46,7 @@ export const ComparisonSlider = () => {
             <div className="p-4 md:p-5 bg-muted/50 border-b border-l border-border/50">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
-                <span className="text-xs md:text-sm font-bold text-foreground">Traditional EWS</span>
+                <span className="text-xs md:text-sm font-bold text-foreground">Ambient / Scribe AI</span>
               </div>
             </div>
             <div className="p-4 md:p-5 bg-primary/5 border-b border-l border-border/50">
