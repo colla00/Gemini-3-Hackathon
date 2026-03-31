@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import { BarChart3 } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -185,29 +185,6 @@ const AppRoutes = () => {
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Show loading spinner during hydration
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative">
-            <div className="w-16 h-16 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center animate-pulse">
-              <BarChart3 className="w-8 h-8 text-primary" />
-            </div>
-            <div className="absolute -inset-2 rounded-2xl border-2 border-primary/20 border-t-primary animate-spin" />
-          </div>
-          <span className="text-sm text-muted-foreground font-medium">Loading VitaSignal...</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
