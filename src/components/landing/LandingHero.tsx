@@ -37,7 +37,7 @@ const parseStatValue = (val: string): { num: number; suffix: string; prefix: str
 const stats = [
   { value: "225K+", label: "Patients Validated", detail: "Across 3 international databases" },
   { value: "34min", label: "Saved/Nurse/Shift", detail: "SEDR model · 131K patient-stays" },
-  { value: "172", label: "Hospitals Validated", detail: "Multi-center external validation" },
+  { value: "3", label: "Validated Systems", detail: "IDI · DBS · SEDR — multi-center" },
   { value: "$0", label: "Hardware Cost", detail: "Software-only · uses existing EHR data" },
 ];
 
