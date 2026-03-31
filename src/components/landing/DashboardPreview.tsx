@@ -174,18 +174,25 @@ export const DashboardPreview = () => {
           className="text-center mt-8"
         >
           <p className="text-sm text-muted-foreground mb-4 max-w-lg mx-auto">
-            Sign up to access the full platform — 11 clinical intelligence modules,
-            licensing options, and partnership opportunities.
+            See how six budget lines move — with predefined baselines, targets, and named owners inside your system.
           </p>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button asChild size="lg" className="gap-2 text-base px-8 h-11">
-              <Link to="/dashboard">
-                <Lock className="w-4 h-4" />
-                Request Platform Access
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
-          </motion.div>
+          <div className="flex flex-wrap justify-center gap-3">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button asChild size="lg" className="gap-2 text-base px-8 h-11">
+                <Link to="/pilot-request">
+                  Design a 90-Day Pilot
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button asChild variant="outline" size="lg" className="gap-2 text-base px-8 h-11">
+                <Link to="/roi-calculator">
+                  Run Budget-Line ROI Model
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -82,12 +82,13 @@ export const BuyerPersonaSection = () => {
                 to={p.link}
                 className="block rounded-xl border border-border/50 bg-card p-5 hover:border-primary/30 hover:shadow-md transition-all h-full"
               >
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
                     <p.icon className="w-4.5 h-4.5 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground text-sm">{p.title}</h3>
                 </div>
+                <p className="text-xs font-semibold text-primary mb-1.5">{p.metric}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed mb-3">{p.desc}</p>
                 <span className="text-xs text-primary font-medium inline-flex items-center gap-1">
                   Learn more <ArrowRight className="w-3 h-3" />

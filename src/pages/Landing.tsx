@@ -139,8 +139,8 @@ export const Landing = () => {
       <EHRCompatibilitySection />
       <GlobalHealthSection />
       <MilitaryHealthSection />
-      <TechnologyPortfolio />
       <DigitalTwinsSection />
+      <TechnologyPortfolio />
       
       <LicensingCTA />
     </SiteLayout>
