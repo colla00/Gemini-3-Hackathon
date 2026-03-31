@@ -10,11 +10,11 @@ interface ComparisonRow {
 }
 
 const comparisons: ComparisonRow[] = [
-  { icon: Brain, label: 'Validation Evidence', traditional: 'Demo-scale or single-site claims', vitasignal: '225K+ patients across international multi-center databases' },
-  { icon: Shield, label: 'Governance Readiness', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
+  { icon: Brain, label: 'What It Does', traditional: 'Captures and transcribes clinical speech', vitasignal: 'Predicts, governs, and operationalizes documentation-derived intelligence' },
+  { icon: Shield, label: 'Governance', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
   { icon: Activity, label: 'Fairness & Equity', traditional: 'Cosmetic or absent bias testing', vitasignal: 'Continuous subgroup monitoring with <0.5% disparity alerting' },
-  { icon: Clock, label: 'ROI Specificity', traditional: '"Better outcomes" — abstract claims', vitasignal: 'Six budget lines with baselines, targets, timelines, and owners' },
-  { icon: TrendingUp, label: 'Pilot Design', traditional: 'Open-ended "innovation partnership"', vitasignal: 'Predefined operational & clinical endpoints with measurement plan' },
+  { icon: Clock, label: 'ROI Evidence', traditional: '"Reduces burnout" — soft satisfaction metrics', vitasignal: 'Six budget lines with baselines, targets, timelines, and named owners' },
+  { icon: TrendingUp, label: 'Intelligence Layer', traditional: 'Note generation, summary, and coding lift', vitasignal: 'Risk visibility, workload quantification, and operational decision support' },
   { icon: AlertTriangle, label: 'Human Oversight', traditional: 'Black-box autonomous decisions', vitasignal: 'Advisory-only with override tracking, escalation logs, intended-use boundaries' },
 ];
 
