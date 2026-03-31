@@ -7,37 +7,43 @@ const personas = [
   {
     icon: Heart,
     title: "Chief Nursing Officers",
-    desc: "Quantify documentation burden, reduce 87% alert fatigue rates, and give your nurses back 90 minutes per shift — with data they're already generating.",
+    metric: "34 min saved/nurse/shift",
+    desc: "Reclaim 34 minutes per nurse per shift by quantifying documentation burden with DBS™ — validated across 131K patient-stays.",
     link: "/for-leaders#cnos",
   },
   {
     icon: Brain,
     title: "CMIOs & Informatics Leaders",
-    desc: "Equipment-independent AI that integrates via FHIR R4, works with existing EHR data, and provides SHAP-based explainability for every prediction.",
+    metric: "FHIR R4 · SHAP explainability",
+    desc: "Equipment-independent AI with SHAP-based explainability for every prediction. Integrates via FHIR R4 using existing EHR data — no new hardware.",
     link: "/for-leaders#cmios",
   },
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
-    desc: "Zero capital expenditure. Software-only deployment under 4 weeks. No hardware procurement — eliminate $10K–$50K per-bed sensor costs.",
+    metric: "$0 hardware · <12mo payback",
+    desc: "Six auditable budget lines with projected <12-month payback. Software-only deployment under 4 weeks — zero capital expenditure.",
     link: "/for-leaders#cfos",
   },
   {
     icon: Building2,
     title: "CEOs & COOs",
-    desc: "Meet CMS equity requirements, differentiate your system with patent-pending clinical AI, and deploy in weeks — not months.",
+    metric: "18% failure-to-rescue reduction",
+    desc: "Measurable safety and equity outcomes mapped to CMS requirements. Deploy in weeks with predefined endpoints and accountable owners.",
     link: "/for-leaders#ceos",
   },
   {
     icon: Code2,
     title: "EHR Vendors & Partners",
-    desc: "White-label license 11 patent-pending algorithms. FHIR R4 native, SMART on FHIR ready. Add clinical AI without building it.",
+    metric: "11 licensable algorithms",
+    desc: "White-label 11 patent-pending clinical AI systems. FHIR R4 native, SMART on FHIR ready. Add governed AI without building it.",
     link: "/for-leaders#ehr-vendors",
   },
   {
     icon: Shield,
     title: "VA & DoD Health Leaders",
-    desc: "Equipment-independent design works in garrison and deployed settings. Compatible with VistA, MHS GENESIS, and Cerner Millennium.",
+    metric: "Garrison + deployed ready",
+    desc: "Equipment-independent design works across VistA, MHS GENESIS, and Cerner Millennium — in garrison and deployed settings.",
     link: "/for-leaders#military",
   },
 ];
@@ -76,12 +82,13 @@ export const BuyerPersonaSection = () => {
                 to={p.link}
                 className="block rounded-xl border border-border/50 bg-card p-5 hover:border-primary/30 hover:shadow-md transition-all h-full"
               >
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
                     <p.icon className="w-4.5 h-4.5 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground text-sm">{p.title}</h3>
                 </div>
+                <p className="text-xs font-semibold text-primary mb-1.5">{p.metric}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed mb-3">{p.desc}</p>
                 <span className="text-xs text-primary font-medium inline-flex items-center gap-1">
                   Learn more <ArrowRight className="w-3 h-3" />

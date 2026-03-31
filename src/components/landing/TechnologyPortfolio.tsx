@@ -1,6 +1,7 @@
-import { Activity, Brain, Shield, FileText, BarChart3 } from "lucide-react";
+import { Activity, Brain, Shield, FileText, BarChart3, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const systems = [
   {
@@ -11,6 +12,24 @@ const systems = [
     status: "Validated",
     highlight: true,
     metric: "Multi-database validated",
+  },
+  {
+    icon: FileText,
+    name: "Documentation Burden Score™ (DBS)",
+    patent: "#5",
+    desc: "ML-powered documentation burden quantification. Externally validated across multiple hospitals.",
+    status: "Validated",
+    highlight: true,
+    metric: "Multi-site validated",
+  },
+  {
+    icon: Activity,
+    name: "SEDR – Syndromic Surveillance",
+    patent: "#11",
+    desc: "Population-level syndromic surveillance using aggregated clinical data for early outbreak detection and response coordination.",
+    status: "Validated",
+    highlight: true,
+    metric: "Population-level detection",
   },
   {
     icon: Shield,
@@ -35,15 +54,6 @@ const systems = [
     desc: "Integrated platform combining workload prediction, risk intelligence, and trust-based alerts with equity monitoring.",
     status: "Patent Application Filed",
     metric: "Target: 3.8M RNs",
-  },
-  {
-    icon: FileText,
-    name: "Documentation Burden Score™ (DBS)",
-    patent: "#5",
-    desc: "ML-powered documentation burden quantification. Externally validated across multiple hospitals.",
-    status: "Validated",
-    highlight: true,
-    metric: "Multi-site validated",
   },
   {
     icon: Activity,
@@ -85,16 +95,9 @@ const systems = [
     status: "Patent Application Filed",
     metric: "Automated screening",
   },
-  {
-    icon: Activity,
-    name: "SEDR – Syndromic Surveillance",
-    patent: "#11",
-    desc: "Population-level syndromic surveillance using aggregated clinical data for early outbreak detection and response coordination.",
-    status: "Validated",
-    highlight: true,
-    metric: "Population-level detection",
-  },
 ];
+
+const INITIAL_COUNT = 4;
 
 const containerVariants = {
   hidden: {},
@@ -108,94 +111,120 @@ const itemVariants = {
   visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } } as const,
 };
 
-export const TechnologyPortfolio = () => (
-  <motion.section
-    aria-labelledby="tech-portfolio-heading"
-    className="py-24 px-6"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.6 }}
-  >
-    <div className="max-w-5xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.7 }}
-        className="text-center mb-16"
-      >
-        <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
-          Patent Portfolio
-        </p>
-        <h2 id="tech-portfolio-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
-          11 Patent-Pending Systems
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          A comprehensive platform for equipment-independent clinical AI, from
-          mortality prediction through documentation optimization.
-        </p>
-      </motion.div>
+export const TechnologyPortfolio = () => {
+  const [expanded, setExpanded] = useState(false);
+  const visibleSystems = expanded ? systems : systems.slice(0, INITIAL_COUNT);
 
-      <motion.div
-        className="space-y-3"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-      >
-        {systems.map((s) => (
-          <motion.div
-            key={s.name}
-            variants={itemVariants}
-            whileHover={{
-              x: 6,
-              boxShadow: s.highlight
-                ? "0 4px 20px -4px hsl(173 58% 39% / 0.2)"
-                : "0 4px 16px -4px hsl(var(--border) / 0.3)",
-              transition: { duration: 0.2 },
-            }}
-            className={`group flex items-start gap-5 p-5 rounded-xl border transition-all cursor-default ${
-              s.highlight
-                ? "border-primary/30 bg-primary/[0.04]"
-                : "border-border/50 bg-card hover:border-primary/20"
-            }`}
-          >
-            <motion.div
-              whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.4 } }}
-              className={`w-11 h-11 rounded-lg flex items-center justify-center shrink-0 ${
-                s.highlight
-                  ? "bg-primary/15 text-primary"
-                  : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
-              }`}
-            >
-              <s.icon className="w-5 h-5" aria-hidden="true" />
-            </motion.div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap mb-1">
-                <h3 className="font-semibold text-foreground">{s.name}</h3>
-                <Badge
-                  variant={s.highlight ? "default" : "secondary"}
-                  className="text-[10px] px-2 py-0"
+  return (
+    <motion.section
+      aria-labelledby="tech-portfolio-heading"
+      className="py-24 px-6"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+            Patent Portfolio
+          </p>
+          <h2 id="tech-portfolio-heading" className="font-display text-3xl md:text-4xl text-foreground mb-4">
+            11 Patent-Pending Systems
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A comprehensive platform for equipment-independent clinical AI, from
+            mortality prediction through documentation optimization.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="space-y-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          <AnimatePresence initial={false}>
+            {visibleSystems.map((s) => (
+              <motion.div
+                key={s.name}
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                whileHover={{
+                  x: 6,
+                  boxShadow: s.highlight
+                    ? "0 4px 20px -4px hsl(173 58% 39% / 0.2)"
+                    : "0 4px 16px -4px hsl(var(--border) / 0.3)",
+                  transition: { duration: 0.2 },
+                }}
+                className={`group flex items-start gap-5 p-5 rounded-xl border transition-all cursor-default ${
+                  s.highlight
+                    ? "border-primary/30 bg-primary/[0.04]"
+                    : "border-border/50 bg-card hover:border-primary/20"
+                }`}
+              >
+                <motion.div
+                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.4 } }}
+                  className={`w-11 h-11 rounded-lg flex items-center justify-center shrink-0 ${
+                    s.highlight
+                      ? "bg-primary/15 text-primary"
+                      : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+                  }`}
                 >
-                  {s.status}
-                </Badge>
-              </div>
-              <p className="text-sm text-muted-foreground">{s.desc}</p>
-            </div>
-            <div className="text-right shrink-0 hidden sm:block">
-              <span className="text-xs text-muted-foreground/50 font-mono block">
-                Patent {s.patent}
-              </span>
-              {s.metric && (
-                <span className="text-xs font-semibold text-primary mt-1 block">
-                  {s.metric}
-                </span>
-              )}
-            </div>
+                  <s.icon className="w-5 h-5" aria-hidden="true" />
+                </motion.div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <h3 className="font-semibold text-foreground">{s.name}</h3>
+                    <Badge
+                      variant={s.highlight ? "default" : "secondary"}
+                      className="text-[10px] px-2 py-0"
+                    >
+                      {s.status}
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{s.desc}</p>
+                </div>
+                <div className="text-right shrink-0 hidden sm:block">
+                  <span className="text-xs text-muted-foreground/50 font-mono block">
+                    Patent {s.patent}
+                  </span>
+                  {s.metric && (
+                    <span className="text-xs font-semibold text-primary mt-1 block">
+                      {s.metric}
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {!expanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mt-6"
+          >
+            <button
+              onClick={() => setExpanded(true)}
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              View all 11 systems
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </motion.section>
-);
+        )}
+      </div>
+    </motion.section>
+  );
+};
