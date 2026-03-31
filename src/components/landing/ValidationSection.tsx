@@ -33,14 +33,14 @@ const metrics = [
 ];
 
 const differentiators = [
-  "Documentation-native intelligence — extracts clinical signal others miss from existing workflows",
-  "Three independently validated systems (IDI, DBS & SEDR)",
-  "225K+ patients validated across international ICU databases",
-  "Governance-ready: auditability, bias surveillance, committee-ready reporting",
-  "SHAP-based explainability for every prediction",
-  "Compact ROI proof: baseline → workflow → gain → measurement plan",
+  "Clinical-grade validation: 225K+ patients across international ICU databases — not demo-scale claims",
+  "Governance shipped as product: audit trails, bias reviews, and procurement-ready documentation included",
+  "Fairness-preserving: continuous subgroup monitoring with <0.5% disparity alerting across demographics",
+  "SHAP-based explainability: every prediction includes feature attribution for governance committees",
+  "Six-line ROI framework: metric, baseline, target, timeline, and accountable owner per budget line",
+  "Human oversight enforced: advisory-only outputs with override tracking and escalation logs",
   "NIH AIM-AHEAD CLINAQ Fellow · IRB Approved · Morehouse School of Medicine",
-  "ANIA 2026 Webinar · Stanford AI+Health 2025 · SIIM 2025",
+  "Stanford AI+Health 2025 · SIIM 2025",
 ];
 
 export const ValidationSection = () => {
