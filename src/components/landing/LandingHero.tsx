@@ -129,7 +129,7 @@ export const LandingHero = () => {
             className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
             asChild
           >
-            <Link to="/pilot-request">Request Pilot Assessment</Link>
+            <Link to="/pilot-request">Design a 90-Day Pilot</Link>
           </Button>
           <Button
             variant="outline"
