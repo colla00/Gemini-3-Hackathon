@@ -4,21 +4,21 @@ import { Database, Waves, Brain, ArrowRight } from "lucide-react";
 const steps = [
   {
     icon: Database,
-    label: "EHR Data",
-    title: "Behavioral Data Ingestion",
-    description: "Ingests timestamps, entry frequency, and workflow patterns already captured in your EHR — no new hardware, sensors, or data entry required.",
+    label: "Data Capture",
+    title: "EHR as Signal Source",
+    description: "Existing EHR documentation becomes data capture for higher-value intelligence — timestamps, entry patterns, and workflow rhythms feed clinical and operational models.",
   },
   {
     icon: Waves,
     label: "Signal Extraction",
-    title: "Proprietary Feature Extraction",
-    description: "Proprietary algorithms extract documentation rhythm features — density, circadian patterns, burst detection, shift-end patterns, and temporal correlation across systems.",
+    title: "Governed Feature Engineering",
+    description: "Patent-pending algorithms extract temporal features with full audit trails — every feature is traceable, explainable, and monitored for subgroup fairness.",
   },
   {
     icon: Brain,
-    label: "Clinical Intelligence",
-    title: "Actionable Behavioral Intelligence",
-    description: "Mortality risk prediction, documentation burden scoring, and shift-end analysis — with SHAP explainability, equity monitoring, and HL7/FHIR integration.",
+    label: "Measurable Outcomes",
+    title: "Budget-Line ROI & Safety Signal",
+    description: "Mortality risk, workload quantification, and shift-end analysis map to six auditable budget lines — with predefined baselines, endpoints, and ownership for every metric.",
   },
 ];
 
