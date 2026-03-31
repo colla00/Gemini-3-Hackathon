@@ -21,7 +21,7 @@ const personas = [
   {
     icon: DollarSign,
     title: "CFOs & Financial Leaders",
-    metric: "$0 hardware · <12mo payback",
+    metric: "$0 hardware · Projected <12mo payback",
     desc: "Six auditable budget lines with projected <12-month payback. Software-only deployment under 4 weeks — zero capital expenditure.",
     link: "/for-leaders#cfos",
   },
