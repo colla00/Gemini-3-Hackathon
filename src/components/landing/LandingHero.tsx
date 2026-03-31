@@ -36,7 +36,7 @@ const parseStatValue = (val: string): { num: number; suffix: string; prefix: str
 
 const stats = [
   { value: "225K+", label: "Patients Validated", detail: "Across 3 international databases" },
-  { value: "11", label: "Patent Applications Filed", detail: "U.S. Provisional · 2025–2026" },
+  { value: "34min", label: "Saved/Nurse/Shift", detail: "SEDR model · 131K patient-stays" },
   { value: "172", label: "Hospitals Validated", detail: "Multi-center external validation" },
   { value: "$0", label: "Hardware Cost", detail: "Software-only · uses existing EHR data" },
 ];
@@ -96,8 +96,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          Measurable reductions in preventable risk, missed deterioration, and documentation-to-action lag —
-          mapped to specific budget lines, with audit trails procurement teams can reuse. Not a scribe. Not ambient AI.
+          Six budget-line outcomes. Predefined baselines. Named owners inside your system.
+          Not a scribe. Not ambient AI. Not another clever model demo.
         </motion.p>
 
         <motion.p
@@ -106,8 +106,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.3, delay: 0.22 }}
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
-          Validated on 225,000+ patient-stays. Six auditable budget-line outcomes.
-          Governance, fairness monitoring, and SHAP explainability built in — not bolted on.
+          Governance, fairness monitoring, and SHAP explainability built in — with audit trails
+          procurement teams can reuse. Validated on 225K+ patient-stays.
         </motion.p>
 
         {/* CTAs */}
@@ -129,7 +129,7 @@ export const LandingHero = () => {
             className="text-base px-6 h-12 border-primary-foreground/20 text-primary-foreground bg-primary-foreground/5 hover:bg-primary-foreground/10"
             asChild
           >
-            <Link to="/pilot-request">Request Pilot Assessment</Link>
+            <Link to="/pilot-request">Design a 90-Day Pilot</Link>
           </Button>
           <Button
             variant="outline"
