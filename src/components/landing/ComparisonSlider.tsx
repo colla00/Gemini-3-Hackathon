@@ -29,10 +29,10 @@ export const ComparisonSlider = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why VitaSignal Is Different</p>
-          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Point Solutions vs Governed Clinical AI</h2>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Above the Commodity Layer</p>
+          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Ambient AI Captures. VitaSignal Interprets.</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-            Trust, evidence, and workflow specificity — not raw transcription or clever demos.
+            Transcription and note generation are becoming table stakes. The differentiation is in what happens after — risk intelligence, governance, and operational decision support.
           </p>
         </motion.div>
 
