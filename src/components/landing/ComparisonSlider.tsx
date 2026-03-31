@@ -10,11 +10,11 @@ interface ComparisonRow {
 }
 
 const comparisons: ComparisonRow[] = [
-  { icon: Brain, label: 'Validation Evidence', traditional: 'Demo-scale or single-site claims', vitasignal: '225K+ patients across international multi-center databases' },
-  { icon: Shield, label: 'Governance Readiness', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
+  { icon: Brain, label: 'What It Does', traditional: 'Captures and transcribes clinical speech', vitasignal: 'Predicts, governs, and operationalizes documentation-derived intelligence' },
+  { icon: Shield, label: 'Governance', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
   { icon: Activity, label: 'Fairness & Equity', traditional: 'Cosmetic or absent bias testing', vitasignal: 'Continuous subgroup monitoring with <0.5% disparity alerting' },
-  { icon: Clock, label: 'ROI Specificity', traditional: '"Better outcomes" — abstract claims', vitasignal: 'Six budget lines with baselines, targets, timelines, and owners' },
-  { icon: TrendingUp, label: 'Pilot Design', traditional: 'Open-ended "innovation partnership"', vitasignal: 'Predefined operational & clinical endpoints with measurement plan' },
+  { icon: Clock, label: 'ROI Evidence', traditional: '"Reduces burnout" — soft satisfaction metrics', vitasignal: 'Six budget lines with baselines, targets, timelines, and named owners' },
+  { icon: TrendingUp, label: 'Intelligence Layer', traditional: 'Note generation, summary, and coding lift', vitasignal: 'Risk visibility, workload quantification, and operational decision support' },
   { icon: AlertTriangle, label: 'Human Oversight', traditional: 'Black-box autonomous decisions', vitasignal: 'Advisory-only with override tracking, escalation logs, intended-use boundaries' },
 ];
 
@@ -29,10 +29,10 @@ export const ComparisonSlider = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why VitaSignal Is Different</p>
-          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Point Solutions vs Governed Clinical AI</h2>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Above the Commodity Layer</p>
+          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Ambient AI Captures. VitaSignal Interprets.</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-            Trust, evidence, and workflow specificity — not raw transcription or clever demos.
+            Transcription and note generation are becoming table stakes. The differentiation is in what happens after — risk intelligence, governance, and operational decision support.
           </p>
         </motion.div>
 
@@ -46,7 +46,7 @@ export const ComparisonSlider = () => {
             <div className="p-4 md:p-5 bg-muted/50 border-b border-l border-border/50">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
-                <span className="text-xs md:text-sm font-bold text-foreground">Traditional EWS</span>
+                <span className="text-xs md:text-sm font-bold text-foreground">Ambient / Scribe AI</span>
               </div>
             </div>
             <div className="p-4 md:p-5 bg-primary/5 border-b border-l border-border/50">
