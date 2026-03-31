@@ -37,7 +37,7 @@ export const HowItWorksSection = () => {
             How It Works
           </p>
           <h2 className="font-display text-2xl md:text-3xl text-foreground">
-            From Documentation to Intelligence
+            From Existing Data to Measurable Impact
           </h2>
         </motion.div>
 

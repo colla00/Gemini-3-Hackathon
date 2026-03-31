@@ -22,13 +22,13 @@ export const ROISection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Value Proposition</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">ROI Framework</p>
           <h2 className="font-display text-3xl md:text-4xl text-primary-foreground mb-3">
-            Zero Hardware. Measurable Outcomes.
+            What Metric Moves. How Quickly. Who Owns It.
           </h2>
           <p className="text-primary-foreground/60 max-w-xl mx-auto text-sm">
-            No capital expenditure. No ambient scribes. Software-only deployment that connects existing EHR
-            documentation patterns to quantifiable clinical and operational outcomes.
+            Every outcome maps to a specific budget line, a measurable baseline, a projected improvement,
+            and an accountable owner inside your system — not abstract "better AI."
           </p>
         </motion.div>
 

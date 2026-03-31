@@ -5,27 +5,27 @@ import { useRef } from "react";
 const pillars = [
   {
     icon: Scale,
-    title: "Fairness-Preserving by Design",
+    title: "Fairness as Measurable Infrastructure",
     description:
-      "Equalized odds and calibration equity validated across all demographic subgroups. No proxy variables for race or socioeconomic status.",
+      "Equalized odds and calibration equity validated across demographic subgroups. Disparity metrics are tracked, alerted, and auditable — not aspirational.",
   },
   {
     icon: FileText,
-    title: "Documentation-Driven Intelligence",
+    title: "Data Capture for Higher-Value Intelligence",
     description:
-      "Every prediction derives from routine nursing documentation patterns — the most universal, equitable data source in any hospital.",
+      "Routine EHR documentation becomes the signal source for clinical risk and operational insight — the most universal, equitable data in any hospital.",
   },
   {
     icon: ShieldCheck,
-    title: "Continuous Bias Monitoring",
+    title: "Continuous Bias Surveillance",
     description:
-      "Real-time disparity detection with patent-pending 0.5% threshold alerts. Algorithmic fairness isn't an afterthought — it's a feature.",
+      "Real-time disparity detection with patent-pending <0.5% threshold alerts. Bias review results are documented for governance committees and CMS equity mandates.",
   },
   {
     icon: Users,
-    title: "Inclusive Validation",
+    title: "Multi-Center Validation at Scale",
     description:
-      "Validated across international datasets spanning diverse patient populations, hospital sizes, and healthcare systems.",
+      "Validated across 225K+ patients in international datasets — diverse populations, hospital sizes, and healthcare systems. Evidence, not claims.",
   },
 ];
 

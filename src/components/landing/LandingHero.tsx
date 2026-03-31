@@ -84,9 +84,9 @@ export const LandingHero = () => {
           transition={{ duration: 0.5, delay: 0.08 }}
           className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] mb-5 leading-[1.08] max-w-4xl"
         >
-          Documentation-Native Intelligence
+          Governed Clinical AI
           <br />
-          <span className="text-primary">for Safer Bedside Decisions</span>
+          <span className="text-primary">with Measurable Safety & ROI</span>
         </motion.h1>
 
         {/* Subhero — the core differentiator */}
@@ -96,8 +96,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.35, delay: 0.15 }}
           className="text-base md:text-lg max-w-2xl mb-4 text-primary-foreground/75 leading-relaxed"
         >
-          VitaSignal extracts clinical and operational signal from routine EHR documentation —
-          risk reduction, burden quantification, and equity monitoring. Not a scribe. Auditable, measurable, governance-ready.
+          Measurable reductions in preventable risk, missed deterioration, and documentation-to-action lag —
+          mapped to specific budget lines, with audit trails procurement teams can reuse. Not a scribe. Not ambient AI.
         </motion.p>
 
         <motion.p
@@ -106,9 +106,8 @@ export const LandingHero = () => {
           transition={{ duration: 0.3, delay: 0.22 }}
           className="text-sm max-w-xl mb-8 text-primary-foreground/50 leading-relaxed"
         >
-          Informed by NIH-supported research.
-          Validated on 225,000+ patients across international ICU databases.
-          Deploys in weeks — not months.
+          Validated on 225,000+ patient-stays. Six auditable budget-line outcomes.
+          Governance, fairness monitoring, and SHAP explainability built in — not bolted on.
         </motion.p>
 
         {/* CTAs */}

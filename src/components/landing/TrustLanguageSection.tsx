@@ -1,38 +1,38 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Shield, Lock, Scale, FileCheck, Eye, Server, ArrowRight } from "lucide-react";
+import { Shield, Lock, Scale, FileCheck, Eye, Server, ArrowRight, ClipboardCheck, Users, BarChart3 } from "lucide-react";
 
 const trustPillars = [
   {
-    icon: Shield,
-    title: "HIPAA-Aware Architecture",
-    desc: "Designed from the ground up with HIPAA security and privacy principles. All data flows use encryption at rest and in transit.",
-  },
-  {
-    icon: Scale,
-    title: "Fairness-Preserving AI",
-    desc: "Every algorithm undergoes subgroup analysis across demographic categories. SHAP-based explainability ensures transparency in every prediction.",
-  },
-  {
-    icon: Lock,
-    title: "Non-Device CDS Classification",
-    desc: "Classified under §520(o)(1)(E) of the 21st Century Cures Act. Designed to support — never replace — clinical decision-making.",
-  },
-  {
-    icon: FileCheck,
-    title: "Externally Validated",
-    desc: "Core algorithms validated on 65,157 patients (IDI) and 28,362 patients (DBS) across international multi-site databases including MIMIC-IV, eICU, and HiRID.",
+    icon: ClipboardCheck,
+    title: "Human Oversight by Design",
+    desc: "Every prediction is advisory-only. Override tracking, escalation logs, and intended-use boundaries ensure clinicians remain the decision-makers.",
   },
   {
     icon: Eye,
-    title: "Full Transparency",
-    desc: "No black boxes. Every risk score includes feature-level explanations so clinicians understand what drives each prediction.",
+    title: "Audit Trails for Procurement",
+    desc: "Complete prediction lineage — from data ingestion through feature extraction to output — documented for compliance and governance committees.",
   },
   {
-    icon: Server,
-    title: "Equipment-Independent",
-    desc: "Zero hardware dependencies. No sensors, wearables, or proprietary monitors required — reducing attack surface and vendor lock-in.",
+    icon: BarChart3,
+    title: "Continuous Model Monitoring",
+    desc: "Real-time performance drift detection, data quality checks, and retraining triggers. Every model version is logged and traceable.",
+  },
+  {
+    icon: Scale,
+    title: "Bias Review & Fairness Surveillance",
+    desc: "Subgroup fairness analysis across age, sex, and race with patent-pending <0.5% disparity alerts. SHAP explainability for every prediction.",
+  },
+  {
+    icon: FileCheck,
+    title: "Governance-Ready Documentation",
+    desc: "Pre-built artifacts for governance committees: validation summaries, intended-use statements, fairness reports, and risk-benefit analyses that procurement can reuse.",
+  },
+  {
+    icon: Shield,
+    title: "Intended-Use Boundaries",
+    desc: "Clear scope definitions per algorithm. Non-Device CDS under §520(o)(1)(E). Designed to support — never replace — clinical decision-making.",
   },
 ];
 
@@ -49,12 +49,12 @@ export const TrustLanguageSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Trust & Compliance</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">Governance as Product Infrastructure</p>
           <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
-            Built for the Conversations That Matter
+            Board- and Compliance-Ready from Day One
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-            Security, fairness, and transparency aren't features — they're foundations. Here's how VitaSignal earns trust at every level.
+            Governance isn't compliance overhead — it's deployable product infrastructure. VitaSignal ships with the audit trails, bias reviews, and documentation that make clinical AI procurement possible.
           </p>
         </motion.div>
 
