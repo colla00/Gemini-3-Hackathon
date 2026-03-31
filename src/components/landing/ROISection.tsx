@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { DollarSign, TrendingDown, ShieldCheck, FileText } from "lucide-react";
 
 const stats = [
-  { icon: FileText, value: "11", label: "Patent Applications", detail: "U.S. Provisional — filed 2025–2026" },
-  { icon: TrendingDown, value: "172", label: "Hospitals Validated", detail: "Multi-center external validation" },
-  { icon: ShieldCheck, value: "225K+", label: "Patients Validated", detail: "IDI + DBS + SEDR · 3 databases" },
-  { icon: DollarSign, value: "$0", label: "Hardware Cost", detail: "Uses existing EHR data only" },
+  { icon: DollarSign, value: "6", label: "Budget Lines Mapped", detail: "Nursing · review · quality · safety · denials · CMI" },
+  { icon: TrendingDown, value: "34min", label: "Saved/Nurse/Shift", detail: "SEDR model · 131K patient-stays validated" },
+  { icon: ShieldCheck, value: "<0.5%", label: "Disparity Target", detail: "Continuous subgroup fairness monitoring" },
+  { icon: FileText, value: "<12mo", label: "Projected Payback", detail: "Software-only · $0 hardware cost" },
 ];
 
 export const ROISection = () => {
