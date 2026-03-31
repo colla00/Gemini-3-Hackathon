@@ -28,7 +28,7 @@ const personas = [
   {
     icon: Building2,
     title: "CEOs & COOs",
-    metric: "18% failure-to-rescue reduction",
+    metric: "Projected: 18% failure-to-rescue reduction",
     desc: "Measurable safety and equity outcomes mapped to CMS requirements. Deploy in weeks with predefined endpoints and accountable owners.",
     link: "/for-leaders#ceos",
   },
