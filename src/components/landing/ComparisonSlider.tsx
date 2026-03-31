@@ -10,12 +10,12 @@ interface ComparisonRow {
 }
 
 const comparisons: ComparisonRow[] = [
-  { icon: Brain, label: 'Data Source', traditional: 'Vital sign monitors, sensors, wearables', vitasignal: 'EHR documentation patterns only — no hardware' },
-  { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated on 225K+ patients)' },
-  { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Under 4 weeks — integrates with existing EHR' },
-  { icon: Shield, label: 'Cost Per Bed', traditional: '$10,000–$50,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
-  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified across multi-center validation · 90 min saved per nurse per shift' },
-  { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '87% false positive rate', vitasignal: 'Trust-calibrated, explainable alert governance' },
+  { icon: Brain, label: 'Validation Evidence', traditional: 'Demo-scale or single-site claims', vitasignal: '225K+ patients across international multi-center databases' },
+  { icon: Shield, label: 'Governance Readiness', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
+  { icon: Activity, label: 'Fairness & Equity', traditional: 'Cosmetic or absent bias testing', vitasignal: 'Continuous subgroup monitoring with <0.5% disparity alerting' },
+  { icon: Clock, label: 'ROI Specificity', traditional: '"Better outcomes" — abstract claims', vitasignal: 'Six budget lines with baselines, targets, timelines, and owners' },
+  { icon: TrendingUp, label: 'Pilot Design', traditional: 'Open-ended "innovation partnership"', vitasignal: 'Predefined operational & clinical endpoints with measurement plan' },
+  { icon: AlertTriangle, label: 'Human Oversight', traditional: 'Black-box autonomous decisions', vitasignal: 'Advisory-only with override tracking, escalation logs, intended-use boundaries' },
 ];
 
 export const ComparisonSlider = () => {
