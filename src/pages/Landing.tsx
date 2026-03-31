@@ -28,7 +28,7 @@ const orgJsonLd = {
   "@type": "Organization",
   "name": "VitaSignal",
   "url": "https://vitasignal.ai",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction, nursing documentation burden scoring, and shift-end documentation analysis. Three validated systems across 225K+ patient-stays. Pre-market research prototype — not FDA cleared.",
+  "description": "Governed clinical AI with measurable safety and ROI. Equipment-independent ICU mortality prediction, nursing workload quantification, and shift-end analysis — validated on 225K+ patient-stays with governance, fairness monitoring, and audit trails built in. Pre-market research prototype — not FDA cleared.",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
