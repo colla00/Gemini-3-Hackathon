@@ -33,14 +33,14 @@ const metrics = [
 ];
 
 const differentiators = [
-  "Documentation-native intelligence — extracts clinical signal others miss from existing workflows",
-  "Three independently validated systems (IDI, DBS & SEDR)",
-  "225K+ patients validated across international ICU databases",
-  "Governance-ready: auditability, bias surveillance, committee-ready reporting",
-  "SHAP-based explainability for every prediction",
-  "Compact ROI proof: baseline → workflow → gain → measurement plan",
+  "Clinical-grade validation: 225K+ patients across international ICU databases — not demo-scale claims",
+  "Governance shipped as product: audit trails, bias reviews, and procurement-ready documentation included",
+  "Fairness-preserving: continuous subgroup monitoring with <0.5% disparity alerting across demographics",
+  "SHAP-based explainability: every prediction includes feature attribution for governance committees",
+  "Six-line ROI framework: metric, baseline, target, timeline, and accountable owner per budget line",
+  "Human oversight enforced: advisory-only outputs with override tracking and escalation logs",
   "NIH AIM-AHEAD CLINAQ Fellow · IRB Approved · Morehouse School of Medicine",
-  "ANIA 2026 Webinar · Stanford AI+Health 2025 · SIIM 2025",
+  "Stanford AI+Health 2025 · SIIM 2025",
 ];
 
 export const ValidationSection = () => {
@@ -87,15 +87,15 @@ export const ValidationSection = () => {
               transition={{ duration: 0.5 }}
               className="text-sm font-semibold text-primary uppercase tracking-wider mb-3"
             >
-              Validated Performance
+              Evidence & Governance
             </motion.p>
             <h2 id="validation-heading" className="font-display text-3xl md:text-4xl text-primary-foreground mb-6">
-              Research-Backed Results
+              Validated. Governed. Deployable.
             </h2>
             <p className="text-primary-foreground/70 mb-8 leading-relaxed">
-             Three patented systems have been validated on 225,420 patients across large-scale
-              international clinical datasets with NIH-supported research: IDI (65K+ patients, multi-center),
-              DBS (28K+ patients across 172 hospitals), and SEDR (131K+ ICU stays across 2 databases). Performance metrics available under NDA.
+              Three patented systems validated on 225,420 patients with predefined clinical and operational endpoints.
+              Every system ships with governance artifacts: validation summaries, fairness reports,
+              intended-use boundaries, and audit documentation procurement teams can reuse. Performance metrics available under NDA.
             </p>
 
             <div className="space-y-3">

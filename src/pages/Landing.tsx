@@ -28,7 +28,7 @@ const orgJsonLd = {
   "@type": "Organization",
   "name": "VitaSignal",
   "url": "https://vitasignal.ai",
-  "description": "Equipment-independent clinical AI for ICU mortality prediction, nursing documentation burden scoring, and shift-end documentation analysis. Three validated systems across 225K+ patient-stays. Pre-market research prototype — not FDA cleared.",
+  "description": "Governed clinical AI with measurable safety and ROI. Equipment-independent ICU mortality prediction, nursing workload quantification, and shift-end analysis — validated on 225K+ patient-stays with governance, fairness monitoring, and audit trails built in. Pre-market research prototype — not FDA cleared.",
   "founder": {
     "@type": "Person",
     "name": "Dr. Alexis Collier",
@@ -109,8 +109,8 @@ const medicalWebPageJsonLd = {
 export const Landing = () => {
   return (
     <SiteLayout
-      title="VitaSignal | Documentation-Native Intelligence for Safer Bedside Decisions"
-      description="VitaSignal extracts clinical and operational signal from routine EHR documentation — measurable risk reduction, equity monitoring, and workflow intelligence. Validated on 225K+ patient-stays. No new hardware required."
+      title="VitaSignal | Governed Clinical AI with Measurable Safety & ROI"
+      description="Measurable reductions in preventable risk, missed deterioration, and documentation-to-action lag — mapped to six auditable budget lines. Validated on 225K+ patient-stays. Governance, fairness, and explainability built in."
     >
       <Helmet>
         <meta property="og:image" content="https://vitasignal.ai/og-image.png" />

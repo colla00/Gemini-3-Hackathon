@@ -10,12 +10,12 @@ interface ComparisonRow {
 }
 
 const comparisons: ComparisonRow[] = [
-  { icon: Brain, label: 'Data Source', traditional: 'Vital sign monitors, sensors, wearables', vitasignal: 'EHR documentation patterns only — no hardware' },
-  { icon: Activity, label: 'Mortality Prediction', traditional: 'Moderate discriminative performance', vitasignal: 'Statistically superior performance (validated on 225K+ patients)' },
-  { icon: Clock, label: 'Implementation Time', traditional: '6–18 months, hardware procurement', vitasignal: 'Under 4 weeks — integrates with existing EHR' },
-  { icon: Shield, label: 'Cost Per Bed', traditional: '$10,000–$50,000 sensor infrastructure', vitasignal: '$0 additional hardware cost' },
-  { icon: TrendingUp, label: 'Documentation Burden', traditional: 'Not measured — invisible problem', vitasignal: 'Quantified across multi-center validation · 90 min saved per nurse per shift' },
-  { icon: AlertTriangle, label: 'Alert Fatigue', traditional: '87% false positive rate', vitasignal: 'Trust-calibrated, explainable alert governance' },
+  { icon: Brain, label: 'Validation Evidence', traditional: 'Demo-scale or single-site claims', vitasignal: '225K+ patients across international multi-center databases' },
+  { icon: Shield, label: 'Governance Readiness', traditional: 'Compliance as afterthought or appendix', vitasignal: 'Audit trails, bias reviews, and procurement docs shipped as product' },
+  { icon: Activity, label: 'Fairness & Equity', traditional: 'Cosmetic or absent bias testing', vitasignal: 'Continuous subgroup monitoring with <0.5% disparity alerting' },
+  { icon: Clock, label: 'ROI Specificity', traditional: '"Better outcomes" — abstract claims', vitasignal: 'Six budget lines with baselines, targets, timelines, and owners' },
+  { icon: TrendingUp, label: 'Pilot Design', traditional: 'Open-ended "innovation partnership"', vitasignal: 'Predefined operational & clinical endpoints with measurement plan' },
+  { icon: AlertTriangle, label: 'Human Oversight', traditional: 'Black-box autonomous decisions', vitasignal: 'Advisory-only with override tracking, escalation logs, intended-use boundaries' },
 ];
 
 export const ComparisonSlider = () => {
@@ -29,10 +29,10 @@ export const ComparisonSlider = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Side-by-Side Comparison</p>
-          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Traditional EWS vs VitaSignal™</h2>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why VitaSignal Is Different</p>
+          <h2 className="font-display text-2xl md:text-4xl text-foreground mb-3">Point Solutions vs Governed Clinical AI</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-            See how equipment-independent clinical AI compares to legacy monitoring.
+            Trust, evidence, and workflow specificity — not raw transcription or clever demos.
           </p>
         </motion.div>
 
