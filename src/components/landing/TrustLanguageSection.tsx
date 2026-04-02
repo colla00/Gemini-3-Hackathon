@@ -49,12 +49,14 @@ export const TrustLanguageSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="text-xs uppercase tracking-widest text-primary mb-2">Governance as Product Infrastructure</p>
+          <p className="text-xs uppercase tracking-widest text-primary mb-2">Documentation Reliability & AI-Readiness Controls</p>
           <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
-            Board- and Compliance-Ready from Day One
+            Governance-Ready Infrastructure, Not Retrofit
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-            Governance isn't compliance overhead — it's deployable product infrastructure. VitaSignal ships with the audit trails, bias reviews, and documentation that make clinical AI procurement possible.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-sm">
+            Before downstream AI can be trusted, documentation must be reliable. VitaSignal scores documentation
+            trustworthiness, monitors model drift, and ships the audit trails, bias reviews, and governance artifacts
+            that make clinical AI procurement defensible — not just possible.
           </p>
         </motion.div>
 
