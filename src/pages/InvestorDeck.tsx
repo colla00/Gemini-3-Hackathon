@@ -47,7 +47,7 @@ const DEFAULT_NOTES: Record<number, string> = {
   25: `Why Now?\n• Nursing crisis is at peak — hospitals are desperate for solutions.\n• AI regulation is maturing — clear FDA pathway.\n• EHR adoption is near-universal — the data infrastructure exists.\n• First-mover advantage in equipment-independent clinical AI.`,
   26: `Key Differentiators\n• Only validated equipment-independent ICU mortality predictor.\n• AUROC 0.9063 — outperforms industry gold standards.\n• 11 patents create strong IP moat.\n• Research supported in part by NIH Award No. 1OT2OD032581. Manuscripts under review.`,
   27: `Partnership Opportunities\n• Research collaborations with academic medical centers.\n• Licensing agreements with health systems.\n• Strategic investment for commercialization.`,
-  28: `Contact & Next Steps\n• Email: licensing@vitasignal.ai\n• Website: vitasignal.ai\n• "We'd love to schedule a deeper technical dive or pilot discussion."`,
+  28: `Contact & Next Steps\n• Email: info@vitasignal.ai\n• Website: vitasignal.ai\n• "We'd love to schedule a deeper technical dive or pilot discussion."`,
   29: `Appendix\n• Refer to supplementary materials for model architecture details.\n• De-identified demo available upon request.\n• All research data available for due diligence.`,
   30: `Thank You\n• "Thank you for your time and interest in VitaSignal."\n• Open for questions.\n• Materials will be shared after this session.`,
 };

@@ -79,7 +79,7 @@ export const HeroSection = () => (
             <span>Self-Paced Walkthrough</span>
           </Link>
           <a
-            href="mailto:licensing@vitasignal.ai"
+            href="mailto:info@vitasignal.ai"
             className="inline-flex items-center gap-2 px-8 py-4 bg-accent/10 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all border border-accent/30"
           >
             <span>Licensing Inquiries</span>

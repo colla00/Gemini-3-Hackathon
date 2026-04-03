@@ -179,7 +179,7 @@ function Licensing() {
                    <p className="text-2xl font-bold text-foreground mb-1">Custom Pricing</p>
                    <p className="text-xs text-muted-foreground mb-6">Multi-site · White-label · Dedicated support</p>
                   <Button className="w-full gap-2 mt-auto" asChild>
-                    <a href="mailto:licensing@vitasignal.ai?subject=EHR%20Integration%20License%20Inquiry">
+                    <a href="mailto:info@vitasignal.ai?subject=EHR%20Integration%20License%20Inquiry">
                       <Mail className="w-4 h-4" />
                       Request License Terms
                     </a>
@@ -234,7 +234,7 @@ function Licensing() {
                    <p className="text-2xl font-bold text-foreground mb-1">Contact for Terms</p>
                    <p className="text-xs text-muted-foreground mb-6">MTA/DUA required · IRB support available</p>
                   <Button className="w-full gap-2 mt-auto" variant="outline" asChild>
-                    <a href="mailto:licensing@vitasignal.ai?subject=Research%20Collaboration%20Inquiry">
+                    <a href="mailto:info@vitasignal.ai?subject=Research%20Collaboration%20Inquiry">
                       <GraduationCap className="w-4 h-4" />
                       Submit Research Inquiry
                     </a>

@@ -135,7 +135,7 @@ serve(async (req: Request) => {
         body.irb_status && `<p><strong>IRB Status:</strong> ${escapeHtml(body.irb_status)}</p>`,
       ].filter(Boolean).join("\n");
 
-      const recipientEmail = body.inquiry_type === "licensing" ? "licensing@vitasignal.ai" : "info@vitasignal.ai";
+      const recipientEmail = body.inquiry_type === "licensing" ? "info@vitasignal.ai" : "info@vitasignal.ai";
       try {
         await resend.emails.send({
           from: "VitaSignal <info@vitasignal.ai>",
