@@ -53,7 +53,7 @@ serve(async (req) => {
             Authorization: `Bearer ${resendKey}`,
           },
           body: JSON.stringify({
-            from: "VitaSignal Licensing <info@vitasignal.ai>",
+            from: "VitaSignal <info@vitasignal.ai>",
             to: ["info@vitasignal.ai"],
             subject: `New Licensing Inquiry — ${organization_name} (${organization_type})`,
             html: `
@@ -78,7 +78,7 @@ serve(async (req) => {
             Authorization: `Bearer ${resendKey}`,
           },
           body: JSON.stringify({
-            from: "VitaSignal Licensing <info@vitasignal.ai>",
+            from: "VitaSignal <info@vitasignal.ai>",
             to: [email],
             subject: "VitaSignal Licensing Inquiry Received",
             html: `
