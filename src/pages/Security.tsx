@@ -184,7 +184,7 @@ export default function Security() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" asChild>
-              <a href="mailto:licensing@vitasignal.ai" className="gap-2">
+              <a href="mailto:info@vitasignal.ai" className="gap-2">
                 Contact Security & Partnerships <ArrowRight className="w-4 h-4" />
               </a>
             </Button>

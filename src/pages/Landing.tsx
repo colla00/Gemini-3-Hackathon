@@ -79,7 +79,7 @@ const faqJsonLd = {
       "name": "How can I license VitaSignal technology?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "VitaSignal technology is available for licensing to EHR vendors, hospital systems, healthcare AI companies, and strategic investors. Contact licensing@vitasignal.ai or visit the Licensing page for more information."
+        "text": "VitaSignal technology is available for licensing to EHR vendors, hospital systems, healthcare AI companies, and strategic investors. Contact info@vitasignal.ai or visit the Licensing page for more information."
       }
     }
   ]

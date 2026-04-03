@@ -280,7 +280,7 @@ function Patents() {
             Application numbers, filing dates, technical specifications, and detailed claims available to qualified partners under NDA.
           </p>
           <Button variant="outline" size="sm" className="mt-3" asChild>
-            <a href="mailto:licensing@vitasignal.ai">
+            <a href="mailto:info@vitasignal.ai">
               <Mail className="w-4 h-4 mr-2" />
               Request Details Under NDA
             </a>

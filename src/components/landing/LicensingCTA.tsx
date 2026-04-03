@@ -58,9 +58,9 @@ export const LicensingCTA = () => (
             </Link>
           </Button>
           <Button variant="secondary" size="lg" className="text-base w-full justify-center" asChild>
-            <a href="mailto:licensing@vitasignal.ai" className="gap-2">
+            <a href="mailto:info@vitasignal.ai" className="gap-2">
               <Mail className="w-5 h-5" />
-              licensing@vitasignal.ai
+              info@vitasignal.ai
             </a>
           </Button>
         </div>

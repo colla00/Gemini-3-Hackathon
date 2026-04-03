@@ -46,7 +46,7 @@ const SolutionsInvestors = () => (
                 <Link to="/licensing">Explore Partnership <ArrowRight className="w-4 h-4 ml-2" /></Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
-                <a href="mailto:licensing@vitasignal.ai">Contact Founder</a>
+                <a href="mailto:info@vitasignal.ai">Contact Founder</a>
               </Button>
             </div>
           </motion.div>
@@ -144,7 +144,7 @@ const SolutionsInvestors = () => (
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild>
-                <a href="mailto:licensing@vitasignal.ai">Schedule a Call</a>
+                <a href="mailto:info@vitasignal.ai">Schedule a Call</a>
               </Button>
               <Button asChild variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/contact">Contact Us</Link>
