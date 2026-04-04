@@ -233,17 +233,17 @@ Deno.serve(async (req) => {
         continue
       }
 
-      // Guard: skip if another worker already sent this message (VT expired race)
+      // Guard: skip if another worker already handed this message off to the provider
       if (payload.message_id) {
-        const { data: alreadySent } = await supabase
+        const { data: alreadyAccepted } = await supabase
           .from('email_send_log')
           .select('id')
           .eq('message_id', payload.message_id)
-          .eq('status', 'sent')
+          .in('status', ['queued', 'sent'])
           .maybeSingle()
 
-        if (alreadySent) {
-          console.warn('Skipping duplicate send (already sent)', {
+        if (alreadyAccepted) {
+          console.warn('Skipping duplicate send (already accepted)', {
             queue,
             msg_id: msg.msg_id,
             message_id: payload.message_id,
@@ -253,7 +253,7 @@ Deno.serve(async (req) => {
             message_id: msg.msg_id,
           })
           if (dupDelError) {
-            console.error('Failed to delete duplicate message from queue', { queue, msg_id: msg.msg_id, error: dupDelError })
+            console.error('Failed to delete duplicate accepted message from queue', { queue, msg_id: msg.msg_id, error: dupDelError })
           }
           continue
         }
@@ -278,10 +278,22 @@ Deno.serve(async (req) => {
           { apiKey, sendUrl: Deno.env.get('LOVABLE_SEND_URL') }
         )
 
+        const providerStatus =
+          sendResult &&
+          typeof sendResult === 'object' &&
+          'status' in sendResult &&
+          typeof (sendResult as { status?: unknown }).status === 'string'
+            ? (sendResult as { status: string }).status
+            : 'sent'
+
+        const logStatus = providerStatus === 'queued' ? 'queued' : 'sent'
+        const providerMetadata = toJsonMetadata(sendResult)
+
         console.log('Email accepted by provider', {
           queue,
           msg_id: msg.msg_id,
           message_id: payload.message_id,
+          provider_status: providerStatus,
           provider_response: sendResult,
         })
 
@@ -289,8 +301,8 @@ Deno.serve(async (req) => {
           message_id: payload.message_id,
           template_name: payload.label || queue,
           recipient_email: payload.to,
-          status: 'sent',
-          metadata: toJsonMetadata(sendResult),
+          status: logStatus,
+          metadata: providerMetadata,
         })
 
         const { error: delError } = await supabase.rpc('delete_email', {
@@ -298,7 +310,7 @@ Deno.serve(async (req) => {
           message_id: msg.msg_id,
         })
         if (delError) {
-          console.error('Failed to delete sent message from queue', { queue, msg_id: msg.msg_id, error: delError })
+          console.error('Failed to delete accepted message from queue', { queue, msg_id: msg.msg_id, error: delError })
         }
         totalProcessed++
       } catch (error) {
