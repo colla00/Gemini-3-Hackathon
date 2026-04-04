@@ -489,6 +489,9 @@ const AdminPanel = () => {
         {/* SLA Monitoring & Webhook Delivery */}
         <SLAMonitoringDashboard />
 
+        {/* Email Diagnostics */}
+        <EmailDiagnosticsPanel />
+
         {/* Rate Limit Monitoring */}
         <RateLimitMonitoringPanel />
 
