@@ -17,6 +17,7 @@ import { SiteArchivePanel } from '@/components/admin/SiteArchivePanel';
 import { RateLimitMonitoringPanel } from '@/components/admin/RateLimitMonitoringPanel';
 import { VendorKeyManagement } from '@/components/admin/VendorKeyManagement';
 import { SLAMonitoringDashboard } from '@/components/admin/SLAMonitoringDashboard';
+import { EmailDiagnosticsPanel } from '@/components/admin/EmailDiagnosticsPanel';
 import { Header } from '@/components/dashboard/Header';
 import {
   Pagination,
