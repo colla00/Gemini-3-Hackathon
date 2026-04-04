@@ -314,16 +314,6 @@ Deno.serve(async (req) => {
         }
         totalProcessed++
       } catch (error) {
-
-        const { error: delError } = await supabase.rpc('delete_email', {
-          queue_name: queue,
-          message_id: msg.msg_id,
-        })
-        if (delError) {
-          console.error('Failed to delete sent message from queue', { queue, msg_id: msg.msg_id, error: delError })
-        }
-        totalProcessed++
-      } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error)
         console.error('Email send failed', {
           queue,
