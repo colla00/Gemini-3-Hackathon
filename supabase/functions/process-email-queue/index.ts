@@ -34,6 +34,20 @@ function getRetryAfterSeconds(error: unknown): number {
   return 60
 }
 
+function toJsonMetadata(value: unknown): Record<string, unknown> | null {
+  if (value == null) return null
+
+  try {
+    const normalized = JSON.parse(JSON.stringify(value)) as unknown
+    if (normalized && typeof normalized === 'object' && !Array.isArray(normalized)) {
+      return normalized as Record<string, unknown>
+    }
+    return { value: normalized }
+  } catch {
+    return { value: String(value) }
+  }
+}
+
 function parseJwtClaims(token: string): Record<string, unknown> | null {
   const parts = token.split('.')
   if (parts.length < 2) {
