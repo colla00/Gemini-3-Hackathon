@@ -10,6 +10,10 @@ import DemoDenied from '../_shared/email-templates/demo-denied.tsx'
 import CareerInterest from '../_shared/email-templates/career-interest.tsx'
 import WitnessInvitation from '../_shared/email-templates/witness-invitation.tsx'
 import AttorneyNotification from '../_shared/email-templates/attorney-notification.tsx'
+import AccountStatusUpdate from '../_shared/email-templates/account-status-update.tsx'
+import PaymentConfirmation from '../_shared/email-templates/payment-confirmation.tsx'
+import ReportReady from '../_shared/email-templates/report-ready.tsx'
+import Reminder from '../_shared/email-templates/reminder.tsx'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -31,6 +35,10 @@ type TemplateName =
   | 'career-interest'
   | 'witness-invitation'
   | 'attorney-notification'
+  | 'account-status-update'
+  | 'payment-confirmation'
+  | 'report-ready'
+  | 'reminder'
 
 interface EmailRequest {
   template: TemplateName
@@ -162,6 +170,52 @@ function renderTemplate(template: TemplateName, data: Record<string, unknown>): 
         siteUrl: SITE_URL,
       }))
       return { subject, html }
+    }
+    case 'account-status-update': {
+      const status = (data.status as string) || 'updated'
+      const displayStatus = status.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+      const html = render(AccountStatusUpdate({
+        name: (data.name as string) || '',
+        status,
+        reason: (data.reason as string) || undefined,
+        siteUrl: SITE_URL,
+      }))
+      return { subject: `VitaSignal — Account ${displayStatus}`, html }
+    }
+    case 'payment-confirmation': {
+      const html = render(PaymentConfirmation({
+        name: (data.name as string) || '',
+        amount: (data.amount as string) || '',
+        description: (data.description as string) || '',
+        transactionId: (data.transactionId as string) || undefined,
+        date: (data.date as string) || undefined,
+        siteUrl: SITE_URL,
+      }))
+      return { subject: 'VitaSignal — Payment Confirmed', html }
+    }
+    case 'report-ready': {
+      const html = render(ReportReady({
+        name: (data.name as string) || '',
+        reportName: (data.reportName as string) || '',
+        downloadUrl: (data.downloadUrl as string) || undefined,
+        generatedAt: (data.generatedAt as string) || undefined,
+        siteUrl: SITE_URL,
+      }))
+      return { subject: `VitaSignal — Your Report is Ready`, html }
+    }
+    case 'reminder': {
+      const reminderType = (data.reminderType as string) || 'Event'
+      const html = render(Reminder({
+        name: (data.name as string) || '',
+        reminderType,
+        eventName: (data.eventName as string) || '',
+        eventDate: (data.eventDate as string) || '',
+        eventTime: (data.eventTime as string) || undefined,
+        actionUrl: (data.actionUrl as string) || undefined,
+        actionLabel: (data.actionLabel as string) || undefined,
+        siteUrl: SITE_URL,
+      }))
+      return { subject: `VitaSignal — Upcoming ${reminderType} Reminder`, html }
     }
     default:
       throw new Error(`Unknown template: ${template}`)

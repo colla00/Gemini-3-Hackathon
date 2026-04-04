@@ -1,17 +1,21 @@
 /// <reference types="npm:@types/react@18.3.1" />
 import * as React from 'npm:react@18.3.1'
-import { Html, Head, Body, Container, Section, Text, Hr, Img } from 'npm:@react-email/components@0.0.22'
+import { Html, Head, Body, Button, Container, Section, Text, Hr, Img } from 'npm:@react-email/components@0.0.22'
 
-interface LicensingConfirmationProps {
-  contactName: string
-  organizationName: string
-  organizationType: string
+interface ReminderProps {
+  name: string
+  reminderType: string
+  eventName: string
+  eventDate: string
+  eventTime?: string
+  actionUrl?: string
+  actionLabel?: string
   siteUrl: string
 }
 
 const LOGO_URL = 'https://itgnlmhypwufwrgguvav.supabase.co/storage/v1/object/public/email-assets/vitasignal-logo.png'
 
-export default function LicensingConfirmation({ contactName, organizationName, organizationType, siteUrl }: LicensingConfirmationProps) {
+export default function Reminder({ name, reminderType, eventName, eventDate, eventTime, actionUrl, actionLabel, siteUrl }: ReminderProps) {
   return (
     <Html lang="en" dir="ltr">
       <Head />
@@ -21,24 +25,35 @@ export default function LicensingConfirmation({ contactName, organizationName, o
             <Img src={LOGO_URL} alt="VitaSignal" height="32" style={logo} />
           </Section>
           <Section style={content}>
-            <Text style={h1}>Licensing Inquiry Received</Text>
-            <Text style={text}>Dear {contactName || 'there'},</Text>
+            <Text style={h1}>Upcoming {reminderType || 'Event'} Reminder</Text>
+            <Text style={text}>Hi {name || 'there'},</Text>
             <Text style={text}>
-              Thank you for your interest in licensing VitaSignal technology for <strong>{organizationName}</strong>. We've received your inquiry and our partnerships team will review it promptly.
+              This is a friendly reminder about your upcoming {reminderType || 'event'}.
             </Text>
             <Section style={detailsBox}>
-              <Text style={detailLabel}>Organization</Text>
-              <Text style={detailValue}>{organizationName}</Text>
-              <Text style={detailLabel}>Type</Text>
-              <Text style={detailValue}>{organizationType}</Text>
+              <Text style={detailLabel}>Event</Text>
+              <Text style={detailValue}>{eventName || 'Scheduled Event'}</Text>
+              <Text style={detailLabel}>Date</Text>
+              <Text style={detailValue}>{eventDate || 'TBD'}</Text>
+              {eventTime && (
+                <>
+                  <Text style={detailLabel}>Time</Text>
+                  <Text style={detailValue}>{eventTime}</Text>
+                </>
+              )}
             </Section>
+            {actionUrl && (
+              <Section style={btnWrap}>
+                <Button style={button} href={actionUrl}>{actionLabel || 'View Details'}</Button>
+              </Section>
+            )}
             <Text style={text}>
-              You can expect a detailed response within <strong>2 business days</strong>. For urgent inquiries, contact us directly at info@vitasignal.ai.
+              If you need to reschedule, please contact us at <a href="mailto:info@vitasignal.ai" style={{ color: 'hsl(173,58%,29%)' }}>info@vitasignal.ai</a>.
             </Text>
           </Section>
           <Hr style={hr} />
           <Section style={footerWrap}>
-            <Text style={footer}>Best regards,<br />VitaSignal Partnerships Team</Text>
+            <Text style={footer}>Best regards,<br />VitaSignal Team</Text>
             <Text style={disc}>VitaSignal™ systems are pre-market. Not FDA-cleared. Patent-pending.<br />© 2025–2026 VitaSignal LLC</Text>
             <Text style={{ margin: '0' }}><a href="{{{unsubscribeUrl}}}" style={unsub}>Unsubscribe</a></Text>
           </Section>
@@ -55,9 +70,11 @@ const logo: React.CSSProperties = { display: 'block' }
 const content: React.CSSProperties = { padding: '32px 40px 24px' }
 const h1: React.CSSProperties = { fontSize: '22px', fontWeight: '700', color: 'hsl(222,47%,11%)', margin: '0 0 20px', lineHeight: '1.3' }
 const text: React.CSSProperties = { fontSize: '15px', color: 'hsl(220,9%,40%)', lineHeight: '1.6', margin: '0 0 14px' }
-const detailsBox: React.CSSProperties = { backgroundColor: '#f7f8fa', borderRadius: '8px', padding: '20px 24px', margin: '0 0 20px', border: '1px solid #e5e7eb' }
-const detailLabel: React.CSSProperties = { color: 'hsl(220,9%,40%)', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' as const, letterSpacing: '0.5px', margin: '0 0 2px' }
+const detailsBox: React.CSSProperties = { backgroundColor: '#fef3c7', borderRadius: '8px', padding: '20px 24px', margin: '0 0 20px', border: '1px solid #fcd34d' }
+const detailLabel: React.CSSProperties = { color: '#92400e', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' as const, letterSpacing: '0.5px', margin: '0 0 2px' }
 const detailValue: React.CSSProperties = { color: 'hsl(222,47%,11%)', fontSize: '15px', fontWeight: '600', margin: '0 0 12px' }
+const btnWrap: React.CSSProperties = { textAlign: 'center' as const, padding: '8px 0 16px' }
+const button: React.CSSProperties = { backgroundColor: 'hsl(173,58%,29%)', color: '#fff', fontSize: '15px', fontWeight: '600', borderRadius: '8px', padding: '12px 28px', textDecoration: 'none', display: 'inline-block' }
 const hr: React.CSSProperties = { borderColor: '#e5e7eb', margin: '0' }
 const footerWrap: React.CSSProperties = { padding: '20px 40px 28px' }
 const footer: React.CSSProperties = { fontSize: '14px', color: 'hsl(222,47%,11%)', margin: '0 0 12px', lineHeight: '1.5' }
