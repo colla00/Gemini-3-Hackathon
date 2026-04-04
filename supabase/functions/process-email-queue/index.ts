@@ -260,7 +260,7 @@ Deno.serve(async (req) => {
       }
 
       try {
-        await sendLovableEmail(
+        const sendResult = await sendLovableEmail(
           {
             run_id: payload.run_id,
             to: payload.to,
@@ -275,21 +275,24 @@ Deno.serve(async (req) => {
             unsubscribe_token: payload.unsubscribe_token,
             message_id: payload.message_id,
           },
-          // sendUrl is optional — when LOVABLE_SEND_URL is not set, the library
-          // falls back to the default Lovable API endpoint (https://api.lovable.dev).
-          // Set LOVABLE_SEND_URL as a Supabase secret to override (e.g. for local dev).
           { apiKey, sendUrl: Deno.env.get('LOVABLE_SEND_URL') }
         )
 
-        // Log success
+        console.log('Email accepted by provider', {
+          queue,
+          msg_id: msg.msg_id,
+          message_id: payload.message_id,
+          provider_response: sendResult,
+        })
+
         await supabase.from('email_send_log').insert({
           message_id: payload.message_id,
           template_name: payload.label || queue,
           recipient_email: payload.to,
           status: 'sent',
+          metadata: toJsonMetadata(sendResult),
         })
 
-        // Delete from queue
         const { error: delError } = await supabase.rpc('delete_email', {
           queue_name: queue,
           message_id: msg.msg_id,
